@@ -9,6 +9,9 @@ python-decouple = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
 django-npm = "*"
+"flake8" = "*"
+coverage = "*"
+python-coveralls = "*"
 
 [dev-packages]
 ipdb = "*"
