@@ -135,6 +135,9 @@ LANGUAGES = (
 STATIC_URL = config('STATIC_URL', default='/static/')
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'public', 'static'))
 
+MEDIA_URL = config('MEDIA_URL', default='/media/')
+MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'public', 'media'))
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
