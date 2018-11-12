@@ -1,0 +1,20 @@
+{% load staticfiles compress %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>wikilegis</title>
+    {% compress css %}
+      <link type="text/x-scss" rel="stylesheet" href="{% static '/scss/app.scss' %}"/>
+    {% endcompress %}
+  </head>
+  <body>
+    <h1 id="h1"></h1>
+    {% compress js %}
+    <script type="text/javascript" charset="utf-8">document.getElementById("h1").innerHTML = "Hello world!";</script>
+    {% endcompress %}
+  </body>
+</html>
