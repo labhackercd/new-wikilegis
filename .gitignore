@@ -113,3 +113,4 @@ src/public/static/
 
 .DS_Store
 dump.rdb
+npm-debug.*
