@@ -4,14 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+Django = "*"
 python-decouple = "*"
-django-compressor = "*"
-django-compressor-toolkit = "*"
+django_compressor = "*"
 django-npm = "*"
 "flake8" = "*"
 coverage = "*"
 python-coveralls = "*"
+django-libsass = "*"
+django-compressor-postcss = "*"
 
 [dev-packages]
 ipdb = "*"
