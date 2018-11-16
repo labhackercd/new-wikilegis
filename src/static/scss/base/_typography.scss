@@ -1,0 +1,97 @@
+html {
+  font-family: $font-family-body;
+  font-size: 16px;
+}
+
+main {
+  font-variant-numeric: oldstyle-nums;
+  font-feature-settings: 'liga1' on;
+}
+
+main,
+p,
+li,
+blockquote,
+pre {
+  font-size: $font-size-deci;
+  line-height: $line-height-centi;
+
+  @include bp-mediumup {
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: $font-size-hecto;
+  line-height: $line-height-base;
+
+  @include bp-mediumup {
+    font-size: $font-size-kilo;
+    line-height: $line-height-hecto;
+  }
+}
+
+h2 {
+  font-size: $font-size-deca;
+  line-height: $line-height-deci;
+
+  @include bp-mediumup {
+    font-size: $font-size-hecto;
+    line-height: $line-height-deca;
+  }
+}
+
+h3 {
+  font-size: $font-size-base;
+  line-height: $line-height-centi;
+
+  @include bp-mediumup {
+    font-size: $font-size-deca;
+    line-height: $line-height-base;
+  }
+}
+
+blockquote {
+  font-style: italic;
+}
+
+ul > li,
+ol > li {
+  @include bp-mediumup {
+    &:before {
+      line-height: $line-height-base;
+    }
+  }
+  &:before {
+    line-height: $line-height-centi;
+  }
+}
+
+ol > li:before {
+  font-size: $font-size-mili;
+  font-weight: 600;
+
+  @include bp-mediumup {
+    font-size: $font-size-centi;
+  }
+}
+
+code,
+pre {
+  font-family: $font-family-mono;
+}
+
+pre {
+  line-height: $line-height-mili;
+  
+  @include bp-mediumup {
+    line-height: $line-height-centi;
+  }
+}

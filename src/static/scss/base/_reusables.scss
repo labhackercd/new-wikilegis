@@ -1,0 +1,6 @@
+@mixin underline($offset: 0px, $width: 1px) {
+  background: linear-gradient(currentcolor, currentcolor);
+  background-size: $width $width;
+  background-repeat: repeat-x;
+  background-position: 100% calc(100% - #{$offset});
+}

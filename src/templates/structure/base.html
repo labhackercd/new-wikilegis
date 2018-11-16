@@ -6,22 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    {% block metatags %}   
+    {% block metatags %}
     {% endblock metatags %}
 
     <title>{% block title %}wikilegis{% endblock title %}</title>
-    
+    {% compress css %}
+      <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/app.scss' %}">
+    {% endcompress %}
+
     {% block extracss %}
     {% endblock extracss %}
   </head>
   <body>
-    {% block content %}  
+    {% block content %}
     {% endblock content %}
 
     {% compress js %}
       <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
     {% endcompress %}
-    
+
     {% block extrajs %}
     {% endblock extrajs %}
   </body>
