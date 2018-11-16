@@ -11,6 +11,7 @@
   "dependencies": {
     "autoprefixer": "^9.3.1",
     "eslint": "^5.9.0",
+    "jquery": "^3.3.1",
     "node-sass": "^4.10.0",
     "postcss": "^7.0.5",
     "postcss-cli": "^6.0.1",
