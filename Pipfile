@@ -13,6 +13,7 @@ coverage = "*"
 python-coveralls = "*"
 django-libsass = "*"
 django-compressor-postcss = "*"
+django-extensions = "*"
 
 [dev-packages]
 ipdb = "*"
