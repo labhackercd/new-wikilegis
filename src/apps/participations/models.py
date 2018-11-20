@@ -3,6 +3,11 @@ from django.db import models
 from utils.model_mixins import TimestampedMixin
 from utils.choices import (OPINION_VOTE_CHOICES, EXCERPT_TYPE_CHOICES,
                            AMENDMENT_TYPE_CHOICES)
+from django.db.models.signals import post_save
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.conf import settings
+from apps.accounts.models import InvitedEmail
 
 
 class InvitedGroup(TimestampedMixin):
@@ -106,3 +111,26 @@ class Amendment(TimestampedMixin):
     def __str__(self):
         return '%s <%s>' % (self.content,
                             self.author.email)
+
+
+def send_invite(email, document_title, hash):
+    html = render_to_string('emails/invite.html', {'title': document_title,
+                                                   'hash': hash})
+    subject = u'[Wikilegis] Convite para grupo de edição'
+    mail = EmailMultiAlternatives(subject, '',
+                                  settings.EMAIL_HOST_USER,
+                                  [email])
+    mail.attach_alternative(html, 'text/html')
+    mail.send()
+
+
+def save_invited_email(sender, instance, **kwargs):
+    for participant in instance.thematic_group.participants.all():
+        invited_email, created = InvitedEmail.objects.get_or_create(
+            group=instance, email=participant.email)
+        if created:
+            send_invite(participant.email, instance.document.title,
+                        invited_email.hash_id)
+
+
+post_save.connect(save_invited_email, sender=InvitedGroup)
