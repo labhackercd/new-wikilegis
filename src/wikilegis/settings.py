@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'compressor',
+    'django_extensions',
+
+    'apps.accounts',
+    'apps.participations',
+    'apps.projects',
 ]
 
 MIDDLEWARE = [
