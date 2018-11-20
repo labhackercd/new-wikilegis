@@ -31,6 +31,7 @@ class DocumentAdmin(admin.ModelAdmin):
     )
     list_filter = ('created', 'modified', 'owner', 'document_type')
     search_fields = ('slug',)
+    prepopulated_fields = {'slug': ['title']}
 
 
 @admin.register(Excerpt)
