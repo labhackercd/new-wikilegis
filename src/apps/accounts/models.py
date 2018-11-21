@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from utils.choices import GENDER_CHOICES, UF_CHOICES, PROFILE_TYPE_CHOICES
 from utils.model_mixins import TimestampedMixin
+import uuid
 
 
 class UserProfile(models.Model):
@@ -50,7 +51,8 @@ class ThematicGroup(models.Model):
 
 class InvitedEmail(TimestampedMixin):
     email = models.EmailField()
-    group = models.ForeignKey('accounts.ThematicGroup',
+    hash_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    group = models.ForeignKey('participations.InvitedGroup',
                               on_delete=models.CASCADE,
                               related_name='invited_emails',
                               verbose_name=_('group'))

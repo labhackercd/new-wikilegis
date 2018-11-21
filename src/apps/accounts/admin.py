@@ -36,5 +36,6 @@ class InvitedEmailAdmin(admin.ModelAdmin):
         'email',
         'group',
         'accepted',
+        'hash_id',
     )
     list_filter = ('created', 'modified', 'group', 'accepted')
