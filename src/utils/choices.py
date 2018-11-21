@@ -38,7 +38,7 @@ UF_CHOICES = (
 )
 
 PROFILE_TYPE_CHOICES = (
-    ('consultant', _('Consultant')),
+    ('owner', _('Document Owner')),
     ('defult', _('Default')),
 )
 

@@ -15,8 +15,8 @@ class ParcipantInvitation(TimestampedMixin):
 
     class Meta:
         unique_together = ('email', 'group')
-        verbose_name = _('invited email')
-        verbose_name_plural = _('invited emails')
+        verbose_name = _('participant invitation')
+        verbose_name_plural = _('participant invitations')
 
     def __str__(self):
         return '%s' % (self.email)
