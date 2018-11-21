@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserProfile, ThematicGroup, InvitedEmail
+from .models import UserProfile, ThematicGroup
 
 
 @admin.register(UserProfile)
@@ -25,17 +25,3 @@ class ThematicGroupAdmin(admin.ModelAdmin):
     list_filter = ('owner',)
     raw_id_fields = ('participants',)
     search_fields = ('name',)
-
-
-@admin.register(InvitedEmail)
-class InvitedEmailAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'created',
-        'modified',
-        'email',
-        'group',
-        'accepted',
-        'hash_id',
-    )
-    list_filter = ('created', 'modified', 'group', 'accepted')

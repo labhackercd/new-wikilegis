@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-from apps.accounts.models import InvitedEmail
+from apps.notifications.models import InvitedEmail
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import loader
