@@ -20,3 +20,16 @@ class ParcipantInvitation(TimestampedMixin):
 
     def __str__(self):
         return '%s' % (self.email)
+
+
+class OwnerInvitation(TimestampedMixin):
+    email = models.EmailField()
+    hash_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    accepted = models.BooleanField(_('accepted'), default=False)
+
+    class Meta:
+        verbose_name = _('owner invitation')
+        verbose_name_plural = _('owner invitations')
+
+    def __str__(self):
+        return '%s' % (self.email)
