@@ -4,7 +4,7 @@ from utils.model_mixins import TimestampedMixin
 import uuid
 
 
-class InvitedEmail(TimestampedMixin):
+class ParcipantInvitation(TimestampedMixin):
     email = models.EmailField()
     hash_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     group = models.ForeignKey('participations.InvitedGroup',

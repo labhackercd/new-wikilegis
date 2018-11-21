@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-from apps.notifications.models import InvitedEmail
+from apps.notifications.models import ParcipantInvitation
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import loader
@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 @login_required(login_url='/')
 def authorization(request, hash):
     accepted = request.GET.get('accepted', None)
-    invited_email = InvitedEmail.objects.get(hash_id=hash)
+    invited_email = ParcipantInvitation.objects.get(hash_id=hash)
     if request.user.email == invited_email.email:
         if accepted:
             invited_email.accepted = True

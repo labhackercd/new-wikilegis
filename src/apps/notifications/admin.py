@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import InvitedEmail
+from .models import ParcipantInvitation
 
 
-@admin.register(InvitedEmail)
-class InvitedEmailAdmin(admin.ModelAdmin):
+@admin.register(ParcipantInvitation)
+class ParcipantInvitationAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'created',
