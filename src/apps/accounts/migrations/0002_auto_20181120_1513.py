@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('accounts', '0001_initial'),
+        ('participations', '0001_initial'),
     ]
 
     operations = [
