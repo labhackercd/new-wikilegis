@@ -15,7 +15,8 @@ def authorization(request, hash):
             invited_email.accepted = True
             invited_email.save()
             user = User.objects.get(email=invited_email.email)
-            user.profile.themes.add(invited_email.group.document.theme)
+            for theme in invited_email.group.document.themes.all():
+                user.profile.themes.add(theme)
             return HttpResponseRedirect('/')
         else:
             template = loader.get_template('pages/authorization.html')

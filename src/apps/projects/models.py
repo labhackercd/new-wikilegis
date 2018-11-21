@@ -43,8 +43,7 @@ class Document(TimestampedMixin):
     document_type = models.ForeignKey('projects.DocumentType', blank=True,
                                       null=True, on_delete=models.CASCADE,
                                       verbose_name=_('document type'))
-    theme = models.ForeignKey('projects.Theme', on_delete=models.CASCADE,
-                              verbose_name=_('theme'))
+    themes = models.ManyToManyField('projects.Theme', verbose_name=_('themes'))
     number = models.IntegerField(_('number'), blank=True, null=True)
     year = models.IntegerField(_('year'), blank=True, null=True)
 
