@@ -16,7 +16,7 @@ class InvitedGroup(TimestampedMixin):
                                        verbose_name=_('thematic group'),
                                        null=True, blank=True)
     closing_date = models.DateField(_('closing date'))
-    is_open = models.BooleanField(default=True)
+    is_open = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('invited group')

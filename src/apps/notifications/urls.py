@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.participations import views
+from apps.notifications import views
 
 urlpatterns = [
     path('authorization/<uuid:hash>/',
