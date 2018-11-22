@@ -16,8 +16,8 @@ def send_participant_invitation(email, document_title, hash):
     mail.send()
 
 
-def send_owner_invitation(email, hash):
-    html = render_to_string('emails/owner_invitation.html', {'hash': hash})
+def send_owner_invitation(email):
+    html = render_to_string('emails/owner_invitation.html')
     subject = _('[Wikilegis] Document owner invitation')
     mail = EmailMultiAlternatives(subject, '',
                                   settings.EMAIL_HOST_USER,

@@ -24,8 +24,6 @@ class ParcipantInvitation(TimestampedMixin):
 
 class OwnerInvitation(TimestampedMixin):
     email = models.EmailField()
-    hash_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
-    accepted = models.BooleanField(_('accepted'), default=False)
 
     class Meta:
         verbose_name = _('owner invitation')

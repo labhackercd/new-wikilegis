@@ -23,7 +23,5 @@ class OwnerInvitationAdmin(admin.ModelAdmin):
         'created',
         'modified',
         'email',
-        'hash_id',
-        'accepted',
     )
-    list_filter = ('created', 'modified', 'accepted')
+    list_filter = ('created', 'modified')
