@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'apps.participations',
     'apps.projects',
     'apps.notifications',
+    'apps.api',
 ]
 
 MIDDLEWARE = [
