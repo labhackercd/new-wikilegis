@@ -28,6 +28,12 @@
   background-color: rgba($color-link, .4);
 }
 
+body {
+  &.-voidselect {
+    user-select: none;
+  }
+}
+
 main {
   width: 66ch;
   max-width: 90%;

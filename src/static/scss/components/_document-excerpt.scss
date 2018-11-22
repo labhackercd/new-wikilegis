@@ -1,0 +1,14 @@
+.document-body {
+  &.-supressed {
+    & * {
+      color: #ccc;
+    }
+  }
+}
+
+.document-excerpt {
+  &.-enabled {
+    user-select: text;
+    color: #000;
+  }
+}
