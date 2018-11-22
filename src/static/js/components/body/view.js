@@ -20,7 +20,7 @@ BodyView.prototype.publishers = function() {
   });
 
   $('body').on('mousedown', function(e) {
-    if (!$(e.target).hasClass('js-document-excerpt')) {
+    if (!$(e.target).hasClass('js-documentExcerpt')) {
       self.startedClick = true;
       $.Topic(events.outsideDocumentMouseDown).publish();
     }

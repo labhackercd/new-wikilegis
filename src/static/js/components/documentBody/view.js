@@ -27,17 +27,17 @@ DocumentBodyView.prototype.subscribers = function() {
 };
 
 DocumentBodyView.prototype.displayDisabledText = function() {
-  $('.js-document').addClass('-supressed');
+  $('.js-documentBody').addClass('-supressed');
 };
 
 DocumentBodyView.prototype.displayEnabledText = function() {
-  $('.js-document').removeClass('-supressed');
+  $('.js-documentBody').removeClass('-supressed');
 };
 
 DocumentBodyView.prototype.enableTextSelection = function() {
-  $('.js-document').removeClass('-voidselection');
+  $('.js-documentBody').removeClass('-voidselection');
 };
 
 DocumentBodyView.prototype.disableTextSelection = function() {
-  $('.js-document').addClass('-voidselection');
+  $('.js-documentBody').addClass('-voidselection');
 };

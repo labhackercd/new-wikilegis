@@ -8,7 +8,7 @@ DocumentExcerptView.prototype.initEvents = function() {
 };
 
 DocumentExcerptView.prototype.publishers = function() {
-  $('.js-document-excerpt').on('selectstart', function(e) {
+  $('.js-documentExcerpt').on('selectstart', function(e) {
     var target = $(e.target);
 
     if (!$('body').hasClass('-voidselect')) {
@@ -20,7 +20,7 @@ DocumentExcerptView.prototype.publishers = function() {
     }
   });
 
-  $('.js-document-excerpt').on('mouseup', function() {
+  $('.js-documentExcerpt').on('mouseup', function() {
     $.Topic(events.endTextSelection).publish();
   });
 };
@@ -38,13 +38,13 @@ DocumentExcerptView.prototype.subscribers = function() {
 };
 
 DocumentExcerptView.prototype.enableSelectedExcerpt = function(excerptId) {
-  var excerpts = $('.js-document-excerpt');
+  var excerpts = $('.js-documentExcerpt');
   excerpts.removeClass('-enabled');
 
-  var excerpt = $('.js-document-excerpt[data-id="' + excerptId + '"]');
+  var excerpt = $('.js-documentExcerpt[data-id="' + excerptId + '"]');
   excerpt.addClass('-enabled');
 };
 
 DocumentExcerptView.prototype.removeEnabledClass = function() {
-  $('.js-document-excerpt').removeClass('-enabled');
+  $('.js-documentExcerpt').removeClass('-enabled');
 };
