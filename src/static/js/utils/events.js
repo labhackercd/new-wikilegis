@@ -16,4 +16,8 @@ var events = {
 
   // Triggered when user tries to select the text starting outside of the document
   outsideDocumentMouseUp: 'outsideDocumentMouseUp',
+
+  // Triggered when user send suggestion
+  // Params: excerptId, selectedText, suggestion
+  sendSuggestion: 'sendSuggestion',
 };
