@@ -2,8 +2,8 @@ from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from apps.accounts.models import UserProfile
-from apps.projects.models import Theme, DocumentType, Document
-from apps.api import serializers as api_serializers
+from apps.projects.models import Theme, DocumentType, Document, Excerpt
+from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 
 
 class ThemeSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = api_serializers.ProfileSerializer()
+    profile = ProfileSerializer()
 
     class Meta:
         model = User
@@ -51,8 +51,77 @@ class DocumentSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
     document_type = DocumentTypeSerializer()
     themes = ThemeSerializer(many=True)
+    excerpts = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='excerpt-detail'
+    )
 
     class Meta:
         model = Document
         fields = ('id', 'title', 'slug', 'description', 'document_type',
-                  'number', 'year', 'themes', 'owner')
+                  'number', 'year', 'themes', 'owner', 'excerpts')
+
+
+class ExcerptSerializer(serializers.ModelSerializer):
+    document = serializers.HyperlinkedRelatedField(
+        read_only=True,
+        view_name='document-detail'
+    )
+    parent = serializers.HyperlinkedRelatedField(
+        read_only=True,
+        view_name='excerpt-detail'
+    )
+    suggestions = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='suggestion-detail'
+    )
+
+    class Meta:
+        model = Excerpt
+        fields = ('id', 'document', 'parent', 'order', 'excerpt_type', 'number',
+                  'content', 'suggestions')
+
+
+class InvitedGroupSerializer(serializers.HyperlinkedModelSerializer):
+    document = serializers.HyperlinkedRelatedField(
+        read_only=True,
+        view_name='document-detail'
+    )
+
+    class Meta:
+        model = InvitedGroup
+        fields = ('id', 'created', 'modified', 'closing_date', 'document',
+                  'is_open')
+
+
+class SuggestionSerializer(serializers.HyperlinkedModelSerializer):
+    excerpt = serializers.HyperlinkedRelatedField(
+        read_only=True,
+        view_name='excerpt-detail'
+    )
+    author = UserSerializer()
+    votes = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='opinionvote-detail'
+    )
+
+    class Meta:
+        model = Suggestion
+        fields = ('id', 'created', 'modified', 'excerpt', 'start_index',
+                  'end_index', 'content', 'author', 'votes')
+
+
+class OpinionVoteSerializer(serializers.HyperlinkedModelSerializer):
+    suggestion = serializers.HyperlinkedRelatedField(
+        read_only=True,
+        view_name='suggestion-detail'
+    )
+    owner = UserSerializer()
+
+    class Meta:
+        model = OpinionVote
+        fields = ('id', 'created', 'modified', 'suggestion', 'opinion_vote',
+                  'owner')

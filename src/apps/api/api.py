@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
 from rest_framework import filters, viewsets
-from django_filters import FilterSet
-from django_filters import rest_framework as django_filters
+from django_filters import rest_framework as django_filters, FilterSet
 from apps.api import serializers
-from apps.projects.models import Theme, DocumentType, Document
+from apps.projects.models import Theme, DocumentType, Document, Excerpt
+from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
+
+DATE_LOOKUPS = ['lt', 'lte', 'gt', 'gte']
 
 
-# Accounts app
 class UserFilter(FilterSet):
     class Meta:
         model = User
@@ -34,7 +35,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
 
 
-# Projects app
 class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Theme.objects.all()
     serializer_class = serializers.ThemeSerializer
@@ -72,4 +72,94 @@ class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
     filter_fields = ('id', 'themes', 'owner', 'document_type')
     search_fields = ('title', 'slug', 'description', 'number', 'year',
                      'document_type__title', 'document_type__initials')
+    ordering_fields = '__all__'
+
+
+class ExcerptViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Excerpt.objects.all()
+    serializer_class = serializers.ExcerptSerializer
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    )
+    filter_fields = ('id', 'document__id', 'parent__id', 'excerpt_type')
+    search_fields = ('excerpt_type', 'number', 'content')
+    ordering_fields = '__all__'
+
+
+class InvitedGroupFilter(FilterSet):
+    class Meta:
+        model = InvitedGroup
+        fields = {
+            'created': DATE_LOOKUPS,
+            'modified': DATE_LOOKUPS,
+            'closing_date': DATE_LOOKUPS,
+            'id': ['exact'],
+            'document__title': ['exact', 'contains'],
+            'document__description': ['exact', 'contains'],
+        }
+
+
+class InvitedGroupViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = InvitedGroup.objects.filter(is_open=True)
+    serializer_class = serializers.InvitedGroupSerializer
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    )
+    filter_class = InvitedGroupFilter
+    search_fields = ('document__title', 'document__description')
+    ordering_fields = '__all__'
+
+
+class SuggestionFilter(FilterSet):
+    class Meta:
+        model = Suggestion
+        fields = {
+            'created': DATE_LOOKUPS,
+            'modified': DATE_LOOKUPS,
+            'id': ['exact'],
+            'excerpt__id': ['exact'],
+            'author__id': ['exact'],
+        }
+
+
+class SuggestionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Suggestion.objects.all()
+    serializer_class = serializers.SuggestionSerializer
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    )
+    filter_class = SuggestionFilter
+    search_fields = ('content',)
+    ordering_fields = '__all__'
+
+
+class OpinionVoteFilter(FilterSet):
+    class Meta:
+        model = OpinionVote
+        fields = {
+            'created': DATE_LOOKUPS,
+            'modified': DATE_LOOKUPS,
+            'id': ['exact'],
+            'owner__id': ['exact'],
+            'suggestion__id': ['exact'],
+            'opinion_vote': ['exact'],
+        }
+
+
+class OpinionVoteViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = OpinionVote.objects.all()
+    serializer_class = serializers.OpinionVoteSerializer
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    )
+    filter_class = OpinionVoteFilter
+    search_fields = ('content',)
     ordering_fields = '__all__'
