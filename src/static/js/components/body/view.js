@@ -11,12 +11,15 @@ BodyView.prototype.initEvents = function() {
 
 BodyView.prototype.publishers = function() {
   var self = this;
-  $('body').on('click', function() {
-    var selectedText = window.getSelection().toString();
-    if (selectedText === '' || selectedText === self.previousSelectedText) {
-      $.Topic(events.cancelTextSelection).publish();
+  $('body').on('click', function(e) {
+    var suggestionInput = $(e.target).closest('.js-suggestionInput');
+    if (suggestionInput.length === 0) {
+      var selectedText = window.getSelection().toString();
+      if (selectedText === '' || selectedText === self.previousSelectedText) {
+        $.Topic(events.cancelTextSelection).publish();
+      }
+      self.previousSelectedText = selectedText;
     }
-    self.previousSelectedText = selectedText;
   });
 
   $('body').on('mousedown', function(e) {

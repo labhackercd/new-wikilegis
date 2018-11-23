@@ -11,6 +11,7 @@ DocumentExcerptView.prototype.publishers = function() {
   $('.js-documentExcerpt').on('selectstart', function(e) {
     var target = $(e.target);
 
+    $.Topic(events.cancelTextSelection).publish();
     if (!$('body').hasClass('-voidselect')) {
       $.Topic(events.startTextSelection).publish(target.data('id'));
     }
@@ -18,11 +19,12 @@ DocumentExcerptView.prototype.publishers = function() {
     if (target.closest('.js-document').hasClass('-suppress')) {
       $.Topic(events.cancelTextSelection).publish();
     }
+
+    $('body').one('mouseup', function() {
+      $.Topic(events.endTextSelection).publish();
+    });
   });
 
-  $('.js-documentExcerpt').on('mouseup', function() {
-    $.Topic(events.endTextSelection).publish();
-  });
 };
 
 DocumentExcerptView.prototype.subscribers = function() {

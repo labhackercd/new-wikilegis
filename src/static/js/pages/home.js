@@ -8,3 +8,6 @@ bodyView.initEvents();
 
 var documentBodyView = new DocumentBodyView();
 documentBodyView.initEvents();
+
+var suggestionInputView = new SuggestionInputView();
+suggestionInputView.initEvents();

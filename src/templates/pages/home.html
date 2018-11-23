@@ -57,7 +57,7 @@
       This is the second item
     </li>
     <li class="document-excerpt js-documentExcerpt" data-id="17">
-      And finally, the third one
+      And finally, <span class="highlighted">the third one</span>
     </li>
   </ol>
   <p class="document-excerpt js-documentExcerpt" data-id="18">Also, there should be some example of preformated texts such as this: <code>var count = 0;</code>. And a bigger junk of it like the one below:
@@ -109,11 +109,24 @@
     This content was not made by me
   </p>
 </main>
+
+<div class="suggestion-input js-suggestionInput">
+  <div class="close js-close">x</div>
+  <div class="text">
+    <p class="js-selectedText"></p>
+  </div>
+
+  <div>
+    <input class="js-input" type="text" name="">
+    <button class="js-send">Enviar</button>
+  </div>
+</div>
 {% endblock content %}
 
 {% block page_js %}
   <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
   <script src="{% static 'js/components/documentBody/view.js' %}"></script>
+  <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
   <script src="{% static 'js/components/body/view.js' %}"></script>
   <script src="{% static 'js/pages/home.js' %}"></script>
 {% endblock page_js %}
