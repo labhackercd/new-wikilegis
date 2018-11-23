@@ -60,10 +60,6 @@ class OpinionVote(TimestampedMixin):
                                    on_delete=models.CASCADE,
                                    related_name='votes',
                                    verbose_name=_('suggestion'))
-    excerpt = models.ForeignKey('projects.Excerpt',
-                                on_delete=models.CASCADE,
-                                related_name='votes',
-                                verbose_name=_('excerpt'))
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                               related_name='votes',
                               verbose_name=_('owner'))
@@ -71,6 +67,7 @@ class OpinionVote(TimestampedMixin):
                                     choices=OPINION_VOTE_CHOICES)
 
     class Meta:
+        unique_together = ('suggestion', 'owner')
         verbose_name = _('opinion vote')
         verbose_name_plural = _('opinion votes')
 

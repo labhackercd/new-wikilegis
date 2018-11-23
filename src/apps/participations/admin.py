@@ -53,11 +53,10 @@ class OpinionVoteAdmin(admin.ModelAdmin):
         'created',
         'modified',
         'suggestion',
-        'excerpt',
         'owner',
         'opinion_vote',
     )
-    list_filter = ('created', 'modified', 'suggestion', 'excerpt', 'owner')
+    list_filter = ('created', 'modified', 'suggestion', 'owner')
 
 
 @admin.register(Amendment)
