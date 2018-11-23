@@ -14,6 +14,8 @@ python-coveralls = "*"
 django-libsass = "*"
 django-compressor-postcss = "*"
 django-extensions = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [dev-packages]
 ipdb = "*"
