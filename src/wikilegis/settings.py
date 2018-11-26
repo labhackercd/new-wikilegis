@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'compressor',
+    'compressor_toolkit',
     'django_extensions',
     'rest_framework',
     'django_filters',
@@ -158,26 +159,29 @@ STATICFILES_FINDERS = (
 )
 
 NPM_ROOT_PATH = os.path.dirname(BASE_DIR)
-COMPRESS_ENABLED = True
 COMPRESS_OFFILNE = config('COMPRESS_OFFILNE', default=not DEBUG, cast=bool)
 
 COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
+    ('text/x-scss', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
 
-COMPRESS_CSS_FILTERS = (
-    'compressor_postcss.PostCSSFilter',
-    'compressor.filters.css_default.CssAbsoluteFilter',
-)
-
-COMPRESS_POSTCSS_PLUGINS = (
-    'autoprefixer',
-    'postcss-font-magician'
-)
-
-COMPRESS_POSTCSS_BINARY = os.path.join(
-    NPM_ROOT_PATH, 'node_modules', '.bin', 'postcss'
-)
+NODE_MODULES = os.path.join(NPM_ROOT_PATH, 'node_modules')
+COMPRESS_NODE_MODULES = NODE_MODULES
+COMPRESS_NODE_SASS_BIN = os.path.join(NODE_MODULES, '.bin/node-sass')
+COMPRESS_POSTCSS_BIN = os.path.join(NODE_MODULES, '.bin/postcss')
+COMPRESS_SCSS_COMPILER_CMD = '{node_sass_bin}' \
+                             ' --source-map true' \
+                             ' --source-map-embed true' \
+                             ' --source-map-contents true' \
+                             ' --output-style expanded' \
+                             ' {paths} "{infile}" "{outfile}"' \
+                             ' &&' \
+                             ' {postcss_bin}' \
+                             ' --use "{node_modules}/postcss-font-magician"' \
+                             ' --use "{node_modules}/autoprefixer"' \
+                             ' --autoprefixer.browsers' \
+                             ' "{autoprefixer_browsers}"' \
+                             ' -r "{outfile}"'
 
 # EMAIL SETTINGS
 EMAIL_HOST = config('EMAIL_HOST', default='localhost')

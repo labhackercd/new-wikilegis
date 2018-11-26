@@ -2,6 +2,17 @@
 {% load staticfiles %}
 
 {% block content %}
+<div class="nav-bar">
+  <div class="nav-burger"></div>
+  <a href="/" class="brand">Wikilegis</a>
+</div>
+
+<div class="nav-menu">
+  <nav>
+    <a href="#">Vrom</a>
+  </nav>
+</div>
+
 <main class="document-body js-documentBody">
   <h1 class="document-excerpt js-documentExcerpt" data-id="1">
     This is a motherfucking website.
@@ -128,6 +139,7 @@
   <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
   <script src="{% static 'js/components/documentBody/view.js' %}"></script>
   <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
+  <script src="{% static 'js/components/navBurger/view.js' %}"></script>
   <script src="{% static 'js/components/body/view.js' %}"></script>
   <script src="{% static 'js/pages/home.js' %}"></script>
 {% endblock page_js %}

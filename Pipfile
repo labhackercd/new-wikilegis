@@ -16,6 +16,7 @@ django-compressor-postcss = "*"
 django-extensions = "*"
 djangorestframework = "*"
 django-filter = "*"
+django-compressor-toolkit = "*"
 
 [dev-packages]
 ipdb = "*"
