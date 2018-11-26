@@ -15,7 +15,7 @@
   outline: none;
 
   appearance: none;
-  
+
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   &:focus {
@@ -53,9 +53,15 @@ main {
   padding-bottom: $space-deca;
 }
 
+p {
+  * + & {
+    margin-top: $space-centi;
+  }
+}
+
 h1 {
   * + & {
-    margin-top: $space-kilo;
+    margin-top: $space-centi;
   }
 }
 
@@ -69,6 +75,13 @@ h3 {
   * + & {
     margin-top: $space-base;
   }
+}
+
+p,
+h1,
+h2,
+h3 {
+  color: $color-deep-gray;
 }
 
 blockquote {
