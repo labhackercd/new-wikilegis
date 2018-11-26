@@ -4,3 +4,7 @@
   background-repeat: repeat-x;
   background-position: 100% calc(100% - #{$offset});
 }
+
+@mixin shadow-bottom {
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08);
+}

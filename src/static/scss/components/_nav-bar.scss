@@ -25,8 +25,8 @@ body.-open-menu .nav-bar {
   padding-left: 1.6rem;
 
   background-color: $color-whitesmoke;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, .08);
 
+  @include shadow-bottom;
   @include bp-smallonly {
     padding-right: 1rem;
     padding-left: 1rem;
