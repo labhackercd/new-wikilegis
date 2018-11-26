@@ -1,4 +1,4 @@
-/*global DocumentExcerptView BodyView DocumentBodyView */
+/*global DocumentExcerptView BodyView DocumentBodyView SuggestionInputView */
 
 var documentExcerptView = new DocumentExcerptView();
 documentExcerptView.initEvents();

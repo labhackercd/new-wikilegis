@@ -46,7 +46,7 @@ SuggestionInputView.prototype.publishers = function() {
     if ($(this).val().length <= self.charMaxLimit) {
       self.hideInputError();
     }
-  })
+  });
 };
 
 SuggestionInputView.prototype.cleanSuggestionInput = function() {
