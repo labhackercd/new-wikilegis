@@ -20,4 +20,10 @@ var events = {
   // Triggered when user send suggestion
   // Params: excerptId, selectedText, suggestion
   sendSuggestion: 'sendSuggestion',
+
+  // Triggered when user open menu
+  openMenu: 'openMenu',
+
+  // Triggered when user closes menu
+  closeMenu: 'closeMenu',
 };

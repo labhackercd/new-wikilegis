@@ -1,0 +1,22 @@
+body.-open-menu .nav-menu {
+  display: block;
+}
+
+.nav-menu {
+  position: fixed;
+  z-index: 3;
+
+  display: none;
+
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  padding: 2.5rem;
+
+  color: #FFF;
+  background-color: $color-brand;
+
+  @include bp-smallonly {
+    padding: 1rem;
+  }
+}
