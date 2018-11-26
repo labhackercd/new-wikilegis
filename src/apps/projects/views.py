@@ -23,7 +23,7 @@ class DocumentListView(ListView):
                 invite.group.document.id for invite in accepted_invitations]
             context['private_docs'] = queryset.filter(id__in=private_doc_ids)
             invitations = ParcipantInvitation.objects.filter(
-                email=user.email, accepted=False)
+                email=user.email, accepted=False, answered=False)
             doc_invitations_ids = [
                 invite.group.document.id for invite in invitations]
             context['pending_invites'] = queryset.filter(
@@ -32,7 +32,6 @@ class DocumentListView(ListView):
             context['private_docs'] = queryset.none()
             context['pending_invites'] = queryset.none()
 
-        import ipdb; ipdb.set_trace()
         return context
 
     def get_queryset(self):
