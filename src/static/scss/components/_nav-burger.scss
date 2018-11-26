@@ -1,0 +1,62 @@
+body.-open-menu .nav-burger {
+  &:before,
+  &:after {
+    top: 1.375rem;
+    left: .546875rem;
+
+    width: 1.5rem;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+}
+
+.nav-burger {
+  position: absolute;
+  left: 1.5rem;
+
+  width: 2.75rem;
+  height: 2.75rem;
+
+  cursor: pointer;
+
+  color: $color-brand;
+
+  @include bp-smallonly {
+    left: 0.4rem;
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+
+    display: block;
+
+    width: 1.5rem;
+    height: .125rem;
+
+    content: '';
+    transition: all .3s ease;
+
+    background-color: currentColor;
+  }
+
+  &:before {
+    top: 1.375rem;
+    left: .625rem;
+
+    box-shadow: 0 .4375rem 0 0 currentColor;
+  }
+
+  &:after {
+    top: .9375rem;
+    left: .625rem;
+  }
+}

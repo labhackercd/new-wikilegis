@@ -51,6 +51,14 @@ BodyView.prototype.subscribers = function() {
   $.Topic(events.endTextSelection).subscribe(function() {
     self.enableUserSelection();
   });
+
+  $.Topic(events.openMenu).subscribe(function() {
+    self.openMenu();
+  });
+
+  $.Topic(events.closeMenu).subscribe(function() {
+    self.closeMenu();
+  });
 };
 
 
@@ -60,4 +68,12 @@ BodyView.prototype.disableUserSelection = function() {
 
 BodyView.prototype.enableUserSelection = function() {
   $('body').removeClass('-voidselect');
+};
+
+BodyView.prototype.openMenu = function() {
+  $('body').addClass('-open-menu');
+};
+
+BodyView.prototype.closeMenu = function() {
+  $('body').removeClass('-open-menu');
 };
