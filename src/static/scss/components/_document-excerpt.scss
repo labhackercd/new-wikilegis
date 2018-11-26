@@ -1,0 +1,18 @@
+.document-body {
+  &.-supressed {
+    & * {
+      color: #ccc;
+    }
+  }
+}
+
+.document-excerpt {
+  &.-enabled {
+    user-select: text;
+    color: #000;
+  }
+
+  .highlighted {
+    background-color: rgba(255, 255, 0, 0.3);
+  }
+}
