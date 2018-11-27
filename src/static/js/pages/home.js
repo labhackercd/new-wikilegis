@@ -12,6 +12,9 @@ documentBodyView.initEvents();
 var suggestionInputView = new SuggestionInputView();
 suggestionInputView.initEvents();
 
+var suggestionInputController = new SuggestionInputController();
+suggestionInputController.initEvents();
+
 var navBurgerView = new NavBurgerView();
 navBurgerView.initEvents();
 

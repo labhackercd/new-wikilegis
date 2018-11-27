@@ -17,6 +17,7 @@ django-extensions = "*"
 djangorestframework = "*"
 django-filter = "*"
 django-compressor-toolkit = "*"
+django-js-reverse = "*"
 
 [dev-packages]
 ipdb = "*"

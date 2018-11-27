@@ -93,7 +93,7 @@ class InvitedGroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = InvitedGroup
         fields = ('id', 'created', 'modified', 'closing_date', 'document',
-                  'is_open')
+                  'public_participation')
 
 
 class SuggestionSerializer(serializers.HyperlinkedModelSerializer):

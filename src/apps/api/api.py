@@ -102,7 +102,7 @@ class InvitedGroupFilter(FilterSet):
 
 
 class InvitedGroupViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = InvitedGroup.objects.filter(is_open=True)
+    queryset = InvitedGroup.objects.filter(public_participation=True)
     serializer_class = serializers.InvitedGroupSerializer
     filter_backends = (
         django_filters.DjangoFilterBackend,

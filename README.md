@@ -9,6 +9,7 @@ First of all, you need to install [pipenv](https://pipenv.readthedocs.io/en/late
 ```
 pipenv install
 npm install
+pipenv run src/manage.py collectstatic_js_reverse
 ```
 
 ## Running

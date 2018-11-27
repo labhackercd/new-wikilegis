@@ -7,6 +7,7 @@ SuggestionInputView.prototype.initEvents = function() {
   this.selectedTextElement = $('.js-suggestionInput .js-selectedText');
   this.inputElement = $('.js-suggestionInput .js-input');
   this.inputErrorElement = $('.js-suggestionInput .js-inputError');
+  this.selectedExcerpt = undefined;
   this.charMaxLimit = 100;
   this.subscribers();
   this.publishers();
@@ -21,6 +22,10 @@ SuggestionInputView.prototype.subscribers = function() {
 
   $.Topic(events.cancelTextSelection).subscribe(function() {
     self.hideInput();
+  });
+
+  $.Topic(events.showSuggestionInputError).subscribe(function(message) {
+    self.showInputError(message);
   });
 };
 
@@ -55,11 +60,14 @@ SuggestionInputView.prototype.cleanSuggestionInput = function() {
   self.selectedTextElement.text('');
   self.inputElement.val('');
   self.hideInputError();
+  self.selectedExcerpt = undefined;
 };
 
 SuggestionInputView.prototype.showInput = function() {
   var self = this;
-  var selectedText = document.getSelection().toString();
+  var selection = document.getSelection();
+  var selectedText = selection.toString();
+  self.selectedExcerpt = $(selection.getRangeAt(0).startContainer.parentNode);
 
   self.selectedTextElement.text(selectedText);
   self.suggestionInputElement.addClass('-show');
@@ -95,6 +103,9 @@ SuggestionInputView.prototype.sendSuggestion = function() {
   } else if (suggestion.length > self.charMaxLimit) {
     self.showInputError('Muito grande');
   } else {
-    $.Topic(events.sendSuggestion).publish();
+    var excerptId = self.selectedExcerpt.data('id');
+    var selectedText = self.selectedTextElement.text();
+
+    $.Topic(events.sendSuggestion).publish(excerptId, selectedText, suggestion);
   }
 };

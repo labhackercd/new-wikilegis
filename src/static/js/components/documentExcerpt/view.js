@@ -8,7 +8,7 @@ DocumentExcerptView.prototype.initEvents = function() {
 };
 
 DocumentExcerptView.prototype.publishers = function() {
-  $('.js-documentExcerpt').on('selectstart', function(e) {
+  $('.js-documentBody').on('selectstart', '.js-documentExcerpt', {}, function(e) {
     var target = $(e.target);
 
     $.Topic(events.cancelTextSelection).publish();
@@ -37,6 +37,11 @@ DocumentExcerptView.prototype.subscribers = function() {
   $.Topic(events.cancelTextSelection).subscribe(function() {
     self.removeEnabledClass();
   });
+
+  $.Topic(events.suggestionCreated).subscribe(function(excerptId, html) {
+    console.log('olar');
+    self.updateHTML(excerptId, html);
+  });
 };
 
 DocumentExcerptView.prototype.enableSelectedExcerpt = function(excerptId) {
@@ -49,4 +54,10 @@ DocumentExcerptView.prototype.enableSelectedExcerpt = function(excerptId) {
 
 DocumentExcerptView.prototype.removeEnabledClass = function() {
   $('.js-documentExcerpt').removeClass('-enabled');
+};
+
+DocumentExcerptView.prototype.updateHTML = function(excerptId, html) {
+  var excerpt = $('.js-documentExcerpt[data-id="' + excerptId + '"]');
+  excerpt.replaceWith(html);
+  $.Topic(events.cancelTextSelection).publish();
 };

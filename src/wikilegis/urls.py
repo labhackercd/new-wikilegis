@@ -12,6 +12,7 @@ urlpatterns = [
     path('notifications/', include('apps.notifications.urls')),
     path('p/', include('apps.projects.urls')),
     path('api/v1/', include(router.urls)),
+    path('participation/', include('apps.participations.urls')),
 ]
 
 if settings.DEBUG:

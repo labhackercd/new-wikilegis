@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'django_filters',
+    'django_js_reverse',
 
     'apps.accounts',
     'apps.participations',
