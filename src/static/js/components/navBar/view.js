@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ */
 
 var NavBarView = function() {};
 

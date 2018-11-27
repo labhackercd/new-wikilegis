@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ */
 
 var SearchInputView = function() {};
 
@@ -7,7 +7,7 @@ SearchInputView.prototype.initEvents = function() {
 };
 
 SearchInputView.prototype.searchInputScrollOnClick = function () {
-  $('.js-search').on('click', function(event) {
+  $('.js-search').on('click', function() {
     $([document.documentElement, document.body]).animate({scrollTop: $('.js-search').offset().top - 60}, 200);
   });
 };
