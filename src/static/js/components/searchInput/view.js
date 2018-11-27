@@ -8,6 +8,6 @@ SearchInputView.prototype.initEvents = function() {
 
 SearchInputView.prototype.searchInputScrollOnClick = function () {
   $('.js-search').on('click', function(event) {
-    $([document.documentElement, document.body]).animate({scrollTop: $(".js-search").offset().top - 60}, 200);
+    $([document.documentElement, document.body]).animate({scrollTop: $('.js-search').offset().top - 60}, 200);
   });
 };
