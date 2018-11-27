@@ -12,7 +12,6 @@
 
   color: inherit;
   border: none;
-  outline: none;
 
   appearance: none;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -66,7 +65,7 @@ h1 {
 
 h2 {
   * + & {
-    margin-top: $space-deca;
+    margin-top: $space-base;
   }
 }
 
@@ -125,11 +124,11 @@ ol > li:before {
 }
 
 hr {
-  margin-bottom: $space-hecto;
+  margin-bottom: $space-base;
 
-  border-top: 2px solid hsl(0, 0, 90%);
+  border-top: 1px solid hsl(0, 0, 90%);
   * + & {
-    margin-top: $space-hecto;
+    margin-top: $space-base;
   }
 }
 
@@ -163,7 +162,7 @@ input {
 
   color: $color-deep-gray;
 
-  @include shadow-bottom;
+  @include card-shadow;
 
   &:focus {
     outline: none;

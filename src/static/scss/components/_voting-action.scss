@@ -1,0 +1,27 @@
+.voting-action {
+  & > .info {
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.4;
+
+    display: flex;
+  }
+
+  & > .info > .icon {
+    width: 1rem;
+    height: 1rem;
+    margin-top: .1rem;
+    margin-right: .25rem;
+  }
+
+  & > .actions {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 1rem;
+  }
+
+  & > .actions > * + * {
+    margin-left: 1rem;
+  }
+}

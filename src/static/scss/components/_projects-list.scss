@@ -1,3 +1,17 @@
 .projects-list {
-  margin-top: 2rem;
+  & > .search {
+    margin-top: 2rem;
+  }
+
+  & > .list {
+    margin-top: 1rem;
+  }
+
+  & > .list > h2 {
+    margin-top: 2.5rem;
+  }
+
+  & > .list > .simple-card {
+    margin-top: 1rem;
+  }
 }

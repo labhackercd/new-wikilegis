@@ -1,4 +1,4 @@
-/*global DocumentExcerptView BodyView DocumentBodyView SuggestionInputView NavBurgerView */
+/*global DocumentExcerptView BodyView DocumentBodyView SuggestionInputView NavBurgerView navBarView */
 
 var documentExcerptView = new DocumentExcerptView();
 documentExcerptView.initEvents();
@@ -14,3 +14,6 @@ suggestionInputView.initEvents();
 
 var navBurgerView = new NavBurgerView();
 navBurgerView.initEvents();
+
+var navBarView = new NavBarView();
+navBarView.initEvents();

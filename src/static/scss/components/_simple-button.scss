@@ -1,0 +1,27 @@
+.simple-button {
+  font-size: .75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 5rem;
+  padding: .2rem;
+
+  text-transform: uppercase;
+
+  &.-green {
+    color: $color-brand;
+    border: 1px solid $color-brand;
+  }
+
+  &.-red {
+    color: $color-red;
+    border: 1px solid $color-red;
+  }
+
+  &.-gray {
+    color: $color-gray;
+    border: 1px solid $color-gray;
+  }
+}
