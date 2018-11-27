@@ -11,8 +11,9 @@ from datetime import date
 @require_ajax
 def send_suggestion(request):
     excerpt_id = request.POST.get('excerptId')
-    selected_text = request.POST.get('selectedText')
     content = request.POST.get('suggestion')
+    start_index = request.POST.get('startSelection')
+    end_index = request.POST.get('endSelection')
     excerpt = get_object_or_404(Excerpt, pk=excerpt_id)
 
     closed_groups = excerpt.document.invited_groups.filter(
@@ -37,7 +38,9 @@ def send_suggestion(request):
     if invited_group:
         models.Suggestion.objects.create(
             invited_group=invited_group,
-            selected_text=selected_text,
+            selected_text=excerpt.content[start_index:end_index],
+            start_index=start_index,
+            end_index=end_index,
             excerpt=excerpt,
             content=content,
             author=request.user,

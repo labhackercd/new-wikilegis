@@ -14,13 +14,14 @@ SuggestionInputController.prototype.subscribers = function() {
   });
 };
 
-SuggestionInputController.prototype.sendSuggestion = function(excerptId, selectedText, suggestion) {
+SuggestionInputController.prototype.sendSuggestion = function(excerptId, startSelection, endSelection, suggestion) {
   var request = $.ajax({
     url: Urls.new_suggestion(),
     method: 'POST',
     data: {
       excerptId: excerptId,
-      selectedText: selectedText,
+      startSelection: startSelection,
+      endSelection: endSelection,
       suggestion: suggestion
     }
   })

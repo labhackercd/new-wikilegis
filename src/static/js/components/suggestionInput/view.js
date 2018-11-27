@@ -8,6 +8,7 @@ SuggestionInputView.prototype.initEvents = function() {
   this.inputElement = $('.js-suggestionInput .js-input');
   this.inputErrorElement = $('.js-suggestionInput .js-inputError');
   this.selectedExcerpt = undefined;
+  this.selectionRange = undefined;
   this.charMaxLimit = 100;
   this.subscribers();
   this.publishers();
@@ -61,13 +62,16 @@ SuggestionInputView.prototype.cleanSuggestionInput = function() {
   self.inputElement.val('');
   self.hideInputError();
   self.selectedExcerpt = undefined;
+  self.selectionRange = undefined;
 };
 
 SuggestionInputView.prototype.showInput = function() {
   var self = this;
   var selection = document.getSelection();
+  var range = selection.getRangeAt(0);
   var selectedText = selection.toString();
-  self.selectedExcerpt = $(selection.getRangeAt(0).startContainer.parentNode);
+  self.selectedExcerpt = $(range.startContainer.parentNode);
+  self.selectionRange = range;
 
   self.selectedTextElement.text(selectedText);
   self.suggestionInputElement.addClass('-show');
@@ -104,8 +108,12 @@ SuggestionInputView.prototype.sendSuggestion = function() {
     self.showInputError('Muito grande');
   } else {
     var excerptId = self.selectedExcerpt.data('id');
-    var selectedText = self.selectedTextElement.text();
 
-    $.Topic(events.sendSuggestion).publish(excerptId, selectedText, suggestion);
+    $.Topic(events.sendSuggestion).publish(
+      excerptId,
+      self.selectionRange.startOffset,
+      self.selectionRange.endOffset,
+      suggestion
+    );
   }
 };

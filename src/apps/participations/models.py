@@ -40,7 +40,9 @@ class Suggestion(TimestampedMixin):
                                 on_delete=models.CASCADE,
                                 related_name='suggestions',
                                 verbose_name=_('excerpt'))
-    selected_text = models.TextField()
+    selected_text = models.TextField(_('selected text'))
+    start_index = models.PositiveIntegerField(_('start index'), default=0)
+    end_index = models.PositiveIntegerField(_('end index'), default=0)
     content = models.TextField(_('content'))
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                related_name='suggestions',
