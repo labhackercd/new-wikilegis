@@ -24,15 +24,21 @@ body.-open-menu .nav-bar {
   padding-right: 1.6rem;
   padding-left: 1.6rem;
 
+  transition: box-shadow .25s;
+
   background-color: $color-whitesmoke;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, .08);
 
   @include bp-smallonly {
     padding-right: 1rem;
     padding-left: 1rem;
   }
 
+  &.-shadow {
+    @include header-shadow;
+  }
+
   & > .brand {
+    font-family: $font-family-brand;
     font-size: .875rem;
     font-weight: 800;
 
@@ -42,7 +48,6 @@ body.-open-menu .nav-bar {
     height: 100%;
     padding: 0 1rem;
 
-    letter-spacing: .5px;
     text-transform: uppercase;
 
     color: $color-brand;

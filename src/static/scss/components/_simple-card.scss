@@ -1,0 +1,74 @@
+.simple-card {
+  display: block;
+
+  padding: 1rem;
+
+  background-color: #FFF;
+
+  @include card-shadow;
+
+  &.-inactive {
+    & > .status {
+      color: $color-red;
+    }
+
+    & > h3,
+    & > p {
+      color: $color-gray;
+    }
+
+    & > .info {
+      opacity: .6;
+    }
+  }
+
+  & > .status {
+    font-size: .75rem;
+    font-weight: 500;
+
+    color: $color-brand;
+  }
+
+  & > h3 {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+  }
+
+  & > .info {
+    font-size: .625rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 2rem;
+
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+
+  & > .info > .themes,
+  & > .info > .suggestions {
+    display: flex;
+
+    text-align: center;
+  }
+
+  & > .info > .themes > * + * {
+    margin-left: 1rem;
+  }
+
+  & > .info > .themes > .theme,
+  & > .info > .suggestions > .suggestion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  & > .info > .suggestions > .suggestion > .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}

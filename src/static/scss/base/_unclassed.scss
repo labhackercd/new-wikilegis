@@ -12,10 +12,8 @@
 
   color: inherit;
   border: none;
-  outline: none;
 
   appearance: none;
-  
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   &:focus {
@@ -53,15 +51,21 @@ main {
   padding-bottom: $space-deca;
 }
 
+p {
+  * + & {
+    margin-top: $space-centi;
+  }
+}
+
 h1 {
   * + & {
-    margin-top: $space-kilo;
+    margin-top: $space-centi;
   }
 }
 
 h2 {
   * + & {
-    margin-top: $space-deca;
+    margin-top: $space-base;
   }
 }
 
@@ -69,6 +73,13 @@ h3 {
   * + & {
     margin-top: $space-base;
   }
+}
+
+p,
+h1,
+h2,
+h3 {
+  color: $color-deep-gray;
 }
 
 blockquote {
@@ -113,11 +124,11 @@ ol > li:before {
 }
 
 hr {
-  margin-bottom: $space-hecto;
+  margin-bottom: $space-base;
 
-  border-top: 2px solid hsl(0, 0, 90%);
+  border-top: 1px solid hsl(0, 0, 90%);
   * + & {
-    margin-top: $space-hecto;
+    margin-top: $space-base;
   }
 }
 
@@ -138,5 +149,26 @@ pre {
   @include bp-smallup {
     margin-right: -$space-deci;
     margin-left: -$space-deci;
+  }
+}
+
+input {
+  font-size: .875rem;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 3rem;
+  padding: .875rem;
+
+  color: $color-deep-gray;
+
+  @include card-shadow;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder{
+    color: $color-grayish;
   }
 }

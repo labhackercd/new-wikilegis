@@ -4,3 +4,15 @@
   background-repeat: repeat-x;
   background-position: 100% calc(100% - #{$offset});
 }
+
+@mixin card-shadow {
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08);
+}
+
+@mixin header-shadow {
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.08);
+}
+
+@mixin footer-shadow {
+  box-shadow: 0px -3px 4px rgba(0, 0, 0, 0.08);
+}
