@@ -7,7 +7,6 @@ NavBarView.prototype.initEvents = function() {
 };
 
 NavBarView.prototype.addShadowOnScroll = function () {
-  console.log('oi');
   $(window).scroll(function() {
     var scroll = $(window).scrollTop();
     if (scroll >= 20) {
