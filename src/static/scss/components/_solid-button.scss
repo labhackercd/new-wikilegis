@@ -1,0 +1,28 @@
+.solid-button {
+  font-size: .75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 5rem;
+  padding: .2rem;
+
+  text-transform: uppercase;
+  color: #FFF;
+
+  &.-green {
+    background-color: $color-brand;
+    border: 1px solid $color-brand;
+  }
+
+  &.-red {
+    background-color: $color-red;
+    border: 1px solid $color-red;
+  }
+
+  &.-gray {
+    background-color: $color-gray;
+    border: 1px solid $color-gray;
+  }
+}

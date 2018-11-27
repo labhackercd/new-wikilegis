@@ -17,10 +17,7 @@
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   &:focus {
-    outline-width: 2px ;
-    outline-style: solid;
-    outline-color: rgba($color-link, .4);
-    outline-offset: 2px;
+    outline: none;
   }
 }
 
@@ -175,4 +172,13 @@ input {
 
 b {
   font-weight: bold;
+}
+
+p > a {
+  text-decoration: underline;
+  color: $color-brand;
+
+  &:hover {
+    color: lighten($color-brand, 10%);
+  }
 }

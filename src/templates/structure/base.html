@@ -20,6 +20,7 @@
   <body>
     {% block content %}
     {% endblock content %}
+    {% include "components/generic-modal.html" %}
 
     {% compress js %}
       <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>

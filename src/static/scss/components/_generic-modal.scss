@@ -1,0 +1,66 @@
+.generic-modal {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 1.6rem;
+
+  background-color: $color-whitesmoke;
+
+  & > .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  & > .header > .close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.75rem;
+    height: 2.75rem;
+
+    cursor: pointer;
+  }
+
+  & > .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-top: 2rem;
+
+    text-align: center;
+  }
+
+  & > .content > .image {
+    display: flex;
+    justify-content: center;
+  }
+
+  & > .solid-button {
+    font-size: 1.2rem;
+
+    margin: 0 auto;
+    margin-top: 2rem;
+    padding: .5rem 2rem;
+  }
+
+  & > .simple-link {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 1rem;
+
+    text-align: center;
+  }
+}
