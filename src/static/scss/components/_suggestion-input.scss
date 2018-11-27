@@ -1,13 +1,93 @@
 .suggestion-input {
-  background-color: #eee;
   position: fixed;
-  width: 100%;
   bottom: 0;
+
+  visibility: hidden;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem;
+
+  transition: transform .3s 0s ease, visibility 0s .3s;
   transform: translateY(9rem);
-  transition: transform 0.3s ease;
-  padding: 1rem 5rem;
+
+  background-color: #FFF;
+
+  @include footer-shadow;
 
   &.-show {
+    visibility: visible;
+
+    transition: transform .3s 0s ease, visibility 0s 0s;
     transform: translateY(0);
+  }
+
+  & > .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.75rem;
+    height: 2.75rem;
+
+    cursor: pointer;
+  }
+
+  & > .text {
+    margin: 1rem 0;
+  }
+
+  & > .close > img {
+    width: 1.5rem;
+  }
+
+  & > .info {
+    font-size: .875rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+  }
+
+  & > .info > img {
+    margin-right: .5rem;
+  }
+
+  & > .input {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 3rem;
+    margin-top: .5rem;
+
+    border: 1px solid $color-grayish;
+  }
+
+  & > .input > input {
+    padding: 1rem;
+
+    box-shadow: none;
+  }
+
+  & > .input > .send {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+    padding: 0 .5rem;
+
+    cursor: pointer;
+  }
+
+  & > .error {
+    font-size: .75rem;
+
+    color: $color-red;
   }
 }
