@@ -1,6 +1,7 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from .models import Document
+from datetime import date
 from apps.participations.models import InvitedGroup
 from apps.notifications.models import ParcipantInvitation
 
@@ -25,7 +26,9 @@ class DocumentListView(ListView):
             invitations = ParcipantInvitation.objects.filter(
                 email=user.email, accepted=False, answered=False)
             doc_invitations_ids = [
-                invite.group.document.id for invite in invitations]
+                invite.group.document.id
+                for invite in invitations
+                if invite.group.closing_date >= date.today()]
             context['pending_invites'] = queryset.filter(
                 id__in=doc_invitations_ids)
         else:
@@ -42,3 +45,8 @@ class DocumentListView(ListView):
                 Q(title__contains=q) | Q(description__contains=q))
 
         return queryset
+
+
+class DocumentDetailView(DetailView):
+    model = Document
+    template_name = 'pages/document.html'

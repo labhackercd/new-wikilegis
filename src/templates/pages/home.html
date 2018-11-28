@@ -1,10 +1,10 @@
 {% extends "structure/base.html" %}
-{% load staticfiles %}
+{% load staticfiles projects_tags %}
 
 {% block content %}
 <div class="nav-bar">
   <div class="nav-burger"></div>
-  <a href="/" class="brand">Wikilegis</a>
+  <a href="{% url 'home' %}" class="brand">Wikilegis</a>
 </div>
 
 <div class="nav-menu">
@@ -23,22 +23,27 @@
     </div>
     <div class="projects-list">
       <input class="search js-search" type="text" placeholder="Buscar">
+      {% if pending_invites and request.user.is_authenticated %}
       <div class="list">
         <h2>Convites</h2>
-        <div class="simple-card">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
+        {% for document_invite in pending_invites %}
+        {% document_is_open document_invite 'private' request.user as document_is_open %}
+        <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          {% if document_is_open %}
+            <span class="status">Aberto até {% document_closing_date document_invite 'private' request.user %}</span>
+          {% else %}  
+            <span class="status">Encerrado em {% document_closing_date document_invite 'private' request.user %}</span>
+          {% endif %}
+          <h3>{{ document_invite.title }}</h3>
+          <p>{{ document_invite.description }}</p>
           <div class="info">
             <div class="themes">
+              {% for theme in document_invite.themes.all %} 
               <div class="theme">
                 <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
+                <span>{{ theme.name }}</span>
               </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
+              {% endfor %}
             </div>
             <div class="suggestions">
               <div class="suggestion">
@@ -58,23 +63,63 @@
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
+      {% endif %}
+      {% if private_docs and request.user.is_authenticated %}
+      <div class="list">
+        <h2>Projetos Fechados</h2>
+        {% for private_document in private_docs %}
+        {% document_is_open private_document 'private' request.user as document_is_open %}
+        <a href="{% url 'project' private_document.id private_document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          {% if document_is_open %}
+            <span class="status">Aberto até {% document_closing_date private_document 'private' request.user %}</span>
+          {% else %}  
+            <span class="status">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
+          {% endif %}
+          <h3>{{ private_document.title }}</h3>
+          <p>{{ private_document.description }}</p>
+          <div class="info">
+            <div class="themes">
+              {% for theme in private_document.themes.all %} 
+              <div class="theme">
+                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
+                <span>{{ theme.name }}</span>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="suggestions">
+              <div class="suggestion">
+                <span class="value">21</span>
+                <span>Sugestões</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if public_docs %}
       <div class="list">
         <h2>Participação Popular</h2>
-        <a href="/document" class="simple-card">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
+        {% for document in public_docs %}
+        {% document_is_open document as document_is_open %}
+        <a href="{% url 'project' document.id document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          {% if document_is_open %}
+            <span class="status">Aberto até {% document_closing_date document %}</span>
+          {% else %}  
+            <span class="status">Encerrado em {% document_closing_date document %}</span>
+          {% endif %}
+          <h3>{{ document.title }}</h3>
+          <p>{{ document.description }}</p>
           <div class="info">
             <div class="themes">
+              {% for theme in document.themes.all %} 
               <div class="theme">
                 <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
+                <span>{{ theme.name }}</span>
               </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
+              {% endfor %}
             </div>
             <div class="suggestions">
               <div class="suggestion">
@@ -84,54 +129,10 @@
             </div>
           </div>
         </a>
-        <a href="/document" class="simple-card">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
-          <div class="info">
-            <div class="themes">
-              <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
-              </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
-            </div>
-            <div class="suggestions">
-              <div class="suggestion">
-                <span class="value">21</span>
-                <span>Sugestões</span>
-              </div>
-            </div>
-          </div>
-        </a>
-        <a href="/document" class="simple-card -inactive">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
-          <div class="info">
-            <div class="themes">
-              <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
-              </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
-            </div>
-            <div class="suggestions">
-              <div class="suggestion">
-                <span class="value">21</span>
-                <span>Sugestões</span>
-              </div>
-            </div>
-          </div>
-        </a>
+        {% endfor %}
       </div>
     </div>
+    {% endif %}
   </div>
 </main>
 
