@@ -35,6 +35,10 @@ body {
   &.-voidselect {
     user-select: none;
   }
+
+  &.-white {
+    background-color: #FFF;
+  }
 }
 
 main {

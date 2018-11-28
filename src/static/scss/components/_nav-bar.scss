@@ -9,6 +9,10 @@ body.-open-menu .nav-bar {
   }
 }
 
+body.-white .nav-bar {
+  background-color: #FFF;
+}
+
 .nav-bar {
   position: fixed;
   z-index: 2;
