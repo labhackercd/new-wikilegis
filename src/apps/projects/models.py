@@ -8,6 +8,8 @@ from utils.model_mixins import TimestampedMixin
 class Theme(models.Model):
     name = models.CharField(_('name'), max_length=200)
     slug = models.SlugField()
+    icon = models.FileField(upload_to='icons/', verbose_name=_('icon'),
+                            null=True, blank=True)
 
     class Meta:
         verbose_name = _('theme')

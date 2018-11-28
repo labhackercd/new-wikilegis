@@ -40,7 +40,9 @@
             <div class="themes">
               {% for theme in document_invite.themes.all %} 
               <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
+                {% if theme.icon %}
+                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+                {% endif %}
                 <span>{{ theme.name }}</span>
               </div>
               {% endfor %}
@@ -83,7 +85,9 @@
             <div class="themes">
               {% for theme in private_document.themes.all %} 
               <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
+                {% if theme.icon %}
+                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+                {% endif %}
                 <span>{{ theme.name }}</span>
               </div>
               {% endfor %}
@@ -116,7 +120,9 @@
             <div class="themes">
               {% for theme in document.themes.all %} 
               <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
+                {% if theme.icon %}
+                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+                {% endif %}
                 <span>{{ theme.name }}</span>
               </div>
               {% endfor %}

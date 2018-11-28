@@ -110,6 +110,7 @@ venv.bak/
 
 node_modules/
 src/public/static/
+src/public/media/
 
 .DS_Store
 dump.rdb
