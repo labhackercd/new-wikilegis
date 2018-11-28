@@ -1,9 +1,11 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, RedirectView
+from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from .models import Document
 from datetime import date
 from apps.participations.models import InvitedGroup
 from apps.notifications.models import ParcipantInvitation
+from django.http import Http404
 
 
 class DocumentListView(ListView):
@@ -24,13 +26,9 @@ class DocumentListView(ListView):
                 invite.group.document.id for invite in accepted_invitations]
             context['private_docs'] = queryset.filter(id__in=private_doc_ids)
             invitations = ParcipantInvitation.objects.filter(
-                email=user.email, accepted=False, answered=False)
-            doc_invitations_ids = [
-                invite.group.document.id
-                for invite in invitations
-                if invite.group.closing_date >= date.today()]
-            context['pending_invites'] = queryset.filter(
-                id__in=doc_invitations_ids)
+                email=user.email, accepted=False, answered=False).exclude(
+                group__closing_date__lt=date.today())
+            context['pending_invites'] = invitations
         else:
             context['private_docs'] = queryset.none()
             context['pending_invites'] = queryset.none()
@@ -50,3 +48,22 @@ class DocumentListView(ListView):
 class DocumentDetailView(DetailView):
     model = Document
     template_name = 'pages/document.html'
+
+
+class InvitationRedirectView(RedirectView):
+    url = '/'
+
+    def get_redirect_url(self, *args, **kwargs):
+        invitation = get_object_or_404(ParcipantInvitation, pk=kwargs['pk'])
+        invitation.answered = True
+
+        if kwargs['accept'] == 'accepted':
+            invitation.accepted = True
+        elif kwargs['accept'] == 'declined':
+            invitation.accepted = False
+        else:
+            raise Http404
+
+        invitation.save()
+
+        return super().get_redirect_url(*args, **kwargs)

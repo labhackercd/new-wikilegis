@@ -26,19 +26,19 @@
       {% if pending_invites and request.user.is_authenticated %}
       <div class="list">
         <h2>Convites</h2>
-        {% for document_invite in pending_invites %}
-        {% document_is_open document_invite 'private' request.user as document_is_open %}
+        {% for invite in pending_invites %}
+        {% document_is_open invite.group.document 'private' request.user as document_is_open %}
         <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
           {% if document_is_open %}
-            <span class="status">Aberto até {% document_closing_date document_invite 'private' request.user %}</span>
+            <span class="status">Aberto até {% document_closing_date invite.group.document 'private' request.user %}</span>
           {% else %}  
-            <span class="status">Encerrado em {% document_closing_date document_invite 'private' request.user %}</span>
+            <span class="status">Encerrado em {% document_closing_date invite.group.document 'private' request.user %}</span>
           {% endif %}
-          <h3>{{ document_invite.title }}</h3>
-          <p>{{ document_invite.description }}</p>
+          <h3>{{ invite.group.document.title }}</h3>
+          <p>{{ invite.group.document.description }}</p>
           <div class="info">
             <div class="themes">
-              {% for theme in document_invite.themes.all %} 
+              {% for theme in invite.group.document.themes.all %} 
               <div class="theme">
                 {% if theme.icon %}
                 <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
@@ -60,8 +60,8 @@
               <img class="icon" src="{% static 'img/information.svg' %}">Você foi convidado para participar nesta proposição
             </span>
             <div class="actions">
-              <a href="/document" class="outline-button -green">Aceitar</a>
-              <a href="#" class="outline-button -red">Recusar</a>
+              <a href="{% url 'invitation' invite.pk 'accepted' %}" class="outline-button -green">Aceitar</a>
+              <a href="{% url 'invitation' invite.pk 'declined' %}" class="outline-button -red">Recusar</a>
             </div>
           </div>
         </div>

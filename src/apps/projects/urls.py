@@ -5,4 +5,7 @@ urlpatterns = [
     path('<int:id>-<slug:slug>/',
          views.DocumentDetailView.as_view(),
          name="project"),
+    path('invitation/<int:pk>/<str:accept>/',
+         views.InvitationRedirectView.as_view(),
+         name="invitation"),
 ]
