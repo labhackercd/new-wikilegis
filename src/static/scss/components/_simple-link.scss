@@ -1,9 +1,19 @@
 .simple-link {
   font-size: .875rem;
 
-  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  width: 5rem;
+  padding: .5rem 2rem;
+
+  text-align: center;
   text-decoration: underline;
 
   color: $color-gray;
+
+  &:hover {
+    color: lighten($color-gray, 10%);
+  }
 }
