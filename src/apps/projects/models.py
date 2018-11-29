@@ -1,7 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db import models
-from utils.choices import EXCERPT_TYPE_CHOICES
 from utils.model_mixins import TimestampedMixin
 
 
@@ -61,6 +60,23 @@ class Document(TimestampedMixin):
         return '%s' % (self.title)
 
 
+class ExcerptType(models.Model):
+    name = models.CharField(_('excerpt type'), max_length=200)
+    slug = models.SlugField()
+    align_center = models.BooleanField(_('align center'), default=False)
+
+    class Meta:
+        verbose_name = _('excerpt type')
+        verbose_name_plural = _('excerpt types')
+
+    def save(self):
+        self.slug = slugify(self.name)
+        super().save()
+
+    def __str__(self):
+        return '%s' % (self.name)
+
+
 class Excerpt(models.Model):
     document = models.ForeignKey('projects.Document', on_delete=models.CASCADE,
                                  verbose_name=_('document'),
@@ -69,16 +85,17 @@ class Excerpt(models.Model):
                                verbose_name=_('parent'), null=True, blank=True,
                                on_delete=models.CASCADE)
     order = models.PositiveIntegerField(_('order'), default=0)
-    excerpt_type = models.CharField(_('excerpt type'), max_length=200,
-                                    choices=EXCERPT_TYPE_CHOICES,
-                                    blank=True, null=True)
+    excerpt_type = models.ForeignKey('projects.ExcerptType',
+                                     verbose_name=_('excerpt type'),
+                                     blank=True, null=True,
+                                     on_delete=models.SET_NULL)
     number = models.PositiveIntegerField(_('number'), null=True, blank=True)
     content = models.TextField(_('content'))
 
     class Meta:
         verbose_name = _('excerpt')
         verbose_name_plural = _('excerpts')
-        ordering = ('order', )
+        ordering = ('order', 'id')
 
     def __str__(self):
         return '%s' % (self.content)

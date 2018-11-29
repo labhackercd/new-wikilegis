@@ -1,8 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from utils.model_mixins import TimestampedMixin
-from utils.choices import (OPINION_VOTE_CHOICES, EXCERPT_TYPE_CHOICES,
-                           AMENDMENT_TYPE_CHOICES)
+from utils.choices import (OPINION_VOTE_CHOICES, AMENDMENT_TYPE_CHOICES)
 
 
 class InvitedGroup(TimestampedMixin):
@@ -91,9 +90,10 @@ class Amendment(TimestampedMixin):
     content = models.TextField(_('content'))
     amendment_type = models.CharField(_('amendment type'), max_length=200,
                                       choices=AMENDMENT_TYPE_CHOICES)
-    excerpt_type = models.CharField(_('excerpt type'), max_length=200,
-                                    choices=EXCERPT_TYPE_CHOICES,
-                                    blank=True, null=True)
+    excerpt_type = models.ForeignKey('projects.ExcerptType',
+                                     verbose_name=_('excerpt type'),
+                                     blank=True, null=True,
+                                     on_delete=models.SET_NULL)
     number = models.PositiveIntegerField(_('number'), null=True, blank=True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                related_name='amendments',
