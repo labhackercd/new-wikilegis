@@ -1,10 +1,10 @@
 {% extends "structure/base.html" %}
-{% load staticfiles %}
+{% load staticfiles projects_tags %}
 
 {% block content %}
 <div class="nav-bar">
   <div class="nav-burger"></div>
-  <a href="/" class="brand">Wikilegis</a>
+  <a href="{% url 'home' %}" class="brand">Wikilegis</a>
 </div>
 
 <div class="nav-menu">
@@ -21,28 +21,34 @@
       <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
       <p>Nessa interação, ganha a sociedade, que participa mais ativamente do processo legislativo, e ganha o Parlamento, que aprova leis mais aprimoradas e conectadas às necessidades dos cidadãos.</p>
     </div>
-    <div class="projects-list">
+    <div class="projects-list" id="js-projects-list">
       <input class="search js-search" type="text" placeholder="Buscar">
       <div class="list">
-        <h2>Convites</h2>
-        <div class="simple-card">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
+      {% if pending_invites and request.user.is_authenticated %}
+        {% for invite in pending_invites %}
+        {% document_is_open invite.group.document 'private' request.user as document_is_open %}
+        <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          {% if document_is_open %}
+            <span class="status">Aberto até {% document_closing_date invite.group.document 'private' request.user %}</span>
+          {% else %}  
+            <span class="status">Encerrado em {% document_closing_date invite.group.document 'private' request.user %}</span>
+          {% endif %}
+          <h3 class="js-title">{{ invite.group.document.title }}</h3>
+          <p class="js-description">{{ invite.group.document.description }}</p>
           <div class="info">
             <div class="themes">
+              {% for theme in invite.group.document.themes.all %} 
               <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
+                {% if theme.icon %}
+                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+                {% endif %}
+                <span>{{ theme.name }}</span>
               </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
+              {% endfor %}
             </div>
             <div class="suggestions">
               <div class="suggestion">
-                <span class="value">21</span>
+                <span class="value">{% document_suggestions invite.group.document 'private' request.user %}</span>
                 <span>Sugestões</span>
               </div>
             </div>
@@ -53,97 +59,92 @@
               <img class="icon" src="{% static 'img/information.svg' %}">Você foi convidado para participar nesta proposição
             </span>
             <div class="actions">
-              <a href="/document" class="outline-button -green">Aceitar</a>
-              <a href="#" class="outline-button -red">Recusar</a>
+              <a href="{% url 'invitation' invite.pk 'accepted' %}" class="outline-button -green">Aceitar</a>
+              <a href="{% url 'invitation' invite.pk 'declined' %}" class="outline-button -red">Recusar</a>
             </div>
           </div>
         </div>
-      </div>
-      <div class="list">
-        <h2>Participação Popular</h2>
-        <a href="/document" class="simple-card">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
+        {% endfor %}
+      {% endif %}
+      {% if private_docs and request.user.is_authenticated %}
+        {% for private_document in private_docs %}
+        {% document_is_open private_document 'private' request.user as document_is_open %}
+        <a href="{% url 'project' private_document.id private_document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          {% if document_is_open %}
+            <span class="status">Aberto até {% document_closing_date private_document 'private' request.user %}</span>
+          {% else %}  
+            <span class="status">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
+          {% endif %}
+          <h3 class="js-title">{{ private_document.title }}</h3>
+          <p class="js-description">{{ private_document.description }}</p>
           <div class="info">
             <div class="themes">
+              {% for theme in private_document.themes.all %} 
               <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
+                {% if theme.icon %}
+                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+                {% endif %}
+                <span>{{ theme.name }}</span>
               </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
+              {% endfor %}
             </div>
             <div class="suggestions">
               <div class="suggestion">
-                <span class="value">21</span>
+                <span class="value">{% document_suggestions private_document 'private' request.user %}</span>
                 <span>Sugestões</span>
               </div>
             </div>
           </div>
         </a>
-        <a href="/document" class="simple-card">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
+        {% endfor %}
+      {% endif %}
+      {% if public_docs %}
+        {% for document in public_docs %}
+        {% document_is_open document as document_is_open %}
+        <a href="{% url 'project' document.id document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          {% if document_is_open %}
+            <span class="status">Aberto até {% document_closing_date document %}</span>
+          {% else %}  
+            <span class="status">Encerrado em {% document_closing_date document %}</span>
+          {% endif %}
+          <h3 class="js-title">{{ document.title }}</h3>
+          <p class="js-description">{{ document.description }}</p>
           <div class="info">
             <div class="themes">
+              {% for theme in document.themes.all %} 
               <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
+                {% if theme.icon %}
+                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+                {% endif %}
+                <span>{{ theme.name }}</span>
               </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
+              {% endfor %}
             </div>
             <div class="suggestions">
               <div class="suggestion">
-                <span class="value">21</span>
+                <span class="value">{% document_suggestions document %}</span>
                 <span>Sugestões</span>
               </div>
             </div>
           </div>
         </a>
-        <a href="/document" class="simple-card -inactive">
-          <span class="status">Aberto até 22/11/18</span>
-          <h3>Patrocínio de bancos públicos a clubes de futebol</h3>
-          <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
-          <div class="info">
-            <div class="themes">
-              <div class="theme">
-                <img src="{% static 'img/book.svg' %}" alt="Wikilegis">
-                <span>Educação</span>
-              </div>
-              <div class="theme">
-                <img src="{% static 'img/coin.svg' %}" alt="Wikilegis">
-                <span>Economia</span>
-              </div>
-            </div>
-            <div class="suggestions">
-              <div class="suggestion">
-                <span class="value">21</span>
-                <span>Sugestões</span>
-              </div>
-            </div>
-          </div>
-        </a>
+        {% endfor %}
       </div>
     </div>
+    {% endif %}
   </div>
 </main>
 
 {% endblock content %}
 
 {% block page_js %}
+  <script src="{% static 'list.js/dist/list.min.js' %}"></script>
   <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
   <script src="{% static 'js/components/documentBody/view.js' %}"></script>
   <script src="{% static 'js/components/navBurger/view.js' %}"></script>
   <script src="{% static 'js/components/navBar/view.js' %}"></script>
   <script src="{% static 'js/components/searchInput/view.js' %}"></script>
-    <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
+  <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
   <script src="{% static 'js/components/body/view.js' %}"></script>
   <script src="{% static 'js/pages/home.js' %}"></script>
 {% endblock page_js %}

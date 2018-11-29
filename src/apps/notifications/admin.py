@@ -11,9 +11,10 @@ class ParcipantInvitationAdmin(admin.ModelAdmin):
         'email',
         'group',
         'accepted',
+        'answered',
         'hash_id',
     )
-    list_filter = ('created', 'modified', 'group', 'accepted')
+    list_filter = ('created', 'modified', 'group', 'accepted', 'answered')
 
 
 @admin.register(OwnerInvitation)

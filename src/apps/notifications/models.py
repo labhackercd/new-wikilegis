@@ -12,6 +12,7 @@ class ParcipantInvitation(TimestampedMixin):
                               related_name='invited_emails',
                               verbose_name=_('group'))
     accepted = models.BooleanField(_('accepted'), default=False)
+    answered = models.BooleanField(_('answered'), default=False)
 
     class Meta:
         unique_together = ('email', 'group')
