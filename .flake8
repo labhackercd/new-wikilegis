@@ -1,7 +1,7 @@
 [flake8]
 exclude =
     .git,
-    node_modules/,
+    node_modules/*,
     __pycache__,
     src/manage.py,
-    migrations/,
+    */migrations/*,

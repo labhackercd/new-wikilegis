@@ -80,8 +80,8 @@ class ExcerptSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Excerpt
-        fields = ('id', 'document', 'parent', 'order', 'excerpt_type', 'number',
-                  'content', 'suggestions')
+        fields = ('id', 'document', 'parent', 'order', 'excerpt_type',
+                  'number', 'content', 'suggestions')
 
 
 class InvitedGroupSerializer(serializers.HyperlinkedModelSerializer):

@@ -17,7 +17,7 @@ install:
 - npm install
 script:
 - coverage run src/manage.py test
-- flake8 wikilegis
+- flake8 src
 - npm run lint
 after_success:
 - coveralls
