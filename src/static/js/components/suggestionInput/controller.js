@@ -9,8 +9,8 @@ SuggestionInputController.prototype.initEvents = function() {
 SuggestionInputController.prototype.subscribers = function() {
   var self = this;
 
-  $.Topic(events.sendSuggestion).subscribe(function(excerptId, selectedText, suggestion) {
-    self.sendSuggestion(excerptId, selectedText, suggestion);
+  $.Topic(events.sendSuggestion).subscribe(function(excerptId, startSelection, endSelection, suggestion) {
+    self.sendSuggestion(excerptId, startSelection, endSelection, suggestion);
   });
 };
 

@@ -70,6 +70,7 @@ SuggestionInputView.prototype.showInput = function() {
   var selection = document.getSelection();
   var range = selection.getRangeAt(0);
   var selectedText = selection.toString();
+
   self.selectedExcerpt = $(range.startContainer.parentNode);
   self.selectionRange = range;
 
@@ -108,11 +109,13 @@ SuggestionInputView.prototype.sendSuggestion = function() {
     self.showInputError('Muito grande');
   } else {
     var excerptId = self.selectedExcerpt.data('id');
+    var startIndex = self.selectedExcerpt.text().indexOf(self.selectionRange.toString());
+    var endIndex = startIndex + self.selectionRange.toString().length;
 
     $.Topic(events.sendSuggestion).publish(
       excerptId,
-      self.selectionRange.startOffset,
-      self.selectionRange.endOffset,
+      startIndex,
+      endIndex,
       suggestion
     );
   }

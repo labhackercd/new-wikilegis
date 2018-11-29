@@ -51,6 +51,7 @@ class Suggestion(TimestampedMixin):
     class Meta:
         verbose_name = _('suggestion')
         verbose_name_plural = _('suggestions')
+        ordering = ('start_index', )
 
     def __str__(self):
         return '%s <%s>' % (self.content,

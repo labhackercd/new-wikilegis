@@ -12,8 +12,8 @@ from datetime import date
 def send_suggestion(request):
     excerpt_id = request.POST.get('excerptId')
     content = request.POST.get('suggestion')
-    start_index = request.POST.get('startSelection')
-    end_index = request.POST.get('endSelection')
+    start_index = int(request.POST.get('startSelection'))
+    end_index = int(request.POST.get('endSelection'))
     excerpt = get_object_or_404(Excerpt, pk=excerpt_id)
 
     closed_groups = excerpt.document.invited_groups.filter(

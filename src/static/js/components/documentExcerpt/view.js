@@ -5,6 +5,8 @@ var DocumentExcerptView = function() {};
 DocumentExcerptView.prototype.initEvents = function() {
   this.publishers();
   this.subscribers();
+  this.selectedHTML = undefined;
+  this.lastExcerpt = undefined;
 };
 
 DocumentExcerptView.prototype.publishers = function() {
@@ -39,7 +41,6 @@ DocumentExcerptView.prototype.subscribers = function() {
   });
 
   $.Topic(events.suggestionCreated).subscribe(function(excerptId, html) {
-    console.log('olar');
     self.updateHTML(excerptId, html);
   });
 };
