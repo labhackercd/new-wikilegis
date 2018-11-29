@@ -1,3 +1,6 @@
+/*global jQuery */
+/* exported getCookie */
+
 function getCookie(name) {
   var cookieValue = null;
   if (document.cookie && document.cookie !== '') {

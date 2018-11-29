@@ -24,13 +24,13 @@ SuggestionInputController.prototype.sendSuggestion = function(excerptId, startSe
       endSelection: endSelection,
       suggestion: suggestion
     }
-  })
+  });
 
   request.done(function(data) {
     $.Topic(events.suggestionCreated).publish(data.id, data.html);
-  })
+  });
 
   request.fail(function(jqXHR) {
     $.Topic(events.showSuggestionInputError).publish(jqXHR.responseJSON.error);
-  })
+  });
 };
