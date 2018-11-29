@@ -16,7 +16,7 @@ class DocumentListView(ListView):
         context = super().get_context_data(**kwargs)
         queryset = object_list if object_list is not None else self.object_list
         public_doc_ids = InvitedGroup.objects.filter(
-            is_open=True).values_list('document', flat=True)
+            public_participation=True).values_list('document', flat=True)
         context['public_docs'] = queryset.filter(id__in=public_doc_ids)
         if self.request.user.is_authenticated:
             user = self.request.user
