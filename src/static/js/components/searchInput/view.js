@@ -1,4 +1,4 @@
-/*global $ */
+/*global $ List*/
 
 var SearchInputView = function() {};
 
