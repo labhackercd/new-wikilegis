@@ -2,7 +2,6 @@ from django.utils.translation import ugettext_lazy as _
 from django import template
 from datetime import date
 from collections import OrderedDict
-from django.template.defaultfilters import slugify
 import string
 from apps.projects.models import Excerpt
 
