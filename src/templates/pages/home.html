@@ -21,11 +21,10 @@
       <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
       <p>Nessa interação, ganha a sociedade, que participa mais ativamente do processo legislativo, e ganha o Parlamento, que aprova leis mais aprimoradas e conectadas às necessidades dos cidadãos.</p>
     </div>
-    <div class="projects-list">
+    <div class="projects-list" id="js-projects-list">
       <input class="search js-search" type="text" placeholder="Buscar">
-      {% if pending_invites and request.user.is_authenticated %}
       <div class="list">
-        <h2>Convites</h2>
+      {% if pending_invites and request.user.is_authenticated %}
         {% for invite in pending_invites %}
         {% document_is_open invite.group.document 'private' request.user as document_is_open %}
         <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
@@ -34,8 +33,8 @@
           {% else %}  
             <span class="status">Encerrado em {% document_closing_date invite.group.document 'private' request.user %}</span>
           {% endif %}
-          <h3>{{ invite.group.document.title }}</h3>
-          <p>{{ invite.group.document.description }}</p>
+          <h3 class="js-title">{{ invite.group.document.title }}</h3>
+          <p class="js-description">{{ invite.group.document.description }}</p>
           <div class="info">
             <div class="themes">
               {% for theme in invite.group.document.themes.all %} 
@@ -66,11 +65,8 @@
           </div>
         </div>
         {% endfor %}
-      </div>
       {% endif %}
       {% if private_docs and request.user.is_authenticated %}
-      <div class="list">
-        <h2>Projetos Fechados</h2>
         {% for private_document in private_docs %}
         {% document_is_open private_document 'private' request.user as document_is_open %}
         <a href="{% url 'project' private_document.id private_document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
@@ -79,8 +75,8 @@
           {% else %}  
             <span class="status">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
           {% endif %}
-          <h3>{{ private_document.title }}</h3>
-          <p>{{ private_document.description }}</p>
+          <h3 class="js-title">{{ private_document.title }}</h3>
+          <p class="js-description">{{ private_document.description }}</p>
           <div class="info">
             <div class="themes">
               {% for theme in private_document.themes.all %} 
@@ -101,11 +97,8 @@
           </div>
         </a>
         {% endfor %}
-      </div>
       {% endif %}
       {% if public_docs %}
-      <div class="list">
-        <h2>Participação Popular</h2>
         {% for document in public_docs %}
         {% document_is_open document as document_is_open %}
         <a href="{% url 'project' document.id document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
@@ -114,8 +107,8 @@
           {% else %}  
             <span class="status">Encerrado em {% document_closing_date document %}</span>
           {% endif %}
-          <h3>{{ document.title }}</h3>
-          <p>{{ document.description }}</p>
+          <h3 class="js-title">{{ document.title }}</h3>
+          <p class="js-description">{{ document.description }}</p>
           <div class="info">
             <div class="themes">
               {% for theme in document.themes.all %} 
@@ -145,12 +138,13 @@
 {% endblock content %}
 
 {% block page_js %}
+  <script src="{% static 'list.js/dist/list.min.js' %}"></script>
   <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
   <script src="{% static 'js/components/documentBody/view.js' %}"></script>
   <script src="{% static 'js/components/navBurger/view.js' %}"></script>
   <script src="{% static 'js/components/navBar/view.js' %}"></script>
   <script src="{% static 'js/components/searchInput/view.js' %}"></script>
-    <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
+  <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
   <script src="{% static 'js/components/body/view.js' %}"></script>
   <script src="{% static 'js/pages/home.js' %}"></script>
 {% endblock page_js %}
