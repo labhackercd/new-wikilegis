@@ -106,20 +106,20 @@ def excerpt_numbering(excerpt):
         elif type_name == 'alinea':
             return "%s) " % int_to_letter(excerpt.number)
         elif type_name == 'titulo':
-            return "%s" % int_to_roman(excerpt.number)
+            return "Título %s" % int_to_roman(excerpt.number)
         elif type_name == 'livro':
-            return "%s" % int_to_roman(excerpt.number)
+            return "Livro %s" % int_to_roman(excerpt.number)
         elif type_name == 'capitulo':
-            return "%s" % int_to_roman(excerpt.number)
+            return "Capítulo %s" % int_to_roman(excerpt.number)
         elif type_name == 'secao':
-            return "%s" % int_to_roman(excerpt.number)
+            return "Seção %s" % int_to_roman(excerpt.number)
         elif type_name == 'subsecao':
-            return "%s" % int_to_roman(excerpt.number)
+            return "Subseção %s" % int_to_roman(excerpt.number)
         elif type_name == 'item':
             return "%s." % excerpt.number
         elif type_name == 'citacao':
             return ''
         else:
-            return "%s %s" % (excerpt.number, excerpt.excerpt_type.name)
+            return "%s %s" % (excerpt.excerpt_type.name, excerpt.number)
     else:
         return ''
