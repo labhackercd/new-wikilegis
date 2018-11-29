@@ -28,16 +28,19 @@
         {% for invite in pending_invites %}
         {% document_is_open invite.group.document 'private' request.user as document_is_open %}
         <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          <div class="header">
           {% if document_is_open %}
-            <span class="status">Aberto até {% document_closing_date invite.group.document 'private' request.user %}</span>
-          {% else %}  
+            <span class="date">Aberto até {% document_closing_date invite.group.document 'private' request.user %}</span>
+            <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+          {% else %}
             <span class="status">Encerrado em {% document_closing_date invite.group.document 'private' request.user %}</span>
           {% endif %}
+          </div>
           <h3 class="js-title">{{ invite.group.document.title }}</h3>
           <p class="js-description">{{ invite.group.document.description }}</p>
           <div class="info">
             <div class="themes">
-              {% for theme in invite.group.document.themes.all %} 
+              {% for theme in invite.group.document.themes.all %}
               <div class="theme">
                 {% if theme.icon %}
                 <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
@@ -70,16 +73,20 @@
         {% for private_document in private_docs %}
         {% document_is_open private_document 'private' request.user as document_is_open %}
         <a href="{% url 'project' private_document.id private_document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          <div class="header">
           {% if document_is_open %}
-            <span class="status">Aberto até {% document_closing_date private_document 'private' request.user %}</span>
-          {% else %}  
-            <span class="status">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
+            <span class="date">Aberto até {% document_closing_date private_document 'private' request.user %}</span>
+            <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+          {% else %}
+            <span class="date">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
+            <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
           {% endif %}
+          </div>
           <h3 class="js-title">{{ private_document.title }}</h3>
           <p class="js-description">{{ private_document.description }}</p>
           <div class="info">
             <div class="themes">
-              {% for theme in private_document.themes.all %} 
+              {% for theme in private_document.themes.all %}
               <div class="theme">
                 {% if theme.icon %}
                 <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
@@ -102,16 +109,18 @@
         {% for document in public_docs %}
         {% document_is_open document as document_is_open %}
         <a href="{% url 'project' document.id document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+          <div class="header">
           {% if document_is_open %}
-            <span class="status">Aberto até {% document_closing_date document %}</span>
-          {% else %}  
-            <span class="status">Encerrado em {% document_closing_date document %}</span>
+            <span class="date">Aberto até {% document_closing_date document %}</span>
+          {% else %}
+            <span class="date">Encerrado em {% document_closing_date document %}</span>
           {% endif %}
+          </div>
           <h3 class="js-title">{{ document.title }}</h3>
           <p class="js-description">{{ document.description }}</p>
           <div class="info">
             <div class="themes">
-              {% for theme in document.themes.all %} 
+              {% for theme in document.themes.all %}
               <div class="theme">
                 {% if theme.icon %}
                 <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
