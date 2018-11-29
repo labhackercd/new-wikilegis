@@ -12,7 +12,7 @@ class InvitedGroupAdmin(admin.ModelAdmin):
         'document',
         'thematic_group',
         'closing_date',
-        'is_open',
+        'public_participation',
     )
     list_filter = (
         'created',
@@ -20,7 +20,7 @@ class InvitedGroupAdmin(admin.ModelAdmin):
         'document',
         'thematic_group',
         'closing_date',
-        'is_open',
+        'public_participation',
     )
 
 
@@ -32,8 +32,7 @@ class SuggestionAdmin(admin.ModelAdmin):
         'modified',
         'invited_group',
         'excerpt',
-        'start_index',
-        'end_index',
+        'selected_text',
         'content',
         'author',
     )

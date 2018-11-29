@@ -17,6 +17,14 @@ var events = {
   // Triggered when user tries to select the text starting outside of the document
   outsideDocumentMouseUp: 'outsideDocumentMouseUp',
 
+  // Trigger when user tries to send a suggestion but the server return an error
+  // Params: message
+  showSuggestionInputError: 'showSuggestionInputError',
+
+  // Trigger when the server creates a suggestion successfully
+  // Params: excerptId, html (excerpt)
+  suggestionCreated: 'suggestionCreated',
+
   // Triggered when user send suggestion
   // Params: excerptId, selectedText, suggestion
   sendSuggestion: 'sendSuggestion',

@@ -16,7 +16,8 @@ class InvitedGroup(TimestampedMixin):
                                        verbose_name=_('thematic group'),
                                        null=True, blank=True)
     closing_date = models.DateField(_('closing date'))
-    is_open = models.BooleanField(default=False)
+    public_participation = models.BooleanField(_('public participation'),
+                                               default=False)
 
     class Meta:
         verbose_name = _('invited group')
@@ -39,8 +40,9 @@ class Suggestion(TimestampedMixin):
                                 on_delete=models.CASCADE,
                                 related_name='suggestions',
                                 verbose_name=_('excerpt'))
-    start_index = models.PositiveIntegerField(_('start index'))
-    end_index = models.PositiveIntegerField(_('end index'))
+    selected_text = models.TextField(_('selected text'))
+    start_index = models.PositiveIntegerField(_('start index'), default=0)
+    end_index = models.PositiveIntegerField(_('end index'), default=0)
     content = models.TextField(_('content'))
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                related_name='suggestions',
@@ -49,6 +51,7 @@ class Suggestion(TimestampedMixin):
     class Meta:
         verbose_name = _('suggestion')
         verbose_name_plural = _('suggestions')
+        ordering = ('start_index', )
 
     def __str__(self):
         return '%s <%s>' % (self.content,

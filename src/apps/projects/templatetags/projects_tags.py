@@ -6,23 +6,26 @@ register = template.Library()
 
 def get_invited_group(document, permission='public', user=None):
     if permission == 'private':
+        groups = document.invited_groups.filter(public_participation=False)
         group = [
             group
-            for group in document.invited_groups.filter(is_open=False)
+            for group in groups
             if user in group.thematic_group.participants.all()
         ][0]
     else:
-        group = document.invited_groups.filter(is_open=True).first()
+        group = document.invited_groups.filter(
+            public_participation=True
+        ).first()
     return group
 
 
 @register.simple_tag()
 def document_is_open(document, permission='public', user=None):
-    is_open = False
+    public_participation = False
     group = get_invited_group(document, permission, user)
     if group.closing_date >= date.today():
-        is_open = True
-    return is_open
+        public_participation = True
+    return public_participation
 
 
 @register.simple_tag()

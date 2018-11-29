@@ -80,8 +80,8 @@ class ExcerptSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Excerpt
-        fields = ('id', 'document', 'parent', 'order', 'excerpt_type', 'number',
-                  'content', 'suggestions')
+        fields = ('id', 'document', 'parent', 'order', 'excerpt_type',
+                  'number', 'content', 'suggestions')
 
 
 class InvitedGroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -93,7 +93,7 @@ class InvitedGroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = InvitedGroup
         fields = ('id', 'created', 'modified', 'closing_date', 'document',
-                  'is_open')
+                  'public_participation')
 
 
 class SuggestionSerializer(serializers.HyperlinkedModelSerializer):
