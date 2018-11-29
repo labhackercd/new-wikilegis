@@ -2,4 +2,9 @@
   &.-voidselection {
     user-select: none;
   }
+
+  & > h3,
+  & > h4 {
+    text-align: center;
+  }
 }

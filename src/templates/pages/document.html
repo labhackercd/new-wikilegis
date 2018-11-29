@@ -1,10 +1,12 @@
 {% extends "structure/base.html" %}
-{% load staticfiles %}
-
+{% load staticfiles projects_tags %}
+{% block title %}
+  {{ object.title }}
+{% endblock title %}
 {% block content %}
 <div class="nav-bar">
   <div class="nav-burger"></div>
-  <a href="/" class="brand">Wikilegis</a>
+  <a href="{% url 'home' %}" class="brand">Wikilegis</a>
 </div>
 
 <div class="nav-menu">
@@ -15,34 +17,22 @@
 
 <main class="document-body js-documentBody">
   <div class="header">
-    <span class="epigraph">PL 9622/2018</span>
-    <h2>Patrocínio de bancos públicos a clubes de futebol</h2>
-    <p>Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.</p>
+    {% if object.document_type %}
+    <span class="epigraph">{{ object.document_type.initials }} {{ object.number }}/{{ object.year }}</span>
+    {% endif %}
+    <h2>{{ object.title }}</h2>
+    <p>{{ object.description }}</p>
     <hr>
   </div>
 
-  <p><b>Art. 1º - </b><span class="document-excerpt js-documentExcerpt" data-id="14">As campanhas publicitárias <span class="text-highlight">destinadas à venda de produtos de consumo ficam proibidas de exibir, em qualquer veículo de comunicação ou propaganda, imagens ou cenas que façam,</span> direta ou indiretamente, apelo erótico ou alusão à sexualidade e à sensualidade feminina.</span></p>
-
-  <p><b>Art. 2º - </b><span class="document-excerpt js-documentExcerpt" data-id="15">As peças publicitárias ficam proibidas de apresentar, de forma evidente ou subliminar, linguagem verbal de conotação erótica ou sexual, ou expressões que evidenciem a exploração, a violência ou a discriminação contra a mulher.</span></p>
-
-  <p><b>Art. 3º - </b><span class="document-excerpt js-documentExcerpt" data-id="16">Aplicam-se ao infrator desta lei, sem prejuízo de outras sanções penais cabíveis na legislação vigente, as seguintes penalidades:</span></p>
-
-  <p><b>I - </b><span class="document-excerpt js-documentExcerpt" data-id="17">advertência; </span></p>
-
-  <p><b>II - </b><span class="document-excerpt js-documentExcerpt" data-id="18">suspensão, no veículo de divulgação da publicidade, de qualquer outra propaganda do produto, por prazo de até trinta dias;</span></p>
-
-  <p><b>III - </b><span class="document-excerpt js-documentExcerpt" data-id="19">obrigatoriedade de veiculação de retificação ou esclarecimento para compensar propaganda distorcida ou de má-fé;</span></p>
-
-  <p><b>IV - </b><span class="document-excerpt js-documentExcerpt" data-id="20">apreensão do produto;</span></p>
-
-  <p><b>V - </b><span class="document-excerpt js-documentExcerpt" data-id="21">multa, de R$ 20.000,00 (vinte mil reais) a R$ 200.000,00 (duzentos mil reais), aplicada conforme a capacidade econômica do infrator;</span></p>
-
-  <p><b>VI - </b><span class="document-excerpt js-documentExcerpt" data-id="22">suspensão da programação da emissora de rádio e televisão, pelo tempo de dez minutos, por cada minuto ou fração de duração da propaganda transmitida em desacordo com esta Lei, observando-se o mesmo horário.</span></p>
-
-  <p><b>Parágrafo único - </b><span class="document-excerpt js-documentExcerpt" data-id="23">As sanções previstas neste artigo serão aplicadas pela autoridade competente, no âmbito de sua atribuição, podendo ser cumulativas.</span></p>
-
-  <p><b>Art. 4º - </b><span class="document-excerpt js-documentExcerpt" data-id="24">Esta Lei entra em vigor na data de sua publicação</span></p>
-
+  {% for excerpt in object.excerpts.all %}
+    {% if excerpt.excerpt_type.align_center %}
+    <h3>{% excerpt_numbering excerpt %}</h3>
+    <h4>{{ excerpt.content|safe }}</h4>
+    {% else %}  
+    <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt %}</p>
+    {% endif %}
+  {% endfor %}
 
 </main>
 

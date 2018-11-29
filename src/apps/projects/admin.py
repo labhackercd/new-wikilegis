@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Theme, DocumentType, Document, Excerpt
+from .models import Theme, DocumentType, Document, Excerpt, ExcerptType
 
 
 @admin.register(Theme)
@@ -32,6 +32,14 @@ class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('created', 'modified', 'owner', 'document_type')
     search_fields = ('slug',)
     prepopulated_fields = {'slug': ['title']}
+
+
+@admin.register(ExcerptType)
+class ExcerptTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'slug', 'align_center')
+    list_filter = ('align_center',)
+    search_fields = ('name', 'slug')
+    prepopulated_fields = {'slug': ['name']}
 
 
 @admin.register(Excerpt)

@@ -72,14 +72,15 @@ h2 {
 
 h3 {
   * + & {
-    margin-top: $space-base;
+    margin-top: $space-centi;
   }
 }
 
 p,
 h1,
 h2,
-h3 {
+h3,
+h4 {
   color: $color-deep-gray;
 }
 

@@ -38,7 +38,6 @@ def highlight_suggestions(excerpt):
             for i in range(len(indexes) - 1):
                 start = indexes[i]
                 end = indexes[i + 1]
-                print(start, end)
                 ids = list(intersections.filter(
                     start_index__lte=start,
                     end_index__gte=end

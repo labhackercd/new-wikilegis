@@ -42,20 +42,6 @@ PROFILE_TYPE_CHOICES = (
     ('defult', _('Default')),
 )
 
-EXCERPT_TYPE_CHOICES = (
-    ('book', _('Book')),
-    ('chapter', _('Chapter')),
-    ('title', _('Title')),
-    ('section', _('Section')),
-    ('subsection', _('Subsection')),
-    ('article', _('Article')),
-    ('paragraph', _('Paragraph')),
-    ('item', _('Item')),
-    ('line', _('Line')),
-    ('point', _('Point')),
-    ('quote', _('Quote')),
-)
-
 OPINION_VOTE_CHOICES = (
     ('approve', _('Approve')),
     ('reject', _('Reject')),
