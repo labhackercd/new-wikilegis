@@ -54,9 +54,9 @@ def highlight_suggestions(excerpt):
     closing_indexes = sorted(closing_indexes)
     for index, ids in opening_indexes.items():
         index += length_diff
-        span = '<span class="text-highlight" data-suggestion-ids="{}">'.format(
-            ','.join([str(x) for x in ids])
-        )
+        span = ('<span class="text-highlight js-highlight" '
+                'data-suggestion-ids="{}">'.format(
+                    ','.join([str(x) for x in ids])))
         close_span = '</span>'
         close_index = closing_indexes.pop(0) + length_diff
         html = '{prev}{open_span}{content}{close_span}{after}'.format(
