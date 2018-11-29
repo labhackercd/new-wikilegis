@@ -70,8 +70,12 @@ SuggestionInputView.prototype.showInput = function() {
   var selection = document.getSelection();
   var range = selection.getRangeAt(0);
   var selectedText = selection.toString();
-
-  self.selectedExcerpt = $(range.startContainer.parentNode);
+  var parentNode =  $(range.startContainer.parentNode);
+  if (parentNode.hasClass('js-documentExcerpt')) {
+    self.selectedExcerpt = parentNode;
+  } else {
+    self.selectedExcerpt = parentNode.closest('.js-documentExcerpt');
+  }
   self.selectionRange = range;
 
   self.selectedTextElement.text(selectedText);
