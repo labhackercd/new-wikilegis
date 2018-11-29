@@ -8,30 +8,52 @@
   @include card-shadow;
 
   &.-inactive {
-    & > .status {
+    & > .header > .date {
       color: $color-red;
     }
 
     & > h3,
-    & > p {
+    & > p,
+    & > .header > .status {
       color: $color-gray;
     }
 
-    & > .info {
+    & > .info,
+    & > .header > .status > img {
       opacity: .6;
     }
   }
 
-  & > .status {
+  & > .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & > .header > span {
     font-size: .75rem;
     font-weight: 500;
+  }
 
+  & > .header > .date {
     color: $color-brand;
+  }
+
+  & > .header > .status {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    color: $color-deep-gray;
+  }
+
+  & > .header > .status > img {
+    margin-right: .35rem;
   }
 
   & > h3 {
     font-size: 1.2rem;
     line-height: 1.6;
+
     margin-top: 1rem;
   }
 
