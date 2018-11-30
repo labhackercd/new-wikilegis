@@ -29,7 +29,7 @@
     {% if excerpt.excerpt_type.align_center %}
     <h3>{% excerpt_numbering excerpt %}</h3>
     <h4>{{ excerpt.content|safe }}</h4>
-    {% else %}  
+    {% else %}
     <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt %}</p>
     {% endif %}
   {% endfor %}
@@ -38,14 +38,13 @@
 
 <div class="suggestion-input js-suggestionInput">
   <div class="close js-close"><img class="icon" src="{% static 'img/close.svg' %}"></div>
-  <span class="info">
-    Você destacou o trecho:
-  </span>
+  <h4>Você destacou o trecho:</h4>
   <div class="text">
     <p class="js-selectedText"></p>
   </div>
-  <span class="info">
-    <img class="icon" src="{% static 'img/atention.svg' %}">Digite sua opinião sobre ele:
+  <span class="info-text">
+    <img src="{% static 'img/atention.svg' %}">
+    <h4>Digite sua opinião sobre ele:</h4>
   </span>
   <div class="input">
     <input class="js-input" type="text" name="">
@@ -65,7 +64,7 @@
   <script src="{% static 'js/components/suggestionInput/controller.js' %}"></script>
   <script src="{% static 'js/components/navBurger/view.js' %}"></script>
   <script src="{% static 'js/components/navBar/view.js' %}"></script>
-  <script src="{% static 'js/components/searchInput/view.js' %}"></script>
   <script src="{% static 'js/components/body/view.js' %}"></script>
+  <script src="{% static 'js/components/opinionModal/view.js' %}"></script>
   <script src="{% static 'js/pages/document.js' %}"></script>
 {% endblock page_js %}

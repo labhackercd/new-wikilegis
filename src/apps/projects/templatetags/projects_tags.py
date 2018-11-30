@@ -122,3 +122,10 @@ def excerpt_numbering(excerpt):
             return "%s %s" % (excerpt.excerpt_type.name, excerpt.number)
     else:
         return ''
+
+
+@register.filter()
+def startswith(text, starts):
+    if isinstance(text, str):
+        return text.startswith(starts)
+    return False

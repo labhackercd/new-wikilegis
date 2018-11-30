@@ -8,7 +8,12 @@
   width: 5rem;
   padding: .2rem;
 
+  transition: all .15s ease-out;
   text-transform: uppercase;
+
+  &:hover {
+    @extend .solid-button;
+  }
 
   &.-green {
     color: $color-brand;

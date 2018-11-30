@@ -58,8 +58,9 @@
           </div>
           <hr/>
           <div class="voting-action">
-            <span class="info">
-              <img class="icon" src="{% static 'img/information.svg' %}">Você foi convidado para participar nesta proposição
+            <span class="info-text">
+              <img src="{% static 'img/information.svg' %}">
+              <h4>Você foi convidado para participar nesta proposição</h4>
             </span>
             <div class="actions">
               <a href="{% url 'invitation' invite.pk 'accepted' %}" class="outline-button -green">Aceitar</a>
