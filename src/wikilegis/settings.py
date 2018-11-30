@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.accounts.middlewares.WikilegisRemoteUser',
 ]
 
 ROOT_URLCONF = 'wikilegis.urls'
@@ -215,3 +216,13 @@ REST_FRAMEWORK = {
                                 'PageNumberPagination',
     'PAGE_SIZE': 20
 }
+
+
+if config('ENABLE_REMOTE_USER', default=0, cast=bool):
+    AUTHENTICATION_BACKENDS = (
+        'apps.accounts.backends.WikilegisAuthBackend',
+    )
+else:
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
