@@ -16,6 +16,7 @@ pipenv run src/manage.py collectstatic_js_reverse
 
 ```
 pipenv run src/manage.py migrate
+pipenv run src/manage.py compilemessages
 pipenv run src/manage.py runserver
 ```
 
