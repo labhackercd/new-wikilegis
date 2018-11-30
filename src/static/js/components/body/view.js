@@ -59,6 +59,14 @@ BodyView.prototype.subscribers = function() {
   $.Topic(events.closeMenu).subscribe(function() {
     self.closeMenu();
   });
+
+  $.Topic(events.openOpinionModal).subscribe(function() {
+    self.disableScroll();
+  });
+
+  $.Topic(events.closeOpinionModal).subscribe(function() {
+    self.enableScroll();
+  });
 };
 
 
@@ -76,4 +84,12 @@ BodyView.prototype.openMenu = function() {
 
 BodyView.prototype.closeMenu = function() {
   $('body').removeClass('-open-menu');
+};
+
+BodyView.prototype.disableScroll = function() {
+  $('body').addClass('-no-scroll');
+};
+
+BodyView.prototype.enableScroll = function() {
+  $('body').removeClass('-no-scroll');
 };

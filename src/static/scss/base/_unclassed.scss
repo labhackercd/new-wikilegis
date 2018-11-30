@@ -39,6 +39,10 @@ body {
   &.-white {
     background-color: #FFF;
   }
+
+  &.-no-scroll {
+    overflow: hidden;
+  }
 }
 
 main {

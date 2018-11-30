@@ -34,4 +34,10 @@ var events = {
 
   // Triggered when user closes menu
   closeMenu: 'closeMenu',
+
+  // Triggered when user open document page or when user select an excerpt
+  openOpinionModal: 'openOpinionModal',
+
+  // Triggered when user click on close modal
+  closeOpinionModal: 'closeOpinionModal',
 };

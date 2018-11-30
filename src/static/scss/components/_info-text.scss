@@ -1,0 +1,14 @@
+.info-text {
+  display: flex;
+  align-items: center;
+
+  margin-top: 2rem;
+
+  & > img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: .5rem;
+
+    border-radius: 50%;
+  }
+}
