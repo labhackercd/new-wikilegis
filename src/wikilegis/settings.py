@@ -127,21 +127,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = config('LANGUAGE_CODE', default='pt-br')
-TIME_ZONE = config('TIME_ZONE', default='America/Sao_Paulo')
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
-]
-
 LANGUAGES = (
     ('en', 'English'),
     ('pt-br', 'Brazilian Portuguese'),
 )
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+LANGUAGE_CODE = config('LANGUAGE_CODE', default='pt-br')
+
+TIME_ZONE = config('TIME_ZONE', default='America/Sao_Paulo')
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

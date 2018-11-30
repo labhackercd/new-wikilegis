@@ -1,0 +1,343 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-30 11:15-0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/apps/accounts/admin.py:30 src/apps/accounts/models.py:26
+msgid "profile"
+msgstr "perfil"
+
+#: src/apps/accounts/apps.py:7
+msgid "Accounts"
+msgstr "Contas"
+
+#: src/apps/accounts/models.py:9
+msgid "user"
+msgstr "usuário"
+
+#: src/apps/accounts/models.py:11 src/apps/projects/models.py:15
+#: src/apps/projects/models.py:47
+msgid "themes"
+msgstr "temas"
+
+#: src/apps/accounts/models.py:12
+msgid "profile type"
+msgstr "tipo de perfil"
+
+#: src/apps/accounts/models.py:15
+msgid "gender"
+msgstr "gênero"
+
+#: src/apps/accounts/models.py:17
+msgid "uf"
+msgstr "uf"
+
+#: src/apps/accounts/models.py:19
+msgid "country"
+msgstr "país"
+
+#: src/apps/accounts/models.py:21
+msgid "birthdate"
+msgstr "data de nascimento"
+
+#: src/apps/accounts/models.py:22
+msgid "avatar"
+msgstr "avatar"
+
+#: src/apps/accounts/models.py:27
+msgid "profiles"
+msgstr "perfis"
+
+#: src/apps/accounts/models.py:34 src/apps/projects/models.py:8
+msgid "name"
+msgstr "nome"
+
+#: src/apps/accounts/models.py:37 src/apps/participations/models.py:67
+#: src/apps/projects/models.py:40
+msgid "owner"
+msgstr "responsável"
+
+#: src/apps/accounts/models.py:40
+msgid "participants"
+msgstr "participantes"
+
+#: src/apps/accounts/models.py:43 src/apps/participations/models.py:15
+msgid "thematic group"
+msgstr "grupo temático"
+
+#: src/apps/accounts/models.py:44
+msgid "thematic groups"
+msgstr "grupos temáticos"
+
+#: src/apps/notifications/apps.py:7
+msgid "Notifications"
+msgstr "Notificações"
+
+#: src/apps/notifications/emails.py:11
+msgid "[Wikilegis] Edit group invitation"
+msgstr "[Wikilegis] Convite de edição de projeto"
+
+#: src/apps/notifications/emails.py:21
+msgid "[Wikilegis] Document owner invitation"
+msgstr "[Wikilegis] Convite para consultor"
+
+#: src/apps/notifications/models.py:13
+msgid "group"
+msgstr "grupo"
+
+#: src/apps/notifications/models.py:14
+msgid "accepted"
+msgstr "aceito"
+
+#: src/apps/notifications/models.py:15
+msgid "answered"
+msgstr "respondido"
+
+#: src/apps/notifications/models.py:19
+msgid "participant invitation"
+msgstr "convite do participante"
+
+#: src/apps/notifications/models.py:20
+msgid "participant invitations"
+msgstr "convites dos participantes"
+
+#: src/apps/notifications/models.py:30
+msgid "owner invitation"
+msgstr "convite do responsável"
+
+#: src/apps/notifications/models.py:31
+msgid "owner invitations"
+msgstr "convites dos responsáveis"
+
+#: src/apps/participations/apps.py:7
+msgid "Participations"
+msgstr "Participações"
+
+#: src/apps/participations/models.py:11 src/apps/projects/models.py:52
+#: src/apps/projects/models.py:82
+msgid "document"
+msgstr "documento"
+
+#: src/apps/participations/models.py:17
+msgid "closing date"
+msgstr "data de encerramento"
+
+#: src/apps/participations/models.py:18 src/apps/participations/models.py:30
+msgid "public participation"
+msgstr "participação pública"
+
+#: src/apps/participations/models.py:22 src/apps/participations/models.py:37
+#: src/apps/participations/models.py:85
+msgid "invited group"
+msgstr "grupo convidado"
+
+#: src/apps/participations/models.py:23
+msgid "invited groups"
+msgstr "grupos de convidados"
+
+#: src/apps/participations/models.py:41 src/apps/participations/models.py:89
+#: src/apps/projects/models.py:96
+msgid "excerpt"
+msgstr "trecho"
+
+#: src/apps/participations/models.py:42
+msgid "selected text"
+msgstr "texto selecionado"
+
+#: src/apps/participations/models.py:43
+msgid "start index"
+msgstr "índice inicial"
+
+#: src/apps/participations/models.py:44
+msgid "end index"
+msgstr "índice final"
+
+#: src/apps/participations/models.py:45 src/apps/participations/models.py:90
+#: src/apps/projects/models.py:93
+msgid "content"
+msgstr "conteúdo"
+
+#: src/apps/participations/models.py:48 src/apps/participations/models.py:100
+msgid "author"
+msgstr "autor"
+
+#: src/apps/participations/models.py:51 src/apps/participations/models.py:64
+msgid "suggestion"
+msgstr "sugestão"
+
+#: src/apps/participations/models.py:52
+msgid "suggestions"
+msgstr "sugestões"
+
+#: src/apps/participations/models.py:68
+msgid "opinion type"
+msgstr "tipo de opinião"
+
+#: src/apps/participations/models.py:73
+msgid "opinion vote"
+msgstr "voto opinião"
+
+#: src/apps/participations/models.py:74
+msgid "opinion votes"
+msgstr "votos opiniões"
+
+#: src/apps/participations/models.py:91
+msgid "amendment type"
+msgstr "tipo de emenda"
+
+#: src/apps/participations/models.py:94 src/apps/projects/models.py:64
+#: src/apps/projects/models.py:69 src/apps/projects/models.py:89
+msgid "excerpt type"
+msgstr "tipo de trecho"
+
+#: src/apps/participations/models.py:97 src/apps/projects/models.py:48
+#: src/apps/projects/models.py:92
+msgid "number"
+msgstr "número"
+
+#: src/apps/participations/models.py:103
+msgid "amendment"
+msgstr "emenda"
+
+#: src/apps/participations/models.py:104
+msgid "amendments"
+msgstr "emendas"
+
+#: src/apps/participations/views.py:58
+msgid "Project closed for participation"
+msgstr "Projeto fechado para participação"
+
+#: src/apps/projects/apps.py:7
+msgid "Projects"
+msgstr "Projetos"
+
+#: src/apps/projects/models.py:10
+msgid "icon"
+msgstr "ícone"
+
+#: src/apps/projects/models.py:14
+msgid "theme"
+msgstr "tema"
+
+#: src/apps/projects/models.py:26 src/apps/projects/models.py:41
+msgid "title"
+msgstr "título"
+
+#: src/apps/projects/models.py:27
+msgid "initials"
+msgstr "sigla"
+
+#: src/apps/projects/models.py:30 src/apps/projects/models.py:46
+msgid "document type"
+msgstr "tipo de documento"
+
+#: src/apps/projects/models.py:31
+msgid "document types"
+msgstr "tipos de documentos"
+
+#: src/apps/projects/models.py:43
+msgid "description"
+msgstr "descrição"
+
+#: src/apps/projects/models.py:49
+msgid "year"
+msgstr "ano"
+
+#: src/apps/projects/models.py:53
+msgid "documents"
+msgstr "documentos"
+
+#: src/apps/projects/models.py:66
+msgid "align center"
+msgstr "alinhar ao centro"
+
+#: src/apps/projects/models.py:70
+msgid "excerpt types"
+msgstr "tipos de trechos"
+
+#: src/apps/projects/models.py:85
+msgid "parent"
+msgstr "trecho ancestral"
+
+#: src/apps/projects/models.py:87
+msgid "order"
+msgstr "órdem"
+
+#: src/apps/projects/models.py:97
+msgid "excerpts"
+msgstr "trechos"
+
+#: src/apps/projects/templatetags/projects_tags.py:98
+msgid "Sole paragraph"
+msgstr "Parágrafo único"
+
+#: src/utils/choices.py:4
+msgid "Male"
+msgstr "Masculino"
+
+#: src/utils/choices.py:5
+msgid "Female"
+msgstr "Feminino"
+
+#: src/utils/choices.py:6
+msgid "Other"
+msgstr "Outro"
+
+#: src/utils/choices.py:7
+msgid "Undisclosed"
+msgstr "Prefiro não informar"
+
+#: src/utils/choices.py:41
+msgid "Document Owner"
+msgstr "Responsável pelo documento"
+
+#: src/utils/choices.py:42
+msgid "Default"
+msgstr "Padrão"
+
+#: src/utils/choices.py:46
+msgid "Approve"
+msgstr "Aprovar"
+
+#: src/utils/choices.py:47
+msgid "Reject"
+msgstr "Rejeitar"
+
+#: src/utils/choices.py:48
+msgid "Neutral"
+msgstr "Neutro"
+
+#: src/utils/choices.py:52
+msgid "Additive"
+msgstr "Adição"
+
+#: src/utils/choices.py:53
+msgid "Modifier"
+msgstr "Edição"
+
+#: src/utils/choices.py:54
+msgid "Supress"
+msgstr "Exclusão"
+
+#: src/utils/model_mixins.py:6
+msgid "created"
+msgstr "criado"
+
+#: src/utils/model_mixins.py:8
+msgid "modified"
+msgstr "modificado"
