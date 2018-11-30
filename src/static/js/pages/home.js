@@ -1,4 +1,4 @@
-/*global BodyView NavBurgerView NavBarView SearchInputView GenericModalView */
+/*global BodyView NavBurgerView NavBarView SearchInputView */
 
 var bodyView = new BodyView();
 bodyView.initEvents();
