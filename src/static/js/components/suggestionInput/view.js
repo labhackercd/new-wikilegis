@@ -8,7 +8,8 @@ SuggestionInputView.prototype.initEvents = function() {
   this.inputElement = $('.js-suggestionInput .js-input');
   this.inputErrorElement = $('.js-suggestionInput .js-inputError');
   this.selectedExcerpt = undefined;
-  this.selectionRange = undefined;
+  this.startIndex = undefined;
+  this.endIndex = undefined;
   this.charMaxLimit = 100;
   this.subscribers();
   this.publishers();
@@ -62,23 +63,26 @@ SuggestionInputView.prototype.cleanSuggestionInput = function() {
   self.inputElement.val('');
   self.hideInputError();
   self.selectedExcerpt = undefined;
-  self.selectionRange = undefined;
+  self.startIndex = undefined;
+  self.endIndex = undefined;
 };
 
 SuggestionInputView.prototype.showInput = function() {
   var self = this;
   var selection = document.getSelection();
   var range = selection.getRangeAt(0);
-  var selectedText = selection.toString();
-  var parentNode =  $(range.startContainer.parentNode);
-  if (parentNode.hasClass('js-documentExcerpt')) {
-    self.selectedExcerpt = parentNode;
-  } else {
-    self.selectedExcerpt = parentNode.closest('.js-documentExcerpt');
-  }
-  self.selectionRange = range;
+  self.selectedExcerpt = $(range.startContainer.parentNode).closest('.js-documentExcerpt');
 
-  self.selectedTextElement.text(selectedText);
+  if (self.selectedExcerpt.children().length > 0) {
+    var fromIndex = self.selectedExcerpt.text().indexOf(range.startContainer.wholeText);
+    self.startIndex = self.selectedExcerpt.text().indexOf(selection.toString(), fromIndex);
+    self.endIndex = self.startIndex + selection.toString().length;
+  } else {
+    self.startIndex = range.startOffset;
+    self.endIndex = range.endOffset;
+  }
+
+  self.selectedTextElement.text(selection.toString());
   self.suggestionInputElement.addClass('-show');
 };
 
@@ -113,13 +117,11 @@ SuggestionInputView.prototype.sendSuggestion = function() {
     self.showInputError('Muito grande');
   } else {
     var excerptId = self.selectedExcerpt.data('id');
-    var startIndex = self.selectedExcerpt.text().indexOf(self.selectionRange.toString());
-    var endIndex = startIndex + self.selectionRange.toString().length;
 
     $.Topic(events.sendSuggestion).publish(
       excerptId,
-      startIndex,
-      endIndex,
+      self.startIndex,
+      self.endIndex,
       suggestion
     );
   }
