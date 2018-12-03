@@ -36,6 +36,7 @@ var events = {
   closeMenu: 'closeMenu',
 
   // Triggered when user open document page or when user select an excerpt
+  // Params: excerptId
   openOpinionModal: 'openOpinionModal',
 
   // Triggered when user click on close modal
