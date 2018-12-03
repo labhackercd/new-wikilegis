@@ -28,6 +28,10 @@
 body {
   background-color: $color-whitesmoke;
 
+  @include bp-mediumup {
+    overflow: hidden;
+  }
+
   &.-open-menu {
     overflow: hidden;
   }
@@ -46,8 +50,6 @@ body {
 }
 
 main {
-  width: 66ch;
-  max-width: 90%;
   margin-top: 2.75rem;
   margin-right: auto;
   margin-left: auto;
@@ -174,7 +176,7 @@ input {
     outline: none;
   }
 
-  &::placeholder{
+  &::placeholder {
     color: $color-grayish;
   }
 }
@@ -185,6 +187,7 @@ b {
 
 p > a {
   text-decoration: underline;
+
   color: $color-brand;
 
   &:hover {

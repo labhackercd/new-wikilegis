@@ -1,3 +1,11 @@
 .home-section {
+  @include bp-mediumup {
+    display: flex;
+  }
 
+  & > * + * {
+    @include bp-mediumup {
+      margin-left: 2rem;
+    }
+  }
 }
