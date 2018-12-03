@@ -6,8 +6,12 @@ register = template.Library()
 
 
 @register.simple_tag
-def highlight_suggestions(excerpt):
-    qs = excerpt.suggestions.all()
+def highlight_suggestions(excerpt, user=None):
+    if user is not None:
+        qs = excerpt.suggestions.filter(author=user)
+    else:
+        qs = excerpt.suggestions.all()
+
     opening_indexes = {}
     closing_indexes = set()
     for suggestion in qs:

@@ -47,7 +47,7 @@ def send_suggestion(request):
         )
         html = render_to_string(
             'components/document-excerpt.html',
-            {'excerpt': excerpt}
+            {'excerpt': excerpt, 'request': request}
         )
         return JsonResponse({
             'id': excerpt.id,
