@@ -4,6 +4,7 @@ from apps.api import api
 
 router = DefaultRouter()
 router.register(r'users', api.UserViewSet)
+router.register(r'users-autocomplete', api.UserAutocompleteViewSet)
 router.register(r'themes', api.ThemeViewSet)
 router.register(r'document-types', api.DocumentTypeViewSet)
 router.register(r'documents', api.DocumentViewSet)

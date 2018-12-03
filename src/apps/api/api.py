@@ -4,6 +4,7 @@ from django_filters import rest_framework as django_filters, FilterSet
 from apps.api import serializers
 from apps.projects.models import Theme, DocumentType, Document, Excerpt
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
+from django.db import models
 
 DATE_LOOKUPS = ['lt', 'lte', 'gt', 'gte']
 
@@ -25,14 +26,49 @@ class UserFilter(FilterSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all().order_by('id')
     serializer_class = serializers.UserSerializer
-    filter_class = UserFilter
     filter_backends = (
         django_filters.DjangoFilterBackend,
         filters.SearchFilter,
     )
-    filter_fields = ('id', 'profile__uf')
+    filter_class = UserFilter
     search_fields = ('username', 'first_name', 'last_name')
     ordering_fields = '__all__'
+
+
+class UserAutocompleteFilter(FilterSet):
+
+    class Meta:
+        model = User
+        fields = ['email', 'first_name']
+        filter_overrides = {
+            models.CharField: {
+                'filter_class': django_filters.CharFilter,
+                'extra': lambda f: {
+                    'lookup_expr': 'istartswith',
+                },
+            },
+            models.EmailField: {
+                'filter_class': django_filters.CharFilter,
+                'extra': lambda f: {
+                    'lookup_expr': 'istartswith',
+                },
+            },
+        }
+
+
+class UserAutocompleteViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserAutocompleteSerializer
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+    )
+    filter_class = UserAutocompleteFilter
+
+    def get_queryset(self):
+        id_list = self.request.GET.getlist("theme")
+        if not id_list:
+            return self.queryset
+        return User.objects.filter(profile__themes__id__in=id_list).distinct()
 
 
 class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
