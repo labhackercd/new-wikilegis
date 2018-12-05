@@ -1,0 +1,34 @@
+{% extends "structure/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Convidar participantes{% endblock title %}
+
+{% block extracss %}
+{% endblock extracss %}
+<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.min.css' %}">
+<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.theme.min.css' %}">
+<style>
+  .ui-autocomplete-loading {
+    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
+{% block content %}
+
+<div class="ui-widget">
+  <label for="name">Usuários: </label>
+  <input id="name" class="js-name">
+</div>
+ 
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+  Resultado:
+  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+
+{% endblock content %}
+
+{% block page_js %}
+<script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/components/autocompleteInput/view.js' %}"></script>
+<script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
+{% endblock page_js %}

@@ -17,6 +17,7 @@ urlpatterns = [
     path('p/', include('apps.projects.urls')),
     path('api/v1/', include(router.urls)),
     path('participation/', include('apps.participations.urls')),
+    path('accounts/', include('apps.accounts.urls')),
 ]
 
 if settings.DEBUG:

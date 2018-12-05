@@ -41,20 +41,6 @@ class UserSerializer(serializers.ModelSerializer):
         return ret
 
 
-class UserAutocompleteSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
-
-    class Meta:
-        model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'profile')
-
-    def to_representation(self, instance):
-        ret = super().to_representation(instance)
-        ret.pop('email')
-        ret.pop('profile')
-        return ret
-
-
 class DocumentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentType
