@@ -50,7 +50,4 @@ var events = {
   // Triggered when user click on opinionModal button
   // Params: suggestionId, opinion (approve, reject, neutral)
   sendOpinion: 'sendOpinion',
-
-  // Triggered when the server process successfully the user opinion
-  processedOpinion: 'processedOpinion',
 };

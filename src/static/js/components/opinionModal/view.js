@@ -71,6 +71,10 @@ OpinionModalView.prototype.subscribers = function () {
   $.Topic(events.fillOpinionModal).subscribe(function(user, excerpt, suggestion) {
     self.fill(user, excerpt, suggestion);
   });
+
+  $.Topic(events.fillOpinionModal).subscribe(function(user, excerpt, suggestion) {
+    self.fill(user, excerpt, suggestion);
+  })
 };
 
 OpinionModalView.prototype.hide = function () {
