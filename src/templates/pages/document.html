@@ -54,6 +54,8 @@
   </div>
   <span class="error js-inputError"></span>
 </div>
+
+{% include "components/opinion-modal.html" %}
 {% endblock content %}
 
 {% block page_js %}
@@ -66,5 +68,6 @@
   <script src="{% static 'js/components/navBar/view.js' %}"></script>
   <script src="{% static 'js/components/body/view.js' %}"></script>
   <script src="{% static 'js/components/opinionModal/view.js' %}"></script>
+  <script src="{% static 'js/components/opinionModal/controller.js' %}"></script>
   <script src="{% static 'js/pages/document.js' %}"></script>
 {% endblock page_js %}
