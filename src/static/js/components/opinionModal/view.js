@@ -45,6 +45,14 @@ OpinionModalView.prototype.publishers = function() {
       $.Topic(events.openOpinionModal).publish(self.currentExcerptId);
     }
   });
+
+  self.buttonsElements.on('click', function(){
+    var button = $(this);
+    $.Topic(events.sendOpinion).publish(
+      self.suggestionElement.data('suggestionId'),
+      button.data('opinion')
+    );
+  });
 };
 
 OpinionModalView.prototype.subscribers = function () {

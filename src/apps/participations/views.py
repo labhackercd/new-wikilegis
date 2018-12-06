@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models.aggregates import Count
 from apps.projects.models import Excerpt
 from apps.participations import models
-from apps.participations.templatetags import participations_tags
 from utils.decorators import require_ajax
 from datetime import date
 from random import randint
