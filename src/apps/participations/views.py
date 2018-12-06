@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models.aggregates import Count
 from apps.projects.models import Excerpt
 from apps.participations import models
-from apps.participations.templatetags import participations_tags
 from utils.decorators import require_ajax
 from datetime import date
 from random import randint
@@ -87,37 +86,56 @@ def get_random_suggestion(request):
         id__in=opined_suggestions
     )
 
-    count = suggestions.aggregate(count=Count('id'))['count']
-    random_index = randint(0, count - 1)
-    print(random_index)
+    if suggestions.count() > 0:
+        count = suggestions.aggregate(count=Count('id'))['count']
+        random_index = randint(0, count - 1)
+        print(random_index)
 
-    suggestion = suggestions[random_index]
+        suggestion = suggestions[random_index]
 
-    span = '<span class="text-highlight">'
-    close_span = '</span>'
-    content = suggestion.excerpt.content
-    content = '{prev}{open_span}{content}{close_span}{after}'.format(
-        prev=content[:suggestion.start_index],
-        open_span=span,
-        content=content[suggestion.start_index:suggestion.end_index],
-        close_span=close_span,
-        after=content[suggestion.end_index:]
-    )
+        span = '<span class="text-highlight">'
+        close_span = '</span>'
+        content = suggestion.excerpt.content
+        content = '{prev}{open_span}{content}{close_span}{after}'.format(
+            prev=content[:suggestion.start_index],
+            open_span=span,
+            content=content[suggestion.start_index:suggestion.end_index],
+            close_span=close_span,
+            after=content[suggestion.end_index:]
+        )
 
-    data = {
-        'user': {
-            'id': suggestion.author.id,
-            'avatar': suggestion.author.profile.avatar_url,
-            'fullName': suggestion.author.get_full_name(),
-        },
-        'excerpt': {
-            'id': suggestion.excerpt.id,
-            'html': content,
-        },
-        'suggestion': {
-            'id': suggestion.id,
-            'text': suggestion.content
+        data = {
+            'user': {
+                'id': suggestion.author.id,
+                'avatar': suggestion.author.profile.avatar_url,
+                'fullName': suggestion.author.get_full_name(),
+            },
+            'excerpt': {
+                'id': suggestion.excerpt.id,
+                'html': content,
+            },
+            'suggestion': {
+                'id': suggestion.id,
+                'text': suggestion.content
+            }
         }
-    }
 
-    return JsonResponse(data)
+        return JsonResponse(data)
+    else:
+        return JsonResponse({'error': _('No suggestion found')}, status=404)
+
+
+@require_ajax
+def new_opinion(request):
+    suggestion_id = request.POST.get('suggestionId')
+    opinion = request.POST.get('opinion')
+    suggestion = get_object_or_404(models.Suggestion, pk=suggestion_id)
+    models.OpinionVote.objects.create(
+        suggestion=suggestion,
+        owner=request.user,
+        opinion_vote=opinion
+    )
+    return JsonResponse({
+        'documentId': suggestion.excerpt.document.id,
+        'excerptId': suggestion.excerpt.id
+    })

@@ -12,6 +12,10 @@ OpinionModalController.prototype.subscribers = function() {
   $.Topic(events.openOpinionModal).subscribe(function(excerptId) {
     self.getRandomSuggestion(excerptId);
   });
+
+  $.Topic(events.sendOpinion).subscribe(function(suggestionId, opinion) {
+    self.sendOpinion(suggestionId, opinion);
+  });
 };
 
 OpinionModalController.prototype.getRandomSuggestion = function(excerptId) {
@@ -30,5 +34,24 @@ OpinionModalController.prototype.getRandomSuggestion = function(excerptId) {
 
   request.done(function(data) {
     $.Topic(events.fillOpinionModal).publish(data.user, data.excerpt, data.suggestion);
+  });
+
+  request.fail(function(jqXHR) {
+    $.Topic(events.closeOpinionModal).publish(false);
+  });
+};
+
+OpinionModalController.prototype.sendOpinion = function(suggestionId, opinion) {
+  var request = $.ajax({
+    url: Urls.new_opinion(),
+    method: 'POST',
+    data: {
+      suggestionId: suggestionId,
+      opinion: opinion
+    }
+  });
+
+  request.done(function(data) {
+    $.Topic(events.closeOpinionModal).publish(true);
   });
 };

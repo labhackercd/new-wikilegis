@@ -8,20 +8,33 @@ OpinionModalView.prototype.initEvents = function() {
   this.userNameElement = $('.js-opinionModal .js-userName');
   this.documentExcerptElement = $('.js-opinionModal .js-documentExcerpt');
   this.suggestionElement = $('.js-opinionModal .js-suggestion');
+  this.buttonsElements = $('.js-opinionModal .js-opinionButton')
+  this.documentSuggestion = undefined;
+  this.currentExcerptId = undefined;
 
   this.publishers();
   this.subscribers();
 };
 
 OpinionModalView.prototype.publishers = function() {
+  var self = this;
   $('.js-closeModal').click(function() {
-    $.Topic(events.closeOpinionModal).publish();
+    $.Topic(events.closeOpinionModal).publish(false);
   });
 
   $(document).ready(function(){
     if ($('.js-opinionModal').data('openOnLoad') === true) {
+      self.documentSuggestion = true;
       $.Topic(events.openOpinionModal).publish(null);
     }
+  });
+
+  self.buttonsElements.on('click', function(){
+    var button = $(this);
+    $.Topic(events.sendOpinion).publish(
+      self.suggestionElement.data('suggestionId'),
+      button.data('opinion')
+    );
   });
 };
 
@@ -32,8 +45,18 @@ OpinionModalView.prototype.subscribers = function () {
     self.show();
   });
 
-  $.Topic(events.closeOpinionModal).subscribe(function(){
+  $.Topic(events.closeOpinionModal).subscribe(function(reopen){
     self.hide();
+    if (reopen) {
+      if (self.documentSuggestion) {
+        $.Topic(events.openOpinionModal).publish(null);
+      } else {
+        $.Topic(events.openOpinionModal).publish(self.currentExcerptId);
+      }
+    } else {
+      self.documentSuggestion = undefined;
+      self.currentExcerptId = undefined;
+    }
   });
 
   $.Topic(events.fillOpinionModal).subscribe(function(user, excerpt, suggestion) {

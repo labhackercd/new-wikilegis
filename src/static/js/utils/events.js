@@ -40,9 +40,17 @@ var events = {
   openOpinionModal: 'openOpinionModal',
 
   // Triggered when user click on close modal
+  // Params: reopen
   closeOpinionModal: 'closeOpinionModal',
 
   // Triggered before opinionModal opens
   // Params: user, excerpt, suggestion
   fillOpinionModal: 'fillOpinionModal',
+
+  // Triggered when user click on opinionModal button
+  // Params: suggestionId, opinion (approve, reject, neutral)
+  sendOpinion: 'sendOpinion',
+
+  // Triggered when the server process successfully the user opinion
+  processedOpinion: 'processedOpinion',
 };
