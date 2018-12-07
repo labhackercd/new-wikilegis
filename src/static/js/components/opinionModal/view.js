@@ -8,8 +8,8 @@ OpinionModalView.prototype.initEvents = function() {
   this.userNameElement = $('.js-opinionModal .js-userName');
   this.documentExcerptElement = $('.js-opinionModal .js-documentExcerpt');
   this.suggestionElement = $('.js-opinionModal .js-suggestion');
-  this.buttonsElements = $('.js-opinionModal .js-opinionButton')
-  this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion')
+  this.buttonsElements = $('.js-opinionModal .js-opinionButton');
+  this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion');
   this.documentSuggestion = undefined;
   this.currentExcerptId = undefined;
 
@@ -70,7 +70,7 @@ OpinionModalView.prototype.subscribers = function () {
 
   $.Topic(events.fillOpinionModal).subscribe(function(user, excerpt, suggestion) {
     self.fill(user, excerpt, suggestion);
-  })
+  });
 };
 
 OpinionModalView.prototype.hide = function () {
@@ -89,6 +89,6 @@ OpinionModalView.prototype.fill = function(user, excerpt, suggestion) {
   self.userInfoElement.data('userId', user.id);
   self.documentExcerptElement.html(excerpt.html);
   self.documentExcerptElement.data('excerptId', excerpt.id);
-  self.suggestionElement.text(suggestion.text)
+  self.suggestionElement.text(suggestion.text);
   self.suggestionElement.data('suggestionId', suggestion.id);
 };

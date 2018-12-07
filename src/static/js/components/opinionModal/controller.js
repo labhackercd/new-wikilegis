@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ events Urls */
 
 var OpinionModalController = function() {};
 
@@ -21,10 +21,10 @@ OpinionModalController.prototype.subscribers = function() {
 OpinionModalController.prototype.getRandomSuggestion = function(excerptId) {
   var regex = /\/p\/(\d+)-.*/g;
   var match = regex.exec(document.location.pathname);
-  data = {
+  var data = {
     documentId: match[1],
     excerptId: excerptId
-  }
+  };
 
   var request = $.ajax({
     url: Urls.get_random_suggestion(),
@@ -36,7 +36,7 @@ OpinionModalController.prototype.getRandomSuggestion = function(excerptId) {
     $.Topic(events.fillOpinionModal).publish(data.user, data.excerpt, data.suggestion);
   });
 
-  request.fail(function(jqXHR) {
+  request.fail(function() {
     $.Topic(events.closeOpinionModal).publish(false);
   });
 };
@@ -51,7 +51,7 @@ OpinionModalController.prototype.sendOpinion = function(suggestionId, opinion) {
     }
   });
 
-  request.done(function(data) {
+  request.done(function() {
     $.Topic(events.closeOpinionModal).publish(true);
   });
 };
