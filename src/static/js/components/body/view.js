@@ -13,7 +13,8 @@ BodyView.prototype.publishers = function() {
   var self = this;
   $('body').on('click', function(e) {
     var suggestionInput = $(e.target).closest('.js-suggestionInput');
-    if (suggestionInput.length === 0) {
+    var opinionModal = $(e.target).closest('.js-opinionModal');
+    if (suggestionInput.length === 0 && opinionModal.length === 0) {
       var selectedText = window.getSelection().toString();
       if (selectedText === '' || selectedText === self.previousSelectedText) {
         $.Topic(events.cancelTextSelection).publish();
