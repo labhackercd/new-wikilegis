@@ -9,6 +9,7 @@ OpinionModalView.prototype.initEvents = function() {
   this.documentExcerptElement = $('.js-opinionModal .js-documentExcerpt');
   this.suggestionElement = $('.js-opinionModal .js-suggestion');
   this.buttonsElements = $('.js-opinionModal .js-opinionButton')
+  this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion')
   this.documentSuggestion = undefined;
   this.currentExcerptId = undefined;
 
@@ -35,6 +36,14 @@ OpinionModalView.prototype.publishers = function() {
       self.suggestionElement.data('suggestionId'),
       button.data('opinion')
     );
+  });
+
+  self.nextOpinionElement.on('click', function() {
+    if (self.documentSuggestion) {
+      $.Topic(events.openOpinionModal).publish(null);
+    } else {
+      $.Topic(events.openOpinionModal).publish(self.currentExcerptId);
+    }
   });
 };
 
