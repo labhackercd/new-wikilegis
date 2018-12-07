@@ -8,8 +8,13 @@ OpinionModalView.prototype.initEvents = function() {
   this.userNameElement = $('.js-opinionModal .js-userName');
   this.documentExcerptElement = $('.js-opinionModal .js-documentExcerpt');
   this.suggestionElement = $('.js-opinionModal .js-suggestion');
+<<<<<<< HEAD
   this.buttonsElements = $('.js-opinionModal .js-opinionButton');
   this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion');
+=======
+  this.buttonsElements = $('.js-opinionModal .js-opinionButton')
+  this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion')
+>>>>>>> Next opinion
   this.documentSuggestion = undefined;
   this.currentExcerptId = undefined;
 
