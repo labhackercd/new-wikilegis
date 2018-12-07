@@ -7,8 +7,10 @@ register = template.Library()
 
 @register.simple_tag
 def highlight_suggestions(excerpt, user=None):
-    if user is not None:
+    if user is not None and user.is_authenticated:
         qs = excerpt.suggestions.filter(author=user)
+    elif not user.is_authenticated:
+        return excerpt.content
     else:
         qs = excerpt.suggestions.all()
 

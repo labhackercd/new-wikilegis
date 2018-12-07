@@ -1,5 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.conf import settings
 from utils.choices import GENDER_CHOICES, UF_CHOICES, PROFILE_TYPE_CHOICES
 
 
@@ -28,6 +29,13 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return '%s <%s>' % (self.user.get_full_name(), self.user.email)
+
+    @property
+    def avatar_url(self):
+        if self.avatar:
+            return self.avatar.url
+        else:
+            return settings.STATIC_URL + 'img/avatar.png'
 
 
 class ThematicGroup(models.Model):

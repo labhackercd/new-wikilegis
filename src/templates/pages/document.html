@@ -15,7 +15,7 @@
   </nav>
 </div>
 
-<main class="document-body js-documentBody">
+<main class="document-body js-documentBody" data-selection-enabled="{% if request.user.is_authenticated %}true{% else %}false{% endif %}">
   <div class="header">
     {% if object.document_type %}
     <span class="epigraph">{{ object.document_type.initials }} {{ object.number }}/{{ object.year }}</span>
@@ -54,6 +54,8 @@
   </div>
   <span class="error js-inputError"></span>
 </div>
+
+{% include "components/opinion-modal.html" %}
 {% endblock content %}
 
 {% block page_js %}
@@ -66,5 +68,6 @@
   <script src="{% static 'js/components/navBar/view.js' %}"></script>
   <script src="{% static 'js/components/body/view.js' %}"></script>
   <script src="{% static 'js/components/opinionModal/view.js' %}"></script>
+  <script src="{% static 'js/components/opinionModal/controller.js' %}"></script>
   <script src="{% static 'js/pages/document.js' %}"></script>
 {% endblock page_js %}

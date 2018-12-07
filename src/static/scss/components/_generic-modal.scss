@@ -13,6 +13,12 @@
 
   background-color: $color-whitesmoke;
 
+  &.-opinion {
+    .excerpt {
+      color: $color-grayish;
+    }
+  }
+
   &.-show {
     display: block;
   }

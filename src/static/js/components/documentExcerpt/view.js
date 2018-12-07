@@ -3,28 +3,33 @@
 var DocumentExcerptView = function() {};
 
 DocumentExcerptView.prototype.initEvents = function() {
-  this.publishers();
-  this.subscribers();
+  this.documentBodyElement = $('.js-documentBody');
   this.selectedHTML = undefined;
   this.lastExcerpt = undefined;
+  this.publishers();
+  this.subscribers();
 };
 
 DocumentExcerptView.prototype.publishers = function() {
-  $('.js-documentBody').on('selectstart', '.js-documentExcerpt', {}, function(e) {
+  var self = this;
+
+  self.documentBodyElement.on('selectstart', '.js-documentExcerpt', {}, function(e) {
     var target = $(e.target);
 
-    $.Topic(events.cancelTextSelection).publish();
-    if (!$('body').hasClass('-voidselect')) {
-      $.Topic(events.startTextSelection).publish(target.data('id'));
-    }
-
-    if (target.closest('.js-document').hasClass('-suppress')) {
+    if (self.documentBodyElement.data('selectionEnabled')) {
       $.Topic(events.cancelTextSelection).publish();
-    }
+      if (!$('body').hasClass('-voidselect')) {
+        $.Topic(events.startTextSelection).publish(target.data('id'));
+      }
 
-    $('body').one('mouseup', function() {
-      $.Topic(events.endTextSelection).publish();
-    });
+      if (target.closest('.js-document').hasClass('-suppress')) {
+        $.Topic(events.cancelTextSelection).publish();
+      }
+
+      $('body').one('mouseup', function() {
+        $.Topic(events.endTextSelection).publish();
+      });
+    }
   });
 
 };
