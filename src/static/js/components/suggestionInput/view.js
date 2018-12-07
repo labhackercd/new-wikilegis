@@ -42,6 +42,10 @@ SuggestionInputView.prototype.publishers = function() {
     self.sendSuggestion();
   });
 
+  $('.js-suggestionInput .js-opinionButton').on('click', function() {
+    $.Topic(events.openOpinionModal).publish(self.selectedExcerpt.data('id'));
+  });
+
   self.inputElement.on('keypress', function() {
     if ($(this).val().length > self.charMaxLimit - 1) {
       self.showInputError('Muito grande');

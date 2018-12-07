@@ -1,0 +1,21 @@
+{% load staticfiles %}
+
+<div class="suggestion-input js-suggestionInput">
+  <div class="close js-close"><img class="icon" src="{% static 'img/close.svg' %}"></div>
+  <div class="suggestion-opinion"><button class="js-opinionButton">Ver sugestões</button></div>
+  <h4>Você destacou o trecho:</h4>
+  <div class="text">
+    <p class="js-selectedText"></p>
+  </div>
+  <span class="info-text">
+    <img src="{% static 'img/atention.svg' %}">
+    <h4>Digite sua opinião sobre ele:</h4>
+  </span>
+  <div class="input">
+    <input class="js-input" type="text" name="">
+    <div class="send">
+      <img class="icon js-send" src="{% static 'img/send.svg' %}">
+    </div>
+  </div>
+  <span class="error js-inputError"></span>
+</div>

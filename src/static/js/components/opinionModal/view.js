@@ -58,8 +58,8 @@ OpinionModalView.prototype.publishers = function() {
 OpinionModalView.prototype.subscribers = function () {
   var self = this;
 
-  $.Topic(events.openOpinionModal).subscribe(function(){
-    self.show();
+  $.Topic(events.openOpinionModal).subscribe(function(excerptId){
+    self.currentExcerptId = excerptId;
   });
 
   $.Topic(events.closeOpinionModal).subscribe(function(reopen){
@@ -99,4 +99,6 @@ OpinionModalView.prototype.fill = function(user, excerpt, suggestion) {
   self.documentExcerptElement.data('excerptId', excerpt.id);
   self.suggestionElement.text(suggestion.text);
   self.suggestionElement.data('suggestionId', suggestion.id);
+
+  self.show();
 };
