@@ -10,4 +10,6 @@ urlpatterns = [
          name='get_random_suggestion'),
     path('suggestion/new-opinion/', login_required(views.new_opinion),
          name='new_opinion'),
+    path('invited-group/new/', views.InvitedGroupCreate.as_view(),
+         name='new_group'),
 ]

@@ -4,8 +4,10 @@ var AutocompleteInputView = function() {};
 
 AutocompleteInputView.prototype.initEvents = function() {
   this.inputNameElement = $('.js-name');
+  this.themeElement = $('.js-theme');
   this.initAutocomplete();
   this.initAddNotUser();
+  this.setThemes();
 };
 
 AutocompleteInputView.prototype.initAddNotUser= function () {
@@ -22,27 +24,68 @@ AutocompleteInputView.prototype.initAddNotUser= function () {
   });
 };
 
+AutocompleteInputView.prototype.setThemes= function () {
+  self = this;
+
+  self.themeElement.on("click", function(e) {
+    var currentValue = localStorage.getItem('theme');
+    var key = 'theme';
+    var value = $(e.target).data('themeId').toString();
+    if (currentValue) {
+      var currentArray = currentValue.split(',');
+      var i = currentArray.indexOf(value);
+      if (i < 0) {
+        currentArray = currentArray.concat(value);
+        localStorage.setItem(key, currentArray);
+        self.inputNameElement.focus();
+      } else {
+        currentArray.splice(i, 1);
+        if (currentArray.length > 0) {
+          localStorage.setItem(key, currentArray);
+          self.inputNameElement.focus();
+        } else {
+          localStorage.removeItem(key);
+        }
+      }
+    } else {
+      localStorage.setItem(key, value);
+      self.inputNameElement.focus();
+    }
+  });
+
+  $(window).on("unload", function() {
+    localStorage.clear();
+  });
+};
+
 AutocompleteInputView.prototype.initAutocomplete= function () {
   var self = this;
 
   self.inputNameElement.autocomplete({
     source: function(request, response) {
+      var theme = undefined;
+      if (localStorage.getItem('theme')) {
+        theme = localStorage.getItem('theme').split(',');
+      }
       $.ajax({
         url: Urls.autocomplete(),
         dataType: "json",
+        traditional: true,
         data: {
-          name: request.term
+          name: request.term,
+          theme: theme
         },
         success: function(data) {
           response(data);
         }
       });
     },
-    minLength: 2,
+    minLength: 0,
     select: function(event, ui) {
       self.log("Selecionado: " + ui.item.first_name);
     }
   })
+  .bind('focus', function(){ $(this).autocomplete("search");})
   .data("ui-autocomplete")._renderItem = self.listItem;
 };
 

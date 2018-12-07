@@ -15,6 +15,12 @@
 </style>
 {% block content %}
 
+<ul>
+  {% for theme in themes %}
+  <li class="js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
+  {% endfor %}
+</ul>
+{{ form.as_p }}
 <div class="ui-widget">
   <label for="name">Usuários: </label>
   <input id="name" class="js-name">
@@ -24,7 +30,6 @@
   Resultado:
   <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
 </div>
-
 {% endblock content %}
 
 {% block page_js %}

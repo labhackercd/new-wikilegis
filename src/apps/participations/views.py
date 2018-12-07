@@ -3,11 +3,42 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.aggregates import Count
-from apps.projects.models import Excerpt
-from apps.participations import models
 from utils.decorators import require_ajax
 from datetime import date
 from random import randint
+from django.views.generic.edit import CreateView
+from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
+from apps.projects.models import Theme, Excerpt
+
+
+class AjaxableResponseMixin:
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        if self.request.is_ajax():
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if self.request.is_ajax():
+            data = {
+                'pk': self.object.pk,
+            }
+            return JsonResponse(data)
+        else:
+            return response
+
+
+class InvitedGroupCreate(AjaxableResponseMixin, CreateView):
+    model = InvitedGroup
+    template_name = 'pages/invite-participants.html'
+    fields = ['document', 'closing_date', 'public_participation']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['themes'] = Theme.objects.all()
+        return context
 
 
 @require_ajax
@@ -38,7 +69,7 @@ def send_suggestion(request):
         invited_group = public_groups.first()
 
     if invited_group:
-        models.Suggestion.objects.create(
+        Suggestion.objects.create(
             invited_group=invited_group,
             selected_text=excerpt.content[start_index:end_index],
             start_index=start_index,
@@ -66,17 +97,17 @@ def send_suggestion(request):
 def get_random_suggestion(request):
     excerpt_id = request.POST.get('excerptId')
     document_id = request.POST.get('documentId')
-    opined_suggestions = models.OpinionVote.objects.filter(
+    opined_suggestions = OpinionVote.objects.filter(
         owner=request.user,
         suggestion__excerpt__document__id=document_id
     ).values_list('suggestion__id', flat=True)
 
     if excerpt_id:
-        suggestions = models.Suggestion.objects.filter(
+        suggestions = Suggestion.objects.filter(
             excerpt__id=excerpt_id
         )
     else:
-        suggestions = models.Suggestion.objects.filter(
+        suggestions = Suggestion.objects.filter(
             excerpt__document__id=document_id
         )
 
@@ -129,8 +160,8 @@ def get_random_suggestion(request):
 def new_opinion(request):
     suggestion_id = request.POST.get('suggestionId')
     opinion = request.POST.get('opinion')
-    suggestion = get_object_or_404(models.Suggestion, pk=suggestion_id)
-    models.OpinionVote.objects.create(
+    suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
+    OpinionVote.objects.create(
         suggestion=suggestion,
         owner=request.user,
         opinion_vote=opinion

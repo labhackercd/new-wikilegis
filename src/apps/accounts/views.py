@@ -9,10 +9,10 @@ def autocompleteUser(request):
     name = request.GET.get('name', None)
     themes = request.GET.getlist('theme', None)
     query = Q()
-    if themes:
-        query |= Q(profile__themes__id__in=themes)
-    elif name:
-        query |= Q(first_name__istartswith=name) | Q(email__istartswith=name)
+    if name:
+        query = Q(first_name__istartswith=name) | Q(email__istartswith=name)
+    elif themes:
+        query &= Q(profile__themes__id__in=themes)
 
     if query:
         users = User.objects.filter(query).distinct()
