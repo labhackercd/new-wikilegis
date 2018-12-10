@@ -13,136 +13,134 @@
   </nav>
 </div>
 
-<main class="document-body js-documentBody">
-  <div class="home-section">
-    <div class="hero-section">
-      <img src="{% static 'img/brand.svg' %}" alt="Wikilegis">
-      <h1>Sua ferramenta de edição legislativa</h1>
-      <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
-      <p>Nessa interação, ganha a sociedade, que participa mais ativamente do processo legislativo, e ganha o Parlamento, que aprova leis mais aprimoradas e conectadas às necessidades dos cidadãos.</p>
-    </div>
-    <div class="projects-list" id="js-projects-list">
-      <input class="search js-search" type="text" placeholder="Buscar">
-      <div class="list">
-      {% if pending_invites and request.user.is_authenticated %}
-        {% for invite in pending_invites %}
-        {% document_is_open invite.group.document 'private' request.user as document_is_open %}
-        <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
-          <div class="header">
-          {% if document_is_open %}
-            <span class="date">Aberto até {% document_closing_date invite.group.document 'private' request.user %}</span>
-            <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-          {% else %}
-            <span class="status">Encerrado em {% document_closing_date invite.group.document 'private' request.user %}</span>
-          {% endif %}
-          </div>
-          <h3 class="js-title">{{ invite.group.document.title }}</h3>
-          <p class="js-description">{{ invite.group.document.description }}</p>
-          <div class="info">
-            <div class="themes">
-              {% for theme in invite.group.document.themes.all %}
-              <div class="theme">
-                {% if theme.icon %}
-                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-                {% endif %}
-                <span>{{ theme.name }}</span>
-              </div>
-              {% endfor %}
+<main class="home-section">
+  <div class="hero-section">
+    <img src="{% static 'img/brand.svg' %}" alt="Wikilegis">
+    <h1>Sua ferramenta de edição legislativa</h1>
+    <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
+    <p>Nessa interação, ganha a sociedade, que participa mais ativamente do processo legislativo, e ganha o Parlamento, que aprova leis mais aprimoradas e conectadas às necessidades dos cidadãos.</p>
+  </div>
+  <div class="projects-list" id="js-projects-list">
+    <input class="search js-search" type="text" placeholder="Buscar">
+    <div class="list">
+    {% if pending_invites and request.user.is_authenticated %}
+      {% for invite in pending_invites %}
+      {% document_is_open invite.group.document 'private' request.user as document_is_open %}
+      <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+        <div class="header">
+        {% if document_is_open %}
+          <span class="date">Aberto até {% document_closing_date invite.group.document 'private' request.user %}</span>
+          <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+        {% else %}
+          <span class="status">Encerrado em {% document_closing_date invite.group.document 'private' request.user %}</span>
+        {% endif %}
+        </div>
+        <h3 class="js-title">{{ invite.group.document.title }}</h3>
+        <p class="js-description">{{ invite.group.document.description }}</p>
+        <div class="info">
+          <div class="themes">
+            {% for theme in invite.group.document.themes.all %}
+            <div class="theme">
+              {% if theme.icon %}
+              <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+              {% endif %}
+              <span>{{ theme.name }}</span>
             </div>
-            <div class="suggestions">
-              <div class="suggestion">
-                <span class="value">{% document_suggestions invite.group.document 'private' request.user %}</span>
-                <span>Sugestões</span>
-              </div>
-            </div>
+            {% endfor %}
           </div>
-          <hr/>
-          <div class="voting-action">
-            <span class="info-text">
-              <img src="{% static 'img/information.svg' %}">
-              <h4>Você foi convidado para participar nesta proposição</h4>
-            </span>
-            <div class="actions">
-              <a href="{% url 'invitation' invite.pk 'accepted' %}" class="outline-button -green">Aceitar</a>
-              <a href="{% url 'invitation' invite.pk 'declined' %}" class="outline-button -red">Recusar</a>
+          <div class="suggestions">
+            <div class="suggestion">
+              <span class="value">{% document_suggestions invite.group.document 'private' request.user %}</span>
+              <span>Sugestões</span>
             </div>
           </div>
         </div>
-        {% endfor %}
-      {% endif %}
-      {% if private_docs and request.user.is_authenticated %}
-        {% for private_document in private_docs %}
-        {% document_is_open private_document 'private' request.user as document_is_open %}
-        <a href="{% url 'project' private_document.id private_document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
-          <div class="header">
-          {% if document_is_open %}
-            <span class="date">Aberto até {% document_closing_date private_document 'private' request.user %}</span>
-            <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-          {% else %}
-            <span class="date">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
-            <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-          {% endif %}
+        <hr/>
+        <div class="voting-action">
+          <span class="info-text">
+            <img src="{% static 'img/information.svg' %}">
+            <h4>Você foi convidado para participar nesta proposição</h4>
+          </span>
+          <div class="actions">
+            <a href="{% url 'invitation' invite.pk 'accepted' %}" class="outline-button -green">Aceitar</a>
+            <a href="{% url 'invitation' invite.pk 'declined' %}" class="outline-button -red">Recusar</a>
           </div>
-          <h3 class="js-title">{{ private_document.title }}</h3>
-          <p class="js-description">{{ private_document.description }}</p>
-          <div class="info">
-            <div class="themes">
-              {% for theme in private_document.themes.all %}
-              <div class="theme">
-                {% if theme.icon %}
-                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-                {% endif %}
-                <span>{{ theme.name }}</span>
-              </div>
-              {% endfor %}
-            </div>
-            <div class="suggestions">
-              <div class="suggestion">
-                <span class="value">{% document_suggestions private_document 'private' request.user %}</span>
-                <span>Sugestões</span>
-              </div>
-            </div>
-          </div>
-        </a>
-        {% endfor %}
-      {% endif %}
-      {% if public_docs %}
-        {% for document in public_docs %}
-        {% document_is_open document as document_is_open %}
-        <a href="{% url 'project' document.id document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
-          <div class="header">
-          {% if document_is_open %}
-            <span class="date">Aberto até {% document_closing_date document %}</span>
-          {% else %}
-            <span class="date">Encerrado em {% document_closing_date document %}</span>
-          {% endif %}
-          </div>
-          <h3 class="js-title">{{ document.title }}</h3>
-          <p class="js-description">{{ document.description }}</p>
-          <div class="info">
-            <div class="themes">
-              {% for theme in document.themes.all %}
-              <div class="theme">
-                {% if theme.icon %}
-                <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-                {% endif %}
-                <span>{{ theme.name }}</span>
-              </div>
-              {% endfor %}
-            </div>
-            <div class="suggestions">
-              <div class="suggestion">
-                <span class="value">{% document_suggestions document %}</span>
-                <span>Sugestões</span>
-              </div>
-            </div>
-          </div>
-        </a>
-        {% endfor %}
+        </div>
       </div>
-    </div>
+      {% endfor %}
     {% endif %}
+    {% if private_docs and request.user.is_authenticated %}
+      {% for private_document in private_docs %}
+      {% document_is_open private_document 'private' request.user as document_is_open %}
+      <a href="{% url 'project' private_document.id private_document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+        <div class="header">
+        {% if document_is_open %}
+          <span class="date">Aberto até {% document_closing_date private_document 'private' request.user %}</span>
+          <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+        {% else %}
+          <span class="date">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
+          <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+        {% endif %}
+        </div>
+        <h3 class="js-title">{{ private_document.title }}</h3>
+        <p class="js-description">{{ private_document.description }}</p>
+        <div class="info">
+          <div class="themes">
+            {% for theme in private_document.themes.all %}
+            <div class="theme">
+              {% if theme.icon %}
+              <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+              {% endif %}
+              <span>{{ theme.name }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="suggestions">
+            <div class="suggestion">
+              <span class="value">{% document_suggestions private_document 'private' request.user %}</span>
+              <span>Sugestões</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    {% endif %}
+    {% if public_docs %}
+      {% for document in public_docs %}
+      {% document_is_open document as document_is_open %}
+      <a href="{% url 'project' document.id document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+        <div class="header">
+        {% if document_is_open %}
+          <span class="date">Aberto até {% document_closing_date document %}</span>
+        {% else %}
+          <span class="date">Encerrado em {% document_closing_date document %}</span>
+        {% endif %}
+        </div>
+        <h3 class="js-title">{{ document.title }}</h3>
+        <p class="js-description">{{ document.description }}</p>
+        <div class="info">
+          <div class="themes">
+            {% for theme in document.themes.all %}
+            <div class="theme">
+              {% if theme.icon %}
+              <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+              {% endif %}
+              <span>{{ theme.name }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="suggestions">
+            <div class="suggestion">
+              <span class="value">{% document_suggestions document %}</span>
+              <span>Sugestões</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
   </div>
+  {% endif %}
 </main>
 
 {% endblock content %}

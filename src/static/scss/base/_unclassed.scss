@@ -25,11 +25,20 @@
   background-color: rgba($color-link, .4);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: $color-whitesmoke;
 
-  @include bp-mediumup {
-    overflow: hidden;
+  &.-home {
+    & .nav-bar {
+      @include bp-mediumup {
+        box-shadow: none;
+      }
+    }
   }
 
   &.-open-menu {
@@ -56,6 +65,11 @@ main {
   padding: $space-centi;
   padding-top: $space-centi;
   padding-bottom: $space-deca;
+
+  @include bp-mediumup {
+    margin-top: 3.75rem;
+    padding-top: 0;
+  }
 }
 
 p {

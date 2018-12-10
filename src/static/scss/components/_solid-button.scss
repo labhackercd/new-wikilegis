@@ -11,6 +11,10 @@
   text-transform: uppercase;
   color: #FFF;
 
+  &:hover {
+    @extend .outline-button;
+  }
+
   &.-green {
     background-color: $color-brand;
     border: 1px solid $color-brand;

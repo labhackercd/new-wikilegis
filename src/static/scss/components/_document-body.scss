@@ -1,4 +1,7 @@
 .document-body {
+  @include bp-mediumup {
+    width: 66ch;
+  }
 
   &.-voidselection {
     user-select: none;
