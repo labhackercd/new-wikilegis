@@ -43,6 +43,7 @@ DocumentExcerptView.prototype.subscribers = function() {
 
   $.Topic(events.cancelTextSelection).subscribe(function() {
     self.removeEnabledClass();
+    self.cancelTextSelection();
   });
 
   $.Topic(events.suggestionCreated).subscribe(function(excerptId, html) {
@@ -60,6 +61,11 @@ DocumentExcerptView.prototype.enableSelectedExcerpt = function(excerptId) {
 
 DocumentExcerptView.prototype.removeEnabledClass = function() {
   $('.js-documentExcerpt').removeClass('-enabled');
+};
+
+DocumentExcerptView.prototype.cancelTextSelection = function() {
+  var selection = document.getSelection();
+  selection.removeAllRanges();
 };
 
 DocumentExcerptView.prototype.updateHTML = function(excerptId, html) {
