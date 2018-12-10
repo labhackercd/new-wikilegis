@@ -13,6 +13,16 @@
 
   background-color: $color-whitesmoke;
 
+  @include bp-mediumup {
+    top: 50%;
+    left: 50%;
+
+    width: 70%;
+    height: 85%;
+
+    transform: translate(-50%, -50%);
+  }
+
   &.-opinion {
     .excerpt {
       color: $color-grayish;
@@ -67,16 +77,16 @@
   & > .content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 
     margin-top: 2.75rem;
     padding: 1.6rem;
 
     text-align: center;
 
+    min-height: calc(100% - 20rem);
+
     @include bp-mediumup {
-      width: 66ch;
-      margin: 0 auto;
       margin-top: 2.75rem;
     }
   }
@@ -126,7 +136,7 @@
 
   & > .footer > .content {
     @include bp-smallup {
-      width: 66ch;
+      width: 66%;
       margin: 0 auto;
     }
   }

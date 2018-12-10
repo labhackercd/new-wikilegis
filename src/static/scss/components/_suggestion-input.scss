@@ -9,7 +9,7 @@
   padding: 1rem;
 
   transition: transform .3s 0s ease, visibility 0s .3s;
-  transform: translateY(9rem);
+  transform: translateY(100%);
 
   background-color: #FFF;
 
@@ -22,7 +22,12 @@
     transform: translateY(0);
   }
 
-  & > .close {
+  & > .content {
+    width: 66%;
+    margin: 0 auto;
+  }
+
+  & > .content > .close {
     position: absolute;
     top: 0;
     right: 0;
@@ -37,15 +42,15 @@
     cursor: pointer;
   }
 
-  & > .text {
+  & > .content > .text {
     margin: 1rem 0;
   }
 
-  & > .close > img {
+  & > .content > .close > img {
     width: 1.5rem;
   }
 
-  & > .input {
+  & > .content > .input {
     position: relative;
 
     display: flex;
@@ -57,13 +62,13 @@
     border: 1px solid $color-grayish;
   }
 
-  & > .input > input {
+  & > .content > .input > input {
     padding: 1rem;
 
     box-shadow: none;
   }
 
-  & > .input > .send {
+  & > .content > .input > .send {
     display: flex;
     align-items: center;
 
@@ -73,7 +78,7 @@
     cursor: pointer;
   }
 
-  & > .error {
+  & > .content > .error {
     font-size: .75rem;
 
     display: block;
