@@ -27,7 +27,7 @@
 
   {% for excerpt in object.excerpts.all %}
     {% if excerpt.excerpt_type.align_center %}
-    <h3>{% excerpt_numbering excerpt %}</h3>
+    <h4>{% excerpt_numbering excerpt %}</h4>
     <h4>{{ excerpt.content|safe }}</h4>
     {% else %}
     <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt %}</p>

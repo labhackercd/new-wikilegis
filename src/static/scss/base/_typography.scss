@@ -9,7 +9,7 @@ li,
 blockquote,
 pre {
   font-size: $font-size-centi;
-  line-height: $line-height-mili;
+  line-height: $line-height-centi;
 
   @include bp-mediumup {
     font-size: $font-size-base;
@@ -29,40 +29,31 @@ h4 {
 
 h1 {
   font-size: $font-size-deca;
-  line-height: $line-height-base;
+  line-height: $line-height-deca;
 
   @include bp-mediumup {
     font-size: $font-size-hecto;
-    line-height: $line-height-base;
+    line-height: $line-height-hecto;
   }
 }
 
 h2 {
   font-size: $font-size-base;
-  line-height: $line-height-centi;
+  line-height: $line-height-base;
 
   @include bp-mediumup {
-    font-size: $font-size-hecto;
+    font-size: $font-size-deca;
     line-height: $line-height-deca;
   }
 }
 
-h3 {
-  font-size: $font-size-deci;
-  line-height: $line-height-mili;
-
-  @include bp-mediumup {
-    font-size: $font-size-deca;
-    line-height: $line-height-base;
-  }
-}
-
+h3,
 h4 {
-  font-size: $font-size-centi;
-  line-height: $line-height-mili;
+  font-size: $font-size-deci;
+  line-height: $line-height-deci;
 
   @include bp-mediumup {
-    font-size: $font-size-centi;
+    font-size: $font-size-base;
     line-height: $line-height-base;
   }
 }
