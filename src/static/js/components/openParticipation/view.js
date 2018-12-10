@@ -17,7 +17,11 @@ AutocompleteInputView.prototype.initAddNotUser= function () {
     if (e.which == 13) {
       var email = self.inputNameElement.val();
       if (self.validateEmail(email)) {
-        self.log("Selecionado: " + email)
+        $("<div>").text(email)
+          .addClass('js-email')
+          .attr('data-email', email)
+          .prependTo("#log");
+        $("#log").scrollTop(0);
       }
       return false;
     }
@@ -82,16 +86,15 @@ AutocompleteInputView.prototype.initAutocomplete= function () {
     },
     minLength: 0,
     select: function(event, ui) {
-      self.log("Selecionado: " + ui.item.first_name);
+      $("<div>").text(ui.item.first_name)
+        .addClass('js-user')
+        .attr('data-user-id', ui.item.id)
+        .prependTo("#log");
+      $("#log").scrollTop(0);
     }
   })
   .bind('focus', function(){ $(this).autocomplete("search");})
   .data("ui-autocomplete")._renderItem = self.listItem;
-};
-
-AutocompleteInputView.prototype.log = function (message) {
-  $("<div>").text(message).prependTo("#log");
-  $("#log").scrollTop(0);
 };
 
 AutocompleteInputView.prototype.listItem = function (ul, item) {

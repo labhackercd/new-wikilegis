@@ -7,30 +7,16 @@ from utils.decorators import require_ajax
 from datetime import date
 from random import randint
 from django.views.generic.edit import CreateView
+from apps.projects.models import Excerpt, Theme, Document
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
-from apps.projects.models import Theme, Excerpt
+from apps.accounts.models import ThematicGroup
+from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
+
+User = get_user_model()
 
 
-class AjaxableResponseMixin:
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        if self.request.is_ajax():
-            return JsonResponse(form.errors, status=400)
-        else:
-            return response
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        if self.request.is_ajax():
-            data = {
-                'pk': self.object.pk,
-            }
-            return JsonResponse(data)
-        else:
-            return response
-
-
-class InvitedGroupCreate(AjaxableResponseMixin, CreateView):
+class InvitedGroupCreate(CreateView):
     model = InvitedGroup
     template_name = 'pages/invite-participants.html'
     fields = ['document', 'closing_date', 'public_participation']
@@ -39,6 +25,33 @@ class InvitedGroupCreate(AjaxableResponseMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['themes'] = Theme.objects.all()
         return context
+
+    def get_initial(self):
+        return {
+            'document': Document.objects.get(id=self.kwargs.get('pk')),
+        }
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        if not self.object.public_participation:
+            thematic_group = ThematicGroup(owner=self.request.user)
+            thematic_group.name = self.request.POST.get('group_name', None)
+            thematic_group.save()
+            participants_ids = self.request.POST.get('participants[]', [])
+            emails = self.request.POST.get('emails[]', None)
+            if emails:
+                for email in emails:
+                    email_user = User.objects.create(email=email)
+                    participants_ids.append(email_user.id)
+            if participants_ids:
+                participants = User.objects.filter(participants_ids)
+                thematic_group.participants.set(participants)
+            self.object.thematic_group = thematic_group
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('new_group', kwargs={'pk': self.object.document.id})
 
 
 @require_ajax
