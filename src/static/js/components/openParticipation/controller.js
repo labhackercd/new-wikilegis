@@ -1,4 +1,4 @@
-/*global $ events Urls */
+/*global $ Urls */
 
 var InvitedGroupController = function() {};
 
@@ -7,14 +7,14 @@ InvitedGroupController.prototype.initEvents = function() {
 };
 
 InvitedGroupController.prototype.createGroup = function() {
-  var document_id = window.location.pathname.split('/').pop()
+  var document_id = window.location.pathname.split('/').pop();
   $('.js-send-button').on('click', function() {
-    var participants = []
-    $(".js-user").each(function() {
+    var participants = [];
+    $('.js-user').each(function() {
       participants.push($(this).data('userId'));
     });
-    var emails = []
-    $(".js-email").each(function() {
+    var emails = [];
+    $('.js-email').each(function() {
       emails.push($(this).data('email'));
     });
     $.ajax({
@@ -23,10 +23,10 @@ InvitedGroupController.prototype.createGroup = function() {
       data: {
         participants: participants,
         emails: emails,
-        document: $("#id_document option:selected").val(),
+        document: $('#id_document option:selected').val(),
         public_participation: $('#id_public_participation').prop('checked'),
-        closing_date: $("#id_closing_date").val(),
-        group_name: $("#id_group_name").val(),
+        closing_date: $('#id_closing_date').val(),
+        group_name: $('#id_group_name').val(),
       }
     });
   });

@@ -11,17 +11,17 @@ AutocompleteInputView.prototype.initEvents = function() {
 };
 
 AutocompleteInputView.prototype.initAddNotUser= function () {
-  self = this;
+  var self = this;
 
   self.inputNameElement.keypress(function (e) {
     if (e.which == 13) {
       var email = self.inputNameElement.val();
       if (self.validateEmail(email)) {
-        $("<div>").text(email)
+        $('<div>').text(email)
           .addClass('js-email')
           .attr('data-email', email)
-          .prependTo("#log");
-        $("#log").scrollTop(0);
+          .prependTo('#log');
+        $('#log').scrollTop(0);
       }
       return false;
     }
@@ -29,9 +29,9 @@ AutocompleteInputView.prototype.initAddNotUser= function () {
 };
 
 AutocompleteInputView.prototype.setThemes= function () {
-  self = this;
+  var self = this;
 
-  self.themeElement.on("click", function(e) {
+  self.themeElement.on('click', function(e) {
     var currentValue = localStorage.getItem('theme');
     var key = 'theme';
     var value = $(e.target).data('themeId').toString();
@@ -57,7 +57,7 @@ AutocompleteInputView.prototype.setThemes= function () {
     }
   });
 
-  $(window).on("unload", function() {
+  $(window).on('unload', function() {
     localStorage.clear();
   });
 };
@@ -73,7 +73,7 @@ AutocompleteInputView.prototype.initAutocomplete= function () {
       }
       $.ajax({
         url: Urls.autocomplete(),
-        dataType: "json",
+        dataType: 'json',
         traditional: true,
         data: {
           name: request.term,
@@ -86,22 +86,22 @@ AutocompleteInputView.prototype.initAutocomplete= function () {
     },
     minLength: 0,
     select: function(event, ui) {
-      $("<div>").text(ui.item.first_name)
+      $('<div>').text(ui.item.first_name)
         .addClass('js-user')
         .attr('data-user-id', ui.item.id)
-        .prependTo("#log");
-      $("#log").scrollTop(0);
+        .prependTo('#log');
+      $('#log').scrollTop(0);
     }
   })
-  .bind('focus', function(){ $(this).autocomplete("search");})
-  .data("ui-autocomplete")._renderItem = self.listItem;
+    .bind('focus', function(){ $(this).autocomplete('search');})
+    .data('ui-autocomplete')._renderItem = self.listItem;
 };
 
 AutocompleteInputView.prototype.listItem = function (ul, item) {
-  return $("<li>").append("<a>" + item.first_name + "</a>").appendTo(ul);
+  return $('<li>').append('<a>' + item.first_name + '</a>').appendTo(ul);
 };
 
 AutocompleteInputView.prototype.validateEmail = function (email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
