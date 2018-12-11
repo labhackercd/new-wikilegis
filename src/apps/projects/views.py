@@ -5,7 +5,8 @@ from .models import Document
 from datetime import date
 from apps.participations.models import InvitedGroup
 from apps.notifications.models import ParcipantInvitation
-from django.http import Http404
+from django.http import Http404, JsonResponse
+from django.contrib.sites.models import Site
 
 
 class DocumentListView(ListView):
@@ -67,3 +68,21 @@ class InvitationRedirectView(RedirectView):
         invitation.save()
 
         return super().get_redirect_url(*args, **kwargs)
+
+
+def list_propositions(request):
+    documents = Document.objects.filter(
+        invited_groups__public_participation=True,
+        document_type__isnull=False).distinct()
+    result = []
+    for document in documents:
+        obj = {
+            'numProposicao': document.number,
+            'anoProposicao': document.year,
+            'siglaTipoProposicao': document.document_type.initials,
+            'uri': '%s%s' % (Site.objects.get_current().domain,
+                             document.get_absolute_url())
+        }
+        result.append(obj)
+
+    return JsonResponse(result, safe=False)

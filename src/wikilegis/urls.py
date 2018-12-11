@@ -5,6 +5,7 @@ from apps.projects import views
 from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
+from apps.projects.views import list_propositions
 
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('participation/', include('apps.participations.urls')),
     path('accounts/', include('apps.accounts.urls')),
+    path('listarProposicoes/', list_propositions),
 ]
 
 if settings.DEBUG:
