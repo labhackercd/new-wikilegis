@@ -25,12 +25,11 @@ class UserFilter(FilterSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all().order_by('id')
     serializer_class = serializers.UserSerializer
-    filter_class = UserFilter
     filter_backends = (
         django_filters.DjangoFilterBackend,
         filters.SearchFilter,
     )
-    filter_fields = ('id', 'profile__uf')
+    filter_class = UserFilter
     search_fields = ('username', 'first_name', 'last_name')
     ordering_fields = '__all__'
 

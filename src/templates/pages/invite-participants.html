@@ -1,0 +1,53 @@
+{% extends "structure/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Convidar participantes{% endblock title %}
+
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.min.css' %}">
+<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.theme.min.css' %}">
+<style>
+  .ui-autocomplete-loading {
+    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
+{% endblock extracss %}
+
+{% block content %}
+
+<ul>
+  {% for theme in themes %}
+  <li class="js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
+  {% endfor %}
+</ul>
+<p>
+  <label for="id_group_name">Nome do grupo: </label>
+  <input type="text" name="group_name" id="id_group_name">
+</p>
+{{ form.as_p }}
+<div class="ui-widget">
+  <label for="name">Usuários: </label>
+  <input id="name" class="js-name">
+</div>
+ 
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+  Resultado:
+  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+
+<p>
+  <button class="js-send-button">Salvar</button>
+</p>
+
+{% endblock content %}
+
+{% block modal %}
+{% endblock modal %}
+
+{% block page_js %}
+<script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/components/openParticipation/view.js' %}"></script>
+<script src="{% static 'js/components/openParticipation/controller.js' %}"></script>
+<script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
+{% endblock page_js %}

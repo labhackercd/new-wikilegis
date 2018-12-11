@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
                   'last_login', 'date_joined', 'profile')
 
     def to_representation(self, instance):
-        ret = super(UserSerializer, self).to_representation(instance)
+        ret = super().to_representation(instance)
         request = self.context.get('request', None)
         if request:
             api_key = request.GET.get('api_key', None)

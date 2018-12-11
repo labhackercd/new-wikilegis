@@ -41,7 +41,10 @@
   {% if request.path|startswith:"" %}class="-home"{% endif %}>
     {% block content %}
     {% endblock content %}
+
+    {% block modal %}
     {% include "components/generic-modal.html" %}
+    {% endblock modal %}
 
     {% compress js %}
       <script src="{% static 'django_js_reverse/js/reverse.js' %}"></script>
