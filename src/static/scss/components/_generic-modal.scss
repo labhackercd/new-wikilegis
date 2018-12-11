@@ -13,6 +13,16 @@
 
   background-color: $color-whitesmoke;
 
+  @include bp-mediumup {
+    top: 50%;
+    left: 50%;
+
+    width: 70%;
+    height: 85%;
+
+    transform: translate(-50%, -50%);
+  }
+
   &.-opinion {
     .excerpt {
       color: $color-grayish;
@@ -34,7 +44,8 @@
 
     box-sizing: border-box;
     width: 100%;
-    padding: 1.6rem;
+    height: 4rem;
+    padding: 0 1.6rem;
 
     background-color: $color-whitesmoke;
   }
@@ -56,17 +67,28 @@
     height: 2.75rem;
 
     cursor: pointer;
+
+    @include bp-mediumup {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 
   & > .content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 
-    margin-top: 2rem;
-    padding: 3.2rem 1.6rem 1.6rem 1.6rem;
+    margin-top: 2.75rem;
+    padding: 1.6rem;
 
     text-align: center;
+
+    min-height: calc(100% - 20rem);
+
+    @include bp-mediumup {
+      margin-top: 2.75rem;
+    }
   }
 
   & > .content.-vote {
@@ -88,7 +110,7 @@
   }
 
   & > .solid-button {
-    font-size: 1.2rem;
+    font-size: $font-size-deci;
 
     margin: 0 auto;
     margin-top: 2rem;
@@ -106,22 +128,41 @@
     padding: 1.6rem;
 
     background-color: #FFF;
+
+    @include bp-mediumup {
+      padding: 2.6rem 1.6rem 1.6rem 1.6rem;
+    }
   }
 
-  & > .footer > .info-text {
+  & > .footer > .content {
+    @include bp-smallup {
+      width: 66%;
+      margin: 0 auto;
+    }
+  }
+
+  & > .footer > .content > .info-text {
     margin-top: 0;
   }
 
-  & > .footer > .actions {
+  & > .footer > .content > .actions {
     display: flex;
     justify-content: space-between;
 
     margin-top: 1rem;
+
+    @include bp-mediumup {
+      margin-top: 2rem;
+    }
   }
 
-  & > .footer > .actions > a {
-    font-size: 1rem;
+  & > .footer > .content > .actions > a {
+    font-size: $font-size-mili;
 
-    padding: .5rem 1rem;
+    padding: .75rem 1rem;
+
+    @include bp-mediumup {
+      font-size: $font-size-centi;
+    }
   }
 }

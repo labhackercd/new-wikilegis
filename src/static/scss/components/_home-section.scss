@@ -1,3 +1,44 @@
 .home-section {
+  @include bp-mediumup {
+    display: flex;
+  }
 
+  & > * + * {
+    @include bp-mediumup {
+      margin-left: 2rem;
+    }
+  }
+
+  & > .hero-section {
+    @include bp-mediumup {
+      position: fixed;
+    }
+  }
+
+  & > .hero-section,
+  & > .projects-list {
+    @include bp-mediumup {
+      width: calc(50% - 2rem);
+    }
+  }
+
+  & > .projects-list {
+    @include bp-mediumup {
+      margin-left: auto;
+    }
+  }
+
+  & > .projects-list > .search {
+    @include bp-mediumup {
+      position: fixed;
+      z-index: 9;
+      margin-top: 0;
+    }
+  }
+
+  & > .projects-list > .list {
+    @include bp-mediumup {
+      margin-top: 4rem;
+    }
+  }
 }

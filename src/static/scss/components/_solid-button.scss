@@ -1,28 +1,45 @@
 .solid-button {
-  font-size: .75rem;
+  font-size: $font-size-nano;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 5rem;
-  padding: .2rem;
+  padding: .75rem .2rem;
 
+  transition: all .15s ease-out;
   text-transform: uppercase;
+
   color: #FFF;
+
+  @include bp-mediumup {
+    font-size: $font-size-micro;
+
+    width: 8rem;
+  }
 
   &.-green {
     background-color: $color-brand;
-    border: 1px solid $color-brand;
+
+    &:hover {
+      background-color: lighten($color-brand, 10%);
+    }
   }
 
   &.-red {
     background-color: $color-red;
-    border: 1px solid $color-red;
+
+    &:hover {
+      background-color: lighten($color-red, 10%);
+    }
   }
 
   &.-gray {
     background-color: $color-gray;
-    border: 1px solid $color-gray;
+
+    &:hover {
+      background-color: lighten($color-gray, 10%);
+    }
   }
 }

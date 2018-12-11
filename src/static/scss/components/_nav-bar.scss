@@ -36,6 +36,9 @@ body.-white .nav-bar {
     padding-right: 1rem;
     padding-left: 1rem;
   }
+  @include bp-mediumup {
+    height: 3.75rem;
+  }
 
   &.-shadow {
     @include header-shadow;

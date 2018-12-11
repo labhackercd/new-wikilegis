@@ -18,15 +18,17 @@
     <p class="js-suggestion" data-suggestion-id=""></p>
   </div>
   <div class="footer">
-    <span class="info-text">
-      <img src="{% static 'img/information.svg' %}">
-      <h4>Você concorda com essa opinião?</h4>
-    </span>
-    <div class="actions">
-      <a href="#" class="outline-button -green js-opinionButton" data-opinion="approve">Concordo</a>
-      <a href="#" class="outline-button -gray js-opinionButton" data-opinion="neutral">Neutro</a>
-      <a href="#" class="outline-button -red js-opinionButton" data-opinion="reject">Discordo</a>
+    <div class="content">
+      <span class="info-text">
+        <img src="{% static 'img/information.svg' %}">
+        <h4>Você concorda com essa opinião?</h4>
+      </span>
+      <div class="actions">
+        <a href="#" class="solid-button -green js-opinionButton" data-opinion="approve">Concordo</a>
+        <a href="#" class="solid-button -gray js-opinionButton" data-opinion="neutral">Neutro</a>
+        <a href="#" class="solid-button -red js-opinionButton" data-opinion="reject">Discordo</a>
+      </div>
+      <a href="#" class="simple-link js-nextOpinion">Próxima Opinião</a>
     </div>
-    <a href="#" class="simple-link js-nextOpinion">Próxima Opinião</a>
   </div>
 </div>

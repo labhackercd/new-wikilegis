@@ -25,8 +25,21 @@
   background-color: rgba($color-link, .4);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: $color-whitesmoke;
+
+  &.-home {
+    & .nav-bar {
+      @include bp-mediumup {
+        box-shadow: none;
+      }
+    }
+  }
 
   &.-open-menu {
     overflow: hidden;
@@ -42,18 +55,38 @@ body {
 
   &.-no-scroll {
     overflow: hidden;
+
+    &::before {
+      position: absolute;
+      z-index: 9;
+      top: 0;
+      left: 0;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      content: '';
+
+      opacity: .6;
+      background-color: #000;
+    }
   }
 }
 
 main {
-  width: 66ch;
-  max-width: 90%;
   margin-top: 2.75rem;
   margin-right: auto;
   margin-left: auto;
   padding: $space-centi;
   padding-top: $space-centi;
   padding-bottom: $space-deca;
+
+  @include bp-mediumup {
+    margin-top: 3.75rem;
+    padding-top: 0;
+  }
 }
 
 p {
@@ -83,8 +116,7 @@ h3 {
 p,
 h1,
 h2,
-h3,
-h4 {
+h3 {
   color: $color-deep-gray;
 }
 
@@ -174,7 +206,7 @@ input {
     outline: none;
   }
 
-  &::placeholder{
+  &::placeholder {
     color: $color-grayish;
   }
 }
@@ -185,6 +217,7 @@ b {
 
 p > a {
   text-decoration: underline;
+
   color: $color-brand;
 
   &:hover {

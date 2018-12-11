@@ -1,6 +1,15 @@
 .projects-list {
+  @include bp-mediumup {
+    overflow-y: auto;
+  }
+
   & > .search {
     margin-top: 2rem;
+
+    @include bp-mediumup {
+      margin-top: 0;
+      width: calc(50% - 3rem);
+    }
   }
 
   & > .list {

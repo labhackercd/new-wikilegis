@@ -37,7 +37,8 @@
     {% block extracss %}
     {% endblock extracss %}
   </head>
-  <body {% if request.path|startswith:"/p/" %}class="-white"{% endif %}>
+  <body {% if request.path|startswith:"/p/" %}class="-white"{% endif %}
+  {% if request.path|startswith:"" %}class="-home"{% endif %}>
     {% block content %}
     {% endblock content %}
     {% include "components/generic-modal.html" %}
