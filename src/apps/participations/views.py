@@ -52,7 +52,8 @@ class InvitedGroupCreate(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('new_group', kwargs={'pk': self.object.document.id})
+        return reverse_lazy(
+            'new_group', kwargs={'pk': self.object.document.id})
 
 
 @require_ajax
