@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db import models
 from utils.model_mixins import TimestampedMixin
+from django.urls import reverse
 
 
 class Theme(models.Model):
@@ -51,6 +52,9 @@ class Document(TimestampedMixin):
     class Meta:
         verbose_name = _('document')
         verbose_name_plural = _('documents')
+
+    def get_absolute_url(self):
+        return reverse('project', kwargs={'id': self.id, 'slug': self.slug})
 
     def save(self):
         self.slug = slugify(self.title)

@@ -22,7 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # APPLICATION SETTINGS
 DEBUG = config('DEBUG', cast=bool, default=True)
+
 SECRET_KEY = config('SECRET_KEY', default='secret_key')
+
+SITE_ID = config('SITE_ID', default='1')
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS',
                        cast=Csv(lambda x: x.strip().strip(',').strip()),
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'compressor',
     'compressor_toolkit',
