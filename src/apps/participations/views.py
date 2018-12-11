@@ -37,14 +37,15 @@ class InvitedGroupCreate(CreateView):
             thematic_group = ThematicGroup(owner=self.request.user)
             thematic_group.name = self.request.POST.get('group_name', None)
             thematic_group.save()
-            participants_ids = self.request.POST.get('participants[]', [])
-            emails = self.request.POST.get('emails[]', None)
+            participants_ids = self.request.POST.getlist('participants[]', [])
+            emails = self.request.POST.getlist('emails[]', None)
             if emails:
                 for email in emails:
-                    email_user = User.objects.create(email=email)
+                    email_user = User.objects.create(
+                        email=email, username=email)
                     participants_ids.append(email_user.id)
             if participants_ids:
-                participants = User.objects.filter(participants_ids)
+                participants = User.objects.filter(id__in=participants_ids)
                 thematic_group.participants.set(participants)
             self.object.thematic_group = thematic_group
         self.object.save()
