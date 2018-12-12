@@ -23,10 +23,6 @@ h3 {
   font-weight: 700;
 }
 
-h4 {
-  font-weight: 500;
-}
-
 h1 {
   font-size: $font-size-deca;
   line-height: $line-height-deca;
@@ -38,23 +34,22 @@ h1 {
 }
 
 h2 {
-  font-size: $font-size-base;
-  line-height: $line-height-base;
-
-  @include bp-mediumup {
-    font-size: $font-size-deca;
-    line-height: $line-height-deca;
-  }
-}
-
-h3,
-h4 {
   font-size: $font-size-deci;
   line-height: $line-height-deci;
 
   @include bp-mediumup {
     font-size: $font-size-base;
     line-height: $line-height-base;
+  }
+}
+
+h3 {
+  font-size: $font-size-centi;
+  line-height: $line-height-centi;
+
+  @include bp-mediumup {
+    font-size: $font-size-deci;
+    line-height: $line-height-deci;
   }
 }
 

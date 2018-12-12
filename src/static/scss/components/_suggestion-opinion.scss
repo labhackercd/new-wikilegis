@@ -1,0 +1,12 @@
+.suggestion-opinion {
+  display: inline-flex;
+
+  padding: .5rem 0;
+
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: .8;
+  }
+}

@@ -37,8 +37,7 @@
     {% block extracss %}
     {% endblock extracss %}
   </head>
-  <body {% if request.path|startswith:"/p/" %}class="-white"{% endif %}
-  {% if request.path|startswith:"" %}class="-home"{% endif %}>
+  <body class="js-body {% if request.path|startswith:"/p/" %}-white{% endif %} {% if request.path == "/" %}-home{% endif %}">
     {% block content %}
     {% endblock content %}
 

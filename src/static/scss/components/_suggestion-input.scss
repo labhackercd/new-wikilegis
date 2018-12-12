@@ -7,6 +7,8 @@
   box-sizing: border-box;
   width: 100%;
   padding: 1rem;
+  padding-right: 1.6rem;
+  padding-left: 1.6rem;
 
   transition: transform .3s 0s ease, visibility 0s .3s;
   transform: translateY(100%);
@@ -23,8 +25,12 @@
   }
 
   & > .content {
-    width: 66%;
-    margin: 0 auto;
+    position: relative;
+
+    @include bp-mediumup {
+      width: 66%;
+      margin: 0 auto;
+    }
   }
 
   & > .content > .close {
