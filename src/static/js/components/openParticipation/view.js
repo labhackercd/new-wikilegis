@@ -10,7 +10,6 @@ ParticipantsAutocompleteView.prototype.initEvents = function() {
 };
 
 ParticipantsAutocompleteView.prototype.publishers = function() {
-  var self = this;
   $('.js-send-button').click(function() {
     $.Topic(events.createInvitedGroup).publish();
   });
