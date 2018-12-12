@@ -3,5 +3,5 @@ from apps.accounts import views
 
 urlpatterns = [
     path('participants/autocomplete/',
-         views.autocompleteUser, name='autocomplete'),
+         views.participants_autocomplete, name='participants_autocomplete'),
 ]

@@ -50,4 +50,11 @@ var events = {
   // Triggered when user click on opinionModal button
   // Params: suggestionId, opinion (approve, reject, neutral)
   sendOpinion: 'sendOpinion',
+
+  // Triggered when user click on invitedGroup send button
+  createInvitedGroup: 'createInvitedGroup',
+
+  // Triggered when user click on themes
+  // Params: themeId
+  setThemes: 'setThemes',
 };

@@ -1,68 +1,65 @@
-/*global $ Urls */
+/*global $ events Urls */
 
-var AutocompleteInputView = function() {};
+var ParticipantsAutocompleteView = function() {};
 
-AutocompleteInputView.prototype.initEvents = function() {
+ParticipantsAutocompleteView.prototype.initEvents = function() {
   this.inputNameElement = $('.js-name');
-  this.themeElement = $('.js-theme');
-  this.initAutocomplete();
-  this.initAddNotUser();
-  this.setThemes();
+  this.initAutocompleteInput();
+  this.publishers();
+  this.subscribers();
 };
 
-AutocompleteInputView.prototype.initAddNotUser= function () {
+ParticipantsAutocompleteView.prototype.publishers = function() {
   var self = this;
-
-  self.inputNameElement.keypress(function (e) {
-    if (e.which == 13) {
-      var email = self.inputNameElement.val();
-      if (self.validateEmail(email)) {
-        $('<div>').text(email)
-          .addClass('js-email')
-          .attr('data-email', email)
-          .prependTo('#log');
-        $('#log').scrollTop(0);
-      }
-      return false;
-    }
+  $('.js-send-button').click(function() {
+    $.Topic(events.createInvitedGroup).publish();
+  });
+  $('.js-theme').click(function(e) {
+    var themeId = $(e.target).data('themeId').toString();
+    $.Topic(events.setThemes).publish(themeId);
   });
 };
 
-AutocompleteInputView.prototype.setThemes= function () {
+ParticipantsAutocompleteView.prototype.subscribers = function () {
   var self = this;
+  $.Topic(events.setThemes).subscribe(function(themeId){
+    self.setThemes(themeId);
+  });
+};
 
-  self.themeElement.on('click', function(e) {
-    var currentValue = localStorage.getItem('theme');
-    var key = 'theme';
-    var value = $(e.target).data('themeId').toString();
-    if (currentValue) {
-      var currentArray = currentValue.split(',');
-      var i = currentArray.indexOf(value);
-      if (i < 0) {
-        currentArray = currentArray.concat(value);
+
+ParticipantsAutocompleteView.prototype.setThemes = function (themeId) {
+  var self = this;
+  var currentValue = localStorage.getItem('theme');
+  var key = 'theme';
+
+  if (currentValue) {
+    var currentArray = currentValue.split(',');
+    var i = currentArray.indexOf(themeId);
+    if (i < 0) {
+      currentArray = currentArray.concat(themeId);
+      localStorage.setItem(key, currentArray);
+      self.inputNameElement.focus();
+    } else {
+      currentArray.splice(i, 1);
+      if (currentArray.length > 0) {
         localStorage.setItem(key, currentArray);
         self.inputNameElement.focus();
       } else {
-        currentArray.splice(i, 1);
-        if (currentArray.length > 0) {
-          localStorage.setItem(key, currentArray);
-          self.inputNameElement.focus();
-        } else {
-          localStorage.removeItem(key);
-        }
+        localStorage.removeItem(key);
       }
-    } else {
-      localStorage.setItem(key, value);
-      self.inputNameElement.focus();
     }
-  });
+  } else {
+    localStorage.setItem(key, themeId);
+    self.inputNameElement.focus();
+  }
 
   $(window).on('unload', function() {
     localStorage.clear();
   });
 };
 
-AutocompleteInputView.prototype.initAutocomplete= function () {
+ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
   var self = this;
 
   self.inputNameElement.autocomplete({
@@ -72,7 +69,7 @@ AutocompleteInputView.prototype.initAutocomplete= function () {
         theme = localStorage.getItem('theme').split(',');
       }
       $.ajax({
-        url: Urls.autocomplete(),
+        url: Urls.participants_autocomplete(),
         dataType: 'json',
         traditional: true,
         data: {
@@ -95,13 +92,29 @@ AutocompleteInputView.prototype.initAutocomplete= function () {
   })
     .bind('focus', function(){ $(this).autocomplete('search');})
     .data('ui-autocomplete')._renderItem = self.listItem;
+
+
+  self.inputNameElement.keypress(function (e) {
+    if (e.which == 13) {
+      var email = self.inputNameElement.val();
+      if (self.validateEmail(email)) {
+        $('<div>').text(email)
+          .addClass('js-email')
+          .attr('data-email', email)
+          .prependTo('#log');
+        $('#log').scrollTop(0);
+        self.inputNameElement.val('');
+      }
+      return false;
+    }
+  });
 };
 
-AutocompleteInputView.prototype.listItem = function (ul, item) {
+ParticipantsAutocompleteView.prototype.listItem = function (ul, item) {
   return $('<li>').append('<a>' + item.first_name + '</a>').appendTo(ul);
 };
 
-AutocompleteInputView.prototype.validateEmail = function (email) {
+ParticipantsAutocompleteView.prototype.validateEmail = function (email) {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
