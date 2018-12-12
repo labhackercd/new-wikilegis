@@ -4,11 +4,7 @@
   {{ object.title }}
 {% endblock title %}
 {% block content %}
-<div class="nav-bar">
-  <div class="nav-burger"></div>
-  <a href="{% url 'home' %}" class="brand">Wikilegis</a>
-</div>
-
+{% include "components/nav-bar.html" %}
 <div class="nav-menu">
   <nav>
     <a href="#">Vrom</a>

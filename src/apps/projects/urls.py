@@ -8,4 +8,5 @@ urlpatterns = [
     path('invitation/<int:pk>/<str:accept>/',
          views.InvitationRedirectView.as_view(),
          name="invitation"),
+    path('new/', views.DocumentCreateView.as_view(), name="new_document")
 ]

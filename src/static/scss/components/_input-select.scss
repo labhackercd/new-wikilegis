@@ -1,0 +1,44 @@
+.input-select {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 1rem;
+
+  label {
+    font-weight: 500;
+  }
+
+  .select {
+    display: flex;
+    position: relative;
+    @include card-shadow;
+
+    select {
+      background-color: #FFF;
+      height: 3rem;
+      padding: 0 1rem;
+      flex: 1;
+    }
+
+    .icon {
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      pointer-events: none;
+      right: 0;
+
+      .arrow {
+        width: 0.7rem;
+        height: 0.7rem;
+        border: solid $color-deep-gray;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}

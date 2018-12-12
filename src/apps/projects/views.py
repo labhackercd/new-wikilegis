@@ -1,7 +1,9 @@
 from django.views.generic import ListView, DetailView, RedirectView
+from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from .models import Document
+from .forms import DocumentForm
 from datetime import date
 from apps.participations.models import InvitedGroup
 from apps.notifications.models import ParcipantInvitation
@@ -68,6 +70,12 @@ class InvitationRedirectView(RedirectView):
         invitation.save()
 
         return super().get_redirect_url(*args, **kwargs)
+
+
+class DocumentCreateView(CreateView):
+    model = Document
+    form_class = DocumentForm
+    template_name = 'pages/new-document.html'
 
 
 def list_propositions(request):

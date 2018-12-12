@@ -1,0 +1,15 @@
+.input-textarea {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 1rem;
+
+  label {
+    font-weight: 500;
+  }
+
+  textarea {
+    height: 10rem;
+    width: 100%
+  }
+}

@@ -1,0 +1,56 @@
+{% extends "structure/base.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+  <main class="home-section">
+    {% include "components/hero-section.html" %}
+    <div class="projects-list">
+      <form action="">
+        {% csrf_token %}
+        <div class="input-select">
+          <label for="{{form.document_type.id_for_label}}">{% trans "Project Type" %}</label>
+          <div class="select">
+            {{form.document_type}}
+            <div class="icon"><i class="arrow"></i></div>
+          </div>
+          {{form.document_type.error}}
+        </div>
+        <div class="input-group">
+          <div class="input-text">
+            <label for="{{form.number.id_for_label}}">{% trans "Number" %}</label>
+            {{form.number}}
+            {{form.number.error}}
+          </div>
+          <div class="input-text">
+            <label for="{{form.year.id_for_label}}">{% trans "Year" %}</label>
+            <div class="">
+              {{form.year}}
+            </div>
+            {{form.year.error}}
+          </div>
+        </div>
+        <div class="input-text">
+          <label for="{{form.title.id_for_label}}">{% trans "Title" %}</label>
+          {{form.title}}
+          {{form.title.error}}
+        </div>
+        <div class="input-textarea">
+          <label for="{{form.description.id_for_label}}">{% trans "Description" %}</label>
+          {{form.description}}
+          {{form.description.error}}
+        </div>
+        <div class="input-text">
+          <div class="theme-autocomplete js-themeAutocomplete">
+            <label for="{{form.themes.id_for_label}}">{% trans "Themes" %}</label>
+            <input class="js-themes" type="hidden" name="themes">
+            <input class="js-input" type="text" name="theme-autocomplete">
+            <ul class="tags js-tags">
+              <li class="tag"></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </main>
+{% endblock content %}
