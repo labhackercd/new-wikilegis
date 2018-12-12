@@ -5,7 +5,7 @@ from django.db.models import Q
 User = get_user_model()
 
 
-def autocompleteUser(request):
+def participants_autocomplete(request):
     name = request.GET.get('name', None)
     themes = request.GET.getlist('theme', None)
     query = Q()

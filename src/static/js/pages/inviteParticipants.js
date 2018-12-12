@@ -1,7 +1,7 @@
-/*global AutocompleteInputView InvitedGroupController*/
+/*global ParticipantsAutocompleteView InvitedGroupController*/
 
-var autocompleteInputView = new AutocompleteInputView();
-autocompleteInputView.initEvents();
+var participantsAutocompleteView = new ParticipantsAutocompleteView();
+participantsAutocompleteView.initEvents();
 
 var invitedGroupController = new InvitedGroupController();
 invitedGroupController.initEvents();
