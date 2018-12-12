@@ -5,10 +5,14 @@
   margin-top: 2rem;
 
   & > img {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.45rem;
+    height: 1.45rem;
     margin-right: .5rem;
 
     border-radius: 50%;
+  }
+
+  & > * {
+    margin-top: 0;
   }
 }

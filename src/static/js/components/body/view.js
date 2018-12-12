@@ -12,14 +12,19 @@ BodyView.prototype.initEvents = function() {
 BodyView.prototype.publishers = function() {
   var self = this;
   $('body').on('click', function(e) {
-    var suggestionInput = $(e.target).closest('.js-suggestionInput');
-    var opinionModal = $(e.target).closest('.js-opinionModal');
+    var target = $(e.target);
+    var suggestionInput = target.closest('.js-suggestionInput');
+    var opinionModal = target.closest('.js-opinionModal');
     if (suggestionInput.length === 0 && opinionModal.length === 0) {
       var selectedText = window.getSelection().toString();
       if (selectedText === '' || selectedText === self.previousSelectedText) {
         $.Topic(events.cancelTextSelection).publish();
       }
       self.previousSelectedText = selectedText;
+    }
+
+    if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
+      $.Topic(events.closeOpinionModal).publish(false);
     }
   });
 
@@ -89,8 +94,10 @@ BodyView.prototype.closeMenu = function() {
 
 BodyView.prototype.disableScroll = function() {
   $('body').addClass('-no-scroll');
+  $('body').addClass('js-overlay');
 };
 
 BodyView.prototype.enableScroll = function() {
   $('body').removeClass('-no-scroll');
+  $('body').removeClass('js-overlay');
 };
