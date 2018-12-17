@@ -60,9 +60,6 @@ ThemeAutocomplete.prototype.publishers = function() {
   };
 };
 
-ThemeAutocomplete.prototype.subscribers = function() {
-};
-
 ThemeAutocomplete.prototype.addTag = function(theme) {
   var tag = $('<li class="tag js-tag">' + theme.name + '</li>');
   tag.css('border-color', theme.color);
