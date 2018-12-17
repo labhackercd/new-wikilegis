@@ -124,34 +124,6 @@ blockquote {
   padding-left: $space-base;
 }
 
-ul > li,
-ol > li {
-  position: relative;
-
-  padding-left: $space-centi;
-
-  @include bp-smallup {
-    left: -1rem;
-
-    padding-left: 1rem;
-  }
-  @include bp-mediumup {
-    left: -$space-deci;
-
-    padding-left: $space-deci;
-  }
-  &:before {
-    position: absolute;
-    left: 0;
-
-    display: inline-block;
-
-    width: $space-deci;
-
-    content: '•';
-  }
-}
-
 ol {
   counter-reset: list-counter;
 }
