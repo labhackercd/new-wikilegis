@@ -1,0 +1,63 @@
+{% extends "structure/base.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+  <main class="home-section">
+    {% include "components/hero-section.html" %}
+    <div class="projects-list">
+      <form class="document-form" method="POST">
+        {% csrf_token %}
+        {{form.non_field_errors}}
+        <div class="input-text">
+          <div class="theme-autocomplete js-themeAutocomplete">
+            <label>{% trans "Themes" %}</label>
+            <input class="js-input" type="text" name="theme-autocomplete">
+            {{form.themes.errors}}
+            <ul class="tags js-tags">
+            </ul>
+          </div>
+        </div>
+        <div class="input-select">
+          <label for="{{form.document_type.id_for_label}}">{% trans "Project Type" %}</label>
+          <div class="select">
+            {{form.document_type}}
+            <div class="icon"><i class="arrow"></i></div>
+          </div>
+          {{form.document_type.errors}}
+        </div>
+        <div class="input-group">
+          <div class="input-text">
+            <label for="{{form.number.id_for_label}}">{% trans "Number" %}</label>
+            {{form.number}}
+            {{form.number.errors}}
+          </div>
+          <div class="input-text">
+            <label for="{{form.year.id_for_label}}">{% trans "Year" %}</label>
+            <div class="">
+              {{form.year}}
+            </div>
+            {{form.year.errors}}
+          </div>
+        </div>
+        <div class="input-text">
+          <label for="{{form.title.id_for_label}}">{% trans "Title" %}</label>
+          {{form.title}}
+          {{form.title.errors}}
+        </div>
+        <div class="input-textarea">
+          <label for="{{form.description.id_for_label}}">{% trans "Description" %}</label>
+          {{form.description}}
+          {{form.description.errors}}
+        </div>
+        <button>Enviar</button>
+      </form>
+    </div>
+  </main>
+{% endblock content %}
+
+{% block page_js %}
+  <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
+  <script src="{% static 'js/components/themeAutocomplete/controller.js' %}"></script>
+  <script src="{% static 'js/pages/newDocument.js' %}"></script>
+{% endblock page_js %}

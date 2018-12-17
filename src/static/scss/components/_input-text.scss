@@ -1,0 +1,10 @@
+.input-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 1rem;
+
+  label {
+    font-weight: 500;
+  }
+}

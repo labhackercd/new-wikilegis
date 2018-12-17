@@ -14,12 +14,7 @@
 </div>
 
 <main class="home-section">
-  <div class="hero-section">
-    <img src="{% static 'img/brand.svg' %}" alt="Wikilegis">
-    <h1>Sua ferramenta de edição legislativa</h1>
-    <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
-    <p>Nessa interação, ganha a sociedade, que participa mais ativamente do processo legislativo, e ganha o Parlamento, que aprova leis mais aprimoradas e conectadas às necessidades dos cidadãos.</p>
-  </div>
+  {% include "components/hero-section.html" %}
   <div class="projects-list" id="js-projects-list">
     <input class="search js-search" type="text" placeholder="Buscar">
     <div class="list">

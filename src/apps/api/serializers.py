@@ -9,7 +9,7 @@ from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 class ThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Theme
-        fields = ('id', 'name', 'slug')
+        fields = ('id', 'name', 'slug', 'color')
 
 
 class ProfileSerializer(serializers.ModelSerializer):

@@ -18,6 +18,7 @@ djangorestframework = "*"
 django-filter = "*"
 django-compressor-toolkit = "*"
 django-js-reverse = "*"
+django-colorful = "*"
 
 [dev-packages]
 ipdb = "*"

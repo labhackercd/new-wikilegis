@@ -1,13 +1,15 @@
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db import models
-from utils.model_mixins import TimestampedMixin
 from django.urls import reverse
+from utils.model_mixins import TimestampedMixin
+from colorful.fields import RGBColorField
 
 
 class Theme(models.Model):
     name = models.CharField(_('name'), max_length=200)
     slug = models.SlugField()
+    color = RGBColorField()
     icon = models.FileField(upload_to='icons/', verbose_name=_('icon'),
                             null=True, blank=True)
 
