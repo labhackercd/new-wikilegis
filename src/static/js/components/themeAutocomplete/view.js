@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ Urls */
 
 var ThemeAutocomplete = function() {};
 
@@ -17,7 +17,7 @@ ThemeAutocomplete.prototype.publishers = function() {
 
   self.tagsElement.on('click', '.js-tag', function(e) {
     self.removeTag($(e.target));
-  })
+  });
 
   var autocomplete = self.inputElement.autocomplete({
     source: function(request, response) {
@@ -25,7 +25,7 @@ ThemeAutocomplete.prototype.publishers = function() {
         url: Urls.theme_list() + '?slug__icontains=' + request.term,
         dataType: 'json',
         success: function(data) {
-          response(data.results)
+          response(data.results);
         }
       });
     },
@@ -43,8 +43,7 @@ ThemeAutocomplete.prototype.publishers = function() {
       .addClass('item')
       .text(item.name);
 
-    var span = $('<span>')
-      .addClass('dot')
+    $('<span>').addClass('dot')
       .css('background-color', item.color)
       .appendTo(li);
 
@@ -58,7 +57,6 @@ ThemeAutocomplete.prototype.publishers = function() {
     $.each( items, function( index, item ) {
       autocomplete._renderItemData( ul, item );
     });
-    console.log(ul);
   };
 };
 
@@ -81,7 +79,6 @@ ThemeAutocomplete.prototype.removeTag = function(tagElement) {
 };
 
 ThemeAutocomplete.prototype.addTheme = function(theme) {
-  console.log(theme);
   var themeInput = $('input[name="themes"][value="' + theme.id + '"]');
   if (themeInput.length === 0) {
     var input = $('<input type="hidden" name="themes" value="' + theme.id + '">');

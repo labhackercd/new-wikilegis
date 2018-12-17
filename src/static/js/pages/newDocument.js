@@ -1,4 +1,4 @@
-/* global BodyView ThemeAutocomplete */
+/* global ThemeAutocomplete */
 
 
 var themeAutocomplete = new ThemeAutocomplete();
