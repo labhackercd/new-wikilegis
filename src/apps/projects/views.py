@@ -77,6 +77,14 @@ class DocumentCreateView(CreateView):
     form_class = DocumentForm
     template_name = 'pages/new-document.html'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if 'data' in kwargs.keys():
+            data = kwargs['data'].copy()
+            data['owner'] = self.request.user.id
+            kwargs['data'] = data
+        return kwargs
+
 
 def list_propositions(request):
     documents = Document.objects.filter(
