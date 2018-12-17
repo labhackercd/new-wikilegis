@@ -34,6 +34,16 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
 
 
+class ThemeFilter(FilterSet):
+    class Meta:
+        model = Theme
+        fields = {
+            'id': ['exact'],
+            'name': ['exact', 'contains', 'icontains'],
+            'slug': ['exact', 'contains', 'icontains'],
+        }
+
+
 class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Theme.objects.all()
     serializer_class = serializers.ThemeSerializer
@@ -42,7 +52,7 @@ class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
         filters.SearchFilter,
         filters.OrderingFilter
     )
-    filter_fields = ('id', 'name', 'slug')
+    filter_class = ThemeFilter
     search_fields = ('name', 'slug')
     ordering_fields = '__all__'
 
