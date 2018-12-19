@@ -5,6 +5,10 @@
 
   margin-top: 1rem;
 
+  &.-hide {
+    display: none;
+  }
+
   label {
     font-size: $font-size-centi;
     font-weight: 500;

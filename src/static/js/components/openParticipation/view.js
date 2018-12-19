@@ -81,6 +81,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       });
     },
     minLength: 0,
+    appendTo: '.js-inputProfile',
     select: function(event, ui) {
       $('<div>').text(ui.item.first_name)
         .addClass('js-user')
@@ -91,6 +92,15 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
   })
     .bind('focus', function(){ $(this).autocomplete('search');})
     .data('ui-autocomplete')._renderItem = self.listItem;
+
+  // autocomplete.autocomplete('instance')._renderMenu = function(ul, items) {
+  //   ul.addClass('autocomplete-list');
+  //
+  //   var autocomplete = this;
+  //   $.each( items, function( index, item ) {
+  //     autocomplete._renderItemData( ul, item );
+  //   });
+  // };
 
 
   self.inputNameElement.keypress(function (e) {
@@ -110,7 +120,26 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
 };
 
 ParticipantsAutocompleteView.prototype.listItem = function (ul, item) {
-  return $('<li>').append('<a>' + item.first_name + '</a>').appendTo(ul);
+  var element = `
+          <li class="user-profile">
+            <img class="avatar" src="/static/img/avatar2.png">
+            <div class="info">
+              <span class="name">${item.first_name}</span>
+              <div class="tags">
+                <div class="theme-tag js-tag">
+                  <span class="dot" style="background-color: rgb(216, 77, 240);"></span>
+                  Educação
+                </div>
+              </div>
+            </div>
+            <div class="action">
+              <div class="add"></div>
+              <div class="remove"></div>
+            </div>
+          </li>
+        `
+
+  return $(element).appendTo(ul);
 };
 
 ParticipantsAutocompleteView.prototype.validateEmail = function (email) {

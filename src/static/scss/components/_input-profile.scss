@@ -1,0 +1,10 @@
+.input-profile {
+  margin-top: 4rem;
+  width: 400px;
+  height: 400px;
+  background-color: #FFF;
+
+  & > label {
+    font-size: 1rem;
+  }
+}
