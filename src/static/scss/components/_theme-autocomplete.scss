@@ -1,15 +1,26 @@
 .theme-autocomplete {
-  .tags {
+  & > .themes {
     display: flex;
-    margin-top: 1rem;
+    align-items: center;
 
-    .tag {
-      font-size: 1rem;
+    margin-top: .5rem;
+
+    & > .title {
+      font-size: .5625rem;
       font-weight: 500;
-      padding: 0.3rem 1rem;
-      border: 2px solid;
-      cursor: pointer;
-      margin-right: 1rem;
+
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+
+      color: $color-gray;
+    }
+
+    & > .tags {
+      display: flex;
+
+      & > * + * {
+        margin-left: .75rem;
+      }
     }
   }
 }

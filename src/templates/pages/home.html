@@ -2,16 +2,6 @@
 {% load staticfiles projects_tags %}
 
 {% block content %}
-<div class="nav-bar">
-  <div class="nav-burger"></div>
-  <a href="{% url 'home' %}" class="brand">Wikilegis</a>
-</div>
-
-<div class="nav-menu">
-  <nav>
-    <a href="#">Vrom</a>
-  </nav>
-</div>
 
 <main class="home-section">
   {% include "components/hero-section.html" %}
@@ -145,8 +135,6 @@
   <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
   <script src="{% static 'js/components/documentBody/view.js' %}"></script>
   <script src="{% static 'js/components/navBurger/view.js' %}"></script>
-  <script src="{% static 'js/components/navBar/view.js' %}"></script>
   <script src="{% static 'js/components/searchInput/view.js' %}"></script>
-  <script src="{% static 'js/components/body/view.js' %}"></script>
   <script src="{% static 'js/pages/home.js' %}"></script>
 {% endblock page_js %}

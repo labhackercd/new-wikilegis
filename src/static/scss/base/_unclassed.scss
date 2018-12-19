@@ -102,13 +102,13 @@ h1 {
 }
 
 h2 {
-  * + & {
+  * + * {
     margin-top: $space-base;
   }
 }
 
 h3 {
-  * + & {
+  * + * {
     margin-top: $space-centi;
   }
 }
@@ -160,6 +160,10 @@ pre {
     margin-right: -$space-deci;
     margin-left: -$space-deci;
   }
+}
+
+textarea {
+  resize: none;
 }
 
 input,

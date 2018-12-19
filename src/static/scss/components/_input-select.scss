@@ -1,43 +1,59 @@
 .input-select {
   display: flex;
-  flex-direction: column;
   flex: 1;
-  margin: 1rem;
+  flex-direction: column;
+
+  margin-top: 1rem;
 
   label {
+    font-size: $font-size-centi;
     font-weight: 500;
+
+    margin-bottom: .5rem;
+
+    opacity: .6;
   }
 
   .select {
-    display: flex;
     position: relative;
+
+    display: flex;
+    align-items: center;
+
     @include card-shadow;
 
     select {
-      background-color: #FFF;
+      flex: 1;
+
       height: 3rem;
       padding: 0 1rem;
-      flex: 1;
+
+      background-color: #FFF;
     }
 
     .icon {
-      width: 3rem;
-      height: 3rem;
+      position: absolute;
+      right: 0;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      position: absolute;
+
+      width: 2.5rem;
+      height: 2.5rem;
+
       pointer-events: none;
-      right: 0;
 
       .arrow {
-        width: 0.7rem;
-        height: 0.7rem;
-        border: solid $color-deep-gray;
-        border-width: 0 2px 2px 0;
         display: inline-block;
-        padding: 3px;
+
+        width: .7rem;
+        height: .7rem;
+
         transform: rotate(45deg);
+
+        border: solid $color-grayish;
+        border-width: 0 2px 2px 0;
       }
     }
   }
