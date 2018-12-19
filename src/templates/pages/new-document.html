@@ -8,17 +8,23 @@
       <form class="document-form" method="POST">
         {% csrf_token %}
         {{form.non_field_errors}}
+        <h2>Criar Novo Projeto</h2>
         <div class="input-text">
           <div class="theme-autocomplete js-themeAutocomplete">
-            <label>{% trans "Themes" %}</label>
+            <label>{% trans "Tema" %}</label>
             <input class="js-input" type="text" name="theme-autocomplete">
             {{form.themes.errors}}
-            <ul class="tags js-tags">
-            </ul>
+            <div class="themes">
+              <span class="title">Temas Adicionados:</span>
+              <ul class="tags js-tags">
+                <li class="item">
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="input-select">
-          <label for="{{form.document_type.id_for_label}}">{% trans "Project Type" %}</label>
+          <label for="{{form.document_type.id_for_label}}">{% trans "Tipo" %}</label>
           <div class="select">
             {{form.document_type}}
             <div class="icon"><i class="arrow"></i></div>
@@ -27,12 +33,12 @@
         </div>
         <div class="input-group">
           <div class="input-text">
-            <label for="{{form.number.id_for_label}}">{% trans "Number" %}</label>
+            <label for="{{form.number.id_for_label}}">{% trans "Número" %}</label>
             {{form.number}}
             {{form.number.errors}}
           </div>
           <div class="input-text">
-            <label for="{{form.year.id_for_label}}">{% trans "Year" %}</label>
+            <label for="{{form.year.id_for_label}}">{% trans "Ano" %}</label>
             <div class="">
               {{form.year}}
             </div>
@@ -40,16 +46,16 @@
           </div>
         </div>
         <div class="input-text">
-          <label for="{{form.title.id_for_label}}">{% trans "Title" %}</label>
+          <label for="{{form.title.id_for_label}}">{% trans "Título" %}</label>
           {{form.title}}
           {{form.title.errors}}
         </div>
         <div class="input-textarea">
-          <label for="{{form.description.id_for_label}}">{% trans "Description" %}</label>
+          <label for="{{form.description.id_for_label}}">{% trans "Descrição" %}</label>
           {{form.description}}
           {{form.description.errors}}
         </div>
-        <button>Enviar</button>
+        <button class="solid-button -green">Enviar</button>
       </form>
     </div>
   </main>
@@ -58,6 +64,5 @@
 {% block page_js %}
   <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
   <script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
-  <script src="{% static 'js/components/themeAutocomplete/controller.js' %}"></script>
   <script src="{% static 'js/pages/newDocument.js' %}"></script>
 {% endblock page_js %}

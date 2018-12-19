@@ -41,6 +41,8 @@
   {% if request.path|startswith:"" %}class="-home"{% endif %}>
     {% block content %}
     {% endblock content %}
+    
+    {% include "components/nav-bar.html" %}
 
     {% block modal %}
     {% include "components/generic-modal.html" %}

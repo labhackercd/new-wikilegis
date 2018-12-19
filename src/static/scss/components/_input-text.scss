@@ -1,10 +1,16 @@
 .input-text {
   display: flex;
-  flex-direction: column;
   flex: 1;
-  margin: 1rem;
+  flex-direction: column;
+
+  margin-top: 1rem;
 
   label {
+    font-size: $font-size-centi;
     font-weight: 500;
+
+    margin-bottom: .5rem;
+
+    opacity: .6;
   }
 }

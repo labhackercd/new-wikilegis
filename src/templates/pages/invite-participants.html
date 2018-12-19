@@ -16,29 +16,34 @@
 
 {% block content %}
 
-<ul>
-  {% for theme in themes %}
-  <li class="js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
-  {% endfor %}
-</ul>
-<p>
-  <label for="id_group_name">Nome do grupo: </label>
-  <input type="text" name="group_name" id="id_group_name">
-</p>
-{{ form.as_p }}
-<div class="ui-widget">
-  <label for="name">Usuários: </label>
-  <input id="name" class="js-name">
-</div>
- 
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-  Resultado:
-  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>
+<main class="section-group">
+  <h2>Criar Grupo Fechado</h2>
+  <ul>
+    {% for theme in themes %}
+    <li class="js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
+    {% endfor %}
+  </ul>
 
-<p>
-  <button class="js-send-button">Salvar</button>
-</p>
+  <div class="input-text">
+    <label for="id_group_name">Nome do grupo: </label>
+    <input type="text" name="group_name" id="id_group_name">
+  </div>
+
+  {{ form.as_p }}
+  <div class="input-text ui-widget">
+    <label for="name">Usuários: </label>
+    <input id="name" class="js-name">
+  </div>
+
+  <div class="ui-widget" style="margin-top:2em; font-family:Arial">
+    Resultado:
+    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+  </div>
+
+  <p>
+    <button class="js-send-button">Salvar</button>
+  </p>
+</main>
 
 {% endblock content %}
 
