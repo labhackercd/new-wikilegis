@@ -1,8 +1,15 @@
 .input-profile {
-  margin-top: 4rem;
-  width: 400px;
-  height: 400px;
+  font-size: .875rem;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 25rem;
+  margin-top: 1.5rem;
+  padding: .875rem;
+
   background-color: #FFF;
+
+  @include card-shadow;
 
   & > label {
     font-size: 1rem;

@@ -17,21 +17,49 @@
 {% block content %}
 
 <main class="section-group">
-  <h2>Criar Grupo Fechado</h2>
-  <ul>
+  <header>
+    <h2>Criar Grupo Fechado</h2>
+    <div class="close-icon"></div>
+  </header>
+  <ul class="_hide">
     {% for theme in themes %}
-    <li class="js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
+    <li class="theme-tag js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
     {% endfor %}
   </ul>
 
-  <div class="input-text">
-    <label for="id_group_name">Nome do grupo: </label>
-    <input type="text" name="group_name" id="id_group_name">
+  <div class="input-group">
+    <div class="input-text">
+      <label for="id_group_name">Nome do grupo: </label>
+      <input type="text" name="group_name" id="id_group_name">
+    </div>
+    <div class="input-text">
+      <label for="id_closing_date">Data de encerramento:</label>
+      <input type="text" name="closing_date" required="" id="id_closing_date">
+    </div>
   </div>
 
+  <h2>Gerenciar Perfis do Grupo</h2>
 
+  <div class="input-text">
+    <label for="name">Buscar perfis por nome ou email: </label>
+    <input id="name" class="js-name">
+  </div>
 
-  <div class="input-select -hide">
+  <div class="input-group">
+    <div class="input-profile js-inputProfile">
+      <label for="name">2 Participantes atuais no grupo: </label>
+    </div>
+    <div class="input-profile js-selectedProfile">
+      <label for="name">2 Participantes atuais no grupo: </label>
+    </div>
+  </div>
+
+  <div class="ui-widget" style="margin-top:2em; font-family:Arial">
+    Resultado:
+    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+  </div>
+
+  <div class="input-select _hide">
     <select name="document" required="" id="id_document">
       <option value="">---------</option>
 
@@ -39,44 +67,8 @@
     </select>
   </div>
 
-  <div class="input-text">
-    <label for="id_closing_date">Data de encerramento:</label>
-    <input type="text" name="closing_date" required="" id="id_closing_date">
-  </div>
-
-  <div class="input-text -hide">
+  <div class="input-text _hide">
     <input type="checkbox" name="public_participation" id="id_public_participation">
-  </div>
-
-  <div class="input-text">
-    <label for="name">Buscar perfis por nome ou email: </label>
-    <input id="name" class="js-name">
-  </div>
-
-  <div class="input-profile js-inputProfile">
-    <label for="name">2 Participantes atuais no grupo: </label>
-    <!-- <li class="user-profile">
-      <img class="avatar" src="{% static 'img/avatar2.png' %}">
-      <div class="info">
-        <span class="name">Tiago Rocha</span>
-        <div class="tags">
-          <li class="theme-tag js-tag">
-            <span class="dot" style="background-color: rgb(216, 77, 240);"></span>
-            Educação
-          </li>
-        </div>
-      </div>
-      <div class="action">
-        <div class="add"></div>
-        <div class="remove"></div>
-      </div>
-    </li> -->
-  </div>
-
-
-  <div class="ui-widget" style="margin-top:2em; font-family:Arial">
-    Resultado:
-    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
   </div>
 
   <button class="solid-button -green js-send-button">Salvar</button>

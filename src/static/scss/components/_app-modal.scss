@@ -52,11 +52,11 @@
     @include hidden-shadow;
   }
 
-  & > .header.-shadow {
+  & > header.-shadow {
     @include header-shadow;
   }
 
-  & > .header > .close {
+  & > header > .close {
     position: absolute;
     right: 1rem;
 

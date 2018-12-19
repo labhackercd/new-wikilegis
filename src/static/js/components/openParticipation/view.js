@@ -83,25 +83,34 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
     minLength: 0,
     appendTo: '.js-inputProfile',
     select: function(event, ui) {
+      debugger;
+      var element = `
+              <div class="user-profile">
+                <img class="avatar" src="/static/img/avatar2.png">
+                <div class="info">
+                  <span class="name">${item.first_name}</span>
+                  <div class="tags">
+                    <div class="theme-tag js-tag">
+                      <span class="dot" style="background-color: rgb(216, 77, 240);"></span>
+                      Educação
+                    </div>
+                  </div>
+                </div>
+                <div class="action">
+                  <div class="remove"></div>
+                </div>
+              </div>
+            `
+
       $('<div>').text(ui.item.first_name)
         .addClass('js-user')
         .attr('data-user-id', ui.item.id)
-        .prependTo('#log');
-      $('#log').scrollTop(0);
+        .prependTo('.js-selectedProfile');
+      $('.js-selectedProfile').scrollTop(0);
     }
   })
     .bind('focus', function(){ $(this).autocomplete('search');})
     .data('ui-autocomplete')._renderItem = self.listItem;
-
-  // autocomplete.autocomplete('instance')._renderMenu = function(ul, items) {
-  //   ul.addClass('autocomplete-list');
-  //
-  //   var autocomplete = this;
-  //   $.each( items, function( index, item ) {
-  //     autocomplete._renderItemData( ul, item );
-  //   });
-  // };
-
 
   self.inputNameElement.keypress(function (e) {
     if (e.which == 13) {
@@ -121,7 +130,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
 
 ParticipantsAutocompleteView.prototype.listItem = function (ul, item) {
   var element = `
-          <li class="user-profile">
+          <div class="user-profile">
             <img class="avatar" src="/static/img/avatar2.png">
             <div class="info">
               <span class="name">${item.first_name}</span>
@@ -134,12 +143,11 @@ ParticipantsAutocompleteView.prototype.listItem = function (ul, item) {
             </div>
             <div class="action">
               <div class="add"></div>
-              <div class="remove"></div>
             </div>
-          </li>
+          </div>
         `
 
-  return $(element).appendTo(ul);
+  return $(element).appendTo($('.js-inputProfile'));
 };
 
 ParticipantsAutocompleteView.prototype.validateEmail = function (email) {
