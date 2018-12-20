@@ -3,7 +3,7 @@
 var ParticipantsAutocompleteView = function() {};
 
 ParticipantsAutocompleteView.prototype.initEvents = function() {
-  this.inputNameElement = $('.js-name');
+  this.inputNameElement = $('.js-search-name');
   this.initAutocompleteInput();
   this.publishers();
   this.subscribers();
@@ -26,17 +26,23 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
   });
 };
 
-ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id, first_name, last_name, avatar) {
+ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id, first_name, last_name, avatar, themes) {
+  var tags = ''
+  for(var index in themes){
+    tags = tags.concat(`
+      <div class="theme-tag">
+        <span class="dot" style="background-color: ${themes[index].color};"></span>
+         ${themes[index].name}
+      </div>
+      `);
+  }
   var element = `
     <div class="user-profile js-user" data-user-id="${user_id}">
-      <img class="avatar" src="${avatar}">
+      <img class="avatar" src="${avatar || '/static/img/avatar.png'}">
       <div class="info">
         <span class="name">${first_name} ${last_name}</span>
         <div class="tags">
-          <div class="theme-tag js-tag">
-            <span class="dot" style="background-color: rgb(216, 77, 240);"></span>
-            Educação
-          </div>
+          ${tags}
         </div>
       </div>
       <div class="action">
@@ -108,14 +114,14 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       $(".ui-autocomplete").css("left", "0px");
     },
     select: function(event, ui) {
-      var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar);
+      var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar, ui.item.themes);
       $(element).prependTo('.js-selectedProfile');
       $('.js-selectedProfile').scrollTop(0);
     }
   })
     .bind('focus', function(){ $(this).autocomplete('search');})
     .data('ui-autocomplete')._renderItem = function (ul, item) {
-      var element = self.participantItem(true, item.id, item.first_name, item.last_name, item.avatar);
+      var element = self.participantItem(true, item.id, item.first_name, item.last_name, item.avatar, item.themes);
       return $(element).appendTo(ul);
     };
 

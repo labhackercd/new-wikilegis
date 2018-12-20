@@ -27,7 +27,7 @@ def participants_autocomplete(request):
             'last_name': user.last_name,
             'avatar': user.profile.avatar,
             'themes': [
-                (theme.name, theme.color)
+                {'name': theme.name, 'color': theme.color}
                 for theme in user.profile.themes.all()
             ],
         }
