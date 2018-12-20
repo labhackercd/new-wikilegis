@@ -25,6 +25,11 @@ def participants_autocomplete(request):
             'id': user.id,
             'first_name': user.first_name,
             'last_name': user.last_name,
+            'avatar': user.profile.avatar,
+            'themes': [
+                (theme.name, theme.color)
+                for theme in user.profile.themes.all()
+            ],
         }
         result.append(obj)
 

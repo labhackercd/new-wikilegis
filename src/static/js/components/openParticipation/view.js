@@ -26,6 +26,26 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
   });
 };
 
+ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id, first_name, last_name, avatar) {
+  var element = `
+    <div class="user-profile js-user" data-user-id="${user_id}">
+      <img class="avatar" src="${avatar}">
+      <div class="info">
+        <span class="name">${first_name} ${last_name}</span>
+        <div class="tags">
+          <div class="theme-tag js-tag">
+            <span class="dot" style="background-color: rgb(216, 77, 240);"></span>
+            Educação
+          </div>
+        </div>
+      </div>
+      <div class="action">
+        <div class="${add ? 'add' : 'remove'}"></div>
+      </div>
+    </div>
+  `
+  return element;
+};
 
 ParticipantsAutocompleteView.prototype.setThemes = function (themeId) {
   var self = this;
@@ -82,35 +102,22 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
     },
     minLength: 0,
     appendTo: '.js-inputProfile',
+    open: function(event, ui) {
+      $(".ui-autocomplete").css("position", "relative");
+      $(".ui-autocomplete").css("top", "0px");
+      $(".ui-autocomplete").css("left", "0px");
+    },
     select: function(event, ui) {
-      debugger;
-      var element = `
-              <div class="user-profile">
-                <img class="avatar" src="/static/img/avatar2.png">
-                <div class="info">
-                  <span class="name">${item.first_name}</span>
-                  <div class="tags">
-                    <div class="theme-tag js-tag">
-                      <span class="dot" style="background-color: rgb(216, 77, 240);"></span>
-                      Educação
-                    </div>
-                  </div>
-                </div>
-                <div class="action">
-                  <div class="remove"></div>
-                </div>
-              </div>
-            `
-
-      $('<div>').text(ui.item.first_name)
-        .addClass('js-user')
-        .attr('data-user-id', ui.item.id)
-        .prependTo('.js-selectedProfile');
+      var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar);
+      $(element).prependTo('.js-selectedProfile');
       $('.js-selectedProfile').scrollTop(0);
     }
   })
     .bind('focus', function(){ $(this).autocomplete('search');})
-    .data('ui-autocomplete')._renderItem = self.listItem;
+    .data('ui-autocomplete')._renderItem = function (ul, item) {
+      var element = self.participantItem(true, item.id, item.first_name, item.last_name, item.avatar);
+      return $(element).appendTo(ul);
+    };
 
   self.inputNameElement.keypress(function (e) {
     if (e.which == 13) {
@@ -119,35 +126,12 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
         $('<div>').text(email)
           .addClass('js-email')
           .attr('data-email', email)
-          .prependTo('#log');
-        $('#log').scrollTop(0);
+          .prependTo('.js-selectedProfile');
         self.inputNameElement.val('');
       }
       return false;
     }
   });
-};
-
-ParticipantsAutocompleteView.prototype.listItem = function (ul, item) {
-  var element = `
-          <div class="user-profile">
-            <img class="avatar" src="/static/img/avatar2.png">
-            <div class="info">
-              <span class="name">${item.first_name}</span>
-              <div class="tags">
-                <div class="theme-tag js-tag">
-                  <span class="dot" style="background-color: rgb(216, 77, 240);"></span>
-                  Educação
-                </div>
-              </div>
-            </div>
-            <div class="action">
-              <div class="add"></div>
-            </div>
-          </div>
-        `
-
-  return $(element).appendTo($('.js-inputProfile'));
 };
 
 ParticipantsAutocompleteView.prototype.validateEmail = function (email) {
