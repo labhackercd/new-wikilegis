@@ -8,6 +8,11 @@
 
   color: $color-gray;
 
+  &.-selected:hover {
+    text-decoration: line-through;
+    color: $color-red;
+  }
+
   & > .dot {
     display: inline-block;
 

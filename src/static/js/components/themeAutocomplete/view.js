@@ -7,6 +7,7 @@ ThemeAutocomplete.prototype.initEvents = function() {
   this.selectedThemesElement = $('.js-themeAutocomplete .js-themes');
   this.inputElement = $('.js-themeAutocomplete .js-input');
   this.tagsElement = $('.js-themeAutocomplete .js-tags');
+  this.titleElement = $('.js-themeAutocomplete .js-title');
 
   this.publishers();
 };
@@ -28,6 +29,11 @@ ThemeAutocomplete.prototype.publishers = function() {
         }
       });
     },
+    focus: function(event, ui) {
+      $('.js-autocompleteList .js-themeTag').removeClass('-active');
+      $('.js-autocompleteList .js-themeTag[data-value="' + ui.item.slug + '"]')
+        .addClass('-active');
+    },
     appendTo: '.js-themeAutocomplete',
     minLength: 0,
     select: function(event, ui) {
@@ -40,6 +46,7 @@ ThemeAutocomplete.prototype.publishers = function() {
       .attr('data-value', item.slug)
       .removeClass()
       .addClass('theme-tag')
+      .addClass('js-themeTag')
       .text(item.name);
 
     $('<span>').addClass('dot')
@@ -50,7 +57,7 @@ ThemeAutocomplete.prototype.publishers = function() {
   };
 
   autocomplete.autocomplete('instance')._renderMenu = function(ul, items) {
-    ul.addClass('autocomplete-list');
+    ul.addClass('autocomplete-list js-autocompleteList');
 
     var autocomplete = this;
     $.each( items, function( index, item ) {
@@ -61,6 +68,8 @@ ThemeAutocomplete.prototype.publishers = function() {
 
 ThemeAutocomplete.prototype.addTag = function(theme) {
   var li = $('<li class="theme-tag js-tag">')
+    .addClass('-selected')
+    .data('themeId', theme.id)
     .text(theme.name);
 
   $('<span>').addClass('dot')
@@ -68,6 +77,7 @@ ThemeAutocomplete.prototype.addTag = function(theme) {
     .prependTo(li);
 
   this.tagsElement.append(li);
+  this.toggleTitle();
 };
 
 ThemeAutocomplete.prototype.removeTag = function(tagElement) {
@@ -75,6 +85,7 @@ ThemeAutocomplete.prototype.removeTag = function(tagElement) {
   var themeInput = $('input[name="themes"][value="' + themeId + '"]');
   themeInput.remove();
   tagElement.remove();
+  this.toggleTitle();
 };
 
 ThemeAutocomplete.prototype.addTheme = function(theme) {
@@ -83,5 +94,13 @@ ThemeAutocomplete.prototype.addTheme = function(theme) {
     var input = $('<input type="hidden" name="themes" value="' + theme.id + '">');
     this.themeAutocompleteElement.append(input);
     this.addTag(theme);
+  }
+};
+
+ThemeAutocomplete.prototype.toggleTitle = function() {
+  if ($('input[name="themes"]').length > 0) {
+    this.titleElement.removeClass('_hidden');
+  } else {
+    this.titleElement.addClass('_hidden');
   }
 };
