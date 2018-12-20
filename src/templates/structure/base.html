@@ -37,7 +37,7 @@
     {% block extracss %}
     {% endblock extracss %}
   </head>
-  <body {% if request.path|startswith:"/p/" and request.path != "/p/new/" %}class="-white"{% elif request.path == "/" %}class="-home"{% endif %}>
+  <body class="js-body{% if request.path|startswith:"/p/" and request.path != "/p/new/" %} -white{% elif request.path == "/" %} -home{% endif %}">
     {% include "components/nav-bar.html" %}
     {% include "components/nav-menu.html" %}
     {% block content %}
