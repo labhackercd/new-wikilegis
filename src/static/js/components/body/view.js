@@ -15,12 +15,15 @@ BodyView.prototype.publishers = function() {
     var target = $(e.target);
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
-    if (suggestionInput.length === 0 && opinionModal.length === 0) {
-      var selectedText = window.getSelection().toString();
-      if (selectedText === '' || selectedText === self.previousSelectedText) {
-        $.Topic(events.cancelTextSelection).publish();
+
+    if (!target.hasClass('js-overlay')) {
+      if (suggestionInput.length === 0 && opinionModal.length === 0) {
+        var selectedText = window.getSelection().toString();
+        if (selectedText === '' || selectedText === self.previousSelectedText) {
+          $.Topic(events.cancelTextSelection).publish();
+        }
+        self.previousSelectedText = selectedText;
       }
-      self.previousSelectedText = selectedText;
     }
 
     if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
