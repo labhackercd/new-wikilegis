@@ -17,12 +17,19 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
     var themeId = $(e.target).data('themeId').toString();
     $.Topic(events.setThemes).publish(themeId);
   });
+  $('.js-selectedProfile').on('click', '.js-user', function(e) {
+    var userId = $(e.target).closest('.js-user').data('userId').toString();
+    $.Topic(events.removeParticipant).publish(userId);
+  });
 };
 
 ParticipantsAutocompleteView.prototype.subscribers = function () {
   var self = this;
   $.Topic(events.setThemes).subscribe(function(themeId){
     self.setThemes(themeId);
+  });
+  $.Topic(events.removeParticipant).subscribe(function(userId){
+    $('.js-selectedProfile .js-user[data-user-id='+ userId +']').remove();
   });
 };
 
@@ -93,13 +100,18 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       if (localStorage.getItem('theme')) {
         theme = localStorage.getItem('theme').split(',');
       }
+      var participants = [];
+      $('.js-selectedProfile .js-user').each(function() {
+        participants.push($(this).data('userId'));
+      });
       $.ajax({
         url: Urls.participants_autocomplete(),
         dataType: 'json',
         traditional: true,
         data: {
           name: request.term,
-          theme: theme
+          theme: theme,
+          selected_participants: participants
         },
         success: function(data) {
           response(data);

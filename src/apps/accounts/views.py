@@ -8,6 +8,7 @@ User = get_user_model()
 def participants_autocomplete(request):
     name = request.GET.get('name', None)
     themes = request.GET.getlist('theme', None)
+    selected_ids = request.GET.getlist('selected_participants', None)
     query = Q()
     if name:
         query = Q(first_name__istartswith=name) | Q(email__istartswith=name)
@@ -15,7 +16,8 @@ def participants_autocomplete(request):
         query &= Q(profile__themes__id__in=themes)
 
     if query:
-        users = User.objects.filter(query).distinct()
+        users = User.objects.filter(query).distinct().exclude(
+            id__in=selected_ids)
     else:
         users = User.objects.none()
 

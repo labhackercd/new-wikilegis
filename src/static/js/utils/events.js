@@ -57,4 +57,8 @@ var events = {
   // Triggered when user click on themes
   // Params: themeId
   setThemes: 'setThemes',
+
+  // Triggered when user click on seleted profiles
+  // Params: userId
+  removeParticipant: 'removeParticipant',
 };
