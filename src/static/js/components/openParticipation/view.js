@@ -21,6 +21,10 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
     var userId = $(e.target).closest('.js-user').data('userId').toString();
     $.Topic(events.removeParticipant).publish(userId);
   });
+  $('.js-selectedProfile').bind("DOMSubtreeModified",function(){
+    var countSelecteds = $('.js-selectedProfile').children().length;
+    $.Topic(events.setCounterSelecteds).publish(countSelecteds);
+  });
 };
 
 ParticipantsAutocompleteView.prototype.subscribers = function () {
@@ -29,9 +33,28 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
     self.setThemes(themeId);
   });
   $.Topic(events.removeParticipant).subscribe(function(userId){
-    $('.js-selectedProfile .js-user[data-user-id='+ userId +']').remove();
+    self.removeParticipant(userId);
+  });
+  $.Topic(events.setCounterSelectables).subscribe(function(countSelectables){
+    self.setCounterSelectables(countSelectables);
+  });
+  $.Topic(events.setCounterSelecteds).subscribe(function(countSelecteds){
+    self.setCounterSelecteds(countSelecteds);
   });
 };
+
+ParticipantsAutocompleteView.prototype.setCounterSelectables = function (countSelectables) {
+  $('.js-countSelectables').text(countSelectables);
+};
+
+ParticipantsAutocompleteView.prototype.setCounterSelecteds = function (countSelecteds) {
+  $('.js-countSelecteds').text(countSelecteds);
+};
+
+ParticipantsAutocompleteView.prototype.removeParticipant = function (userId) {
+  $('.js-selectedProfile .js-user[data-user-id='+ userId +']').remove();
+};
+
 
 ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id, first_name, last_name, avatar, themes) {
   var tags = ''
@@ -114,6 +137,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
           selected_participants: participants
         },
         success: function(data) {
+          $.Topic(events.setCounterSelectables).publish(data.length);
           response(data);
         }
       });
@@ -129,6 +153,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar, ui.item.themes);
       $(element).prependTo('.js-selectedProfile');
       $('.js-selectedProfile').scrollTop(0);
+      $.Topic(events.setCounterSelectables).publish(0);
     }
   })
     .bind('focus', function(){ $(this).autocomplete('search');})
