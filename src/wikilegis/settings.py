@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 from decouple import config, Csv
+from django.utils.translation import ugettext_lazy as _
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'django_js_reverse',
+    'constance',
 
     'apps.accounts',
     'apps.participations',
@@ -230,3 +232,13 @@ else:
     AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
+
+CONSTANCE_CONFIG = {
+    'USE_CD_OPEN_DATA': (
+        True,
+        _('Get document information from Câmara dos Deputados open data'),
+        bool
+    ),
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'

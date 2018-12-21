@@ -19,6 +19,8 @@ django-filter = "*"
 django-compressor-toolkit = "*"
 django-js-reverse = "*"
 django-colorful = "*"
+django-constance = "*"
+django-picklefield = "*"
 
 [dev-packages]
 ipdb = "*"
