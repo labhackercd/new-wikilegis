@@ -6,7 +6,7 @@
 
   cursor: pointer;
 
-  &:hover {
+  &.-active {
     background-color: $color-whitesmoke;
   }
 

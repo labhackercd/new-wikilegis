@@ -14,12 +14,15 @@
   @include card-shadow;
 
   & > .label {
-    font-size: 1rem;
+    font-size: $font-size-centi;
+    font-weight: 500;
 
     position: absolute;
     top: 0;
 
     padding: .875rem;
+
+    opacity: .6;
   }
 
   & > .profiles > ul {
