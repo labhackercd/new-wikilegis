@@ -13,4 +13,42 @@
 
     opacity: .6;
   }
+
+  & > .input {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+  }
+
+  & > .input > .filter {
+    font-size: .75rem;
+    font-weight: 500;
+
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: border-box;
+    height: 100%;
+    padding: .875rem;
+
+    cursor: pointer;
+    text-transform: uppercase;
+
+    color: $color-deep-gray;
+
+    &.-active,
+    &:hover {
+      color: $color-brand;
+    }
+
+    &.-active:hover {
+      color: lighten($color-deep-gray, 10%);
+    }
+  }
 }
