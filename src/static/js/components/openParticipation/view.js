@@ -144,6 +144,10 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
     },
     minLength: 0,
     appendTo: '.js-inputProfile',
+    messages: {
+      noResults: '',
+      results: function() {}
+    },
     open: function(event, ui) {
       $(".ui-autocomplete").css("position", "relative");
       $(".ui-autocomplete").css("top", "0px");
