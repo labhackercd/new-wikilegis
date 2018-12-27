@@ -5,8 +5,6 @@
 {% block title %}Convidar participantes{% endblock title %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.min.css' %}">
-<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.theme.min.css' %}">
 <style>
   .ui-autocomplete-loading {
     background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
@@ -34,7 +32,7 @@
     </div>
     <div class="input-text">
       <label for="id_closing_date">Data de encerramento:</label>
-      <input type="text" name="closing_date" required="" id="id_closing_date">
+      <input type="date" name="closing_date" required="" id="id_closing_date">
     </div>
   </div>
 
@@ -46,11 +44,15 @@
   </div>
 
   <div class="input-group">
-    <span>Participantes atuais no grupo: <span class="js-countSelectables">0</span></span>
-    <div class="input-profile js-inputProfile">
+    <div class="input-profile">
+      <span class="label">Participantes atuais no grupo: <span class="js-countSelectables">0</span></span>
+      <div class="profiles js-inputProfile">
+      </div>
     </div>
-    <span>Participantes atuais no grupo: <span class="js-countSelecteds">0</span></span>
-    <div class="input-profile js-selectedProfile">
+    <div class="input-profile">
+      <span class="label">Participantes atuais no grupo: <span class="js-countSelecteds">0</span></span>
+      <div class="profiles js-selectedProfile">
+      </div>
     </div>
   </div>
 
