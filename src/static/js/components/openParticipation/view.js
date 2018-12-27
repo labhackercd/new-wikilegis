@@ -52,10 +52,20 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
 
 ParticipantsAutocompleteView.prototype.setCounterSelectables = function (countSelectables) {
   $('.js-countSelectables').text(countSelectables);
+  if(countSelectables == 0) {
+    $('.js-countSelectables').parent().parent().addClass('-empty');
+  } else {
+    $('.js-countSelectables').parent().parent().removeClass('-empty');
+  }
 };
 
 ParticipantsAutocompleteView.prototype.setCounterSelecteds = function (countSelecteds) {
   $('.js-countSelecteds').text(countSelecteds);
+  if(countSelecteds == 0) {
+    $('.js-countSelecteds').parent().parent().addClass('-empty');
+  } else {
+    $('.js-countSelecteds').parent().parent().removeClass('-empty');
+  }
 };
 
 ParticipantsAutocompleteView.prototype.removeParticipant = function (userId) {
