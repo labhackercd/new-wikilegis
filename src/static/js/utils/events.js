@@ -62,6 +62,10 @@ var events = {
   // Params: userId
   removeParticipant: 'removeParticipant',
 
+  // Triggered when user click on seleted profiles
+  // Params: email
+  removeEmail: 'removeEmail',
+
   // Triggered when show selectables profiles
   // Params: countSelectables
   setCounterSelectables: 'setCounterSelectables',

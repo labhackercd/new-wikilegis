@@ -21,6 +21,10 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
     var userId = $(e.target).closest('.js-user').data('userId').toString();
     $.Topic(events.removeParticipant).publish(userId);
   });
+  $('.js-selectedProfile').on('click', '.js-email', function(e) {
+    var email = $(e.target).closest('.js-email').data('email');
+    $.Topic(events.removeEmail).publish(email);
+  });
   $('.js-selectedProfile').bind('DOMSubtreeModified', function(){
     var countSelecteds = $('.js-selectedProfile').children().length;
     $.Topic(events.setCounterSelecteds).publish(countSelecteds);
@@ -34,6 +38,9 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
   });
   $.Topic(events.removeParticipant).subscribe(function(userId){
     self.removeParticipant(userId);
+  });
+  $.Topic(events.removeEmail).subscribe(function(email){
+    self.removeEmail(email);
   });
   $.Topic(events.setCounterSelectables).subscribe(function(countSelectables){
     self.setCounterSelectables(countSelectables);
@@ -53,6 +60,10 @@ ParticipantsAutocompleteView.prototype.setCounterSelecteds = function (countSele
 
 ParticipantsAutocompleteView.prototype.removeParticipant = function (userId) {
   $('.js-selectedProfile .js-user[data-user-id='+ userId +']').remove();
+};
+
+ParticipantsAutocompleteView.prototype.removeEmail = function (email) {
+  $('.js-selectedProfile .js-email[data-email="'+ email +'"]').remove();
 };
 
 
@@ -170,10 +181,18 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
     if (e.which == 13) {
       var email = self.inputNameElement.val();
       if (self.validateEmail(email)) {
-        $('<div>').text(email)
-          .addClass('js-email')
-          .attr('data-email', email)
-          .prependTo('.js-selectedProfile');
+        var element = `
+        <div class="user-profile js-email" data-email="${email}">
+          <img class="avatar" src="/static/img/avatar.png">
+          <div class="info">
+            <span class="name">${email}</span>
+          </div>
+          <div class="action">
+            <div class="remove"></div>
+          </div>
+        </div>
+        `
+        $(element).prependTo('.js-selectedProfile');
         self.inputNameElement.val('');
       }
       return false;
