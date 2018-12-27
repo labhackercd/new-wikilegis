@@ -21,7 +21,7 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
     var userId = $(e.target).closest('.js-user').data('userId').toString();
     $.Topic(events.removeParticipant).publish(userId);
   });
-  $('.js-selectedProfile').bind("DOMSubtreeModified",function(){
+  $('.js-selectedProfile').bind('DOMSubtreeModified', function(){
     var countSelecteds = $('.js-selectedProfile').children().length;
     $.Topic(events.setCounterSelecteds).publish(countSelecteds);
   });
@@ -57,7 +57,7 @@ ParticipantsAutocompleteView.prototype.removeParticipant = function (userId) {
 
 
 ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id, first_name, last_name, avatar, themes) {
-  var tags = ''
+  var tags = '';
   for(var index in themes){
     tags = tags.concat(`
       <div class="theme-tag">
@@ -79,7 +79,7 @@ ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id,
         <div class="${add ? 'add' : 'remove'}"></div>
       </div>
     </div>
-  `
+  `;
   return element;
 };
 
@@ -148,10 +148,10 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       noResults: '',
       results: function() {}
     },
-    open: function(event, ui) {
-      $(".ui-autocomplete").css("position", "relative");
-      $(".ui-autocomplete").css("top", "0px");
-      $(".ui-autocomplete").css("left", "0px");
+    open: function() {
+      $('.ui-autocomplete').css('position', 'relative');
+      $('.ui-autocomplete').css('top', '0px');
+      $('.ui-autocomplete').css('left', '0px');
     },
     select: function(event, ui) {
       var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar, ui.item.themes);
