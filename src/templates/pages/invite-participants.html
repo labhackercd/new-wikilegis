@@ -38,11 +38,11 @@
 
   <h2>Gerenciar Perfis do Grupo</h2>
 
-  <div class="input-filter">
+  <div class="input-filter js-openParticipation">
     <label for="name">Buscar perfis por nome ou email: </label>
     <div class="input">
       <input id="name" class="js-search-name">
-      <div class="filter">Filtros</div>
+      <div class="filter js-searchFilter">Filtros</div>
     </div>
   </div>
 
@@ -72,5 +72,7 @@
 <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/components/openParticipation/view.js' %}"></script>
 <script src="{% static 'js/components/openParticipation/controller.js' %}"></script>
+<script src="{% static 'js/components/filterModal/view.js' %}"></script>
+<script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
 <script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
 {% endblock page_js %}

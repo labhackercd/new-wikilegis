@@ -1,24 +1,70 @@
-{% load staticfiles %}
+{% load staticfiles i18n %}
 
-<div class="generic-modal">
+<div class="generic-modal js-filterModal">
   <header>
     <h2>Filtros</h2>
-    <div class="close-icon js-closeModal"></div>
-  <header>
+    <div class="close-icon js-close">
+      <img class="icon" src="/static/img/close.svg">
+    </div>
+  </header>
   <div class="content">
     <form>
       <div class="input-group">
         <div class="input-text">
-          <label for="id_group_name">Nome do grupo: </label>
-          <input type="text" name="group_name" id="id_group_name">
+          <div class="theme-autocomplete js-themeAutocomplete">
+            <label>{% trans "Tema" %}</label>
+            <input class="js-input" type="text" name="theme-autocomplete">
+            {{form.themes.errors}}
+            <div class="themes">
+              <span class="title _hidden js-title">Temas:</span>
+              <ul class="tags js-tags"></ul>
+            </div>
+          </div>
         </div>
         <div class="input-text">
-          <label for="id_closing_date">Data de encerramento:</label>
-          <input type="date" name="closing_date" required="" id="id_closing_date">
+          <div class="theme-autocomplete js-themeAutocomplete">
+            <label>{% trans "Meus Grupos" %}</label>
+            <input class="js-input" type="text" name="theme-autocomplete">
+            {{form.themes.errors}}
+            <div class="themes">
+              <span class="title _hidden js-title">Meus Grupos:</span>
+              <ul class="tags js-tags"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-text">
+          <label for="id_closing_date">Idade Mínima:</label>
+          <input type="text" name="closing_date" required="" id="id_closing_date">
+        </div>
+        <div class="input-text">
+          <label for="id_closing_date">Idade Máxima:</label>
+          <input type="text" name="closing_date" required="" id="id_closing_date">
+        </div>
+        <div class="input-select">
+          <label for="id_document_type">Gênero:</label>
+          <div class="select">
+            <select name="document_type" id="id_document_type">
+              <option value="" selected="">---------</option>
+              <option value="1">Projeto de Lei</option>
+            </select>
+            <div class="icon"><i class="arrow"></i></div>
+          </div>
+        </div>
+        <div class="input-select">
+          <label for="id_document_type">Localidade:</label>
+          <div class="select">
+            <select name="document_type" id="id_document_type">
+              <option value="" selected="">---------</option>
+              <option value="1">Projeto de Lei</option>
+            </select>
+            <div class="icon"><i class="arrow"></i></div>
+          </div>
         </div>
       </div>
     </form>
 
-    <a href="#" class="solid-button -green">Próximo</a>
+    <a href="#" class="solid-button -green">Salvar</a>
   </div>
 </div>

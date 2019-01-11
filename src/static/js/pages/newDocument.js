@@ -1,5 +1,4 @@
-/* global ThemeAutocomplete */
+/* global ThemeAutocompleteView */
 
-
-var themeAutocomplete = new ThemeAutocomplete();
-themeAutocomplete.initEvents();
+var themeAutocompleteView = new ThemeAutocompleteView();
+themeAutocompleteView.initEvents();

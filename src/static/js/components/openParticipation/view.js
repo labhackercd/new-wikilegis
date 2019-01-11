@@ -3,7 +3,8 @@
 var ParticipantsAutocompleteView = function() {};
 
 ParticipantsAutocompleteView.prototype.initEvents = function() {
-  this.inputNameElement = $('.js-search-name');
+  this.inputNameElement = $('.js-openParticipation .js-search-name');
+  this.filter = $('.js-openParticipation .js-searchFilter');
   this.initAutocompleteInput();
   this.publishers();
   this.subscribers();
@@ -29,6 +30,9 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
     var countSelecteds = $('.js-selectedProfile').children().length;
     $.Topic(events.setCounterSelecteds).publish(countSelecteds);
   });
+  this.filter.on('click', function() {
+    $.Topic(events.openFilterModal).publish();
+  })
 };
 
 ParticipantsAutocompleteView.prototype.subscribers = function () {

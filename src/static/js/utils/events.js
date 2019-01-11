@@ -73,4 +73,10 @@ var events = {
   // Triggered when show selecteds profiles
   // Params: countSelecteds
   setCounterSelecteds: 'setCounterSelecteds',
+
+  // Triggered when user clicks on openParticipation filter
+  openFilterModal: 'openFilterModal',
+
+  // Triggered when user clicks on FilterModal close button
+  closeFilterModal: 'closeFilterModal',
 };
