@@ -19,35 +19,31 @@ User = get_user_model()
 class InvitedGroupCreate(CreateView):
     model = InvitedGroup
     template_name = 'pages/invite-participants.html'
-    fields = ['document', 'closing_date', 'public_participation']
+    fields = ['closing_date']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['themes'] = Theme.objects.all()
         return context
 
-    def get_initial(self):
-        return {
-            'document': Document.objects.get(id=self.kwargs.get('pk')),
-        }
-
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        if not self.object.public_participation:
-            thematic_group = ThematicGroup(owner=self.request.user)
-            thematic_group.name = self.request.POST.get('group_name', None)
-            thematic_group.save()
-            participants_ids = self.request.POST.getlist('participants[]', [])
-            emails = self.request.POST.getlist('emails[]', None)
-            if emails:
-                for email in emails:
-                    email_user = User.objects.create(
-                        email=email, username=email)
-                    participants_ids.append(email_user.id)
-            if participants_ids:
-                participants = User.objects.filter(id__in=participants_ids)
-                thematic_group.participants.set(participants)
-            self.object.thematic_group = thematic_group
+        self.object.document = Document.objects.get(id=self.kwargs.get('pk'))
+        self.object.public_participation = False
+        thematic_group = ThematicGroup(owner=self.request.user)
+        thematic_group.name = self.request.POST.get('group_name', None)
+        thematic_group.save()
+        participants_ids = self.request.POST.getlist('participants[]', [])
+        emails = self.request.POST.getlist('emails[]', None)
+        if emails:
+            for email in emails:
+                email_user = User.objects.create(
+                    email=email, username=email)
+                participants_ids.append(email_user.id)
+        if participants_ids:
+            participants = User.objects.filter(id__in=participants_ids)
+            thematic_group.participants.set(participants)
+        self.object.thematic_group = thematic_group
         self.object.save()
         return super().form_valid(form)
 
