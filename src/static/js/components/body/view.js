@@ -28,7 +28,7 @@ BodyView.prototype.publishers = function() {
 
     if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
       $.Topic(events.closeOpinionModal).publish(false);
-      $.Topic(events.closeFilterModal).publish();
+      $.Topic(events.closeFilterModal).publish(false);
     }
   });
 

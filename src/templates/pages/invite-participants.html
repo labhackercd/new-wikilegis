@@ -19,11 +19,6 @@
     <h2>Criar Grupo Fechado</h2>
     <div class="close-icon"></div>
   </header>
-  <ul class="_hide">
-    {% for theme in themes %}
-    <li class="theme-tag js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
-    {% endfor %}
-  </ul>
 
   <div class="input-group">
     <div class="input-text">
@@ -59,13 +54,13 @@
     </div>
   </div>
 
-  <button class="solid-button -green js-send-button">Salvar</button>
+  <button class="solid-button -green js-sendButton">Salvar</button>
 </main>
 
-{% include "components/filter-modal.html" %}
 {% endblock content %}
 
 {% block modal %}
+{% include "components/filter-modal.html" %}
 {% endblock modal %}
 
 {% block page_js %}
@@ -73,6 +68,7 @@
 <script src="{% static 'js/components/openParticipation/view.js' %}"></script>
 <script src="{% static 'js/components/openParticipation/controller.js' %}"></script>
 <script src="{% static 'js/components/filterModal/view.js' %}"></script>
+<script src="{% static 'js/components/filterModal/controller.js' %}"></script>
 <script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
 <script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
 {% endblock page_js %}

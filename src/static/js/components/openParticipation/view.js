@@ -11,12 +11,11 @@ ParticipantsAutocompleteView.prototype.initEvents = function() {
 };
 
 ParticipantsAutocompleteView.prototype.publishers = function() {
-  $('.js-send-button').click(function() {
+  $('.js-sendButton').click(function() {
     $.Topic(events.createInvitedGroup).publish();
   });
-  $('.js-theme').click(function(e) {
-    var themeId = $(e.target).data('themeId').toString();
-    $.Topic(events.setThemes).publish(themeId);
+  $('.js-filterButton').click(function() {
+    $.Topic(events.applyFilters).publish();
   });
   $('.js-selectedProfile').on('click', '.js-user', function(e) {
     var userId = $(e.target).closest('.js-user').data('userId').toString();
@@ -37,9 +36,6 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
 
 ParticipantsAutocompleteView.prototype.subscribers = function () {
   var self = this;
-  $.Topic(events.setThemes).subscribe(function(themeId){
-    self.setThemes(themeId);
-  });
   $.Topic(events.removeParticipant).subscribe(function(userId){
     self.removeParticipant(userId);
   });
@@ -51,6 +47,9 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
   });
   $.Topic(events.setCounterSelecteds).subscribe(function(countSelecteds){
     self.setCounterSelecteds(countSelecteds);
+  });
+  $.Topic(events.updateSearchParticipants).subscribe(function(){
+    self.updateSearchParticipants();
   });
 };
 
@@ -108,35 +107,10 @@ ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id,
   return element;
 };
 
-ParticipantsAutocompleteView.prototype.setThemes = function (themeId) {
+ParticipantsAutocompleteView.prototype.updateSearchParticipants = function () {
   var self = this;
-  var currentValue = localStorage.getItem('theme');
-  var key = 'theme';
 
-  if (currentValue) {
-    var currentArray = currentValue.split(',');
-    var i = currentArray.indexOf(themeId);
-    if (i < 0) {
-      currentArray = currentArray.concat(themeId);
-      localStorage.setItem(key, currentArray);
-      self.inputNameElement.focus();
-    } else {
-      currentArray.splice(i, 1);
-      if (currentArray.length > 0) {
-        localStorage.setItem(key, currentArray);
-        self.inputNameElement.focus();
-      } else {
-        localStorage.removeItem(key);
-      }
-    }
-  } else {
-    localStorage.setItem(key, themeId);
-    self.inputNameElement.focus();
-  }
-
-  $(window).on('unload', function() {
-    localStorage.clear();
-  });
+  self.inputNameElement.focus();
 };
 
 ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {

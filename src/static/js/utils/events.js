@@ -54,9 +54,8 @@ var events = {
   // Triggered when user click on invitedGroup send button
   createInvitedGroup: 'createInvitedGroup',
 
-  // Triggered when user click on themes
-  // Params: themeId
-  setThemes: 'setThemes',
+  // Triggered when user click on save in filter modal
+  filterButton: 'filterButton',
 
   // Triggered when user click on seleted profiles
   // Params: userId
@@ -77,6 +76,10 @@ var events = {
   // Triggered when user clicks on openParticipation filter
   openFilterModal: 'openFilterModal',
 
-  // Triggered when user clicks on FilterModal close button
+  // Triggered when user clicks on FilterModal close button or save button
+  // Params: applyFilter
   closeFilterModal: 'closeFilterModal',
+
+  // Triggered when user send filter modal
+  updateSearchParticipants: 'updateSearchParticipants',
 };
