@@ -1,15 +1,18 @@
 {% load staticfiles %}
 
-<div class="generic-modal">
-  <div class="header">
-    <h2>Modal</h2>
-    <div class="close js-closeModal"><img class="icon" src="{% static 'img/close.svg' %}"></div>
-  </div>
-  <div class="content">
-    <img src="{% static 'img/select.svg' %}">
-    <h2>Selecione um trecho do texto para dar sua opinião</h2>
-    <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os <a href="#">deputados relatores</a> das proposições acompanham as participações e podem adotar a sua ideia!</p>
-    <a href="#" class="solid-button -green">Próximo</a>
-    <a href="#" class="simple-link">Pular tutorial</a>
+<div class="generic-modal {% block extra_classes %}{% endblock %}" {% block extra_attributes %}{% endblock %}>
+  {% block header %}
+    <div class="header js-headerModal">
+      <h2>{% block title %}{% endblock%}</h2>
+      {% block close_button %}
+        <div class="close js-closeModal"><img class="icon" src="{% static 'img/close.svg' %}"></div>
+      {% endblock close_button %}
+    </div>
+  {% endblock header %}
+
+  <div class="content js-genericModalContent">
+    {% block content %}
+
+    {% endblock content %}
   </div>
 </div>
