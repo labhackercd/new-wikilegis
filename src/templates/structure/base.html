@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'img/favicon/apple-touch-icon-120x120.png' %}" />
     <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'img/favicon/apple-touch-icon-76x76.png' %}" />
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'img/favicon/apple-touch-icon-152x152.png' %}" />
-    <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-196x196.png' %}" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-196x196.pHave the modal ng' %}" sizes="196x196" />
     <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-96x96.png' %}" sizes="96x96" />
     <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-32x32.png' %}" sizes="32x32" />
     <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-16x16.png' %}" sizes="16x16" />
@@ -45,7 +45,7 @@
 
 
     {% block modal %}
-    {% include "components/generic-modal.html" %}
+    {% include "components/app-modal.html" %}
     {% endblock modal %}
 
     {% compress js %}
@@ -53,7 +53,7 @@
       <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
       <script src="{% static 'js/components/body/view.js' %}"></script>
       <script src="{% static 'js/components/navBar/view.js' %}"></script>
-      <script src="{% static 'js/components/genericModal/view.js' %}"></script>
+      <script src="{% static 'js/components/appModal/view.js' %}"></script>
       <script src="{% static 'js/pages/base.js' %}"></script>
       <script src="{% static 'js/utils/publishSubscribe.js' %}"></script>
       <script src="{% static 'js/utils/events.js' %}"></script>

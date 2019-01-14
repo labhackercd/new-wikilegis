@@ -1,7 +1,7 @@
-/*global GenericModalView NavBarView */
+/*global AppModalView NavBarView */
 
-var genericModalView = new GenericModalView();
-genericModalView.initEvents();
+var appModalView = new appModalView();
+appModalView.initEvents();
 
 var navBarView = new NavBarView();
 navBarView.initEvents();

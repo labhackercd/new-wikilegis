@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<div class="generic-modal {% block extra_classes %}{% endblock %}" {% block extra_attributes %}{% endblock %}>
+<div class="app-modal {% block extra_classes %}{% endblock %}" {% block extra_attributes %}{% endblock %}>
   {% block header %}
     <div class="header js-headerModal">
       <h2>{% block title %}{% endblock%}</h2>
@@ -10,7 +10,7 @@
     </div>
   {% endblock header %}
 
-  <div class="content js-genericModalContent">
+  <div class="content js-appModalContent">
     {% block content %}
 
     {% endblock content %}
