@@ -19,7 +19,7 @@ django-filter = "*"
 django-compressor-toolkit = "*"
 django-js-reverse = "*"
 django-colorful = "*"
-django-constance = "*"
+django-constance = {extras = ["database"]}
 django-picklefield = "*"
 requests = "*"
 

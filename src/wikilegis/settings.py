@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_js_reverse',
     'constance',
+    'constance.backends.database',
 
     'apps.accounts',
     'apps.participations',

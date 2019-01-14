@@ -1,5 +1,7 @@
 from django.contrib import admin
-
+from django.utils.translation import ugettext_lazy as _
+from constance import config
+from . import camara_deputados
 from . import models
 
 
@@ -32,6 +34,34 @@ class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('created', 'modified', 'owner', 'document_type')
     search_fields = ('slug',)
     prepopulated_fields = {'slug': ['title']}
+    actions = ['fetch_document_informations']
+
+    def fetch_document_informations(self, request, queryset):
+        if config.USE_CD_OPEN_DATA:
+            success = 0
+            for document in queryset:
+                try:
+                    camara_deputados.create_document_info(document)
+                    success += 1
+                except camara_deputados.ProposalNotFound:
+                    self.message_user(
+                        request,
+                        _('Document "{}" not found on Câmara dos Deputados '
+                          'API.'.format(document.title)), level='error')
+
+            self.message_user(
+                request,
+                _('{} document(s) informations was fetched '
+                  'successfully.'.format(success)))
+        else:
+            self.message_user(
+                request,
+                _('USE_CD_OPEN_DATA config parameter is disabled.'),
+                level='warning'
+            )
+    fetch_document_informations.short_description = _(
+        "Fetch documents informations"
+    )
 
 
 @admin.register(models.ExcerptType)
