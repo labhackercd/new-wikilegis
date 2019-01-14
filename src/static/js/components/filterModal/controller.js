@@ -17,6 +17,10 @@ filterModalController.prototype.subscribers = function() {
 };
 
 filterModalController.prototype.applyFilters = function() {
-  // TODO
+  var themes = [];
+  $('.js-tag').each(function(){
+    themes.push($(this).data('themeId'));
+  });
+  localStorage.setItem('theme', themes);
   $.Topic(events.updateSearchParticipants).publish();
 };

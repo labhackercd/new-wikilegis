@@ -35,6 +35,10 @@ ThemeAutocompleteView.prototype.publishers = function() {
         .addClass('-active');
     },
     appendTo: '.js-themeAutocomplete',
+    messages: {
+      noResults: '',
+      results: function() {}
+    },
     minLength: 0,
     select: function(event, ui) {
       self.addTheme(ui.item);
