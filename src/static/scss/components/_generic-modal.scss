@@ -42,7 +42,7 @@
     box-sizing: border-box;
     width: 100%;
     height: 4rem;
-    padding: 0 1.6rem;
+    padding: 0 1.5rem;
 
     background-color: #FFF;
 
@@ -75,6 +75,8 @@
   & > .content {
     overflow-y: auto;
 
+    padding: 1.5rem;
+
     text-align: center;
   }
 
@@ -83,10 +85,6 @@
 
     text-align: left;
   }
-
-  & > .content > span,
-  & > .content > p {
-    padding: 0 1.6rem;
   }
 
   & > .content > img,
@@ -111,12 +109,12 @@
     box-sizing: border-box;
     width: 100%;
     margin-top: 1rem;
-    padding: 1.6rem;
+    padding: 1.5rem;
 
     background-color: #FFF;
 
     @include bp-mediumup {
-      padding: 2.6rem 1.6rem 1.6rem 1.6rem;
+      padding-top: 2.5rem;
     }
   }
 
