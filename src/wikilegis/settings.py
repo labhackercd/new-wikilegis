@@ -239,6 +239,10 @@ CONSTANCE_CONFIG = {
         _('Get document information from Câmara dos Deputados open data'),
         bool
     ),
+    'CD_OPEN_DATA_URL': (
+        'https://dadosabertos.camara.leg.br/api/v2/',
+        _('Câmara dos Deputados open data API')
+    )
 }
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'

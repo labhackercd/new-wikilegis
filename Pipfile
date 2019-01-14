@@ -21,6 +21,7 @@ django-js-reverse = "*"
 django-colorful = "*"
 django-constance = "*"
 django-picklefield = "*"
+requests = "*"
 
 [dev-packages]
 ipdb = "*"
