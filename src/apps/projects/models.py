@@ -54,6 +54,7 @@ class Document(TimestampedMixin):
     class Meta:
         verbose_name = _('document')
         verbose_name_plural = _('documents')
+        unique_together = ('document_type', 'number', 'year')
 
     def get_absolute_url(self):
         return reverse('project', kwargs={'id': self.id, 'slug': self.slug})
@@ -64,6 +65,43 @@ class Document(TimestampedMixin):
 
     def __str__(self):
         return '%s' % (self.title)
+
+
+class DocumentInfo(models.Model):
+    document = models.OneToOneField(
+        'projects.Document',
+        on_delete=models.CASCADE,
+        related_name='infos',
+        verbose_name=_('document')
+    )
+    cd_id = models.PositiveIntegerField(_('CD ID'), default=0)
+    abridgement = models.TextField(_('abridgement'), null=True, blank=True)
+    status = models.CharField(_('status'), max_length=250,
+                              null=True, blank=True)
+    legislative_body = models.CharField(_('legislative body'), max_length=250,
+                                        null=True, blank=True)
+    keywords = models.TextField(_('keywords'), null=True, blank=True)
+    authors = models.ManyToManyField('projects.DocumentAuthor',
+                                     related_name='documents', blank=True)
+
+    class Meta:
+        verbose_name = _("Document Information")
+        verbose_name_plural = _("Document Informations")
+
+    def __str__(self):
+        return '{} <{}>'.format(self.document.title, self.cd_id)
+
+
+class DocumentAuthor(models.Model):
+    name = models.CharField(max_length=250)
+    author_type = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name = _("Document Author")
+        verbose_name_plural = _("Document Authors")
+
+    def __str__(self):
+        return self.name
 
 
 class ExcerptType(models.Model):
