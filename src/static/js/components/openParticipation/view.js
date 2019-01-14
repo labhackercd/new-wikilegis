@@ -156,14 +156,17 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar, ui.item.themes);
       $(element).prependTo('.js-selectedProfile');
       $('.js-selectedProfile').scrollTop(0);
-      $.Topic(events.setCounterSelectables).publish(0);
+      $(this).autocomplete('search');
+      $(`.js-inputProfile .js-user[data-user-id=${ui.item.id}]`).hide();
     }
   })
-    .bind('focus', function(){ $(this).autocomplete('search');})
-    .data('ui-autocomplete')._renderItem = function (ul, item) {
-      var element = self.participantItem(true, item.id, item.first_name, item.last_name, item.avatar, item.themes);
-      return $(element).appendTo(ul);
-    };
+  .bind('focus', function(){
+    $(this).autocomplete('search');
+  })
+  .data('ui-autocomplete')._renderItem = function (ul, item) {
+    var element = self.participantItem(true, item.id, item.first_name, item.last_name, item.avatar, item.themes);
+    return $(element).appendTo(ul);
+  };
 
   self.inputNameElement.keypress(function (e) {
     if (e.which == 13) {
