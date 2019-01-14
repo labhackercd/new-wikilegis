@@ -45,6 +45,8 @@
     padding: 0 1.6rem;
 
     background-color: #FFF;
+
+    @include hidden-shadow;
   }
 
   & > .header.-shadow {
