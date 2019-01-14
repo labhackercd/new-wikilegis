@@ -7,8 +7,8 @@ GenericModalView.prototype.initEvents = function() {
 };
 
 GenericModalView.prototype.addShadowOnScroll = function () {
-  $('.generic-modal').scroll(function() {
-    var scroll = $('.generic-modal').scrollTop();
+  $('.js-genericModalContent').scroll(function() {
+    var scroll = $('.js-genericModalContent').scrollTop();
     if (scroll >= 1) {
       $('.js-headerModal').addClass('-shadow');
     } else {
