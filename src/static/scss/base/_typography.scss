@@ -12,8 +12,8 @@ pre {
   line-height: $line-height-centi;
 
   @include bp-mediumup {
-    font-size: $font-size-base;
-    line-height: $line-height-base;
+    font-size: $font-size-deci;
+    line-height: $line-height-deci;
   }
 }
 

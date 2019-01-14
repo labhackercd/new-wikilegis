@@ -1,4 +1,6 @@
 .document-body {
+  font-weight: 300 !important;
+
   &.-supressed {
     & * {
       color: #ccc;

@@ -1,6 +1,6 @@
 .document-body {
   @include bp-mediumup {
-    width: 66%;
+    width: 66ch;
   }
 
   &.-voidselection {
@@ -9,5 +9,42 @@
 
   & > h3 {
     text-align: center;
+  }
+
+  & > header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & > header > hr {
+    margin-bottom: 0;
+  }
+
+  & > header > .description {
+    font-size: 1.25rem;
+    font-weight: 300;
+
+    margin-top: 1rem;
+  }
+
+  & > header > .info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & > header > .info > .epigraph {
+    font-size: .875rem;
+    font-weight: bold;
+  }
+
+  & > header > .info > .date {
+    font-size: .875rem;
+    font-weight: 500;
+
+    color: $color-brand;
+
+    &.-inactive {
+      color: $color-red;
+    }
   }
 }
