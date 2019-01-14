@@ -78,13 +78,12 @@
     padding: 1.5rem;
 
     text-align: center;
-  }
 
-  & > .content.-vote {
-    align-items: flex-start;
+    @at-root .-opinion#{&} {
+      align-items: flex-start;
 
-    text-align: left;
-  }
+      text-align: left;
+    }
   }
 
   & > .content > img,
