@@ -40,13 +40,9 @@
   <body class="js-body{% if request.path|startswith:"/p/" and request.path != "/p/new/" %} -white{% elif request.path == "/" %} -home{% endif %}">
     {% include "components/nav-bar.html" %}
     {% include "components/nav-menu.html" %}
+
     {% block content %}
     {% endblock content %}
-
-
-    {% block modal %}
-    {% include "components/app-modal.html" %}
-    {% endblock modal %}
 
     {% compress js %}
       <script src="{% static 'django_js_reverse/js/reverse.js' %}"></script>
