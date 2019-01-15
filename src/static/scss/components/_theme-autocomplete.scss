@@ -1,6 +1,8 @@
 .theme-autocomplete {
   position: relative;
 
+  @extend .input-text;
+
   & > .themes {
     display: flex;
     align-items: center;
@@ -32,9 +34,5 @@
     position: absolute;
     z-index: 2;
     top: .5rem;
-  }
-
-  & > input {
-    margin-top: .5rem;
   }
 }
