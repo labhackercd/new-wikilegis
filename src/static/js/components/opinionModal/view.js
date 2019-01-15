@@ -20,19 +20,19 @@ OpinionModalView.prototype.initEvents = function() {
 OpinionModalView.prototype.publishers = function() {
   var self = this;
   $('.js-closeModal').click(function() {
-    $.Topic(events.closeOpinionModal).publish(false);
+    events.closeOpinionModal.publish(false);
   });
 
   $(document).ready(function(){
     if ($('.js-opinionModal').data('openOnLoad') === true) {
       self.documentSuggestion = true;
-      $.Topic(events.openOpinionModal).publish(null);
+      events.openOpinionModal.publish(null);
     }
   });
 
   self.buttonsElements.on('click', function(){
     var button = $(this);
-    $.Topic(events.sendOpinion).publish(
+    events.sendOpinion.publish(
       self.suggestionElement.data('suggestionId'),
       button.data('opinion')
     );
@@ -40,15 +40,15 @@ OpinionModalView.prototype.publishers = function() {
 
   self.nextOpinionElement.on('click', function() {
     if (self.documentSuggestion) {
-      $.Topic(events.openOpinionModal).publish(null);
+      events.openOpinionModal.publish(null);
     } else {
-      $.Topic(events.openOpinionModal).publish(self.currentExcerptId);
+      events.openOpinionModal.publish(self.currentExcerptId);
     }
   });
 
   self.buttonsElements.on('click', function(){
     var button = $(this);
-    $.Topic(events.sendOpinion).publish(
+    events.sendOpinion.publish(
       self.suggestionElement.data('suggestionId'),
       button.data('opinion')
     );
@@ -58,17 +58,17 @@ OpinionModalView.prototype.publishers = function() {
 OpinionModalView.prototype.subscribers = function () {
   var self = this;
 
-  $.Topic(events.openOpinionModal).subscribe(function(excerptId){
+  events.openOpinionModal.subscribe(function(excerptId){
     self.currentExcerptId = excerptId;
   });
 
-  $.Topic(events.closeOpinionModal).subscribe(function(reopen){
+  events.closeOpinionModal.subscribe(function(reopen){
     self.hide();
     if (reopen) {
       if (self.documentSuggestion) {
-        $.Topic(events.openOpinionModal).publish(null);
+        events.openOpinionModal.publish(null);
       } else {
-        $.Topic(events.openOpinionModal).publish(self.currentExcerptId);
+        events.openOpinionModal.publish(self.currentExcerptId);
       }
     } else {
       self.documentSuggestion = undefined;
@@ -76,7 +76,7 @@ OpinionModalView.prototype.subscribers = function () {
     }
   });
 
-  $.Topic(events.fillOpinionModal).subscribe(function(user, excerpt, suggestion) {
+  events.fillOpinionModal.subscribe(function(user, excerpt, suggestion) {
     self.fill(user, excerpt, suggestion);
   });
 };

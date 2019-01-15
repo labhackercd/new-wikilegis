@@ -9,7 +9,7 @@ InvitedGroupController.prototype.initEvents = function() {
 InvitedGroupController.prototype.subscribers = function() {
   var self = this;
 
-  $.Topic(events.createInvitedGroup).subscribe(function() {
+  events.createInvitedGroup.subscribe(function() {
     self.createInvitedGroup();
   });
 };

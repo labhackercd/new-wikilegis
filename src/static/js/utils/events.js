@@ -3,83 +3,83 @@
 var events = {
   // Triggered when user starts to select the text
   // Params: excerptId
-  startTextSelection: 'startTextSelection',
+  startTextSelection: $.Topic('startTextSelection'),
 
   // Triggered when user ends the text selections
-  endTextSelection: 'endTextSelection',
+  endTextSelection: $.Topic('endTextSelection'),
 
   // Triggered when user cancel the text selection by clicking on body
-  cancelTextSelection: 'cancelTextSelection',
+  cancelTextSelection: $.Topic('cancelTextSelection'),
 
   // Triggered when user tries to select the text starting outside of the document
-  outsideDocumentMouseDown: 'outsideDocumentMouseDown',
+  outsideDocumentMouseDown: $.Topic('outsideDocumentMouseDown'),
 
   // Triggered when user tries to select the text starting outside of the document
-  outsideDocumentMouseUp: 'outsideDocumentMouseUp',
+  outsideDocumentMouseUp: $.Topic('outsideDocumentMouseUp'),
 
   // Trigger when user tries to send a suggestion but the server return an error
   // Params: message
-  showSuggestionInputError: 'showSuggestionInputError',
+  showSuggestionInputError: $.Topic('showSuggestionInputError'),
 
   // Trigger when the server creates a suggestion successfully
   // Params: excerptId, html (excerpt)
-  suggestionCreated: 'suggestionCreated',
+  suggestionCreated: $.Topic('suggestionCreated'),
 
   // Triggered when user send suggestion
   // Params: excerptId, selectedText, suggestion
-  sendSuggestion: 'sendSuggestion',
+  sendSuggestion: $.Topic('sendSuggestion'),
 
   // Triggered when user open menu
-  openMenu: 'openMenu',
+  openMenu: $.Topic('openMenu'),
 
   // Triggered when user closes menu
-  closeMenu: 'closeMenu',
+  closeMenu: $.Topic('closeMenu'),
 
   // Triggered when user open document page or when user select an excerpt
   // Params: excerptId (can be null)
-  openOpinionModal: 'openOpinionModal',
+  openOpinionModal: $.Topic('openOpinionModal'),
 
   // Triggered when user click on close modal
   // Params: reopen
-  closeOpinionModal: 'closeOpinionModal',
+  closeOpinionModal: $.Topic('closeOpinionModal'),
 
   // Triggered before opinionModal opens
   // Params: user, excerpt, suggestion
-  fillOpinionModal: 'fillOpinionModal',
+  fillOpinionModal: $.Topic('fillOpinionModal'),
 
   // Triggered when user click on opinionModal button
   // Params: suggestionId, opinion (approve, reject, neutral)
-  sendOpinion: 'sendOpinion',
+  sendOpinion: $.Topic('sendOpinion'),
 
   // Triggered when user click on invitedGroup send button
-  createInvitedGroup: 'createInvitedGroup',
+  createInvitedGroup: $.Topic('createInvitedGroup'),
 
   // Triggered when user click on save in filter modal
-  filterButton: 'filterButton',
+  filterButton: $.Topic('filterButton'),
 
   // Triggered when user click on seleted profiles
   // Params: userId
-  removeParticipant: 'removeParticipant',
+  removeParticipant: $.Topic('removeParticipant'),
 
   // Triggered when user click on seleted profiles
   // Params: email
-  removeEmail: 'removeEmail',
+  removeEmail: $.Topic('removeEmail'),
 
   // Triggered when show selectables profiles
   // Params: countSelectables
-  setCounterSelectables: 'setCounterSelectables',
+  setCounterSelectables: $.Topic('setCounterSelectables'),
 
   // Triggered when show selecteds profiles
   // Params: countSelecteds
-  setCounterSelecteds: 'setCounterSelecteds',
+  setCounterSelecteds: $.Topic('setCounterSelecteds'),
 
   // Triggered when user clicks on openParticipation filter
-  openFilterModal: 'openFilterModal',
+  openFilterModal: $.Topic('openFilterModal'),
 
   // Triggered when user clicks on FilterModal close button or save button
   // Params: applyFilter
-  closeFilterModal: 'closeFilterModal',
+  closeFilterModal: $.Topic('closeFilterModal'),
 
   // Triggered when user send filter modal
-  updateSearchParticipants: 'updateSearchParticipants',
+  updateSearchParticipants: $.Topic('updateSearchParticipants'),
 };

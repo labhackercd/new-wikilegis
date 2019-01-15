@@ -20,29 +20,29 @@ BodyView.prototype.publishers = function() {
       if (suggestionInput.length === 0 && opinionModal.length === 0) {
         var selectedText = window.getSelection().toString();
         if (selectedText === '' || selectedText === self.previousSelectedText) {
-          $.Topic(events.cancelTextSelection).publish();
+          events.cancelTextSelection.publish();
         }
         self.previousSelectedText = selectedText;
       }
     }
 
     if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
-      $.Topic(events.closeOpinionModal).publish(false);
-      $.Topic(events.closeFilterModal).publish(false);
+      events.closeOpinionModal.publish(false);
+      events.closeFilterModal.publish(false);
     }
   });
 
   $('body').on('mousedown', function(e) {
     if (!$(e.target).hasClass('js-documentExcerpt')) {
       self.startedClick = true;
-      $.Topic(events.outsideDocumentMouseDown).publish();
+      events.outsideDocumentMouseDown.publish();
     }
   });
 
   $('body').on('mouseup', function() {
     if (self.startedClick) {
       self.startedClick = false;
-      $.Topic(events.outsideDocumentMouseUp).publish();
+      events.outsideDocumentMouseUp.publish();
     }
   });
 };
@@ -50,39 +50,39 @@ BodyView.prototype.publishers = function() {
 BodyView.prototype.subscribers = function() {
   var self = this;
 
-  $.Topic(events.cancelTextSelection).subscribe(function() {
+  events.cancelTextSelection.subscribe(function() {
     self.enableUserSelection();
   });
 
-  $.Topic(events.startTextSelection).subscribe(function() {
+  events.startTextSelection.subscribe(function() {
     self.disableUserSelection();
   });
 
-  $.Topic(events.endTextSelection).subscribe(function() {
+  events.endTextSelection.subscribe(function() {
     self.enableUserSelection();
   });
 
-  $.Topic(events.openMenu).subscribe(function() {
+  events.openMenu.subscribe(function() {
     self.openMenu();
   });
 
-  $.Topic(events.closeMenu).subscribe(function() {
+  events.closeMenu.subscribe(function() {
     self.closeMenu();
   });
 
-  $.Topic(events.openOpinionModal).subscribe(function() {
+  events.openOpinionModal.subscribe(function() {
     self.disableScroll();
   });
 
-  $.Topic(events.closeOpinionModal).subscribe(function() {
+  events.closeOpinionModal.subscribe(function() {
     self.enableScroll();
   });
 
-  $.Topic(events.openFilterModal).subscribe(function() {
+  events.openFilterModal.subscribe(function() {
     self.disableScroll();
   });
 
-  $.Topic(events.closeFilterModal).subscribe(function() {
+  events.closeFilterModal.subscribe(function() {
     self.enableScroll();
   });
 };

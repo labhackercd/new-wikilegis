@@ -9,19 +9,19 @@ DocumentBodyView.prototype.initEvents = function() {
 DocumentBodyView.prototype.subscribers = function() {
   var self = this;
 
-  $.Topic(events.startTextSelection).subscribe(function() {
+  events.startTextSelection.subscribe(function() {
     self.displayDisabledText();
   });
 
-  $.Topic(events.cancelTextSelection).subscribe(function() {
+  events.cancelTextSelection.subscribe(function() {
     self.displayEnabledText();
   });
 
-  $.Topic(events.outsideDocumentMouseDown).subscribe(function() {
+  events.outsideDocumentMouseDown.subscribe(function() {
     self.disableTextSelection();
   });
 
-  $.Topic(events.outsideDocumentMouseUp).subscribe(function() {
+  events.outsideDocumentMouseUp.subscribe(function() {
     self.enableTextSelection();
   });
 };
