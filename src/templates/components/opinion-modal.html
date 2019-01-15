@@ -1,32 +1,37 @@
+{% extends "components/app-modal.html" %}
 {% load staticfiles %}
 
-<div class="generic-modal -opinion js-opinionModal" data-open-on-load="{% if request.user.is_authenticated %}true{% else %}false{% endif %}">
-  <div class="header js-headerModal">
-    <h2>Você concorda?</h2>
-    <div class="close js-closeModal"><img class="icon" src="{% static 'img/close.svg' %}"></div>
-  </div>
-  <div class="content -vote">
-    <span class="info-text js-userInfo" data-user-id="">
-      <img class="js-userAvatar" src="">
-      <h3><span class="js-userName"></span> destacou o trecho:</h3>
-    </span>
-    <p class="excerpt js-documentExcerpt" data-excerpt-id=""></p>
+
+{% block extra_classes %}-opinion js-opinionModal{% endblock %}
+
+{% block extra_attributes %}data-open-on-load="{% if request.user.is_authenticated %}true{% else %}false{% endif %}"{% endblock %}
+
+{% block title %}Você Concorda?{% endblock %}
+
+
+{% block content %}
+  <span class="info-text js-userInfo" data-user-id="">
+    <img class="js-userAvatar" src="">
+    <h3><span class="js-userName"></span> destacou o trecho:</h3>
+  </span>
+  <p class="excerpt js-documentExcerpt" data-excerpt-id=""></p>
+  <span class="info-text">
+    <img src="{% static 'img/atention.svg' %}">
+    <h3>E deu a seguinte opinião nele:</h3>
+  </span>
+  <p class="js-suggestion" data-suggestion-id=""></p>
+  <div class="footer">
     <span class="info-text">
-      <img src="{% static 'img/atention.svg' %}">
-      <h3>E deu a seguinte opinião nele:</h3>
+      <img src="{% static 'img/information.svg' %}">
+      <h3>Você concorda com essa opinião?</h3>
     </span>
-    <p class="js-suggestion" data-suggestion-id=""></p>
-    <div class="footer">
-      <span class="info-text">
-        <img src="{% static 'img/information.svg' %}">
-        <h3>Você concorda com essa opinião?</h3>
-      </span>
-      <div class="actions">
-        <a href="#" class="solid-button -green js-opinionButton" data-opinion="approve">Concordo</a>
-        <a href="#" class="solid-button -gray js-opinionButton" data-opinion="neutral">Neutro</a>
-        <a href="#" class="solid-button -red js-opinionButton" data-opinion="reject">Discordo</a>
-      </div>
-      <a href="#" class="simple-link js-nextOpinion">Próxima Opinião</a>
+    <div class="actions">
+      <a href="#" class="solid-button -green js-opinionButton" data-opinion="approve">Concordo</a>
+      <a href="#" class="solid-button -gray js-opinionButton" data-opinion="neutral">Neutro</a>
+      <a href="#" class="solid-button -red js-opinionButton" data-opinion="reject">Discordo</a>
     </div>
+    <a href="#" class="simple-link js-nextOpinion">Próxima Opinião</a>
   </div>
+{% endblock content %}
+
 </div>

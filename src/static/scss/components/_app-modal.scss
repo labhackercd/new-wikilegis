@@ -1,4 +1,4 @@
-.generic-modal {
+.app-modal {
   position: fixed;
   z-index: 9;
   top: 0;
@@ -11,14 +11,15 @@
   width: 100%;
   height: 100%;
 
-  background-color: $color-whitesmoke;
+  background-color: #FFF;
 
   @include bp-mediumup {
     top: 50%;
     left: 50%;
 
     width: 70%;
-    height: 85%;
+    height: auto;
+    max-height: calc(100% - 3rem);
 
     transform: translate(-50%, -50%);
   }
@@ -34,17 +35,21 @@
   }
 
   & > .header {
+    z-index: 1;
+
     display: flex;
     align-items: center;
-    flex: 1 0 auto;
+    flex: 0 0 auto;
     justify-content: space-between;
 
     box-sizing: border-box;
     width: 100%;
     height: 4rem;
-    padding: 0 1.6rem;
+    padding: 0 1.5rem;
 
-    background-color: $color-whitesmoke;
+    background-color: #FFF;
+
+    @include hidden-shadow;
   }
 
   & > .header.-shadow {
@@ -73,18 +78,15 @@
   & > .content {
     overflow-y: auto;
 
+    padding: 1.5rem;
+
     text-align: center;
-  }
 
-  & > .content.-vote {
-    align-items: flex-start;
+    @at-root .-opinion#{&} {
+      align-items: flex-start;
 
-    text-align: left;
-  }
-
-  & > .content > span,
-  & > .content > p {
-    padding: 0 1.6rem;
+      text-align: left;
+    }
   }
 
   & > .content > img,
@@ -109,12 +111,12 @@
     box-sizing: border-box;
     width: 100%;
     margin-top: 1rem;
-    padding: 1.6rem;
+    padding: 1.5rem;
 
     background-color: #FFF;
 
     @include bp-mediumup {
-      padding: 2.6rem 1.6rem 1.6rem 1.6rem;
+      padding-top: 2.5rem;
     }
   }
 
