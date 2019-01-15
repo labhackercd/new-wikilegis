@@ -1,12 +1,12 @@
 /*global $ events */
 
-var filterModalController = function() {};
+var FilterModalController = function() {};
 
-filterModalController.prototype.initEvents = function() {
+FilterModalController.prototype.initEvents = function() {
   this.subscribers();
 };
 
-filterModalController.prototype.subscribers = function() {
+FilterModalController.prototype.subscribers = function() {
   var self = this;
 
   $.Topic(events.closeFilterModal).subscribe(function(applyFilter) {
@@ -16,7 +16,7 @@ filterModalController.prototype.subscribers = function() {
   });
 };
 
-filterModalController.prototype.applyFilters = function() {
+FilterModalController.prototype.applyFilters = function() {
   var themes = [];
   $('.js-tag').each(function(){
     themes.push($(this).data('themeId'));
