@@ -9,15 +9,13 @@
         {% csrf_token %}
         {{form.non_field_errors}}
         <h2>Criar Novo Projeto</h2>
-        <div class="input-text">
-          <div class="theme-autocomplete js-themeAutocomplete">
-            <label>{% trans "Tema" %}</label>
-            <input class="js-input" type="text" name="theme-autocomplete">
-            {{form.themes.errors}}
-            <div class="themes">
-              <span class="title _hidden js-title">Temas Adicionados:</span>
-              <ul class="tags js-tags"></ul>
-            </div>
+        <div class="theme-autocomplete js-themeAutocomplete">
+          <input class="js-input" type="text" name="theme-autocomplete">
+          <label>{% trans "Tema" %}</label>
+          {{form.themes.errors}}
+          <div class="themes">
+            <span class="title _hidden js-title">Temas Adicionados:</span>
+            <ul class="tags js-tags"></ul>
           </div>
         </div>
         <div class="input-select">
@@ -30,26 +28,24 @@
         </div>
         <div class="input-group">
           <div class="input-text">
-            <label for="{{form.number.id_for_label}}">{% trans "Número" %}</label>
             {{form.number}}
+            <label for="{{form.number.id_for_label}}">{% trans "Número" %}</label>
             {{form.number.errors}}
           </div>
           <div class="input-text">
+            {{form.year}}
             <label for="{{form.year.id_for_label}}">{% trans "Ano" %}</label>
-            <div class="">
-              {{form.year}}
-            </div>
             {{form.year.errors}}
           </div>
         </div>
         <div class="input-text">
-          <label for="{{form.title.id_for_label}}">{% trans "Título" %}</label>
           {{form.title}}
+          <label for="{{form.title.id_for_label}}">{% trans "Título" %}</label>
           {{form.title.errors}}
         </div>
-        <div class="input-textarea">
-          <label for="{{form.description.id_for_label}}">{% trans "Descrição" %}</label>
+        <div class="input-text">
           {{form.description}}
+          <label for="{{form.description.id_for_label}}">{% trans "Descrição" %}</label>
           {{form.description.errors}}
         </div>
         <button class="solid-button -green">Enviar</button>

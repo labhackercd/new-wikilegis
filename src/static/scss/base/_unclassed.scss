@@ -172,10 +172,11 @@ textarea {
 
   box-sizing: border-box;
   width: 100%;
-  height: 3rem;
+  height: 3.25rem;
   padding: .875rem;
 
   color: $color-deep-gray;
+  border: 0;
 
   @include card-shadow;
 
