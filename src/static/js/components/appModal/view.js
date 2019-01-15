@@ -1,12 +1,12 @@
 /*global $ */
 
-var appModalView = function() {};
+var AppModalView = function() {};
 
-appModalView.prototype.initEvents = function() {
+AppModalView.prototype.initEvents = function() {
   this.addShadowOnScroll();
 };
 
-appModalView.prototype.addShadowOnScroll = function () {
+AppModalView.prototype.addShadowOnScroll = function () {
   $('.js-appModalContent').scroll(function() {
     var scroll = $('.js-appModalContent').scrollTop();
     if (scroll >= 1) {

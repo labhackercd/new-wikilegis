@@ -1,6 +1,6 @@
 /*global AppModalView NavBarView */
 
-var appModalView = new appModalView();
+var appModalView = new AppModalView();
 appModalView.initEvents();
 
 var navBarView = new NavBarView();
