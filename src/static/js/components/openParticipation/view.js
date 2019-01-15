@@ -132,11 +132,11 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       }
       var gender = undefined;
       if (localStorage.getItem('gender')) {
-        gender = localStorage.getItem('gender').split(',');
+        gender = localStorage.getItem('gender');
       }
       var locale = undefined;
       if (localStorage.getItem('locale')) {
-        locale = localStorage.getItem('locale').split(',');
+        locale = localStorage.getItem('locale');
       }
       var participants = [];
       $('.js-selectedProfile .js-user').each(function() {
