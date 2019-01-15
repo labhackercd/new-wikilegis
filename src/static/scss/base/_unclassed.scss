@@ -102,13 +102,13 @@ h1 {
 }
 
 h2 {
-  * + * {
+  * + & {
     margin-top: $space-base;
   }
 }
 
 h3 {
-  * + * {
+  * + & {
     margin-top: $space-centi;
   }
 }
@@ -200,4 +200,8 @@ p > a {
   &:hover {
     color: lighten($color-brand, 10%);
   }
+}
+
+._hide {
+  display: none !important;
 }

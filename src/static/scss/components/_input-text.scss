@@ -13,4 +13,13 @@
 
     opacity: .6;
   }
+
+  & > .input {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+  }
 }

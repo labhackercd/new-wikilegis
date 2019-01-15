@@ -5,8 +5,6 @@
 {% block title %}Convidar participantes{% endblock title %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.min.css' %}">
-<link rel="stylesheet" href="{% static 'jquery-ui-dist/jquery-ui.theme.min.css' %}">
 <style>
   .ui-autocomplete-loading {
     background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
@@ -17,42 +15,64 @@
 {% block content %}
 
 <main class="section-group">
-  <h2>Criar Grupo Fechado</h2>
-  <ul>
-    {% for theme in themes %}
-    <li class="js-theme" data-theme-id='{{ theme.id }}'>{{ theme.name }}</li>
-    {% endfor %}
-  </ul>
+  <header>
+    <h2>Criar Grupo Fechado</h2>
+    <div class="close-icon"></div>
+  </header>
 
-  <div class="input-text">
-    <label for="id_group_name">Nome do grupo: </label>
-    <input type="text" name="group_name" id="id_group_name">
+  <div class="input-group">
+    <div class="input-text">
+      <label for="id_group_name">Nome do grupo: </label>
+      <input type="text" name="group_name" id="id_group_name">
+    </div>
+    <div class="input-text">
+      <label for="id_closing_date">Data de encerramento:</label>
+      <input type="date" name="closing_date" required="" id="id_closing_date">
+    </div>
   </div>
 
-  {{ form.as_p }}
-  <div class="input-text ui-widget">
-    <label for="name">Usuários: </label>
-    <input id="name" class="js-name">
+  <h2>Gerenciar Perfis do Grupo</h2>
+
+  <div class="input-filter js-openParticipation">
+    <label for="name">Buscar perfis por nome ou email: </label>
+    <div class="input">
+      <input id="name" class="js-search-name">
+      <div class="filter js-searchFilter">Filtros</div>
+    </div>
+    <div class="filters">
+      <span class="title _hidden js-title">Filtros adicionados:</span>
+      <ul class="tags js-tags"></ul>
+    </div>
   </div>
 
-  <div class="ui-widget" style="margin-top:2em; font-family:Arial">
-    Resultado:
-    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+  <div class="input-group">
+    <div class="input-profile -empty">
+      <span class="label"><b class="js-countSelectables">0</b>Perfis encontrados com o filtro </span>
+      <div class="profiles js-inputProfile">
+      </div>
+    </div>
+    <div class="input-profile -empty">
+      <span class="label"><b class="js-countSelecteds">0</b>Participantes atuais no grupo</span>
+      <div class="profiles js-selectedProfile">
+      </div>
+    </div>
   </div>
 
-  <p>
-    <button class="js-send-button">Salvar</button>
-  </p>
+  <button class="solid-button -green js-sendButton">Salvar</button>
 </main>
 
 {% endblock content %}
 
 {% block modal %}
+{% include "components/filter-modal.html" %}
 {% endblock modal %}
 
 {% block page_js %}
 <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/components/openParticipation/view.js' %}"></script>
 <script src="{% static 'js/components/openParticipation/controller.js' %}"></script>
+<script src="{% static 'js/components/filterModal/view.js' %}"></script>
+<script src="{% static 'js/components/filterModal/controller.js' %}"></script>
+<script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
 <script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
 {% endblock page_js %}

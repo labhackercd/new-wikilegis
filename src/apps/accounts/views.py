@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from datetime import date
 
 User = get_user_model()
 
@@ -8,14 +9,33 @@ User = get_user_model()
 def participants_autocomplete(request):
     name = request.GET.get('name', None)
     themes = request.GET.getlist('theme', None)
+    min_age = request.GET.get('minAge', None)
+    max_age = request.GET.get('maxAge', None)
+    gender = request.GET.get('gender', None)
+    uf = request.GET.get('locale', None)
+    selected_ids = request.GET.getlist('selected_participants', None)
+
+    today = date.today()
     query = Q()
+
     if name:
         query = Q(first_name__istartswith=name) | Q(email__istartswith=name)
-    elif themes:
+    if themes:
         query &= Q(profile__themes__id__in=themes)
+    if min_age:
+        query &= Q(
+            profile__birthdate__year__lt=today.year - int(min_age))
+    if max_age:
+        query &= Q(
+            profile__birthdate__year__gte=today.year - int(max_age))
+    if gender:
+        query &= Q(profile__gender=gender)
+    if uf:
+        query &= Q(profile__uf=uf)
 
     if query:
-        users = User.objects.filter(query).distinct()
+        users = User.objects.filter(query).distinct().exclude(
+            id__in=selected_ids)
     else:
         users = User.objects.none()
 
@@ -25,6 +45,11 @@ def participants_autocomplete(request):
             'id': user.id,
             'first_name': user.first_name,
             'last_name': user.last_name,
+            'avatar': user.profile.avatar,
+            'themes': [
+                {'name': theme.name, 'color': theme.color}
+                for theme in user.profile.themes.all()
+            ],
         }
         result.append(obj)
 

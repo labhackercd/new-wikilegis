@@ -28,6 +28,7 @@ BodyView.prototype.publishers = function() {
 
     if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
       $.Topic(events.closeOpinionModal).publish(false);
+      $.Topic(events.closeFilterModal).publish(false);
     }
   });
 
@@ -74,6 +75,14 @@ BodyView.prototype.subscribers = function() {
   });
 
   $.Topic(events.closeOpinionModal).subscribe(function() {
+    self.enableScroll();
+  });
+
+  $.Topic(events.openFilterModal).subscribe(function() {
+    self.disableScroll();
+  });
+
+  $.Topic(events.closeFilterModal).subscribe(function() {
     self.enableScroll();
   });
 };

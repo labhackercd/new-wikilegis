@@ -1,7 +1,4 @@
-/*global BodyView NavBurgerView NavBarView SearchInputView */
-
-var bodyView = new BodyView();
-bodyView.initEvents();
+/*global NavBurgerView NavBarView SearchInputView */
 
 var navBurgerView = new NavBurgerView();
 navBurgerView.initEvents();

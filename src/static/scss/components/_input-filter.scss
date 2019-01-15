@@ -1,0 +1,85 @@
+.input-filter {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  margin-top: 1rem;
+
+  label {
+    font-size: $font-size-centi;
+    font-weight: 500;
+
+    margin-bottom: .5rem;
+
+    opacity: .6;
+  }
+
+  & > .input {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    & > input {
+      padding-right: 5rem;
+    }
+  }
+
+  & > .input > .filter {
+    font-size: .75rem;
+    font-weight: 500;
+
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: border-box;
+    height: 100%;
+    padding: .875rem;
+
+    cursor: pointer;
+    text-transform: uppercase;
+
+    color: $color-deep-gray;
+
+    &.-active,
+    &:hover {
+      color: $color-brand;
+    }
+
+    &.-active:hover {
+      color: lighten($color-deep-gray, 10%);
+    }
+  }
+
+  & > .filters {
+    display: flex;
+    align-items: center;
+
+    margin-top: .5rem;
+  }
+
+  & > .filters > .title {
+    font-size: .5625rem;
+    font-weight: 500;
+
+    margin-right: .75rem;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+
+  & > .filters > .tags {
+    display: flex;
+
+    & > * + * {
+      margin-left: .75rem;
+    }
+  }
+}

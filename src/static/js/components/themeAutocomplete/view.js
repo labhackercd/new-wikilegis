@@ -1,8 +1,8 @@
 /*global $ Urls */
 
-var ThemeAutocomplete = function() {};
+var ThemeAutocompleteView = function() {};
 
-ThemeAutocomplete.prototype.initEvents = function() {
+ThemeAutocompleteView.prototype.initEvents = function() {
   this.themeAutocompleteElement = $('.js-themeAutocomplete');
   this.selectedThemesElement = $('.js-themeAutocomplete .js-themes');
   this.inputElement = $('.js-themeAutocomplete .js-input');
@@ -12,7 +12,7 @@ ThemeAutocomplete.prototype.initEvents = function() {
   this.publishers();
 };
 
-ThemeAutocomplete.prototype.publishers = function() {
+ThemeAutocompleteView.prototype.publishers = function() {
   var self = this;
 
   self.tagsElement.on('click', '.js-tag', function(e) {
@@ -35,6 +35,10 @@ ThemeAutocomplete.prototype.publishers = function() {
         .addClass('-active');
     },
     appendTo: '.js-themeAutocomplete',
+    messages: {
+      noResults: '',
+      results: function() {}
+    },
     minLength: 0,
     select: function(event, ui) {
       self.addTheme(ui.item);
@@ -66,7 +70,7 @@ ThemeAutocomplete.prototype.publishers = function() {
   };
 };
 
-ThemeAutocomplete.prototype.addTag = function(theme) {
+ThemeAutocompleteView.prototype.addTag = function(theme) {
   var li = $('<li class="theme-tag js-tag">')
     .addClass('-selected')
     .data('themeId', theme.id)
@@ -80,7 +84,7 @@ ThemeAutocomplete.prototype.addTag = function(theme) {
   this.toggleTitle();
 };
 
-ThemeAutocomplete.prototype.removeTag = function(tagElement) {
+ThemeAutocompleteView.prototype.removeTag = function(tagElement) {
   var themeId = tagElement.data('themeId');
   var themeInput = $('input[name="themes"][value="' + themeId + '"]');
   themeInput.remove();
@@ -88,7 +92,7 @@ ThemeAutocomplete.prototype.removeTag = function(tagElement) {
   this.toggleTitle();
 };
 
-ThemeAutocomplete.prototype.addTheme = function(theme) {
+ThemeAutocompleteView.prototype.addTheme = function(theme) {
   var themeInput = $('input[name="themes"][value="' + theme.id + '"]');
   if (themeInput.length === 0) {
     var input = $('<input type="hidden" name="themes" value="' + theme.id + '">');
@@ -97,7 +101,7 @@ ThemeAutocomplete.prototype.addTheme = function(theme) {
   }
 };
 
-ThemeAutocomplete.prototype.toggleTitle = function() {
+ThemeAutocompleteView.prototype.toggleTitle = function() {
   if ($('input[name="themes"]').length > 0) {
     this.titleElement.removeClass('_hidden');
   } else {

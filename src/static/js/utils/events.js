@@ -54,7 +54,32 @@ var events = {
   // Triggered when user click on invitedGroup send button
   createInvitedGroup: 'createInvitedGroup',
 
-  // Triggered when user click on themes
-  // Params: themeId
-  setThemes: 'setThemes',
+  // Triggered when user click on save in filter modal
+  filterButton: 'filterButton',
+
+  // Triggered when user click on seleted profiles
+  // Params: userId
+  removeParticipant: 'removeParticipant',
+
+  // Triggered when user click on seleted profiles
+  // Params: email
+  removeEmail: 'removeEmail',
+
+  // Triggered when show selectables profiles
+  // Params: countSelectables
+  setCounterSelectables: 'setCounterSelectables',
+
+  // Triggered when show selecteds profiles
+  // Params: countSelecteds
+  setCounterSelecteds: 'setCounterSelecteds',
+
+  // Triggered when user clicks on openParticipation filter
+  openFilterModal: 'openFilterModal',
+
+  // Triggered when user clicks on FilterModal close button or save button
+  // Params: applyFilter
+  closeFilterModal: 'closeFilterModal',
+
+  // Triggered when user send filter modal
+  updateSearchParticipants: 'updateSearchParticipants',
 };

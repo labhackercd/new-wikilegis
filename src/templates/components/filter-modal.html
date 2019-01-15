@@ -1,0 +1,94 @@
+{% extends "components/app-modal.html" %}
+{% load staticfiles i18n %}
+
+{% block extra_classes %}-filter js-filterModal{% endblock %}
+
+{% block title %}Filtros{% endblock %}
+
+{% block content %}
+  <form>
+    <div class="input-group">
+      <div class="input-text">
+        <div class="theme-autocomplete js-themeAutocomplete">
+          <label>{% trans "Tema" %}</label>
+          <input class="js-input" type="text" name="theme-autocomplete">
+          <div class="themes">
+            <span class="title _hidden js-title">Temas:</span>
+            <ul class="tags js-tags"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="input-text">
+        <div class="theme-autocomplete js-themeAutocomplete">
+          <label>{% trans "Meus Grupos" %}</label>
+          <input class="js-input" type="text" name="theme-autocomplete">
+          <div class="themes">
+            <span class="title _hidden js-title">Meus Grupos:</span>
+            <ul class="tags js-groups"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-text">
+        <label for="id_min_age">Idade Mínima:</label>
+        <input type="text" class="js-minAge" name="min_age" required="" id="id_min_age">
+      </div>
+      <div class="input-text">
+        <label for="id_max_age">Idade Máxima:</label>
+        <input type="text" class="js-maxAge" name="max_age" required="" id="id_max_age">
+      </div>
+      <div class="input-select">
+        <label for="id_gender">Gênero:</label>
+        <div class="select">
+          <select name="document_type" class="js-gender" id="id_gender">
+            <option value="" selected="">---------</option>
+            <option value="male">Masculino</option>
+            <option value="female">Feminino</option>
+            <option value="other">Outro</option>
+            <option value="undisclosed">Prefere não informar</option>
+          </select>
+          <div class="icon"><i class="arrow"></i></div>
+        </div>
+      </div>
+      <div class="input-select">
+        <label for="id_locale">Localidade:</label>
+        <div class="select">
+          <select name="document_type" class="js-locale" id="id_locale">
+            <option value="" selected="">---------</option>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+          </select>
+          <div class="icon"><i class="arrow"></i></div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <a href="#" class="solid-button -green js-applyFilter">Salvar</a>
+{% endblock content %}

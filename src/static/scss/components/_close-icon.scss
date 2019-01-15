@@ -1,0 +1,18 @@
+.close-icon {
+  position: absolute;
+  right: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.75rem;
+  height: 2.75rem;
+
+  cursor: pointer;
+
+  @include bp-mediumup {
+    width: 2rem;
+    height: 2rem;
+  }
+}

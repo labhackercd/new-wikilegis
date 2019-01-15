@@ -1,0 +1,55 @@
+.user-profile {
+  display: flex;
+  align-items: center;
+
+  padding: .75rem;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-whitesmoke;
+  }
+
+  & > .avatar {
+    width: 1.875rem;
+    height: 1.875rem;
+    margin-right: .5rem;
+
+    border-radius: 50%;
+  }
+
+  & > .info {
+    display: flex;
+    flex-direction: column;
+
+    & > .name {
+      font-size: $font-size-mili;
+      font-weight: bold;
+    }
+  }
+
+  & > .action {
+    margin-left: auto;
+
+    & > * {
+      display: block;
+
+      width: .875rem;
+      height: .875rem;
+
+      content: '';
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    & > .add {
+      background-image: url('../img/add.svg');
+    }
+
+    & > .remove {
+      background-image: url('../img/remove.svg');
+    }
+  }
+}

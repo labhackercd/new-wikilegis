@@ -1,5 +1,10 @@
 .section-group {
-  width: 50%;
+  width: 66%;
   margin: 0 auto;
   padding-top: 3.75rem;
+
+  & > .solid-button {
+    margin-top: 1.5rem;
+    margin-left: auto;
+  }
 }
