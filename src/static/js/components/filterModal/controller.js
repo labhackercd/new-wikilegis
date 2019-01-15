@@ -25,6 +25,7 @@ FilterModalController.prototype.applyFilters = function() {
   var maxAge = $('.js-maxAge').val();
   var gender = $('.js-gender').val();
   var locale = $('.js-locale').val();
+  localStorage.setItem('theme', themes);
   localStorage.setItem('minAge', minAge);
   localStorage.setItem('maxAge', maxAge);
   localStorage.setItem('gender', gender);

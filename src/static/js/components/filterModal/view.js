@@ -4,7 +4,7 @@ var FilterModalView = function() {};
 
 FilterModalView.prototype.initEvents = function() {
   this.filterModalElement = $('.js-filterModal');
-  this.closeElement = $('.js-filterModal .js-close');
+  this.closeElement = $('.js-filterModal .js-closeModal');
   this.applyFilter = $('.js-filterModal .js-applyFilter');
   this.subscribers();
   this.publishers();
