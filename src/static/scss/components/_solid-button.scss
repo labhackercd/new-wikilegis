@@ -1,12 +1,12 @@
 .solid-button {
-  font-size: $font-size-nano;
+  font-size: .75rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 5rem;
-  padding: .75rem .2rem;
+  padding: .6rem .2rem;
 
   transition: all .15s ease-out;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
   color: #FFF;
 
   @include bp-mediumup {
-    font-size: $font-size-micro;
+    font-size: .875rem;
 
     width: 8rem;
   }
