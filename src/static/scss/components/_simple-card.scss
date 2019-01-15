@@ -24,6 +24,10 @@
     }
   }
 
+  & > p {
+    margin-top: 1rem;
+  }
+
   & > .header {
     display: flex;
     justify-content: space-between;
@@ -51,7 +55,7 @@
   }
 
   & > h3 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.6;
 
     margin-top: 1rem;
@@ -64,7 +68,7 @@
     align-items: center;
     justify-content: space-between;
 
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 
     text-transform: uppercase;
 
@@ -87,6 +91,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+  }
+
+  & > .info > .themes > .theme > img {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   & > .info > .suggestions > .suggestion > .value {
