@@ -55,4 +55,31 @@
       color: lighten($color-deep-gray, 10%);
     }
   }
+
+  & > .filters {
+    display: flex;
+    align-items: center;
+
+    margin-top: .5rem;
+  }
+
+  & > .filters > .title {
+    font-size: .5625rem;
+    font-weight: 500;
+
+    margin-right: .75rem;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+
+  & > .filters > .tags {
+    display: flex;
+
+    & > * + * {
+      margin-left: .75rem;
+    }
+  }
 }
