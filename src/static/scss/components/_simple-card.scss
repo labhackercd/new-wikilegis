@@ -89,14 +89,15 @@
   & > .info > .themes > .theme,
   & > .info > .suggestions > .suggestion {
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
   }
 
   & > .info > .themes > .theme > img {
     width: 2.5rem;
     height: 2.5rem;
+    margin-bottom: .35rem;
   }
 
   & > .info > .suggestions > .suggestion > .value {
