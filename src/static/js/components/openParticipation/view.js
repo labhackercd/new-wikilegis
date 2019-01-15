@@ -12,43 +12,43 @@ ParticipantsAutocompleteView.prototype.initEvents = function() {
 
 ParticipantsAutocompleteView.prototype.publishers = function() {
   $('.js-sendButton').click(function() {
-    $.Topic(events.createInvitedGroup).publish();
+    events.createInvitedGroup.publish();
   });
   $('.js-filterButton').click(function() {
-    $.Topic(events.applyFilters).publish();
+    events.applyFilters.publish();
   });
   $('.js-selectedProfile').on('click', '.js-user', function(e) {
     var userId = $(e.target).closest('.js-user').data('userId').toString();
-    $.Topic(events.removeParticipant).publish(userId);
+    events.removeParticipant.publish(userId);
   });
   $('.js-selectedProfile').on('click', '.js-email', function(e) {
     var email = $(e.target).closest('.js-email').data('email');
-    $.Topic(events.removeEmail).publish(email);
+    events.removeEmail.publish(email);
   });
   $('.js-selectedProfile').bind('DOMSubtreeModified', function(){
     var countSelecteds = $('.js-selectedProfile').children().length;
-    $.Topic(events.setCounterSelecteds).publish(countSelecteds);
+    events.setCounterSelecteds.publish(countSelecteds);
   });
   this.filter.on('click', function() {
-    $.Topic(events.openFilterModal).publish();
+    events.openFilterModal.publish();
   });
 };
 
 ParticipantsAutocompleteView.prototype.subscribers = function () {
   var self = this;
-  $.Topic(events.removeParticipant).subscribe(function(userId){
+  events.removeParticipant.subscribe(function(userId){
     self.removeParticipant(userId);
   });
-  $.Topic(events.removeEmail).subscribe(function(email){
+  events.removeEmail.subscribe(function(email){
     self.removeEmail(email);
   });
-  $.Topic(events.setCounterSelectables).subscribe(function(countSelectables){
+  events.setCounterSelectables.subscribe(function(countSelectables){
     self.setCounterSelectables(countSelectables);
   });
-  $.Topic(events.setCounterSelecteds).subscribe(function(countSelecteds){
+  events.setCounterSelecteds.subscribe(function(countSelecteds){
     self.setCounterSelecteds(countSelecteds);
   });
-  $.Topic(events.updateSearchParticipants).subscribe(function(){
+  events.updateSearchParticipants.subscribe(function(){
     self.updateSearchParticipants();
   });
 };
@@ -156,7 +156,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
           selected_participants: participants
         },
         success: function(data) {
-          $.Topic(events.setCounterSelectables).publish(data.length);
+          events.setCounterSelectables.publish(data.length);
           response(data);
         }
       });

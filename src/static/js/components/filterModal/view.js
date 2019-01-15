@@ -12,22 +12,22 @@ FilterModalView.prototype.initEvents = function() {
 
 FilterModalView.prototype.subscribers = function () {
   var self = this;
-  $.Topic(events.openFilterModal).subscribe(function(){
+  events.openFilterModal.subscribe(function(){
     self.show();
   });
 
-  $.Topic(events.closeFilterModal).subscribe(function(){
+  events.closeFilterModal.subscribe(function(){
     self.hide();
   });
 };
 
 FilterModalView.prototype.publishers = function () {
   this.closeElement.on('click', function() {
-    $.Topic(events.closeFilterModal).publish(false);
+    events.closeFilterModal.publish(false);
   });
 
   this.applyFilter.on('click', function() {
-    $.Topic(events.closeFilterModal).publish(true);
+    events.closeFilterModal.publish(true);
   });
 
   $(window).on('unload', function() {

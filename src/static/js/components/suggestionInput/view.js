@@ -18,15 +18,15 @@ SuggestionInputView.prototype.initEvents = function() {
 SuggestionInputView.prototype.subscribers = function() {
   var self = this;
 
-  $.Topic(events.endTextSelection).subscribe(function() {
+  events.endTextSelection.subscribe(function() {
     self.showInput();
   });
 
-  $.Topic(events.cancelTextSelection).subscribe(function() {
+  events.cancelTextSelection.subscribe(function() {
     self.hideInput();
   });
 
-  $.Topic(events.showSuggestionInputError).subscribe(function(message) {
+  events.showSuggestionInputError.subscribe(function(message) {
     self.showInputError(message);
   });
 };
@@ -35,7 +35,7 @@ SuggestionInputView.prototype.publishers = function() {
   var self = this;
 
   $('.js-suggestionInput .js-close').on('click', function() {
-    $.Topic(events.cancelTextSelection).publish();
+    events.cancelTextSelection.publish();
   });
 
   $('.js-suggestionInput .js-send').on('click', function() {
@@ -43,7 +43,7 @@ SuggestionInputView.prototype.publishers = function() {
   });
 
   $('.js-suggestionInput .js-opinionButton').on('click', function() {
-    $.Topic(events.openOpinionModal).publish(self.selectedExcerpt.data('id'));
+    events.openOpinionModal.publish(self.selectedExcerpt.data('id'));
   });
 
   self.inputElement.on('keypress', function() {
@@ -122,7 +122,7 @@ SuggestionInputView.prototype.sendSuggestion = function() {
   } else {
     var excerptId = self.selectedExcerpt.data('id');
 
-    $.Topic(events.sendSuggestion).publish(
+    events.sendSuggestion.publish(
       excerptId,
       self.startIndex,
       self.endIndex,

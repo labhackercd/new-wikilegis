@@ -9,9 +9,9 @@ NavBurgerView.prototype.initEvents = function() {
 NavBurgerView.prototype.publishers = function() {
   $('.nav-burger').click(function() {
     if ($('body').hasClass('-open-menu')) {
-      $.Topic(events.closeMenu).publish();
+      events.closeMenu.publish();
     } else {
-      $.Topic(events.openMenu).publish();
+      events.openMenu.publish();
     }
   });
 };

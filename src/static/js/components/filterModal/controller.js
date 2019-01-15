@@ -9,7 +9,7 @@ FilterModalController.prototype.initEvents = function() {
 FilterModalController.prototype.subscribers = function() {
   var self = this;
 
-  $.Topic(events.closeFilterModal).subscribe(function(applyFilter) {
+  events.closeFilterModal.subscribe(function(applyFilter) {
     if(applyFilter) {
       self.applyFilters();
     }
@@ -30,5 +30,5 @@ FilterModalController.prototype.applyFilters = function() {
   localStorage.setItem('maxAge', maxAge);
   localStorage.setItem('gender', gender);
   localStorage.setItem('locale', locale);
-  $.Topic(events.updateSearchParticipants).publish();
+  events.updateSearchParticipants.publish();
 };
