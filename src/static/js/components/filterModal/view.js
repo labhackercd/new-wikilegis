@@ -4,8 +4,8 @@ var FilterModalView = function() {};
 
 FilterModalView.prototype.initEvents = function() {
   this.filterModalElement = $('.js-filterModal');
-  this.closeElement = $('.js-filterModal .js-close')
-  this.applyFilter = $('.js-filterModal .js-applyFilter')
+  this.closeElement = $('.js-filterModal .js-close');
+  this.applyFilter = $('.js-filterModal .js-applyFilter');
   this.subscribers();
   this.publishers();
 };
@@ -24,11 +24,11 @@ FilterModalView.prototype.subscribers = function () {
 FilterModalView.prototype.publishers = function () {
   this.closeElement.on('click', function() {
     $.Topic(events.closeFilterModal).publish(false);
-  })
+  });
 
   this.applyFilter.on('click', function() {
     $.Topic(events.closeFilterModal).publish(true);
-  })
+  });
 
   $(window).on('unload', function() {
     localStorage.clear();

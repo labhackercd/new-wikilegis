@@ -9,7 +9,7 @@ invitedGroupController.initEvents();
 var filterModalView = new FilterModalView();
 filterModalView.initEvents();
 
-var filterModalController = new filterModalController();
+var filterModalController = new FilterModalController();
 filterModalController.initEvents();
 
 var themeAutocompleteView = new ThemeAutocompleteView();

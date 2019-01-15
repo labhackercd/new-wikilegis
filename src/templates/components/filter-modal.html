@@ -35,29 +35,58 @@
       </div>
       <div class="input-group">
         <div class="input-text">
-          <label for="id_closing_date">Idade Mínima:</label>
-          <input type="text" name="closing_date" required="" id="id_closing_date">
+          <label for="id_min_age">Idade Mínima:</label>
+          <input type="text" class="js-minAge" name="min_age" required="" id="id_min_age">
         </div>
         <div class="input-text">
-          <label for="id_closing_date">Idade Máxima:</label>
-          <input type="text" name="closing_date" required="" id="id_closing_date">
+          <label for="id_max_age">Idade Máxima:</label>
+          <input type="text" class="js-maxAge" name="max_age" required="" id="id_max_age">
         </div>
         <div class="input-select">
-          <label for="id_document_type">Gênero:</label>
+          <label for="id_gender">Gênero:</label>
           <div class="select">
-            <select name="document_type" id="id_document_type">
+            <select name="document_type" class="js-gender" id="id_gender">
               <option value="" selected="">---------</option>
-              <option value="1">Projeto de Lei</option>
+              <option value="male">Masculino</option>
+              <option value="female">Feminino</option>
+              <option value="other">Outro</option>
+              <option value="undisclosed">Prefere não informar</option>
             </select>
             <div class="icon"><i class="arrow"></i></div>
           </div>
         </div>
         <div class="input-select">
-          <label for="id_document_type">Localidade:</label>
+          <label for="id_locale">Localidade:</label>
           <div class="select">
-            <select name="document_type" id="id_document_type">
+            <select name="document_type" class="js-locale" id="id_locale">
               <option value="" selected="">---------</option>
-              <option value="1">Projeto de Lei</option>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
             </select>
             <div class="icon"><i class="arrow"></i></div>
           </div>

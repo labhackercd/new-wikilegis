@@ -1,4 +1,4 @@
-/*global DocumentExcerptView BodyView DocumentBodyView SuggestionInputView
+/*global DocumentExcerptView DocumentBodyView SuggestionInputView
 NavBurgerView SuggestionInputController OpinionModalView OpinionModalController */
 
 

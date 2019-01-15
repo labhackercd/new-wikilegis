@@ -31,7 +31,7 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
   });
   this.filter.on('click', function() {
     $.Topic(events.openFilterModal).publish();
-  })
+  });
 };
 
 ParticipantsAutocompleteView.prototype.subscribers = function () {
@@ -122,6 +122,22 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       if (localStorage.getItem('theme')) {
         theme = localStorage.getItem('theme').split(',');
       }
+      var minAge = undefined;
+      if (localStorage.getItem('minAge')) {
+        minAge = localStorage.getItem('minAge');
+      }
+      var maxAge = undefined;
+      if (localStorage.getItem('maxAge')) {
+        maxAge = localStorage.getItem('maxAge');
+      }
+      var gender = undefined;
+      if (localStorage.getItem('gender')) {
+        gender = localStorage.getItem('gender').split(',');
+      }
+      var locale = undefined;
+      if (localStorage.getItem('locale')) {
+        locale = localStorage.getItem('locale').split(',');
+      }
       var participants = [];
       $('.js-selectedProfile .js-user').each(function() {
         participants.push($(this).data('userId'));
@@ -133,6 +149,10 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
         data: {
           name: request.term,
           theme: theme,
+          minAge: minAge,
+          maxAge: maxAge,
+          gender: gender,
+          locale: locale,
           selected_participants: participants
         },
         success: function(data) {
@@ -160,13 +180,13 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       $(`.js-inputProfile .js-user[data-user-id=${ui.item.id}]`).hide();
     }
   })
-  .bind('focus', function(){
-    $(this).autocomplete('search');
-  })
-  .data('ui-autocomplete')._renderItem = function (ul, item) {
-    var element = self.participantItem(true, item.id, item.first_name, item.last_name, item.avatar, item.themes);
-    return $(element).appendTo(ul);
-  };
+    .bind('focus', function(){
+      $(this).autocomplete('search');
+    })
+    .data('ui-autocomplete')._renderItem = function (ul, item) {
+      var element = self.participantItem(true, item.id, item.first_name, item.last_name, item.avatar, item.themes);
+      return $(element).appendTo(ul);
+    };
 
   self.inputNameElement.keypress(function (e) {
     if (e.which == 13) {
@@ -182,7 +202,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
             <div class="remove"></div>
           </div>
         </div>
-        `
+        `;
         $(element).prependTo('.js-selectedProfile');
         self.inputNameElement.val('');
       }
