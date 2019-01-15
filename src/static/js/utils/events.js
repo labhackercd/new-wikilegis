@@ -1,4 +1,5 @@
 /* exported events */
+/* global $ */
 
 var events = {
   // Triggered when user starts to select the text
