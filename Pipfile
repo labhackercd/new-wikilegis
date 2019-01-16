@@ -22,6 +22,7 @@ django-colorful = "*"
 django-constance = {extras = ["database"]}
 django-picklefield = "*"
 requests = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 ipdb = "*"
