@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from apps.accounts.models import UserProfile
+from apps.accounts.models import UserProfile, ThematicGroup
 from apps.projects.models import Theme, DocumentType, Document, Excerpt
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 
@@ -125,3 +125,11 @@ class OpinionVoteSerializer(serializers.HyperlinkedModelSerializer):
         model = OpinionVote
         fields = ('id', 'created', 'modified', 'suggestion', 'opinion_vote',
                   'owner')
+
+
+class ThematicGroupSerializer(serializers.HyperlinkedModelSerializer):
+    participants = UserSerializer(many=True)
+
+    class Meta:
+        model = ThematicGroup
+        fields = ('id', 'name', 'participants')

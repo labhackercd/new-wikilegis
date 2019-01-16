@@ -21,11 +21,16 @@ FilterModalController.prototype.applyFilters = function() {
   $('.js-tag').each(function(){
     themes.push($(this).data('themeId'));
   });
+  var groups = [];
+  $('.js-group').each(function(){
+    groups.push($(this).data('groupId'));
+  });
   var minAge = $('.js-minAge').val();
   var maxAge = $('.js-maxAge').val();
   var gender = $('.js-gender').val();
   var locale = $('.js-locale').val();
   localStorage.setItem('theme', themes);
+  localStorage.setItem('group', groups);
   localStorage.setItem('minAge', minAge);
   localStorage.setItem('maxAge', maxAge);
   localStorage.setItem('gender', gender);
