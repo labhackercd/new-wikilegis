@@ -1,0 +1,57 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "DATABASE_ENGINE": {
+      "required": true
+    },
+    "DATABASE_HOST": {
+      "required": true
+    },
+    "DATABASE_NAME": {
+      "required": true
+    },
+    "DATABASE_PASSWORD": {
+      "required": true
+    },
+    "DATABASE_PORT": {
+      "required": true
+    },
+    "DATABASE_USER": {
+      "required": true
+    },
+    "EMAIL_BACKEND": {
+      "required": true
+    },
+    "EMAIL_HOST": {
+      "required": true
+    },
+    "EMAIL_HOST_PASSWORD": {
+      "required": true
+    },
+    "EMAIL_HOST_USER": {
+      "required": true
+    },
+    "EMAIL_PORT": {
+      "required": true
+    },
+    "EMAIL_USE_TLS": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "name": "new-wikilegis",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
