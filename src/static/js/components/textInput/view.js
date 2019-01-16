@@ -1,15 +1,10 @@
-/*global $ events */
+/*global $ */
 
 var TextInputView = function() {};
 
 TextInputView.prototype.initEvents = function() {
   this.textInputElement = $('input, textarea');
-  this.subscribers();
   this.publishers();
-};
-
-TextInputView.prototype.subscribers = function() {
-  var self = this;
 };
 
 TextInputView.prototype.publishers = function() {
