@@ -23,6 +23,7 @@ django-constance = {extras = ["database"]}
 django-picklefield = "*"
 requests = "*"
 "psycopg2" = "*"
+gunicorn = "*"
 
 [dev-packages]
 ipdb = "*"
