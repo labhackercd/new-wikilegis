@@ -1,4 +1,4 @@
-/*global AppModalView NavBarView BodyView */
+/*global AppModalView NavBarView BodyView TextInputView */
 
 var appModalView = new AppModalView();
 appModalView.initEvents();
@@ -8,3 +8,6 @@ navBarView.initEvents();
 
 var bodyView = new BodyView();
 bodyView.initEvents();
+
+var textInputView = new TextInputView();
+textInputView.initEvents();

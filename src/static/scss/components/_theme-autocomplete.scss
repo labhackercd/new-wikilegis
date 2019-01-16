@@ -1,11 +1,15 @@
 .theme-autocomplete {
+  @extend .input-text;
+
   position: relative;
+
+  margin-bottom: -.5rem;
 
   & > .themes {
     display: flex;
     align-items: center;
 
-    margin-top: .5rem;
+    padding-top: .5rem;
 
     & > .title {
       font-size: .5625rem;
@@ -32,9 +36,5 @@
     position: absolute;
     z-index: 2;
     top: .5rem;
-  }
-
-  & > input {
-    margin-top: .5rem;
   }
 }
