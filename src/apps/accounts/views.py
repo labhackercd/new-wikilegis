@@ -9,6 +9,7 @@ User = get_user_model()
 def participants_autocomplete(request):
     name = request.GET.get('name', None)
     themes = request.GET.getlist('theme', None)
+    groups = request.GET.getlist('group', None)
     min_age = request.GET.get('minAge', None)
     max_age = request.GET.get('maxAge', None)
     gender = request.GET.get('gender', None)
@@ -22,6 +23,8 @@ def participants_autocomplete(request):
         query = Q(first_name__istartswith=name) | Q(email__istartswith=name)
     if themes:
         query &= Q(profile__themes__id__in=themes)
+    if groups:
+        query &= Q(thematic_groups__id__in=groups)
     if min_age:
         query &= Q(
             profile__birthdate__year__lt=today.year - int(min_age))

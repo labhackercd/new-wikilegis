@@ -122,6 +122,10 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       if (localStorage.getItem('theme')) {
         theme = localStorage.getItem('theme').split(',');
       }
+      var group = undefined;
+      if (localStorage.getItem('group')) {
+        group = localStorage.getItem('group').split(',');
+      }
       var minAge = undefined;
       if (localStorage.getItem('minAge')) {
         minAge = localStorage.getItem('minAge');
@@ -149,6 +153,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
         data: {
           name: request.term,
           theme: theme,
+          group: group,
           minAge: minAge,
           maxAge: maxAge,
           gender: gender,

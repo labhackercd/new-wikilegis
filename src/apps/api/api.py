@@ -4,6 +4,7 @@ from django_filters import rest_framework as django_filters, FilterSet
 from apps.api import serializers
 from apps.projects.models import Theme, DocumentType, Document, Excerpt
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
+from apps.accounts.models import ThematicGroup
 
 DATE_LOOKUPS = ['lt', 'lte', 'gt', 'gte']
 
@@ -172,3 +173,31 @@ class OpinionVoteViewSet(viewsets.ReadOnlyModelViewSet):
     filter_class = OpinionVoteFilter
     search_fields = ('content',)
     ordering_fields = '__all__'
+
+
+class ThematicGroupFilter(FilterSet):
+    class Meta:
+        model = ThematicGroup
+        fields = {
+            'id': ['exact'],
+            'name': ['exact', 'contains', 'icontains']
+        }
+
+
+class ThematicGroupViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = serializers.ThematicGroupSerializer
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    )
+    filter_class = ThematicGroupFilter
+    search_fields = ('name',)
+    ordering_fields = '__all__'
+    queryset = ThematicGroup.objects.all()
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return self.request.user.owner_groups.all()
+        else:
+            return ThematicGroup.objects.none()

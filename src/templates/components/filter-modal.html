@@ -3,6 +3,8 @@
 
 {% block extra_classes %}-filter js-filterModal{% endblock %}
 
+{% block extra_attributes %}data-current-user="{{ request.user.id }}"{% endblock %}
+
 {% block title %}Filtros{% endblock %}
 
 {% block content %}
@@ -16,11 +18,11 @@
           <ul class="tags js-tags"></ul>
         </div>
       </div>
-      <div class="theme-autocomplete js-themeAutocomplete">
+      <div class="theme-autocomplete js-groupAutocomplete">
         <input class="js-input" type="text" name="theme-autocomplete">
         <label>{% trans "Meus Grupos" %}</label>
         <div class="themes">
-          <span class="title _hidden js-title">Meus Grupos</span>
+          <span class="title _hidden js-groupTitle">Meus Grupos:</span>
           <ul class="tags js-groups"></ul>
         </div>
       </div>
