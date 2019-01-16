@@ -30,6 +30,10 @@
     }
   }
 
+  &.-filter {
+    background-color: $color-whitesmoke;
+  }
+
   &.-show {
     display: flex;
   }
@@ -47,7 +51,7 @@
     height: 4rem;
     padding: 0 1.5rem;
 
-    background-color: #FFF;
+    background-color: inherit;
 
     @include hidden-shadow;
   }

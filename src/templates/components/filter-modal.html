@@ -10,8 +10,8 @@
     <div class="input-group">
       <div class="input-text">
         <div class="theme-autocomplete js-themeAutocomplete">
-          <label>{% trans "Tema" %}</label>
           <input class="js-input" type="text" name="theme-autocomplete">
+          <label>{% trans "Tema" %}</label>
           <div class="themes">
             <span class="title _hidden js-title">Temas:</span>
             <ul class="tags js-tags"></ul>
@@ -23,7 +23,7 @@
           <label>{% trans "Meus Grupos" %}</label>
           <input class="js-input" type="text" name="theme-autocomplete">
           <div class="themes">
-            <span class="title _hidden js-title">Meus Grupos:</span>
+            <span class="title _hidden js-title">Meus Grupos</span>
             <ul class="tags js-groups"></ul>
           </div>
         </div>
@@ -32,17 +32,16 @@
     <div class="input-group">
       <div class="input-text">
         <input type="text" class="js-minAge" name="min_age" required="" id="id_min_age">
-        <label for="id_min_age">Idade Mínima:</label>
+        <label for="id_min_age">Idade Mínima</label>
       </div>
       <div class="input-text">
         <input type="text" class="js-maxAge" name="max_age" required="" id="id_max_age">
-        <label for="id_max_age">Idade Máxima:</label>
+        <label for="id_max_age">Idade Máxima</label>
       </div>
       <div class="input-select">
-        <label for="id_gender">Gênero:</label>
         <div class="select">
           <select name="document_type" class="js-gender" id="id_gender">
-            <option value="" selected="">---------</option>
+            <option value="" selected="">Gênero</option>
             <option value="male">Masculino</option>
             <option value="female">Feminino</option>
             <option value="other">Outro</option>
@@ -52,10 +51,9 @@
         </div>
       </div>
       <div class="input-select">
-        <label for="id_locale">Localidade:</label>
         <div class="select">
           <select name="document_type" class="js-locale" id="id_locale">
-            <option value="" selected="">---------</option>
+            <option value="" selected="">Localidade</option>
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
             <option value="AP">Amapá</option>

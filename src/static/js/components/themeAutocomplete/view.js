@@ -44,7 +44,7 @@ ThemeAutocompleteView.prototype.publishers = function() {
       self.addTheme(ui.item);
     }
   });
-
+  
   autocomplete.autocomplete('instance')._renderItem = function(ul, item) {
     var li = $('<li>')
       .attr('data-value', item.slug)

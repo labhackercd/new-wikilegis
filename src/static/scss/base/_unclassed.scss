@@ -167,7 +167,8 @@ textarea {
 }
 
 input,
-textarea {
+textarea,
+select {
   font-size: .875rem;
 
   box-sizing: border-box;
@@ -177,6 +178,7 @@ textarea {
 
   color: $color-deep-gray;
   border: 0;
+  border-radius: 0;
 
   @include card-shadow;
 
