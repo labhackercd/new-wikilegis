@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 11:47-0200\n"
+"POT-Creation-Date: 2019-01-17 10:19-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,15 +218,17 @@ msgstr "emenda"
 msgid "amendments"
 msgstr "emendas"
 
-#: src/apps/participations/views.py:106
+#: src/apps/participations/views.py:49
+msgid "Participants are required"
+msgstr "O campo participantes é obrigatório"
+
+#: src/apps/participations/views.py:107
 msgid "Project closed for participation"
 msgstr "Projeto fechado para participação"
 
-#: src/apps/participations/views.py:171
-#, fuzzy
-#| msgid "suggestion"
+#: src/apps/participations/views.py:172
 msgid "No suggestion found"
-msgstr "sugestão"
+msgstr "Sem sugestões"
 
 #: src/apps/projects/admin.py:49
 msgid "Document \"{}\" not found on Câmara dos Deputados API."
@@ -346,27 +348,32 @@ msgstr "trechos"
 msgid "Sole paragraph"
 msgstr "Parágrafo único"
 
+#: src/templates/components/filter-modal.html:15
 #: src/templates/pages/new-document.html:14
 msgid "Tema"
 msgstr "Tema"
 
-#: src/templates/pages/new-document.html:24
+#: src/templates/components/filter-modal.html:23
+msgid "Meus Grupos"
+msgstr ""
+
+#: src/templates/pages/new-document.html:22
 msgid "Tipo"
 msgstr "Tipo"
 
-#: src/templates/pages/new-document.html:33
+#: src/templates/pages/new-document.html:32
 msgid "Número"
 msgstr "Número"
 
-#: src/templates/pages/new-document.html:38
+#: src/templates/pages/new-document.html:37
 msgid "Ano"
 msgstr "Ano"
 
-#: src/templates/pages/new-document.html:46
+#: src/templates/pages/new-document.html:43
 msgid "Título"
 msgstr "Título"
 
-#: src/templates/pages/new-document.html:51
+#: src/templates/pages/new-document.html:48
 msgid "Descrição"
 msgstr "Descrição"
 

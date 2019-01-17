@@ -73,10 +73,12 @@ ParticipantsAutocompleteView.prototype.setCounterSelecteds = function (countSele
 
 ParticipantsAutocompleteView.prototype.removeParticipant = function (userId) {
   $('.js-selectedProfile .js-user[data-user-id='+ userId +']').remove();
+  $('input[name="participants"][value="' + userId + '"]').remove();
 };
 
 ParticipantsAutocompleteView.prototype.removeEmail = function (email) {
   $('.js-selectedProfile .js-email[data-email="'+ email +'"]').remove();
+  $('input[name="emails"][value="' + email + '"]').remove();
 };
 
 
@@ -178,6 +180,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       $('.ui-autocomplete').css('left', '0px');
     },
     select: function(event, ui) {
+      self.addParticipant(ui.item.id);
       var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar, ui.item.themes);
       $(element).prependTo('.js-selectedProfile');
       $('.js-selectedProfile').scrollTop(0);
@@ -210,6 +213,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
         `;
         $(element).prependTo('.js-selectedProfile');
         self.inputNameElement.val('');
+        self.addEmail(email);
       }
       return false;
     }
@@ -219,4 +223,20 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
 ParticipantsAutocompleteView.prototype.validateEmail = function (email) {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
+};
+
+ParticipantsAutocompleteView.prototype.addParticipant = function(participantId) {
+  var participantInput = $('input[name="participants"][value="' + participantId + '"]');
+  if (participantInput.length === 0) {
+    var input = $('<input type="hidden" name="participants" value="' + participantId + '">');
+    $('.js-openParticipation').append(input);
+  }
+};
+
+ParticipantsAutocompleteView.prototype.addEmail = function(email) {
+  var emailInput = $('input[name="emails"][value="' + email + '"]');
+  if (emailInput.length === 0) {
+    var input = $('<input type="hidden" name="emails" value="' + email + '">');
+    $('.js-openParticipation').append(input);
+  }
 };
