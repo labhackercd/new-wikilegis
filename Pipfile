@@ -24,6 +24,7 @@ django-picklefield = "*"
 requests = "*"
 "psycopg2" = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 ipdb = "*"

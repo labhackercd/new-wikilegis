@@ -68,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'apps.accounts.middlewares.WikilegisRemoteUser',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'wikilegis.urls'
@@ -173,6 +174,8 @@ STATICFILES_FINDERS = (
     'npm.finders.NpmFinder',
     'compressor.finders.CompressorFinder',
 )
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 NPM_ROOT_PATH = os.path.dirname(BASE_DIR)
 COMPRESS_OFFILNE = config('COMPRESS_OFFILNE', default=not DEBUG, cast=bool)
