@@ -12,6 +12,7 @@ from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
+from django.forms import ValidationError
 
 User = get_user_model()
 
@@ -43,6 +44,10 @@ class InvitedGroupCreate(CreateView):
         if participants_ids:
             participants = User.objects.filter(id__in=participants_ids)
             thematic_group.participants.set(participants)
+        if not len(participants_ids):
+            form.add_error(None, ValidationError(
+                _('Participants are required')))
+            return super().form_invalid(form)
         self.object.thematic_group = thematic_group
         self.object.save()
         return super().form_valid(form)
