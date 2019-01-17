@@ -39,7 +39,7 @@ class InvitedGroupCreate(CreateView):
         if emails:
             for email in emails:
                 email_user = User.objects.create(
-                    email=email, username=email)
+                    email=email, username=email, is_active=False)
                 participants_ids.append(email_user.id)
         if participants_ids:
             participants = User.objects.filter(id__in=participants_ids)
