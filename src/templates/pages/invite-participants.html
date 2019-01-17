@@ -19,7 +19,7 @@
     <h2>Criar Grupo Fechado</h2>
     <div class="close-icon"></div>
   </header>
-  <form class="document-form" method="POST">
+  <form method="POST">
     {% csrf_token %}
     {{form.non_field_errors}}
     <div class="input-group">
@@ -36,28 +36,16 @@
 
     <h2>Gerenciar Perfis do Grupo</h2>
 
-<<<<<<< HEAD
     <div class="input-filter js-openParticipation">
-      <label for="name">Buscar perfis por nome ou email: </label>
       <div class="input">
         <input id="name" class="js-search-name">
+        <label for="name">Buscar perfis por nome ou email: </label>
         <div class="filter js-searchFilter">Filtros</div>
       </div>
       <div class="filters">
         <span class="title _hidden js-title">Filtros adicionados:</span>
         <ul class="tags js-tags"></ul>
       </div>
-=======
-  <div class="input-filter js-openParticipation">
-    <div class="input">
-      <input id="name" class="js-search-name">
-      <label for="name">Buscar perfis por nome ou email: </label>
-      <div class="filter js-searchFilter">Filtros</div>
-    </div>
-    <div class="filters">
-      <span class="title _hidden js-title">Filtros adicionados:</span>
-      <ul class="tags js-tags"></ul>
->>>>>>> Improve input filter
     </div>
 
     <div class="input-group">
