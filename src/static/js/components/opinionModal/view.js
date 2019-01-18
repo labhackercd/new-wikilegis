@@ -32,14 +32,14 @@ OpinionModalView.prototype.publishers = function() {
     );
   })
 
-  events.openOpinionModal.publish();
-
 };
 
 OpinionModalView.prototype.subscribers = function () {
   var self = this;
   events.openOpinionModal.subscribe(function(excerptId){
-    self.show();
+    if (self.cardsElement.children().length > 0) {
+      self.show();
+    }
   });
 
   events.closeOpinionModal.subscribe(function() {
@@ -74,9 +74,13 @@ OpinionModalView.prototype.showNextSuggestion = function() {
 };
 
 OpinionModalView.prototype.opinionSent = function(opinion) {
-  var card = this.cardsElement.children().first();
+  var self = this;
+  var card = self.cardsElement.children().first();
   card.addClass('-' + opinion);
   card.one('transitionend', function() {
     card.remove();
+    if (self.cardsElement.children().length === 0) {
+      events.closeOpinionModal.publish();
+    }
   })
 };
