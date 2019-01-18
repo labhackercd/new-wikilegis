@@ -142,5 +142,9 @@
         margin-left: .75rem;
       }
     }
+
+    & > .item > .themes > .theme-tag {
+      cursor: text;
+    }
   }
 }
