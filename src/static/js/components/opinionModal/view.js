@@ -42,6 +42,10 @@ OpinionModalView.prototype.subscribers = function () {
     self.show();
   });
 
+  events.closeOpinionModal.subscribe(function() {
+    self.hide();
+  });
+
   events.nextOpinion.subscribe(function() {
     self.showNextSuggestion();
   });
