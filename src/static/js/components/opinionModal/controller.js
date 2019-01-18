@@ -25,6 +25,6 @@ OpinionModalController.prototype.sendOpinion = function(suggestionId, opinion) {
   });
 
   request.done(function() {
-    events.nextOpinion.publish();
+    events.opinionSent.publish(opinion);
   });
 };

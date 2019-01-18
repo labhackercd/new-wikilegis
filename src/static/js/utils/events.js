@@ -55,6 +55,13 @@ var events = {
   // Params: suggestionId, opinion (approve, reject, neutral)
   sendOpinion: $.Topic('sendOpinion'),
 
+  // Triggered after the server processed the opinionVote
+  // Params: opinion
+  opinionSent: $.Topic('opinionSent'),
+
+  // Triggered when user click on invitedGroup send button
+  createInvitedGroup: $.Topic('createInvitedGroup'),
+
   // Triggered when user click on save in filter modal
   filterButton: $.Topic('filterButton'),
 

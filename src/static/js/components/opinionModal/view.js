@@ -49,6 +49,10 @@ OpinionModalView.prototype.subscribers = function () {
   events.nextOpinion.subscribe(function() {
     self.showNextSuggestion();
   });
+
+  events.opinionSent.subscribe(function(opinion) {
+    self.opinionSent(opinion);
+  })
 };
 
 OpinionModalView.prototype.hide = function () {
@@ -60,6 +64,19 @@ OpinionModalView.prototype.show = function () {
 };
 
 OpinionModalView.prototype.showNextSuggestion = function() {
-  var first = this.cardsElement.children().first();
-  this.cardsElement.append(first);
+  var self = this;
+  var first = self.cardsElement.children().first();
+  first.addClass('-next');
+  first.one('transitionend', function() {
+    first.removeClass('-next');
+    self.cardsElement.append(first);
+  })
+};
+
+OpinionModalView.prototype.opinionSent = function(opinion) {
+  var card = this.cardsElement.children().first();
+  card.addClass('-' + opinion);
+  card.one('transitionend', function() {
+    card.remove();
+  })
 };

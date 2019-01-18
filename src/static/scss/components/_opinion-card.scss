@@ -17,6 +17,29 @@
 
   text-align: left;
 
+  transition: transform 0.3s ease, opacity 0.1s ease;
+  opacity: 1;
+
+  &.-reject {
+    transform: translate(100%, 10%);
+    opacity: 0;
+  }
+
+  &.-approve {
+    transform: translate(-100%, 10%);
+    opacity: 0;
+  }
+
+  &.-neutral {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  &.-next {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
   @include bp-mediumup {
     top: initial;
     left: initial;
