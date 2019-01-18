@@ -31,8 +31,6 @@ class SuggestionAdmin(admin.ModelAdmin):
         'created',
         'modified',
         'invited_group',
-        'excerpt',
-        'selected_text',
         'content',
         'author',
     )

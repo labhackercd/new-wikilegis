@@ -1,0 +1,39 @@
+.opinion-card {
+  @extend .app-modal;
+  position: initial;
+  z-index: initial;
+  top: initial;
+  left: initial;
+
+  display: none;
+  overflow: initial;
+  flex-direction: initial;
+
+  width: initial;
+
+  background-color: initial;
+
+  align-items: flex-start;
+
+  text-align: left;
+
+  @include bp-mediumup {
+    top: initial;
+    left: initial;
+
+    width: initial;
+
+    height: initial;
+    max-height: initial;
+
+    transform: initial;
+  }
+
+  &:first-child {
+    display: block;
+  }
+
+  & > .info-text {
+    justify-content: flex-start;
+  }
+}

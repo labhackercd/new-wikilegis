@@ -40,6 +40,9 @@ var events = {
   // Params: excerptId (can be null)
   openOpinionModal: $.Topic('openOpinionModal'),
 
+  // Triggered when user click on 'next suggestion'
+  nextOpinion: $.Topic('nextOpinion'),
+
   // Triggered when user click on close modal
   // Params: reopen
   closeOpinionModal: $.Topic('closeOpinionModal'),

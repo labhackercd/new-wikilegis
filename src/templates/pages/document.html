@@ -76,7 +76,8 @@
 
 {% include "components/suggestion-input.html" %}
 
-{% include "components/opinion-modal.html" %}
+{% include "components/opinion-modal.html" with suggestions=suggestions %}
+
 {% endblock content %}
 
 {% block page_js %}

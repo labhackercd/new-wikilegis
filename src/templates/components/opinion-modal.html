@@ -1,37 +1,47 @@
 {% extends "structure/app-modal.html" %}
-{% load staticfiles %}
+{% load staticfiles participations_tags %}
 
 
 {% block extra_classes %}-opinion js-opinionModal{% endblock %}
 
-{% block extra_attributes %}data-open-on-load="{% if request.user.is_authenticated %}true{% else %}false{% endif %}"{% endblock %}
-
-{% block title %}Você Concorda?{% endblock %}
-
+{% block header %}
+{% endblock header %}
 
 {% block content %}
-  <span class="info-text js-userInfo" data-user-id="">
-    <img class="js-userAvatar" src="">
-    <h3><span class="js-userName"></span> destacou o trecho:</h3>
-  </span>
-  <p class="excerpt js-documentExcerpt" data-excerpt-id=""></p>
-  <span class="info-text">
-    <img src="{% static 'img/atention.svg' %}">
-    <h3>E deu a seguinte opinião nele:</h3>
-  </span>
-  <p class="js-suggestion" data-suggestion-id=""></p>
-  <div class="footer">
-    <span class="info-text">
-      <img src="{% static 'img/information.svg' %}">
-      <h3>Você concorda com essa opinião?</h3>
-    </span>
-    <div class="actions">
-      <a href="#" class="solid-button -green js-opinionButton" data-opinion="approve">Concordo</a>
-      <a href="#" class="solid-button -gray js-opinionButton" data-opinion="neutral">Neutro</a>
-      <a href="#" class="solid-button -red js-opinionButton" data-opinion="reject">Discordo</a>
-    </div>
-    <a href="#" class="simple-link js-nextOpinion">Próxima Opinião</a>
-  </div>
-{% endblock content %}
+  {% for suggestion in suggestions %}
+    <div class="opinion-card js-opinionCard"
+      data-suggestion-id="{{suggestion.id}}"
+      data-excerpt-id="{{suggestion.excerpt.id}}"
+      data-user-id="{{suggestion.author.id}}">
 
-</div>
+      <div class="header js-headerModal">
+        <h2>Você concorda?</h2>
+        <div class="close js-closeModal"><img class="icon" src="{% static 'img/close.svg' %}"></div>
+      </div>
+      <span class="info-text js-userInfo">
+        <img class="js-userAvatar" src="{{suggestion.author.profile.avatar_url}}">
+        <h3>{{suggestion.author.get_full_name}} destacou o trecho:</h3>
+      </span>
+      <p class="excerpt js-documentExcerpt">
+        {% highlight_suggestion suggestion %}
+      </p>
+      <span class="info-text">
+        <img src="{% static 'img/atention.svg' %}">
+        <h3>E deu a seguinte opinião nele:</h3>
+      </span>
+      <p class="js-suggestion">{{suggestion.content}}</p>
+      <div class="footer">
+        <span class="info-text">
+          <img src="{% static 'img/information.svg' %}">
+          <h3>Você concorda com essa opinião?</h3>
+        </span>
+        <div class="actions">
+          <a href="#" class="solid-button -green js-opinionButton" data-opinion="approve">Concordo</a>
+          <a href="#" class="solid-button -gray js-opinionButton" data-opinion="neutral">Neutro</a>
+          <a href="#" class="solid-button -red js-opinionButton" data-opinion="reject">Discordo</a>
+        </div>
+        <a href="#" class="simple-link js-nextOpinion">Próxima Opinião</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock content %}
