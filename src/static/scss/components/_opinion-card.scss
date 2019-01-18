@@ -5,7 +5,6 @@
   top: initial;
   left: initial;
 
-  display: none;
   overflow: initial;
   flex-direction: initial;
 
@@ -19,6 +18,18 @@
 
   transition: transform 0.3s ease, opacity 0.1s ease;
   opacity: 1;
+
+  &.-active {
+    display: block;
+
+    & ~ .-active {
+      display: none;
+    }
+  }
+
+  &.-inactive {
+    display: none;
+  }
 
   &.-reject {
     transform: translate(100%, 10%);
@@ -50,10 +61,6 @@
     max-height: initial;
 
     transform: initial;
-  }
-
-  &:first-child {
-    display: block;
   }
 
   & > .info-text {

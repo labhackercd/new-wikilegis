@@ -9,7 +9,7 @@
 
 {% block content %}
   {% for suggestion in suggestions %}
-    <div class="opinion-card js-opinionCard"
+    <div class="opinion-card -active js-opinionCard"
       data-suggestion-id="{{suggestion.id}}"
       data-excerpt-id="{{suggestion.excerpt.id}}"
       data-user-id="{{suggestion.author.id}}">
