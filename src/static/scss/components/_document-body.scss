@@ -74,6 +74,19 @@
     padding-left: 3rem;
   }
 
+  & > .wrapper > .invisible {
+    position: absolute;
+    z-index: 0;
+    left: -100vw;
+
+    width: calc(100vw + 100%);
+    height: 100%;
+
+    &:hover + .sidebar {
+      opacity: 1;
+    }
+  }
+
   & > .wrapper > .sidebar {
     position: fixed;
 
