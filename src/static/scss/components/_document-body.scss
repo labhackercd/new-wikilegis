@@ -82,7 +82,7 @@
     width: calc(100vw + 100%);
     height: 100%;
 
-    &:hover + .sidebar {
+    &:hover + .sidebar > .item {
       opacity: 1;
     }
   }
@@ -98,10 +98,9 @@
 
     text-align: right;
 
-    opacity: .5;
     color: $color-deep-gray;
 
-    &:hover {
+    &:hover > .item {
       opacity: 1;
     }
 
@@ -120,6 +119,8 @@
     & > .item {
       display: flex;
       flex-direction: column;
+
+      opacity: .5;
     }
 
     & > .item > .title {
