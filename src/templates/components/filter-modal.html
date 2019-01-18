@@ -8,7 +8,7 @@
 {% block title %}Filtros{% endblock %}
 
 {% block content %}
-  <form>
+  <form class="js-filterModalForm">
     <div class="input-group">
       <div class="theme-autocomplete js-themeAutocomplete">
         <input class="js-input" type="text" name="theme-autocomplete">
@@ -28,11 +28,11 @@
       </div>
     </div>
     <div class="input-group">
-      <div class="input-text">
+      <div class="input-text js-inputText">
         <input type="text" class="js-minAge" name="min_age" required="" id="id_min_age">
         <label for="id_min_age">Idade Mínima</label>
       </div>
-      <div class="input-text">
+      <div class="input-text js-inputText">
         <input type="text" class="js-maxAge" name="max_age" required="" id="id_max_age">
         <label for="id_max_age">Idade Máxima</label>
       </div>

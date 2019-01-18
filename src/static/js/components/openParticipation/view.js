@@ -5,6 +5,7 @@ var ParticipantsAutocompleteView = function() {};
 ParticipantsAutocompleteView.prototype.initEvents = function() {
   this.inputNameElement = $('.js-openParticipation .js-search-name');
   this.filter = $('.js-openParticipation .js-searchFilter');
+  this.clearFiltersElement = $('.js-openParticipation .js-clearFilters');
   this.initAutocompleteInput();
   this.publishers();
   this.subscribers();
@@ -32,6 +33,9 @@ ParticipantsAutocompleteView.prototype.publishers = function() {
   this.filter.on('click', function() {
     events.openFilterModal.publish();
   });
+  this.clearFiltersElement.on('click', function() {
+    events.clearFilters.publish();
+  });
 };
 
 ParticipantsAutocompleteView.prototype.subscribers = function () {
@@ -50,6 +54,9 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
   });
   events.updateSearchParticipants.subscribe(function(){
     self.updateSearchParticipants();
+  });
+  events.clearFilters.subscribe(function(){
+    self.clearFilters();
   });
 };
 
@@ -239,4 +246,10 @@ ParticipantsAutocompleteView.prototype.addEmail = function(email) {
     var input = $('<input type="hidden" name="emails" value="' + email + '">');
     $('.js-openParticipation').append(input);
   }
+};
+
+ParticipantsAutocompleteView.prototype.clearFilters = function () {
+  localStorage.clear();
+  events.resetFilterModalForm.publish();
+  events.updateSearchParticipants.publish();
 };

@@ -33,8 +33,8 @@
   }
 
   & > ul {
-    position: absolute;
+    position: absolute !important;
     z-index: 2;
-    top: .5rem;
+    top: .5rem !important;
   }
 }

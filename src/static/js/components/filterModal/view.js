@@ -6,6 +6,7 @@ FilterModalView.prototype.initEvents = function() {
   this.filterModalElement = $('.js-filterModal');
   this.closeElement = $('.js-filterModal .js-closeModal');
   this.applyFilter = $('.js-filterModal .js-applyFilter');
+  this.formElement = $('.js-filterModal .js-filterModalForm');
   this.subscribers();
   this.publishers();
 };
@@ -18,6 +19,10 @@ FilterModalView.prototype.subscribers = function () {
 
   events.closeFilterModal.subscribe(function(){
     self.hide();
+  });
+
+  events.resetFilterModalForm.subscribe(function(){
+    self.resetForm();
   });
 };
 
@@ -41,4 +46,15 @@ FilterModalView.prototype.show = function () {
 
 FilterModalView.prototype.hide = function () {
   this.filterModalElement.removeClass('-show');
+};
+
+FilterModalView.prototype.resetForm = function () {
+  $('.js-filterModal .js-groups').html('');
+  $('.js-filterModal .js-tags').html('');
+  $('.js-filterModal .js-groupTitle').addClass('_hidden');
+  $('.js-filterModal .js-title').addClass('_hidden');
+  $('.js-filterModal .js-inputText').removeClass('-filled');
+  $('.js-filterModal input[name="themes"]').remove();
+  $('.js-filterModal input[name="groups"]').remove();
+  this.formElement[0].reset();
 };
