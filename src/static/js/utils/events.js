@@ -78,6 +78,12 @@ var events = {
   // Params: applyFilter
   closeFilterModal: $.Topic('closeFilterModal'),
 
+  // Triggered when user clicks on clear button
+  resetFilterModalForm: $.Topic('resetFilterModalForm'),
+
+  // Triggered when user clicks on clear button
+  clearFilters: $.Topic('clearFilters'),
+
   // Triggered when user send filter modal
   updateSearchParticipants: $.Topic('updateSearchParticipants'),
 };
