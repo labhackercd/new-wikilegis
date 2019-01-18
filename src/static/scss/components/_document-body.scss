@@ -1,7 +1,7 @@
 .document-body {
-  @include bp-mediumup {
-    width: 66ch;
-  }
+  position: relative;
+
+  display: flex;
 
   &.-voidselection {
     user-select: none;
@@ -11,40 +11,125 @@
     text-align: center;
   }
 
-  & > header {
+  & > article {
+    max-width: 66ch;
+    margin-right: auto;
+    margin-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  & > article > header {
     display: flex;
     flex-direction: column;
   }
 
-  & > header > hr {
+  & > article > header > hr {
     margin-bottom: 0;
   }
 
-  & > header > .description {
+  & > article > header > .description {
     font-size: 1.25rem;
     font-weight: 300;
 
     margin-top: 1rem;
   }
 
-  & > header > .info {
+  & > article > header > .info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & > article > header > .info > .group {
     display: flex;
     justify-content: space-between;
   }
 
-  & > header > .info > .epigraph {
+  & > article > header > .info > .group > .epigraph {
     font-size: .875rem;
     font-weight: bold;
   }
 
-  & > header > .info > .date {
+  & > article > header > .info > .group > .date {
     font-size: .875rem;
     font-weight: 500;
 
-    color: $color-brand;
+    color: $color-deep-gray;
 
     &.-inactive {
       color: $color-red;
+    }
+
+    &.-active {
+      color: $color-brand;
+    }
+  }
+
+  & > .wrapper {
+    position: relative;
+
+    flex: 0 0 auto;
+
+    width: 14rem;
+    margin-left: auto;
+    padding-left: 3rem;
+  }
+
+  & > .wrapper > .sidebar {
+    position: fixed;
+
+    overflow-y: auto;
+
+    width: 14rem;
+    height: calc(100% - 3.75rem);
+    padding-right: 1.5rem;
+
+    text-align: right;
+
+    opacity: .5;
+    color: $color-deep-gray;
+
+    &:hover {
+      cursor: pointer;
+
+      opacity: 1;
+    }
+
+    &::after {
+      display: block;
+
+      height: 1rem;
+
+      content: '';
+    }
+
+    & > * + * {
+      margin-top: 1.5rem;
+    }
+
+    & > .item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    & > .item > .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    & > .item > span {
+      font-size: .875rem;
+      font-weight: normal;
+
+      margin-top: .5rem;
+    }
+
+    & > .item > .themes {
+      display: flex;
+      justify-content: flex-end;
+
+      & > * + * {
+        margin-left: .75rem;
+      }
     }
   }
 }

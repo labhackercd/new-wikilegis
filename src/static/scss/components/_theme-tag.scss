@@ -2,6 +2,9 @@
   font-size: $font-size-nano;
   font-weight: bold;
 
+  display: flex;
+  align-items: center;
+
   cursor: pointer;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -10,6 +13,7 @@
 
   &.-selected:hover {
     text-decoration: line-through;
+
     color: $color-red;
   }
 
