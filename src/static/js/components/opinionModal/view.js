@@ -23,6 +23,15 @@ OpinionModalView.prototype.publishers = function() {
     events.nextOpinion.publish();
   })
 
+  self.buttonsElements.click(function() {
+    var buttonElement = $(this);
+    var cardElement = buttonElement.closest('.js-opinionCard');
+    events.sendOpinion.publish(
+      cardElement.data('suggestionId'),
+      buttonElement.data('opinion')
+    );
+  })
+
   events.openOpinionModal.publish();
 
 };
