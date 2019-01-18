@@ -42,7 +42,8 @@
           {% if object.document_type %}
           <span class="epigraph">{{ object.document_type.initials }} {{ object.number }}/{{ object.year }}</span>
           {% endif %}
-          <span class="date">Encerra em 16/12/2018</span>
+          <span class="date -active">Aberto até {{ object.invited_groups.last.closing_date }}</span>
+          <!-- <span class="date -inactive">Encerrado em {{ object.invited_groups.last.closing_date }}</span> -->
         </div>
       </div>
       <h1>{{ object.title }}</h1>
