@@ -16,7 +16,7 @@
     top: 50%;
     left: 50%;
 
-    width: 70%;
+    width: 50%;
     height: auto;
     max-height: calc(100% - 3rem);
 
@@ -39,6 +39,17 @@
     @include bp-mediumup {
       display: none !important;
     }
+  }
+
+  &.-onboarding {
+    overflow-y: auto;
+    align-items: center;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 4rem;
   }
 
   &.-show {
@@ -98,6 +109,13 @@
 
       text-align: left;
     }
+
+    @at-root .-onboarding#{&} {
+      padding: 0;
+      margin: auto;
+      max-width: 55rem;
+      overflow-y: unset;
+    }
   }
 
   & > .content > img,
@@ -107,6 +125,8 @@
   }
 
   & > .content > .info-text {
+    justify-content: left;
+
     margin-top: 2rem;
   }
 
@@ -134,8 +154,9 @@
   & > .content > .solid-button {
     font-size: $font-size-deci;
 
+    display: inline-flex;
+
     margin-top: 2rem;
-    margin-left: auto;
     padding: .5rem 2rem;
   }
 

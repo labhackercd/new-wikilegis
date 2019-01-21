@@ -1,0 +1,18 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles %}
+
+
+{% block extra_classes %}-onboarding js-opinionOnboarding{% endblock %}
+
+{% block extra_attributes %}{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+  <img src="{% static 'img/select.svg' %}">
+  <h2>Selecione um trecho do texto para dar sua opinião</h2>
+  <p>Você pode selecionar um trecho de um artigo individual e digitar uma opinião sobre ele. Outras pessoas poderão depois dizer se concordam, discordam, ou são neutras quanto à sua opinião. </p>
+  <a href="#" class="solid-button -green js-button">Entendi</a>
+{% endblock content %}
+
+</div>
