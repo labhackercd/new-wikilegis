@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
@@ -104,7 +104,12 @@ class InvitedGroupDetailView(DetailView):
         obj = get_object_or_404(
             InvitedGroup, pk=self.kwargs.get('id'),
             document__slug=self.kwargs.get('documment_slug'))
-        return obj
+        if obj.public_participation:
+            return obj
+        elif self.request.user in obj.thematic_group.participants.all():
+            return obj
+        else:
+            raise Http404()
 
 
 @require_ajax
