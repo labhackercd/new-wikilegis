@@ -129,3 +129,12 @@ def startswith(text, starts):
     if isinstance(text, str):
         return text.startswith(starts)
     return False
+
+
+@register.filter()
+def is_open(closing_date):
+    if closing_date > date.today():
+        is_open = True
+    else:
+        is_open = False
+    return is_open

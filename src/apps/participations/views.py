@@ -7,12 +7,15 @@ from utils.decorators import require_ajax
 from datetime import date
 from random import randint
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView
 from apps.projects.models import Excerpt, Theme, Document
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
+from apps.notifications.models import ParcipantInvitation
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.forms import ValidationError
+from django.db.models import Q
 
 User = get_user_model()
 
@@ -55,6 +58,42 @@ class InvitedGroupCreate(CreateView):
     def get_success_url(self, **kwargs):
         return reverse_lazy(
             'new_group', kwargs={'pk': self.object.document.id})
+
+
+class InvitedGroupListView(ListView):
+    model = InvitedGroup
+    template_name = 'pages/home.html'
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = object_list if object_list is not None else self.object_list
+        context['public_groups'] = queryset.filter(public_participation=True)
+        if self.request.user.is_authenticated:
+            user = self.request.user
+            accepted_invitations = ParcipantInvitation.objects.filter(
+                email=user.email, accepted=True)
+            private_groups_ids = [
+                invite.group.id for invite in accepted_invitations]
+            context['private_groups'] = queryset.filter(
+                id__in=private_groups_ids)
+            invitations = ParcipantInvitation.objects.filter(
+                email=user.email, accepted=False, answered=False).exclude(
+                group__closing_date__lt=date.today())
+            context['pending_invites'] = invitations
+        else:
+            context['private_groups'] = queryset.none()
+            context['pending_invites'] = queryset.none()
+        return context
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        queryset = self.model._default_manager.all()
+        if q:
+            queryset = queryset.filter(
+                Q(document__title__contains=q) | Q(
+                    document__description__contains=q))
+
+        return queryset
 
 
 @require_ajax
