@@ -63,11 +63,11 @@
     @include hidden-shadow;
   }
 
-  & > header.-shadow {
+  & > .header.-shadow {
     @include header-shadow;
   }
 
-  & > header > .close-icon {
+  & > .header > .close-icon {
     position: absolute;
     right: 1.6rem;
 
