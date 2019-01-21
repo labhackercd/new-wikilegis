@@ -10,14 +10,13 @@
     <div class="list">
     {% if pending_invites and request.user.is_authenticated %}
       {% for invite in pending_invites %}
-      {% document_is_open invite.group.document 'private' request.user as document_is_open %}
-      <div class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+      <div class="simple-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
         <div class="header">
-        {% if document_is_open %}
-          <span class="date">Aberto até {% document_closing_date invite.group.document 'private' request.user %}</span>
+        {% if invite.group.closing_date|is_open %}
+          <span class="date">Aberto até {{invite.group.closing_date}}</span>
           <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
         {% else %}
-          <span class="status">Encerrado em {% document_closing_date invite.group.document 'private' request.user %}</span>
+          <span class="status">Encerrado em {{invite.group.closing_date}}</span>
         {% endif %}
         </div>
         <h3 class="js-title">{{ invite.group.document.title }}</h3>
@@ -35,7 +34,7 @@
           </div>
           <div class="suggestions">
             <div class="suggestion">
-              <span class="value">{% document_suggestions invite.group.document 'private' request.user %}</span>
+              <span class="value">{{ invite.group.suggestions.all.count }}</span>
               <span>Sugestões</span>
             </div>
           </div>
@@ -54,24 +53,23 @@
       </div>
       {% endfor %}
     {% endif %}
-    {% if private_docs and request.user.is_authenticated %}
-      {% for private_document in private_docs %}
-      {% document_is_open private_document 'private' request.user as document_is_open %}
-      <a href="{% url 'project' private_document.id private_document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+    {% if private_groups and request.user.is_authenticated %}
+      {% for private_group in private_groups %}
+      <a href="{% url 'project' private_group.document.id private_group.document.slug %}" class="simple-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
         <div class="header">
-        {% if document_is_open %}
-          <span class="date">Aberto até {% document_closing_date private_document 'private' request.user %}</span>
+        {% if private_group.closing_date|is_open %}
+          <span class="date">Aberto até {{private_group.closing_date}}</span>
           <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
         {% else %}
-          <span class="date">Encerrado em {% document_closing_date private_document 'private' request.user %}</span>
+          <span class="date">Encerrado em {{private_group.closing_date}}</span>
           <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
         {% endif %}
         </div>
-        <h3 class="js-title">{{ private_document.title }}</h3>
-        <p class="js-description">{{ private_document.description }}</p>
+        <h3 class="js-title">{{ private_group.document.title }}</h3>
+        <p class="js-description">{{ private_group.document.description }}</p>
         <div class="info">
           <div class="themes">
-            {% for theme in private_document.themes.all %}
+            {% for theme in private_group.document.themes.all %}
             <div class="theme">
               {% if theme.icon %}
               <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
@@ -82,7 +80,7 @@
           </div>
           <div class="suggestions">
             <div class="suggestion">
-              <span class="value">{% document_suggestions private_document 'private' request.user %}</span>
+              <span class="value">{{private_group.suggestions.all.count}}</span>
               <span>Sugestões</span>
             </div>
           </div>
@@ -90,22 +88,21 @@
       </a>
       {% endfor %}
     {% endif %}
-    {% if public_docs %}
-      {% for document in public_docs %}
-      {% document_is_open document as document_is_open %}
-      <a href="{% url 'project' document.id document.slug %}" class="simple-card{% if not document_is_open %} -inactive{% endif %}">
+    {% if public_groups %}
+      {% for public_group in public_groups %}
+      <a href="{% url 'project' public_group.document.id public_group.document.slug %}" class="simple-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
         <div class="header">
-        {% if document_is_open %}
-          <span class="date">Aberto até {% document_closing_date document %}</span>
+        {% if public_group.closing_date|is_open %}
+          <span class="date">Aberto até {{public_group.closing_date}}</span>
         {% else %}
-          <span class="date">Encerrado em {% document_closing_date document %}</span>
+          <span class="date">Encerrado em {{public_group.closing_date}}</span>
         {% endif %}
         </div>
-        <h3 class="js-title">{{ document.title }}</h3>
-        <p class="js-description">{{ document.description }}</p>
+        <h3 class="js-title">{{ public_group.document.title }}</h3>
+        <p class="js-description">{{ public_group.document.description }}</p>
         <div class="info">
           <div class="themes">
-            {% for theme in document.themes.all %}
+            {% for theme in public_group.document.themes.all %}
             <div class="theme">
               {% if theme.icon %}
               <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
@@ -116,7 +113,7 @@
           </div>
           <div class="suggestions">
             <div class="suggestion">
-              <span class="value">{% document_suggestions document %}</span>
+              <span class="value">{{public_group.suggestions.all.count}}</span>
               <span>Sugestões</span>
             </div>
           </div>

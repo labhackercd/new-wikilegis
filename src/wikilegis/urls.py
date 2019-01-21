@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from apps.api.urls import router
-from apps.projects import views
+from apps.participations import views
 from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
@@ -9,7 +9,7 @@ from apps.projects.views import list_propositions
 
 
 urlpatterns = [
-    path('', views.DocumentListView.as_view(), name='home'),
+    path('', views.InvitedGroupListView.as_view(), name='home'),
     path('document/',
          TemplateView.as_view(template_name='pages/document.html'),
          name='document'),
