@@ -1,0 +1,39 @@
+<!-- {% extends "structure/app-modal.html" %}
+{% load staticfiles %}
+
+
+{% block extra_classes %}-info -show js-infoModal{% endblock %}
+
+{% block title %}Você Concorda?{% endblock %}
+
+
+{% block content %}
+<div class="side-bar -mobile">
+  <div class="item">
+    <span class="title">Autor</span>
+    {% for author in object.infos.authors.all %}
+      <span class="text">{{ author.name }} - {{author.author_type}}</span>
+    {% endfor %}
+  </div>
+  <div class="item">
+    <span class="title">Situação</span>
+    <span class="text">{{ object.infos.legislative_body }}</span>
+  </div>
+  <div class="item">
+    <span class="title">Temas:</span>
+    <ul class="themes">
+      {% for theme in object.themes.all %}
+        <li class="theme-tag">
+          <span class="dot" style="background-color: {{theme.color}}"></span>
+          {{ theme.name }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="item">
+    <iframe width="100%" src="https://www.youtube.com/embed/U3ifXA0WJrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock content %}
+
+</div> -->
