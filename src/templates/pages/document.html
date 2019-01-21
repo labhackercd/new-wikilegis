@@ -1,28 +1,33 @@
 {% extends "structure/base.html" %}
 {% load staticfiles projects_tags %}
 {% block title %}
-  {{ object.title }}
+  {{ object.document.title }}
 {% endblock title %}
 {% block content %}
 
-<main class="document-body js-documentBody" data-selection-enabled="{% if request.user.is_authenticated %}true{% else %}false{% endif %}">
+<main class="document-body js-documentBody" data-selection-enabled="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
   <div class="wrapper">
     <div class="invisible"></div>
     <aside class="sidebar">
+      {% if object.document.infos.authors.all %}
       <div class="item">
         <span class="title">Autor</span>
-        {% for author in object.infos.authors.all %}
+        {% for author in object.document.infos.authors.all %}
           <span class="text">{{ author.name }} - {{author.author_type}}</span>
         {% endfor %}
       </div>
+      {% endif %}
+      {% if object.document.infos.legislative_body %}
       <div class="item">
         <span class="title">Situação</span>
-        <span class="text">{{ object.infos.legislative_body }}</span>
+        <span class="text">{{ object.document.infos.legislative_body }}</span>
       </div>
+      {% endif %}
+      {% if object.document.themes.all %}
       <div class="item">
         <span class="title">Temas:</span>
         <ul class="themes">
-          {% for theme in object.themes.all %}
+          {% for theme in object.document.themes.all %}
             <li class="theme-tag">
               <span class="dot" style="background-color: {{theme.color}}"></span>
               {{ theme.name }}
@@ -30,6 +35,7 @@
           {% endfor %}
         </ul>
       </div>
+      {% endif %}
       <div class="item">
         <iframe width="100%" src="https://www.youtube.com/embed/U3ifXA0WJrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
@@ -39,18 +45,21 @@
     <header>
       <div class="info">
         <div class="group">
-          {% if object.document_type %}
-          <span class="epigraph">{{ object.document_type.initials }} {{ object.number }}/{{ object.year }}</span>
+          {% if object.document.document_type %}
+          <span class="epigraph">{{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}</span>
           {% endif %}
-          <span class="date -active">Aberto até {{ object.invited_groups.last.closing_date }}</span>
-          <!-- <span class="date -inactive">Encerrado em {{ object.invited_groups.last.closing_date }}</span> -->
+          {% if object.closing_date|is_open %}
+          <span class="date -active">Aberto até {{ object.closing_date|date:"d/m/Y" }}</span>
+          {% else %}
+          <span class="date -inactive">Encerrado em {{ object.closing_date|date:"d/m/Y" }}</span>
+          {% endif %}
         </div>
       </div>
-      <h1>{{ object.title }}</h1>
-      <p class="description">{{ object.description }}</p>
+      <h1>{{ object.document.title }}</h1>
+      <p class="description">{{ object.document.description }}</p>
       <hr>
     </header>
-    {% for excerpt in object.excerpts.all %}
+    {% for excerpt in object.document.excerpts.all %}
       {% if excerpt.excerpt_type.align_center %}
       <h3>{% excerpt_numbering excerpt %}</h3>
       <h3>{{ excerpt.content|safe }}</h3>

@@ -13,10 +13,10 @@
       <div class="simple-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
         <div class="header">
         {% if invite.group.closing_date|is_open %}
-          <span class="date">Aberto até {{invite.group.closing_date}}</span>
+          <span class="date">Aberto até {{invite.group.closing_date|date:"d/m/Y"}}</span>
           <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
         {% else %}
-          <span class="status">Encerrado em {{invite.group.closing_date}}</span>
+          <span class="status">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</span>
         {% endif %}
         </div>
         <h3 class="js-title">{{ invite.group.document.title }}</h3>
@@ -55,13 +55,13 @@
     {% endif %}
     {% if private_groups and request.user.is_authenticated %}
       {% for private_group in private_groups %}
-      <a href="{% url 'project' private_group.document.id private_group.document.slug %}" class="simple-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
+      <a href="{% url 'project' private_group.id private_group.document.slug %}" class="simple-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
         <div class="header">
         {% if private_group.closing_date|is_open %}
-          <span class="date">Aberto até {{private_group.closing_date}}</span>
+          <span class="date">Aberto até {{private_group.closing_date|date:"d/m/Y"}}</span>
           <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
         {% else %}
-          <span class="date">Encerrado em {{private_group.closing_date}}</span>
+          <span class="date">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</span>
           <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
         {% endif %}
         </div>
@@ -90,12 +90,12 @@
     {% endif %}
     {% if public_groups %}
       {% for public_group in public_groups %}
-      <a href="{% url 'project' public_group.document.id public_group.document.slug %}" class="simple-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
+      <a href="{% url 'project' public_group.id public_group.document.slug %}" class="simple-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
         <div class="header">
         {% if public_group.closing_date|is_open %}
-          <span class="date">Aberto até {{public_group.closing_date}}</span>
+          <span class="date">Aberto até {{public_group.closing_date|date:"d/m/Y"}}</span>
         {% else %}
-          <span class="date">Encerrado em {{public_group.closing_date}}</span>
+          <span class="date">Encerrado em {{public_group.closing_date|date:"d/m/Y"}}</span>
         {% endif %}
         </div>
         <h3 class="js-title">{{ public_group.document.title }}</h3>

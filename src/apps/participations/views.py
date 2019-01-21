@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
@@ -7,7 +7,7 @@ from utils.decorators import require_ajax
 from datetime import date
 from random import randint
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from apps.projects.models import Excerpt, Theme, Document
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
@@ -96,34 +96,32 @@ class InvitedGroupListView(ListView):
         return queryset
 
 
+class InvitedGroupDetailView(DetailView):
+    model = InvitedGroup
+    template_name = 'pages/document.html'
+
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(
+            InvitedGroup, pk=self.kwargs.get('id'),
+            document__slug=self.kwargs.get('documment_slug'))
+        if obj.public_participation:
+            return obj
+        elif self.request.user in obj.thematic_group.participants.all():
+            return obj
+        else:
+            raise Http404()
+
+
 @require_ajax
-def send_suggestion(request):
+def send_suggestion(request, group_pk):
     excerpt_id = request.POST.get('excerptId')
     content = request.POST.get('suggestion')
     start_index = int(request.POST.get('startSelection'))
     end_index = int(request.POST.get('endSelection'))
     excerpt = get_object_or_404(Excerpt, pk=excerpt_id)
+    invited_group = get_object_or_404(InvitedGroup, pk=group_pk)
 
-    closed_groups = excerpt.document.invited_groups.filter(
-        closing_date__gte=date.today(),
-        public_participation=False
-    )
-
-    invited_group = None
-    for group in closed_groups:
-        if request.user in group.thematic_group.participants.all():
-            invited_group = group
-            break
-
-    public_groups = excerpt.document.invited_groups.filter(
-        closing_date__lte=date.today(),
-        public_participation=True
-    )
-
-    if invited_group is not None and public_groups.exists():
-        invited_group = public_groups.first()
-
-    if invited_group:
+    if invited_group.closing_date > date.today():
         Suggestion.objects.create(
             invited_group=invited_group,
             selected_text=excerpt.content[start_index:end_index],

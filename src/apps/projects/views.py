@@ -1,4 +1,4 @@
-from django.views.generic import DetailView, RedirectView
+from django.views.generic import RedirectView
 from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from .models import Document
@@ -6,11 +6,6 @@ from .forms import DocumentForm
 from apps.notifications.models import ParcipantInvitation
 from django.http import Http404, JsonResponse
 from django.contrib.sites.models import Site
-
-
-class DocumentDetailView(DetailView):
-    model = Document
-    template_name = 'pages/document.html'
 
 
 class InvitationRedirectView(RedirectView):

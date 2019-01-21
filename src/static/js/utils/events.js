@@ -27,7 +27,7 @@ var events = {
   suggestionCreated: $.Topic('suggestionCreated'),
 
   // Triggered when user send suggestion
-  // Params: excerptId, selectedText, suggestion
+  // Params: groupId, excerptId, selectedText, suggestion
   sendSuggestion: $.Topic('sendSuggestion'),
 
   // Triggered when user open menu
