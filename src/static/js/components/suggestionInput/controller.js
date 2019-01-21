@@ -9,14 +9,14 @@ SuggestionInputController.prototype.initEvents = function() {
 SuggestionInputController.prototype.subscribers = function() {
   var self = this;
 
-  events.sendSuggestion.subscribe(function(excerptId, startSelection, endSelection, suggestion) {
-    self.sendSuggestion(excerptId, startSelection, endSelection, suggestion);
+  events.sendSuggestion.subscribe(function(groupId, excerptId, startSelection, endSelection, suggestion) {
+    self.sendSuggestion(groupId, excerptId, startSelection, endSelection, suggestion);
   });
 };
 
-SuggestionInputController.prototype.sendSuggestion = function(excerptId, startSelection, endSelection, suggestion) {
+SuggestionInputController.prototype.sendSuggestion = function(groupId, excerptId, startSelection, endSelection, suggestion) {
   var request = $.ajax({
-    url: Urls.new_suggestion(),
+    url: Urls.new_suggestion(groupId),
     method: 'POST',
     data: {
       excerptId: excerptId,

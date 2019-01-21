@@ -121,8 +121,10 @@ SuggestionInputView.prototype.sendSuggestion = function() {
     self.showInputError('Muito grande');
   } else {
     var excerptId = self.selectedExcerpt.data('id');
+    var groupId = $('.js-documentBody').data('groupId');
 
     events.sendSuggestion.publish(
+      groupId,
       excerptId,
       self.startIndex,
       self.endIndex,
