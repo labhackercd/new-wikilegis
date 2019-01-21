@@ -47,6 +47,9 @@ var events = {
   // Params: reopen
   closeOpinionModal: $.Topic('closeOpinionModal'),
 
+  // Triggered when a modal is closed
+  closeModal: $.Topic('closeModal'),
+
   // Triggered before opinionModal opens
   // Params: user, excerpt, suggestion
   fillOpinionModal: $.Topic('fillOpinionModal'),
