@@ -111,10 +111,11 @@
     }
 
     @at-root .-onboarding#{&} {
-      padding: 0;
-      margin: auto;
-      max-width: 55rem;
       overflow-y: unset;
+
+      max-width: 55rem;
+      margin: auto;
+      padding: 0;
     }
   }
 
@@ -158,6 +159,11 @@
 
     margin-top: 2rem;
     padding: .5rem 2rem;
+
+    animation: fade-in-bottom 1s 4s $swift-out forwards;
+    pointer-events: none; // Modified in fade-in-bottom animation and maintained with "forwards" value 
+
+    opacity: 0; // Modified in fade-in-bottom animation and maintained with "forwards" value
   }
 
   & > .content > .footer > .simple-link {
