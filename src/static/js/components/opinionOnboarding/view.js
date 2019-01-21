@@ -1,3 +1,4 @@
+
 /*global $ events getCookie setCookie */
 
 var OpinionOnboardingView = function() {};
