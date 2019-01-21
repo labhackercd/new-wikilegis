@@ -6,27 +6,59 @@
 {% block content %}
 
 <main class="document-body js-documentBody" data-selection-enabled="{% if request.user.is_authenticated %}true{% else %}false{% endif %}">
-  <header>
-    <div class="info">
-      {% if object.document_type %}
-      <span class="epigraph">{{ object.document_type.initials }} {{ object.number }}/{{ object.year }}</span>
+  <div class="wrapper">
+    <div class="invisible"></div>
+    <aside class="sidebar">
+      <div class="item">
+        <span class="title">Autor</span>
+        {% for author in object.infos.authors.all %}
+          <span class="text">{{ author.name }} - {{author.author_type}}</span>
+        {% endfor %}
+      </div>
+      <div class="item">
+        <span class="title">Situação</span>
+        <span class="text">{{ object.infos.legislative_body }}</span>
+      </div>
+      <div class="item">
+        <span class="title">Temas:</span>
+        <ul class="themes">
+          {% for theme in object.themes.all %}
+            <li class="theme-tag">
+              <span class="dot" style="background-color: {{theme.color}}"></span>
+              {{ theme.name }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="item">
+        <iframe width="100%" src="https://www.youtube.com/embed/U3ifXA0WJrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </aside>
+  </div>
+  <article>
+    <header>
+      <div class="info">
+        <div class="group">
+          {% if object.document_type %}
+          <span class="epigraph">{{ object.document_type.initials }} {{ object.number }}/{{ object.year }}</span>
+          {% endif %}
+          <span class="date -active">Aberto até {{ object.invited_groups.last.closing_date }}</span>
+          <!-- <span class="date -inactive">Encerrado em {{ object.invited_groups.last.closing_date }}</span> -->
+        </div>
+      </div>
+      <h1>{{ object.title }}</h1>
+      <p class="description">{{ object.description }}</p>
+      <hr>
+    </header>
+    {% for excerpt in object.excerpts.all %}
+      {% if excerpt.excerpt_type.align_center %}
+      <h3>{% excerpt_numbering excerpt %}</h3>
+      <h3>{{ excerpt.content|safe }}</h3>
+      {% else %}
+      <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt %}</p>
       {% endif %}
-      <span class="date">Aberto em 16/12/2018</span>
-    </div>
-    <h1>{{ object.title }}</h1>
-    <p class="description">{{ object.description }}</p>
-    <hr>
-  </header>
-
-  {% for excerpt in object.excerpts.all %}
-    {% if excerpt.excerpt_type.align_center %}
-    <h3>{% excerpt_numbering excerpt %}</h3>
-    <h3>{{ excerpt.content|safe }}</h3>
-    {% else %}
-    <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt %}</p>
-    {% endif %}
-  {% endfor %}
-
+    {% endfor %}
+  </article>
 </main>
 
 {% include "components/suggestion-input.html" %}
