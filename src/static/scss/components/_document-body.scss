@@ -49,9 +49,19 @@
     justify-content: space-between;
   }
 
-  & > article > header > .info > .group > .epigraph {
+  & > article > header > .info > .group > .epigraph,
+  & > article > header > .info > .group > .status {
     font-size: .875rem;
-    font-weight: bold;
+    font-weight: 500;
+  }
+
+  & > article > header > .info > .group > .status {
+    display: flex;
+  }
+
+  & > article > header > .info > .group > .status > img {
+    margin-right: .25rem;
+    margin-bottom: .2rem;
   }
 
   & > article > header > .info > .group > .date {
@@ -108,5 +118,19 @@
     padding-right: 1.5rem;
 
     text-align: right;
+
+    & > .item > .themes {
+      justify-content: flex-end;
+    }
+  }
+
+  & > .info-button {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+
+    @include bp-smallup {
+      display: none;
+    }
   }
 }

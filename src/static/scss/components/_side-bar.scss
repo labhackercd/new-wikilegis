@@ -13,6 +13,14 @@
     content: '';
   }
 
+  &.-mobile {
+    text-align: left;
+
+    & > .item {
+      opacity: 1;
+    }
+  }
+
   & > * + * {
     margin-top: 1.5rem;
   }
@@ -32,13 +40,13 @@
   & > .item > span {
     font-size: .875rem;
     font-weight: normal;
+    line-height: 1.6;
 
     margin-top: .5rem;
   }
 
   & > .item > .themes {
     display: flex;
-    justify-content: flex-end;
 
     & > * + * {
       margin-left: .75rem;
@@ -47,5 +55,22 @@
 
   & > .item > .themes > .theme-tag {
     cursor: text;
+  }
+
+  & > .date {
+    font-size: .875rem;
+    font-weight: 500;
+
+    margin-top: 0;
+
+    color: $color-deep-gray;
+
+    &.-inactive {
+      color: $color-red;
+    }
+
+    &.-active {
+      color: $color-brand;
+    }
   }
 }

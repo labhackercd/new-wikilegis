@@ -8,7 +8,8 @@ OpinionModalView.prototype.initEvents = function() {
   this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion');
   this.modalContentElement = $('.js-opinionModal .js-appModalContent');
   this.cardsElement = $('.js-opinionModal .js-opinionCard');
-
+  this.documentSuggestion = undefined;
+  this.currentExcerptId = undefined;
   this.subscribers();
   this.publishers();
 };

@@ -1,14 +1,19 @@
-<!-- {% extends "structure/app-modal.html" %}
+{% extends "structure/app-modal.html" %}
 {% load staticfiles %}
 
 
-{% block extra_classes %}-info -show js-infoModal{% endblock %}
+{% block extra_classes %}-info js-infoModal{% endblock %}
 
-{% block title %}Você Concorda?{% endblock %}
+{% block title %}
+  {% if object.document.document_type %}
+  {{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}
+  {% endif %}
+{% endblock %}
 
 
 {% block content %}
 <div class="side-bar -mobile">
+  <span class="date -active">Aberto até {{ object.invited_groups.last.closing_date }}</span>
   <div class="item">
     <span class="title">Autor</span>
     {% for author in object.infos.authors.all %}
@@ -36,4 +41,4 @@
 </div>
 {% endblock content %}
 
-</div> -->
+</div>

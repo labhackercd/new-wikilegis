@@ -1,0 +1,26 @@
+.info-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+
+  border-radius: 50%;
+  background-color: $color-deep-gray;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+
+  &::before {
+    display: block;
+
+    width: .4375rem;
+    height: .875rem;
+
+    content: '';
+
+    background-image: url('../img/i.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+}
