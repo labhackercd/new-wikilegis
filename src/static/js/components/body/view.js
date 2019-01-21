@@ -84,6 +84,18 @@ BodyView.prototype.subscribers = function() {
   events.openInfoModal.subscribe(function() {
     self.disableScroll();
   });
+
+  events.closeFilterModal.subscribe(function() {
+    self.enableScroll();
+  });
+
+  events.showOpinionOnboarding.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closeOpinionOnboarding.subscribe(function() {
+    self.enableScroll();
+  });
 };
 
 

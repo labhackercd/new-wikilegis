@@ -114,4 +114,10 @@ var events = {
   // Triggered on highlight mouseleave
   // Params: parentNode
   closeHighlightTooltip: $.Topic('closeHighlightTooltip'),
+
+  // Triggered when the page loads and there's no opinionOnb1ardingCookie
+  showOpinionOnboarding: $.Topic('showOpinionOnboard'),
+
+  // Triggered when the user does an action that closes a modal
+  closeOpinionOnboarding: $.Topic('closeOpinionOnboard'),
 };
