@@ -7,7 +7,7 @@ from utils.decorators import require_ajax
 from datetime import date
 from random import randint
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from apps.projects.models import Excerpt, Theme, Document
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
@@ -94,6 +94,17 @@ class InvitedGroupListView(ListView):
                     document__description__contains=q))
 
         return queryset
+
+
+class InvitedGroupDetailView(DetailView):
+    model = InvitedGroup
+    template_name = 'pages/document.html'
+
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(
+            InvitedGroup, pk=self.kwargs.get('id'),
+            document__slug=self.kwargs.get('documment_slug'))
+        return obj
 
 
 @require_ajax

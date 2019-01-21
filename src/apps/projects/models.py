@@ -1,7 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db import models
-from django.urls import reverse
 from utils.model_mixins import TimestampedMixin
 from colorful.fields import RGBColorField
 
@@ -55,9 +54,6 @@ class Document(TimestampedMixin):
         verbose_name = _('document')
         verbose_name_plural = _('documents')
         unique_together = ('document_type', 'number', 'year')
-
-    def get_absolute_url(self):
-        return reverse('project', kwargs={'id': self.id, 'slug': self.slug})
 
     def save(self):
         self.slug = slugify(self.title)
