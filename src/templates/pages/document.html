@@ -17,10 +17,10 @@
         {% endfor %}
       </div>
       {% endif %}
-      {% if object.document.infos.legislative_body %}
+      {% if object.document.infos.legislative_body and object.document.infos.status%}
       <div class="item">
         <span class="title">Situação</span>
-        <span class="text">{{ object.document.infos.legislative_body }}</span>
+        <span class="text">{{ object.document.infos.legislative_body }} - {{ object.document.infos.status }}</span>
       </div>
       {% endif %}
       {% if object.document.themes.all %}
