@@ -100,6 +100,21 @@ class DocumentAuthor(models.Model):
         return self.name
 
 
+class DocumentVideo(models.Model):
+    document = models.ForeignKey('projects.Document', on_delete=models.CASCADE,
+                                 verbose_name=_('document'),
+                                 related_name='videos')
+    title = models.CharField(_('title'), max_length=100, null=True, blank=True)
+    video_id = models.CharField(_('youtube id'), max_length=200)
+
+    class Meta:
+        verbose_name = _('document video')
+        verbose_name_plural = _('document videos')
+
+    def __str__(self):
+        return '%s' % (self.video_id)
+
+
 class ExcerptType(models.Model):
     name = models.CharField(_('excerpt type'), max_length=200)
     slug = models.SlugField()
