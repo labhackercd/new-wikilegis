@@ -36,9 +36,13 @@
         </ul>
       </div>
       {% endif %}
-      <div class="item">
-        <iframe width="100%" src="https://www.youtube.com/embed/U3ifXA0WJrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      {% if object.document.videos.all %}
+        {% for video in object.document.videos.all %}
+        <div class="item">
+          <iframe width="100%" src="https://www.youtube.com/embed/{{video.video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        {% endfor %}
+      {% endif %}
     </aside>
   </div>
   <article>

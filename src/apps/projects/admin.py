@@ -64,6 +64,12 @@ class DocumentAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(models.DocumentVideo)
+class DocumentVideoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'document', 'title', 'video_id')
+    list_filter = ('document',)
+
+
 @admin.register(models.ExcerptType)
 class ExcerptTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'slug', 'align_center')
