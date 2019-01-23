@@ -25,6 +25,7 @@ requests = "*"
 "psycopg2" = "*"
 gunicorn = "*"
 whitenoise = "*"
+roman = "*"
 
 [dev-packages]
 ipdb = "*"

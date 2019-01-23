@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from constance import config
-from . import camara_deputados
-from . import models
+from . import models, forms, camara_deputados, import_document
 
 
 @admin.register(models.Theme)
@@ -35,6 +34,7 @@ class DocumentAdmin(admin.ModelAdmin):
     search_fields = ('slug',)
     prepopulated_fields = {'slug': ['title']}
     actions = ['fetch_document_informations']
+    form = forms.DocumentAdminForm
 
     def fetch_document_informations(self, request, queryset):
         if config.USE_CD_OPEN_DATA:
@@ -62,6 +62,14 @@ class DocumentAdmin(admin.ModelAdmin):
     fetch_document_informations.short_description = _(
         "Fetch documents informations"
     )
+
+    def save_form(self, request, form, change):
+        document = form.save(commit=False)
+        try:
+            import_document.import_txt(form.files['file_txt'], document.id)
+        except:
+            pass
+        return form.save(commit=False)
 
 
 @admin.register(models.DocumentVideo)
