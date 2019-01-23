@@ -100,6 +100,21 @@ class InvitedGroupDetailView(DetailView):
     model = InvitedGroup
     template_name = 'pages/document.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        suggestions = self.object.suggestions.all()
+        if self.request.user.is_authenticated:
+            opined_ids = self.request.user.votes.filter(
+                suggestion__invited_group=self.object,
+            ).values_list('suggestion__id', flat=True)
+            suggestions = suggestions.exclude(
+                author=self.request.user
+            ).exclude(
+                id__in=opined_ids
+            )
+            context['suggestions'] = suggestions
+        return context
+
     def get_object(self, queryset=None):
         obj = get_object_or_404(
             InvitedGroup, pk=self.kwargs.get('id'),
@@ -133,7 +148,7 @@ def send_suggestion(request, group_pk):
         )
         html = render_to_string(
             'components/document-excerpt.html',
-            {'excerpt': excerpt, 'request': request}
+            {'excerpt': excerpt, 'group': invited_group, 'request': request}
         )
         return JsonResponse({
             'id': excerpt.id,

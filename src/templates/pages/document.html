@@ -68,7 +68,7 @@
       <h3>{% excerpt_numbering excerpt %}</h3>
       <h3>{{ excerpt.content|safe }}</h3>
       {% else %}
-      <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt %}</p>
+      <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt group=object %}</p>
       {% endif %}
     {% endfor %}
   </article>
