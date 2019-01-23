@@ -36,13 +36,23 @@ var events = {
   // Triggered when user closes menu
   closeMenu: $.Topic('closeMenu'),
 
+  // Triggered when user ends text selection
+  // Params: excerptId (can be null)
+  activateOpinionCards: $.Topic('activateOpinionCards'),
+
   // Triggered when user open document page or when user select an excerpt
   // Params: excerptId (can be null)
   openOpinionModal: $.Topic('openOpinionModal'),
 
+  // Triggered when user click on 'next suggestion'
+  nextOpinion: $.Topic('nextOpinion'),
+
   // Triggered when user click on close modal
   // Params: reopen
   closeOpinionModal: $.Topic('closeOpinionModal'),
+
+  // Triggered when a modal is closed
+  closeModal: $.Topic('closeModal'),
 
   // Triggered before opinionModal opens
   // Params: user, excerpt, suggestion
@@ -51,6 +61,13 @@ var events = {
   // Triggered when user click on opinionModal button
   // Params: suggestionId, opinion (approve, reject, neutral)
   sendOpinion: $.Topic('sendOpinion'),
+
+  // Triggered after the server processed the opinionVote
+  // Params: opinion
+  opinionSent: $.Topic('opinionSent'),
+
+  // Triggered when user click on invitedGroup send button
+  createInvitedGroup: $.Topic('createInvitedGroup'),
 
   // Triggered when user click on save in filter modal
   filterButton: $.Topic('filterButton'),

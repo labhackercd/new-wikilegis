@@ -1,0 +1,69 @@
+.opinion-card {
+  @extend .app-modal;
+  position: initial;
+  z-index: initial;
+  top: initial;
+  left: initial;
+
+  overflow: initial;
+  flex-direction: initial;
+
+  width: initial;
+
+  background-color: initial;
+
+  align-items: flex-start;
+
+  text-align: left;
+
+  transition: transform 0.3s ease, opacity 0.1s ease;
+  opacity: 1;
+
+  &.-active {
+    display: block;
+
+    & ~ .-active {
+      display: none;
+    }
+  }
+
+  &.-inactive {
+    display: none;
+  }
+
+  &.-reject {
+    transform: translate(100%, 10%);
+    opacity: 0;
+  }
+
+  &.-approve {
+    transform: translate(-100%, 10%);
+    opacity: 0;
+  }
+
+  &.-neutral {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  &.-next {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  @include bp-mediumup {
+    top: initial;
+    left: initial;
+
+    width: initial;
+
+    height: initial;
+    max-height: initial;
+
+    transform: initial;
+  }
+
+  & > .info-text {
+    justify-content: flex-start;
+  }
+}

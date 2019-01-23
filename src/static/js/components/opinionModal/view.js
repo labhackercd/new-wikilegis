@@ -3,102 +3,98 @@
 var OpinionModalView = function() {};
 
 OpinionModalView.prototype.initEvents = function() {
-  this.userInfoElement = $('.js-opinionModal .js-userInfo');
-  this.userAvatarElement = $('.js-opinionModal .js-userAvatar');
-  this.userNameElement = $('.js-opinionModal .js-userName');
-  this.documentExcerptElement = $('.js-opinionModal .js-documentExcerpt');
-  this.suggestionElement = $('.js-opinionModal .js-suggestion');
+  this.opinionModalElement = $('.js-opinionModal');
   this.buttonsElements = $('.js-opinionModal .js-opinionButton');
   this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion');
-  this.documentSuggestion = undefined;
-  this.currentExcerptId = undefined;
+  this.modalContentElement = $('.js-opinionModal .js-appModalContent');
+  this.cardsElement = $('.js-opinionModal .js-opinionCard');
 
-  this.publishers();
   this.subscribers();
+  this.publishers();
 };
 
 OpinionModalView.prototype.publishers = function() {
   var self = this;
-  $('.js-closeModal').click(function() {
-    events.closeOpinionModal.publish(false);
+
+  self.nextOpinionElement.click(function() {
+    events.nextOpinion.publish();
   });
 
-  $(document).ready(function(){
-    if ($('.js-opinionModal').data('openOnLoad') === true) {
-      self.documentSuggestion = true;
-      events.openOpinionModal.publish(null);
-    }
-  });
-
-  self.buttonsElements.on('click', function(){
-    var button = $(this);
+  self.buttonsElements.click(function() {
+    var buttonElement = $(this);
+    var cardElement = buttonElement.closest('.js-opinionCard');
     events.sendOpinion.publish(
-      self.suggestionElement.data('suggestionId'),
-      button.data('opinion')
+      cardElement.data('suggestionId'),
+      buttonElement.data('opinion')
     );
   });
 
-  self.nextOpinionElement.on('click', function() {
-    if (self.documentSuggestion) {
-      events.openOpinionModal.publish(null);
-    } else {
-      events.openOpinionModal.publish(self.currentExcerptId);
-    }
-  });
-
-  self.buttonsElements.on('click', function(){
-    var button = $(this);
-    events.sendOpinion.publish(
-      self.suggestionElement.data('suggestionId'),
-      button.data('opinion')
-    );
-  });
 };
 
 OpinionModalView.prototype.subscribers = function () {
   var self = this;
 
-  events.openOpinionModal.subscribe(function(excerptId){
-    self.currentExcerptId = excerptId;
-  });
-
-  events.closeOpinionModal.subscribe(function(reopen){
-    self.hide();
-    if (reopen) {
-      if (self.documentSuggestion) {
-        events.openOpinionModal.publish(null);
-      } else {
-        events.openOpinionModal.publish(self.currentExcerptId);
-      }
-    } else {
-      self.documentSuggestion = undefined;
-      self.currentExcerptId = undefined;
+  events.openOpinionModal.subscribe(function(){
+    if (self.modalContentElement.children('.-active').length > 0) {
+      self.show();
     }
   });
 
-  events.fillOpinionModal.subscribe(function(user, excerpt, suggestion) {
-    self.fill(user, excerpt, suggestion);
+  events.cancelTextSelection.subscribe(function() {
+    self.hide();
+  });
+
+  events.nextOpinion.subscribe(function() {
+    self.showNextSuggestion();
+  });
+
+  events.opinionSent.subscribe(function(opinion) {
+    self.opinionSent(opinion);
+  });
+
+  events.activateOpinionCards.subscribe(function(excerptId) {
+    self.activateOpinionCards(excerptId);
   });
 };
 
 OpinionModalView.prototype.hide = function () {
-  $('.js-opinionModal').removeClass('-show');
+  this.cardsElement.removeClass('-inactive');
+  this.cardsElement.addClass('-active');
 };
 
 OpinionModalView.prototype.show = function () {
-  $('.js-opinionModal').addClass('-show');
+  this.opinionModalElement.addClass('-show');
 };
 
-OpinionModalView.prototype.fill = function(user, excerpt, suggestion) {
+OpinionModalView.prototype.showNextSuggestion = function() {
   var self = this;
+  var first = self.modalContentElement.children('.-active').first();
+  first.addClass('-next');
+  first.one('transitionend', function() {
+    first.removeClass('-next');
+    self.modalContentElement.append(first);
+  });
+};
 
-  self.userAvatarElement.attr('src', user.avatar);
-  self.userNameElement.text(user.fullName);
-  self.userInfoElement.data('userId', user.id);
-  self.documentExcerptElement.html(excerpt.html);
-  self.documentExcerptElement.data('excerptId', excerpt.id);
-  self.suggestionElement.text(suggestion.text);
-  self.suggestionElement.data('suggestionId', suggestion.id);
+OpinionModalView.prototype.opinionSent = function(opinion) {
+  var self = this;
+  var card = self.modalContentElement.children('.-active').first();
+  card.addClass('-' + opinion);
+  card.one('transitionend', function() {
+    card.remove();
+    if (self.modalContentElement.children('.-active').length === 0) {
+      events.closeOpinionModal.publish();
+    }
+  });
+};
 
-  self.show();
+OpinionModalView.prototype.activateOpinionCards = function(excerptId) {
+  var self = this;
+  if (excerptId) {
+    self.cardsElement.removeClass('-active');
+    self.cardsElement.addClass('-inactive');
+    self.modalContentElement.find('[data-excerpt-id="' + excerptId + '"]')
+      .addClass('-active')
+      .removeClass('-inactive');
+  }
 };

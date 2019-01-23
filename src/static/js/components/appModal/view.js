@@ -1,9 +1,11 @@
-/*global $ */
+/*global $ events */
 
 var AppModalView = function() {};
 
 AppModalView.prototype.initEvents = function() {
   this.addShadowOnScroll();
+  this.subscribers();
+  this.publishers();
 };
 
 AppModalView.prototype.addShadowOnScroll = function () {
@@ -15,4 +17,21 @@ AppModalView.prototype.addShadowOnScroll = function () {
       $('.js-headerModal').removeClass('-shadow');
     }
   });
+};
+
+AppModalView.prototype.subscribers = function() {
+  var self = this;
+  events.closeModal.subscribe(function() {
+    self.hide();
+  });
+};
+
+AppModalView.prototype.publishers = function() {
+  $('.app-modal .js-closeModal').on('click', function() {
+    events.closeModal.publish();
+  });
+};
+
+AppModalView.prototype.hide = function() {
+  $('.app-modal').removeClass('-show');
 };

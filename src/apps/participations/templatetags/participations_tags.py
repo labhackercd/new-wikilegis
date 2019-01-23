@@ -6,7 +6,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def highlight_suggestions(excerpt, user=None):
+def highlight_excerpt(excerpt, user=None):
     if user is not None and user.is_authenticated:
         qs = excerpt.suggestions.filter(author=user)
     elif not user.is_authenticated:
@@ -75,3 +75,18 @@ def highlight_suggestions(excerpt, user=None):
         length_diff += len(close_span)
 
     return mark_safe(html)
+
+
+@register.simple_tag
+def highlight_suggestion(suggestion):
+    span = '<span class="text-highlight">'
+    close_span = '</span>'
+    content = suggestion.excerpt.content
+    content = '{prev}{open_span}{content}{close_span}{after}'.format(
+        prev=content[:suggestion.start_index],
+        open_span=span,
+        content=content[suggestion.start_index:suggestion.end_index],
+        close_span=close_span,
+        after=content[suggestion.end_index:]
+    )
+    return mark_safe(content)
