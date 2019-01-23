@@ -67,7 +67,7 @@ class DocumentAdmin(admin.ModelAdmin):
         document = form.save(commit=False)
         try:
             import_document.import_txt(form.files['file_txt'], document.id)
-        except:
+        except KeyError:
             pass
         return form.save(commit=False)
 

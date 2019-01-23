@@ -46,7 +46,7 @@ def import_txt(document_txt, document_id):
     is_quote = False
     for line in lines:
         type_id = None
-        if re.match("^\"", line) or is_quote:
+        if re.match(r"^\"", line) or is_quote:
             type_id = ExcerptType.objects.get(slug="citacao").id
             content = line
             number = None
@@ -59,69 +59,69 @@ def import_txt(document_txt, document_id):
         elif slugify(line).startswith('livro') and not is_quote:
             type_id = ExcerptType.objects.get(slug="livro").id
             number = roman.fromRoman(
-                re.sub("^Livro ", '', line)
+                re.sub(r"^Livro ", '', line)
             )
             content = lines[order]
         elif slugify(line).startswith('titulo') and not is_quote:
             type_id = ExcerptType.objects.get(slug="titulo").id
             number = roman.fromRoman(
-                re.sub("^T\xc3\xadtulo ", '', line)
+                re.sub(r"^Título ", '', line)
             )
             content = lines[order]
         elif slugify(line).startswith('capitulo') and not is_quote:
             type_id = ExcerptType.objects.get(slug="capitulo").id
             number = roman.fromRoman(
-                re.sub("^CAP\xc3\x8dTULO ", '', line)
+                re.sub(r"^CAPÍTULO ", '', line)
             )
             content = lines[order]
         elif slugify(line).startswith('secao') and not is_quote:
             type_id = ExcerptType.objects.get(slug="secao").id
             number = roman.fromRoman(
-                re.sub("^Se\xc3\xa7\xc3\xa3o ", '', line)
+                re.sub(r"^Seção ", '', line)
             )
             content = lines[order]
         elif slugify(line).startswith('subsecao') and not is_quote:
             type_id = ExcerptType.objects.get(slug="subsecao").id
             number = roman.fromRoman(
-                re.sub("^Subse\xc3\xa7\xc3\xa3o ", '', line)
+                re.sub(r"^Subseção ", '', line)
             )
             content = lines[order]
-        elif (re.match("^Art\. \d+ º", line) or
-              re.match("^Art\. \d+\.", line) and not is_quote):
+        elif (re.match(r"^Art\. \d+ º", line) or
+              re.match(r"^Art\. \d+\.", line) and not is_quote):
             try:
-                label = re.match("^Art\. \d+ º", line).group(0)
-            except:
-                label = re.match("^Art\. \d+\.", line).group(0)
+                label = re.match(r"^Art\. \d+ º", line).group(0)
+            except AttributeError:
+                label = re.match(r"^Art\. \d+\.", line).group(0)
             type_id = ExcerptType.objects.get(slug="artigo").id
-            number = re.search('\d+', label).group(0)
+            number = re.search(r'\d+', label).group(0)
             content = line.replace(label, '')
-        elif re.match("^§ \d+º", line) and not is_quote:
-            label = re.match("^§ \d+º", line).group(0)
+        elif re.match(r"^§ \d+º", line) and not is_quote:
+            label = re.match(r"^§ \d+º", line).group(0)
             type_id = ExcerptType.objects.get(slug="paragrafo").id
-            number = re.search('\d+', label).group(0)
+            number = re.search(r'\d+', label).group(0)
             content = line.replace(label, '')
         elif slugify(line).startswith('paragrafo-unico') and not is_quote:
             excerpt_type_id = ExcerptType.objects.get(slug="paragrafo").id
             type_id = excerpt_type_id
             number = 1
             content = line.replace('Parágrafo único. ', '')
-        elif re.match("^[A-Z\d]+ \W+ ", line) and not is_quote:
-            label = re.match("^[A-Z\d]+ \W+ ", line).group(0)
+        elif re.match(r"^[A-Z\d]+ \W+ ", line) and not is_quote:
+            label = re.match(r"^[A-Z\d]+ \W+ ", line).group(0)
             type_id = ExcerptType.objects.get(slug="inciso").id
             number = roman.fromRoman(
-                re.search("^[A-Z\d]+", line).group(0)
+                re.search(r"^[A-Z\d]+", line).group(0)
             )
             content = line.replace(label, '')
-        elif re.match("^[a-z]\W ", line) and not is_quote:
-            label = re.match("^[a-z]\W ", line).group(0)
+        elif re.match(r"^[a-z]\W ", line) and not is_quote:
+            label = re.match(r"^[a-z]\W ", line).group(0)
             type_id = ExcerptType.objects.get(slug="alinea").id
             number = string.ascii_lowercase.index(
-                re.search("^[a-z]", line).group(0)) + 1
+                re.search(r"^[a-z]", line).group(0)) + 1
             content = line.replace(label, '')
-        elif re.match("^\d+\. ", line) and not is_quote:
-            label = re.match("^\d+\. ", line).group(0)
+        elif re.match(r"^\d+\. ", line) and not is_quote:
+            label = re.match(r"^\d+\. ", line).group(0)
             type_id = ExcerptType.objects.get(slug="item").id
-            number = re.search("^\d+", line).group(0)
+            number = re.search(r"^\d+", line).group(0)
             content = line.replace(label, '')
         elif line.startswith('Pena') and not is_quote:
             type_id = ExcerptType.objects.get(slug="citacao").id
