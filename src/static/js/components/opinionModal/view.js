@@ -34,7 +34,7 @@ OpinionModalView.prototype.publishers = function() {
 OpinionModalView.prototype.subscribers = function () {
   var self = this;
 
-  events.openOpinionModal.subscribe(function(excerptId){
+  events.openOpinionModal.subscribe(function(){
     if (self.modalContentElement.children('.-active').length > 0) {
       self.show();
     }
@@ -42,7 +42,7 @@ OpinionModalView.prototype.subscribers = function () {
 
   events.cancelTextSelection.subscribe(function() {
     self.hide();
-  })
+  });
 
   events.nextOpinion.subscribe(function() {
     self.showNextSuggestion();

@@ -27,9 +27,9 @@ AppModalView.prototype.subscribers = function() {
 };
 
 AppModalView.prototype.publishers = function() {
-  $('.app-modal .js-closeModal').on('click', function(e) {
+  $('.app-modal .js-closeModal').on('click', function() {
     events.closeModal.publish();
-  })
+  });
 };
 
 AppModalView.prototype.hide = function() {
