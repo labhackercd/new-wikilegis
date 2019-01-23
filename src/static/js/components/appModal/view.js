@@ -21,9 +21,9 @@ AppModalView.prototype.addShadowOnScroll = function () {
 
 AppModalView.prototype.subscribers = function() {
   var self = this;
-  events.closeModal.subscribe(function(modal) {
-    self.hide(modal);
-  })
+  events.closeModal.subscribe(function() {
+    self.hide();
+  });
 };
 
 AppModalView.prototype.publishers = function() {
@@ -32,6 +32,6 @@ AppModalView.prototype.publishers = function() {
   })
 };
 
-AppModalView.prototype.hide = function(modal) {
+AppModalView.prototype.hide = function() {
   $('.app-modal').removeClass('-show');
 };

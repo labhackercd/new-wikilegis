@@ -27,12 +27,8 @@ FilterModalView.prototype.subscribers = function () {
 };
 
 FilterModalView.prototype.publishers = function () {
-  this.closeElement.on('click', function() {
-    events.closeFilterModal.publish(false);
-  });
-
   this.applyFilter.on('click', function() {
-    events.closeFilterModal.publish(true);
+    events.closeModal.publish();
   });
 
   $(window).on('unload', function() {

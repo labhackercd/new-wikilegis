@@ -33,19 +33,16 @@ OpinionModalView.prototype.publishers = function() {
 
 OpinionModalView.prototype.subscribers = function () {
   var self = this;
-  events.openOpinionModal.subscribe(function(excerptId){
-    if (excerptId) {
-      self.cardsElement.removeClass('-active');
-      self.cardsElement.addClass('-inactive');
-      self.modalContentElement.find('[data-excerpt-id="' + excerptId + '"]')
-        .addClass('-active')
-        .removeClass('-inactive');
-    }
 
+  events.openOpinionModal.subscribe(function(excerptId){
     if (self.modalContentElement.children('.-active').length > 0) {
       self.show();
     }
   });
+
+  events.cancelTextSelection.subscribe(function() {
+    self.hide();
+  })
 
   events.nextOpinion.subscribe(function() {
     self.showNextSuggestion();
@@ -54,12 +51,15 @@ OpinionModalView.prototype.subscribers = function () {
   events.opinionSent.subscribe(function(opinion) {
     self.opinionSent(opinion);
   });
+
+  events.activateOpinionCards.subscribe(function(excerptId) {
+    self.activateOpinionCards(excerptId);
+  });
 };
 
 OpinionModalView.prototype.hide = function () {
   this.cardsElement.removeClass('-inactive');
   this.cardsElement.addClass('-active');
-  this.opinionModalElement.removeClass('-show');
 };
 
 OpinionModalView.prototype.show = function () {
@@ -86,4 +86,15 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
       events.closeOpinionModal.publish();
     }
   });
+};
+
+OpinionModalView.prototype.activateOpinionCards = function(excerptId) {
+  var self = this;
+  if (excerptId) {
+    self.cardsElement.removeClass('-active');
+    self.cardsElement.addClass('-inactive');
+    self.modalContentElement.find('[data-excerpt-id="' + excerptId + '"]')
+      .addClass('-active')
+      .removeClass('-inactive');
+  }
 };

@@ -36,6 +36,10 @@ var events = {
   // Triggered when user closes menu
   closeMenu: $.Topic('closeMenu'),
 
+  // Triggered when user ends text selection
+  // Params: excerptId (can be null)
+  activateOpinionCards: $.Topic('activateOpinionCards'),
+
   // Triggered when user open document page or when user select an excerpt
   // Params: excerptId (can be null)
   openOpinionModal: $.Topic('openOpinionModal'),
