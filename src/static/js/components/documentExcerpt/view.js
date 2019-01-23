@@ -6,6 +6,7 @@ DocumentExcerptView.prototype.initEvents = function() {
   this.documentBodyElement = $('.js-documentBody');
   this.selectedHTML = undefined;
   this.lastExcerpt = undefined;
+  this.selectedText = '';
   this.publishers();
   this.subscribers();
 };
@@ -13,21 +14,17 @@ DocumentExcerptView.prototype.initEvents = function() {
 DocumentExcerptView.prototype.publishers = function() {
   var self = this;
 
-  self.documentBodyElement.on('selectstart', '.js-documentExcerpt', {}, function(e) {
+  self.documentBodyElement.on('mousedown touchstart', '.js-documentExcerpt', {}, function(e) {
     var target = $(e.target);
 
     if (self.documentBodyElement.data('selectionEnabled')) {
-      events.cancelTextSelection.publish();
+      console.log('cancela selecao anterior')
       if (!$('body').hasClass('-voidselect')) {
-        events.startTextSelection.publish(target.data('id'));
+        console.log('comeca selecao')
       }
 
-      if (target.closest('.js-document').hasClass('-suppress')) {
-        events.cancelTextSelection.publish();
-      }
-
-      $('body').one('mouseup', function() {
-        events.endTextSelection.publish();
+      $('body').one('mouseup touchend', function() {
+        console.log('termina selecao')
       });
     }
   });
