@@ -120,4 +120,7 @@ var events = {
 
   // Triggered when the user does an action that closes a modal
   closeOpinionOnboarding: $.Topic('closeOpinionOnboard'),
+
+  // Triggered when the user does an action that closes the text selection onboarding
+  closeTextSelectionOnboarding: $.Topic('closeTextSelectionOnboard'),
 };
