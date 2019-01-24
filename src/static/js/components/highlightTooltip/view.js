@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ events Tooltip */
 
 var HighlightTooltipView = function() {};
 

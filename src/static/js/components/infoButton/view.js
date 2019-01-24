@@ -9,5 +9,5 @@ InfoButtonView.prototype.initEvents = function() {
 InfoButtonView.prototype.publishers = function () {
   $('.js-infoButton').on('click', function() {
     events.openInfoModal.publish();
-  })
+  });
 };

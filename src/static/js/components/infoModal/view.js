@@ -11,5 +11,5 @@ InfoModalView.prototype.subscribers = function () {
   var self = this;
   events.openInfoModal.subscribe(function() {
     self.infoModalElement.addClass('-show');
-  })
+  });
 };
