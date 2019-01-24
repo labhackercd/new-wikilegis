@@ -103,8 +103,9 @@ var events = {
   // Triggered when user send filter modal
   updateSearchParticipants: $.Topic('updateSearchParticipants'),
 
-  // Triggered when user click on infoButton
   openInfoModal: $.Topic('openInfoModal'),
+  // Triggered when user click on infoButton
+  // Triggered when the page loads and there's no opinionOnboardingCookie
 
   // Triggered on highlight mouseenter
   // Params: parentNode, activeId
