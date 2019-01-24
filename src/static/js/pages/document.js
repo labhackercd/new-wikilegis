@@ -1,6 +1,7 @@
 /*global DocumentExcerptView DocumentBodyView SuggestionInputView
 NavBurgerView SuggestionInputController OpinionModalView OpinionModalController
-TextHighlightView HighlightTooltipView InfoModalView InfoButtonView OpinionOnboardingView */
+TextHighlightView HighlightTooltipView InfoModalView InfoButtonView 
+OpinionOnboardingView TextSelectionOnboardingView */
 
 
 var documentExcerptView = new DocumentExcerptView();
@@ -37,3 +38,6 @@ textHighlightView.initEvents();
 
 var highlightTooltipView = new HighlightTooltipView();
 highlightTooltipView.initEvents();
+
+var textSelectionOnboardingView = new TextSelectionOnboardingView();
+textSelectionOnboardingView.initEvents();
