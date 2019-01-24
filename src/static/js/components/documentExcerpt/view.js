@@ -13,22 +13,29 @@ DocumentExcerptView.prototype.initEvents = function() {
 
 DocumentExcerptView.prototype.publishers = function() {
   var self = this;
+  var timeout = undefined;
 
   self.documentBodyElement.on('mousedown touchstart', '.js-documentExcerpt', {}, function(e) {
     var target = $(e.target);
 
     if (self.documentBodyElement.data('selectionEnabled')) {
-      console.log('cancela selecao anterior')
+      events.cancelTextSelection.publish();
+
       if (!$('body').hasClass('-voidselect')) {
-        console.log('comeca selecao')
+        events.startTextSelection.publish(target.data('id'));
       }
-
-      $('body').one('mouseup touchend', function() {
-        console.log('termina selecao')
-      });
     }
-  });
 
+    if (target.closest('.js-document').hasClass('-suppress')) {
+      events.cancelTextSelection.publish();
+    }
+
+    target.one('selectionend', function() {
+      if (document.getSelection().toString() != '') {
+        events.endTextSelection.publish();
+      }
+    });
+  });
 };
 
 DocumentExcerptView.prototype.subscribers = function() {
