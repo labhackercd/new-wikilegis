@@ -3,6 +3,14 @@
 
   display: flex;
 
+  padding-right: 4.6rem;
+  padding-left: 4.6rem;
+
+  @include bp-mediumdown {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
   &.-voidselection {
     user-select: none;
   }
@@ -15,11 +23,9 @@
     max-width: 66ch;
     margin-right: auto;
     margin-left: 3rem;
-    padding-right: 3rem;
 
-    @include bp-smallonly {
+    @include bp-mediumdown {
       margin-left: 0;
-      padding-right: 0;
     }
   }
 
@@ -86,9 +92,8 @@
 
     width: 14rem;
     margin-left: auto;
-    padding-left: 3rem;
 
-    @include bp-smallonly {
+    @include bp-mediumdown {
       display: none;
 
       padding-left: 0;
@@ -103,12 +108,12 @@
     width: calc(100vw + 100%);
     height: 100%;
 
-    &:hover + .side-bar > .item {
+    &:hover + .info-bar > .item {
       opacity: 1;
     }
   }
 
-  & > .wrapper > .side-bar {
+  & > .wrapper > .info-bar {
     position: fixed;
 
     overflow-y: auto;
@@ -126,10 +131,10 @@
 
   & > .info-button {
     position: fixed;
-    right: 1rem;
-    bottom: 1rem;
+    right: 1.5rem;
+    bottom: 1.5rem;
 
-    @include bp-smallup {
+    @include bp-mediumup {
       display: none;
     }
   }

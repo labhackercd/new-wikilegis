@@ -17,7 +17,6 @@
     left: 50%;
 
     width: 70%;
-
     height: auto;
     max-height: calc(100% - 3rem);
 
@@ -32,6 +31,14 @@
 
   &.-filter {
     background-color: $color-whitesmoke;
+  }
+
+  &.-info {
+    height: 100%;
+
+    @include bp-mediumup {
+      display: none !important;
+    }
   }
 
   &.-show {
