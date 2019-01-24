@@ -61,9 +61,8 @@ def highlight_excerpt(excerpt, group, user=None):
         index += length_diff
         current_id = list(ids)[0]
         span = ('<span class="text-highlight js-highlight" '
-                'data-suggestion-ids="{}" data-content="{}">'.format(
-                    ','.join([str(x) for x in ids]),
-                    qs.get(pk=current_id).content))
+                'data-suggestion-ids="{}">'.format(
+                    ','.join([str(x) for x in ids])))
         close_span = '</span>'
         close_index = closing_indexes.pop(0) + length_diff
         html = '{prev}{open_span}{content}{close_span}{after}'.format(

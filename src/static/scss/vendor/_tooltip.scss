@@ -1,9 +1,13 @@
 .link-anchor {
-  position: relative;
-  width: 0;
   font-size: .8em;
-  opacity: 0;
+
+  position: relative;
+
+  width: 0;
+
   transition: opacity .2s ease-in-out;
+
+  opacity: 0;
 }
 .anchor-wrapper {
   border: none;
@@ -22,119 +26,142 @@ section h5[id]:focus {
 
 p.thin {
   font-weight: 100;
-  margin: 0;
   line-height: 1.2em;
+
+  margin: 0;
 }
 
 p.bold {
   font-weight: 900;
+
   margin: 0;
   margin-top: -5px;
 }
 
 .rel {
+  position: relative;
+
   width: 30%;
   margin: 0 auto;
-  position: relative;
-  text-align: center;
   padding: 20px;
+
+  text-align: center;
+
+  border-width: medium;
   border-style: dotted;
   border-color: white;
-  border-width: medium;
 }
 
 .popper,
 .tooltip {
+  font-size: 1rem;
+
   position: absolute;
-  background: #FFC107;
-  color: black;
-  width: 150px;
-  border-radius: 3px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.5);
-  padding: 10px;
+
+  width: auto;
+  max-width: 350px;
+  padding: 14px;
+
   text-align: center;
+  word-break: break-word;
+
+  color: #FFF;
+  background: $color-deep-gray;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
 }
 .style5 .tooltip {
-  background: #1E252B;
-  color: #FFFFFF;
-  max-width: 200px;
-  width: auto;
   font-size: .8rem;
+
+  width: auto;
+  max-width: 200px;
   padding: .5em 1em;
+
+  color: #FFF;
+  background: $color-deep-gray;
 }
 .popper .popper__arrow,
 .tooltip .tooltip-arrow {
+  position: absolute;
+
   width: 0;
   height: 0;
-  border-style: solid;
-  position: absolute;
   margin: 5px;
+
+  border-style: solid;
 }
 
 .tooltip .tooltip-arrow,
 .popper .popper__arrow {
-  border-color: #FFC107;
+  border-color: $color-deep-gray;
 }
 .style5 .tooltip .tooltip-arrow {
-  border-color: #1E252B;
+  border-color: $color-deep-gray;
 }
-.popper[x-placement^="top"],
-.tooltip[x-placement^="top"] {
+.popper[x-placement^='top'],
+.tooltip[x-placement^='top'] {
   margin-bottom: 5px;
 }
-.popper[x-placement^="top"] .popper__arrow,
-.tooltip[x-placement^="top"] .tooltip-arrow {
-  border-width: 5px 5px 0 5px;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
+.popper[x-placement^='top'] .popper__arrow,
+.tooltip[x-placement^='top'] .tooltip-arrow {
   bottom: -5px;
   left: calc(50% - 5px);
+
   margin-top: 0;
   margin-bottom: 0;
+
+  border-width: 5px 5px 0 5px;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
 }
-.popper[x-placement^="bottom"],
-.tooltip[x-placement^="bottom"] {
+.popper[x-placement^='bottom'],
+.tooltip[x-placement^='bottom'] {
   margin-top: 5px;
 }
-.tooltip[x-placement^="bottom"] .tooltip-arrow,
-.popper[x-placement^="bottom"] .popper__arrow {
-  border-width: 0 5px 5px 5px;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  border-top-color: transparent;
+.tooltip[x-placement^='bottom'] .tooltip-arrow,
+.popper[x-placement^='bottom'] .popper__arrow {
   top: -5px;
   left: calc(50% - 5px);
+
   margin-top: 0;
   margin-bottom: 0;
+
+  border-width: 0 5px 5px 5px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
 }
-.tooltip[x-placement^="right"],
-.popper[x-placement^="right"] {
+.tooltip[x-placement^='right'],
+.popper[x-placement^='right'] {
   margin-left: 5px;
 }
-.popper[x-placement^="right"] .popper__arrow,
-.tooltip[x-placement^="right"] .tooltip-arrow {
+.popper[x-placement^='right'] .popper__arrow,
+.tooltip[x-placement^='right'] .tooltip-arrow {
+  top: calc(50% - 5px);
+  left: -5px;
+
+  margin-right: 0;
+  margin-left: 0;
+
   border-width: 5px 5px 5px 0;
-  border-left-color: transparent;
   border-top-color: transparent;
   border-bottom-color: transparent;
-  left: -5px;
-  top: calc(50% - 5px);
-  margin-left: 0;
-  margin-right: 0;
+  border-left-color: transparent;
 }
-.popper[x-placement^="left"],
-.tooltip[x-placement^="left"] {
+.popper[x-placement^='left'],
+.tooltip[x-placement^='left'] {
   margin-right: 5px;
 }
-.popper[x-placement^="left"] .popper__arrow,
-.tooltip[x-placement^="left"] .tooltip-arrow {
+.popper[x-placement^='left'] .popper__arrow,
+.tooltip[x-placement^='left'] .tooltip-arrow {
+  top: calc(50% - 5px);
+  right: -5px;
+
+  margin-right: 0;
+  margin-left: 0;
+
   border-width: 5px 0 5px 5px;
   border-top-color: transparent;
   border-right-color: transparent;
   border-bottom-color: transparent;
-  right: -5px;
-  top: calc(50% - 5px);
-  margin-left: 0;
-  margin-right: 0;
 }
