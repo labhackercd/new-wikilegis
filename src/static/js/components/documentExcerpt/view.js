@@ -7,13 +7,13 @@ DocumentExcerptView.prototype.initEvents = function() {
   this.selectedHTML = undefined;
   this.lastExcerpt = undefined;
   this.selectedText = '';
+  this.selectionEndTimeout = null;
   this.publishers();
   this.subscribers();
 };
 
 DocumentExcerptView.prototype.publishers = function() {
   var self = this;
-  var timeout = undefined;
 
   self.documentBodyElement.on('mousedown touchstart', '.js-documentExcerpt', {}, function(e) {
     var target = $(e.target);
@@ -30,10 +30,16 @@ DocumentExcerptView.prototype.publishers = function() {
       events.cancelTextSelection.publish();
     }
 
-    target.one('selectionend', function() {
-      if (document.getSelection().toString() != '') {
-        events.endTextSelection.publish();
+    $(document).on('selectionchange', function(e) {
+      if (this.selectionEndTimeout) {
+        clearTimeout(this.selectionEndTimeout);
       }
+
+      this.selectionEndTimeout = setTimeout(function () {
+        if (document.getSelection().toString() != '') {
+          events.endTextSelection.publish();
+        }
+      }, 500);
     });
   });
 };
