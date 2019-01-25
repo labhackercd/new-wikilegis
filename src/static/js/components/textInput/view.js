@@ -33,8 +33,8 @@ TextInputView.prototype.publishers = function() {
 
 TextInputView.prototype.addFill = function(inputElement) {
   inputElement.parent().addClass('-filled');
-}
+};
 
 TextInputView.prototype.removeFill = function(inputElement) {
   inputElement.parent().removeClass('-filled');
-}
+};
