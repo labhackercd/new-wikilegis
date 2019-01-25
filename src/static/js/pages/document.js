@@ -1,5 +1,5 @@
 /*global DocumentExcerptView DocumentBodyView SuggestionInputView
-NavBurgerView SuggestionInputController OpinionModalView OpinionModalController */
+NavBurgerView SuggestionInputController OpinionModalView OpinionModalController InfoButtonView InfoModalView */
 
 
 var documentExcerptView = new DocumentExcerptView();
@@ -22,3 +22,9 @@ opinionModalView.initEvents();
 
 var opinionModalController = new OpinionModalController();
 opinionModalController.initEvents();
+
+var infoButtonView = new InfoButtonView();
+infoButtonView.initEvents();
+
+var infoModal = new InfoModalView();
+infoModal.initEvents();

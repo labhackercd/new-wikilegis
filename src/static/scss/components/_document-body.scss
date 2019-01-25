@@ -3,6 +3,18 @@
 
   display: flex;
 
+  padding-right: 4.6rem;
+  padding-left: 4.6rem;
+
+  @include bp-smallonly {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  @include bp-mediumonly {
+    padding-right: 1.6rem;
+    padding-left: 1.6rem;
+  }
+
   &.-voidselection {
     user-select: none;
   }
@@ -15,7 +27,14 @@
     max-width: 66ch;
     margin-right: auto;
     margin-left: 3rem;
-    padding-right: 3rem;
+
+    @include bp-smallonly {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    @include bp-mediumonly {
+      margin-left: 0;
+    }
   }
 
   & > article > header {
@@ -44,9 +63,19 @@
     justify-content: space-between;
   }
 
-  & > article > header > .info > .group > .epigraph {
+  & > article > header > .info > .group > .epigraph,
+  & > article > header > .info > .group > .status {
     font-size: .875rem;
-    font-weight: bold;
+    font-weight: 500;
+  }
+
+  & > article > header > .info > .group > .status {
+    display: flex;
+  }
+
+  & > article > header > .info > .group > .status > img {
+    margin-right: .25rem;
+    margin-bottom: .2rem;
   }
 
   & > article > header > .info > .group > .date {
@@ -71,7 +100,12 @@
 
     width: 14rem;
     margin-left: auto;
-    padding-left: 3rem;
+
+    @include bp-smallonly {
+      display: none;
+
+      padding-left: 0;
+    }
   }
 
   & > .wrapper > .invisible {
@@ -82,70 +116,38 @@
     width: calc(100vw + 100%);
     height: 100%;
 
-    &:hover + .sidebar > .item {
+    &:hover + .info-bar > .item {
       opacity: 1;
     }
   }
 
-  & > .wrapper > .sidebar {
+  & > .wrapper > .info-bar {
     position: fixed;
 
     overflow-y: auto;
 
     width: 14rem;
     height: calc(100% - 3.75rem);
-    padding-right: 1.5rem;
+    padding-right: 1rem;
 
     text-align: right;
 
-    color: $color-deep-gray;
-
-    &:hover > .item {
-      opacity: 1;
-    }
-
-    &::after {
-      display: block;
-
-      height: 1rem;
-
-      content: '';
-    }
-
-    & > * + * {
-      margin-top: 1.5rem;
-    }
-
-    & > .item {
-      display: flex;
-      flex-direction: column;
-
-      opacity: .5;
-    }
-
-    & > .item > .title {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    & > .item > span {
-      font-size: .875rem;
-      font-weight: normal;
-
-      margin-top: .5rem;
+    @include bp-mediumonly {
+      width: 12rem;
     }
 
     & > .item > .themes {
-      display: flex;
       justify-content: flex-end;
-
-      & > * + * {
-        margin-left: .75rem;
-      }
     }
+  }
 
-    & > .item > .themes > .theme-tag {
-      cursor: text;
+  & > .info-button {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+
+    @include bp-smallup {
+      display: none;
     }
   }
 }

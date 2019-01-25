@@ -1,0 +1,58 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+
+{% block extra_classes %}-info js-infoModal{% endblock %}
+
+{% block title_modal %}
+  {% if object.document.document_type %}
+  {{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class="info-bar -mobile">
+  {% if object.closing_date|is_open %}
+  <span class="date -active">Aberto até {{ object.closing_date|date:"d/m/Y" }}</span>
+  {% else %}
+  <span class="date -inactive">Encerrado em {{ object.closing_date|date:"d/m/Y" }}</span>
+  {% endif %}
+  {% if object.document.infos.authors.all %}
+  <div class="item">
+    <span class="title">Autor</span>
+    {% for author in object.document.infos.authors.all %}
+      <span class="text">{{ author.name }} - {{author.author_type}}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if object.document.infos.legislative_body %}
+  <div class="item">
+    <span class="title">Situação</span>
+    <span class="text">{{ object.document.infos.legislative_body }}</span>
+  </div>
+  {% endif %}
+  {% if object.document.themes.all %}
+  <div class="item">
+    <span class="title">Temas:</span>
+    <ul class="themes">
+      {% for theme in object.document.themes.all %}
+        <li class="theme-tag">
+          <span class="dot" style="background-color: {{theme.color}}"></span>
+          {{ theme.name }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% if object.document.videos.all %}
+    {% for video in object.document.videos.all %}
+    <div class="item -video">
+      <iframe width="100%" src="https://www.youtube.com/embed/{{video.video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock content %}
+
+</div>

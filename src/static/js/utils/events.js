@@ -103,4 +103,7 @@ var events = {
 
   // Triggered when user send filter modal
   updateSearchParticipants: $.Topic('updateSearchParticipants'),
+
+  // Triggered when user click on infoButton
+  openInfoModal: $.Topic('openInfoModal'),
 };

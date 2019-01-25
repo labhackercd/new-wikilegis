@@ -8,7 +8,12 @@
 <main class="document-body js-documentBody" data-selection-enabled="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
   <div class="wrapper">
     <div class="invisible"></div>
-    <aside class="sidebar">
+    <aside class="info-bar">
+      <div class="item">
+        {% if object.document.document_type %}
+        <span class="epigraph">{{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}</span>
+        {% endif %}
+      </div>
       {% if object.document.infos.authors.all %}
       <div class="item">
         <span class="title">Autor</span>
@@ -49,9 +54,6 @@
     <header>
       <div class="info">
         <div class="group">
-          {% if object.document.document_type %}
-          <span class="epigraph">{{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}</span>
-          {% endif %}
           {% if object.closing_date|is_open %}
           <span class="date -active">Aberto até {{ object.closing_date|date:"d/m/Y" }}</span>
           {% else %}
@@ -72,17 +74,21 @@
       {% endif %}
     {% endfor %}
   </article>
+  <div class="info-button js-infoButton"></div>
 </main>
 
 {% include "components/suggestion-input.html" %}
 
 {% include "components/opinion-modal.html" with suggestions=suggestions %}
+{% include "components/info-modal.html" %}
 
 {% endblock content %}
 
 {% block page_js %}
   <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
   <script src="{% static 'js/components/documentBody/view.js' %}"></script>
+  <script src="{% static 'js/components/infoButton/view.js' %}"></script>
+  <script src="{% static 'js/components/infoModal/view.js' %}"></script>
   <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
   <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
   <script src="{% static 'js/components/suggestionInput/controller.js' %}"></script>

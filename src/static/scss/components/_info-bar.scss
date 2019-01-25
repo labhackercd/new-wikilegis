@@ -1,0 +1,92 @@
+.info-bar {
+  color: $color-deep-gray;
+
+  &:hover > .item {
+    opacity: 1;
+  }
+
+  &::after {
+    display: block;
+
+    height: 1rem;
+
+    content: '';
+  }
+
+  &.-mobile {
+    text-align: left;
+
+    & > .item {
+      opacity: 1;
+    }
+  }
+
+  & > * + * {
+    margin-top: 1.5rem;
+  }
+
+  & > .item {
+    display: flex;
+    flex-direction: column;
+
+    opacity: .5;
+
+    &.-video {
+      position: relative;
+
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 */
+
+      & > iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  & > .item > .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  & > .item > span {
+    font-size: .875rem;
+    font-weight: normal;
+    line-height: 1.6;
+
+    margin-top: .5rem;
+  }
+
+  & > .item > .themes {
+    display: flex;
+
+    & > * + * {
+      margin-left: .75rem;
+    }
+  }
+
+  & > .item > .themes > .theme-tag {
+    cursor: text;
+  }
+
+  & > .date {
+    font-size: .875rem;
+    font-weight: 500;
+
+    margin-top: 0;
+
+    color: $color-deep-gray;
+
+    &.-inactive {
+      color: $color-red;
+    }
+
+    &.-active {
+      color: $color-brand;
+    }
+  }
+}
