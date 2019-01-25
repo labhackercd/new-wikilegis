@@ -8,13 +8,33 @@ TextInputView.prototype.initEvents = function() {
 };
 
 TextInputView.prototype.publishers = function() {
-  this.textInputElement.on('focus', function(){
-    $(this).parent().addClass('-filled');
+  var self = this;
+
+  self.textInputElement.on('focus', function(e){
+    self.addFill($(e.target));
   });
 
-  this.textInputElement.on('blur', function(){
+  self.textInputElement.on('blur', function(e){
     if($(this).val()=='') {
-      $(this).parent().removeClass('-filled');
+      self.removeFill($(e.target));
     }
   });
+
+  $(window).on('load', function() {
+    self.textInputElement.each(function() {
+      if($(this).val()=='') {
+        self.removeFill($(this));
+      } else {
+        self.addFill($(this));
+      }
+    });
+  });
 };
+
+TextInputView.prototype.addFill = function(inputElement) {
+  inputElement.parent().addClass('-filled');
+}
+
+TextInputView.prototype.removeFill = function(inputElement) {
+  inputElement.parent().removeClass('-filled');
+}

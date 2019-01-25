@@ -1,4 +1,4 @@
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, UpdateView
 from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from .models import Document
@@ -28,6 +28,20 @@ class InvitationRedirectView(RedirectView):
 
 
 class DocumentCreateView(CreateView):
+    model = Document
+    form_class = DocumentForm
+    template_name = 'pages/new-document.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if 'data' in kwargs.keys():
+            data = kwargs['data'].copy()
+            data['owner'] = self.request.user.id
+            kwargs['data'] = data
+        return kwargs
+
+
+class DocumentUpdateView(UpdateView):
     model = Document
     form_class = DocumentForm
     template_name = 'pages/new-document.html'
