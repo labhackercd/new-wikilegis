@@ -26,7 +26,8 @@ var opinionModalController = new OpinionModalController();
 opinionModalController.initEvents();
 
 var opinionOnboardingView = new OpinionOnboardingView();
-opinionOnboardingView.initEvents();
+opinionOnboardingView.initEvents(opinionModalView);
+
 var infoButtonView = new InfoButtonView();
 infoButtonView.initEvents();
 
