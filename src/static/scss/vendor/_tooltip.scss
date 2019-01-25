@@ -1,5 +1,5 @@
 .link-anchor {
-  font-size: .8em;
+  font-size: .8rem;
 
   position: relative;
 
@@ -26,7 +26,7 @@ section h5[id]:focus {
 
 p.thin {
   font-weight: 100;
-  line-height: 1.2em;
+  line-height: 1.2rem;
 
   margin: 0;
 }
@@ -35,7 +35,7 @@ p.bold {
   font-weight: 900;
 
   margin: 0;
-  margin-top: -5px;
+  margin-top: -.25rem;
 }
 
 .rel {
@@ -43,7 +43,7 @@ p.bold {
 
   width: 30%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem;
 
   text-align: center;
 
@@ -59,8 +59,8 @@ p.bold {
   position: absolute;
 
   width: auto;
-  max-width: 350px;
-  padding: 14px;
+  max-width: 20rem;
+  padding: .875rem;
 
   text-align: center;
   word-break: break-word;
@@ -70,15 +70,15 @@ p.bold {
   box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
 
   @include bp-smallonly {
-    max-width: 250px;
+    max-width: 15rem;
   }
 }
 .style5 .tooltip {
   font-size: .8rem;
 
   width: auto;
-  max-width: 200px;
-  padding: .5em 1em;
+  max-width: 12.5rem;
+  padding: .5em 1rem;
 
   color: $color-deep-gray;
   background: #FFF;
@@ -86,11 +86,12 @@ p.bold {
 .popper .popper__arrow,
 .tooltip .tooltip-arrow {
   position: absolute;
+
   display: none;
 
   width: 0;
   height: 0;
-  margin: 5px;
+  margin: .25rem;
 
   border-style: solid;
 }
@@ -104,68 +105,68 @@ p.bold {
 }
 .popper[x-placement^='top'],
 .tooltip[x-placement^='top'] {
-  margin-bottom: 5px;
+  margin-bottom: .25rem;
 }
 .popper[x-placement^='top'] .popper__arrow,
 .tooltip[x-placement^='top'] .tooltip-arrow {
-  bottom: -5px;
-  left: calc(50% - 5px);
+  bottom: -.25rem;
+  left: calc(50% - .25rem);
 
   margin-top: 0;
   margin-bottom: 0;
 
-  border-width: 5px 5px 0 5px;
+  border-width: .25rem .25rem 0 .25rem;
   border-right-color: transparent;
   border-bottom-color: transparent;
   border-left-color: transparent;
 }
 .popper[x-placement^='bottom'],
 .tooltip[x-placement^='bottom'] {
-  margin-top: 5px;
+  margin-top: .25rem;
 }
 .tooltip[x-placement^='bottom'] .tooltip-arrow,
 .popper[x-placement^='bottom'] .popper__arrow {
-  top: -5px;
-  left: calc(50% - 5px);
+  top: -.25rem;
+  left: calc(50% - .25rem);
 
   margin-top: 0;
   margin-bottom: 0;
 
-  border-width: 0 5px 5px 5px;
+  border-width: 0 .25rem .25rem .25rem;
   border-top-color: transparent;
   border-right-color: transparent;
   border-left-color: transparent;
 }
 .tooltip[x-placement^='right'],
 .popper[x-placement^='right'] {
-  margin-left: 5px;
+  margin-left: .25rem;
 }
 .popper[x-placement^='right'] .popper__arrow,
 .tooltip[x-placement^='right'] .tooltip-arrow {
-  top: calc(50% - 5px);
-  left: -5px;
+  top: calc(50% - .25rem);
+  left: -.25rem;
 
   margin-right: 0;
   margin-left: 0;
 
-  border-width: 5px 5px 5px 0;
+  border-width: .25rem .25rem .25rem 0;
   border-top-color: transparent;
   border-bottom-color: transparent;
   border-left-color: transparent;
 }
 .popper[x-placement^='left'],
 .tooltip[x-placement^='left'] {
-  margin-right: 5px;
+  margin-right: .25rem;
 }
 .popper[x-placement^='left'] .popper__arrow,
 .tooltip[x-placement^='left'] .tooltip-arrow {
-  top: calc(50% - 5px);
-  right: -5px;
+  top: calc(50% - .25rem);
+  right: -.25rem;
 
   margin-right: 0;
   margin-left: 0;
 
-  border-width: 5px 0 5px 5px;
+  border-width: .25rem 0 .25rem .25rem;
   border-top-color: transparent;
   border-right-color: transparent;
   border-bottom-color: transparent;
