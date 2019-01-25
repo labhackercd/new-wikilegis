@@ -66,7 +66,7 @@ p.bold {
   word-break: break-word;
 
   color: #FFF;
-  background: $color-brand;
+  background: $color-deep-gray;
   box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
 
   @include bp-smallonly {
@@ -80,7 +80,7 @@ p.bold {
   max-width: 200px;
   padding: .5em 1em;
 
-  color: $color-brand;
+  color: $color-deep-gray;
   background: #FFF;
 }
 .popper .popper__arrow,
@@ -97,10 +97,10 @@ p.bold {
 
 .tooltip .tooltip-arrow,
 .popper .popper__arrow {
-  border-color: $color-brand;
+  border-color: $color-deep-gray;
 }
 .style5 .tooltip .tooltip-arrow {
-  border-color: $color-brand;
+  border-color: $color-deep-gray;
 }
 .popper[x-placement^='top'],
 .tooltip[x-placement^='top'] {
