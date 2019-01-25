@@ -59,7 +59,6 @@ def highlight_excerpt(excerpt, group, user=None):
     closing_indexes = sorted(closing_indexes)
     for index, ids in opening_indexes.items():
         index += length_diff
-        current_id = list(ids)[0]
         span = ('<span class="text-highlight js-highlight" '
                 'data-suggestion-ids="{}">'.format(
                     ','.join([str(x) for x in ids])))
