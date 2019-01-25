@@ -19,7 +19,6 @@ TextHighlightView.prototype.subscribers = function () {
 };
 
 TextHighlightView.prototype.publishers = function () {
-  var self = this;
   $('.js-documentBody').on('mouseenter', '.js-highlight', function(e) {
     var target = $(e.target);
     var currentId = target.data('suggestionIds').toString().split(',')[0];

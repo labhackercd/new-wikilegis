@@ -1,4 +1,4 @@
-/*global $ events Tooltip */
+/*global $ events Tooltip Urls */
 
 var HighlightTooltipView = function() {};
 
@@ -15,7 +15,7 @@ HighlightTooltipView.prototype.subscribers = function () {
 
   events.closeHighlightTooltip.subscribe(function() {
     self.destroyTooltips();
-  })
+  });
 };
 
 HighlightTooltipView.prototype.showTooltip = function (excerpt, currentId) {
@@ -31,11 +31,7 @@ HighlightTooltipView.prototype.showTooltip = function (excerpt, currentId) {
       highlight, {
         title: data.content,
         placement: 'top-end',
-        popperOptions: {
-          arrow: {
-            enabled: false
-          }
-        }
+
       }
     );
     self.tooltips.push(tooltip);
@@ -47,5 +43,5 @@ HighlightTooltipView.prototype.destroyTooltips = function () {
   var self = this;
   $.each(self.tooltips, function(index, tooltip) {
     tooltip.dispose();
-  })
+  });
 };
