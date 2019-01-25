@@ -49,7 +49,11 @@
     width: 100%;
     height: 100%;
     max-height: 100%;
-    padding: 4rem;
+    padding: 1.5rem;
+
+    @include bp-mediumup {
+      padding: 4rem;
+    }
   }
 
   &.-show {
