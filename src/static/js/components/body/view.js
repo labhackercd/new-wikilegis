@@ -80,6 +80,10 @@ BodyView.prototype.subscribers = function() {
   events.openFilterModal.subscribe(function() {
     self.disableScroll();
   });
+
+  events.openInfoModal.subscribe(function() {
+    self.disableScroll();
+  });
 };
 
 
