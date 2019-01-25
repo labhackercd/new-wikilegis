@@ -30,7 +30,7 @@ DocumentExcerptView.prototype.publishers = function() {
       events.cancelTextSelection.publish();
     }
 
-    $(document).on('selectionchange', function(e) {
+    $(document).on('selectionchange', function() {
       if (this.selectionEndTimeout) {
         clearTimeout(this.selectionEndTimeout);
       }
