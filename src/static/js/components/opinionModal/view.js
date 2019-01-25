@@ -59,7 +59,7 @@ OpinionModalView.prototype.subscribers = function () {
 
   events.closeModal.subscribe(function() {
     events.closeOpinionModal.publish(false);
-  })
+  });
 };
 
 OpinionModalView.prototype.hide = function () {

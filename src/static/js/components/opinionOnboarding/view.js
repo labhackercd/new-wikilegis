@@ -1,4 +1,4 @@
-/*global $ events getCookie */
+/*global $ events getCookie setCookie opinionModalView */
 
 var OpinionOnboardingView = function() {};
 

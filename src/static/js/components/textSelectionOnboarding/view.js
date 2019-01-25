@@ -1,4 +1,4 @@
-/*global $ events getCookie */
+/*global $ events getCookie setCookie */
 
 var TextSelectionOnboardingView = function() {};
 
@@ -25,7 +25,7 @@ TextSelectionOnboardingView.prototype.subscribers = function() {
 
   events.closeOpinionModal.subscribe(function() {
     self.showOnboarding();
-  })
+  });
 };
 
 TextSelectionOnboardingView.prototype.showOnboarding = function() {
