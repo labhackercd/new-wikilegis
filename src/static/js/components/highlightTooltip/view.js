@@ -30,7 +30,12 @@ HighlightTooltipView.prototype.showTooltip = function (excerpt, currentId) {
     var tooltip = new Tooltip(
       highlight, {
         title: data.content,
-        placement: 'top-end'
+        placement: 'top-end',
+        popperOptions: {
+          arrow: {
+            enabled: false
+          }
+        }
       }
     );
     self.tooltips.push(tooltip);
