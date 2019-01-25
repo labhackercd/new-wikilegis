@@ -6,6 +6,8 @@ DocumentExcerptView.prototype.initEvents = function() {
   this.documentBodyElement = $('.js-documentBody');
   this.selectedHTML = undefined;
   this.lastExcerpt = undefined;
+  this.selectedText = '';
+  this.selectionEndTimeout = null;
   this.publishers();
   this.subscribers();
 };
@@ -13,25 +15,33 @@ DocumentExcerptView.prototype.initEvents = function() {
 DocumentExcerptView.prototype.publishers = function() {
   var self = this;
 
-  self.documentBodyElement.on('selectstart', '.js-documentExcerpt', {}, function(e) {
+  self.documentBodyElement.on('mousedown touchstart', '.js-documentExcerpt', {}, function(e) {
     var target = $(e.target);
 
     if (self.documentBodyElement.data('selectionEnabled')) {
       events.cancelTextSelection.publish();
+
       if (!$('body').hasClass('-voidselect')) {
         events.startTextSelection.publish(target.data('id'));
       }
+    }
 
-      if (target.closest('.js-document').hasClass('-suppress')) {
-        events.cancelTextSelection.publish();
+    if (target.closest('.js-document').hasClass('-suppress')) {
+      events.cancelTextSelection.publish();
+    }
+
+    $(document).on('selectionchange', function() {
+      if (this.selectionEndTimeout) {
+        clearTimeout(this.selectionEndTimeout);
       }
 
-      $('body').one('mouseup', function() {
-        events.endTextSelection.publish();
-      });
-    }
+      this.selectionEndTimeout = setTimeout(function () {
+        if (document.getSelection().toString() != '') {
+          events.endTextSelection.publish();
+        }
+      }, 500);
+    });
   });
-
 };
 
 DocumentExcerptView.prototype.subscribers = function() {

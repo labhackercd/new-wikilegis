@@ -75,6 +75,11 @@ SuggestionInputView.prototype.cleanSuggestionInput = function() {
 
 SuggestionInputView.prototype.showInput = function() {
   var self = this;
+
+  if (self.suggestionInputElement.hasClass('-show')) {
+    self.hideInput();
+  }
+
   var selection = document.getSelection();
   var range = selection.getRangeAt(0);
   self.selectedExcerpt = $(range.startContainer.parentNode).closest('.js-documentExcerpt');
