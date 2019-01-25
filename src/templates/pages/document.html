@@ -43,7 +43,7 @@
       {% endif %}
       {% if object.document.videos.all %}
         {% for video in object.document.videos.all %}
-        <div class="item">
+        <div class="item -video">
           <iframe width="100%" src="https://www.youtube.com/embed/{{video.video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         {% endfor %}
