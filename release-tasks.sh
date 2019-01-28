@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd "$1" || exit 1
 echo "-----> Running django-compressor"
+python src/manage.py collectstatic --noinput
 python src/manage.py collectstatic_js_reverse
 python src/manage.py compress --force
 
