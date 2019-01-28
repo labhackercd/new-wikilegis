@@ -7,7 +7,7 @@ from colorful.fields import RGBColorField
 
 class Theme(models.Model):
     name = models.CharField(_('name'), max_length=200)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=200)
     color = RGBColorField()
     icon = models.FileField(upload_to='icons/', verbose_name=_('icon'),
                             null=True, blank=True)
@@ -41,7 +41,7 @@ class Document(TimestampedMixin):
                               related_name='documents',
                               verbose_name=_('owner'))
     title = models.CharField(_('title'), max_length=200)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=200)
     description = models.TextField(_('description'))
     document_type = models.ForeignKey('projects.DocumentType', blank=True,
                                       null=True, on_delete=models.CASCADE,
@@ -117,7 +117,7 @@ class DocumentVideo(models.Model):
 
 class ExcerptType(models.Model):
     name = models.CharField(_('excerpt type'), max_length=200)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=200)
     align_center = models.BooleanField(_('align center'), default=False)
 
     class Meta:
