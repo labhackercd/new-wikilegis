@@ -26,6 +26,11 @@ requests = "*"
 gunicorn = "*"
 whitenoise = "*"
 roman = "*"
+nltk = "*"
+numpy = "*"
+scikit-learn = "*"
+scipy = "*"
+kneed = "*"
 
 [dev-packages]
 ipdb = "*"
