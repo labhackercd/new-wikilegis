@@ -33,7 +33,7 @@ class UserProfile(models.Model):
     @property
     def avatar_url(self):
         if self.avatar:
-            return self.avatar.url
+            return self.avatar
         else:
             return settings.STATIC_URL + 'img/avatar.png'
 
