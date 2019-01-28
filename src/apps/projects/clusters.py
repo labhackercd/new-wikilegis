@@ -16,7 +16,7 @@ def clustering_suggestions(suggestions, n_clusters=None):
                                  ngram_range=(1, 2),
                                  max_features=30000)
 
-    X = vectorizer.fit_transform(suggestions)
+    X = vectorizer.fit_transform(suggestions.values_list('content', flat=True))
 
     if n_clusters:
         model = KMeans(n_clusters=n_clusters, init='k-means++', max_iter=100,
@@ -45,11 +45,11 @@ def clustering_suggestions(suggestions, n_clusters=None):
     clusters = []
 
     for suggestion in suggestions:
-        Y = vectorizer.transform(suggestion)
+        Y = vectorizer.transform([suggestion.content])
         prediction = model.predict(Y)
         clusters.append({
-            'suggestion_id': suggestion,
-            'cluster': prediction
+            'suggestion': suggestion,
+            'cluster': prediction[0]
         })
 
     return clusters
