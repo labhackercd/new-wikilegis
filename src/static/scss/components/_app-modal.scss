@@ -24,6 +24,18 @@
   }
 
   &.-opinion {
+    @include bp-mediumdown {
+      top: 50%;
+      left: 50%;
+
+      width: 22rem;
+      max-width: calc(100% - 2rem);
+      height: auto;
+      max-height: calc(100% - 2rem);
+
+      transform: translate(-50%, -50%);
+    }
+
     .excerpt {
       color: $color-grayish;
     }
@@ -104,12 +116,18 @@
   & > .content {
     overflow-y: auto;
 
-    padding: 1.5rem;
+    padding: 1rem;
 
     text-align: center;
 
+    @include bp-mediumup {
+      padding: 1.5rem;
+    }
+
     @at-root .-opinion#{&} {
       align-items: flex-start;
+
+      padding-top: 4rem;
 
       text-align: left;
     }
@@ -162,11 +180,6 @@
 
     margin-top: 2rem;
     padding: .5rem 2rem;
-
-    animation: fade-in-bottom 1s 4s $swift-out forwards;
-    pointer-events: none; // Modified in fade-in-bottom animation and maintained with "forwards" value 
-
-    opacity: 0; // Modified in fade-in-bottom animation and maintained with "forwards" value
   }
 
   & > .content > .footer > .simple-link {

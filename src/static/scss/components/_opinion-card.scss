@@ -10,7 +10,7 @@
 
   width: initial;
 
-  background-color: initial;
+  background-color: #FFF;
 
   align-items: flex-start;
 
@@ -49,6 +49,16 @@
   &.-next {
     transform: translateY(-100%);
     opacity: 0;
+  }
+
+  & > .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  & > .suggestion {
+    word-break: break-word; 
   }
 
   @include bp-mediumup {
