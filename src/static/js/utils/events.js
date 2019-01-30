@@ -114,11 +114,14 @@ var events = {
   // Params: parentNode
   closeHighlightTooltip: $.Topic('closeHighlightTooltip'),
 
-  // Triggered when the page loads and there's no opinionOnb1ardingCookie
+  // Triggered when the page loads and there's no opinionOnboardingCookie
   showOpinionOnboarding: $.Topic('showOpinionOnboard'),
 
   // Triggered when the user does an action that closes the opinion onboarding
   closeOpinionOnboarding: $.Topic('closeOpinionOnboard'),
+
+  // Triggered when closing the opinion modal and there's no textSelectionOnboardingCookie
+  showTextSelectionOnboarding: $.Topic('showTextSelectionOnboard'),
 
   // Triggered when the user does an action that closes the text selection onboarding
   closeTextSelectionOnboarding: $.Topic('closeTextSelectionOnboard'),

@@ -5,7 +5,7 @@
 {% block extra_classes %}-onboarding js-opinionOnboarding{% endblock %}
 
 
-{% block extra_attributes %}{% endblock %}
+{% block extra_attributes %}{% if request.user.is_authenticated %} data-is-authenticated="true" {% endif %}{% endblock %}
 
 {% block header %}{% endblock %}
 

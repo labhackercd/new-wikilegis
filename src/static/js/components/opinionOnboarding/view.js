@@ -12,11 +12,17 @@ OpinionOnboardingView.prototype.initEvents = function(opinionModalView) {
 };
 
 OpinionOnboardingView.prototype.publishers = function() {
+  var self = this;
+
   var cookie = getCookie(this.cookieName);
-  if (!cookie) {
-    events.showOpinionOnboarding.publish();
-  } else {
-    events.openOpinionModal.publish(null);
+  if (self.opinionOnboardingElement.data('isAuthenticated')) {
+    if (!cookie) {
+      events.showOpinionOnboarding.publish();
+    } else {
+      if (self.opinionModalView.hasActiveOpinionCards()) {
+        events.openOpinionModal.publish(null);
+      }
+    }
   }
 
   this.buttonElement.on('click', function() {
@@ -44,7 +50,7 @@ OpinionOnboardingView.prototype.showOnboarding = function() {
 OpinionOnboardingView.prototype.closeOnboarding = function() {
   this.opinionOnboardingElement.removeClass('-show');
   setCookie(this.cookieName, true);
-  if (opinionModalView.hasActiveOpinionCards()) {
+  if (this.opinionModalView.hasActiveOpinionCards()) {
     events.openOpinionModal.publish(null);
   }
 };

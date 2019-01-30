@@ -96,6 +96,14 @@ BodyView.prototype.subscribers = function() {
   events.closeOpinionOnboarding.subscribe(function() {
     self.enableScroll();
   });
+
+  events.showTextSelectionOnboarding.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closeTextSelectionOnboarding.subscribe(function() {
+    self.enableScroll();
+  });
 };
 
 

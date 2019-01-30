@@ -19,20 +19,24 @@ TextSelectionOnboardingView.prototype.publishers = function() {
 TextSelectionOnboardingView.prototype.subscribers = function() {
   var self = this;
 
+  events.showTextSelectionOnboarding.subscribe(function() {
+    self.showOnboarding();
+  });
+
   events.closeTextSelectionOnboarding.subscribe(function() {
     self.closeOnboarding();
   });
 
   events.closeOpinionModal.subscribe(function() {
-    self.showOnboarding();
+    var cookie = getCookie(this.cookieName); 
+    if (!cookie && self.textSelectionOnboardingElement.data('isAuthenticated')) {
+      events.showTextSelectionOnboarding.publish();
+    }
   });
 };
 
 TextSelectionOnboardingView.prototype.showOnboarding = function() {
-  var cookie = getCookie(this.cookieName);
-  if (!cookie) {
-    this.textSelectionOnboardingElement.addClass('-show');
-  }
+  this.textSelectionOnboardingElement.addClass('-show');
 };
 
 TextSelectionOnboardingView.prototype.closeOnboarding = function() {
