@@ -48,7 +48,6 @@ var events = {
   nextOpinion: $.Topic('nextOpinion'),
 
   // Triggered when user click on close modal
-  // Params: reopen
   closeOpinionModal: $.Topic('closeOpinionModal'),
 
   // Triggered when a modal is closed
