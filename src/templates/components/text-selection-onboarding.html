@@ -5,7 +5,7 @@
 {% block extra_classes %}-onboarding js-textSelectionOnboarding{% endblock %}
 
 
-{% block extra_attributes %}{% if request.user.is_authenticated %} data-is-authenticated {% endif %}{% endblock %}
+{% block extra_attributes %}{% if request.user.is_authenticated %} data-is-authenticated="true" {% endif %}{% endblock %}
 
 {% block header %}{% endblock %}
 

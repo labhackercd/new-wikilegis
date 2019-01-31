@@ -28,7 +28,7 @@ TextSelectionOnboardingView.prototype.subscribers = function() {
   });
 
   events.closeOpinionModal.subscribe(function() {
-    var cookie = getCookie(this.cookieName); 
+    var cookie = getCookie(self.cookieName); 
     if (!cookie && self.textSelectionOnboardingElement.data('isAuthenticated')) {
       events.showTextSelectionOnboarding.publish();
     }
