@@ -173,18 +173,13 @@
     }
   }
 
-  & > .content > .solid-button {
+  & > .content > .app-button {
     font-size: $font-size-deci;
 
     display: inline-flex;
 
     margin-top: 2rem;
     padding: .5rem 2rem;
-  }
-
-  & > .content > .footer > .simple-link {
-    margin: 0 auto;
-    margin-top: 1rem;
   }
 
   & > .content > .footer > .info-text {
@@ -195,8 +190,8 @@
     margin-left: 1rem;
   }
 
-  & > .content > .footer > .actions > .solid-button,
-  & > .content > .solid-button {
+  & > .content > .footer > .actions > .app-button,
+  & > .content > .app-button {
     font-size: $font-size-mili;
 
     padding: .75rem 1rem;
