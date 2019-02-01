@@ -1,12 +1,12 @@
-.solid-button {
-  font-size: .75rem;
+.app-button {
+  font-size: $font-size-micro;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 5rem;
-  padding: .6rem .2rem;
+  min-width: 5em;
+  padding: .75em 1.5em;
 
   cursor: pointer;
   transition: all .15s ease-out;
@@ -15,9 +15,7 @@
   color: #FFF;
 
   @include bp-mediumup {
-    font-size: .875rem;
-
-    width: 8rem;
+    font-size: $font-size-centi;
   }
 
   &.-green {
@@ -41,6 +39,17 @@
 
     &:hover {
       background-color: lighten($color-gray, 10%);
+    }
+  }
+
+  &.-clear {
+    text-decoration: underline;
+    text-transform: none;
+
+    color: $color-gray;
+
+    &:hover {
+      color: $color-deep-gray;
     }
   }
 }
