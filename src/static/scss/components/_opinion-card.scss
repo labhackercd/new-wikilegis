@@ -61,6 +61,30 @@
     word-break: break-word; 
   }
 
+  & > .actions {
+
+    & > .disagree {
+      @extend .app-button;
+      @extend .app-button.-red;
+      @include icon('disagree');
+    }
+
+    & > .indifferent {
+      @extend .app-button;
+      @extend .app-button.-gray; 
+    }
+
+    & > .agree {
+      @extend .app-button;
+      @extend .app-button.-green; 
+    }
+
+    & > .skip {
+      @extend .app-button;
+      @extend .app-button.-clear; 
+    }
+  }
+
   @include bp-mediumup {
     top: initial;
     left: initial;
