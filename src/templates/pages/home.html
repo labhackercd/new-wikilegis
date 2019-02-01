@@ -3,124 +3,128 @@
 
 {% block content %}
 
-<main class="home-section">
-  {% include "components/hero-section.html" %}
-  <div class="projects-list" id="js-projects-list">
-    <input class="search js-search" type="text" placeholder="Buscar">
-    <div class="list">
-    {% if pending_invites and request.user.is_authenticated %}
-      {% for invite in pending_invites %}
-      <div class="simple-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
-        <div class="header">
-        {% if invite.group.closing_date|is_open %}
-          <span class="date">Aberto até {{invite.group.closing_date|date:"d/m/Y"}}</span>
-          <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-        {% else %}
-          <span class="status">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</span>
-        {% endif %}
-        </div>
-        <h3 class="js-title">{{ invite.group.document.title }}</h3>
-        <p class="js-description">{{ invite.group.document.description }}</p>
-        <div class="info">
-          <div class="themes">
-            {% for theme in invite.group.document.themes.all %}
-            <div class="theme">
-              {% if theme.icon %}
-              <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-              {% endif %}
-              <span>{{ theme.name }}</span>
-            </div>
-            {% endfor %}
+<header class="start-header" id="headerParticles">
+  {% include "components/hero.html" %}
+  <div class="example">
+    <img src="{% static 'img/example.png' %}">
+  </div>
+</header>
+
+<main class="project-list" id="js-projects-list">
+  <input class="search js-search" type="text" placeholder="Buscar">
+  <div class="list">
+  {% if pending_invites and request.user.is_authenticated %}
+    {% for invite in pending_invites %}
+    <div class="simple-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
+      <div class="header">
+      {% if invite.group.closing_date|is_open %}
+        <span class="date">Aberto até {{invite.group.closing_date|date:"d/m/Y"}}</span>
+        <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+      {% else %}
+        <span class="status">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</span>
+      {% endif %}
+      </div>
+      <h3 class="js-title">{{ invite.group.document.title }}</h3>
+      <p class="js-description">{{ invite.group.document.description }}</p>
+      <div class="info">
+        <div class="themes">
+          {% for theme in invite.group.document.themes.all %}
+          <div class="theme">
+            {% if theme.icon %}
+            <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+            {% endif %}
+            <span>{{ theme.name }}</span>
           </div>
-          <div class="suggestions">
-            <div class="suggestion">
-              <span class="value">{{ invite.group.suggestions.all.count }}</span>
-              <span>Sugestões</span>
-            </div>
-          </div>
+          {% endfor %}
         </div>
-        <hr/>
-        <div class="voting-action">
-          <span class="info-text">
-            <img src="{% static 'img/information.svg' %}">
-            <h3>Você foi convidado para participar nesta proposição</h3>
-          </span>
-          <div class="actions">
-            <a href="{% url 'invitation' invite.pk 'accepted' %}" class="solid-button -green">Aceitar</a>
-            <a href="{% url 'invitation' invite.pk 'declined' %}" class="solid-button -red">Recusar</a>
+        <div class="suggestions">
+          <div class="suggestion">
+            <span class="value">{{ invite.group.suggestions.all.count }}</span>
+            <span>Sugestões</span>
           </div>
         </div>
       </div>
-      {% endfor %}
-    {% endif %}
-    {% if private_groups and request.user.is_authenticated %}
-      {% for private_group in private_groups %}
-      <a href="{% url 'project' private_group.id private_group.document.slug %}" class="simple-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
-        <div class="header">
-        {% if private_group.closing_date|is_open %}
-          <span class="date">Aberto até {{private_group.closing_date|date:"d/m/Y"}}</span>
-          <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-        {% else %}
-          <span class="date">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</span>
-          <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-        {% endif %}
+      <hr/>
+      <div class="voting-action">
+        <span class="info-text">
+          <img src="{% static 'img/information.svg' %}">
+          <h3>Você foi convidado para participar nesta proposição</h3>
+        </span>
+        <div class="actions">
+          <a href="{% url 'invitation' invite.pk 'accepted' %}" class="solid-button -green">Aceitar</a>
+          <a href="{% url 'invitation' invite.pk 'declined' %}" class="solid-button -red">Recusar</a>
         </div>
-        <h3 class="js-title">{{ private_group.document.title }}</h3>
-        <p class="js-description">{{ private_group.document.description }}</p>
-        <div class="info">
-          <div class="themes">
-            {% for theme in private_group.document.themes.all %}
-            <div class="theme">
-              {% if theme.icon %}
-              <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-              {% endif %}
-              <span>{{ theme.name }}</span>
-            </div>
-            {% endfor %}
-          </div>
-          <div class="suggestions">
-            <div class="suggestion">
-              <span class="value">{{private_group.suggestions.all.count}}</span>
-              <span>Sugestões</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      {% endfor %}
-    {% endif %}
-    {% if public_groups %}
-      {% for public_group in public_groups %}
-      <a href="{% url 'project' public_group.id public_group.document.slug %}" class="simple-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
-        <div class="header">
-        {% if public_group.closing_date|is_open %}
-          <span class="date">Aberto até {{public_group.closing_date|date:"d/m/Y"}}</span>
-        {% else %}
-          <span class="date">Encerrado em {{public_group.closing_date|date:"d/m/Y"}}</span>
-        {% endif %}
-        </div>
-        <h3 class="js-title">{{ public_group.document.title }}</h3>
-        <p class="js-description">{{ public_group.document.description }}</p>
-        <div class="info">
-          <div class="themes">
-            {% for theme in public_group.document.themes.all %}
-            <div class="theme">
-              {% if theme.icon %}
-              <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-              {% endif %}
-              <span>{{ theme.name }}</span>
-            </div>
-            {% endfor %}
-          </div>
-          <div class="suggestions">
-            <div class="suggestion">
-              <span class="value">{{public_group.suggestions.all.count}}</span>
-              <span>Sugestões</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      {% endfor %}
+      </div>
     </div>
+    {% endfor %}
+  {% endif %}
+  {% if private_groups and request.user.is_authenticated %}
+    {% for private_group in private_groups %}
+    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="simple-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
+      <div class="header">
+      {% if private_group.closing_date|is_open %}
+        <span class="date">Aberto até {{private_group.closing_date|date:"d/m/Y"}}</span>
+        <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+      {% else %}
+        <span class="date">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</span>
+        <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
+      {% endif %}
+      </div>
+      <h3 class="js-title">{{ private_group.document.title }}</h3>
+      <p class="js-description">{{ private_group.document.description }}</p>
+      <div class="info">
+        <div class="themes">
+          {% for theme in private_group.document.themes.all %}
+          <div class="theme">
+            {% if theme.icon %}
+            <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+            {% endif %}
+            <span>{{ theme.name }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="suggestions">
+          <div class="suggestion">
+            <span class="value">{{private_group.suggestions.all.count}}</span>
+            <span>Sugestões</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  {% endif %}
+  {% if public_groups %}
+    {% for public_group in public_groups %}
+    <a href="{% url 'project' public_group.id public_group.document.slug %}" class="simple-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
+      <div class="header">
+      {% if public_group.closing_date|is_open %}
+        <span class="date">Aberto até {{public_group.closing_date|date:"d/m/Y"}}</span>
+      {% else %}
+        <span class="date">Encerrado em {{public_group.closing_date|date:"d/m/Y"}}</span>
+      {% endif %}
+      </div>
+      <h3 class="js-title">{{ public_group.document.title }}</h3>
+      <p class="js-description">{{ public_group.document.description }}</p>
+      <div class="info">
+        <div class="themes">
+          {% for theme in public_group.document.themes.all %}
+          <div class="theme">
+            {% if theme.icon %}
+            <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+            {% endif %}
+            <span>{{ theme.name }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="suggestions">
+          <div class="suggestion">
+            <span class="value">{{public_group.suggestions.all.count}}</span>
+            <span>Sugestões</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
   </div>
   {% endif %}
 </main>
@@ -128,7 +132,13 @@
 {% endblock content %}
 
 {% block page_js %}
+  <script>
+    var prefixURL = '{{prefix_url|default_if_none:""}}';
+  </script>
+
   <script src="{% static 'list.js/dist/list.min.js' %}"></script>
+  <script src="{% static 'particles.js/particles.js' %}"></script>
+  <script src="{% static 'js/components/backgroundParticle/view.js' %}"></script>
   <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
   <script src="{% static 'js/components/documentBody/view.js' %}"></script>
   <script src="{% static 'js/components/navBurger/view.js' %}"></script>

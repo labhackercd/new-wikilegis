@@ -1,0 +1,49 @@
+.start-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 4rem 8vw;
+
+  & > .hero {
+    @include bp-mediumup {
+      width: calc(40% - 2rem);
+    }
+
+    & > h1 > .text-highlight {
+      @extend h1;
+
+      padding: .25rem .5rem;
+    }
+
+    & > h1,
+    & > .solid-button {
+      margin-top: 2.625rem;
+    }
+
+    & > p {
+      margin-top: 1.5rem;
+    }
+
+    & > .solid-button {
+      padding: 1rem 2rem;
+    }
+  }
+
+  & > .example {
+    @include bp-mediumup {
+      width: calc(60% - 2rem);
+    }
+
+    & > img {
+      width: 100%;
+    }
+  }
+
+  & > canvas {
+    position: absolute;
+    z-index: -1;
+  }
+}
