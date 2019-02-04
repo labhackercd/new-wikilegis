@@ -1,42 +1,47 @@
-/*global $ events Tooltip */
+/*global $ events Tooltip Urls */
 
 var HighlightTooltipView = function() {};
 
 HighlightTooltipView.prototype.initEvents = function () {
-  this.tooltips = {};
+  this.tooltips = [];
   this.subscribers();
 };
 
 HighlightTooltipView.prototype.subscribers = function () {
   var self = this;
-  events.openHighlightTooltip.subscribe(function (parentNode, activeId) {
-    self.showTooltip(parentNode, activeId);
+  events.openHighlightTooltip.subscribe( function(excerpt, currentId){
+    self.showTooltip(excerpt, currentId);
   });
 
-  events.closeHighlightTooltip.subscribe(function (parentNode) {
-    self.hideTooltip(parentNode);
+  events.closeHighlightTooltip.subscribe(function() {
+    self.destroyTooltips();
   });
 };
 
-HighlightTooltipView.prototype.showTooltip = function (parentNode, activeId) {
+HighlightTooltipView.prototype.showTooltip = function (excerpt, currentId) {
   var self = this;
-
-  var highlight = parentNode.find('.js-highlight').filter(function() {
+  var highlights = excerpt.find('.js-highlight').filter(function() {
     var ids = $(this).data('suggestionIds').toString().split(',');
-    return ids.includes(activeId);
-  }).first();
-  var tooltip = new Tooltip(highlight, {
-    placement: 'top',
-    title: highlight.data('content')
+    return ids.includes(currentId);
   });
-  self.tooltips[highlight[0]] = tooltip;
-  tooltip.show();
+  var highlight = highlights.first();
+
+  $.get(Urls.suggestion_detail(currentId), function(data) {
+    var tooltip = new Tooltip(
+      highlight, {
+        title: data.content,
+        placement: 'top-end',
+
+      }
+    );
+    self.tooltips.push(tooltip);
+    tooltip.show();
+  });
 };
 
-
-HighlightTooltipView.prototype.hideTooltip = function (parentNode) {
+HighlightTooltipView.prototype.destroyTooltips = function () {
   var self = this;
-  parentNode.find('.js-highlight').each(function(index, value) {
-    self.tooltips[value].dispose();
+  $.each(self.tooltips, function(index, tooltip) {
+    tooltip.dispose();
   });
 };

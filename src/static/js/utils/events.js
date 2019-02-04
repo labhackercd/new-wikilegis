@@ -106,4 +106,12 @@ var events = {
 
   // Triggered when user click on infoButton
   openInfoModal: $.Topic('openInfoModal'),
+
+  // Triggered on highlight mouseenter
+  // Params: parentNode, activeId
+  openHighlightTooltip: $.Topic('openHighlightTooltip'),
+
+  // Triggered on highlight mouseleave
+  // Params: parentNode
+  closeHighlightTooltip: $.Topic('closeHighlightTooltip'),
 };
