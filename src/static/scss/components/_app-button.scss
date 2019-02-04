@@ -20,7 +20,10 @@
     padding: .75rem 1.5rem;
   }
 
-  &.-circle {
+  &.-circle { 
+    // Duplicate the button text content inside a data-text attribute
+    // in the markup for its label to work with the -circle variant
+
     @include bp-mediumup {
       font-size: 0;
 
@@ -58,7 +61,7 @@
         pointer-events: none;
 
         opacity: 0;
-        color: $color-grayish;
+        color: #fff;
       }
 
       &:hover::after {
@@ -135,6 +138,15 @@
 
     &:hover {
       background-color: lighten($color-deep-gray, 10%);
+    }
+  }
+
+  &.-white {
+    background-color: #fff;
+    color: $color-deep-gray;
+
+    &:hover {
+      background-color: darken(#fff, 5%);
     }
   }
 
