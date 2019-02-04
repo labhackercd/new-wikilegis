@@ -15,6 +15,10 @@
   transition: box-shadow 0.3s $swift-out;
 }
 
+@mixin button-shadow {
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08);
+}
+
 @mixin header-shadow {
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s $swift-out;

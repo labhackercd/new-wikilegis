@@ -1,23 +1,33 @@
 .opinion-card {
   @extend .app-modal;
+
   position: initial;
   z-index: initial;
   top: initial;
   left: initial;
 
   overflow: initial;
+  align-items: flex-start;
   flex-direction: initial;
 
   width: initial;
 
-  background-color: #FFF;
-
-  align-items: flex-start;
-
+  transition: transform .3s ease, opacity .1s ease;
   text-align: left;
 
-  transition: transform 0.3s ease, opacity 0.1s ease;
   opacity: 1;
+  background-color: #FFF;
+
+  @include bp-mediumup {
+    top: initial;
+    left: initial;
+
+    width: initial;
+    height: initial;
+    max-height: initial;
+
+    transform: initial;
+  }
 
   &.-active {
     display: block;
@@ -33,21 +43,25 @@
 
   &.-reject {
     transform: translate(100%, 10%);
+
     opacity: 0;
   }
 
   &.-approve {
     transform: translate(-100%, 10%);
+
     opacity: 0;
   }
 
   &.-neutral {
     transform: translateY(100%);
+
     opacity: 0;
   }
 
   &.-next {
     transform: translateY(-100%);
+
     opacity: 0;
   }
 
@@ -58,43 +72,45 @@
   }
 
   & > .suggestion {
-    word-break: break-word; 
+    word-break: break-word;
   }
 
   & > .actions {
-
     & > .disagree {
       @extend .app-button;
       @extend .app-button.-red;
+      @extend .app-button.-circle;
+      @extend .app-button.-circle.-toleft;
+
       @include icon('disagree');
     }
 
     & > .indifferent {
       @extend .app-button;
-      @extend .app-button.-gray; 
+      @extend .app-button.-gray;
+      @extend .app-button.-circle;
+
+      @include icon('indifferent');
     }
 
     & > .agree {
       @extend .app-button;
-      @extend .app-button.-green; 
+      @extend .app-button.-green;
+      @extend .app-button.-circle;
+      @extend .app-button.-circle.-toright;
+
+      @include icon('agree');
     }
 
     & > .skip {
       @extend .app-button;
-      @extend .app-button.-clear; 
+      @extend .app-button.-deepgray;
+      @extend .app-button.-circle;
+      @extend .app-button.-circle.-toleft;
+      @extend .app-button.-circle.-small;
+
+      @include icon('skip');
     }
-  }
-
-  @include bp-mediumup {
-    top: initial;
-    left: initial;
-
-    width: initial;
-
-    height: initial;
-    max-height: initial;
-
-    transform: initial;
   }
 
   & > .info-text {

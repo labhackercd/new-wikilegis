@@ -1,21 +1,109 @@
 .app-button {
-  font-size: $font-size-micro;
+  font-size: $font-size-mili;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  min-width: 5em;
-  padding: .75em 1.5em;
+  min-width: 5rem;
+  padding: .7rem 1.2rem;
 
   cursor: pointer;
-  transition: all .15s ease-out;
+  transition: all .3s $swift-out;
   text-transform: uppercase;
 
   color: #FFF;
 
   @include bp-mediumup {
     font-size: $font-size-centi;
+
+    padding: .75rem 1.5rem;
+  }
+
+  &.-circle {
+    @include bp-mediumup {
+      font-size: 0;
+
+      position: relative;
+
+      width: 3.75rem;
+      min-width: 0;
+      height: 3.75rem;
+      padding: 0;
+
+      border-radius: 50%;
+
+      @include button-shadow();
+
+      &::before {
+        position: absolute;
+
+        width: 1.6rem !important;
+        min-width: 0 !important;
+        height: 1.6rem !important;
+        min-height: 0 !important;
+      }
+
+      &::after {
+        font-size: 1rem;
+        font-weight: 600;
+
+        position: absolute;
+        bottom: -2em;
+
+        content: attr(data-text);
+        transition: transform .3s $swift-out, opacity .3s $swift-out;
+        transform: translate(0,100%);
+        white-space: nowrap;
+        pointer-events: none;
+
+        opacity: 0;
+        color: $color-grayish;
+      }
+
+      &:hover::after {
+        transform: translate(0) !important;
+
+        opacity: 1;
+      }
+
+      &.-toright {
+        &::after {
+          bottom: auto;
+          left: calc(100% + 1.5em);
+
+          transform: translate(1em, 0);
+        }
+      }
+
+      &.-toleft {
+        &::after {
+          right: calc(100% + 1.5em);
+          bottom: auto;
+
+          transform: translate(-1em, 0);
+        }
+      }
+
+      &.-totop {
+        &::after {
+          top: -2em;
+          bottom: auto;
+
+          transform: translate(0,-100%);
+        }
+      }
+
+      &.-small {
+        width: 2.75rem;
+        height: 2.75rem;
+
+        &::before {
+          width: 1rem !important;
+          height: 1rem !important;
+        }
+      }
+    }
   }
 
   &.-green {
@@ -39,6 +127,14 @@
 
     &:hover {
       background-color: lighten($color-gray, 10%);
+    }
+  }
+
+  &.-deepgray {
+    background-color: $color-deep-gray;
+
+    &:hover {
+      background-color: lighten($color-deep-gray, 10%);
     }
   }
 
