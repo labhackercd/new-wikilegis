@@ -1,13 +1,22 @@
 .start-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   box-sizing: border-box;
   min-height: 100vh;
-  padding: 4rem 8vw;
+  padding: 4rem 2rem;
+
+  @include bp-smallup {
+    padding: 4rem 8vw;
+  }
 
   & > .hero {
+    width: 100%;
+
+    @include bp-mediumonly {
+      width: 50%;
+    }
     @include bp-mediumup {
       width: calc(40% - 2rem);
     }
@@ -28,12 +37,17 @@
     }
 
     & > .solid-button {
+      width: 7rem;
       padding: 1rem 2rem;
     }
   }
 
   & > .example {
+    display: none;
+
     @include bp-mediumup {
+      display: block;
+
       width: calc(60% - 2rem);
     }
 

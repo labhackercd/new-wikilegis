@@ -10,7 +10,15 @@
   </div>
 </header>
 
-<main class="project-list" id="js-projects-list">
+<main class="projects-list" id="js-projects-list">
+  <div class="header">
+    <h1>Projetos</h1>
+    <div class="tabs">
+      <div class="tab -active">Participação Popular</div>
+      <div class="tab">Abertos</div>
+      <div class="tab">Encerrados</div>
+    </div>
+  </div>
   <input class="search js-search" type="text" placeholder="Buscar">
   <div class="list">
   {% if pending_invites and request.user.is_authenticated %}
