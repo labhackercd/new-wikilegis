@@ -74,6 +74,10 @@ body {
       opacity: .6;
       background-color: #000;
     }
+
+    > main {
+      filter: blur(2px);
+    }
   }
 }
 
