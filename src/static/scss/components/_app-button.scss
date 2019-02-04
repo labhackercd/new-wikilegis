@@ -24,84 +24,106 @@
     // Duplicate the button text content inside a data-text attribute
     // in the markup for its label to work with the -circle variant
 
+    font-size: 0;
+
+    position: relative;
+
+    width: 2.5rem;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0;
+
+    border-radius: 50%;
+
+    @include button-shadow();
+
     @include bp-mediumup {
-      font-size: 0;
-
-      position: relative;
-
       width: 3.75rem;
-      min-width: 0;
       height: 3.75rem;
-      padding: 0;
+    }
 
-      border-radius: 50%;
+    &::before {
+      position: absolute;
 
-      @include button-shadow();
+      width: 0.9rem !important;
+      min-width: 0 !important;
+      height: 0.9rem !important;
+      min-height: 0 !important;
 
-      &::before {
-        position: absolute;
-
+      @include bp-mediumup {
         width: 1.6rem !important;
         min-width: 0 !important;
         height: 1.6rem !important;
         min-height: 0 !important;
       }
+    }
 
-      &::after {
-        font-size: 1rem;
-        font-weight: 600;
+    &::after {
+      font-size: 1rem;
+      font-weight: 600;
 
-        position: absolute;
-        bottom: -2em;
+      position: absolute;
+      bottom: -2em;
 
-        content: attr(data-text);
-        transition: transform .3s $swift-out, opacity .3s $swift-out;
-        transform: translate(0,100%);
-        white-space: nowrap;
-        pointer-events: none;
+      content: attr(data-text);
+      transition: transform .3s $swift-out, opacity .3s $swift-out;
+      transform: translate(0,100%);
+      white-space: nowrap;
+      pointer-events: none;
 
-        opacity: 0;
-        color: #fff;
-      }
+      opacity: 0;
+      color: #fff;
+    }
 
+    @include bp-mediumup {
       &:hover::after {
         transform: translate(0) !important;
 
         opacity: 1;
       }
+    }
 
-      &.-toright {
-        &::after {
-          bottom: auto;
-          left: calc(100% + 1.5em);
+    &.-toright {
+      &::after {
+        bottom: auto;
+        left: calc(100% + 1.5em);
 
-          transform: translate(1em, 0);
-        }
+        transform: translate(1em, 0);
       }
+    }
 
-      &.-toleft {
-        &::after {
-          right: calc(100% + 1.5em);
-          bottom: auto;
+    &.-toleft {
+      &::after {
+        right: calc(100% + 1.5em);
+        bottom: auto;
 
-          transform: translate(-1em, 0);
-        }
+        transform: translate(-1em, 0);
       }
+    }
 
-      &.-totop {
-        &::after {
-          top: -2em;
-          bottom: auto;
+    &.-totop {
+      &::after {
+        top: -2em;
+        bottom: auto;
 
-          transform: translate(0,-100%);
-        }
+        transform: translate(0,-100%);
       }
+    }
 
-      &.-small {
+    &.-small {
+      width: 2rem;
+      height: 2rem;
+
+      @include bp-mediumup {
         width: 2.75rem;
         height: 2.75rem;
+      }
 
-        &::before {
+      &::before {
+        width: 0.75rem !important;
+        height: 0.75rem !important;
+
+        @include bp-mediumup {
           width: 1rem !important;
           height: 1rem !important;
         }
