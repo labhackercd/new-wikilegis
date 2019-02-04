@@ -2,12 +2,16 @@
   position: relative;
 
   display: flex;
+  flex-direction: column;
 
-  width: 55rem;
-  height: auto;
-  margin-bottom: 7.5rem;
+  max-width: 22rem;
 
   transform: translate(0);
+
+  @include bp-mediumup {
+    width: 55rem;
+    max-width: 55rem;
+  }
 
   &.-active {
     & ~ .-active {
@@ -19,107 +23,180 @@
     display: none;
   }
 
-  &.-reject {
-    transform: translate(100%, 10%);
+  & > .card {
+    overflow-x: hidden;
+    overflow-y: auto;
 
-    opacity: 0;
-  }
+    transition: transform .5s $swift-out, opacity .3s ease;
 
-  &.-approve {
-    transform: translate(-100%, 10%);
+    opacity: 1;
 
-    opacity: 0;
-  }
-
-  &.-neutral {
-    transform: translateY(100%);
-
-    opacity: 0;
-  }
-
-  &.-next {
-    transform: translateY(-100%);
-
-    opacity: 0;
-  }
-
-  & > .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-
-  & > .suggestion {
-    word-break: break-word;
-  }
-
-  & > header {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    display: flex;
-    justify-content: space-between;
-
-    box-sizing: border-box;
-    width: 100%;
-    padding: 2rem;
-  }
-
-  & > .highlight,
-  & > .opinion {
-    display: flex;
-    flex: 1 0 50%;
-
-    box-sizing: border-box;
-    padding-top: 6rem;
-
-    text-align: left;
-
-    & > .overflow {
-      overflow-y: auto;
-      overflow-y: overlay;
-      overflow-x: hidden;
-
-      width: 100%;
-      padding: 0 2rem;
-      padding-bottom: 4rem;
+    @include card-darkbg-shadow();
+    @include bp-mediumup {
+      display: flex;
+      overflow-x: unset;
+      overflow-y: unset;
     }
-  }
 
-  & > .highlight {
-    background-color: #FFF;
+    @at-root .-reject#{&} {
+      transform: rotate(-10deg);
+      opacity: 0;
+      transform-origin: 100% 200%;
 
-    & > .overflow > .excerpt > .text-highlight::before {
-      position: absolute;
+      @include bp-mediumup {
+        transform-origin: 100% 300%;
+      }
+    }
+
+    @at-root .-approve#{&} {
+      transform: rotate(10deg);
+      opacity: 0;
+      transform-origin: 0 200%;
+
+      @include bp-mediumup {
+        transform-origin: 0% 300%;
+      }
+    }
+
+    @at-root .-neutral#{&} {
+      transform: translateY(30%);
+
+      opacity: 0;
+    }
+
+    @at-root .-next#{&} {
+      transform: translateX(calc(-50vw - 17rem));
+      @include bp-mediumup {
+        transform: translateX(calc(-50vw - 33.5rem));
+      }
+    }
+
+    & > .suggestion {
+      word-break: break-word;
+    }
+
+    & > header {
+      position: fixed;
+      z-index: 2;
+      top: 0;
       left: 0;
 
-      display: block;
+      display: flex;
+      justify-content: space-between;
 
-      width: 27.5rem;
-      height: 3px;
-      margin-top: -1.6em;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 1rem;
 
-      content: '';
+      background-color: #FFF;
+
+      @include bp-mediumup {
+        padding: 2rem;
+
+        background-color: transparent;
+      }
+    }
+
+    & > .highlight,
+    & > .opinion {
+      display: flex;
+      overflow: hidden;
+      flex: 1 0 50%;
+
+      box-sizing: border-box;
+
+      text-align: left;
+
+      & > .overflow {
+        width: 100%;
+        padding: 1rem;
+
+        @include bp-mediumup {
+          overflow-x: hidden;
+          overflow-y: auto;
+          overflow-y: overlay;
+
+          padding: 0 2rem;
+          padding-bottom: 4rem;
+        }
+      }
+    }
+
+    & > .highlight {
+      padding-top: 4.5rem;
+
+      background-color: #FFF;
+
+      @include bp-mediumup {
+        padding-top: 6rem;
+      }
+
+      & > .overflow > .excerpt {
+        position: relative;
+        z-index: 1;
+
+        color: $color-gray;
+
+        & > .text-highlight {
+          position: unset;
+
+          background-color: $color-highlight-on-white;
+
+          @include bp-mediumup {
+            position: relative;
+          }
+
+          &::before {
+            position: absolute;
+            z-index: -1;
+
+            width: 3px;
+            height: calc(100% + 1rem);
+
+            content: '';
+
+            background-color: $color-highlight-on-white;
+
+            @include bp-mediumup {
+              width: 27.5rem;
+              height: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    & > .opinion {
+      padding-bottom: .5rem;
 
       background-color: $color-highlight-on-white;
-    }
-  }
 
-  & > .opinion {
-    background-color: $color-highlight-on-white;
+      @include bp-mediumup {
+        padding-top: 6rem;
+        padding-bottom: 0;
+      }
+    }
+
+    & > .info-text {
+      justify-content: flex-start;
+    }
   }
 
   & > .actions {
-    position: absolute;
-    top: 100%;
-
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex: 0 0 auto;
+    justify-content: flex-start;
 
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 1rem;
+
+    @include bp-mediumup {
+      justify-content: center;
+
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+    }
 
     & > .disagree {
       @extend .app-button;
@@ -134,6 +211,8 @@
       @extend .app-button;
       @extend .app-button.-gray;
       @extend .app-button.-circle;
+
+      margin: 0 1rem;
 
       @include bp-mediumup {
         margin: 0 3rem;
@@ -157,15 +236,10 @@
       @extend .app-button.-circle.-toleft;
       @extend .app-button.-circle.-small;
 
-      @include bp-mediumup {
-        position: absolute;
-        right: 0;
-      }
+      position: absolute;
+      right: 0;
+
       @include icon('skip');
     }
-  }
-
-  & > .info-text {
-    justify-content: flex-start;
   }
 }
