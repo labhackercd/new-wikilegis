@@ -1,5 +1,8 @@
 .text-highlight {
-  background-color: rgba(255, 221, 102, 0.5);
+  position: relative;
+
+  padding: .2em 0;
+
   color: $color-deep-gray;
 
   &.-active {
