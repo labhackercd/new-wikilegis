@@ -24,21 +24,12 @@
   }
 
   &.-opinion {
-    @include bp-mediumdown {
-      top: 50%;
-      left: 50%;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    justify-content: center;
 
-      width: 22rem;
-      max-width: calc(100% - 2rem);
-      height: auto;
-      max-height: calc(100% - 2rem);
-
-      transform: translate(-50%, -50%);
-    }
-
-    .excerpt {
-      color: $color-grayish;
-    }
+    background-color: transparent;
   }
 
   &.-filter {
@@ -124,91 +115,23 @@
       padding: 1.5rem;
     }
 
-    @at-root .-opinion#{&} {
-      align-items: flex-start;
-
-      padding-top: 4rem;
-
-      text-align: left;
-    }
-
     @at-root .-onboarding#{&} {
       overflow-y: unset;
 
       max-width: 55rem;
       margin: auto;
       padding: 0;
+
+      & > .app-button {
+        display: inline-flex;
+        margin-top: 2rem;
+      }
     }
-  }
 
-  & > .content > img,
-  & > .content > svg {
-    margin: 0 auto;
-  }
-
-  & > .content > .info-text {
-    justify-content: left;
-
-    margin-top: 2rem;
-  }
-
-  & > .content > .info-text:first-child {
-    margin-top: 0;
-  }
-
-  & > .content > .footer {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    box-sizing: border-box;
-    width: 100%;
-    margin-top: 1rem;
-    padding: 1.5rem;
-
-    background-color: #FFF;
-
-    @include bp-mediumup {
-      padding-top: 2.5rem;
-    }
-  }
-
-  & > .content > .app-button {
-    font-size: $font-size-deci;
-
-    display: inline-flex;
-
-    margin-top: 2rem;
-    padding: .5rem 2rem;
-  }
-
-  & > .content > .footer > .info-text {
-    margin-top: 0;
-  }
-
-  & > .content > .footer > .actions > * + * {
-    margin-left: 1rem;
-  }
-
-  & > .content > .footer > .actions > .app-button,
-  & > .content > .app-button {
-    font-size: $font-size-mili;
-
-    padding: .75rem 1rem;
-
-    @include bp-mediumup {
-      font-size: $font-size-centi;
-    }
-  }
-
-  & > .content .actions {
-    display: flex;
-    justify-content: space-between;
-
-    margin-top: 1rem;
-
-    @include bp-mediumup {
-      margin-top: 2rem;
+    @at-root .-opinion#{&} {
+      display: flex;
+      overflow: hidden;
+      justify-content: center;
     }
   }
 }

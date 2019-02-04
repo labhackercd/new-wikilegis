@@ -1,37 +1,15 @@
 .opinion-card {
-  @extend .app-modal;
+  position: relative;
 
-  position: initial;
-  z-index: initial;
-  top: initial;
-  left: initial;
+  display: flex;
 
-  overflow: initial;
-  align-items: flex-start;
-  flex-direction: initial;
+  width: 55rem;
+  height: auto;
+  margin-bottom: 7.5rem;
 
-  width: initial;
-
-  transition: transform .3s ease, opacity .1s ease;
-  text-align: left;
-
-  opacity: 1;
-  background-color: #FFF;
-
-  @include bp-mediumup {
-    top: initial;
-    left: initial;
-
-    width: initial;
-    height: initial;
-    max-height: initial;
-
-    transform: initial;
-  }
+  transform: translate(0);
 
   &.-active {
-    display: block;
-
     & ~ .-active {
       display: none;
     }
@@ -75,7 +53,74 @@
     word-break: break-word;
   }
 
+  & > header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2rem;
+  }
+
+  & > .highlight,
+  & > .opinion {
+    display: flex;
+    flex: 1 0 50%;
+
+    box-sizing: border-box;
+    padding-top: 6rem;
+
+    text-align: left;
+
+    & > .overflow {
+      overflow-y: auto;
+      overflow-y: overlay;
+      overflow-x: hidden;
+
+      width: 100%;
+      padding: 0 2rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  & > .highlight {
+    background-color: #FFF;
+
+    & > .overflow > .excerpt > .text-highlight::before {
+      position: absolute;
+      left: 0;
+
+      display: block;
+
+      width: 27.5rem;
+      height: 3px;
+      margin-top: -1.6em;
+
+      content: '';
+
+      background-color: $color-highlight-on-white;
+    }
+  }
+
+  & > .opinion {
+    background-color: $color-highlight-on-white;
+  }
+
   & > .actions {
+    position: absolute;
+    top: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    margin-top: 2rem;
+
     & > .disagree {
       @extend .app-button;
       @extend .app-button.-red;
@@ -90,6 +135,9 @@
       @extend .app-button.-gray;
       @extend .app-button.-circle;
 
+      @include bp-mediumup {
+        margin: 0 3rem;
+      }
       @include icon('indifferent');
     }
 
@@ -104,11 +152,15 @@
 
     & > .skip {
       @extend .app-button;
-      @extend .app-button.-deepgray;
+      @extend .app-button.-white;
       @extend .app-button.-circle;
       @extend .app-button.-circle.-toleft;
       @extend .app-button.-circle.-small;
 
+      @include bp-mediumup {
+        position: absolute;
+        right: 0;
+      }
       @include icon('skip');
     }
   }
