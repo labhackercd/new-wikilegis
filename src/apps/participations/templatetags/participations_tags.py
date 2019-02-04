@@ -1,6 +1,8 @@
 from django import template
 from django.db.models import Q
 from django.utils.safestring import mark_safe
+from django.utils import timezone
+
 
 register = template.Library()
 
@@ -90,3 +92,14 @@ def highlight_suggestion(suggestion):
         after=content[suggestion.end_index:]
     )
     return mark_safe(content)
+
+
+@register.simple_tag
+def can_suggest(group, user):
+    if user.is_authenticated:
+        if group.closing_date >= timezone.now().date():
+            return True
+        else:
+            return False
+    else:
+        return False

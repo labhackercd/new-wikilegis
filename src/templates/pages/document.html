@@ -1,11 +1,12 @@
 {% extends "structure/base.html" %}
-{% load staticfiles projects_tags %}
+{% load staticfiles projects_tags participations_tags %}
 {% block title %}
   {{ object.document.title }}
 {% endblock title %}
 {% block content %}
 
-<main class="document-body js-documentBody" data-selection-enabled="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
+{% can_suggest object request.user as selection_enabled%}
+<main class="document-body js-documentBody" data-selection-enabled="{% if selection_enabled %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
   <div class="wrapper">
     <div class="invisible"></div>
     <aside class="info-bar">

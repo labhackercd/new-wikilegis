@@ -14,11 +14,12 @@ DocumentExcerptView.prototype.initEvents = function() {
 
 DocumentExcerptView.prototype.publishers = function() {
   var self = this;
+  var selectionEnabled = self.documentBodyElement.data('selectionEnabled');
 
   self.documentBodyElement.on('mousedown touchstart', '.js-documentExcerpt', {}, function(e) {
     var target = $(e.target);
 
-    if (self.documentBodyElement.data('selectionEnabled')) {
+    if (selectionEnabled) {
       events.cancelTextSelection.publish();
 
       if (!$('body').hasClass('-voidselect')) {
@@ -36,7 +37,7 @@ DocumentExcerptView.prototype.publishers = function() {
       }
 
       this.selectionEndTimeout = setTimeout(function () {
-        if (document.getSelection().toString() != '') {
+        if (document.getSelection().toString() != '' && selectionEnabled) {
           events.endTextSelection.publish();
         }
       }, 500);
