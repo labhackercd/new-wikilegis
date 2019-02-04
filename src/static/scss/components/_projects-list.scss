@@ -12,11 +12,11 @@
     justify-content: space-between;
 
     & > .tabs {
-      display: none;
+      display: none; // TODO think better for mobile
 
-      @include bp-smallup {
-        display: flex;
-      }
+      // @include bp-smallup {
+      //   display: flex;
+      // }
 
       & > * + * {
         margin-left: 2rem;
