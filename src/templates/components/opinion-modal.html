@@ -48,8 +48,15 @@
         <a href="#" class="disagree js-opinionButton" data-opinion="reject" data-text="Discordo">Discordo</a>
         <a href="#" class="indifferent js-opinionButton" data-opinion="neutral" data-text="Indiferente">Indiferente</a>
         <a href="#" class="agree js-opinionButton" data-opinion="approve" data-text="Concordo">Concordo</a>
-        <a href="#" class="skip js-nextOpinion" data-text="Pular Opinião">Pular Opinião</a>
+        <a href="#" class="skip js-nextOpinion" data-opinion="skip" data-text="Pular Opinião">Pular Opinião</a>
       </footer>
     </article>
   {% endfor %}
+
+  <div class="submitted-opinion">
+    <span class="submission" data-opinion"reject">Discordo</span>
+    <span class="submission" data-opinion"neutral">Indiferente</span>
+    <span class="submission" data-opinion"approve">Concordo</span>
+    <span class="submission" data-opinion"skip">Pular Opinião</span>
+  </div>
 {% endblock content %}

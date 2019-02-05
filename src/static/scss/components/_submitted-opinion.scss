@@ -1,0 +1,19 @@
+.submitted-opinion {
+  position: absolute;
+
+  align-self: center;
+
+  & > .submission {
+    display: none;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 2rem;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    animation: submitted-opinion 1s ease-in-out forwards;
+
+    &.-show {
+      display: block;
+    }
+  }
+}
