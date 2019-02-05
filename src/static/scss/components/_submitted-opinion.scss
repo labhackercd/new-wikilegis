@@ -8,9 +8,14 @@
     color: white;
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 2rem;
+    font-size: $font-size-base;
     text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
-    animation: submitted-opinion 1s ease-in-out forwards;
+    opacity: 0;
+    animation: submitted-opinion 0.75s 0.1s ease-in-out forwards;
+
+    @include bp-mediumup {
+      font-size: $font-size-deca;
+    }
 
     &.-show {
       display: block;
