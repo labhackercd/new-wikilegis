@@ -6,8 +6,6 @@
 
   max-width: 22rem;
 
-  transform: translate(0);
-
   @include bp-mediumup {
     width: 55rem;
     max-width: 55rem;
@@ -27,7 +25,11 @@
     overflow-x: hidden;
     overflow-y: auto;
 
-    transition: transform .5s $swift-out, opacity .3s ease;
+    margin-top: auto;
+
+    transition: transform .7s $swift-out, opacity .4s ease;
+    transform: translate(0);
+    animation: activate-card .4s $swift-out;
 
     opacity: 1;
 
@@ -40,8 +42,9 @@
 
     @at-root .-reject#{&} {
       transform: rotate(-10deg);
-      opacity: 0;
       transform-origin: 100% 200%;
+
+      opacity: 0;
 
       @include bp-mediumup {
         transform-origin: 100% 300%;
@@ -50,11 +53,12 @@
 
     @at-root .-approve#{&} {
       transform: rotate(10deg);
-      opacity: 0;
       transform-origin: 0 200%;
 
+      opacity: 0;
+
       @include bp-mediumup {
-        transform-origin: 0% 300%;
+        transform-origin: 0 300%;
       }
     }
 
@@ -66,6 +70,7 @@
 
     @at-root .-next#{&} {
       transform: translateX(calc(-50vw - 17rem));
+
       @include bp-mediumup {
         transform: translateX(calc(-50vw - 33.5rem));
       }
@@ -190,14 +195,14 @@
 
     width: 100%;
     margin-top: 1rem;
+    margin-bottom: auto;
 
     @include bp-mediumup {
       justify-content: center;
 
       margin-top: 2rem;
-      margin-bottom: 1.5rem;
     }
-
+    
     & > .disagree {
       @extend .app-button;
       @extend .app-button.-red;

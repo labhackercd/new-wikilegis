@@ -20,10 +20,9 @@
     padding: .75rem 1.5rem;
   }
 
-  &.-circle { 
+  &.-circle {
     // Duplicate the button text content inside a data-text attribute
     // in the markup for its label to work with the -circle variant
-
     font-size: 0;
 
     position: relative;
@@ -36,19 +35,32 @@
     border-radius: 50%;
 
     @include button-shadow();
-
     @include bp-mediumup {
       width: 3.75rem;
       height: 3.75rem;
+    }
+    @include bp-mediumup {
+      &:hover::after {
+        transform: translate(0) !important;
+
+        opacity: 1;
+      }
     }
 
     &::before {
       position: absolute;
 
-      width: 0.9rem !important;
+      width: .9rem !important;
       min-width: 0 !important;
-      height: 0.9rem !important;
+      height: .9rem !important;
       min-height: 0 !important;
+      padding: 5px;
+
+      transition: box-shadow .4s ease;
+
+      border-radius: 50%;
+      background-size: calc(100% - 10px) !important;
+      box-shadow: 0 0 0 -1px currentColor;
 
       @include bp-mediumup {
         width: 1.6rem !important;
@@ -72,15 +84,7 @@
       pointer-events: none;
 
       opacity: 0;
-      color: #fff;
-    }
-
-    @include bp-mediumup {
-      &:hover::after {
-        transform: translate(0) !important;
-
-        opacity: 1;
-      }
+      color: #FFF;
     }
 
     &.-toright {
@@ -120,8 +124,8 @@
       }
 
       &::before {
-        width: 0.75rem !important;
-        height: 0.75rem !important;
+        width: .75rem !important;
+        height: .75rem !important;
 
         @include bp-mediumup {
           width: 1rem !important;
@@ -129,10 +133,18 @@
         }
       }
     }
+
+    &.-ripple::before {
+      box-shadow: 0 0 0 4rem transparent;
+    }
   }
 
   &.-green {
     background-color: $color-brand;
+
+    &.-circle {
+      color: $color-brand;
+    }
 
     &:hover {
       background-color: lighten($color-brand, 10%);
@@ -142,6 +154,10 @@
   &.-red {
     background-color: $color-red;
 
+    &.-circle {
+      color: $color-red;
+    }
+
     &:hover {
       background-color: lighten($color-red, 10%);
     }
@@ -149,6 +165,10 @@
 
   &.-gray {
     background-color: $color-gray;
+
+    &.-circle {
+      color: $color-gray;
+    }
 
     &:hover {
       background-color: lighten($color-gray, 10%);
@@ -158,17 +178,24 @@
   &.-deepgray {
     background-color: $color-deep-gray;
 
+    &.-circle {
+      color: $color-deep-gray;
+    }
+
     &:hover {
       background-color: lighten($color-deep-gray, 10%);
     }
   }
 
   &.-white {
-    background-color: #fff;
     color: $color-deep-gray;
+    background-color: #FFF;
 
+    &.-circle {
+      color: #FFF;
+    }
     &:hover {
-      background-color: darken(#fff, 5%);
+      background-color: darken(#FFF, 5%);
     }
   }
 
