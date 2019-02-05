@@ -137,4 +137,6 @@ var events = {
 
   // Triggered when the user does an action that closes the text selection onboarding
   closeTextSelectionOnboarding: $.Topic('closeTextSelectionOnboard'),
+
+  showNextSuggestion: $.Topic('showNextSuggestion')
 };
