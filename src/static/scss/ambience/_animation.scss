@@ -1,6 +1,36 @@
 $swift-out: cubic-bezier(.55, 0, .1, 1);
 
 @keyframes activate-card {
-  from {transform: scale(0.9); opacity: 0}
-  to {transform: scale(1); opacity: 1}
+  from {
+    transform: scale(.9);
+
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+
+    opacity: 1;
+  }
+}
+
+@keyframes submitted-opinion {
+  0% {
+    transform: translateY(2rem);
+
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-2rem);
+
+    opacity: 0;
+  }
 }
