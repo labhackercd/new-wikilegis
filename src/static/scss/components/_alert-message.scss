@@ -9,8 +9,8 @@
   align-items: center;
 
   transition: all .15s $swift-out;
-  // transform: translateY(150%);
-  // opacity: 0;
+  transform: translateY(150%);
+  opacity: 0;
 
   opacity: 1;
   color: #FFF;
@@ -21,6 +21,12 @@
     transform: translateY(0);
 
     opacity: 1;
+  }
+
+  &.-hide {
+    transform: translateY(150%);
+
+    opacity: 0;
   }
 
   &.-success {

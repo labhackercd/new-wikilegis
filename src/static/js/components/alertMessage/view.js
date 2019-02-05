@@ -46,9 +46,8 @@ AlertMessageView.prototype.startProgress = function () {
       events.stopAlertProgress.publish();
     } else {
       self.progress = self.progress + 1;
+      self.progressElement.css('transform', 'scaleX(' + self.progress / 500 + ')');
     }
-
-    self.progressElement.css('transform', 'scaleX(' + self.progress / 500 + ')');
   }, 10)
 };
 
