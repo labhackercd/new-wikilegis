@@ -28,6 +28,7 @@ SuggestionInputController.prototype.sendSuggestion = function(groupId, excerptId
 
   request.done(function(data) {
     events.suggestionCreated.publish(data.id, data.html);
+    events.showMessage.publish('Sugestão enviada com sucesso!', 'success', false);
   });
 
   request.fail(function(jqXHR) {
