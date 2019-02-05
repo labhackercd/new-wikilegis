@@ -10,6 +10,7 @@ OpinionModalView.prototype.initEvents = function() {
   this.documentSuggestion = undefined;
   this.currentExcerptId = undefined;
   this.cardsElements = $('.js-opinionModal .js-opinionCard');
+  this.submissionCues = $('.js-opinionModal .js-submissionCue');
   this.subscribers();
   this.publishers();
 };
@@ -18,8 +19,11 @@ OpinionModalView.prototype.publishers = function() {
   var self = this;
 
   self.nextOpinionElements.click(function() {
-    self.rippleCircleButton($(this));
-    events.nextOpinion.publish();
+    var buttonElement = $(this);
+    self.rippleCircleButton(buttonElement);
+    events.nextOpinion.publish(
+      buttonElement.data('opinion')
+    );
   });
 
   self.buttonsElements.click(function() {
@@ -48,8 +52,8 @@ OpinionModalView.prototype.subscribers = function () {
     self.hide();
   });
 
-  events.nextOpinion.subscribe(function() {
-    self.showNextSuggestion();
+  events.nextOpinion.subscribe(function(opinion) {
+    self.showNextSuggestion(opinion);
   });
 
   events.opinionSent.subscribe(function(opinion) {
@@ -64,8 +68,12 @@ OpinionModalView.prototype.subscribers = function () {
     events.closeOpinionModal.publish();
   });
 
-  events.showNextSuggestion.subscribe(function() {
-    self.nextOpinionElements.removeClass('-ripple')
+  events.showSubmissionCue.subscribe(function(opinion) {
+    self.showSubmissionCue(opinion);
+  });
+
+  events.showNextSuggestion.subscribe(function(opinion) {
+    self.nextOpinionElements.removeClass('-ripple');
   });
 };
 
@@ -82,15 +90,19 @@ OpinionModalView.prototype.closeOpinionModal = function () {
   this.opinionModalElement.removeClass('-show');
 };
 
-OpinionModalView.prototype.showNextSuggestion = function() {
+OpinionModalView.prototype.showNextSuggestion = function(opinion) {
   var self = this;
   var first = self.modalContentElement.children('.-active').first();
   first.addClass('-next');
+
+  events.showSubmissionCue.publish(opinion);
+
   first.find('.card').one('transitionend', function() {
     first.removeClass('-next');
     self.modalContentElement.append(first);
 
     events.showNextSuggestion.publish();
+
   });
 };
 
@@ -98,12 +110,18 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
   var self = this;
   var card = self.modalContentElement.children('.-active').first();
   card.addClass('-' + opinion);
-  card.find('.card').one('transitionend', function() {
-    card.remove();
-    if (self.modalContentElement.children('.-active').length === 0) {
-      
-      self.closeOpinionModal();
-      events.closeOpinionModal.publish();
+
+  events.showSubmissionCue.publish(opinion);
+
+  card.find('.card').on('transitionend', function(e) {
+    if (e.originalEvent.propertyName === "transform") {
+      card.remove();
+      if (self.modalContentElement.children('.-active').length === 0) {
+
+        self.closeOpinionModal();
+        events.closeOpinionModal.publish();
+      }
+      $(this).off('transitionend');
     }
 
     events.showNextSuggestion.publish();
@@ -128,4 +146,11 @@ OpinionModalView.prototype.hasActiveOpinionCards = function() {
 
 OpinionModalView.prototype.rippleCircleButton = function(circleButton) {
   circleButton.addClass('-ripple');
+};
+
+OpinionModalView.prototype.showSubmissionCue = function(opinion) {
+  var self = this;
+  self.submissionCues.filter(`[data-opinion="${opinion}"]`).addClass('-show').one('animationend', function(){
+    $(this).removeClass('-show');
+  });
 };
