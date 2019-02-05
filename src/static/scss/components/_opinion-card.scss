@@ -22,8 +22,7 @@
   }
 
   & > .card {
-    overflow-x: hidden;
-    overflow-y: auto;
+    display: flex;
 
     margin-top: auto;
 
@@ -34,11 +33,6 @@
     opacity: 1;
 
     @include card-darkbg-shadow();
-    @include bp-mediumup {
-      display: flex;
-      overflow-x: unset;
-      overflow-y: unset;
-    }
 
     @at-root .-reject#{&} {
       transform: rotate(-10deg);
@@ -102,88 +96,95 @@
       }
     }
 
-    & > .highlight,
-    & > .opinion {
-      display: flex;
-      overflow: hidden;
-      flex: 1 0 50%;
-
-      box-sizing: border-box;
-
-      text-align: left;
-
-      & > .overflow {
-        width: 100%;
-        padding: 1rem;
-
-        @include bp-mediumup {
-          overflow-x: hidden;
-          overflow-y: auto;
-          overflow-y: overlay;
-
-          padding: 0 2rem;
-          padding-bottom: 4rem;
-        }
-      }
-    }
-
-    & > .highlight {
-      padding-top: 4.5rem;
-
-      background-color: #FFF;
+    & > .usercontent {
+      overflow-x: hidden;
+      overflow-y: auto;
 
       @include bp-mediumup {
-        padding-top: 6rem;
+        display: flex;
+        overflow-x: unset;
+        overflow-y: unset;
       }
 
-      & > .overflow > .excerpt {
-        position: relative;
-        z-index: 1;
+      & > .highlight,
+      & > .opinion {
+        display: flex;
+        overflow: hidden;
+        flex: 1 0 50%;
 
-        color: $color-gray;
+        box-sizing: border-box;
 
-        & > .text-highlight {
-          position: unset;
+        text-align: left;
 
-          background-color: $color-highlight-on-white;
+        & > .overflow {
+          width: 100%;
+          padding: 1rem;
 
           @include bp-mediumup {
-            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            overflow-y: overlay;
+
+            padding: 0 2rem;
+            padding-bottom: 4rem;
           }
+        }
+      }
 
-          &::before {
-            position: absolute;
-            z-index: -1;
+      & > .highlight {
+        padding-top: 4.5rem;
 
-            width: 3px;
-            height: calc(100% + 1rem);
+        background-color: #FFF;
 
-            content: '';
+        @include bp-mediumup {
+          padding-top: 6rem;
+        }
+
+        & > .overflow > .excerpt {
+          position: relative;
+          z-index: 1;
+
+          color: $color-gray;
+
+          & > .text-highlight {
+            position: unset;
 
             background-color: $color-highlight-on-white;
 
             @include bp-mediumup {
-              width: 27.5rem;
-              height: 5px;
+              position: relative;
+            }
+
+            &::before {
+              position: absolute;
+              z-index: -1;
+
+              width: 3px;
+              height: calc(100% + 1rem);
+
+              content: '';
+
+              background-color: $color-highlight-on-white;
+
+              @include bp-mediumup {
+                width: 27.5rem;
+                height: 5px;
+              }
             }
           }
         }
       }
-    }
 
-    & > .opinion {
-      padding-bottom: .5rem;
+      & > .opinion {
+        padding-bottom: .5rem;
 
-      background-color: $color-highlight-on-white;
+        background-color: $color-highlight-on-white;
 
-      @include bp-mediumup {
-        padding-top: 6rem;
-        padding-bottom: 0;
+        @include bp-mediumup {
+          padding-top: 6rem;
+          padding-bottom: 0;
+        }
       }
-    }
-
-    & > .info-text {
-      justify-content: flex-start;
     }
   }
 
@@ -202,7 +203,7 @@
 
       margin-top: 2rem;
     }
-    
+
     & > .disagree {
       @extend .app-button;
       @extend .app-button.-red;

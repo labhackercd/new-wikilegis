@@ -20,26 +20,28 @@
           <div class="close-icon js-closeModal"><img class="icon" src="{% static 'img/close.svg' %}"></div>
         </header>
         
-        <div class="highlight">
-          <div class="overflow">
-            <span class="info-text js-userInfo">
-              <img class="js-userAvatar" src="{{suggestion.author.profile.avatar_url}}">
-              <h3>{{suggestion.author.get_full_name}} destacou o trecho:</h3>
-            </span>
-            
-            <p class="excerpt js-documentExcerpt">
-              {% highlight_suggestion suggestion %}
-            </p>
+        <div class="usercontent">
+          <div class="highlight">
+            <div class="overflow">
+              <span class="info-text js-userInfo">
+                <img class="js-userAvatar" src="{{suggestion.author.profile.avatar_url}}">
+                <h3>{{suggestion.author.get_full_name}} destacou o trecho:</h3>
+              </span>
+              
+              <p class="excerpt js-documentExcerpt">
+                {% highlight_suggestion suggestion %}
+              </p>
+            </div>
           </div>
-        </div>
-        
-        <div class="opinion">
-          <div class="overflow">
-            <span class="info-text">
-              <h3>E deu a seguinte opinião nele:</h3>
-            </span>
-            
-            <p class="suggestion js-suggestion">{{suggestion.content}}</p>
+          
+          <div class="opinion">
+            <div class="overflow">
+              <span class="info-text">
+                <h3>E deu a seguinte opinião nele:</h3>
+              </span>
+              
+              <p class="suggestion js-suggestion">{{suggestion.content}}</p>
+            </div>
           </div>
         </div>
       </div>
