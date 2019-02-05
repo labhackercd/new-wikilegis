@@ -41,11 +41,11 @@ AlertMessageView.prototype.subscribers = function () {
 
 AlertMessageView.prototype.publishers = function() {
   var self = this;
-  self.alertMessageElement.on('mouseover', function(e) {
+  self.alertMessageElement.on('mouseover', function() {
     events.pauseAlertProgress.publish();
   });
 
-  self.alertMessageElement.on('mouseleave', function(e) {
+  self.alertMessageElement.on('mouseleave', function() {
     events.resumeAlertProgress.publish();
   });
 };
@@ -54,6 +54,11 @@ AlertMessageView.prototype.show = function (message, messageType, undo) {
   this.alertMessageElement.removeClass('-success -fail -default');
   this.alertMessageElement.addClass('-' + messageType);
   this.messageElement.text(message);
+
+  if (undo) {
+    this.actionsElement.removeClass('_hide');
+  }
+
   this.alertMessageElement.addClass('-show');
 };
 
@@ -62,7 +67,7 @@ AlertMessageView.prototype.startProgress = function () {
 
   self.progressTimeout = setInterval(function() {
     self.updateProgress();
-  }, 10)
+  }, 10);
 };
 
 AlertMessageView.prototype.updateProgress = function() {
@@ -100,5 +105,5 @@ AlertMessageView.prototype.resumeProgress = function() {
   var self = this;
   self.progressTimeout = setInterval(function() {
     self.updateProgress();
-  }, 10)
+  }, 10);
 };
