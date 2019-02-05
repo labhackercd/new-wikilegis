@@ -78,6 +78,10 @@ OpinionModalView.prototype.show = function () {
   this.opinionModalElement.addClass('-show');
 };
 
+OpinionModalView.prototype.closeOpinionModal = function () {
+  this.opinionModalElement.removeClass('-show');
+};
+
 OpinionModalView.prototype.showNextSuggestion = function() {
   var self = this;
   var first = self.modalContentElement.children('.-active').first();
@@ -97,6 +101,8 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
   card.find('.card').one('transitionend', function() {
     card.remove();
     if (self.modalContentElement.children('.-active').length === 0) {
+      
+      self.closeOpinionModal();
       events.closeOpinionModal.publish();
     }
 
