@@ -66,7 +66,7 @@ SuggestionInputView.prototype.cleanSuggestionInput = function() {
   var self = this;
 
   self.selectedTextElement.text('');
-  self.inputElement.val('');
+  // self.inputElement.val('');
   self.hideInputError();
   self.selectedExcerpt = undefined;
   self.startIndex = undefined;

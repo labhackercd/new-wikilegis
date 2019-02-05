@@ -35,8 +35,10 @@ body {
 
   &.-home {
     & .nav-bar {
-      @include bp-mediumup {
-        box-shadow: none;
+      opacity: 0;
+
+      &.-shadow {
+        opacity: 1;
       }
     }
   }

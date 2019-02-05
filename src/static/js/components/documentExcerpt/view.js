@@ -37,7 +37,8 @@ DocumentExcerptView.prototype.publishers = function() {
       }
 
       this.selectionEndTimeout = setTimeout(function () {
-        if (document.getSelection().toString() != '' && selectionEnabled) {
+        if (document.getSelection().toString() != '') {
+          $(document).unbind('selectionchange');
           events.endTextSelection.publish();
           $(document).unbind('selectionchange');
         }
