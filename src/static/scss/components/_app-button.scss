@@ -56,8 +56,6 @@
       min-height: 0 !important;
       padding: 5px;
 
-      transition: box-shadow .4s ease;
-
       border-radius: 50%;
       background-size: calc(100% - 10px) !important;
       box-shadow: 0 0 0 -1px currentColor;
@@ -134,8 +132,16 @@
       }
     }
 
-    &.-ripple::before {
-      box-shadow: 0 0 0 4rem transparent;
+    &.-ripple {
+      &::before {
+        transition: box-shadow .6s ease;
+
+        box-shadow: 0 0 0 4rem transparent;
+      }
+
+      &::after {
+        opacity: 0;
+      }
     }
   }
 
