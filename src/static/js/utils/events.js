@@ -117,6 +117,9 @@ var events = {
   // Triggered to show alert message
   // Params: message, messageType (success, fail, default), undo (bool)
   showMessage: $.Topic('showMessage'),
+
+  // Triggered after 5 seconds that showMessage was triggered
+  stopAlertProgress: $.Topic('stopAlertProgress'),
   // Triggered when the page loads and there's no opinionOnboardingCookie
   showOpinionOnboarding: $.Topic('showOpinionOnboard'),
 
