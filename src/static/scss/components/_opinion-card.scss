@@ -6,8 +6,6 @@
 
   max-width: 22rem;
 
-  transform: translate(0);
-
   @include bp-mediumup {
     width: 55rem;
     max-width: 55rem;
@@ -30,6 +28,7 @@
     margin-top: auto;
 
     transition: transform .7s $swift-out, opacity .4s ease;
+    transform: translate(0);
     animation: activate-card .4s $swift-out;
 
     opacity: 1;
@@ -203,7 +202,7 @@
 
       margin-top: 2rem;
     }
-
+    
     & > .disagree {
       @extend .app-button;
       @extend .app-button.-red;
