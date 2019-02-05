@@ -10,7 +10,7 @@ SuggestionInputView.prototype.initEvents = function() {
   this.selectedExcerpt = undefined;
   this.startIndex = undefined;
   this.endIndex = undefined;
-  this.charMaxLimit = 100;
+  this.charMaxLimit = 400;
   this.subscribers();
   this.publishers();
 };
