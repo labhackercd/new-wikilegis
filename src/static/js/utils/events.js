@@ -114,6 +114,9 @@ var events = {
   // Params: parentNode
   closeHighlightTooltip: $.Topic('closeHighlightTooltip'),
 
+  // Triggered to show alert message
+  // Params: message, messageType (success, fail, default), undo (bool)
+  showMessage: $.Topic('showMessage'),
   // Triggered when the page loads and there's no opinionOnboardingCookie
   showOpinionOnboarding: $.Topic('showOpinionOnboard'),
 
