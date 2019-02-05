@@ -11,6 +11,7 @@ AlertMessageView.prototype.initEvents = function () {
   this.progress = 0;
 
   this.subscribers();
+  this.publishers();
 };
 
 AlertMessageView.prototype.subscribers = function () {
@@ -27,7 +28,26 @@ AlertMessageView.prototype.subscribers = function () {
 
   events.stopAlertProgress.subscribe(function() {
     self.stopProgress();
-  })
+  });
+
+  events.pauseAlertProgress.subscribe(function() {
+    self.pauseProgress();
+  });
+
+  events.resumeAlertProgress.subscribe(function() {
+    self.resumeProgress();
+  });
+};
+
+AlertMessageView.prototype.publishers = function() {
+  var self = this;
+  self.alertMessageElement.on('mouseover', function(e) {
+    events.pauseAlertProgress.publish();
+  });
+
+  self.alertMessageElement.on('mouseleave', function(e) {
+    events.resumeAlertProgress.publish();
+  });
 };
 
 AlertMessageView.prototype.show = function (message, messageType, undo) {
@@ -39,16 +59,20 @@ AlertMessageView.prototype.show = function (message, messageType, undo) {
 
 AlertMessageView.prototype.startProgress = function () {
   var self = this;
-  self.progress = 0;
 
   self.progressTimeout = setInterval(function() {
-    if (self.progress >= 500) {
-      events.stopAlertProgress.publish();
-    } else {
-      self.progress = self.progress + 1;
-      self.progressElement.css('transform', 'scaleX(' + self.progress / 500 + ')');
-    }
+    self.updateProgress();
   }, 10)
+};
+
+AlertMessageView.prototype.updateProgress = function() {
+  var self = this;
+  if (self.progress >= 500) {
+    events.stopAlertProgress.publish();
+  } else {
+    self.progress = self.progress + 1;
+    self.progressElement.css('transform', 'scaleX(' + self.progress / 500 + ')');
+  }
 };
 
 AlertMessageView.prototype.stopProgress = function () {
@@ -60,5 +84,21 @@ AlertMessageView.prototype.stopProgress = function () {
   self.alertMessageElement.addClass('-hide');
   self.alertMessageElement.one('transitionend', function() {
     self.alertMessageElement.removeClass('-show -hide');
+    self.progress = 0;
+    self.progressElement.css('transform', 'scaleX(' + self.progress / 500 + ')');
   });
+};
+
+AlertMessageView.prototype.pauseProgress = function() {
+  var self = this;
+  if (self.progressTimeout) {
+    window.clearTimeout(self.progressTimeout);
+  }
+};
+
+AlertMessageView.prototype.resumeProgress = function() {
+  var self = this;
+  self.progressTimeout = setInterval(function() {
+    self.updateProgress();
+  }, 10)
 };

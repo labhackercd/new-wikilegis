@@ -120,6 +120,12 @@ var events = {
 
   // Triggered after 5 seconds that showMessage was triggered
   stopAlertProgress: $.Topic('stopAlertProgress'),
+
+  // Triggered on alertMessage mouseover
+  pauseAlertProgress: $.Topic('pauseAlertProgress'),
+
+  // Triggered on alertMessage mouseleave
+  resumeAlertProgress: $.Topic('resumeAlertProgress'),
   // Triggered when the page loads and there's no opinionOnboardingCookie
   showOpinionOnboarding: $.Topic('showOpinionOnboard'),
 
