@@ -1,1 +1,6 @@
 $swift-out: cubic-bezier(.55, 0, .1, 1);
+
+@keyframes activate-card {
+  from {transform: scale(0.9); opacity: 0}
+  to {transform: scale(1); opacity: 1}
+}
