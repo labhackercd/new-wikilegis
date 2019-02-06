@@ -108,7 +108,6 @@
   & > .content {
     overflow-y: auto;
 
-    height: 100%;
     padding: 1rem;
 
     text-align: center;
@@ -135,6 +134,7 @@
       display: flex;
       overflow: hidden;
       justify-content: center;
+      height: 100%;
     }
   }
 }
