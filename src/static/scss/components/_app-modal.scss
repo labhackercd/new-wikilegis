@@ -16,7 +16,7 @@
     top: 50%;
     left: 50%;
 
-    width: 70%;
+    width: 50%;
     height: auto;
     max-height: calc(100% - 3rem);
 
@@ -24,6 +24,18 @@
   }
 
   &.-opinion {
+    @include bp-mediumdown {
+      top: 50%;
+      left: 50%;
+
+      width: 22rem;
+      max-width: calc(100% - 2rem);
+      height: auto;
+      max-height: calc(100% - 2rem);
+
+      transform: translate(-50%, -50%);
+    }
+
     .excerpt {
       color: $color-grayish;
     }
@@ -38,6 +50,21 @@
 
     @include bp-mediumup {
       display: none !important;
+    }
+  }
+
+  &.-onboarding {
+    overflow-y: auto;
+    align-items: center;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 1.5rem;
+
+    @include bp-mediumup {
+      padding: 4rem;
     }
   }
 
@@ -63,11 +90,11 @@
     @include hidden-shadow;
   }
 
-  & > header.-shadow {
+  & > .header.-shadow {
     @include header-shadow;
   }
 
-  & > header > .close-icon {
+  & > .header > .close-icon {
     position: absolute;
     right: 1.6rem;
 
@@ -89,24 +116,39 @@
   & > .content {
     overflow-y: auto;
 
-    padding: 1.5rem;
+    padding: 1rem;
 
     text-align: center;
+
+    @include bp-mediumup {
+      padding: 1.5rem;
+    }
 
     @at-root .-opinion#{&} {
       align-items: flex-start;
 
+      padding-top: 4rem;
+
       text-align: left;
+    }
+
+    @at-root .-onboarding#{&} {
+      overflow-y: unset;
+
+      max-width: 55rem;
+      margin: auto;
+      padding: 0;
     }
   }
 
   & > .content > img,
   & > .content > svg {
-    width: 14rem;
     margin: 0 auto;
   }
 
   & > .content > .info-text {
+    justify-content: left;
+
     margin-top: 2rem;
   }
 
@@ -134,8 +176,9 @@
   & > .content > .solid-button {
     font-size: $font-size-deci;
 
+    display: inline-flex;
+
     margin-top: 2rem;
-    margin-left: auto;
     padding: .5rem 2rem;
   }
 

@@ -27,7 +27,7 @@ var events = {
   suggestionCreated: $.Topic('suggestionCreated'),
 
   // Triggered when user send suggestion
-  // Params: groupId, excerptId, selectedText, suggestion
+  // Params: excerptId, startIndex, endIndex, suggestion
   sendSuggestion: $.Topic('sendSuggestion'),
 
   // Triggered when user open menu
@@ -48,7 +48,6 @@ var events = {
   nextOpinion: $.Topic('nextOpinion'),
 
   // Triggered when user click on close modal
-  // Params: reopen
   closeOpinionModal: $.Topic('closeOpinionModal'),
 
   // Triggered when a modal is closed
@@ -114,4 +113,16 @@ var events = {
   // Triggered on highlight mouseleave
   // Params: parentNode
   closeHighlightTooltip: $.Topic('closeHighlightTooltip'),
+
+  // Triggered when the page loads and there's no opinionOnboardingCookie
+  showOpinionOnboarding: $.Topic('showOpinionOnboard'),
+
+  // Triggered when the user does an action that closes the opinion onboarding
+  closeOpinionOnboarding: $.Topic('closeOpinionOnboard'),
+
+  // Triggered when closing the opinion modal and there's no textSelectionOnboardingCookie
+  showTextSelectionOnboarding: $.Topic('showTextSelectionOnboard'),
+
+  // Triggered when the user does an action that closes the text selection onboarding
+  closeTextSelectionOnboarding: $.Topic('closeTextSelectionOnboard'),
 };

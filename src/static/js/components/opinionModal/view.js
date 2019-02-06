@@ -7,9 +7,9 @@ OpinionModalView.prototype.initEvents = function() {
   this.buttonsElements = $('.js-opinionModal .js-opinionButton');
   this.nextOpinionElement = $('.js-opinionModal .js-nextOpinion');
   this.modalContentElement = $('.js-opinionModal .js-appModalContent');
-  this.cardsElement = $('.js-opinionModal .js-opinionCard');
   this.documentSuggestion = undefined;
   this.currentExcerptId = undefined;
+  this.cardsElements = $('.js-opinionModal .js-opinionCard');
   this.subscribers();
   this.publishers();
 };
@@ -56,11 +56,15 @@ OpinionModalView.prototype.subscribers = function () {
   events.activateOpinionCards.subscribe(function(excerptId) {
     self.activateOpinionCards(excerptId);
   });
+
+  events.closeModal.subscribe(function() {
+    events.closeOpinionModal.publish();
+  });
 };
 
 OpinionModalView.prototype.hide = function () {
-  this.cardsElement.removeClass('-inactive');
-  this.cardsElement.addClass('-active');
+  this.cardsElements.removeClass('-inactive');
+  this.cardsElements.addClass('-active');
 };
 
 OpinionModalView.prototype.show = function () {
@@ -92,10 +96,15 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
 OpinionModalView.prototype.activateOpinionCards = function(excerptId) {
   var self = this;
   if (excerptId) {
-    self.cardsElement.removeClass('-active');
-    self.cardsElement.addClass('-inactive');
+    self.cardsElements.removeClass('-active');
+    self.cardsElements.addClass('-inactive');
     self.modalContentElement.find('[data-excerpt-id="' + excerptId + '"]')
       .addClass('-active')
       .removeClass('-inactive');
   }
+};
+
+OpinionModalView.prototype.hasActiveOpinionCards = function() {
+  var self = this;
+  return Boolean(self.cardsElements.length);
 };
