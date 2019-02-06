@@ -95,7 +95,7 @@ def excerpt_numbering(excerpt):
                     parent=excerpt.parent
                 ).count()
                 if excerpt.number == 1 and siblings_count == 1:
-                        return "%s. " % _("Sole paragraph")
+                    return "%s. " % _("Sole paragraph")
                 else:
                     return "§ %dº " % excerpt.number
             else:

@@ -57,10 +57,6 @@ BodyView.prototype.subscribers = function() {
     self.disableUserSelection();
   });
 
-  events.endTextSelection.subscribe(function() {
-    self.enableUserSelection();
-  });
-
   events.openMenu.subscribe(function() {
     self.openMenu();
   });
