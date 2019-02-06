@@ -1,4 +1,4 @@
-/*global $ prefixURL */
+/*global prefixURL particlesJS */
 
 var BackgroundParticle = function() {};
 
