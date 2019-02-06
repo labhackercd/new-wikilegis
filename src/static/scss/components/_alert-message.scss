@@ -10,9 +10,8 @@
 
   transition: all .15s $swift-out;
   transform: translateY(150%);
-  opacity: 0;
 
-  opacity: 1;
+  opacity: 0;
   color: #FFF;
   border-radius: .375rem;
   background-color: $color-deep-gray;
@@ -24,20 +23,37 @@
   }
 
   &.-hide {
-    transform: translateY(150%);
+    transition: all .25s ease;
 
-    opacity: 0;
+    &.-success {
+      background-color: $color-brand;
+    }
+
+    &.-fail {
+      background-color: $color-red;
+    }
+
+    &.-success,
+    &.-fail {
+      & > .actions {
+        display: none;
+      }
+
+      & > .progress {
+        opacity: 0;
+      }
+    }
   }
 
   &.-success {
-    background-color: $color-brand;
-
-    & > .actions {
-      display: none;
-    }
-
     & > .progress {
-      opacity: 0;
+      background-color: lighten($color-brand, 10%);
+    }
+  }
+
+  &.-fail {
+    & > .progress {
+      background-color: $color-red;
     }
   }
 
@@ -66,7 +82,7 @@
       display: flex;
       align-items: center;
 
-      padding: .875rem 1rem;
+      padding: .875rem;
 
       cursor: pointer;
       transition: opacity .15s ease;
@@ -104,6 +120,6 @@
     transform: scaleX(0);
     transform-origin: 0;
 
-    background-color: lighten($color-brand, 10%);
+    background-color: lighten($color-deep-gray, 35%);
   }
 }

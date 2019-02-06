@@ -23,7 +23,7 @@ AlertMessageView.prototype.subscribers = function () {
     self.show(message, messageType, undo);
     setTimeout(function() {
       self.startProgress();
-    }, 1000);
+    }, 50);
   });
 
   events.stopAlertProgress.subscribe(function() {
@@ -88,7 +88,12 @@ AlertMessageView.prototype.stopProgress = function () {
 
   self.alertMessageElement.addClass('-hide');
   self.alertMessageElement.one('transitionend', function() {
-    self.alertMessageElement.removeClass('-show -hide');
+    setTimeout(function() {
+      self.alertMessageElement.removeClass('-show');
+    }, 1150);
+    setTimeout(function() {
+      self.alertMessageElement.removeClass('-hide');
+    }, 1500);
     self.progress = 0;
     self.progressElement.css('transform', 'scaleX(' + self.progress / 500 + ')');
   });
