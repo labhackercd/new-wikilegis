@@ -51,9 +51,9 @@ AlertMessageView.prototype.publishers = function() {
 };
 
 AlertMessageView.prototype.show = function (message, messageType, undo) {
-  this.alertMessageElement.removeClass('-success -fail -default');
+  this.alertMessageElement.removeClass('-success -fail -default -color');
   this.alertMessageElement.addClass('-' + messageType);
-  this.messageElement.text(message);
+  this.messageElement.html(message);
 
   if (undo) {
     this.actionsElement.removeClass('_hide');
@@ -86,14 +86,9 @@ AlertMessageView.prototype.stopProgress = function () {
     window.clearTimeout(self.progressTimeout);
   }
 
-  self.alertMessageElement.addClass('-hide');
+  self.alertMessageElement.addClass('-color');
   self.alertMessageElement.one('transitionend', function() {
-    setTimeout(function() {
-      self.alertMessageElement.removeClass('-show');
-    }, 1150);
-    setTimeout(function() {
-      self.alertMessageElement.removeClass('-hide');
-    }, 1500);
+    self.alertMessageElement.removeClass('-show');
     self.progress = 0;
     self.progressElement.css('transform', 'scaleX(' + self.progress / 500 + ')');
   });
