@@ -7,8 +7,14 @@ AlertMessageView.prototype.initEvents = function () {
   this.actionsElement = $('.js-alertMessage .js-actions');
   this.messageElement = $('.js-alertMessage .js-message');
   this.progressElement = $('.js-alertMessage .js-progress');
+  this.emojiElement = $('.js-alertMessage .js-emoji');
   this.progressTimeout = null;
   this.progress = 0;
+  this.emojis = {
+    default: ['🙂', '🤐', '👉', '😯', '😏', '😌', '🤐', '😛', '🙃', '😉', '😶', '👋'],
+    success: ['😃', '🥳', '🤩', '🎉', '🤘', '😎', '🥰', '👍', '👌', '✌️', '🤙', '👏'],
+    fail: ['💩', '🥺', '😢', '🤭', '😰', '🧐', '☹️', '😱', '🥵', '😳', '👎', '😭']
+  };
 
   this.subscribers();
   this.publishers();
@@ -54,6 +60,9 @@ AlertMessageView.prototype.show = function (message, messageType, undo) {
   this.alertMessageElement.removeClass('-success -fail -default -color');
   this.alertMessageElement.addClass('-' + messageType);
   this.messageElement.html(message);
+
+  var random = Math.floor(Math.random() * this.emojis[messageType].length);
+  this.emojiElement.html(this.emojis[messageType][random]);
 
   if (undo) {
     this.actionsElement.removeClass('_hide');
