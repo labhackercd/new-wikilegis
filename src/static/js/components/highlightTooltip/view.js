@@ -9,9 +9,9 @@ HighlightTooltipView.prototype.initEvents = function () {
 
 HighlightTooltipView.prototype.subscribers = function () {
   var self = this;
-  events.openHighlightTooltip.subscribe( function(excerpt, currentId){
-    self.showTooltip(excerpt, currentId);
-  });
+  // events.openHighlightTooltip.subscribe( function(excerpt, currentId){
+  //   self.showTooltip(excerpt, currentId);
+  // });
 
   events.closeHighlightTooltip.subscribe(function() {
     self.destroyTooltips();

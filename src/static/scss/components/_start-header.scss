@@ -1,0 +1,65 @@
+.start-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+
+  @include bp-smallup {
+    padding: 4rem 8vw;
+  }
+
+  & > .hero {
+    width: 100%;
+
+    @include bp-mediumonly {
+      width: 50%;
+    }
+    @include bp-mediumup {
+      width: calc(40% - 2rem);
+    }
+
+    & > h1 > .text-highlight {
+      @extend h1;
+
+      padding: .25rem .5rem;
+    }
+
+    & > h1,
+    & > .solid-button {
+      margin-top: 2.625rem;
+    }
+
+    & > p {
+      margin-top: 1.5rem;
+    }
+
+    & > .solid-button {
+      width: 8rem;
+      padding: 1rem 2rem;
+    }
+  }
+
+  & > .example {
+    display: none;
+
+    @include bp-mediumup {
+      display: block;
+
+      width: calc(60% - 2rem);
+    }
+
+    & > img {
+      width: 100%;
+    }
+  }
+
+  & > canvas {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+  }
+}

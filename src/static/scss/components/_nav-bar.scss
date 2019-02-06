@@ -28,7 +28,7 @@ body.-white .nav-bar {
   padding-right: 1.6rem;
   padding-left: 1.6rem;
 
-  transition: box-shadow .25s;
+  transition: all .25s $swift-out;
 
   background-color: $color-whitesmoke;
 
@@ -42,6 +42,10 @@ body.-white .nav-bar {
 
   &.-shadow {
     @include header-shadow;
+  }
+
+  &.-background {
+    background: $color-whitesmoke;
   }
 
   & > .brand {
