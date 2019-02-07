@@ -72,7 +72,7 @@ OpinionModalView.prototype.subscribers = function () {
     self.showSubmissionCue(opinion);
   });
 
-  events.showNextSuggestion.subscribe(function(opinion) {
+  events.showNextSuggestion.subscribe(function() {
     self.nextOpinionElements.removeClass('-ripple -inactive');
     self.buttonsElements.removeClass('-inactive');
   });
@@ -115,7 +115,7 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
   events.showSubmissionCue.publish(opinion);
 
   card.find('.card').on('transitionend', function(e) {
-    if (e.originalEvent.propertyName === "transform") {
+    if (e.originalEvent.propertyName === 'transform') {
       card.remove();
       if (self.modalContentElement.children('.-active').length === 0) {
 
