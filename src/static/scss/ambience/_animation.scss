@@ -64,3 +64,60 @@ $swift-out: cubic-bezier(.55, 0, .1, 1);
     transform: scaleY(1);
   }
 }
+
+@keyframes extend-opinion-background-horizontal {
+  0% {
+    background-size: 0 100%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes extend-opinion-background-vertical {
+  0% {
+    background-size: 100% 0;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes show-opinion-button {
+  0% {
+    transform: translateY(3rem);
+    pointer-events: none;
+
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(-.5rem);
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    pointer-events: auto;
+
+    opacity: 1;
+  }
+}
+
+@keyframes hide-opinion-button {
+  0% {
+    transform: translateY(0);
+
+    opacity: 1;
+  }
+
+
+  100% {
+    transform: translateY(3rem);
+
+    opacity: 0;
+  }
+}
