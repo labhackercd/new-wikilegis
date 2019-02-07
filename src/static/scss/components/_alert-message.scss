@@ -1,8 +1,13 @@
 .alert-message {
   position: fixed;
   z-index: 3;
-  right: 1.5rem;
-  bottom: 1.5rem;
+  left: 1rem;
+  bottom: 1rem;
+
+  @include bp-smallup {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
 
   display: flex;
   overflow: hidden;
