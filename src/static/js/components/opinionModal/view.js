@@ -33,7 +33,7 @@ OpinionModalView.prototype.publishers = function() {
 
     events.sendOpinion.publish(
       cardElement.data('suggestionId'),
-      buttonElement.data('opinion'),
+      buttonElement.data('opinion')
     );
   });
 
