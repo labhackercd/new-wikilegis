@@ -149,26 +149,48 @@
           & > .text-highlight {
             position: unset;
 
-            background-color: $color-highlight-on-white;
+            animation: extend-highlight .4s .2s ease-out forwards;
+
+            background-color: transparent;
+            background-image: linear-gradient(transparent 0%, $color-highlight-on-white 0, $color-highlight-on-white 100%, transparent 0);
+            background-repeat: no-repeat;
+            background-position-x: left;
+            background-size: 0 100%;
 
             @include bp-mediumup {
               position: relative;
             }
 
-            &::before {
+            &::before,
+            &::after {
               position: absolute;
               z-index: -1;
 
-              width: 3px;
-              height: calc(100% + 1rem);
-
               content: '';
+              transform: scale(0);
+              transform-origin: 0 0;
 
               background-color: $color-highlight-on-white;
+            }
 
+            &::after {
+              width: 3px;
+              height: calc(100% + 1rem);
+              margin-left: -3px;
+
+              animation: extend-highlight-line-vertical .4s .56s forwards;
+
+              @include bp-mediumup {
+                display: none;
+              }
+            }
+
+            &::before {
               @include bp-mediumup {
                 width: 27.5rem;
                 height: 5px;
+
+                animation: extend-highlight-line-horizontal .4s .56s forwards;
               }
             }
           }
