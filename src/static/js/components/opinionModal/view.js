@@ -73,7 +73,8 @@ OpinionModalView.prototype.subscribers = function () {
   });
 
   events.showNextSuggestion.subscribe(function(opinion) {
-    self.nextOpinionElements.removeClass('-ripple');
+    self.nextOpinionElements.removeClass('-ripple -inactive');
+    self.buttonsElements.removeClass('-inactive');
   });
 };
 
@@ -146,6 +147,7 @@ OpinionModalView.prototype.hasActiveOpinionCards = function() {
 
 OpinionModalView.prototype.rippleCircleButton = function(circleButton) {
   circleButton.addClass('-ripple');
+  circleButton.siblings().addClass('-inactive');
 };
 
 OpinionModalView.prototype.showSubmissionCue = function(opinion) {

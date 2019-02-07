@@ -9,6 +9,7 @@
   @include bp-mediumup {
     width: 55rem;
     max-width: 55rem;
+    padding-bottom: 1.5rem;
   }
 
   &.-active {
@@ -26,9 +27,9 @@
 
     margin-top: auto;
 
-    transition: transform .7s $swift-out, opacity .4s ease;
+    transition: transform 1s $swift-out, opacity .3s .2s ease;
     transform: translate(0);
-    animation: activate-card .4s $swift-out;
+    animation: activate-card .5s $swift-out;
 
     opacity: 1;
 
@@ -41,7 +42,7 @@
       opacity: 0;
 
       @include bp-mediumup {
-        transform-origin: 100% 300%;
+        transform-origin: 120% 350%;
       }
     }
 
@@ -52,7 +53,7 @@
       opacity: 0;
 
       @include bp-mediumup {
-        transform-origin: 0 300%;
+        transform-origin: -20% 350%;
       }
     }
 
@@ -123,7 +124,7 @@
           @include bp-mediumup {
             overflow-x: hidden;
             overflow-y: auto;
-            overflow-y: overlay;
+            overflow-y: overlay; // This is to render a better scroll bar on Chrome only. If not Chrome, the preceding property is used
 
             padding: 0 2rem;
             padding-bottom: 4rem;
@@ -149,7 +150,7 @@
           & > .text-highlight {
             position: unset;
 
-            animation: extend-highlight .4s .2s ease-out forwards;
+            animation: extend-highlight .4s .2s ease-in forwards;
 
             background-color: transparent;
             background-image: linear-gradient(transparent 0%, $color-highlight-on-white 0, $color-highlight-on-white 100%, transparent 0);
@@ -168,7 +169,6 @@
 
               content: '';
               transform: scale(0);
-              transform-origin: 0 0;
 
               background-color: $color-highlight-on-white;
             }
@@ -178,7 +178,8 @@
               height: calc(100% + 1rem);
               margin-left: -3px;
 
-              animation: extend-highlight-line-vertical .4s .56s forwards;
+              transform-origin: 0 100%;
+              animation: extend-highlight-line-vertical .4s .4s forwards ease-in;
 
               @include bp-mediumup {
                 display: none;
@@ -190,7 +191,8 @@
                 width: 27.5rem;
                 height: 5px;
 
-                animation: extend-highlight-line-horizontal .4s .56s forwards;
+                transform-origin: 100% 0;
+                animation: extend-highlight-line-horizontal .4s .2s forwards ease-in;
               }
             }
           }
@@ -205,6 +207,10 @@
         @include bp-mediumup {
           padding-top: 6rem;
           padding-bottom: 0;
+        }
+
+        &::before {
+          content: '';
         }
       }
     }
@@ -226,11 +232,30 @@
       margin-top: 2rem;
     }
 
+    & > a {
+      animation: show-opinion-button .3s $swift-out forwards;
+      pointer-events: none; // This is set back to auto inside the show-opinion-button
+
+      opacity: 0;
+
+      &.-inactive {
+        animation: hide-opinion-button .3s $swift-out forwards;
+        pointer-events: none;
+      }
+
+      &.-ripple {
+        animation: hide-opinion-button .3s .7s $swift-out backwards;
+        pointer-events: none;
+      }
+    }
+
     & > .disagree {
       @extend .app-button;
       @extend .app-button.-red;
       @extend .app-button.-circle;
       @extend .app-button.-circle.-toleft;
+
+      animation-delay: .7s;
 
       @include icon('disagree');
     }
@@ -241,6 +266,8 @@
       @extend .app-button.-circle;
 
       margin: 0 1rem;
+
+      animation-delay: .8s;
 
       @include bp-mediumup {
         margin: 0 3rem;
@@ -254,6 +281,8 @@
       @extend .app-button.-circle;
       @extend .app-button.-circle.-toright;
 
+      animation-delay: .9s;
+
       @include icon('agree');
     }
 
@@ -266,6 +295,8 @@
 
       position: absolute;
       right: 0;
+
+      animation-delay: 1s;
 
       @include icon('skip');
     }
