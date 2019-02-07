@@ -40,6 +40,7 @@
   <body class="js-body{% if request.path|startswith:"/p/" and request.path != "/p/new/" %} -white{% elif request.path == "/" %} -home{% endif %}">
     {% include "components/nav-bar.html" %}
     {% include "components/nav-menu.html" %}
+    {% include "components/alert-message.html" %}
 
     {% block content %}
     {% endblock content %}
@@ -55,6 +56,7 @@
       <script src="{% static 'js/components/appModal/view.js' %}"></script>
       <script src="{% static 'js/components/body/view.js' %}"></script>
       <script src="{% static 'js/components/textInput/view.js' %}"></script>
+      <script src="{% static 'js/components/alertMessage/view.js' %}"></script>
       <script src="{% static 'js/pages/base.js' %}"></script>
       {% block page_js %}
       {% endblock page_js %}

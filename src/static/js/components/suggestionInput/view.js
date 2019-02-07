@@ -31,6 +31,10 @@ SuggestionInputView.prototype.subscribers = function() {
   events.showSuggestionInputError.subscribe(function(message) {
     self.showInputError(message);
   });
+
+  events.suggestionCreated.subscribe(function() {
+    self.inputElement.val('');
+  });
 };
 
 SuggestionInputView.prototype.publishers = function() {
@@ -38,6 +42,12 @@ SuggestionInputView.prototype.publishers = function() {
 
   $('.js-suggestionInput .js-close').on('click', function() {
     events.cancelTextSelection.publish();
+  });
+
+  $('.js-suggestionInput .js-input').on('keypress', function(e) {
+    if (e.which == 13) {
+      self.sendSuggestion();
+    }
   });
 
   $('.js-suggestionInput .js-send').on('click', function() {
