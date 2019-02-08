@@ -98,7 +98,7 @@
           {% excerpt_suggestions excerpt as has_suggestions %}
         {% endif %}
         {% if has_suggestions %}
-        <span class="suggestion-opinion js-opinionButton">
+        <span class="suggestion-opinion js-opinionButton" data-excerpt-id='{{ excerpt.id }}'>
           <i class="icon"></i>
           <span class="text">Ver opiniões</span>
         </span>

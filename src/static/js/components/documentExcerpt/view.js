@@ -45,6 +45,10 @@ DocumentExcerptView.prototype.publishers = function() {
       }, 500);
     });
   });
+
+  $('.js-opinionButton').on('click', function(e) {
+    events.openOpinionModal.publish($(e.target).closest('.js-opinionButton').data('excerptId'));
+  });
 };
 
 DocumentExcerptView.prototype.subscribers = function() {
