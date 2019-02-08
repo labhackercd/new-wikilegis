@@ -72,10 +72,17 @@
       <h3>{{ excerpt.content|safe }}</h3>
       {% else %}
       <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt group=object %}
-        <span class="suggestion-opinion js-opinionButton {% if not excerpt.suggestions.all %}_hide{% endif %}">
+        {% if request.user.is_authenticated %}
+          {% excerpt_suggestions excerpt request.user as has_suggestions %}
+        {% else %}
+          {% excerpt_suggestions excerpt as has_suggestions %}
+        {% endif %}
+        {% if has_suggestions %}
+        <span class="suggestion-opinion js-opinionButton">
           <i class="icon"></i>
           <span class="text">Ver opiniões</span>
         </span>
+        {% endif %}
       </p>
       {% endif %}
     {% endfor %}
