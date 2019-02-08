@@ -3,14 +3,31 @@
   display: inline-flex;
   align-items: center;
 
-  padding: .5rem 1rem;
+  padding: .5rem;
 
   cursor: pointer;
 
-  &:hover > .text {
-    transform: translateX(0);
+  @include bp-mediumup {
+    padding: .5rem 1rem;
 
-    opacity: 1;
+    &:hover > .text {
+      transform: translateX(0);
+
+      opacity: 1;
+    }
+  }
+
+  &.-all {
+    & > .icon {
+      width: 1.75rem;
+      height: 1.75rem;
+
+      background-image: url('../img/comments.svg');
+
+      @include bp-mediumup {
+        margin-top: 0;
+      }
+    }
   }
 
   & > .text {
@@ -29,11 +46,14 @@
     box-sizing: border-box;
     width: 1.25rem;
     height: 1.25rem;
-    margin-top: .2rem;
-    margin-right: .5rem;
 
     background-image: url('../img/comment.svg');
     background-repeat: no-repeat;
     background-size: 100%;
+
+    @include bp-mediumup {
+      margin-top: .2rem;
+      margin-right: .5rem;
+    }
   }
 }

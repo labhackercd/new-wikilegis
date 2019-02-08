@@ -9,10 +9,12 @@
   @include bp-smallonly {
     padding-right: 1rem;
     padding-left: 1rem;
+    padding-top: 2.5rem;
   }
   @include bp-mediumonly {
     padding-right: 1.6rem;
     padding-left: 1.6rem;
+    padding-top: 3.5rem;
   }
 
   &.-voidselection {
@@ -25,16 +27,12 @@
 
   & > article {
     max-width: 66ch;
-    margin-right: auto;
-    margin-left: 3rem;
-    padding-right: 9rem;
+    padding-right: 2rem;
 
-    @include bp-smallonly {
+    @include bp-mediumup {
       margin-right: auto;
-      margin-left: auto;
-    }
-    @include bp-mediumonly {
-      margin-left: 0;
+      margin-left: 3rem;
+      padding-right: 9rem;
     }
   }
 
@@ -42,13 +40,31 @@
     position: relative;
   }
 
+  & > article > header > .suggestion-opinion,
   & > article > p > .suggestion-opinion {
     position: absolute;
     top: 0;
-    right: -9rem;
+  }
+
+  & > article > header > .suggestion-opinion {
+    right: -7.2rem;
+
+    @include bp-mediumup {
+      right: -9.5rem;
+    }
+  }
+
+  & > article > p > .suggestion-opinion {
+    right: -7rem;
+
+    @include bp-mediumup {
+      right: -9rem;
+    }
   }
 
   & > article > header {
+    position: relative;
+
     display: flex;
     flex-direction: column;
   }

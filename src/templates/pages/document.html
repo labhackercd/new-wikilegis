@@ -85,6 +85,10 @@
       <h1>{{ object.document.title }}</h1>
       <p class="description">{{ object.document.description }}</p>
       <hr>
+      <span class="suggestion-opinion -all js-opinionButton">
+        <i class="icon"></i>
+        <span class="text">Ver opiniões</span>
+      </span>
     </header>
     {% for excerpt in object.document.excerpts.all %}
       {% if excerpt.excerpt_type.align_center %}
