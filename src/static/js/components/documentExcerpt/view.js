@@ -22,7 +22,7 @@ DocumentExcerptView.prototype.publishers = function() {
     if (selectionEnabled) {
       events.cancelTextSelection.publish();
 
-      if (!$('body').hasClass('-voidselect')) {
+      if (!$('body').hasClass('-voidselect') && !target.hasClass('js-highlight')) {
         events.startTextSelection.publish(target.data('id'));
       }
     }
