@@ -71,7 +71,12 @@
       <h3>{% excerpt_numbering excerpt %}</h3>
       <h3>{{ excerpt.content|safe }}</h3>
       {% else %}
-      <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt group=object %}</p>
+      <p><b>{% excerpt_numbering excerpt %}</b>{% include "components/document-excerpt.html" with excerpt=excerpt group=object %}
+        <span class="suggestion-opinion js-opinionButton">
+          <i class="icon"></i>
+          <span class="text">Ver sugestões</span>
+        </span>
+      </p>
       {% endif %}
     {% endfor %}
   </article>

@@ -27,6 +27,7 @@
     max-width: 66ch;
     margin-right: auto;
     margin-left: 3rem;
+    padding-right: 9rem;
 
     @include bp-smallonly {
       margin-right: auto;
@@ -35,6 +36,16 @@
     @include bp-mediumonly {
       margin-left: 0;
     }
+  }
+
+  & > article > p {
+    position: relative;
+  }
+
+  & > article > p > .suggestion-opinion {
+    position: absolute;
+    top: 0;
+    right: -9rem;
   }
 
   & > article > header {
