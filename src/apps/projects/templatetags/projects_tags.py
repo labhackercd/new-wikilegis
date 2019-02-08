@@ -79,6 +79,17 @@ def document_suggestions(document, permission='public', user=None):
     return group.suggestions.count()
 
 
+@register.simple_tag()
+def excerpt_suggestions(excerpt, user=None):
+    suggestions = excerpt.suggestions.all()
+    if user:
+        suggestions = suggestions.exclude(author=user)
+    if suggestions:
+        return True
+    else:
+        return False
+
+
 @register.simple_tag
 def excerpt_numbering(excerpt):
     if excerpt.number and excerpt.excerpt_type:
