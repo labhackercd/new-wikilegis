@@ -54,7 +54,7 @@ SuggestionInputView.prototype.publishers = function() {
     self.sendSuggestion();
   });
 
-  $('.js-suggestionInput .js-opinionButton').on('click', function() {
+  $('.js-opinionButton').on('click', function() {
     events.openOpinionModal.publish(self.selectedExcerpt.data('id'));
   });
 
