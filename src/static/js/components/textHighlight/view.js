@@ -32,7 +32,7 @@ TextHighlightView.prototype.publishers = function () {
     var currentId = target.data('suggestionIds').toString().split(',')[0];
     var excerpt = target.closest('.js-documentExcerpt');
     events.openHighlightTooltip.publish(excerpt, currentId);
-  })
+  });
 
   $('.js-documentBody').on('mouseleave', '.js-highlight', function(e) {
     events.closeHighlightTooltip.publish($(e.target).closest('.js-documentExcerpt'));
