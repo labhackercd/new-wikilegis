@@ -20,7 +20,11 @@ OpinionModalView.prototype.publishers = function() {
 
   self.nextOpinionElements.click(function() {
     var buttonElement = $(this);
+    var disabledButtons = buttonElement.siblings();
+
     self.rippleCircleButton(buttonElement);
+    self.disableOpinionButtons(disabledButtons);
+
     events.nextOpinion.publish(
       buttonElement.data('opinion')
     );
@@ -28,8 +32,11 @@ OpinionModalView.prototype.publishers = function() {
 
   self.buttonsElements.click(function() {
     var buttonElement = $(this);
+    var disabledButtons = buttonElement.siblings();
     var cardElement = buttonElement.closest('.js-opinionCard');
+
     self.rippleCircleButton(buttonElement);
+    self.disableOpinionButtons(disabledButtons);
 
     events.sendOpinion.publish(
       cardElement.data('suggestionId'),
@@ -73,8 +80,10 @@ OpinionModalView.prototype.subscribers = function () {
   });
 
   events.showNextSuggestion.subscribe(function() {
-    self.nextOpinionElements.removeClass('-ripple -inactive');
-    self.buttonsElements.removeClass('-inactive');
+    self.unrippleCircleButton(self.nextOpinionElements);
+    self.unrippleCircleButton(self.buttonsElements);
+    self.enableOpinionButtons(self.nextOpinionElements);
+    self.enableOpinionButtons(self.buttonsElements);
   });
 };
 
@@ -103,7 +112,6 @@ OpinionModalView.prototype.showNextSuggestion = function(opinion) {
     self.modalContentElement.append(first);
 
     events.showNextSuggestion.publish();
-
   });
 };
 
@@ -123,9 +131,10 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
         events.closeOpinionModal.publish();
       }
       $(this).off('transitionend');
+      
+      events.showNextSuggestion.publish();
     }
 
-    events.showNextSuggestion.publish();
   });
 };
 
@@ -147,7 +156,18 @@ OpinionModalView.prototype.hasActiveOpinionCards = function() {
 
 OpinionModalView.prototype.rippleCircleButton = function(circleButton) {
   circleButton.addClass('-ripple');
-  circleButton.siblings().addClass('-inactive');
+};
+
+OpinionModalView.prototype.unrippleCircleButton = function(circleButton) {
+  circleButton.removeClass('-ripple');
+};
+
+OpinionModalView.prototype.disableOpinionButtons = function(disabledButtons) {
+  disabledButtons.addClass('-inactive');
+};
+
+OpinionModalView.prototype.enableOpinionButtons = function(disabledButtons) {
+  disabledButtons.removeClass('-inactive');
 };
 
 OpinionModalView.prototype.showSubmissionCue = function(opinion) {
