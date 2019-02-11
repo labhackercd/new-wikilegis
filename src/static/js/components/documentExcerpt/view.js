@@ -47,7 +47,7 @@ DocumentExcerptView.prototype.publishers = function() {
   });
 
   $('.js-opinionButton').on('click', function(e) {
-    events.openOpinionModal.publish($(e.target).closest('.js-opinionButton').data('excerptId'));
+    events.openOpinionModal.publish($(e.target).closest('.js-excerptWrapper').find('.js-documentExcerpt').data('id'));
   });
 };
 
