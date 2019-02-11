@@ -24,6 +24,12 @@
     }
   }
 
+  &.-new {
+    background: none;
+    box-shadow: none;
+    border: 2px dashed $color-grayish;
+  }
+
   & > p {
     margin-top: 1rem;
   }

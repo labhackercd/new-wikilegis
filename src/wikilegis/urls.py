@@ -20,6 +20,9 @@ urlpatterns = [
     path('participation/', include('apps.participations.urls')),
     path('accounts/', include('apps.accounts.urls')),
     path('listarProposicoes/', list_propositions),
+    path('dashboard/',
+         TemplateView.as_view(template_name='pages/dashboard.html'),
+         name='dashboard'),
 ]
 
 if settings.DEBUG:

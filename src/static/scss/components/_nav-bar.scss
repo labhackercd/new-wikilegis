@@ -42,6 +42,13 @@ body.-white .nav-bar {
     height: 3.75rem;
   }
 
+  &.-admin {
+    justify-content: flex-start;
+
+    border-bottom: 1px solid $color-grayish;
+    background: #FFF;
+  }
+
   &.-shadow {
     @include header-shadow;
   }
@@ -67,6 +74,43 @@ body.-white .nav-bar {
 
     @include bp-smallonly {
       padding: 0;
+    }
+  }
+
+  & > .tools {
+    display: flex;
+    align-items: center;
+    flex: auto;
+    justify-content: center;
+
+    height: 100%;
+    margin-right: 7rem;
+
+    color: $color-gray;
+
+    & > a {
+      font-size: .875rem;
+      font-weight: bold;
+
+      display: flex;
+      align-items: center;
+
+      height: 100%;
+      padding: 0 2rem;
+
+      text-transform: uppercase;
+
+      &:hover {
+        color: $color-brand;
+      }
+
+      &.-active {
+        color: $color-brand;
+
+        &:hover {
+          color: lighten($color-brand, 5%);
+        }
+      }
     }
   }
 }

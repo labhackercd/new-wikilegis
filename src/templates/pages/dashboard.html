@@ -1,0 +1,94 @@
+{% extends "structure/base.html" %}
+{% load staticfiles projects_tags %}
+
+{% block content %}
+
+<main class="projects-list" id="js-projects-list">
+  <div class="header">
+    <h1>Meus Documentos</h1>
+    <div class="tabs">
+      <div class="tab -active">Participação Popular</div>
+      <div class="tab">Abertos</div>
+      <div class="tab">Encerrados</div>
+    </div>
+  </div>
+  <input class="search js-search" type="text" placeholder="Buscar">
+  <div class="list">
+    <a href="/p/2-lei-de-acesso-a-informacao/" class="simple-card -new">
+      
+    </a>
+    <a href="/p/2-lei-de-acesso-a-informacao/" class="simple-card">
+      <div class="header">
+
+        <span class="date">Aberto até 15/01/2020</span>
+        <span class="status"><img src="/static/img/padlock.svg">Privado</span>
+
+      </div>
+      <h3 class="js-title">Lei de Acesso à Informação</h3>
+      <p class="js-description">Dispõe sobre o uso inadequado da imagem da mulher em campanhas publicitárias destinadas à venda de produtos de consumo.</p>
+      <div class="info">
+        <div class="themes">
+
+          <div class="theme">
+
+            <img src="/media/icons/education_uYe41SE.png" alt="educacao">
+
+            <span>Educação</span>
+          </div>
+
+        </div>
+        <div class="suggestions">
+          <div class="suggestion">
+            <span class="value">0</span>
+            <span>Sugestões</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="/p/6-lei-de-acesso-a-informacao/" class="simple-card">
+      <div class="header">
+
+        <span class="date">Aberto até 28/02/2019</span>
+
+      </div>
+      <h3 class="js-title">Lei de Acesso à Informação</h3>
+      <p class="js-description">Dispõe sobre o uso inadequado da imagem da mulher em campanhas publicitárias destinadas à venda de produtos de consumo.</p>
+      <div class="info">
+        <div class="themes">
+
+          <div class="theme">
+
+            <img src="/media/icons/education_uYe41SE.png" alt="educacao">
+
+            <span>Educação</span>
+          </div>
+
+        </div>
+        <div class="suggestions">
+          <div class="suggestion">
+            <span class="value">5</span>
+            <span>Sugestões</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+</main>
+
+{% endblock content %}
+
+{% block page_js %}
+  <script>
+    var prefixURL = '{{prefix_url|default_if_none:""}}';
+  </script>
+
+  <script src="{% static 'list.js/dist/list.min.js' %}"></script>
+  <script src="{% static 'particles.js/particles.js' %}"></script>
+  <script src="{% static 'js/components/backgroundParticle/view.js' %}"></script>
+  <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
+  <script src="{% static 'js/components/documentBody/view.js' %}"></script>
+  <script src="{% static 'js/components/navBurger/view.js' %}"></script>
+  <script src="{% static 'js/components/searchInput/view.js' %}"></script>
+  <script src="{% static 'js/pages/home.js' %}"></script>
+{% endblock page_js %}
