@@ -83,7 +83,9 @@ def document_suggestions(document, permission='public', user=None):
 def excerpt_suggestions(excerpt, user=None):
     suggestions = excerpt.suggestions.all()
     if user:
-        suggestions = suggestions.exclude(author=user)
+        voted_suggestions = user.votes.values_list('suggestion', flat=True)
+        suggestions = suggestions.exclude(author=user).exclude(
+            id__in=voted_suggestions)
     if suggestions:
         return True
     else:
