@@ -115,7 +115,7 @@ class InvitedGroupDetailView(DetailView):
             ).exclude(
                 id__in=opined_ids
             )
-            context['suggestions'] = suggestions
+        context['suggestions'] = suggestions
         return context
 
     def get_object(self, queryset=None):

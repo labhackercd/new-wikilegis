@@ -5,7 +5,7 @@
 {% endblock title %}
 {% block content %}
 
-{% can_suggest object request.user as selection_enabled%}
+{% can_suggest object request.user as selection_enabled %}
 <main class="document-body js-documentBody" data-selection-enabled="{% if selection_enabled %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
   <div class="wrapper">
     <div class="invisible"></div>
@@ -85,10 +85,17 @@
       <h1>{{ object.document.title }}</h1>
       <p class="description">{{ object.document.description }}</p>
       <hr>
+      {% if request.user.is_authenticated %}
+        {% group_suggestions object request.user as has_suggestions %}
+      {% else %}
+        {% group_suggestions object as has_suggestions %}
+      {% endif %}
+      {% if has_suggestions %}
       <span class="suggestion-opinion -all js-opinionButton">
         <i class="icon"></i>
         <span class="text">Ver opiniões</span>
       </span>
+      {% endif %}
     </header>
     {% for excerpt in object.document.excerpts.all %}
       {% if excerpt.excerpt_type.align_center %}
