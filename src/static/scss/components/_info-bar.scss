@@ -63,19 +63,6 @@
     }
   }
 
-  & > .item > .socials {
-    display: flex;
-    align-items: center;
-
-    & > a {
-    
-    }
-
-    & > * + * {
-      margin-left: .5rem;
-    }
-  }
-
   & > .item > .title {
     font-size: 1.5rem;
     font-weight: bold;
