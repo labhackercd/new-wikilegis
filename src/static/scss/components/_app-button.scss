@@ -1,0 +1,218 @@
+.app-button {
+  font-size: $font-size-mili;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 5rem;
+  padding: .7rem 1.2rem;
+
+  cursor: pointer;
+  transition: all .3s $swift-out;
+  text-transform: uppercase;
+
+  color: #FFF;
+
+  @include bp-mediumup {
+    font-size: $font-size-centi;
+
+    padding: .75rem 1.5rem;
+  }
+
+  &.-circle {
+    // Duplicate the button text content inside a data-text attribute
+    // in the markup for its label to work with the -circle variant
+    font-size: 0;
+
+    position: relative;
+
+    width: 2.5rem;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0;
+
+    border-radius: 50%;
+
+    @include button-shadow();
+    @include bp-mediumup {
+      width: 3.75rem;
+      height: 3.75rem;
+    }
+    @include bp-mediumup {
+      &:hover::after {
+        transform: translate(0) !important;
+
+        opacity: 1;
+      }
+    }
+
+    &::before {
+      position: absolute;
+
+      width: .9rem !important;
+      min-width: 0 !important;
+      height: .9rem !important;
+      min-height: 0 !important;
+      padding: 5px;
+
+      border-radius: 50%;
+      background-size: calc(100% - 10px) !important;
+      box-shadow: 0 0 0 -1px currentColor;
+
+      @include bp-mediumup {
+        width: 1.6rem !important;
+        min-width: 0 !important;
+        height: 1.6rem !important;
+        min-height: 0 !important;
+      }
+    }
+
+    &::after {
+      font-size: 1rem;
+      font-weight: 600;
+
+      position: absolute;
+      bottom: -2em;
+
+      content: attr(data-text);
+      transition: transform .3s $swift-out, opacity .3s $swift-out;
+      transform: translate(0,100%);
+      white-space: nowrap;
+      pointer-events: none;
+
+      opacity: 0;
+      color: #FFF;
+    }
+
+    &.-toright {
+      &::after {
+        bottom: auto;
+        left: calc(100% + 1.5em);
+
+        transform: translate(1em, 0);
+      }
+    }
+
+    &.-toleft {
+      &::after {
+        right: calc(100% + 1.5em);
+        bottom: auto;
+
+        transform: translate(-1em, 0);
+      }
+    }
+
+    &.-totop {
+      &::after {
+        top: -2em;
+        bottom: auto;
+
+        transform: translate(0,-100%);
+      }
+    }
+
+    &.-small {
+      width: 2rem;
+      height: 2rem;
+
+      @include bp-mediumup {
+        width: 2.75rem;
+        height: 2.75rem;
+      }
+
+      &::before {
+        width: .75rem !important;
+        height: .75rem !important;
+
+        @include bp-mediumup {
+          width: 1rem !important;
+          height: 1rem !important;
+        }
+      }
+    }
+
+    &.-ripple {
+      &::before {
+        transition: box-shadow .6s ease;
+
+        box-shadow: 0 0 0 4rem transparent;
+      }
+
+      &::after {
+        opacity: 0;
+      }
+    }
+  }
+
+  &.-green {
+    background-color: $color-brand;
+
+    &.-circle {
+      color: $color-brand;
+    }
+
+    &:hover {
+      background-color: lighten($color-brand, 10%);
+    }
+  }
+
+  &.-red {
+    background-color: $color-red;
+
+    &.-circle {
+      color: $color-red;
+    }
+
+    &:hover {
+      background-color: lighten($color-red, 10%);
+    }
+  }
+
+  &.-gray {
+    background-color: $color-gray;
+
+    &.-circle {
+      color: $color-gray;
+    }
+
+    &:hover {
+      background-color: lighten($color-gray, 10%);
+    }
+  }
+
+  &.-deepgray {
+    background-color: $color-deep-gray;
+
+    &.-circle {
+      color: $color-deep-gray;
+    }
+
+    &:hover {
+      background-color: lighten($color-deep-gray, 10%);
+    }
+  }
+
+  &.-white {
+    color: $color-deep-gray;
+    background-color: #FFF;
+
+    &.-circle {
+      color: #FFF;
+    }
+    &:hover {
+      background-color: darken(#FFF, 5%);
+    }
+  }
+
+  &.-clear {
+    text-decoration: underline;
+    text-transform: none;
+
+    color: $color-gray;
+
+    &:hover {
+      color: $color-deep-gray;
+    }
+  }
+}

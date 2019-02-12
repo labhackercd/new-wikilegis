@@ -1,9 +1,14 @@
 .text-highlight {
-  background-color: rgba(255, 221, 102, 0.5);
+  position: relative;
+
+  padding: .2em 0;
+
   color: $color-deep-gray;
+  background-color: rgba($color-highlight, .5);
 
   &.-active {
-    background-color: rgba(255, 221, 102, 1);
     cursor: default;
+
+    background-color: $color-highlight;
   }
 }

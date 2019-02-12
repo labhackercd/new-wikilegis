@@ -137,4 +137,11 @@ var events = {
 
   // Triggered when the user does an action that closes the text selection onboarding
   closeTextSelectionOnboarding: $.Topic('closeTextSelectionOnboard'),
+
+  // Triggered after a user skips or select an opinion from the opinion-modal 
+  showNextSuggestion: $.Topic('showNextSuggestion'),
+
+  // Triggered right after a user clicks on a button from the opinion-modal
+  // Params: opinion
+  showSubmissionCue: $.Topic('showSubmissionCue')
 };
