@@ -19,7 +19,13 @@
       <div class="item">
         <span class="title">Autor</span>
         {% for author in object.document.infos.authors.all %}
-          <span class="text">{{ author.name }} - {{author.author_type}}</span>
+          <div class="autor">
+            <div class="info">
+              <span class="text -name">{{ author.name }}</span>
+              <span class="text">{{author.author_type}} (PT-DF)</span>
+            </div>
+            <img src="{% static 'img/default.jpg' %}">
+          </div>
         {% endfor %}
       </div>
       {% endif %}
@@ -40,6 +46,12 @@
             </li>
           {% endfor %}
         </ul>
+      </div>
+      <div class="item">
+        <div class="socials">
+          <a href="#" class="twitter"></a>
+          <a href="#" class="facebook"></a>
+        </div>
       </div>
       {% endif %}
       {% if object.document.videos.all %}
