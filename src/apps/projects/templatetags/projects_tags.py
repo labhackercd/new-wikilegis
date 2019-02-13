@@ -80,8 +80,8 @@ def document_suggestions(document, permission='public', user=None):
 
 
 @register.simple_tag()
-def excerpt_suggestions(excerpt, user=None):
-    suggestions = excerpt.suggestions.all()
+def excerpt_suggestions(group, excerpt, user=None):
+    suggestions = excerpt.suggestions.filter(invited_group=group)
     if user:
         voted_suggestions = user.votes.values_list('suggestion', flat=True)
         suggestions = suggestions.exclude(author=user).exclude(
