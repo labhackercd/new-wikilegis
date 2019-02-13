@@ -22,9 +22,11 @@
           <div class="autor">
             <div class="info">
               <span class="text -name">{{ author.name }}</span>
-              <span class="text">{{author.author_type}} (PT-DF)</span>
+              <span class="text">{{author.author_type}} {% if author.infos %}({{author.infos.party_initials}}-{{author.infos.uf}}){% endif %}</span>
             </div>
-            <img src="{% static 'img/default.jpg' %}">
+            {% if author.infos %}
+            <img src="{{author.infos.image_url}}">
+            {% endif %}
           </div>
         {% endfor %}
       </div>
