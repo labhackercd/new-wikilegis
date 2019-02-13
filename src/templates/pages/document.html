@@ -19,7 +19,8 @@
       <div class="item">
         <span class="title">Autor</span>
         {% for author in object.document.infos.authors.all %}
-          <div class="autor">
+          {% if author.infos.cd_id %}
+          <a class="autor" target="_blank" href="http://www2.camara.leg.br/deputados/pesquisa/layouts_deputados_biografia?pk={{author.infos.cd_id}}">
             <div class="info">
               <span class="text -name">{{ author.name }}</span>
               <span class="text">{{author.author_type}} {% if author.infos %}({{author.infos.party_initials}}-{{author.infos.uf}}){% endif %}</span>
@@ -27,15 +28,26 @@
             {% if author.infos %}
             <img src="{{author.infos.image_url}}">
             {% endif %}
+          </a>
+          {% else %}
+          <div class="autor">
+            <div class="info">
+              <span class="text -name">{{ author.name }}</span>
+              <span class="text">{{author.author_type}} {% if author.infos.party_initials and author.infos.uf %}({{author.infos.party_initials}}-{{author.infos.uf}}){% endif %}</span>
+            </div>
+            {% if author.infos.image_url %}
+            <img src="{{author.infos.image_url}}">
+            {% endif %}
           </div>
+          {% endif %}
         {% endfor %}
       </div>
       {% endif %}
-      {% if object.document.infos.legislative_body and object.document.infos.status%}
-      <div class="item">
+      {% if object.document.infos.legislative_body and object.document.infos.status and object.document.infos.cd_id %}
+      <a class="item" target="_blank" href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao={{object.document.infos.cd_id}}">
         <span class="title">Situação</span>
         <span class="text">{{ object.document.infos.legislative_body }} - {{ object.document.infos.status }}</span>
-      </div>
+      </a>
       {% endif %}
       {% if object.document.themes.all %}
       <div class="item">
