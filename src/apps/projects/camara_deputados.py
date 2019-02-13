@@ -71,7 +71,7 @@ def create_document_info(document):
             author=author)[0]
         author_info.cd_id = author_info_data['id']
         author_info.image_url = author_info_data['ultimoStatus']['urlFoto']
-        author_info.party_initials = author_info_data['ultimoStatus']['siglaPartido']  #noqa
+        author_info.party_initials = author_info_data['ultimoStatus']['siglaPartido']  # noqa
         author_info.uf = author_info_data['ultimoStatus']['siglaUf']
         author_info.save()
 
