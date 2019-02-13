@@ -5,6 +5,7 @@ var AlertMessageView = function() {};
 AlertMessageView.prototype.initEvents = function () {
   this.alertMessageElement = $('.js-alertMessage');
   this.actionsElement = $('.js-alertMessage .js-actions');
+  this.actionLinkElement = $('.js-alertMessage .js-actions .js-actionLink');
   this.messageElement = $('.js-alertMessage .js-message');
   this.progressElement = $('.js-alertMessage .js-progress');
   this.emojiElement = $('.js-alertMessage .js-emoji');
@@ -22,11 +23,11 @@ AlertMessageView.prototype.initEvents = function () {
 
 AlertMessageView.prototype.subscribers = function () {
   var self = this;
-  events.showMessage.subscribe(function (message, messageType, undo) {
+  events.showMessage.subscribe(function (message, messageType, action) {
     if (messageType != 'success' && messageType != 'fail') {
       messageType = 'default';
     }
-    self.show(message, messageType, undo);
+    self.show(message, messageType, action);
     setTimeout(function() {
       self.startProgress();
     }, 50);
@@ -56,7 +57,7 @@ AlertMessageView.prototype.publishers = function() {
   });
 };
 
-AlertMessageView.prototype.show = function (message, messageType, undo) {
+AlertMessageView.prototype.show = function (message, messageType, action) {
   this.alertMessageElement.removeClass('-success -fail -default -color');
   this.alertMessageElement.addClass('-' + messageType);
   this.messageElement.html(message);
@@ -64,8 +65,11 @@ AlertMessageView.prototype.show = function (message, messageType, undo) {
   var random = Math.floor(Math.random() * this.emojis[messageType].length);
   this.emojiElement.html(this.emojis[messageType][random]);
 
-  if (undo) {
+  if (action) {
     this.actionsElement.removeClass('_hide');
+    this.actionLinkElement.addClass('-' + action.name);
+    this.actionLinkElement.text(action.text);
+    this.actionLinkElement.attr('href', action.link);
   }
 
   this.alertMessageElement.addClass('-show');

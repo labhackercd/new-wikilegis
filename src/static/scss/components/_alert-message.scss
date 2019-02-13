@@ -97,13 +97,20 @@
       &:hover {
         opacity: 1;
 
-        & > .icon {
+        &.-undo::before {
           transition: all .55s $swift-out;
           transform: rotate(360deg);
         }
+
       }
 
-      & > .icon {
+      &.-undo {
+        display: flex;
+        @include icon('undo');
+      }
+
+      &.-undo::before {
+        display: inline-flex;
         margin-top: 1px;
         margin-right: .5rem;
 

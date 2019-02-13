@@ -115,7 +115,7 @@ var events = {
   closeHighlightTooltip: $.Topic('closeHighlightTooltip'),
 
   // Triggered to show alert message
-  // Params: message, messageType (success, fail, default), undo (bool)
+  // Params: message, messageType (success, fail, default), action ({name, text, link})
   showMessage: $.Topic('showMessage'),
 
   // Triggered after 5 seconds that showMessage was triggered
