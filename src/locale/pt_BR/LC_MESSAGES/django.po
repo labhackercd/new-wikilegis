@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-22 09:27-0200\n"
+"POT-Creation-Date: 2019-02-13 10:50-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgstr "tipo de perfil"
 msgid "gender"
 msgstr "gênero"
 
-#: src/apps/accounts/models.py:18
+#: src/apps/accounts/models.py:18 src/apps/projects/models.py:114
 msgid "uf"
 msgstr "uf"
 
@@ -129,8 +129,8 @@ msgid "Participations"
 msgstr "Participações"
 
 #: src/apps/participations/models.py:11 src/apps/projects/models.py:54
-#: src/apps/projects/models.py:71 src/apps/projects/models.py:105
-#: src/apps/projects/models.py:137
+#: src/apps/projects/models.py:71 src/apps/projects/models.py:126
+#: src/apps/projects/models.py:158
 msgid "document"
 msgstr "documento"
 
@@ -152,7 +152,7 @@ msgid "invited groups"
 msgstr "grupos de convidados"
 
 #: src/apps/participations/models.py:41 src/apps/participations/models.py:89
-#: src/apps/projects/models.py:151
+#: src/apps/projects/models.py:172
 msgid "excerpt"
 msgstr "trecho"
 
@@ -169,11 +169,12 @@ msgid "end index"
 msgstr "índice final"
 
 #: src/apps/participations/models.py:45 src/apps/participations/models.py:90
-#: src/apps/projects/models.py:148
+#: src/apps/projects/models.py:169
 msgid "content"
 msgstr "conteúdo"
 
 #: src/apps/participations/models.py:48 src/apps/participations/models.py:100
+#: src/apps/projects/models.py:108
 msgid "author"
 msgstr "autor"
 
@@ -201,13 +202,13 @@ msgstr "votos opiniões"
 msgid "amendment type"
 msgstr "tipo de emenda"
 
-#: src/apps/participations/models.py:94 src/apps/projects/models.py:119
-#: src/apps/projects/models.py:124 src/apps/projects/models.py:144
+#: src/apps/participations/models.py:94 src/apps/projects/models.py:140
+#: src/apps/projects/models.py:145 src/apps/projects/models.py:165
 msgid "excerpt type"
 msgstr "tipo de trecho"
 
 #: src/apps/participations/models.py:97 src/apps/projects/models.py:50
-#: src/apps/projects/models.py:147
+#: src/apps/projects/models.py:168
 msgid "number"
 msgstr "número"
 
@@ -219,15 +220,15 @@ msgstr "emenda"
 msgid "amendments"
 msgstr "emendas"
 
-#: src/apps/participations/views.py:52
+#: src/apps/participations/views.py:53
 msgid "Participants are required"
 msgstr "O campo participantes é obrigatório"
 
-#: src/apps/participations/views.py:144
+#: src/apps/participations/views.py:162
 msgid "Project closed for participation"
 msgstr "Projeto fechado para participação"
 
-#: src/apps/participations/views.py:209
+#: src/apps/participations/views.py:227
 msgid "No suggestion found"
 msgstr "Sem sugestões"
 
@@ -251,6 +252,10 @@ msgstr "Coletar informações sobre os documentos"
 msgid "Projects"
 msgstr "Projetos"
 
+#: src/apps/projects/forms.py:19
+msgid "File in txt format"
+msgstr "Arquivo em formato txt"
+
 #: src/apps/projects/models.py:12
 msgid "icon"
 msgstr "ícone"
@@ -260,7 +265,7 @@ msgid "theme"
 msgstr "tema"
 
 #: src/apps/projects/models.py:28 src/apps/projects/models.py:43
-#: src/apps/projects/models.py:107
+#: src/apps/projects/models.py:128
 msgid "title"
 msgstr "título"
 
@@ -288,7 +293,7 @@ msgstr "ano"
 msgid "documents"
 msgstr "documentos"
 
-#: src/apps/projects/models.py:73
+#: src/apps/projects/models.py:73 src/apps/projects/models.py:110
 msgid "CD ID"
 msgstr "CD ID"
 
@@ -324,35 +329,51 @@ msgstr "Autor de Documento"
 msgid "Document Authors"
 msgstr "Autores de Documento"
 
-#: src/apps/projects/models.py:108
+#: src/apps/projects/models.py:111
+msgid "image url"
+msgstr "link da imagem"
+
+#: src/apps/projects/models.py:112
+msgid "party initials"
+msgstr "sigla do partido"
+
+#: src/apps/projects/models.py:117
+msgid "Author Information"
+msgstr "Informação do Autor"
+
+#: src/apps/projects/models.py:118
+msgid "Authors Informations"
+msgstr "Informações dos Autores"
+
+#: src/apps/projects/models.py:129
 msgid "youtube id"
 msgstr "id do YouTube"
 
-#: src/apps/projects/models.py:111
+#: src/apps/projects/models.py:132
 msgid "document video"
 msgstr "vídeo de documento"
 
-#: src/apps/projects/models.py:112
+#: src/apps/projects/models.py:133
 msgid "document videos"
 msgstr "vídeos de documentos"
 
-#: src/apps/projects/models.py:121
+#: src/apps/projects/models.py:142
 msgid "align center"
 msgstr "alinhar ao centro"
 
-#: src/apps/projects/models.py:125
+#: src/apps/projects/models.py:146
 msgid "excerpt types"
 msgstr "tipos de trechos"
 
-#: src/apps/projects/models.py:140
+#: src/apps/projects/models.py:161
 msgid "parent"
 msgstr "trecho ancestral"
 
-#: src/apps/projects/models.py:142
+#: src/apps/projects/models.py:163
 msgid "order"
 msgstr "órdem"
 
-#: src/apps/projects/models.py:152
+#: src/apps/projects/models.py:173
 msgid "excerpts"
 msgstr "trechos"
 
@@ -361,7 +382,7 @@ msgid "Sole paragraph"
 msgstr "Parágrafo único"
 
 #: src/templates/components/filter-modal.html:15
-#: src/templates/pages/new-document.html:14
+#: src/templates/pages/new-document.html:18
 msgid "Tema"
 msgstr "Tema"
 
@@ -369,23 +390,19 @@ msgstr "Tema"
 msgid "Meus Grupos"
 msgstr ""
 
-#: src/templates/pages/new-document.html:22
-msgid "Tipo"
-msgstr "Tipo"
-
-#: src/templates/pages/new-document.html:32
+#: src/templates/pages/new-document.html:46
 msgid "Número"
 msgstr "Número"
 
-#: src/templates/pages/new-document.html:37
+#: src/templates/pages/new-document.html:51
 msgid "Ano"
 msgstr "Ano"
 
-#: src/templates/pages/new-document.html:43
+#: src/templates/pages/new-document.html:57
 msgid "Título"
 msgstr "Título"
 
-#: src/templates/pages/new-document.html:48
+#: src/templates/pages/new-document.html:62
 msgid "Descrição"
 msgstr "Descrição"
 
@@ -452,3 +469,6 @@ msgstr "Coletar informações da API de dados abertos da Câmara dos Deputados"
 #: src/wikilegis/settings.py:248
 msgid "Câmara dos Deputados open data API"
 msgstr "URL da API de dados abertos da Câmara dos Deputados"
+
+#~ msgid "Tipo"
+#~ msgstr "Tipo"

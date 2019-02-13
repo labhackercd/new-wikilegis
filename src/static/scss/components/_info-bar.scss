@@ -48,17 +48,51 @@
     }
   }
 
+  & > .item > .autor {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-bottom: 1rem;
+
+    & > .info {
+      line-height: 1;
+    }
+
+    & .text {
+      margin-top: 0;
+    }
+  }
+
   & > .item > .title {
     font-size: 1.5rem;
     font-weight: bold;
+
+    margin-bottom: .5rem;
   }
 
-  & > .item > span {
+  & > .item .text,
+  & > .item .epigraph {
     font-size: .875rem;
     font-weight: normal;
     line-height: 1.6;
+  }
 
-    margin-top: .5rem;
+  & > .item .text.-name {
+    font-weight: bold;
+
+    display: block;
+  }
+
+  & > .item img {
+    overflow: hidden;
+    flex: 0 0 auto;
+
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: .3rem;
+    margin-left: .75rem;
+
+    border-radius: 50%;
   }
 
   & > .item > .themes {

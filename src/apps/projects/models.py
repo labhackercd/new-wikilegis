@@ -100,6 +100,27 @@ class DocumentAuthor(models.Model):
         return self.name
 
 
+class DocumentAuthorInfo(models.Model):
+    author = models.OneToOneField(
+        'projects.DocumentAuthor',
+        on_delete=models.CASCADE,
+        related_name='infos',
+        verbose_name=_('author')
+    )
+    cd_id = models.PositiveIntegerField(_('CD ID'), default=0)
+    image_url = models.URLField(_('image url'), null=True, blank=True)
+    party_initials = models.CharField(_('party initials'), max_length=250,
+                                      null=True, blank=True)
+    uf = models.CharField(_('uf'), max_length=250, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("Author Information")
+        verbose_name_plural = _("Authors Informations")
+
+    def __str__(self):
+        return '{} <{}>'.format(self.author.name, self.cd_id)
+
+
 class DocumentVideo(models.Model):
     document = models.ForeignKey('projects.Document', on_delete=models.CASCADE,
                                  verbose_name=_('document'),

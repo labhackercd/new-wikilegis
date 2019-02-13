@@ -1,6 +1,7 @@
 from constance import config
 from urllib import parse
-from apps.projects.models import DocumentInfo, DocumentAuthor
+from apps.projects.models import (DocumentInfo, DocumentAuthor,
+                                  DocumentAuthorInfo)
 import requests
 import os
 
@@ -40,6 +41,12 @@ def get_authors(proposal_id):
     return authors_data
 
 
+def get_author_info(url_author):
+    headers = {'accept': 'application/json'}
+    response = requests.get(url_author, headers=headers)
+    return response.json()['dados']
+
+
 def create_document_info(document):
     data = get_proposal_data(
         document.document_type.initials,
@@ -59,4 +66,13 @@ def create_document_info(document):
             name=author_data['nome'],
             author_type=author_data['tipo']
         )[0]
+        author_info_data = get_author_info(author_data['uri'])
+        author_info = DocumentAuthorInfo.objects.get_or_create(
+            author=author)[0]
+        author_info.cd_id = author_info_data['id']
+        author_info.image_url = author_info_data['ultimoStatus']['urlFoto']
+        author_info.party_initials = author_info_data['ultimoStatus']['siglaPartido']  # noqa
+        author_info.uf = author_info_data['ultimoStatus']['siglaUf']
+        author_info.save()
+
         infos.authors.add(author)

@@ -118,3 +118,16 @@ class DocumentAuthorAdmin(admin.ModelAdmin):
         'author_type',
     )
     list_filter = ('author_type', )
+
+
+@admin.register(models.DocumentAuthorInfo)
+class DocumentAuthorInfoAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'author',
+        'cd_id',
+        'image_url',
+        'party_initials',
+        'uf',
+    )
+    list_filter = ('author',)
