@@ -12,6 +12,7 @@
 
     &:hover > .text {
       transform: translateX(0);
+      color: $color-deep-gray;
 
       opacity: 1;
     }
@@ -55,5 +56,11 @@
       margin-top: .2rem;
       margin-right: .5rem;
     }
+  }
+}
+
+.document-body.-supressed {
+  .suggestion-opinion {
+    opacity: .5;
   }
 }

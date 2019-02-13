@@ -16,7 +16,7 @@ BodyView.prototype.publishers = function() {
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
 
-    if (!target.hasClass('js-overlay') && target.closest('js-opinionButton').length > 0) {
+    if (!target.hasClass('js-overlay')) {
       if (suggestionInput.length === 0 && opinionModal.length === 0) {
         var selectedText = window.getSelection().toString();
         if (selectedText === '' || selectedText === self.previousSelectedText) {
