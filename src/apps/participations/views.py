@@ -140,7 +140,7 @@ def send_suggestion(request, group_pk):
     invited_group = get_object_or_404(InvitedGroup, pk=group_pk)
 
     if invited_group.closing_date > date.today():
-        Suggestion.objects.create(
+        suggestion = Suggestion.objects.create(
             invited_group=invited_group,
             selected_text=excerpt.content[start_index:end_index],
             start_index=start_index,
@@ -156,6 +156,10 @@ def send_suggestion(request, group_pk):
         return JsonResponse({
             'id': excerpt.id,
             'html': html,
+            'undoUrl': reverse_lazy(
+                'undo_suggestion',
+                kwargs={'suggestion_pk': suggestion.id}
+            )
         })
     else:
         return JsonResponse(
@@ -165,66 +169,8 @@ def send_suggestion(request, group_pk):
 
 
 @require_ajax
-def get_random_suggestion(request):
-    excerpt_id = request.POST.get('excerptId')
-    document_id = request.POST.get('documentId')
-    opined_suggestions = OpinionVote.objects.filter(
-        owner=request.user,
-        suggestion__excerpt__document__id=document_id
-    ).values_list('suggestion__id', flat=True)
-
-    if excerpt_id:
-        suggestions = Suggestion.objects.filter(
-            excerpt__id=excerpt_id
-        )
-    else:
-        suggestions = Suggestion.objects.filter(
-            excerpt__document__id=document_id
-        )
-
-    suggestions = suggestions.exclude(
-        author=request.user
-    ).exclude(
-        id__in=opined_suggestions
-    )
-
-    if suggestions.count() > 0:
-        count = suggestions.aggregate(count=Count('id'))['count']
-        random_index = randint(0, count - 1)
-        print(random_index)
-
-        suggestion = suggestions[random_index]
-
-        span = '<span class="text-highlight">'
-        close_span = '</span>'
-        content = suggestion.excerpt.content
-        content = '{prev}{open_span}{content}{close_span}{after}'.format(
-            prev=content[:suggestion.start_index],
-            open_span=span,
-            content=content[suggestion.start_index:suggestion.end_index],
-            close_span=close_span,
-            after=content[suggestion.end_index:]
-        )
-
-        data = {
-            'user': {
-                'id': suggestion.author.id,
-                'avatar': suggestion.author.profile.avatar_url,
-                'fullName': suggestion.author.get_full_name(),
-            },
-            'excerpt': {
-                'id': suggestion.excerpt.id,
-                'html': content,
-            },
-            'suggestion': {
-                'id': suggestion.id,
-                'text': suggestion.content
-            }
-        }
-
-        return JsonResponse(data)
-    else:
-        return JsonResponse({'error': _('No suggestion found')}, status=404)
+def undo_suggestion(request, suggestion_id):
+    pass
 
 
 @require_ajax

@@ -31,7 +31,7 @@ SuggestionInputController.prototype.sendSuggestion = function(groupId, excerptId
     var action = {
       name: 'undo',
       text: 'Cancelar',
-      link: data.link
+      link: data.undoUrl
     }
     events.showMessage.publish('Enviando sua sugestão', 'success', action);
   });
