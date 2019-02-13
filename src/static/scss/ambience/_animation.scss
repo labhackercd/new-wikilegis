@@ -51,7 +51,7 @@ $swift-out: cubic-bezier(.55, 0, .1, 1);
     transform: scaleX(0);
   }
   100% {
-    transform: scaleX(1);
+    transform: scaleX(-1);
   }
 }
 
@@ -61,7 +61,7 @@ $swift-out: cubic-bezier(.55, 0, .1, 1);
     transform: scaleY(0);
   }
   100% {
-    transform: scaleY(1);
+    transform: scaleY(-1);
   }
 }
 
