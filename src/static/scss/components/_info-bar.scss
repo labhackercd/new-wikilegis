@@ -63,12 +63,29 @@
     }
   }
 
-  & > .item > .socials {
+  & > .item > .social {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    flex-direction: column;
+
+    margin-top: 1rem;
 
     & > * + * {
-      margin-left: .5rem;
+      margin-top: 1rem;
+    }
+
+    & > .facebook,
+    & > .twitter {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    & > .facebook {
+      @include icon('facebook');
+    }
+
+    & > .twitter {
+      @include icon('twitter');
     }
   }
 
