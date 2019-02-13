@@ -22,7 +22,7 @@ DocumentExcerptView.prototype.publishers = function() {
     if (selectionEnabled) {
       events.cancelTextSelection.publish();
 
-      if (!$('body').hasClass('-voidselect')) {
+      if (!$('body').hasClass('-voidselect') && !target.hasClass('js-highlight')) {
         events.startTextSelection.publish(target.data('id'));
       }
     }
@@ -44,6 +44,10 @@ DocumentExcerptView.prototype.publishers = function() {
         }
       }, 500);
     });
+  });
+
+  $('.js-opinionButton').on('click', function(e) {
+    events.openOpinionModal.publish($(e.target).closest('.js-excerptWrapper').find('.js-documentExcerpt').data('id'));
   });
 };
 

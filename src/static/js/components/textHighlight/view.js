@@ -19,7 +19,15 @@ TextHighlightView.prototype.subscribers = function () {
 };
 
 TextHighlightView.prototype.publishers = function () {
+  var self = this;
   $('.js-documentBody').on('mouseenter', '.js-highlight', function(e) {
+    var target = $(e.target);
+    var currentId = target.data('suggestionIds').toString().split(',')[0];
+    var excerpt = target.closest('.js-documentExcerpt');
+    self.activateHighlight(excerpt, currentId);
+  });
+
+  $('.js-documentBody').on('click', '.js-highlight', function(e) {
     var target = $(e.target);
     var currentId = target.data('suggestionIds').toString().split(',')[0];
     var excerpt = target.closest('.js-documentExcerpt');

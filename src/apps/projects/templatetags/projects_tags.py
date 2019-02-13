@@ -79,6 +79,32 @@ def document_suggestions(document, permission='public', user=None):
     return group.suggestions.count()
 
 
+@register.simple_tag()
+def excerpt_suggestions(group, excerpt, user=None):
+    suggestions = excerpt.suggestions.filter(invited_group=group)
+    if user:
+        voted_suggestions = user.votes.values_list('suggestion', flat=True)
+        suggestions = suggestions.exclude(author=user).exclude(
+            id__in=voted_suggestions)
+    if suggestions:
+        return True
+    else:
+        return False
+
+
+@register.simple_tag()
+def group_suggestions(group, user=None):
+    suggestions = group.suggestions.all()
+    if user:
+        voted_suggestions = user.votes.values_list('suggestion', flat=True)
+        suggestions = suggestions.exclude(author=user).exclude(
+            id__in=voted_suggestions)
+    if suggestions:
+        return True
+    else:
+        return False
+
+
 @register.simple_tag
 def excerpt_numbering(excerpt):
     if excerpt.number and excerpt.excerpt_type:

@@ -49,7 +49,10 @@ OpinionModalView.prototype.publishers = function() {
 OpinionModalView.prototype.subscribers = function () {
   var self = this;
 
-  events.openOpinionModal.subscribe(function(){
+  events.openOpinionModal.subscribe(function(excerptId){
+    if(excerptId) {
+      self.activateOpinionCards(excerptId);
+    }
     if (self.modalContentElement.children('.-active').length > 0) {
       self.show();
     }
