@@ -129,9 +129,13 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
     if (e.originalEvent.propertyName === 'transform') {
       card.remove();
       if (self.modalContentElement.children('.-active').length === 0) {
+        events.hideExcerptOpinionBalloon.publish(card.data('excerptId'));
 
         self.closeOpinionModal();
         events.closeOpinionModal.publish();
+      }
+      if($('.js-opinionModal .js-opinionCard').length === 0) {
+        events.hideDocumentOpinionBalloon.publish();
       }
       $(this).off('transitionend');
 
