@@ -74,6 +74,10 @@ DocumentExcerptView.prototype.subscribers = function() {
   events.hideDocumentOpinionBalloon.subscribe(function() {
     self.hideDocumentOpinionBalloon();
   });
+
+  events.suggestionUndone.subscribe(function(data) {
+    self.updateHTML(data.excerptId, data.excerptHtml);
+  });
 };
 
 DocumentExcerptView.prototype.enableSelectedExcerpt = function(excerptId) {

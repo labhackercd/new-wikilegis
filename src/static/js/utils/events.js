@@ -132,6 +132,10 @@ var events = {
   // Params: actionUrl
   activateAlertAction: $.Topic('activateAlertAction'),
 
+  // Triggered when the user undo suggestion succesfully
+  // Params: {content, excerptId, excerptHtml, selectedText}
+  suggestionUndone: $.Topic('suggestionUndone'),
+
   // Triggered when the page loads and there's no opinionOnboardingCookie
   showOpinionOnboarding: $.Topic('showOpinionOnboard'),
 

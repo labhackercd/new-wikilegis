@@ -20,7 +20,9 @@ AlertMessageController.prototype.sendAction = function(actionUrl) {
   });
 
   request.done(function(data) {
-    console.log(data);
     events.stopAlertProgress.publish(true);
+    if (data.action === 'undo') {
+      events.suggestionUndone.publish(data.suggestion);
+    }
   });
 };
