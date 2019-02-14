@@ -91,10 +91,7 @@
         {% group_suggestions object as has_suggestions %}
       {% endif %}
       {% if has_suggestions %}
-      <span class="suggestion-opinion -all js-opinionButton">
-        <i class="icon"></i>
-        <span class="text">Ver opiniões</span>
-      </span>
+      <button class="suggestion-opinion -all js-opinionButton" aria-label="Ver opiniões"></button>
       {% endif %}
     </header>
     {% for excerpt in object.document.excerpts.all %}
@@ -111,10 +108,7 @@
           {% excerpt_suggestions object excerpt as has_suggestions %}
         {% endif %}
         {% if has_suggestions %}
-        <span class="suggestion-opinion js-opinionButton">
-          <i class="icon"></i>
-          <span class="text">Ver opiniões</span>
-        </span>
+        <button class="suggestion-opinion js-opinionButton" aria-label="Ver opiniões"></button>
         {% endif %}
       </p>
       {% endif %}

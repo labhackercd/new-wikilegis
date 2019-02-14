@@ -47,19 +47,11 @@
   }
 
   & > article > header > .suggestion-opinion {
-    right: -7.2rem;
-
-    @include bp-mediumup {
-      right: -9.5rem;
-    }
+    left: 100%;
   }
 
   & > article > p > .suggestion-opinion {
-    right: -7rem;
-
-    @include bp-mediumup {
-      right: -9rem;
-    }
+    left: 100%;
   }
 
   & > article > header {
