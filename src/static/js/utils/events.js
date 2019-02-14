@@ -119,6 +119,7 @@ var events = {
   showMessage: $.Topic('showMessage'),
 
   // Triggered after 5 seconds that showMessage was triggered
+  // Params: cancelAction
   stopAlertProgress: $.Topic('stopAlertProgress'),
 
   // Triggered on alertMessage mouseover
@@ -126,6 +127,11 @@ var events = {
 
   // Triggered on alertMessage mouseleave
   resumeAlertProgress: $.Topic('resumeAlertProgress'),
+
+  // Triggered when user click on alertMessage action
+  // Params: actionUrl
+  activateAlertAction: $.Topic('activateAlertAction'),
+
   // Triggered when the page loads and there's no opinionOnboardingCookie
   showOpinionOnboarding: $.Topic('showOpinionOnboard'),
 

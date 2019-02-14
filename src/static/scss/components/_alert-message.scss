@@ -30,16 +30,10 @@
   }
 
   &.-color {
+    & > .progress,
     .background {
       transform: scaleY(1);
-    }
-
-    &.-success {
-      // background-color: $color-brand;
-    }
-
-    &.-fail {
-      // background-color: $color-red;
+      background-color: lighten($color-deep-gray, 10%);
     }
   }
 
@@ -114,7 +108,7 @@
         margin-top: 1px;
         margin-right: .5rem;
 
-        transform-origin: 47% 42%;
+        transform-origin: 47% 49.5%;
       }
     }
   }

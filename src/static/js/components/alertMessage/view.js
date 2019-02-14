@@ -9,12 +9,13 @@ AlertMessageView.prototype.initEvents = function () {
   this.messageElement = $('.js-alertMessage .js-message');
   this.progressElement = $('.js-alertMessage .js-progress');
   this.emojiElement = $('.js-alertMessage .js-emoji');
+  this.actionClasses = '-undo';
   this.progressTimeout = null;
   this.progress = 0;
   this.emojis = {
     default: ['🙂', '🤐', '👉', '😯', '😏', '😌', '🤐', '😛', '🙃', '😉', '😶', '👋'],
-    success: ['😃', '🥳', '🤩', '🎉', '🤘', '😎', '🥰', '👍', '👌', '✌️', '🤙', '👏'],
-    fail: ['💩', '🥺', '😢', '🤭', '😰', '🧐', '☹️', '😱', '🥵', '😳', '👎', '😭']
+    success: ['😃', '🤩', '🎉', '🤘', '😎', '👍', '👌', '✌️', '🤙', '👏'],
+    fail: ['💩', '😢', '🤭', '😰', '🧐', '☹️', '😱', '😳', '👎', '😭']
   };
 
   this.subscribers();
@@ -33,8 +34,8 @@ AlertMessageView.prototype.subscribers = function () {
     }, 50);
   });
 
-  events.stopAlertProgress.subscribe(function() {
-    self.stopProgress();
+  events.stopAlertProgress.subscribe(function(cancelAction) {
+    self.stopProgress(cancelAction);
   });
 
   events.pauseAlertProgress.subscribe(function() {
@@ -55,6 +56,17 @@ AlertMessageView.prototype.publishers = function() {
   self.alertMessageElement.on('mouseleave', function() {
     events.resumeAlertProgress.publish();
   });
+
+  self.actionLinkElement.on('click', function(e) {
+    e.preventDefault();
+    var target = $(e.target);
+    events.activateAlertAction.publish(target.attr('href'));
+  });
+};
+
+AlertMessageView.prototype.getRandomEmoji = function(messageType) {
+  var random = Math.floor(Math.random() * this.emojis[messageType].length);
+  return this.emojis[messageType][random];
 };
 
 AlertMessageView.prototype.show = function (message, messageType, action) {
@@ -62,11 +74,11 @@ AlertMessageView.prototype.show = function (message, messageType, action) {
   this.alertMessageElement.addClass('-' + messageType);
   this.messageElement.html(message);
 
-  var random = Math.floor(Math.random() * this.emojis[messageType].length);
-  this.emojiElement.html(this.emojis[messageType][random]);
+  this.emojiElement.html(this.getRandomEmoji(messageType));
 
   if (action) {
     this.actionsElement.removeClass('_hide');
+    this.actionLinkElement.removeClass(this.actionClasses);
     this.actionLinkElement.addClass('-' + action.name);
     this.actionLinkElement.text(action.text);
     this.actionLinkElement.attr('href', action.link);
@@ -93,10 +105,15 @@ AlertMessageView.prototype.updateProgress = function() {
   }
 };
 
-AlertMessageView.prototype.stopProgress = function () {
+AlertMessageView.prototype.stopProgress = function (cancelAction) {
   var self = this;
   if (self.progressTimeout) {
     window.clearTimeout(self.progressTimeout);
+  }
+
+  if (cancelAction) {
+    this.emojiElement.html(this.getRandomEmoji('fail'));
+    self.alertMessageElement.removeClass('-success -fail');
   }
 
   self.alertMessageElement.addClass('-color');

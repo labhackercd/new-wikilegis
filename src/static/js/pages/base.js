@@ -1,4 +1,5 @@
-/*global AppModalView NavBarView BodyView TextInputView AlertMessageView */
+/*global AppModalView NavBarView BodyView TextInputView AlertMessageView
+AlertMessageController */
 
 var appModalView = new AppModalView();
 appModalView.initEvents();
@@ -14,3 +15,6 @@ textInputView.initEvents();
 
 var alertMessageView = new AlertMessageView();
 alertMessageView.initEvents();
+
+var alertMessageController = new AlertMessageController();
+alertMessageController.initEvents();

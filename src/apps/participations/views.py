@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.aggregates import Count
 from utils.decorators import require_ajax
-from datetime import date
+from datetime import date, datetime
 from random import randint
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
@@ -17,6 +17,7 @@ from django.urls import reverse_lazy
 from django.forms import ValidationError
 from django.db.models import Q
 from django.conf import settings
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -169,8 +170,35 @@ def send_suggestion(request, group_pk):
 
 
 @require_ajax
-def undo_suggestion(request, suggestion_id):
-    pass
+def undo_suggestion(request, suggestion_pk):
+    suggestion = get_object_or_404(Suggestion, pk=suggestion_pk)
+    timediff = timezone.now() - suggestion.created
+
+    if timediff.total_seconds() < 60:
+        suggestion.delete()
+        html = render_to_string(
+            'components/document-excerpt.html', {
+                'excerpt': suggestion.excerpt,
+                'group': suggestion.invited_group,
+                'request': request
+            }
+        )
+
+        data = {
+            'action': 'undo',
+            'suggestion': {
+                'selectedText': suggestion.selected_text,
+                'content': suggestion.content,
+                'excerptId': suggestion.excerpt.id,
+                'excerptHtml': html
+            }
+        }
+        return JsonResponse(data)
+    else:
+        return JsonResponse(
+            {'error': _('You cannot undo this suggestion after 1 minute')},
+            status=400
+        )
 
 
 @require_ajax
