@@ -37,7 +37,7 @@ SuggestionInputView.prototype.subscribers = function() {
 
   events.suggestionUndone.subscribe(function(data) {
     self.inputElement.val(data.content);
-  })
+  });
 };
 
 SuggestionInputView.prototype.publishers = function() {

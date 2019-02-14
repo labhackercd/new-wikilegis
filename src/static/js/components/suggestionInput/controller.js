@@ -32,7 +32,7 @@ SuggestionInputController.prototype.sendSuggestion = function(groupId, excerptId
       name: 'undo',
       text: 'Cancelar',
       link: data.undoUrl
-    }
+    };
     events.showMessage.publish('Enviando sua sugestão', 'success', action);
   });
 

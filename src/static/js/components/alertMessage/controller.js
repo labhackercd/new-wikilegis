@@ -4,13 +4,13 @@ var AlertMessageController = function() {};
 
 AlertMessageController.prototype.initEvents = function() {
   this.subscribers();
-}
+};
 
 AlertMessageController.prototype.subscribers = function() {
   var self = this;
   events.activateAlertAction.subscribe(function(actionUrl) {
     self.sendAction(actionUrl);
-  })
+  });
 };
 
 AlertMessageController.prototype.sendAction = function(actionUrl) {
