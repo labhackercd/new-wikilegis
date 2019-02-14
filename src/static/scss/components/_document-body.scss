@@ -7,14 +7,14 @@
   padding-left: 4.6rem;
 
   @include bp-smallonly {
+    padding-top: 2.5rem;
     padding-right: 1rem;
     padding-left: 1rem;
-    padding-top: 2.5rem;
   }
   @include bp-mediumonly {
+    padding-top: 3.5rem;
     padding-right: 1.6rem;
     padding-left: 1.6rem;
-    padding-top: 3.5rem;
   }
 
   &.-voidselection {
@@ -44,14 +44,15 @@
   & > article > p > .suggestion-opinion {
     position: absolute;
     top: 0;
-  }
-
-  & > article > header > .suggestion-opinion {
     left: 100%;
   }
 
   & > article > p > .suggestion-opinion {
-    left: 100%;
+    margin-top: -.3rem;
+
+    @include bp-mediumup {
+      margin-top: -.1rem;
+    }
   }
 
   & > article > header {
