@@ -131,7 +131,7 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
 
       card.remove();
 
-      if($('.js-opinionModal .js-opinionCard').find('[data-excerpt-id="' + excerptId + '"]').length === 0) {
+      if($('.js-opinionModal .js-opinionCard[data-excerpt-id="' + excerptId + '"]').length === 0) {
         events.hideExcerptOpinionBalloon.publish(excerptId);
       }
       if($('.js-opinionModal .js-opinionCard').length === 0) {
