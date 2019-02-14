@@ -51,6 +51,8 @@
         <button class="disagree js-opinionButton" data-opinion="reject" aria-label="Discordo"></button>
         <button class="indifferent js-opinionButton" data-opinion="neutral" aria-label="Indiferente"></button>
         <button class="agree js-opinionButton" data-opinion="approve" aria-label="Concordo"></button>
+        {% else %}
+          <span class="notice"><a href="#">Faça login</a> para poder avaliar esta opinião</span>
         {% endif %}
         <button class="skip js-nextOpinion" data-opinion="skip" aria-label="Pular Opinião"></button>
       </footer>

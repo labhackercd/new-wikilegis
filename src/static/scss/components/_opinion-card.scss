@@ -313,5 +313,18 @@
       @include icon('skip');
       @include hovering-label(left, 1em, #FFF, 1rem, auto, after, absolute);
     }
+
+    & > .notice {
+      font-size: $font-size-base;
+
+      margin-right: auto;
+
+      color: #FFF;
+
+      > a {
+        font-weight: 600;
+        text-decoration: underline;
+      }
+    }
   }
 }
