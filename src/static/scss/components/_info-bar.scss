@@ -74,8 +74,7 @@
       margin-top: 1rem;
     }
 
-    & > .facebook,
-    & > .twitter {
+    & > a {
       width: 1.5rem;
       height: 1.5rem;
     }
@@ -86,6 +85,10 @@
 
     & > .twitter {
       @include icon('twitter');
+    }
+
+    & > .whatsapp {
+      @include icon('whatsapp');
     }
   }
 
