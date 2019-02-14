@@ -58,7 +58,7 @@
 }
 
 // Floating label for elements with content based of aria-label attributes. Available on :hover
-@mixin hovering-label($direction, $margin: .5em, $color:inherit, $precedence: after, $button-position:relative) {
+@mixin hovering-label($direction, $margin: .5em, $width: auto, $color:inherit, $precedence: after, $button-position:relative) {
   position: $button-position;
 
   @include bp-mediumup {
@@ -76,6 +76,7 @@
 
     position: absolute;
 
+    width: $width;
     padding: .5em;
 
     content: attr(aria-label);
@@ -86,6 +87,10 @@
 
     opacity: 0;
     color: $color;
+
+    @if $width != 'auto' {
+      white-space: pre-wrap;
+    }
 
     @if $direction == 'right' {
       left: 100%;
