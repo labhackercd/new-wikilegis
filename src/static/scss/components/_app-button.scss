@@ -13,6 +13,7 @@
   text-transform: uppercase;
 
   color: #FFF;
+  background-color: transparent;
 
   @include bp-mediumup {
     font-size: $font-size-centi;
