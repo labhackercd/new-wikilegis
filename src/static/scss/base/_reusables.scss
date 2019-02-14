@@ -52,3 +52,61 @@
     background-repeat: no-repeat;
   }
 }
+
+// Floating label for elements with content based of aria-label attributes. Available on :hover
+@mixin hovering-label($direction, $margin: .5em, $color:inherit, $precedence: after, $button-position:relative) {
+  position: $button-position;
+
+  @include bp-mediumup {
+    &:hover::after {
+      transform: translate(0) !important;
+      pointer-events: auto;
+
+      opacity: 1;
+    }
+  }
+
+  &::#{$precedence} {
+    font-size: 1em;
+    font-weight: 600;
+
+    position: absolute;
+
+    padding: .5em;
+
+    content: attr(aria-label);
+    transition: transform .3s $swift-out, opacity .3s $swift-out;
+    white-space: nowrap;
+    text-transform: uppercase;
+    pointer-events: none;
+
+    opacity: 0;
+    color: $color;
+
+    @if $direction == 'right' {
+      left: 100%;
+
+      padding-left: $margin;
+
+      transform: translate(1em, 0);
+    } @else if $direction == 'left' {
+      right: 100%;
+
+      padding-right: $margin;
+
+      transform: translate(-1em, 0);
+    } @else if $direction == 'top' {
+      bottom: 100%;
+
+      padding-bottom: $margin;
+
+      transform: translate(0, 1em);
+    } @else if $direction == 'bottom' {
+      top: 100%;
+
+      padding-top: $margin;
+
+      transform: translate(0, 1em);
+    }
+  }
+}
