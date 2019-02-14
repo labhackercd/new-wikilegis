@@ -21,7 +21,6 @@ SuggestionInputView.prototype.subscribers = function() {
   events.endTextSelection.subscribe(function() {
     self.showInput();
     events.activateOpinionCards.publish(self.selectedExcerpt.data('id'));
-    self.displayOpinionButton();
   });
 
   events.cancelTextSelection.subscribe(function() {
@@ -143,14 +142,5 @@ SuggestionInputView.prototype.sendSuggestion = function() {
       self.endIndex,
       suggestion
     );
-  }
-};
-
-
-SuggestionInputView.prototype.displayOpinionButton = function() {
-  if ($('.js-opinionModal .js-opinionCard.-active').length > 0) {
-    $('.js-suggestionInput .js-opinionButton').removeClass('_hide');
-  } else {
-    $('.js-suggestionInput .js-opinionButton').addClass('_hide');
   }
 };

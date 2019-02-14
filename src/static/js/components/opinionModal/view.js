@@ -134,7 +134,7 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
         events.closeOpinionModal.publish();
       }
       $(this).off('transitionend');
-      
+
       events.showNextSuggestion.publish();
     }
 
