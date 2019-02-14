@@ -2,10 +2,8 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.aggregates import Count
 from utils.decorators import require_ajax
-from datetime import date, datetime
-from random import randint
+from datetime import date
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
 from apps.projects.models import Excerpt, Theme, Document
