@@ -25,72 +25,7 @@
   <div class="wrapper">
     <div class="invisible"></div>
     <aside class="info-bar">
-      <div class="item">
-        {% if object.document.document_type %}
-        <span class="epigraph">{{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}</span>
-        {% endif %}
-      </div>
-      {% if object.document.infos.authors.all %}
-      <div class="item">
-        <span class="title">Autor</span>
-        {% for author in object.document.infos.authors.all %}
-          {% if author.infos.cd_id %}
-          <a class="autor" target="_blank" href="http://www2.camara.leg.br/deputados/pesquisa/layouts_deputados_biografia?pk={{author.infos.cd_id}}">
-            <div class="info">
-              <span class="text -name">{{ author.name }}</span>
-              <span class="text">{{author.author_type}} {% if author.infos %}({{author.infos.party_initials}}-{{author.infos.uf}}){% endif %}</span>
-            </div>
-            {% if author.infos %}
-            <img src="{{author.infos.image_url}}">
-            {% endif %}
-          </a>
-          {% else %}
-          <div class="autor">
-            <div class="info">
-              <span class="text -name">{{ author.name }}</span>
-              <span class="text">{{author.author_type}} {% if author.infos.party_initials and author.infos.uf %}({{author.infos.party_initials}}-{{author.infos.uf}}){% endif %}</span>
-            </div>
-            {% if author.infos.image_url %}
-            <img src="{{author.infos.image_url}}">
-            {% endif %}
-          </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-      {% endif %}
-      {% if object.document.infos.legislative_body and object.document.infos.status and object.document.infos.cd_id %}
-      <a class="item" target="_blank" href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao={{object.document.infos.cd_id}}">
-        <span class="title">Situação</span>
-        <span class="text">{{ object.document.infos.legislative_body }} - {{ object.document.infos.status }}</span>
-      </a>
-      {% endif %}
-      {% if object.document.themes.all %}
-      <div class="item">
-        <span class="title">Temas:</span>
-        <ul class="themes">
-          {% for theme in object.document.themes.all %}
-            <li class="theme-tag">
-              <span class="dot" style="background-color: {{theme.color}}"></span>
-              {{ theme.name }}
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-      {% if object.document.videos.all %}
-        {% for video in object.document.videos.all %}
-        <div class="item -video">
-          <iframe width="100%" src="https://www.youtube.com/embed/{{video.video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        {% endfor %}
-      {% endif %}
-      <div class="item">
-        <div class="social">
-          <a class="facebook" data-social="facebook" title="Facebook" href="http://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}" target="_blank" rel="noopener"></a>
-          <a class="twitter" data-social="twitter" title="Twitter" href="http://twitter.com/share?text=Eu já estou participando, participe você também!&url={{request.build_absolute_uri}}" target="_blank" rel="noopener"></a>
-          <a class="whatsapp" data-social="whatsapp" title="Whatsapp" href="https://api.whatsapp.com/send?text=Eu já estou participando, participe você também!%0A{{request.build_absolute_uri}}%20" target="_blank" rel="noopener"></a>
-        </div>
-      </div>
+      {% include "components/document-info.html" %}
     </aside>
   </div>
   <article>
