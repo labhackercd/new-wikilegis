@@ -36,3 +36,19 @@
 
   box-shadow: 0 -3px 4px rgba(0, 0, 0, .08);
 }
+
+// Mixin to add icons by using SASS variables. No markup shit.
+@mixin icon($icon, $width:1em, $height:1em, $margin:0) {
+  &::before {
+    content: '';
+    background-image: url("../../static/img/#{$icon}.svg");
+    width: $width;
+    min-width: $width;
+    height: $height;
+    min-height: $height;
+    margin: $margin;
+    background-position: center center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+}
