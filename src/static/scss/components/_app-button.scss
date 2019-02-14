@@ -25,10 +25,10 @@
   // Circle buttons won't show any text, just an icon. You must add an aria-label attribute on them for accessibility!
   //
   // You will need an icon on them since they are labeless. Include them within variant classes using:
-  // @include icon($icon, $width:1em, $height:1em, $margin:0)
+  // @include icon() // Check the mixin in _reusables.scss for other parameters reference
   //
   // You may also add floating labels to them when on :hover. Use our special mixin for that:
-  // @include hovering-label($direction, $margin: .5em, $color:inherit, $precedence: after, $button-position:relative)
+  // @include hovering-label() // Check the mixin in _reusables.scss for other parameters reference
   //
   // Adjust other general stuff like background-color, color and font-size with regular CSS properties if necessary.
   ///
