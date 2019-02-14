@@ -14,10 +14,41 @@
   }
 
   &.-mobile {
+    padding: 0 .5rem;
+
     text-align: left;
 
     & > .item {
       opacity: 1;
+    }
+
+    & > .item .epigraph {
+      display: none;
+    }
+
+    & > .item > .autor {
+      flex-direction: row-reverse;
+
+      margin-top: 1rem;
+    }
+
+    & > .item > .social {
+      align-items: flex-start;
+
+      & > a {
+        font-size: 1.5rem;
+
+        display: flex;
+        align-items: center;
+
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
+
+    & > .item img {
+      margin-right: .75rem;
+      margin-left: 0;
     }
   }
 
@@ -122,6 +153,8 @@
     margin-left: .75rem;
 
     border-radius: 50%;
+
+    object-fit: cover;
   }
 
   & > .item > .themes {
