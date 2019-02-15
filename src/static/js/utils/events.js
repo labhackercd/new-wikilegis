@@ -160,5 +160,9 @@ var events = {
   hideExcerptOpinionBalloon: $.Topic('hideExcerptOpinionBalloon'),
 
   // Triggered when all opinions from document are voted
-  hideDocumentOpinionBalloon: $.Topic('hideDocumentOpinionBalloon')
+  hideDocumentOpinionBalloon: $.Topic('hideDocumentOpinionBalloon'),
+
+  // Triggered when user click on element to animate scroll
+  // Params: position, element
+  scrollToPosition: $.Topic('scrollToPosition')
 };

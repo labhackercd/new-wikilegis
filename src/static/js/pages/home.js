@@ -1,4 +1,4 @@
-/*global NavBurgerView NavBarView SearchInputView BackgroundParticle */
+/*global NavBurgerView NavBarView SearchInputView BackgroundParticle AnimateScrollView */
 
 var navBurgerView = new NavBurgerView();
 navBurgerView.initEvents();
@@ -11,3 +11,6 @@ searchInputView.initEvents();
 
 var backgroundParticle = new BackgroundParticle();
 backgroundParticle.initEvents();
+
+var animateScrollView = new AnimateScrollView();
+animateScrollView.initEvents();
