@@ -105,7 +105,7 @@ SuggestionInputView.prototype.showInput = function() {
 
     self.selectedTextElement.text(selection.toString());
     self.suggestionInputElement.addClass('-show');
-  };
+  }
 };
 
 SuggestionInputView.prototype.hideInput = function() {
