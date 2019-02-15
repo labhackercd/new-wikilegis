@@ -15,7 +15,7 @@
   background-color: transparent;
 
   @include icon(comment, 17px, 18px);
-  @include hovering-label(right, 0);
+  @include hovering-label(right, 0, 6rem);
   @include bp-mediumup {
   }
 
