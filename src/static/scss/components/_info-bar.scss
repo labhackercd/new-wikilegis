@@ -14,10 +14,41 @@
   }
 
   &.-mobile {
+    padding: 0 .5rem;
+
     text-align: left;
 
     & > .item {
       opacity: 1;
+    }
+
+    & > .item .epigraph {
+      display: none;
+    }
+
+    & > .item > .autor {
+      flex-direction: row-reverse;
+
+      margin-top: 1rem;
+    }
+
+    & > .item > .social {
+      align-items: flex-start;
+
+      & > a {
+        font-size: 1.5rem;
+
+        display: flex;
+        align-items: center;
+
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
+
+    & > .item img {
+      margin-right: .75rem;
+      margin-left: 0;
     }
   }
 
@@ -63,6 +94,35 @@
     }
   }
 
+  & > .item > .social {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+
+    margin-top: 1rem;
+
+    & > * + * {
+      margin-top: 1rem;
+    }
+
+    & > a {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    & > .facebook {
+      @include icon('facebook');
+    }
+
+    & > .twitter {
+      @include icon('twitter');
+    }
+
+    & > .whatsapp {
+      @include icon('whatsapp');
+    }
+  }
+
   & > .item > .title {
     font-size: 1.5rem;
     font-weight: bold;
@@ -93,6 +153,8 @@
     margin-left: .75rem;
 
     border-radius: 50%;
+
+    object-fit: cover;
   }
 
   & > .item > .themes {

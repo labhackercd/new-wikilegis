@@ -18,11 +18,11 @@
 }
 
 @mixin card-darkbg-shadow {
-  box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2)
+  box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, .2);
 }
 
 @mixin button-shadow {
-  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2)
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .2);
 }
 
 @mixin header-shadow {
@@ -38,18 +38,22 @@
 }
 
 // Mixin to add icons by using SASS variables. No markup shit.
-@mixin icon($icon, $width:1em, $height:1em, $margin:0) {
+@mixin icon($icon, $width: 1em, $height:1em, $margin:0) {
   &::before {
-    content: '';
-    background-image: url("../../static/img/#{$icon}.svg");
+    display: inline-flex;
+
     width: $width;
     min-width: $width;
     height: $height;
     min-height: $height;
     margin: $margin;
+
+    content: '';
+
+    background-image: url('../../static/img/#{$icon}.svg');
+    background-repeat: no-repeat;
     background-position: center center;
     background-size: 100%;
-    background-repeat: no-repeat;
   }
 }
 
