@@ -21,124 +21,45 @@
     padding: .75rem 1.5rem;
   }
 
+  ///
+  // Circle buttons won't show any text, just an icon. You must add an aria-label attribute on them for accessibility!
+  //
+  // You will need an icon on them since they are labeless. Include them within variant classes using:
+  // @include icon() // Check the mixin in _reusables.scss for other parameters reference
+  //
+  // You may also add floating labels to them when on :hover. Use our special mixin for that:
+  // @include hovering-label() // Check the mixin in _reusables.scss for other parameters reference
+  //
+  // Adjust other general stuff like background-color, color and font-size with regular CSS properties if necessary.
+  ///
   &.-circle {
-    // Duplicate the button text content inside a data-text attribute
-    // in the markup for its label to work with the -circle variant
-    font-size: 0;
+    font-size: 1rem;
 
-    position: relative;
-
-    width: 2.5rem;
+    width: 2.5em;
     min-width: 0;
-    height: 2.5rem;
+    height: 2.5em;
     padding: 0;
 
     border-radius: 50%;
 
-    @include button-shadow();
+    @include circle-button-shadow();
     @include bp-mediumup {
-      width: 3.75rem;
-      height: 3.75rem;
-    }
-    @include bp-mediumup {
-      &:hover::after {
-        transform: translate(0) !important;
-
-        opacity: 1;
-      }
+      font-size: 1.5rem;
     }
 
-    &::before {
-      position: absolute;
-
-      width: .9rem !important;
-      min-width: 0 !important;
-      height: .9rem !important;
-      min-height: 0 !important;
-      padding: 5px;
-
-      border-radius: 50%;
-      background-size: calc(100% - 10px) !important;
-      box-shadow: 0 0 0 -1px currentColor;
-
-      @include bp-mediumup {
-        width: 1.6rem !important;
-        min-width: 0 !important;
-        height: 1.6rem !important;
-        min-height: 0 !important;
-      }
-    }
-
-    &::after {
-      font-size: 1rem;
-      font-weight: 600;
-
-      position: absolute;
-      bottom: -2em;
-
-      content: attr(data-text);
-      transition: transform .3s $swift-out, opacity .3s $swift-out;
-      transform: translate(0,100%);
-      white-space: nowrap;
-      pointer-events: none;
-
-      opacity: 0;
-      color: #FFF;
-    }
-
-    &.-toright {
-      &::after {
-        bottom: auto;
-        left: calc(100% + 1.5em);
-
-        transform: translate(1em, 0);
-      }
-    }
-
-    &.-toleft {
-      &::after {
-        right: calc(100% + 1.5em);
-        bottom: auto;
-
-        transform: translate(-1em, 0);
-      }
-    }
-
-    &.-totop {
-      &::after {
-        top: -2em;
-        bottom: auto;
-
-        transform: translate(0,-100%);
-      }
-    }
 
     &.-small {
-      width: 2rem;
-      height: 2rem;
+      font-size: .8rem;
 
       @include bp-mediumup {
-        width: 2.75rem;
-        height: 2.75rem;
-      }
-
-      &::before {
-        width: .75rem !important;
-        height: .75rem !important;
-
-        @include bp-mediumup {
-          width: 1rem !important;
-          height: 1rem !important;
-        }
+        font-size: 1.1rem;
       }
     }
 
     &.-ripple {
-      &::before {
-        transition: box-shadow .6s ease;
+      transition: box-shadow .6s ease;
 
-        box-shadow: 0 0 0 4rem transparent;
-      }
+      @include circle-button-shadow-rippled();
 
       &::after {
         opacity: 0;

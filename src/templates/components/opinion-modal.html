@@ -48,11 +48,11 @@
 
       <footer class="actions">
         {% if request.user.is_authenticated %}
-        <a href="#" class="disagree js-opinionButton" data-opinion="reject" data-text="Discordo">Discordo</a>
-        <a href="#" class="indifferent js-opinionButton" data-opinion="neutral" data-text="Indiferente">Indiferente</a>
-        <a href="#" class="agree js-opinionButton" data-opinion="approve" data-text="Concordo">Concordo</a>
+        <a href="#" class="disagree js-opinionButton" data-opinion="reject" aria-label="Discordo"></a>
+        <a href="#" class="indifferent js-opinionButton" data-opinion="neutral" aria-label="Indiferente"></a>
+        <a href="#" class="agree js-opinionButton" data-opinion="approve" aria-label="Concordo"></a>
         {% endif %}
-        <a href="#" class="skip js-nextOpinion" data-opinion="skip" data-text="Pular Opinião">Pular Opinião</a>
+        <a href="#" class="skip js-nextOpinion" data-opinion="skip" aria-label="Pular Opinião"></a>
       </footer>
     </article>
   {% endfor %}

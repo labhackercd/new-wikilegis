@@ -25,6 +25,15 @@
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .2);
 }
 
+@mixin circle-button-shadow {
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .2), 0 0 0 -1px currentColor;
+}
+
+@mixin circle-button-shadow-rippled {
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .2), 0 0 0 4rem transparent;
+}
+
+
 @mixin header-shadow {
   transition: box-shadow .3s $swift-out;
 
@@ -38,7 +47,7 @@
 }
 
 // Mixin to add icons by using SASS variables. No markup shit.
-@mixin icon($icon, $width: 1em, $height:1em, $margin:0) {
+@mixin icon($icon, $background-size: 100%, $width:1em, $height:1em, $margin:0) {
   &::before {
     display: inline-flex;
 
@@ -53,7 +62,7 @@
     background-image: url('../../static/img/#{$icon}.svg');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: $background-size $background-size;
   }
 }
 
@@ -71,7 +80,7 @@
   }
 
   &::#{$precedence} {
-    font-size: 1em;
+    font-size: $font-size;
     font-weight: 600;
 
     position: absolute;
