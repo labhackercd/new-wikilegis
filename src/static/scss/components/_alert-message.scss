@@ -100,7 +100,7 @@
 
       &.-undo {
         display: flex;
-        @include icon('undo');
+        @include icon('undo', 1.5em, 1.5em);
       }
 
       &.-undo::before {
