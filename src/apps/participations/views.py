@@ -2,10 +2,8 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.aggregates import Count
 from utils.decorators import require_ajax
 from datetime import date
-from random import randint
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
 from apps.projects.models import Excerpt, Theme, Document
@@ -17,6 +15,7 @@ from django.urls import reverse_lazy
 from django.forms import ValidationError
 from django.db.models import Q
 from django.conf import settings
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -140,7 +139,7 @@ def send_suggestion(request, group_pk):
     invited_group = get_object_or_404(InvitedGroup, pk=group_pk)
 
     if invited_group.closing_date > date.today():
-        Suggestion.objects.create(
+        suggestion = Suggestion.objects.create(
             invited_group=invited_group,
             selected_text=excerpt.content[start_index:end_index],
             start_index=start_index,
@@ -156,6 +155,10 @@ def send_suggestion(request, group_pk):
         return JsonResponse({
             'id': excerpt.id,
             'html': html,
+            'undoUrl': reverse_lazy(
+                'undo_suggestion',
+                kwargs={'suggestion_pk': suggestion.id}
+            )
         })
     else:
         return JsonResponse(
@@ -165,66 +168,35 @@ def send_suggestion(request, group_pk):
 
 
 @require_ajax
-def get_random_suggestion(request):
-    excerpt_id = request.POST.get('excerptId')
-    document_id = request.POST.get('documentId')
-    opined_suggestions = OpinionVote.objects.filter(
-        owner=request.user,
-        suggestion__excerpt__document__id=document_id
-    ).values_list('suggestion__id', flat=True)
+def undo_suggestion(request, suggestion_pk):
+    suggestion = get_object_or_404(Suggestion, pk=suggestion_pk)
+    timediff = timezone.now() - suggestion.created
 
-    if excerpt_id:
-        suggestions = Suggestion.objects.filter(
-            excerpt__id=excerpt_id
-        )
-    else:
-        suggestions = Suggestion.objects.filter(
-            excerpt__document__id=document_id
-        )
-
-    suggestions = suggestions.exclude(
-        author=request.user
-    ).exclude(
-        id__in=opined_suggestions
-    )
-
-    if suggestions.count() > 0:
-        count = suggestions.aggregate(count=Count('id'))['count']
-        random_index = randint(0, count - 1)
-        print(random_index)
-
-        suggestion = suggestions[random_index]
-
-        span = '<span class="text-highlight">'
-        close_span = '</span>'
-        content = suggestion.excerpt.content
-        content = '{prev}{open_span}{content}{close_span}{after}'.format(
-            prev=content[:suggestion.start_index],
-            open_span=span,
-            content=content[suggestion.start_index:suggestion.end_index],
-            close_span=close_span,
-            after=content[suggestion.end_index:]
+    if timediff.total_seconds() < 60:
+        suggestion.delete()
+        html = render_to_string(
+            'components/document-excerpt.html', {
+                'excerpt': suggestion.excerpt,
+                'group': suggestion.invited_group,
+                'request': request
+            }
         )
 
         data = {
-            'user': {
-                'id': suggestion.author.id,
-                'avatar': suggestion.author.profile.avatar_url,
-                'fullName': suggestion.author.get_full_name(),
-            },
-            'excerpt': {
-                'id': suggestion.excerpt.id,
-                'html': content,
-            },
+            'action': 'undo',
             'suggestion': {
-                'id': suggestion.id,
-                'text': suggestion.content
+                'selectedText': suggestion.selected_text,
+                'content': suggestion.content,
+                'excerptId': suggestion.excerpt.id,
+                'excerptHtml': html
             }
         }
-
         return JsonResponse(data)
     else:
-        return JsonResponse({'error': _('No suggestion found')}, status=404)
+        return JsonResponse(
+            {'error': _('You cannot undo this suggestion after 1 minute')},
+            status=400
+        )
 
 
 @require_ajax

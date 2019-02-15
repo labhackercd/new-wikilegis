@@ -28,7 +28,12 @@ SuggestionInputController.prototype.sendSuggestion = function(groupId, excerptId
 
   request.done(function(data) {
     events.suggestionCreated.publish(data.id, data.html);
-    events.showMessage.publish('Enviando sua sugestão', 'success', false);
+    var action = {
+      name: 'undo',
+      text: 'Cancelar',
+      link: data.undoUrl
+    };
+    events.showMessage.publish('Enviando sua sugestão', 'success', action);
   });
 
   request.fail(function(jqXHR) {

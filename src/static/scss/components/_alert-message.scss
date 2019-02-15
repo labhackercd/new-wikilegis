@@ -30,16 +30,10 @@
   }
 
   &.-color {
+    & > .progress,
     .background {
       transform: scaleY(1);
-    }
-
-    &.-success {
-      // background-color: $color-brand;
-    }
-
-    &.-fail {
-      // background-color: $color-red;
+      background-color: lighten($color-deep-gray, 10%);
     }
   }
 
@@ -97,17 +91,24 @@
       &:hover {
         opacity: 1;
 
-        & > .icon {
+        &.-undo::before {
           transition: all .55s $swift-out;
           transform: rotate(360deg);
         }
+
       }
 
-      & > .icon {
+      &.-undo {
+        display: flex;
+        @include icon('undo', 1.5em, 1.5em);
+      }
+
+      &.-undo::before {
+        display: inline-flex;
         margin-top: 1px;
         margin-right: .5rem;
 
-        transform-origin: 47% 42%;
+        transform-origin: 47% 49.5%;
       }
     }
   }
