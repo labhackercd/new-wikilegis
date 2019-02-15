@@ -20,7 +20,8 @@ AnimateScrollView.prototype.subscribers = function () {
 AnimateScrollView.prototype.publishers = function () {
   var self = this;
 
-  self.projectsButton.on('click', function() {
+  self.projectsButton.on('click', function(e) {
+    e.preventDefault();
     var position = $('#js-projects-list').offset().top - 40;
     var element = $('HTML, BODY');
 
