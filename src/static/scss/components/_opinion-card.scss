@@ -311,7 +311,7 @@
       animation-delay: 1s;
 
       @include icon('skip');
-      @include hovering-label(left, 1em, #FFF, 1rem, after, absolute);
+      @include hovering-label(left, 1em, #FFF, 1rem, auto, after, absolute);
     }
   }
 }
