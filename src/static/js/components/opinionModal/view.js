@@ -127,18 +127,27 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
 
   card.find('.card').on('transitionend', function(e) {
     if (e.originalEvent.propertyName === 'transform') {
-      card.remove();
-      if (self.modalContentElement.children('.-active').length === 0) {
+      var excerptId = card.data('excerptId');
 
+      card.remove();
+
+      if($('.js-opinionModal .js-opinionCard[data-excerpt-id="' + excerptId + '"]').length === 0) {
+        events.hideExcerptOpinionBalloon.publish(excerptId);
+      }
+      if($('.js-opinionModal .js-opinionCard').length === 0) {
+        events.hideDocumentOpinionBalloon.publish();
+      }
+
+      if (self.modalContentElement.children('.-active').length === 0) {
         self.closeOpinionModal();
         events.closeOpinionModal.publish();
       }
       $(this).off('transitionend');
-
       events.showNextSuggestion.publish();
     }
-
   });
+
+
 };
 
 OpinionModalView.prototype.activateOpinionCards = function(excerptId) {

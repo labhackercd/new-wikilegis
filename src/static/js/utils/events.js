@@ -138,10 +138,17 @@ var events = {
   // Triggered when the user does an action that closes the text selection onboarding
   closeTextSelectionOnboarding: $.Topic('closeTextSelectionOnboard'),
 
-  // Triggered after a user skips or select an opinion from the opinion-modal 
+  // Triggered after a user skips or select an opinion from the opinion-modal
   showNextSuggestion: $.Topic('showNextSuggestion'),
 
   // Triggered right after a user clicks on a button from the opinion-modal
   // Params: opinion
-  showSubmissionCue: $.Topic('showSubmissionCue')
+  showSubmissionCue: $.Topic('showSubmissionCue'),
+
+  // Triggered when all opinions from excerpt are voted
+  // Params: excerptId
+  hideExcerptOpinionBalloon: $.Topic('hideExcerptOpinionBalloon'),
+
+  // Triggered when all opinions from document are voted
+  hideDocumentOpinionBalloon: $.Topic('hideDocumentOpinionBalloon')
 };
