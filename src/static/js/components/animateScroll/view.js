@@ -3,32 +3,18 @@
 var AnimateScrollView = function() {};
 
 AnimateScrollView.prototype.initEvents = function () {
-  this.projectsButton = $('.js-projectsButton');
-
   this.subscribers();
-  this.publishers();
 };
 
 AnimateScrollView.prototype.subscribers = function () {
   var self = this;
 
-  events.scrollToPosition.subscribe(function (position, element) {
-    self.scroll(position, element);
+  events.scrollToPosition.subscribe(function (position) {
+    self.scroll(position);
   });
 };
 
-AnimateScrollView.prototype.publishers = function () {
-  var self = this;
-
-  self.projectsButton.on('click', function(e) {
-    e.preventDefault();
-    var position = $('#js-projects-list').offset().top - 40;
-    var element = $('HTML, BODY');
-
-    events.scrollToPosition.publish(position, element);
-  });
-};
-
-AnimateScrollView.prototype.scroll = function (position, element) {
+AnimateScrollView.prototype.scroll = function (position) {
+  var element = $('HTML, BODY');
   element.animate({ scrollTop: position }, 500);
 };
