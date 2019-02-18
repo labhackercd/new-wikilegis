@@ -4,6 +4,8 @@ var DocumentExcerptView = function() {};
 
 DocumentExcerptView.prototype.initEvents = function() {
   this.documentBodyElement = $('.js-documentBody');
+  this.allOpinionsButton = $('.js-allOpinionsButton')
+  this.showOpinionsButtons = $('.js-opinionButton, .js-allOpinionsButton');
   this.selectedHTML = undefined;
   this.lastExcerpt = undefined;
   this.selectedText = '';
@@ -11,6 +13,7 @@ DocumentExcerptView.prototype.initEvents = function() {
   this.publishers();
   this.subscribers();
 };
+
 
 DocumentExcerptView.prototype.publishers = function() {
   var self = this;
@@ -46,8 +49,16 @@ DocumentExcerptView.prototype.publishers = function() {
     });
   });
 
-  $('.js-opinionButton').on('click', function(e) {
-    events.openOpinionModal.publish($(e.target).closest('.js-excerptWrapper').find('.js-documentExcerpt').data('id'));
+  self.showOpinionsButtons.click(function() {
+    var opinionButton = $(this);
+
+    if (opinionButton.is('.js-allOpinionsButton')) {
+      var excerptId = 'all';
+    } else {
+      var excerptId = opinionButton.closest('.js-excerptWrapper').find('.js-documentExcerpt').data('id');
+    }
+
+    events.openOpinionModal.publish(excerptId)
   });
 };
 
@@ -72,7 +83,7 @@ DocumentExcerptView.prototype.subscribers = function() {
   });
 
   events.hideDocumentOpinionBalloon.subscribe(function() {
-    self.hideDocumentOpinionBalloon();
+    self.hideDocumentOpinionBalloon(self.allOpinionsButton);
   });
 
   events.suggestionUndone.subscribe(function(data) {
@@ -108,6 +119,6 @@ DocumentExcerptView.prototype.hideExcerptOpinionBalloon = function(excerptId) {
   balloon.addClass('_hide');
 };
 
-DocumentExcerptView.prototype.hideDocumentOpinionBalloon = function() {
-  $('.js-documentHeader').children('.js-opinionButton').addClass('_hide');
+DocumentExcerptView.prototype.hideDocumentOpinionBalloon = function(allOpinionsButton) {
+  allOpinionsButton.addClass('_hide')
 };
