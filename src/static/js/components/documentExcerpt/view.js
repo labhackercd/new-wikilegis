@@ -4,7 +4,7 @@ var DocumentExcerptView = function() {};
 
 DocumentExcerptView.prototype.initEvents = function() {
   this.documentBodyElement = $('.js-documentBody');
-  this.allOpinionsButton = $('.js-allOpinionsButton')
+  this.allOpinionsButton = $('.js-allOpinionsButton');
   this.showOpinionsButtons = $('.js-opinionButton, .js-allOpinionsButton');
   this.selectedHTML = undefined;
   this.lastExcerpt = undefined;
@@ -51,14 +51,15 @@ DocumentExcerptView.prototype.publishers = function() {
 
   self.showOpinionsButtons.click(function() {
     var opinionButton = $(this);
+    var excerptId = null;
 
     if (opinionButton.is('.js-allOpinionsButton')) {
-      var excerptId = 'all';
+      excerptId = 'all';
     } else {
-      var excerptId = opinionButton.closest('.js-excerptWrapper').find('.js-documentExcerpt').data('id');
+      excerptId = opinionButton.closest('.js-excerptWrapper').find('.js-documentExcerpt').data('id');
     }
 
-    events.openOpinionModal.publish(excerptId)
+    events.openOpinionModal.publish(excerptId);
   });
 };
 
@@ -120,5 +121,5 @@ DocumentExcerptView.prototype.hideExcerptOpinionBalloon = function(excerptId) {
 };
 
 DocumentExcerptView.prototype.hideDocumentOpinionBalloon = function(allOpinionsButton) {
-  allOpinionsButton.addClass('_hide')
+  allOpinionsButton.addClass('_hide');
 };
