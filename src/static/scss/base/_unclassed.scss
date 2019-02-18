@@ -54,9 +54,14 @@ body {
 
   &.-home {
     & .nav-bar {
+      transition: all .25s ease;
+      transform: translateY(-100%);
+
       opacity: 0;
 
       &.-shadow {
+        transform: translateY(0);
+
         opacity: 1;
       }
     }

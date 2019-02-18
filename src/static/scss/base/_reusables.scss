@@ -47,7 +47,7 @@
 }
 
 // Mixin to add icons by using SASS variables. No markup shit.
-@mixin icon($icon, $width:1em, $height:1em, $background-size: 100%, $margin:0) {
+@mixin icon($icon, $width: 1em, $height:1em, $background-size: 100%, $margin:0) {
   &::before {
     display: inline-flex;
 
