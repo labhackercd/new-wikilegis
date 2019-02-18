@@ -137,6 +137,8 @@
   {% endif %}
 </main>
 
+{% include "components/app-onboarding.html" %}
+
 {% endblock content %}
 
 {% block page_js %}
@@ -152,5 +154,7 @@
   <script src="{% static 'js/components/navBurger/view.js' %}"></script>
   <script src="{% static 'js/components/searchInput/view.js' %}"></script>
   <script src="{% static 'js/components/animateScroll/view.js' %}"></script>
+  <script src="{% static 'js/components/howtoButton/view.js' %}"></script>
+  <script src="{% static 'js/components/appOnboarding/view.js' %}"></script>
   <script src="{% static 'js/pages/home.js' %}"></script>
 {% endblock page_js %}

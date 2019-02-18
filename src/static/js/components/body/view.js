@@ -89,19 +89,11 @@ BodyView.prototype.subscribers = function() {
     self.enableScroll();
   });
 
-  events.showOpinionOnboarding.subscribe(function() {
+  events.openAppOnboarding.subscribe(function() {
     self.disableScroll();
   });
 
-  events.closeOpinionOnboarding.subscribe(function() {
-    self.enableScroll();
-  });
-
-  events.showTextSelectionOnboarding.subscribe(function() {
-    self.disableScroll();
-  });
-
-  events.closeTextSelectionOnboarding.subscribe(function() {
+  events.closeAppOnboarding.subscribe(function() {
     self.enableScroll();
   });
 };

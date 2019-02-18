@@ -58,6 +58,13 @@
     @include bp-mediumup {
       padding: 4rem;
     }
+
+    & .step {
+      display: none;
+      &.-active {
+        display: block;
+      }
+    }
   }
 
   &.-show {

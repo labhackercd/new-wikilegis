@@ -136,17 +136,11 @@ var events = {
   // Params: {content, excerptId, excerptHtml, selectedText}
   suggestionUndone: $.Topic('suggestionUndone'),
 
-  // Triggered when the page loads and there's no opinionOnboardingCookie
-  showOpinionOnboarding: $.Topic('showOpinionOnboard'),
+  // Triggered when a user click on a howtoButton
+  openAppOnboarding: $.Topic('openAppOnboarding'),
 
-  // Triggered when the user does an action that closes the opinion onboarding
-  closeOpinionOnboarding: $.Topic('closeOpinionOnboard'),
-
-  // Triggered when closing the opinion modal and there's no textSelectionOnboardingCookie
-  showTextSelectionOnboarding: $.Topic('showTextSelectionOnboard'),
-
-  // Triggered when the user does an action that closes the text selection onboarding
-  closeTextSelectionOnboarding: $.Topic('closeTextSelectionOnboard'),
+  // Triggered when a user close a appOnboarding
+  closeAppOnboarding: $.Topic('closeAppOnboarding'),
 
   // Triggered after a user skips or select an opinion from the opinion-modal
   showNextSuggestion: $.Topic('showNextSuggestion'),
