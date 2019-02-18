@@ -7,16 +7,20 @@
     <div class="text">
       <p class="js-selectedText"></p>
     </div>
-    <span class="info-text">
-      <img src="{% static 'img/atention.svg' %}">
-      <h3>Digite sua opinião sobre ele:</h3>
-    </span>
-    <div class="input">
-      <input class="js-input" type="text" name="">
-      <div class="send">
-        <img class="icon js-send" src="{% static 'img/send.svg' %}">
+    {% if request.user.is_authenticated %}
+      <span class="info-text">
+        <img src="{% static 'img/atention.svg' %}">
+        <h3>Digite sua opinião sobre ele:</h3>
+      </span>
+      <div class="input">
+        <input class="js-input" type="text" name="">
+        <div class="send">
+          <img class="icon js-send" src="{% static 'img/send.svg' %}">
+        </div>
       </div>
-    </div>
-    <span class="error js-inputError"></span>
+      <span class="error js-inputError"></span>
+    {% else %}
+      <h3 class="notice"><a href="/admin/login?next={{request.path}}">Faça login</a> para dar sua opinião sobre ele.</h3>
+    {% endif %}
   </div>
 </div>
