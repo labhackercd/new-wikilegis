@@ -58,6 +58,13 @@
     @include bp-mediumup {
       padding: 4rem;
     }
+
+    & .step {
+      display: none;
+      &.-active {
+        display: block;
+      }
+    }
   }
 
   &.-show {
@@ -88,6 +95,7 @@
 
   & > .header > .close-icon {
     position: absolute;
+    top: 1.6rem;
     right: 1.6rem;
 
     display: flex;
@@ -119,13 +127,28 @@
     @at-root .-onboarding#{&} {
       overflow-y: unset;
 
-      max-width: 55rem;
+      max-width: 35rem;
       margin: auto;
       padding: 0;
 
-      & > .app-button {
-        display: inline-flex;
+      & > .step > h2 {
+        font-size: 1.375rem;
 
+        margin-top: 2rem;
+      }
+
+      & > .step > p {
+        font-size: $font-size-centi;
+
+        margin-top: 1rem;
+      }
+
+      & > .step > .app-button {
+        margin: 0 auto;
+        margin-top: 1rem;
+      }
+
+      & > .step > .app-button:first-of-type {
         margin-top: 2rem;
       }
     }

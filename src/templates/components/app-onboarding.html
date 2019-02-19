@@ -1,0 +1,24 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles %}
+
+
+{% block extra_classes %}-onboarding js-appOnboarding{% endblock %}
+
+{% block content %}
+  <div class="step js-step">
+    <img src="{% static 'img/opinion-onboarding.svg' %}">
+    <h2>Avalie as opiniões de outros cidadãos </h2>
+    <p>Antes de dar a sua própria opinião, passe pelas opiniões de outros cidadãos.<br>Assim você contribui para entendermos melhor como a população avalia o texto e evita dar uma opinião igual a de outra pessoa!</p>
+    <button class="app-button -green js-next">Próximo</button>
+  </div>
+  <div class="step js-step">
+    <img src="{% static 'img/text-select-onboarding.svg' %}">
+    <h2>Selecione um trecho do texto para dar sua opinião</h2>
+    <p>Escolha um trecho de um artigo individual e digite uma opinião sobre ele. Basta dar um longo toque sobre o texto ou clicar e arrastar o mouse para selecioná-lo.</p>
+
+    <button class="app-button -green js-button js-action">Quero Participar!</button>
+    <button class="app-button -clear js-close">Fechar</button>
+  </div>
+{% endblock content %}
+
+</div>

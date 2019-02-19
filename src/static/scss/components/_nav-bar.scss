@@ -33,6 +33,8 @@ body.-white .nav-bar {
   background-color: $color-whitesmoke;
 
   @include bp-smallonly {
+    justify-content: flex-start;
+
     padding-right: 1rem;
     padding-left: 1rem;
   }
@@ -62,5 +64,9 @@ body.-white .nav-bar {
     text-transform: uppercase;
 
     color: $color-brand;
+
+    @include bp-smallonly {
+      padding: 0;
+    }
   }
 }

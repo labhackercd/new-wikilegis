@@ -66,7 +66,9 @@ BodyView.prototype.subscribers = function() {
   });
 
   events.openOpinionModal.subscribe(function() {
-    self.disableScroll();
+    if ($('.js-opinionModal .js-opinionCard').length > 0) {
+      self.disableScroll();
+    }
   });
 
   events.closeModal.subscribe(function() {
@@ -89,19 +91,11 @@ BodyView.prototype.subscribers = function() {
     self.enableScroll();
   });
 
-  events.showOpinionOnboarding.subscribe(function() {
+  events.openAppOnboarding.subscribe(function() {
     self.disableScroll();
   });
 
-  events.closeOpinionOnboarding.subscribe(function() {
-    self.enableScroll();
-  });
-
-  events.showTextSelectionOnboarding.subscribe(function() {
-    self.disableScroll();
-  });
-
-  events.closeTextSelectionOnboarding.subscribe(function() {
+  events.closeAppOnboarding.subscribe(function() {
     self.enableScroll();
   });
 };
