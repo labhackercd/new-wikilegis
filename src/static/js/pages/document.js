@@ -1,7 +1,6 @@
 /*global DocumentExcerptView DocumentBodyView SuggestionInputView
 NavBurgerView SuggestionInputController OpinionModalView OpinionModalController
-TextHighlightView HighlightTooltipView InfoModalView InfoButtonView
-OpinionOnboardingView AppOnboardingView HowtoButtonView */
+TextHighlightView HighlightTooltipView InfoModalView InfoButtonView AppOnboardingView HowtoButtonView */
 
 
 var documentExcerptView = new DocumentExcerptView();

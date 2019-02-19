@@ -38,7 +38,7 @@ AppOnboardingView.prototype.publishers = function () {
 
   self.actionButtonElement.on('click', function() {
     self.doAction();
-  })
+  });
 };
 
 AppOnboardingView.prototype.show = function () {
@@ -59,13 +59,13 @@ AppOnboardingView.prototype.nextStep = function (activeStep) {
 AppOnboardingView.prototype.doAction = function () {
   var self = this;
   switch (self.page) {
-    case 'home':
-      var position = $('#js-projects-list').offset().top - 40;
-      events.closeAppOnboarding.publish();
-      events.scrollToPosition.publish(position);
-      break;
-    case 'document':
-      events.closeAppOnboarding.publish();
-      break;
+  case 'home':
+    var position = $('#js-projects-list').offset().top - 40;
+    events.closeAppOnboarding.publish();
+    events.scrollToPosition.publish(position);
+    break;
+  case 'document':
+    events.closeAppOnboarding.publish();
+    break;
   }
 };
