@@ -25,9 +25,32 @@
   }
 
   &.-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px dashed $color-grayish;
     background: none;
     box-shadow: none;
-    border: 2px dashed $color-grayish;
+
+    &:hover {
+      & > .icon {
+        transform: translateY(-1em);
+      }
+
+      & > .icon::after {
+        transform: translate(-50%, 0);
+
+        opacity: 1;
+      }
+    }
+
+    & > .icon {
+      transition: transform .3s $swift-out;
+
+      @include icon('add-gray', 4rem, 4rem);
+      @include hovering-label(bottom, .5em, $color-grayish);
+    }
   }
 
   & > p {

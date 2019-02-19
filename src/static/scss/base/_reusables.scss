@@ -98,16 +98,21 @@
 
   @include bp-mediumup {
     &:hover::after {
-      transform: translate(0) !important;
       pointer-events: auto;
 
       opacity: 1;
+      @if $direction == 'right' or $direction == 'left' {
+        transform: translate(0, -50%);
+      } @else if $direction == 'top' or $direction == 'bottom' {
+        transform: translate(-50%, 0);
+      }
     }
   }
 
   &::#{$precedence} {
     font-size: $font-size;
     font-weight: 600;
+    line-height: 1;
 
     position: absolute;
 
@@ -128,29 +133,33 @@
     }
 
     @if $direction == 'right' {
+      top: 50%;
       left: 100%;
 
       padding-left: $margin;
 
-      transform: translate(1em, 0);
+      transform: translate(1em, -50%);
     } @else if $direction == 'left' {
+      top: 50%;
       right: 100%;
 
       padding-right: $margin;
 
-      transform: translate(-1em, 0);
+      transform: translate(-1em, -50%);
     } @else if $direction == 'top' {
       bottom: 100%;
+      left: 50%;
 
       padding-bottom: $margin;
 
-      transform: translate(0, 1em);
+      transform: translate(-50%, 1em);
     } @else if $direction == 'bottom' {
       top: 100%;
+      left: 50%;
 
       padding-top: $margin;
 
-      transform: translate(0, 1em);
+      transform: translate(-50%, 1em);
     }
   }
 }
