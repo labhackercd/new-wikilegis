@@ -1,8 +1,8 @@
 /*global $ events */
 
-var AppOnboarding = function() {};
+var AppOnboardingView = function() {};
 
-AppOnboarding.prototype.initEvents = function(page) {
+AppOnboardingView.prototype.initEvents = function(page) {
   this.appOnboardingElement = $('.js-appOnboarding');
   this.stepsElements = $('.js-appOnboarding .js-step');
   this.nextButtonsElements = $('.js-appOnboarding .js-next');
@@ -14,7 +14,7 @@ AppOnboarding.prototype.initEvents = function(page) {
   this.publishers();
 };
 
-AppOnboarding.prototype.subscribers = function () {
+AppOnboardingView.prototype.subscribers = function () {
   var self = this;
 
   events.openAppOnboarding.subscribe(function() {
@@ -26,7 +26,7 @@ AppOnboarding.prototype.subscribers = function () {
   });
 };
 
-AppOnboarding.prototype.publishers = function () {
+AppOnboardingView.prototype.publishers = function () {
   var self = this;
   self.nextButtonsElements.on('click', function(e) {
     self.nextStep($(e.target).closest('.js-step'));
@@ -41,28 +41,31 @@ AppOnboarding.prototype.publishers = function () {
   })
 };
 
-AppOnboarding.prototype.show = function () {
+AppOnboardingView.prototype.show = function () {
   this.appOnboardingElement.addClass('-show');
   this.stepsElements.removeClass('-active');
   this.stepsElements.first().addClass('-active');
 };
 
-AppOnboarding.prototype.hide = function () {
+AppOnboardingView.prototype.hide = function () {
   this.appOnboardingElement.removeClass('-show');
 };
 
-AppOnboarding.prototype.nextStep = function (activeStep) {
+AppOnboardingView.prototype.nextStep = function (activeStep) {
   activeStep.next().addClass('-active');
   activeStep.removeClass('-active');
 };
 
-AppOnboarding.prototype.doAction = function () {
+AppOnboardingView.prototype.doAction = function () {
   var self = this;
   switch (self.page) {
     case 'home':
       var position = $('#js-projects-list').offset().top - 40;
       events.closeAppOnboarding.publish();
       events.scrollToPosition.publish(position);
+      break;
+    case 'document':
+      events.closeAppOnboarding.publish();
       break;
   }
 };

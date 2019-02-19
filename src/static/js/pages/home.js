@@ -16,7 +16,7 @@ backgroundParticle.initEvents();
 var animateScrollView = new AnimateScrollView();
 animateScrollView.initEvents();
 
-var appOnboardingView = new AppOnboarding();
+var appOnboardingView = new AppOnboardingView();
 appOnboardingView.initEvents('home');
 
 var howtoButton = new HowtoButtonView();

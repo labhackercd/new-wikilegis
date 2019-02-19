@@ -21,6 +21,7 @@
 {% block content %}
 
 {% can_suggest object request.user as selection_enabled %}
+<div class="howto-button js-howtoButton" aria-label="Como participar?"></div>
 <main class="document-body js-documentBody" data-selection-enabled="{% if selection_enabled %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
   <div class="wrapper">
     <div class="invisible"></div>
@@ -80,9 +81,8 @@
 
 {% include "components/info-modal.html" %}
 
-{% include "components/opinion-onboarding.html" %}
+{% include "components/app-onboarding.html" %}
 
-{% include "components/text-selection-onboarding.html" %}
 {% endblock content %}
 
 {% block page_js %}
@@ -102,7 +102,7 @@
   <script src="{% static 'js/components/opinionModal/controller.js' %}"></script>
   <script src="{% static 'js/components/textHighlight/view.js' %}"></script>
   <script src="{% static 'js/components/highlightTooltip/view.js' %}"></script>
-  <script src="{% static 'js/components/opinionOnboarding/view.js' %}"></script>
-  <script src="{% static 'js/components/textSelectionOnboarding/view.js' %}"></script>
+  <script src="{% static 'js/components/appOnboarding/view.js' %}"></script>
+  <script src="{% static 'js/components/howtoButton/view.js' %}"></script>
   <script src="{% static 'js/pages/document.js' %}"></script>
 {% endblock page_js %}

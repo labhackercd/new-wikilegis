@@ -1,0 +1,27 @@
+.howto-button {
+  @extend .app-button;
+  @extend .app-button.-green;
+  @extend .app-button.-circle;
+
+  font-size: .8rem;
+
+  position: fixed;
+  z-index: 2;
+  top: .85rem;
+  right: 1rem;
+
+  box-shadow: none;
+
+  @include hovering-label(left, 1em, $color-gray, $font-size-micro, auto, after, fixed);
+  @include bp-smallonly {
+    right: 1rem;
+  }
+
+  &::before {
+    font-size: 1.4em;
+
+    content: '?';
+
+    color: #FFF;
+  }
+}

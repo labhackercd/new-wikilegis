@@ -66,7 +66,9 @@ BodyView.prototype.subscribers = function() {
   });
 
   events.openOpinionModal.subscribe(function() {
-    self.disableScroll();
+    if ($('.js-opinionModal .js-opinionCard').length > 0) {
+      self.disableScroll();
+    }
   });
 
   events.closeModal.subscribe(function() {
