@@ -46,6 +46,32 @@
   box-shadow: 0 -3px 4px rgba(0, 0, 0, .08);
 }
 
+@mixin link-style($font-weight: inherit, $negative: false) {
+  font-weight: $font-weight;
+
+  cursor: pointer;
+  transition: all .25s $swift-out;
+  text-decoration: none;
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  @include bp-mediumup {
+    background-size: 0 100%;
+    &:hover {
+      background-size: 100% 100%;
+    }
+  }
+
+  @if $negative == true {
+    color: #FFF;
+    background-image: linear-gradient(180deg,transparent 65%,rgba(#FFF, .3) 0);
+  } @else {
+    color: $color-brand;
+    background-image: linear-gradient(180deg,transparent 65%,rgba($color-brand, .3) 0);
+  }
+}
+
 // Mixin to add icons by using SASS variables. No markup shit.
 @mixin icon($icon, $width: 1em, $height:1em, $background-size: 100%, $margin:0) {
   &::before {

@@ -138,6 +138,15 @@ h3 {
   color: $color-deep-gray;
 }
 
+p,
+h1,
+h2,
+h3 {
+  & > a {
+    @include link-style();
+  }
+}
+
 blockquote {
   padding-left: $space-base;
 }
