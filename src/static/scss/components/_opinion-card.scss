@@ -243,7 +243,7 @@
       margin-top: 2rem;
     }
 
-    & > a {
+    & > button {
       animation: show-opinion-button .3s $swift-out forwards;
       pointer-events: none; // This is set back to auto inside the show-opinion-button
 
