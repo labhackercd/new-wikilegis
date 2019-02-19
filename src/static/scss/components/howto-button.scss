@@ -8,13 +8,21 @@
   position: fixed;
   z-index: 2;
   top: .85rem;
-  right: 1rem;
+  right: 1.6rem;
 
   box-shadow: none;
 
   @include hovering-label(left, 1em, $color-gray, $font-size-micro, auto, after, fixed);
   @include bp-smallonly {
+    font-size: .7rem;
+
+    top: .5rem;
     right: 1rem;
+  }
+  @include bp-mediumonly {
+    font-size: .7rem;
+
+    top: .5rem;
   }
 
   &::before {
