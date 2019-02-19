@@ -1,6 +1,5 @@
 .suggestion-opinion {
   font-size: $font-size-nano;
-  letter-spacing: 1px;
 
   display: flex;
   align-items: center;
@@ -10,12 +9,15 @@
   height: 2.5rem;
 
   cursor: pointer;
+  letter-spacing: 1px;
 
   color: $color-deep-gray;
   background-color: transparent;
 
   @include icon(comment, 17px, 18px);
-  @include hovering-label(right, 0, inherit, 1em, 6rem);
+  @include bp-mediumup {
+    @include hovering-label(right, 0, inherit, 1em, 6rem);
+  }
 
   &.-all {
     @include icon(comments, 22px, 20px);
