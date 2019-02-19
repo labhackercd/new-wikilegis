@@ -1,23 +1,34 @@
 {% extends "structure/app-modal.html" %}
-{% load staticfiles %}
+{% load staticfiles projects_tags %}
 
 
 {% block extra_classes %}-onboarding js-appOnboarding{% endblock %}
 
 {% block content %}
   <div class="step js-step">
-    <img src="{% static 'img/opinion-onboarding.svg' %}">
-    <h2>Avalie as opiniões de outros cidadãos </h2>
-    <p>Antes de dar a sua própria opinião, passe pelas opiniões de outros cidadãos.<br>Assim você contribui para entendermos melhor como a população avalia o texto e evita dar uma opinião igual a de outra pessoa!</p>
+    <h2>Dê a sua opinião</h2>
+    <img class="selectimage" src="{% static 'img/text-select-onboarding.svg' %}">
+    {% if request.path|startswith:"/p/" and request.path != "/p/new/" %}
+      <p><span class="text-highlight">Selecione o texto</span> do projeto para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
+    {% else %}
+      <p>Acesse um projeto e <span class="text-highlight">selecione o texto</span> dentro dele para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
+    {% endif %}
     <button class="app-button -green js-next">Próximo</button>
   </div>
-  <div class="step js-step">
-    <img src="{% static 'img/text-select-onboarding.svg' %}">
-    <h2>Selecione um trecho do texto para dar sua opinião</h2>
-    <p>Escolha um trecho de um artigo individual e digite uma opinião sobre ele. Basta dar um longo toque sobre o texto ou clicar e arrastar o mouse para selecioná-lo.</p>
 
-    <button class="app-button -green js-button js-action">Quero Participar!</button>
-    <button class="app-button -clear js-close">Fechar</button>
+  <div class="step js-step">
+    <h2>Avalie opiniões</h2>
+    <img class="opinionimage" src="{% static 'img/opinion-onboarding.svg' %}">
+
+    {% if request.path|startswith:"/p/" and request.path != "/p/new/" %}
+      <p>E que tal passar por opinões de outros cidadãos antes de dar a sua? <br> Acesse-as pelos ícones de balões <span class="opinion"></span></p>
+      <button class="app-button -green js-button js-action">Voltar para o texto</button>
+    {% else %}
+      <p>Você pode também passar por opinões de outros cidadãos. <br> Acesse-as pelos ícones de balões <span class="opinion"></span></p>
+      <button class="app-button -green js-button js-action">Quero Participar!</button>
+      <button class="app-button -clear js-close">Fechar</button>
+    {% endif %}
+
   </div>
 {% endblock content %}
 
