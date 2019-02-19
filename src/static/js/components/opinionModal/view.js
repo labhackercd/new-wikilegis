@@ -152,7 +152,11 @@ OpinionModalView.prototype.opinionSent = function(opinion) {
 
 OpinionModalView.prototype.activateOpinionCards = function(excerptId) {
   var self = this;
-  if (excerptId) {
+  if (excerptId === 'all') {
+    self.cardsElements.removeClass('-inactive');
+    self.cardsElements.addClass('-active');
+    
+  } else {
     self.cardsElements.removeClass('-active');
     self.cardsElements.addClass('-inactive');
     self.modalContentElement.find('[data-excerpt-id="' + excerptId + '"]')

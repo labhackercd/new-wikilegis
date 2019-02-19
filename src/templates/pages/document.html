@@ -48,7 +48,7 @@
         {% group_suggestions object as has_suggestions %}
       {% endif %}
       {% if has_suggestions %}
-      <button class="suggestion-opinion -all js-opinionButton" aria-label="Ver todas as opiniões"></button>
+      <button class="suggestion-opinion -all js-allOpinionsButton" aria-label="Ver todas as opiniões"></button>
       {% endif %}
     </header>
     {% for excerpt in object.document.excerpts.all %}
