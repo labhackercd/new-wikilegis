@@ -1,4 +1,10 @@
-<div class="nav-bar">
+<div class="nav-bar {% if 'dashboard' in request.path %} -admin{% endif %}">
   <div class="nav-burger"></div>
   <a href="{% url 'home' %}" class="brand">Wikilegis</a>
+  {% if 'dashboard' in request.path %}
+  <div class="tools">
+    <a href="#" class="-active">Meus documentos</a>
+    <a href="#">Meus grupos</a>
+  </div>
+  {% endif %}
 </div>

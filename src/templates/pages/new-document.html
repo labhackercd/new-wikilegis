@@ -2,70 +2,65 @@
 {% load staticfiles i18n %}
 
 {% block content %}
-  <main class="home-section">
-    {% include "components/hero-section.html" %}
-    <div class="projects-list">
-      <form class="document-form" method="POST">
-        {% csrf_token %}
-        {{form.non_field_errors}}
-        {% if object %}
-        <h2>Editar Documento</h2>
-        {% else %}
-        <h2>Criar Novo Projeto</h2>
-        {% endif %}
-        <div class="theme-autocomplete js-themeAutocomplete">
-          <input class="js-input" type="text" name="theme-autocomplete">
-          <label>{% trans "Tema" %}</label>
-          {{form.themes.errors}}
-          <div class="themes">
-            <span class="title {% if not object.themes.all %}_hidden{% endif %} js-title">Temas Adicionados:</span>
-            <ul class="tags js-tags">
-              {% if object.themes.all %}
-                {% for theme in object.themes.all %}
-                  <li class="theme-tag js-tag -selected" data-theme-id="{{theme.id}}"><span class="dot" style="background-color: {{theme.color}};"></span>{{theme.name}}</li>
-                {% endfor %}
-              {% endif %}
-            </ul>
-          </div>
-        {% if object.themes.all %}
-          {% for theme in object.themes.all %}
-          <input type="hidden" name="themes" value="{{theme.id}}">
-          {% endfor %}
-        {% endif %}
-        </div>
-        <div class="input-select">
-          <div class="select">
-            {{form.document_type}}
-            <div class="icon"><i class="arrow"></i></div>
-          </div>
-          {{form.document_type.errors}}
-        </div>
-        <div class="input-group">
-          <div class="input-text">
-            {{form.number}}
-            <label for="{{form.number.id_for_label}}">{% trans "Número" %}</label>
-            {{form.number.errors}}
-          </div>
-          <div class="input-text">
-            {{form.year}}
-            <label for="{{form.year.id_for_label}}">{% trans "Ano" %}</label>
-            {{form.year.errors}}
-          </div>
-        </div>
-        <div class="input-text">
-          {{form.title}}
-          <label for="{{form.title.id_for_label}}">{% trans "Título" %}</label>
-          {{form.title.errors}}
-        </div>
-        <div class="input-text">
-          {{form.description}}
-          <label for="{{form.description.id_for_label}}">{% trans "Descrição" %}</label>
-          {{form.description.errors}}
-        </div>
-        <button class="app-button -green">Enviar</button>
-      </form>
+  <form class="document-form" method="POST">
+    {% csrf_token %}
+    {{form.non_field_errors}}
+    {% if object %}
+    <h2>Editar Documento</h2>
+    {% else %}
+    <h2>Criar Novo Projeto</h2>
+    {% endif %}
+    <div class="theme-autocomplete js-themeAutocomplete">
+      <input class="js-input" type="text" name="theme-autocomplete">
+      <label>{% trans "Tema" %}</label>
+      {{form.themes.errors}}
+      <div class="themes">
+        <span class="title {% if not object.themes.all %}_hidden{% endif %} js-title">Temas Adicionados:</span>
+        <ul class="tags js-tags">
+          {% if object.themes.all %}
+            {% for theme in object.themes.all %}
+              <li class="theme-tag js-tag -selected" data-theme-id="{{theme.id}}"><span class="dot" style="background-color: {{theme.color}};"></span>{{theme.name}}</li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+    {% if object.themes.all %}
+      {% for theme in object.themes.all %}
+      <input type="hidden" name="themes" value="{{theme.id}}">
+      {% endfor %}
+    {% endif %}
     </div>
-  </main>
+    <div class="input-select">
+      <div class="select">
+        {{form.document_type}}
+        <div class="icon"><i class="arrow"></i></div>
+      </div>
+      {{form.document_type.errors}}
+    </div>
+    <div class="input-group">
+      <div class="input-text">
+        {{form.number}}
+        <label for="{{form.number.id_for_label}}">{% trans "Número" %}</label>
+        {{form.number.errors}}
+      </div>
+      <div class="input-text">
+        {{form.year}}
+        <label for="{{form.year.id_for_label}}">{% trans "Ano" %}</label>
+        {{form.year.errors}}
+      </div>
+    </div>
+    <div class="input-text">
+      {{form.title}}
+      <label for="{{form.title.id_for_label}}">{% trans "Título" %}</label>
+      {{form.title.errors}}
+    </div>
+    <div class="input-text">
+      {{form.description}}
+      <label for="{{form.description.id_for_label}}">{% trans "Descrição" %}</label>
+      {{form.description.errors}}
+    </div>
+    <button class="app-button -green">Enviar</button>
+  </form>
 {% endblock content %}
 
 {% block page_js %}

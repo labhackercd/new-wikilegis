@@ -1,2 +1,6 @@
 {% load participations_tags %}
+{% if group %}
 <span class="document-excerpt js-documentExcerpt" data-id="{{excerpt.id}}">{% highlight_excerpt excerpt group request.user %}</span>
+{% else %}
+<span class="document-excerpt js-documentExcerpt" data-id="{{excerpt.id}}">{{excerpt.content}}</span>
+{% endif %}
