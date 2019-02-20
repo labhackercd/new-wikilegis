@@ -4,7 +4,6 @@ from apps.api.urls import router
 from apps.participations import views
 from apps.projects.views import OwnerDocumentsView, EditDocumentView
 from django.conf import settings
-from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from apps.projects.views import list_propositions
 
