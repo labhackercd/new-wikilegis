@@ -1,10 +1,10 @@
 .document-editor {
   position: relative;
 
+  display: flex;
+
   padding-top: 2rem;
-  padding-right: 4.6rem;
   padding-bottom: 5rem;
-  padding-left: 4.6rem;
 
   @include bp-smallonly {
     padding: 4rem 1rem;
@@ -31,42 +31,17 @@
     }
   }
 
-  &.-voidselection {
-    user-select: none;
-  }
-
   & > h3 {
     text-align: center;
   }
 
   & > article {
     max-width: 66ch;
-    padding-right: 2rem;
-
-    @include bp-mediumup {
-      margin-right: auto;
-      margin-left: 3rem;
-      padding-right: 9rem;
-    }
+    margin: 0 auto;
   }
 
   & > article > p {
     position: relative;
-  }
-
-  & > article > header > .suggestion-opinion,
-  & > article > p > .suggestion-opinion {
-    position: absolute;
-    top: 0;
-    left: 100%;
-  }
-
-  & > article > p > .suggestion-opinion {
-    margin-top: -.3rem;
-
-    @include bp-mediumup {
-      margin-top: -.1rem;
-    }
   }
 
   & > article > header {
@@ -85,103 +60,5 @@
     font-weight: 300;
 
     margin-top: 1rem;
-  }
-
-  & > article > header > .info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  & > article > header > .info > .group {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  & > article > header > .info > .group > .epigraph,
-  & > article > header > .info > .group > .status {
-    font-size: .875rem;
-    font-weight: 500;
-  }
-
-  & > article > header > .info > .group > .status {
-    display: flex;
-  }
-
-  & > article > header > .info > .group > .status > img {
-    margin-right: .25rem;
-    margin-bottom: .2rem;
-  }
-
-  & > article > header > .info > .group > .date {
-    font-size: .875rem;
-    font-weight: 500;
-
-    color: $color-deep-gray;
-
-    &.-inactive {
-      color: $color-red;
-    }
-
-    &.-active {
-      color: $color-brand;
-    }
-  }
-
-  & > .wrapper {
-    position: relative;
-
-    flex: 0 0 auto;
-
-    width: 14rem;
-    margin-left: auto;
-
-    @include bp-smallonly {
-      display: none;
-
-      padding-left: 0;
-    }
-  }
-
-  & > .wrapper > .invisible {
-    position: absolute;
-    z-index: 0;
-    left: -100vw;
-
-    width: calc(100vw + 100%);
-    height: 100%;
-
-    &:hover + .info-bar > .item {
-      opacity: 1;
-    }
-  }
-
-  & > .wrapper > .info-bar {
-    position: fixed;
-
-    overflow-y: auto;
-
-    width: 14rem;
-    height: calc(100% - 3.75rem);
-    padding-right: 1rem;
-
-    text-align: right;
-
-    @include bp-mediumonly {
-      width: 12rem;
-    }
-
-    & > .item > .themes {
-      justify-content: flex-end;
-    }
-  }
-
-  & > .info-button {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-
-    @include bp-smallup {
-      display: none;
-    }
   }
 }

@@ -4,6 +4,8 @@
   {{ object.document.title }}
 {% endblock title %}
 
+{% block body_classes %}-white{% endblock %}
+
 {% block metatags %}
 <meta name="description" content="{{ object.document.description }}">
 <meta property="og:title" content="{{ object.document.title }}">

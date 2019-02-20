@@ -45,6 +45,11 @@ class DocumentCreateView(CreateView):
             kwargs['data'] = data
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = True
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(owner_required, name='dispatch')
@@ -67,6 +72,11 @@ class DocumentUpdateView(UpdateView):
             raise Http404
         return obj
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = True
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(owner_required, name='dispatch')
@@ -76,6 +86,11 @@ class OwnerDocumentsView(ListView):
 
     def get_queryset(self):
         return Document.objects.filter(owner=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = True
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
@@ -89,6 +104,11 @@ class EditDocumentView(DetailView):
         if obj.owner != self.request.user:
             raise Http404
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = True
+        return context
 
 
 def list_propositions(request):
