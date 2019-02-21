@@ -52,8 +52,10 @@ AppOnboardingView.prototype.hide = function () {
 };
 
 AppOnboardingView.prototype.nextStep = function (activeStep) {
-  activeStep.next().addClass('-active');
-  activeStep.removeClass('-active');
+  activeStep.addClass('-animate').one('animationend', function() {
+    activeStep.next().addClass('-active');
+    activeStep.removeClass('-active -animate');
+  });
 };
 
 AppOnboardingView.prototype.doAction = function () {

@@ -10,6 +10,8 @@
 
   width: 100%;
 
+  animation: simple-reveal .3s ease;
+
   background-color: #FFF;
 
   @include bp-mediumup {
@@ -57,13 +59,6 @@
 
     @include bp-mediumup {
       padding: 4rem;
-    }
-
-    & .step {
-      display: none;
-      &.-active {
-        display: block;
-      }
     }
   }
 
@@ -131,20 +126,67 @@
       margin: auto;
       padding: 0;
 
-      & > .step > h2 {
-        font-size: 1.375rem;
+      & > .step {
+        display: none;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        animation: simple-reveal 0.5s 0.2s ease forwards;
+        opacity: 0;
+      }
 
-        margin-top: 2rem;
+      & > .step.-active {
+        display: flex;
+      }
+
+      & > .step.-animate {
+        animation: fade-to-left 0.4s $swift-out forwards;
+      }
+
+      & > .step > h2 {
+        font-size: $font-size-deca;
+      }
+
+      & > .step > .selectimage {
+        margin-top: 4rem;
+        margin-bottom: 5rem;
+      }
+
+      & > .step > .opinionimage {
+        margin-top: 3rem;
+        margin-bottom: .8rem;
       }
 
       & > .step > p {
         font-size: $font-size-centi;
 
-        margin-top: 1rem;
+        margin-top: 0;
+      }
+
+      & > .step > p > .opinion {
+        display: inline-flex;
+
+        margin-left: .2em;
+
+        transform: translateY(.35em);
+
+        @include icon(comment, 17px, 18px);
+
+        &::before {
+          transform: scale(2);
+          animation: zoom-out-reveal .5s 2s $swift-out forwards;
+
+          opacity: 0;
+        }
+      }
+
+      & > .step > p > .text-highlight {
+        animation: extend-opinion-background-horizontal .25s 1.25s $swift-out forwards;
+
+        background-size: 0 100%;
       }
 
       & > .step > .app-button {
-        margin: 0 auto;
         margin-top: 1rem;
       }
 
