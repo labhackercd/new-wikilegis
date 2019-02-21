@@ -59,10 +59,12 @@
     }
   }
 
-  & > canvas {
-    position: absolute;
+  & > .canvas-wrapper {
+    position: fixed;
+    left: -20%;
+    right: -20%;
+    top: -20%;
+    bottom: -20%;
     z-index: -1;
-    top: 0;
-    left: 0;
   }
 }
