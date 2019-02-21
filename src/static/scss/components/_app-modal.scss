@@ -131,10 +131,16 @@
         align-items: center;
         flex-direction: column;
         justify-content: center;
+        animation: simple-reveal 0.5s 0.2s ease forwards;
+        opacity: 0;
       }
 
       & > .step.-active {
         display: flex;
+      }
+
+      & > .step.-animate {
+        animation: fade-to-left 0.4s $swift-out forwards;
       }
 
       & > .step > h2 {
@@ -168,14 +174,14 @@
 
         &::before {
           transform: scale(2);
-          animation: zoom-out-reveal .25s 2s $swift-out forwards;
+          animation: zoom-out-reveal .5s 2s $swift-out forwards;
 
           opacity: 0;
         }
       }
 
       & > .step > p > .text-highlight {
-        animation: extend-opinion-background-horizontal .25s 1s $swift-out forwards;
+        animation: extend-opinion-background-horizontal .25s 1.25s $swift-out forwards;
 
         background-size: 0 100%;
       }
