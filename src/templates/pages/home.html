@@ -3,11 +3,13 @@
 
 {% block content %}
 
-<header class="start-header" id="headerParticles">
+<header class="start-header">
   {% include "components/hero.html" %}
   <div class="example">
     <img src="{% static 'img/example.png' %}">
   </div>
+
+  <div class="canvas-wrapper" id="headerParticles"></div>
 </header>
 
 <main class="projects-list" id="js-projects-list">
