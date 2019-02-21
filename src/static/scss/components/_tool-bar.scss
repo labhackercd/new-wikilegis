@@ -1,0 +1,51 @@
+.tool-bar {
+  $navbar-height: 2.75rem;
+
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  width: 5rem;
+  height: 100%;
+  padding-top: $navbar-height + 1rem;
+
+  border-left: 1px solid $color-grayish;
+  background-color: #FFF;
+
+  & > .tools {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    height: 100%;
+
+    & > .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 4.5rem;
+
+      @include hovering-label(left, 1.5em, $color-gray, .875rem);
+
+      &:hover > svg path {
+        fill: $color-deep-gray;
+      }
+
+      &::after {
+        font-weight: 400 !important;
+      }
+
+      &.-settings {
+        margin-top: auto;
+      }
+    }
+  }
+}

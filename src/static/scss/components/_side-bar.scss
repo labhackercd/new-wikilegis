@@ -1,3 +1,111 @@
 .side-bar {
-  
+  $navbar-height: 2.75rem;
+  $border: 1px solid $color-grayish;
+
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  width: 24rem;
+  height: 100%;
+
+  transition: all .25s $swift-out;
+  transform: translateX(-100%);
+
+  border-right: $border;
+  background-color: $color-whisper;
+
+  & > .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 2rem 1.6rem;
+    padding-top: $navbar-height + 3rem;
+
+    border-bottom: $border;
+
+    & > h3 {
+      color: $color-gray;
+    }
+
+    & > .filter {
+      @include icon('filter');
+    }
+  }
+
+  & > .suggestions {
+    display: flex;
+    flex-direction: column;
+
+    & > .suggestion {
+      display: flex;
+      align-items: center;
+
+      padding: 1rem 1.6rem;
+
+      cursor: pointer;
+      transition: all .25s ease;
+
+      border-bottom: $border;
+      background-color: $color-whisper;
+
+      &:hover {
+        transition: all .1s ease;
+
+        background-color: #FFF;
+      }
+
+      &.-active {
+        margin-right: -1px;
+        padding-right: calc(1.6rem + 1px);
+
+        background-color: #FFF;
+      }
+
+      & > .count {
+        font-size: $font-size-micro;
+        font-weight: bold;
+        line-height: 1.2;
+
+        display: flex;
+        align-items: center;
+        flex: 1;
+        flex-direction: column;
+
+        margin-right: 1.6rem;
+
+        text-transform: uppercase;
+
+        color: $color-gray;
+      }
+
+      & > .count > .value {
+        font-size: 1.625rem;
+        font-weight: bold;
+      }
+
+      & > .text {
+        font-size: $font-size-mili;
+
+        margin-top: 0;
+
+        color: $color-gray;
+      }
+    }
+  }
+
+  & > .toggle {
+    font-size: 1.75rem;
+
+    position: absolute;
+    right: -2.5rem;
+    bottom: 0;
+
+    cursor: pointer;
+    transition: all .25s $swift-out;
+
+    @include icon('toggle');
+  }
 }

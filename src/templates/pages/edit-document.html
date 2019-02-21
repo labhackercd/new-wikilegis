@@ -8,10 +8,8 @@
 
 {% block content %}
 
-<aside class="side-bar">
-
-</aside>
 <main class="document-editor">
+  {% include "components/side-bar.html" %}
   <article>
     <header>
       <h1>{{ object.title }}</h1>
@@ -30,6 +28,7 @@
     {% endif %}
     {% endfor %}
   </article>
+  {% include "components/tool-bar.html" %}
 </main>
 
 {% endblock content %}
