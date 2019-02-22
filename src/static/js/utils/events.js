@@ -158,5 +158,11 @@ var events = {
 
   // Triggered when user click on element to animate scroll
   // Params: position, element
-  scrollToPosition: $.Topic('scrollToPosition')
+  scrollToPosition: $.Topic('scrollToPosition'),
+
+  // Triggered when user click on toggle button
+  toggleSideBar: $.Topic('toggleSideBar'),
+
+  // Triggered when user click on suggestion cluster
+  selectSuggestion: $.Topic('selectSuggestion')
 };

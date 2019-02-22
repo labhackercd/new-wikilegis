@@ -46,6 +46,7 @@
       padding: 1rem 1.6rem;
 
       cursor: pointer;
+      user-select: none;
       transition: all .25s ease;
 
       border-bottom: $border;

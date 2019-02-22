@@ -45,6 +45,11 @@ body.-white .nav-bar {
   &.-admin {
     justify-content: flex-start;
 
+    height: 4vw;
+    min-height: 2.75rem;
+    padding-right: 2vw;
+    padding-left: 2vw;
+
     border-bottom: 1px solid $color-grayish;
     background: #FFF;
 
