@@ -1,3 +1,165 @@
 .side-bar {
-  
+  $navbar-height: 2.75rem;
+  $border: 1px solid $color-grayish;
+
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  width: 24rem;
+  height: 100%;
+
+  transition: all .25s $swift-out;
+  transform: translateX(-100%);
+
+  background-color: $color-whisper;
+
+  &::before {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+
+    display: block;
+
+    width: 1px;
+    height: 100%;
+
+    content: '';
+
+    background-color: $color-grayish;
+  }
+
+  & > .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 2rem 1.6rem;
+    padding-top: $navbar-height + 3rem;
+
+    border-bottom: $border;
+
+    & > h3 {
+      color: $color-gray;
+    }
+
+    & > .filter {
+      @include icon('filter');
+    }
+  }
+
+  & > .suggestions {
+    display: flex;
+    overflow-x: auto;
+    flex-direction: column;
+
+    height: calc(100% - 9.8rem);
+
+    & > .suggestion {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+
+      min-height: 3rem;
+      padding: 1.6rem;
+
+      cursor: pointer;
+      user-select: none;
+      transition: all .25s ease;
+
+      border-bottom: $border;
+      background-color: $color-whisper;
+
+      &::before {
+        position: absolute;
+        z-index: 1;
+        right: -2px;
+
+        display: block;
+
+        width: 5px;
+        height: 100%;
+
+        content: '';
+        transition: all .15s $swift-out;
+
+        opacity: 0;
+        background-color: #FFF;
+      }
+
+      &:hover {
+        transition: all .1s ease;
+
+        background-color: #FFF;
+
+        & > .count,
+        & > .text {
+          transform: translateX(.5rem);
+        }
+      }
+
+      &.-active {
+        background-color: #FFF;
+
+        & > .count,
+        & > .text {
+          transform: translateX(0);
+        }
+
+        &::before {
+          opacity: 1;
+        }
+      }
+
+      & > .count {
+        font-size: $font-size-micro;
+        font-weight: bold;
+        line-height: 1.2;
+
+        display: flex;
+        align-items: center;
+        flex: 1;
+        flex-direction: column;
+
+        margin-right: 1.6rem;
+
+        text-transform: uppercase;
+
+        color: $color-gray;
+      }
+
+      & > .count > .value {
+        font-size: 1.625rem;
+        font-weight: bold;
+      }
+
+      & > .text {
+        font-size: $font-size-mili;
+
+        margin-top: 0;
+
+        color: $color-gray;
+      }
+
+      & > .count,
+      & > .text {
+        transition: all .15s $swift-out;
+      }
+    }
+  }
+
+  & > .toggle {
+    font-size: 1.75rem;
+
+    position: absolute;
+    right: -2.5rem;
+    bottom: 0;
+
+    cursor: pointer;
+    transition: all .25s $swift-out;
+
+    @include icon('toggle');
+  }
 }

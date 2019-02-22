@@ -1,17 +1,23 @@
+.document-editor.-active {
+  & > .side-bar {
+    transform: translateX(0);
+
+    & > .toggle::before {
+      transform: rotate(180deg);
+    }
+  }
+
+  & > article {
+    transform: translateX(8.5rem);
+  }
+}
+
 .document-editor {
   position: relative;
 
-  padding-top: 2rem;
-  padding-right: 4.6rem;
-  padding-bottom: 5rem;
-  padding-left: 4.6rem;
+  display: flex;
 
-  @include bp-smallonly {
-    padding: 4rem 1rem;
-  }
-  @include bp-mediumonly {
-    padding: 4rem 1.6rem;
-  }
+  padding: 0;
 
   &::before {
     position: fixed;
@@ -25,14 +31,6 @@
     pointer-events: none;
 
     background: linear-gradient(transparent, #FFF);
-
-    @include bp-smallonly {
-      top: calc(100% - 4rem);
-    }
-  }
-
-  &.-voidselection {
-    user-select: none;
   }
 
   & > h3 {
@@ -40,148 +38,34 @@
   }
 
   & > article {
+    font-size: 1rem;
+
     max-width: 66ch;
-    padding-right: 2rem;
+    margin: 0 auto;
+    padding: 2rem 1.6rem 5rem 1.6rem;
 
-    @include bp-mediumup {
-      margin-right: auto;
-      margin-left: 3rem;
-      padding-right: 9rem;
-    }
-  }
+    transition: all .25s $swift-out;
 
-  & > article > p {
-    position: relative;
-  }
-
-  & > article > header > .suggestion-opinion,
-  & > article > p > .suggestion-opinion {
-    position: absolute;
-    top: 0;
-    left: 100%;
-  }
-
-  & > article > p > .suggestion-opinion {
-    margin-top: -.3rem;
-
-    @include bp-mediumup {
-      margin-top: -.1rem;
-    }
-  }
-
-  & > article > header {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-  }
-
-  & > article > header > hr {
-    margin-bottom: 0;
-  }
-
-  & > article > header > .description {
-    font-size: 1.25rem;
-    font-weight: 300;
-
-    margin-top: 1rem;
-  }
-
-  & > article > header > .info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  & > article > header > .info > .group {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  & > article > header > .info > .group > .epigraph,
-  & > article > header > .info > .group > .status {
-    font-size: .875rem;
-    font-weight: 500;
-  }
-
-  & > article > header > .info > .group > .status {
-    display: flex;
-  }
-
-  & > article > header > .info > .group > .status > img {
-    margin-right: .25rem;
-    margin-bottom: .2rem;
-  }
-
-  & > article > header > .info > .group > .date {
-    font-size: .875rem;
-    font-weight: 500;
-
-    color: $color-deep-gray;
-
-    &.-inactive {
-      color: $color-red;
+    & > p {
+      position: relative;
     }
 
-    &.-active {
-      color: $color-brand;
-    }
-  }
+    & > header {
+      position: relative;
 
-  & > .wrapper {
-    position: relative;
-
-    flex: 0 0 auto;
-
-    width: 14rem;
-    margin-left: auto;
-
-    @include bp-smallonly {
-      display: none;
-
-      padding-left: 0;
-    }
-  }
-
-  & > .wrapper > .invisible {
-    position: absolute;
-    z-index: 0;
-    left: -100vw;
-
-    width: calc(100vw + 100%);
-    height: 100%;
-
-    &:hover + .info-bar > .item {
-      opacity: 1;
-    }
-  }
-
-  & > .wrapper > .info-bar {
-    position: fixed;
-
-    overflow-y: auto;
-
-    width: 14rem;
-    height: calc(100% - 3.75rem);
-    padding-right: 1rem;
-
-    text-align: right;
-
-    @include bp-mediumonly {
-      width: 12rem;
+      display: flex;
+      flex-direction: column;
     }
 
-    & > .item > .themes {
-      justify-content: flex-end;
+    & > header > hr {
+      margin-bottom: 0;
     }
-  }
 
-  & > .info-button {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
+    & > header > .description {
+      font-size: 1.25rem;
+      font-weight: 300;
 
-    @include bp-smallup {
-      display: none;
+      margin-top: 1rem;
     }
   }
 }

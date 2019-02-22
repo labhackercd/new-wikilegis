@@ -45,8 +45,17 @@ body.-white .nav-bar {
   &.-admin {
     justify-content: flex-start;
 
+    height: 4vw;
+    min-height: 2.75rem;
+    padding-right: 2vw;
+    padding-left: 2vw;
+
     border-bottom: 1px solid $color-grayish;
     background: #FFF;
+
+    & > .brand {
+      padding: 0;
+    }
   }
 
   &.-shadow {
@@ -88,6 +97,10 @@ body.-white .nav-bar {
 
     color: $color-gray;
 
+    & > * + * {
+      margin-left: 3rem;
+    }
+
     & > a {
       font-size: .875rem;
       font-weight: bold;
@@ -96,7 +109,6 @@ body.-white .nav-bar {
       align-items: center;
 
       height: 100%;
-      padding: 0 2rem;
 
       text-transform: uppercase;
 

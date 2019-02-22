@@ -4,26 +4,36 @@
   {{ object.title }}
 {% endblock title %}
 
+{% block body_classes %}-white{% endblock %}
+
 {% block content %}
 
-<aside class="side-bar">
-  
-</aside>
-<main class="document-editor">
-  {% for excerpt in object.excerpts.all %}
-  {% if excerpt.excerpt_type.align_center %}
-  <h3>{% excerpt_numbering excerpt %}</h3>
-  <h3>{{ excerpt.content|safe }}</h3>
-  {% else %}
-  <p class="js-excerptWrapper">
-    <b>{% excerpt_numbering excerpt %}</b>
-    {% include "components/document-excerpt.html" with excerpt=excerpt %}
-  </p>
-  {% endif %}
-  {% endfor %}
+<main class="document-editor -active js-documentEditor">
+  {% include "components/side-bar.html" %}
+  <article>
+    <header>
+      <h1>{{ object.title }}</h1>
+      <p class="description">{{ object.description }}</p>
+      <hr>
+    </header>
+    {% for excerpt in object.excerpts.all %}
+    {% if excerpt.excerpt_type.align_center %}
+    <h3>{% excerpt_numbering excerpt %}</h3>
+    <h3>{{ excerpt.content|safe }}</h3>
+    {% else %}
+    <p class="js-excerptWrapper" contenteditable="true">
+      <b contenteditable="false">{% excerpt_numbering excerpt %}</b>
+      {% include "components/document-excerpt.html" with excerpt=excerpt %}
+    </p>
+    {% endif %}
+    {% endfor %}
+  </article>
+  {% include "components/tool-bar.html" %}
 </main>
 
 {% endblock content %}
 
 {% block page_js %}
+<script src="{% static 'js/components/DocumentSideBar/view.js' %}"></script>
+<script src="{% static 'js/pages/editDocument.js' %}"></script>
 {% endblock page_js %}
