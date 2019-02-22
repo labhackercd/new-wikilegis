@@ -26,11 +26,11 @@ DocumentSideBarView.prototype.subscribers = function () {
 DocumentSideBarView.prototype.publishers = function () {
   var self = this;
 
-  this.toggleButton.on('click', function() {
+  self.toggleButton.on('click', function() {
     events.toggleSideBar.publish();
   });
 
-  this.suggestionClusters.on('click', function(e) {
+  self.suggestionClusters.on('click', function(e) {
 
     events.selectSuggestion.publish(e.target.closest('.js-suggestionCluster'));
   });
@@ -38,7 +38,7 @@ DocumentSideBarView.prototype.publishers = function () {
 
 DocumentSideBarView.prototype.toggle = function () {
   var self = this;
-  this.documentBody.toggleClass('-active');
+  self.documentBody.toggleClass('-active');
 };
 
 DocumentSideBarView.prototype.select = function (suggestionCluster) {
