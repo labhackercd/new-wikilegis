@@ -13,8 +13,22 @@
   transition: all .25s $swift-out;
   transform: translateX(-100%);
 
-  border-right: $border;
   background-color: $color-whisper;
+
+  &::before {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+
+    display: block;
+
+    width: 1px;
+    height: 100%;
+
+    content: '';
+
+    background-color: $color-grayish;
+  }
 
   & > .header {
     display: flex;
@@ -37,13 +51,19 @@
 
   & > .suggestions {
     display: flex;
+    overflow-x: auto;
     flex-direction: column;
 
+    height: calc(100% - 9.8rem);
+
     & > .suggestion {
+      position: relative;
+
       display: flex;
       align-items: center;
 
-      padding: 1rem 1.6rem;
+      min-height: 3rem;
+      padding: 1.6rem;
 
       cursor: pointer;
       user-select: none;
@@ -52,17 +72,45 @@
       border-bottom: $border;
       background-color: $color-whisper;
 
+      &::before {
+        position: absolute;
+        z-index: 1;
+        right: -2px;
+
+        display: block;
+
+        width: 5px;
+        height: 100%;
+
+        content: '';
+        transition: all .15s $swift-out;
+
+        opacity: 0;
+        background-color: #FFF;
+      }
+
       &:hover {
         transition: all .1s ease;
 
         background-color: #FFF;
+
+        & > .count,
+        & > .text {
+          transform: translateX(.5rem);
+        }
       }
 
       &.-active {
-        margin-right: -1px;
-        padding-right: calc(1.6rem + 1px);
-
         background-color: #FFF;
+
+        & > .count,
+        & > .text {
+          transform: translateX(0);
+        }
+
+        &::before {
+          opacity: 1;
+        }
       }
 
       & > .count {
@@ -93,6 +141,11 @@
         margin-top: 0;
 
         color: $color-gray;
+      }
+
+      & > .count,
+      & > .text {
+        transition: all .15s $swift-out;
       }
     }
   }
