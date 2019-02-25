@@ -4,111 +4,15 @@
     <div class="filter"></div>
   </div>
   <div class="suggestions">
+    {% for cluster in clusters %}
     <div class="suggestion js-suggestionCluster">
       <div class="count">
-        <span class="value">13</span>
+        <span class="value">{{ cluster|length }}</span>
         <span>Opiniões</span>
       </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
+      <p class="text">{{ cluster.0.content }}</p>
     </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">13</span>
-        <span>Opiniões</span>
-      </div>
-      <p class="text">“Muito restrito. Poderia ampliar para além de produtos de consumo.”</p>
-    </div>
+    {% endfor %}
   </div>
   <div class="toggle js-toggleButton"></div>
 </aside>

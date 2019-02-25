@@ -8,6 +8,8 @@ from django.http import Http404
 from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
+from apps.participations.models import Suggestion
+from .clusters import clustering_suggestions
 
 
 class InvitationRedirectView(RedirectView):
@@ -89,6 +91,8 @@ class OwnerDocumentsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
+        suggestions = Suggestion.objects.filter(excerpt__document=self.object)
+        context['clusters'] = clustering_suggestions(suggestions)
         return context
 
 

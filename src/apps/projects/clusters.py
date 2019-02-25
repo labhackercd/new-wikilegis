@@ -5,6 +5,7 @@ from string import punctuation
 from kneed.knee_locator import KneeLocator
 from scipy.spatial.distance import cdist
 import numpy as np
+from collections import defaultdict
 
 
 def clustering_suggestions(suggestions, n_clusters=None):
@@ -42,14 +43,20 @@ def clustering_suggestions(suggestions, n_clusters=None):
 
     model.fit_transform(X)
 
-    clusters = []
+    suggestions_list = []
 
     for suggestion in suggestions:
         Y = vectorizer.transform([suggestion.content])
         prediction = model.predict(Y)
-        clusters.append({
-            'suggestion': suggestion,
-            'cluster': prediction[0]
-        })
+        suggestions_list.append((
+            suggestion,
+            prediction[0]
+        ))
 
-    return clusters
+    clusters = defaultdict(list)
+
+    for suggestion, cluster in suggestions_list:
+        clusters[cluster].append(suggestion)
+
+    clusters_list = list(clusters.values())
+    return clusters_list
