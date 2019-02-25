@@ -12,6 +12,8 @@
       </div>
       <p class="text">{{ cluster.0.content }}</p>
     </div>
+    {% empty %}
+      Sem sugestões
     {% endfor %}
   </div>
   <div class="toggle js-toggleButton"></div>

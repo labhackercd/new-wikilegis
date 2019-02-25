@@ -92,7 +92,8 @@ class OwnerDocumentsView(ListView):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
         suggestions = Suggestion.objects.filter(excerpt__document=self.object)
-        context['clusters'] = clustering_suggestions(suggestions)
+        if suggestions:
+            context['clusters'] = clustering_suggestions(suggestions)
         return context
 
 
