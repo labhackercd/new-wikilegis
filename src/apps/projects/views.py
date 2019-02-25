@@ -4,8 +4,7 @@ from django.shortcuts import get_object_or_404
 from .models import Document
 from .forms import DocumentForm
 from apps.notifications.models import ParcipantInvitation
-from django.http import Http404, JsonResponse
-from django.contrib.sites.models import Site
+from django.http import Http404
 from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
@@ -109,21 +108,3 @@ class EditDocumentView(DetailView):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
         return context
-
-
-def list_propositions(request):
-    documents = Document.objects.filter(
-        invited_groups__public_participation=True,
-        document_type__isnull=False).distinct()
-    result = []
-    for document in documents:
-        obj = {
-            'numProposicao': document.number,
-            'anoProposicao': document.year,
-            'siglaTipoProposicao': document.document_type.initials,
-            'uri': '%s%s' % (Site.objects.get_current().domain,
-                             document.get_absolute_url())
-        }
-        result.append(obj)
-
-    return JsonResponse(result, safe=False)

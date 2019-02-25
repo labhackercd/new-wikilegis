@@ -5,7 +5,6 @@ from apps.participations import views
 from apps.projects.views import OwnerDocumentsView, EditDocumentView
 from django.conf import settings
 from django.conf.urls.static import static
-from apps.projects.views import list_propositions
 
 
 urlpatterns = [
@@ -20,7 +19,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('participation/', include('apps.participations.urls')),
     path('accounts/', include('apps.accounts.urls')),
-    path('listarProposicoes/', list_propositions),
+    path('listarProposicoes/', views.list_propositions),
 ]
 
 if settings.DEBUG:

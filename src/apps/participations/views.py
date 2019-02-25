@@ -16,6 +16,7 @@ from django.forms import ValidationError
 from django.db.models import Q
 from django.conf import settings
 from django.utils import timezone
+from django.contrib.sites.models import Site
 
 User = get_user_model()
 
@@ -213,3 +214,21 @@ def new_opinion(request):
         'documentId': suggestion.excerpt.document.id,
         'excerptId': suggestion.excerpt.id
     })
+
+
+def list_propositions(request):
+    groups = InvitedGroup.objects.filter(
+        public_participation=True,
+        document__document_type__isnull=False).distinct()
+    result = []
+    for group in groups:
+        obj = {
+            'numProposicao': group.document.number,
+            'anoProposicao': group.document.year,
+            'siglaTipoProposicao': group.document.document_type.initials,
+            'uri': '%s%s' % (Site.objects.get_current().domain,
+                             group.get_absolute_url())
+        }
+        result.append(obj)
+
+    return JsonResponse(result, safe=False)
