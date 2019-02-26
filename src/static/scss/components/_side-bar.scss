@@ -52,14 +52,10 @@
   & > .suggestions {
     display: flex;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
     flex-direction: column;
 
     height: calc(100% - 9.8rem);
-
-    &:hover {
-      overflow-y: auto;
-    }
 
     & > .suggestion {
       position: relative;
