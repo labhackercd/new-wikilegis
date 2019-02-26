@@ -56,13 +56,15 @@
     flex-direction: column;
 
     height: calc(100% - 9.8rem);
-    ::-webkit-scrollbar {
+
+    &::-webkit-scrollbar {
       width: 0;  /* remove scrollbar space */
 
       background: transparent;  /* optional: just make scrollbar invisible */
     }
+    
     /* optional: show position indicator in red */
-    ::-webkit-scrollbar-thumb {
+    &::-webkit-scrollbar-thumb {
       background: #F00;
     }
 
