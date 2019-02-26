@@ -17,7 +17,7 @@
 
   &::before {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     right: 0;
 
     display: block;
@@ -58,14 +58,27 @@
     height: calc(100% - 9.8rem);
 
     &::-webkit-scrollbar {
-      width: 0;  /* remove scrollbar space */
+      width: 0;
 
-      background: transparent;  /* optional: just make scrollbar invisible */
+      background: transparent;
     }
-    
-    /* optional: show position indicator in red */
+
     &::-webkit-scrollbar-thumb {
       background: #F00;
+    }
+
+    &::before {
+      position: fixed;
+      z-index: 1;
+      top: calc(100% - 5rem);
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      content: '';
+      pointer-events: none;
+
+      background: linear-gradient(transparent, $color-whisper);
     }
 
     & > .suggestion {
