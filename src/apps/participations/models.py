@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from utils.model_mixins import TimestampedMixin
 from utils.choices import (OPINION_VOTE_CHOICES, AMENDMENT_TYPE_CHOICES)
+from django.urls import reverse
 
 
 class InvitedGroup(TimestampedMixin):
@@ -21,6 +22,11 @@ class InvitedGroup(TimestampedMixin):
     class Meta:
         verbose_name = _('invited group')
         verbose_name_plural = _('invited groups')
+
+    def get_absolute_url(self):
+        return reverse(
+            'project', kwargs={'id': self.id,
+                               'documment_slug': self.document.slug})
 
     def __str__(self):
         if self.thematic_group:
