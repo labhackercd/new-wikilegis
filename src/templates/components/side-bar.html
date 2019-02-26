@@ -1,16 +1,43 @@
+{% load static %}
+
 <aside class="side-bar">
   <div class="header">
     <h3>Grupos de Opiniões Similares</h3>
     <div class="filter"></div>
   </div>
-  <div class="suggestions">
+  <div class="clusters">
     {% for cluster in clusters %}
-    <div class="suggestion js-suggestionCluster">
-      <div class="count">
-        <span class="value">{{ cluster|length }}</span>
-        <span>Opiniões</span>
+    <div class="cluster">
+      <div class="content js-suggestionCluster">
+        <div class="count">
+          <span class="value">{{ cluster|length }}</span>
+          <span>Opiniões</span>
+        </div>
+        <p class="text">{{ cluster.0.content }}</p>
       </div>
-      <p class="text">{{ cluster.0.content }}</p>
+      <ul class="opinions _hide">
+        {% for suggestion in cluster %}
+        <div class="opinion">
+          <div class="avatar">
+            <img src="{% static 'img/avatar.png' %}">
+          </div>
+          <div class="content">
+            <div class="header">
+              <span class="name">Eri Vânio</span>
+              <span class="date">19:03 - 29 de out</span>
+            </div>
+            <p class="text">
+              “Muito restrito. Poderia ampliar para além de produtos de consumo.”
+            </p>
+          </div>
+          <div class="votes">
+            <span class="vote -reject">8</span>
+            <span class="vote -neutral">1</span>
+            <span class="vote -aprove">13</span>
+          </div>
+        </div>
+        {% endfor %}
+      </ul>
     </div>
     {% empty %}
       Sem sugestões
