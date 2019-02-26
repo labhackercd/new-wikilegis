@@ -49,7 +49,7 @@ def clustering_suggestions(suggestions, n_clusters=None):
         Y = vectorizer.transform([suggestion.content])
         prediction = model.predict(Y)
         suggestions_list.append((
-            suggestion,
+            suggestion.id,
             prediction[0]
         ))
 
@@ -59,4 +59,5 @@ def clustering_suggestions(suggestions, n_clusters=None):
         clusters[cluster].append(suggestion)
 
     clusters_list = list(clusters.values())
+
     return clusters_list
