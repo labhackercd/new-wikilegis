@@ -51,12 +51,15 @@
 
   & > .suggestions {
     display: flex;
-    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
     flex-direction: column;
 
     height: calc(100% - 9.8rem);
 
-    direction: rtl;
+    &:hover {
+      overflow-y: auto;
+    }
 
     & > .suggestion {
       position: relative;
@@ -64,7 +67,6 @@
       display: flex;
       align-items: center;
       flex: 0 0 auto;
-      flex-direction: row-reverse;
 
       min-height: 3rem;
       padding: 1.6rem;
@@ -146,8 +148,6 @@
         flex: 1;
 
         margin-top: 0;
-
-        text-align: left;
 
         color: $color-gray;
       }
