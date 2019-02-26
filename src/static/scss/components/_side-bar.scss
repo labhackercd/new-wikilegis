@@ -51,7 +51,7 @@
 
   & > .suggestions {
     display: flex;
-    overflow-x: auto;
+    overflow-y: auto;
     flex-direction: column;
 
     height: calc(100% - 9.8rem);
