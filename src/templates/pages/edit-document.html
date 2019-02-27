@@ -9,7 +9,7 @@
   <a href="{% url 'home' %}" class="brand">Wikilegis</a>
   {% if is_owner %}
   <div class="project">
-    <span class="title">Patrocínio de bancos públicos a clubes de futebol</span>
+    <span class="title">{{object.title}}</span>
     <div class="dropdown">
       {% if group.public_participation %}
       <span>Participação pública</span>
