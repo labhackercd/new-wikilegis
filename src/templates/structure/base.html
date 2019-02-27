@@ -38,7 +38,10 @@
     {% endblock extracss %}
   </head>
   <body class="js-body {% block body_classes %}{% endblock %}">
+    {% block navbar %}
     {% include "components/nav-bar.html" %}
+    {% endblock %}
+
     {% include "components/nav-menu.html" %}
     {% include "components/alert-message.html" %}
 

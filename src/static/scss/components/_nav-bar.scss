@@ -120,4 +120,102 @@ body.-white .nav-bar {
       }
     }
   }
+
+  & > .project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 100%;
+    margin-left: 1.5rem;
+    padding-left: 1.5rem;
+
+    border-left: 1px solid $color-grayish;
+
+    &:hover {
+      & > .dropdown > .list {
+        display: flex;
+      }
+    }
+
+    & > .title {
+      font-size: $font-size-mili;
+      font-weight: bold;
+
+      color: $color-deep-gray;
+    }
+
+    & > .dropdown {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+
+      margin-top: .25rem;
+
+      cursor: pointer;
+
+      &::after {
+        display: inline-flex;
+
+        width: .75rem;
+        height: .75rem;
+        margin-left: .25rem;
+
+        content: '';
+
+        background-image: url('../../static/img/arrow.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      & > span {
+        font-size: $font-size-micro;
+
+        &.-closed {
+          @include icon('padlock');
+
+          &::before {
+            margin-right: .25rem;
+          }
+        }
+      }
+
+      & > .list {
+        position: absolute;
+        top: 1.7rem;
+        left: -.2rem;
+
+        display: none;
+        flex-direction: column;
+
+        max-width: 20rem;
+
+        border: 1px solid $color-grayish;
+        background-color: #FFF;
+
+        & > a {
+          font-size: $font-size-micro;
+          line-height: 1.4;
+
+          padding: .75rem 1rem;
+
+          color: $color-deep-gray;
+
+          &:hover {
+            color: $color-brand;
+          }
+
+          &.-closed {
+            @include icon('padlock');
+
+            &::before {
+              margin-right: .25rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
