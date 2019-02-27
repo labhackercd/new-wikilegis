@@ -103,3 +103,8 @@ def can_suggest(group, user):
             return False
     else:
         return False
+
+
+@register.filter
+def count_votes(votes, vote_type):
+    return votes.filter(opinion_vote=vote_type).count()

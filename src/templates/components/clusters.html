@@ -1,4 +1,4 @@
-{% load static %}
+{% load static participations_tags %}
 
 {% for cluster in clusters %}
 <div class="cluster js-suggestionCluster">
@@ -28,9 +28,9 @@
           {{ suggestion.content }}
         </p>
         <div class="votes">
-          <span class="vote -reject">8</span>
-          <span class="vote -neutral">1</span>
-          <span class="vote -aprove">13</span>
+          <span class="vote -reject">{{suggestion.votes|count_votes:"reject"}}</span>
+          <span class="vote -neutral">{{suggestion.votes|count_votes:"neutral"}}</span>
+          <span class="vote -aprove">{{suggestion.votes|count_votes:"approve"}}</span>
         </div>
       </div>
     </div>
