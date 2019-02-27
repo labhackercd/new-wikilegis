@@ -9,10 +9,11 @@ register = template.Library()
 
 @register.simple_tag
 def highlight_excerpt(excerpt, group, user=None):
-    if user is not None and user.is_authenticated:
-        qs = excerpt.suggestions.filter(author=user, invited_group=group)
-    elif not user.is_authenticated:
-        return excerpt.content
+    if user:
+        if user is not None and user.is_authenticated:
+            qs = excerpt.suggestions.filter(author=user, invited_group=group)
+        elif not user.is_authenticated:
+            return excerpt.content
     else:
         qs = excerpt.suggestions.filter(invited_group=group)
 

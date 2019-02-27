@@ -1,5 +1,7 @@
 {% load participations_tags %}
-{% if group %}
+{% if is_owner %}
+<span class="document-excerpt js-documentExcerpt" data-id="{{excerpt.id}}">{% highlight_excerpt excerpt group %}</span>
+{% elif group %}
 <span class="document-excerpt js-documentExcerpt" data-id="{{excerpt.id}}">{% highlight_excerpt excerpt group request.user %}</span>
 {% else %}
 <span class="document-excerpt js-documentExcerpt" data-id="{{excerpt.id}}">{{excerpt.content}}</span>

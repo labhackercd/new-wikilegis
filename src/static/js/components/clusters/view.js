@@ -47,9 +47,21 @@ ClustersView.prototype.clustering = function(groupId=undefined) {
 
 ClustersView.prototype.select = function (suggestionCluster) {
   if ($(suggestionCluster).hasClass('-active')) {
+    events.closeHighlightTooltip.publish($('.js-documentExcerpt'));
     $('.js-clusters .js-suggestionCluster').removeClass('-active');
+
   } else {
+    events.closeHighlightTooltip.publish($('.js-documentExcerpt'));
     $('.js-clusters .js-suggestionCluster').removeClass('-active');
+
     $(suggestionCluster).addClass('-active');
+
+    $(suggestionCluster).find('.js-opinion').each(function(i, element){
+      events.openHighlightTooltip.publish(
+        $('.js-documentExcerpt'),
+        $(element).data('opinionId').toString()
+      );
+    })
+
   }
 };

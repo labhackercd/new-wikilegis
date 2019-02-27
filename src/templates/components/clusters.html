@@ -11,7 +11,7 @@
   </div>
   <ul class="opinions">
     {% for suggestion in cluster %}
-    <div class="opinion">
+    <div class="opinion js-opinion" data-opinion-id="{{suggestion.id}}">
       <div class="avatar">
         {% if suggestion.author.avatar %}
         <img src="{{ suggestion.author.avatar }}" alt="Usuário">
