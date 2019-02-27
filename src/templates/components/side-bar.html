@@ -7,33 +7,37 @@
   </div>
   <div class="clusters">
     {% for cluster in clusters %}
-    <div class="cluster">
-      <div class="content js-suggestionCluster">
+    <div class="cluster js-suggestionCluster">
+      <div class="content">
         <div class="count">
           <span class="value">{{ cluster|length }}</span>
           <span>Opiniões</span>
         </div>
         <p class="text">{{ cluster.0.content }}</p>
       </div>
-      <ul class="opinions _hide">
+      <ul class="opinions">
         {% for suggestion in cluster %}
         <div class="opinion">
           <div class="avatar">
-            <img src="{% static 'img/avatar.png' %}">
+            {% if suggestion.author.avatar %}
+            <img src="{{ suggestion.author.avatar }}" alt="Usuário">
+            {% else %}
+            <img src="{% static 'img/avatar.png' %}" alt="Usuário">
+            {% endif %}
           </div>
           <div class="content">
             <div class="header">
-              <span class="name">Eri Vânio</span>
-              <span class="date">19:03 - 29 de out</span>
+              <span class="name">{{ suggestion.author.get_full_name }}</span>
+              <span class="date">{{ suggestion.created|date:'H:i - d \d\e b' }}</span>
             </div>
             <p class="text">
-              “Muito restrito. Poderia ampliar para além de produtos de consumo.”
+              {{ suggestion.content }}
             </p>
-          </div>
-          <div class="votes">
-            <span class="vote -reject">8</span>
-            <span class="vote -neutral">1</span>
-            <span class="vote -aprove">13</span>
+            <div class="votes">
+              <span class="vote -reject">8</span>
+              <span class="vote -neutral">1</span>
+              <span class="vote -aprove">13</span>
+            </div>
           </div>
         </div>
         {% endfor %}
