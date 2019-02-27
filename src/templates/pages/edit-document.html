@@ -11,11 +11,19 @@
   <div class="project">
     <span class="title">Patrocínio de bancos públicos a clubes de futebol</span>
     <div class="dropdown">
-      <span class="-closed">Bancada do esporte</span>
+      {% if group.public_participation %}
+      <span>Participação pública</span>
+      {% else %}
+      <span class="-closed">{{group.thematic_group.name}}</span>
+      {% endif %}
       <ul class="list">
-        <a href="#">Bancada do esporte 1</a>
-        <a class="-closed" href="#">Bancada do esporte 2</a>
-        <a href="#">Bancada do esporte 3</a>
+        {% for invited_group in object.invited_groups.all %}
+          {% if invited_group.public_participation %}
+          <a href="?group_id={{invited_group.id}}">Participação pública</a>
+          {% else %}
+          <a class="-closed" href="?group_id={{invited_group.id}}">{{invited_group.thematic_group.name}}</a>
+          {% endif %}
+        {% endfor %}
       </ul>
     </div>
   </div>
