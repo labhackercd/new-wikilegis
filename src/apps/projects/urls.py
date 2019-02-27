@@ -11,5 +11,7 @@ urlpatterns = [
          name="invitation"),
     path('new/', views.DocumentCreateView.as_view(), name="new_document"),
     path('edit/<int:pk>-<slug:documment_slug>/',
-         views.DocumentUpdateView.as_view(), name="edit_document")
+         views.DocumentUpdateView.as_view(), name="edit_document"),
+    path('document/<int:pk>', views.EditDocumentView.as_view(),
+         name='edit_document')
 ]

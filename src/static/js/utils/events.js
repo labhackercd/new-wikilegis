@@ -164,5 +164,9 @@ var events = {
   toggleSideBar: $.Topic('toggleSideBar'),
 
   // Triggered when user click on suggestion cluster
-  selectSuggestion: $.Topic('selectSuggestion')
+  selectSuggestion: $.Topic('selectSuggestion'),
+
+  // Triggered when load document page or user click in filters
+  // Params: groupId
+  showClusters: $.Topic('showClusters'),
 };

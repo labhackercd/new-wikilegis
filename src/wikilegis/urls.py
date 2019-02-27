@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.api.urls import router
 from apps.participations import views
-from apps.projects.views import OwnerDocumentsView, EditDocumentView
+from apps.projects.views import OwnerDocumentsView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -11,8 +11,6 @@ urlpatterns = [
     path('', views.InvitedGroupListView.as_view(), name='home'),
     path('dashboard/', OwnerDocumentsView.as_view(),
          name="owner_documents"),
-    path('document/<int:pk>', EditDocumentView.as_view(),
-         name='edit_document'),
     path('admin/', admin.site.urls),
     path('notifications/', include('apps.notifications.urls')),
     path('p/', include('apps.projects.urls')),

@@ -1,51 +1,9 @@
-{% load static %}
-
 <aside class="side-bar">
   <div class="header">
     <h3>Grupos de Opiniões Similares</h3>
     <div class="filter"></div>
   </div>
-  <div class="clusters">
-    {% for cluster in clusters %}
-    <div class="cluster js-suggestionCluster">
-      <div class="content">
-        <div class="count">
-          <span class="value">{{ cluster|length }}</span>
-          <span>Opiniões</span>
-        </div>
-        <p class="text">{{ cluster.0.content }}</p>
-      </div>
-      <ul class="opinions">
-        {% for suggestion in cluster %}
-        <div class="opinion">
-          <div class="avatar">
-            {% if suggestion.author.avatar %}
-            <img src="{{ suggestion.author.avatar }}" alt="Usuário">
-            {% else %}
-            <img src="{% static 'img/avatar.png' %}" alt="Usuário">
-            {% endif %}
-          </div>
-          <div class="content">
-            <div class="header">
-              <span class="name">{{ suggestion.author.get_full_name }}</span>
-              <span class="date">{{ suggestion.created|date:'H:i - d \d\e b' }}</span>
-            </div>
-            <p class="text">
-              {{ suggestion.content }}
-            </p>
-            <div class="votes">
-              <span class="vote -reject">8</span>
-              <span class="vote -neutral">1</span>
-              <span class="vote -aprove">13</span>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </ul>
-    </div>
-    {% empty %}
-      Sem sugestões
-    {% endfor %}
+  <div class="clusters js-clusters">
   </div>
   <div class="toggle js-toggleButton"></div>
 </aside>
