@@ -17,6 +17,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.sites.models import Site
+import json
 
 User = get_user_model()
 
@@ -214,6 +215,26 @@ def new_opinion(request):
         'documentId': suggestion.excerpt.document.id,
         'excerptId': suggestion.excerpt.id
     })
+
+
+@require_ajax
+def clusters(request, document_pk):
+    group_pk = request.POST.get('groupId', None)
+    if group_pk:
+        group = get_object_or_404(InvitedGroup, pk=group_pk)
+    else:
+        group = Document.objects.get(pk=document_pk).invited_groups.first()
+    clusters_ids = json.loads(group.clusters)
+    opinion_clusters = []
+    for cluster in clusters_ids:
+        opinion_clusters.append(Suggestion.objects.filter(id__in=cluster))
+    html = render_to_string(
+        'components/clusters.html', {
+            'clusters': opinion_clusters,
+        }
+    )
+
+    return JsonResponse({'clustersHtml': html})
 
 
 def list_propositions(request):

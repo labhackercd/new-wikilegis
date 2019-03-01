@@ -17,7 +17,7 @@
 
   &::before {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     right: 0;
 
     display: block;
@@ -49,18 +49,45 @@
     }
   }
 
-  & > .suggestions {
+  & > .clusters {
     display: flex;
-    overflow-x: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     flex-direction: column;
 
     height: calc(100% - 9.8rem);
 
-    & > .suggestion {
+    &::-webkit-scrollbar {
+      width: 0;
+
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #F00;
+    }
+
+    &::before {
+      position: fixed;
+      z-index: 1;
+      top: calc(100% - 5rem);
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      content: '';
+      pointer-events: none;
+
+      background: linear-gradient(transparent, $color-whisper);
+    }
+
+    & > .cluster > .content,
+    & > .cluster > .opinions > .opinion {
       position: relative;
 
       display: flex;
       align-items: center;
+      flex: 0 0 auto;
 
       min-height: 3rem;
       padding: 1.6rem;
@@ -74,7 +101,7 @@
 
       &::before {
         position: absolute;
-        z-index: 1;
+        z-index: 2;
         right: -2px;
 
         display: block;
@@ -100,19 +127,6 @@
         }
       }
 
-      &.-active {
-        background-color: #FFF;
-
-        & > .count,
-        & > .text {
-          transform: translateX(0);
-        }
-
-        &::before {
-          opacity: 1;
-        }
-      }
-
       & > .count {
         font-size: $font-size-micro;
         font-weight: bold;
@@ -121,6 +135,7 @@
         display: flex;
         align-items: center;
         flex: 1;
+        flex: 0 0 auto;
         flex-direction: column;
 
         margin-right: 1.6rem;
@@ -138,6 +153,8 @@
       & > .text {
         font-size: $font-size-mili;
 
+        flex: 1;
+
         margin-top: 0;
 
         color: $color-gray;
@@ -146,6 +163,122 @@
       & > .count,
       & > .text {
         transition: all .15s $swift-out;
+      }
+    }
+
+    & > .cluster.-active {
+      & > .content {
+        background-color: #FFF;
+
+        & > .count,
+        & > .text {
+          transform: translateX(0);
+        }
+
+        &::before {
+          opacity: 1;
+        }
+      }
+
+      & > .opinions {
+        display: block;
+      }
+    }
+
+    & > .cluster > .opinions {
+      display: none;
+
+      & > .opinion {
+        & > .avatar {
+          margin-right: 1.6rem;
+
+          & > img {
+            width: 2.25rem;
+            height: 2.25rem;
+
+            border-radius: 50%;
+          }
+        }
+
+        & > .content {
+          position: relative;
+
+          padding-bottom: 2rem;
+
+          color: $color-gray;
+
+          & > .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            & > .name {
+              font-size: $font-size-centi;
+              font-weight: bold;
+            }
+
+            & > .date {
+              font-size: $font-size-micro;
+            }
+          }
+
+          & > .text {
+            font-size: $font-size-mili;
+
+            flex: 1;
+
+            margin-top: .5rem;
+
+            color: $color-gray;
+          }
+
+          & > .votes {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            display: flex;
+            align-items: center;
+
+            & > * + * {
+              margin-left: .75rem;
+            }
+
+            & > .vote {
+              font-size: $font-size-micro;
+
+              display: flex;
+              align-items: center;
+
+              color: $color-gray;
+
+              &::before {
+                display: block;
+
+                width: .5rem;
+                height: .5rem;
+                margin-right: .25rem;
+
+                content: '';
+
+                border-radius: 50%;
+                background-color: red;
+              }
+
+              &.-approve::before {
+                background-color: $color-brand;
+              }
+
+              &.-reject::before {
+                background-color: $color-red;
+              }
+
+              &.-neutral::before {
+                background-color: $color-deep-gray;
+              }
+            }
+          }
+        }
       }
     }
   }

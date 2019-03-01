@@ -3,12 +3,39 @@
 {% block title %}
   {{ object.title }}
 {% endblock title %}
+{% block navbar %}
+<div class="nav-bar {% if is_owner %} -admin{% endif %}">
+  <div class="nav-burger"></div>
+  <a href="{% url 'home' %}" class="brand">Wikilegis</a>
+  {% if is_owner %}
+  <div class="project">
+    <span class="title">{{object.title}}</span>
+    <div class="dropdown">
+      {% if group.public_participation %}
+      <span>Participação pública</span>
+      {% else %}
+      <span class="-closed">{{group.thematic_group.name}}</span>
+      {% endif %}
+      <ul class="list">
+        {% for invited_group in object.invited_groups.all %}
+          {% if invited_group.public_participation %}
+          <a href="?group_id={{invited_group.id}}">Participação pública</a>
+          {% else %}
+          <a class="-closed" href="?group_id={{invited_group.id}}">{{invited_group.thematic_group.name}}</a>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock navbar %}
 
 {% block body_classes %}-white{% endblock %}
 
 {% block content %}
 
-<main class="document-editor -active js-documentEditor">
+<main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
   {% include "components/side-bar.html" %}
   <article>
     <header>
@@ -35,5 +62,7 @@
 
 {% block page_js %}
 <script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
+<script src="{% static 'js/components/clusters/view.js' %}"></script>
+<script src="{% static 'js/components/textHighlight/view.js' %}"></script>
 <script src="{% static 'js/pages/editDocument.js' %}"></script>
 {% endblock page_js %}

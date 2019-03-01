@@ -246,6 +246,10 @@ CONSTANCE_CONFIG = {
     'CD_OPEN_DATA_URL': (
         'https://dadosabertos.camara.leg.br/api/v2/',
         _('Câmara dos Deputados open data API')
+    ),
+    'MIN_SUGGESTIONS': (
+        50,
+        _('Minimum suggestions to clustering')
     )
 }
 

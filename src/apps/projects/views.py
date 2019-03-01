@@ -89,6 +89,7 @@ class OwnerDocumentsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
+
         return context
 
 
@@ -107,4 +108,9 @@ class EditDocumentView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
+        group_id = self.request.GET.get('group_id', None)
+        if group_id:
+            context['group'] = self.object.invited_groups.get(id=group_id)
+        else:
+            context['group'] = self.object.invited_groups.first()
         return context

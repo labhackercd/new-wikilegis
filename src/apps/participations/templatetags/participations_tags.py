@@ -9,10 +9,11 @@ register = template.Library()
 
 @register.simple_tag
 def highlight_excerpt(excerpt, group, user=None):
-    if user is not None and user.is_authenticated:
-        qs = excerpt.suggestions.filter(author=user, invited_group=group)
-    elif not user.is_authenticated:
-        return excerpt.content
+    if user:
+        if user is not None and user.is_authenticated:
+            qs = excerpt.suggestions.filter(author=user, invited_group=group)
+        elif not user.is_authenticated:
+            return excerpt.content
     else:
         qs = excerpt.suggestions.filter(invited_group=group)
 
@@ -41,7 +42,7 @@ def highlight_excerpt(excerpt, group, user=None):
             indexes = []
             for s, e in intersections.values_list('start_index', 'end_index'):
                 indexes.extend([s, e])
-            indexes = sorted(indexes)
+            indexes = sorted(list(set(indexes)))
 
             for i in range(len(indexes) - 1):
                 start = indexes[i]
@@ -103,3 +104,8 @@ def can_suggest(group, user):
             return False
     else:
         return False
+
+
+@register.filter
+def count_votes(votes, vote_type):
+    return votes.filter(opinion_vote=vote_type).count()
