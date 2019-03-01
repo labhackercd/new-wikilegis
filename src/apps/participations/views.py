@@ -13,7 +13,7 @@ from apps.notifications.models import ParcipantInvitation
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.forms import ValidationError
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.sites.models import Site
@@ -227,7 +227,10 @@ def clusters(request, document_pk):
     clusters_ids = json.loads(group.clusters)
     opinion_clusters = []
     for cluster in clusters_ids:
-        opinion_clusters.append(Suggestion.objects.filter(id__in=cluster))
+        opinion_clusters.append(
+            Suggestion.objects.filter(
+                id__in=cluster
+            ).annotate(num_votes=Count('votes')).order_by('-num_votes'))
     html = render_to_string(
         'components/clusters.html', {
             'clusters': opinion_clusters,
