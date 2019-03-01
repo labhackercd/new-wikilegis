@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ events Urls */
 
 var ClustersView = function() {};
 
@@ -35,7 +35,7 @@ ClustersView.prototype.clustering = function(groupId=undefined) {
     data: {
       groupId: groupId,
     }
-  })
+  });
 
   request.done(function(data) {
     self.clustersElement.html(data.clustersHtml);
@@ -61,7 +61,7 @@ ClustersView.prototype.select = function (suggestionCluster) {
         $('.js-documentExcerpt'),
         $(element).data('opinionId').toString()
       );
-    })
+    });
 
   }
 };
