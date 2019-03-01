@@ -42,7 +42,7 @@ def highlight_excerpt(excerpt, group, user=None):
             indexes = []
             for s, e in intersections.values_list('start_index', 'end_index'):
                 indexes.extend([s, e])
-            indexes = sorted(indexes)
+            indexes = sorted(list(set(indexes)))
 
             for i in range(len(indexes) - 1):
                 start = indexes[i]
