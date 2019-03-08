@@ -81,9 +81,10 @@
     & > .info {
       position: relative;
 
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
 
-      height: 14rem;
+      height: 15rem;
       margin-top: 0;
       padding-top: 1rem;
 
@@ -98,6 +99,8 @@
           flex: 1 0 auto;
 
           width: 100%;
+          padding-right: 0;
+          padding-left: 0;
 
           &:hover {
             background-color: #FFF;
