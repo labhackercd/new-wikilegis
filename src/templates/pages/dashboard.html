@@ -49,10 +49,6 @@
 {% endblock content %}
 
 {% block page_js %}
-  <script>
-    var prefixURL = '{{prefix_url|default_if_none:""}}';
-  </script>
-
   <script src="{% static 'list.js/dist/list.min.js' %}"></script>
   <script src="{% static 'particles.js/particles.js' %}"></script>
   <script src="{% static 'js/components/backgroundParticle/view.js' %}"></script>
