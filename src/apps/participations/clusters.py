@@ -1,6 +1,8 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
-from nltk.corpus import stopwords as nltk_stopwords
+from nltk.corpus import stopwords
+from nltk import word_tokenize
+from nltk.stem import RSLPStemmer
 from string import punctuation
 from kneed.knee_locator import KneeLocator
 from scipy.spatial.distance import cdist
@@ -8,14 +10,28 @@ import numpy as np
 from collections import defaultdict
 
 
+def process_text(text, stem=True):
+    """ Tokenize text and stem words removing punctuation and numbers """
+    text = text.translate(str.maketrans('', '', punctuation))
+    text = text.translate(str.maketrans('', '', '1234567890'))
+
+    tokens = word_tokenize(text)
+
+    if stem:
+        stemmer = RSLPStemmer()
+        tokens = [stemmer.stem(t) for t in tokens]
+
+    return tokens
+
+
 def clustering_suggestions(suggestions, n_clusters=None):
-    stopwords = nltk_stopwords.words('portuguese') + list(punctuation)
-    vectorizer = TfidfVectorizer(stop_words=stopwords,
-                                 smooth_idf=True,
-                                 analyzer='word',
-                                 token_pattern=r'\w{2,}',
+    vectorizer = TfidfVectorizer(stop_words=stopwords.words('portuguese'),
+                                 tokenizer=process_text,
+                                 use_idf=True,
+                                 max_df=0.9,
+                                 min_df=0.01,
                                  ngram_range=(1, 2),
-                                 max_features=30000)
+                                 lowercase=True)
 
     X = vectorizer.fit_transform(suggestions.values_list('content', flat=True))
 
