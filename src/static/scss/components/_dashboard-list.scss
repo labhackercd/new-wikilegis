@@ -1,13 +1,9 @@
-.projects-list {
+.dashboard-list {
   box-sizing: border-box;
   padding: 2rem 1rem;
 
   @include bp-smallup {
-    width: calc(100% - 16vw);
-    padding: 4rem 4vw;
-
-    background-color: rgba($color-whitesmoke, .85);
-    box-shadow: 0 0 110px 0 rgba(0, 0, 0, .15), 0 -3px 45px 0 rgba(0, 0, 0, .05);
+    padding: 1.6rem 4rem;
   }
 
   & > .header {
