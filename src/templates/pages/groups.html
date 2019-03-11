@@ -20,7 +20,7 @@
           {% for participant in group.participants.all %}
           <div class="user-profile js-user" data-user-id="{{participant.id}}">
             {% if participant.profile.avatar %}
-            <img src="{{ participant.profile.avatar }}" alt="Usuário">
+            <img class="avatar" src="{{ participant.profile.avatar }}" alt="Usuário">
             {% else %}
             <img class="avatar" src="{% static 'img/avatar.png' %}">
             {% endif %}
