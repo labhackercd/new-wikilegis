@@ -24,7 +24,9 @@ class UserFilter(FilterSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('id')
+    allowed_methods = ['get', 'put', 'delete']
+    lookup_field = 'username'
+    queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
     filter_backends = (
         django_filters.DjangoFilterBackend,
