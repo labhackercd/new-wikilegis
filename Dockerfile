@@ -3,18 +3,17 @@ FROM labhackercd/alpine-python3-nodejs
 ENV BUILD_PACKAGES postgresql-dev postgresql-client gettext
 
 RUN apk add --update --no-cache $BUILD_PACKAGES
-RUN mkdir -p /var/labhacker/wikilegis
+RUN mkdir -p /var/labhacker/new-wikilegis
 
-ADD . /var/labhacker/wikilegis
-WORKDIR /var/labhacker/wikilegis
+ADD . /var/labhacker/new-wikilegis
+WORKDIR /var/labhacker/new-wikilegis
 
-RUN pip install 'pipenv==8.1.2' psycopg2 gunicorn && \
-    pipenv install --system && \
-    rm -r /root/.cache
+RUN pip3 install -U pipenv psycopg2 gunicorn
 
-RUN npm install
+RUN pipenv install --system
 
-RUN python3 src/manage.py compress --force && \
+RUN npm install && \
+    python3 src/manage.py build_mkdocs && \
     python3 src/manage.py collectstatic --no-input && \
     python3 src/manage.py compilemessages
 
