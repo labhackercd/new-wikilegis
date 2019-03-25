@@ -15,10 +15,11 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: wikilegis
-      POSTGRES_DB: wikilegis
+      POSTGRES_DB: root
 
   web:
-    image: labhackercd/new-wikilegis
+    # image: labhackercd/new-wikilegis
+    build: .
     command: ./start.sh
     restart: on-failure
     links:
@@ -29,9 +30,16 @@ services:
       ADMIN_PASSWORD: 123
       ADMIN_EMAIL: admin@admin.com
       ADMIN_USERNAME: admin
-      DATABASE_URL: postgres://root:wikilegis@db:5432/wikilegis
+      DATABASE_ENGINE: postgresql_psycopg2
+      DATABASE_NAME: wikilegis
+      DATABASE_PASSWORD: wikilegis
+      DATABASE_USER: root
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
       DEBUG: 'False'
       COMPRESS_OFFLINE: 'True'
+      SITE_DOMAIN: localhost:8000
+      SITE_NAME: new-wikilegis
     expose:
       - "8000"
     depends_on:
