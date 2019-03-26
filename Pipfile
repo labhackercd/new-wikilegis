@@ -31,6 +31,7 @@ numpy = "*"
 scikit-learn = "*"
 scipy = "*"
 kneed = "*"
+sklearn = "*"
 
 [dev-packages]
 ipdb = "*"
