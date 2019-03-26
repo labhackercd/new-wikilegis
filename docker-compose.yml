@@ -1,7 +1,7 @@
 version: '2.3'
 services:
   nginx:
-    image: nginx:latest
+    image: nginx
     depends_on:
       - web
     volumes:
@@ -18,8 +18,7 @@ services:
       POSTGRES_DB: root
 
   web:
-    # image: labhackercd/new-wikilegis
-    build: .
+    image: labhackercd/new-wikilegis
     command: ./start.sh
     restart: on-failure
     links:
