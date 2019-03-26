@@ -18,7 +18,7 @@ services:
       POSTGRES_DB: root
 
   web:
-    image: labhackercd/new-wikilegis
+    image: labhackercd/new-wikilegis:dev
     command: ./start.sh
     restart: on-failure
     links:
