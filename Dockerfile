@@ -16,8 +16,7 @@ RUN pipenv install --system
 RUN npm install && \
     npm rebuild node-sass --force
 
-RUN python3 src/manage.py collectstatic --no-input && \
-    python3 src/manage.py compilemessages
+RUN python3 src/manage.py compilemessages
 
 RUN chmod 755 start.sh
 
