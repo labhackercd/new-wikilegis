@@ -23,7 +23,7 @@ class UserFilter(FilterSet):
         }
 
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('id')
     serializer_class = serializers.UserSerializer
     filter_backends = (
