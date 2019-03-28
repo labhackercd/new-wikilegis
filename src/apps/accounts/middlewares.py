@@ -29,7 +29,7 @@ class WikilegisRemoteUser(RemoteUserMiddleware):
         # If the user is already authenticated and that user is the user we are
         # getting passed in the headers, then the correct user is already
         # persisted in the session and we don't need to continue.
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             cleaned_username = self.clean_username(username, request)
             if request.user.get_username() == cleaned_username:
                 return
