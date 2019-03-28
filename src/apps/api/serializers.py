@@ -85,15 +85,16 @@ class ExcerptSerializer(serializers.ModelSerializer):
 
 
 class InvitedGroupSerializer(serializers.HyperlinkedModelSerializer):
-    document = serializers.HyperlinkedRelatedField(
-        read_only=True,
-        view_name='document-detail'
-    )
+    document = DocumentSerializer()
+    suggestions_count = serializers.SerializerMethodField()
 
     class Meta:
         model = InvitedGroup
         fields = ('id', 'created', 'modified', 'closing_date', 'document',
-                  'public_participation')
+                  'public_participation', 'suggestions_count')
+
+    def get_suggestions_count(self, obj):
+        return obj.suggestions.count()
 
 
 class SuggestionSerializer(serializers.HyperlinkedModelSerializer):

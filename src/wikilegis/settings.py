@@ -68,7 +68,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'apps.accounts.middlewares.WikilegisRemoteUser',
 ]
 
 ROOT_URLCONF = 'wikilegis.urls'
@@ -217,7 +216,7 @@ EMAIL_BACKEND = config(
 # API
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'apps.api.permissions.ApiKeyPermission',
     ],
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
@@ -229,13 +228,17 @@ REST_FRAMEWORK = {
 
 
 if config('ENABLE_REMOTE_USER', default=0, cast=bool):
-    AUTHENTICATION_BACKENDS = (
+    AUTHENTICATION_BACKENDS = [
         'apps.accounts.backends.WikilegisAuthBackend',
-    )
+    ]
+    MIDDLEWARE.append('apps.accounts.middlewares.WikilegisRemoteUser')
 else:
-    AUTHENTICATION_BACKENDS = (
+    AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
-    )
+    ]
+
+FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', default='')
+SESSION_COOKIE_NAME = config('SESSION_COOKIE_NAME', default='sessionid')
 
 CONSTANCE_CONFIG = {
     'USE_CD_OPEN_DATA': (

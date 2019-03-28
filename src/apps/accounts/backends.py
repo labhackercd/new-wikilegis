@@ -7,7 +7,7 @@ UserModel = get_user_model()
 
 class WikilegisAuthBackend(RemoteUserBackend):
 
-    def authenticate(self, remote_user, request=None):
+    def authenticate(self, request, remote_user):
         if not remote_user:
             return
         user = None
