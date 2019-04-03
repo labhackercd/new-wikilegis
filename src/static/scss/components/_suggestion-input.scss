@@ -1,5 +1,6 @@
 .suggestion-input {
   position: fixed;
+  z-index: 2;
   bottom: 0;
 
   visibility: hidden;

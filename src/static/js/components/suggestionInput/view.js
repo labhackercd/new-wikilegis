@@ -89,23 +89,22 @@ SuggestionInputView.prototype.showInput = function() {
     self.hideInput();
   }
 
-  if ($('.js-documentBody').data('selectionEnabled')) {
-    var selection = document.getSelection();
-    var range = selection.getRangeAt(0);
-    self.selectedExcerpt = $(range.startContainer.parentNode).closest('.js-documentExcerpt');
+  var selection = document.getSelection();
+  var range = selection.getRangeAt(0);
+  self.selectedExcerpt = $(range.startContainer.parentNode).closest('.js-documentExcerpt');
 
-    if (self.selectedExcerpt.children().length > 0) {
-      var fromIndex = self.selectedExcerpt.text().indexOf(range.startContainer.wholeText);
-      self.startIndex = self.selectedExcerpt.text().indexOf(selection.toString(), fromIndex);
-      self.endIndex = self.startIndex + selection.toString().length;
-    } else {
-      self.startIndex = range.startOffset;
-      self.endIndex = range.endOffset;
-    }
-
-    self.selectedTextElement.text(selection.toString());
-    self.suggestionInputElement.addClass('-show');
+  if (self.selectedExcerpt.children().length > 0) {
+    var fromIndex = self.selectedExcerpt.text().indexOf(range.startContainer.wholeText);
+    self.startIndex = self.selectedExcerpt.text().indexOf(selection.toString(), fromIndex);
+    self.endIndex = self.startIndex + selection.toString().length;
+  } else {
+    self.startIndex = range.startOffset;
+    self.endIndex = range.endOffset;
   }
+
+  self.selectedTextElement.text(selection.toString());
+  self.suggestionInputElement.addClass('-show');
+
 };
 
 SuggestionInputView.prototype.hideInput = function() {
