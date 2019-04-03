@@ -83,12 +83,12 @@ body.-white .nav-bar {
     }
 
     &.-beta::after {
-      font-family: 'Montserrat', sans-serif;
       font-size: .5rem;
-      font-weight: normal;
+      font-weight: 900;
+      letter-spacing: 2px;
 
       position: relative;
-      right: 1.375rem;
+      right: 1.875rem;
       bottom: -.75rem;
 
       display: block;
@@ -97,7 +97,7 @@ body.-white .nav-bar {
 
       content: 'Beta';
 
-      color: $color-brand;
+      color: $color-deep-gray;
     }
   }
 
