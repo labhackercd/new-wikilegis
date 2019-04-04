@@ -53,10 +53,12 @@
         {% if not excerpt.suggestions.all %}
         <span class="js-defaultText">...</span>
         {% endif %}
+        <b contenteditable="false">{% excerpt_numbering excerpt %}</b>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
       </p>
       {% endif %}
     {% endfor %}
+    {% include "components/add-excerpt.html" %}
   </article>
   {% include "components/tool-bar.html" %}
 </main>
@@ -67,6 +69,7 @@
 <script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
 <script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
 <script src="{% static 'js/components/clusters/view.js' %}"></script>
+<script src="{% static 'js/components/addExcerpt/view.js' %}"></script>
 <script src="{% static 'js/components/textHighlight/view.js' %}"></script>
 <script src="{% static 'js/pages/editDocument.js' %}"></script>
 {% endblock page_js %}

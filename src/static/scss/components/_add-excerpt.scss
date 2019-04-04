@@ -1,0 +1,15 @@
+.add-excerpt {
+  display: none;
+
+  &.-show {
+    display: block;
+  }
+
+  .types-list{
+    display: none;
+
+    &.-show {
+      display: block;
+    }
+  }
+}

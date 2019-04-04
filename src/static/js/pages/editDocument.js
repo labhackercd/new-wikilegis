@@ -11,3 +11,6 @@ textHighlightView.initEvents();
 
 var reduceExcerptsView = new ReduceExcerptsView();
 reduceExcerptsView.initEvents();
+
+var addExcerpt = new AddExcerptView();
+addExcerpt.initEvents();
