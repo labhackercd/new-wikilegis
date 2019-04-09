@@ -46,6 +46,25 @@
       &.-settings {
         margin-top: auto;
       }
+
+      &.-collapse {
+        transition: all .3s $swift-out;
+
+        .arrow1 {
+          transform: translateY(12px);
+        }
+
+        .arrow2 {
+          transform: translateY(-12px);
+        }
+      }
+
+      &.-collapsed {
+        .arrow1,
+        .arrow2 {
+          transform: translateY(0);
+        }
+      }
     }
   }
 }
