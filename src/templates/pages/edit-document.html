@@ -48,8 +48,11 @@
       <h3>{% excerpt_numbering excerpt %}</h3>
       <h3>{{ excerpt.content|safe }}</h3>
       {% else %}
-      <p class="js-excerptWrapper {% if not excerpt.suggestions.all %}-reduce{% endif %}" contenteditable="true">
-        <b contenteditable="false">{% excerpt_numbering excerpt %}</b>
+      <p class="js-excerptWrapper {% if not excerpt.suggestions.all %}-reduce{% endif %}">
+        <b>{% excerpt_numbering excerpt %}</b>
+        {% if not excerpt.suggestions.all %}
+        <span class="js-defaultText">...</span>
+        {% endif %}
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
       </p>
       {% endif %}
@@ -61,6 +64,7 @@
 {% endblock content %}
 
 {% block page_js %}
+<script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
 <script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
 <script src="{% static 'js/components/clusters/view.js' %}"></script>
 <script src="{% static 'js/components/textHighlight/view.js' %}"></script>

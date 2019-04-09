@@ -169,4 +169,12 @@ var events = {
   // Triggered when load document page or user click in filters
   // Params: groupId
   showClusters: $.Topic('showClusters'),
+
+  // Triggered when load document page or user click in filters
+  // Params: groupId
+  toggleExcerpt: $.Topic('toggleExcerpt'),
+
+  // Triggered when load document page or user click in filters
+  // Params: groupId
+  collapseExpandExcerpts: $.Topic('collapseExpandExcerpts'),
 };

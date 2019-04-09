@@ -8,3 +8,6 @@ clustersView.initEvents();
 
 var textHighlightView = new TextHighlightView();
 textHighlightView.initEvents();
+
+var reduceExcerptsView = new ReduceExcerptsView();
+reduceExcerptsView.initEvents();
