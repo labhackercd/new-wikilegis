@@ -45,10 +45,12 @@ ReduceExcerptsView.prototype.collapseExpandExcerpts = function (display) {
   var self = this;
   if (display) {
     $('.js-collapseExpand').addClass('-collapsed');
+    $('.js-collapseExpand').attr('aria-label', 'Expandir');
     $('.js-defaultText').show();
     self.excerptsWithoutOpinion.children().not('b, .js-defaultText').hide();
   } else {
     $('.js-collapseExpand').removeClass('-collapsed');
+    $('.js-collapseExpand').attr('aria-label', 'Comprimir');
     $('.js-defaultText').hide();
     self.excerptsWithoutOpinion.children().not('b, .js-defaultText').show();
   }
