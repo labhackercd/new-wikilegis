@@ -1,4 +1,4 @@
-/*global DocumentSideBarView ClustersView TextHighlightView */
+/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView */
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
