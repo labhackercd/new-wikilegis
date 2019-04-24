@@ -22,12 +22,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
+    profile = ProfileSerializer(required=False)
 
     class Meta:
         model = User
         fields = ('id', 'email', 'username', 'first_name', 'last_name',
-                  'last_login', 'date_joined', 'profile')
+                  'last_login', 'date_joined', 'profile', 'is_active',
+                  'is_staff', 'is_superuser')
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
@@ -36,9 +37,39 @@ class UserSerializer(serializers.ModelSerializer):
             api_key = request.GET.get('api_key', None)
             if api_key != settings.SECRET_KEY:
                 ret.pop('email')
+                ret.pop('is_active', None)
+                ret.pop('is_staff', None)
+                ret.pop('is_superuser', None)
         else:
             ret.pop('email')
+            ret.pop('is_active', None)
+            ret.pop('is_staff', None)
+            ret.pop('is_superuser', None)
         return ret
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get('first_name',
+                                                 instance.first_name)
+        instance.last_name = validated_data.get('last_name',
+                                                instance.last_name)
+        instance.is_active = validated_data.get('is_active',
+                                                instance.is_active)
+        instance.is_staff = validated_data.get('is_staff', instance.is_staff)
+        instance.is_superuser = validated_data.get('is_superuser',
+                                                   instance.is_superuser)
+        if not hasattr(instance, 'profile'):
+            profile = UserProfile()
+            profile.user = instance
+        else:
+            profile = instance.profile
+        profile.avatar = validated_data.get('avatar', profile.avatar)
+        profile.gender = validated_data.get('gender', profile.gender)
+        profile.uf = validated_data.get('uf', profile.uf)
+        profile.country = validated_data.get('country', profile.country)
+        profile.birthdate = validated_data.get('birthdate', profile.birthdate)
+        profile.save()
+        instance.save()
+        return instance
 
 
 class DocumentTypeSerializer(serializers.ModelSerializer):
