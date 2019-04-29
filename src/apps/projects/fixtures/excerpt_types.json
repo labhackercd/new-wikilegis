@@ -1,0 +1,101 @@
+[
+  {
+    "model": "projects.excerpttype",
+    "pk": 1,
+    "fields": {
+      "name": "Artigo",
+      "slug": "artigo",
+      "align_center": false
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 2,
+    "fields": {
+      "name": "Livro",
+      "slug": "livro",
+      "align_center": true
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 3,
+    "fields": {
+      "name": "Cap\u00edtulo",
+      "slug": "capitulo",
+      "align_center": true
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 4,
+    "fields": {
+      "name": "Se\u00e7\u00e3o",
+      "slug": "secao",
+      "align_center": true
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 5,
+    "fields": {
+      "name": "Subse\u00e7\u00e3o",
+      "slug": "subsecao",
+      "align_center": true
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 6,
+    "fields": {
+      "name": "Par\u00e1grafo",
+      "slug": "paragrafo",
+      "align_center": false
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 7,
+    "fields": {
+      "name": "Inciso",
+      "slug": "inciso",
+      "align_center": false
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 8,
+    "fields": {
+      "name": "Al\u00ednea",
+      "slug": "alinea",
+      "align_center": false
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 9,
+    "fields": {
+      "name": "Item",
+      "slug": "item",
+      "align_center": false
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 10,
+    "fields": {
+      "name": "T\u00edtulo",
+      "slug": "titulo",
+      "align_center": true
+    }
+  },
+  {
+    "model": "projects.excerpttype",
+    "pk": 11,
+    "fields": {
+      "name": "Continua\u00e7\u00e3o",
+      "slug": "continuacao",
+      "align_center": false
+    }
+  }
+]

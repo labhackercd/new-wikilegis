@@ -1,0 +1,17 @@
+.excerpt-wrapper {
+  margin-top: 2rem;
+
+  &.-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+    h3 {
+      margin: 0;
+    }
+  }
+
+  &.-quote {
+    font-style: italic;
+  }
+}

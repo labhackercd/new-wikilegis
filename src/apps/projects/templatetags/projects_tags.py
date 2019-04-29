@@ -142,12 +142,23 @@ def excerpt_numbering(excerpt):
             return "Subseção %s" % int_to_roman(excerpt.number)
         elif type_name == 'item':
             return "%s." % excerpt.number
-        elif type_name == 'citacao':
+        elif type_name == 'continuacao':
             return ''
         else:
             return "%s %s" % (excerpt.excerpt_type.name, excerpt.number)
     else:
         return ''
+
+
+@register.simple_tag()
+def excerpt_classes(excerpt):
+    classes = []
+    if excerpt.excerpt_type.align_center:
+        classes.append('-center')
+    elif excerpt.excerpt_type.slug == 'continuacao':
+        classes.append('-quote')
+
+    return ' '.join(classes)
 
 
 @register.filter()
