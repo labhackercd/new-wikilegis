@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from utils.model_mixins import TimestampedMixin
-from utils.choices import (OPINION_VOTE_CHOICES, AMENDMENT_TYPE_CHOICES)
+from utils.model_mixins import TimestampedMixin, ExcerptMixin
+from utils.choices import OPINION_VOTE_CHOICES
 from django.urls import reverse
 
 
@@ -19,6 +19,8 @@ class InvitedGroup(TimestampedMixin):
     public_participation = models.BooleanField(_('public participation'),
                                                default=False)
     clusters = models.TextField(blank=True, null=True)
+    document_version = models.PositiveIntegerField(default=0)
+    text_version = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = _('invited group')
@@ -28,6 +30,9 @@ class InvitedGroup(TimestampedMixin):
         return reverse(
             'project', kwargs={'id': self.id,
                                'documment_slug': self.document.slug})
+
+    def get_text(self):
+        pass
 
     def __str__(self):
         if self.thematic_group:
@@ -85,23 +90,12 @@ class OpinionVote(TimestampedMixin):
                             self.opinion_vote)
 
 
-class Amendment(TimestampedMixin):
+class Amendment(ExcerptMixin):
+    document = None
     invited_group = models.ForeignKey('participations.InvitedGroup',
                                       on_delete=models.CASCADE,
                                       related_name='amendments',
                                       verbose_name=_('invited group'))
-    excerpt = models.ForeignKey('projects.Excerpt',
-                                on_delete=models.CASCADE,
-                                related_name='amendments',
-                                verbose_name=_('excerpt'))
-    content = models.TextField(_('content'))
-    amendment_type = models.CharField(_('amendment type'), max_length=200,
-                                      choices=AMENDMENT_TYPE_CHOICES)
-    excerpt_type = models.ForeignKey('projects.ExcerptType',
-                                     verbose_name=_('excerpt type'),
-                                     blank=True, null=True,
-                                     on_delete=models.SET_NULL)
-    number = models.PositiveIntegerField(_('number'), null=True, blank=True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                related_name='amendments',
                                verbose_name=_('author'))
@@ -109,6 +103,7 @@ class Amendment(TimestampedMixin):
     class Meta:
         verbose_name = _('amendment')
         verbose_name_plural = _('amendments')
+        ordering = ('-version', 'order', 'id')
 
     def __str__(self):
         return '%s <%s>' % (self.content,

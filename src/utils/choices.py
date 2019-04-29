@@ -47,9 +47,3 @@ OPINION_VOTE_CHOICES = (
     ('reject', _('Reject')),
     ('neutral', _('Neutral')),
 )
-
-AMENDMENT_TYPE_CHOICES = (
-    ('additive', _('Additive')),
-    ('modifier', _('Modifier')),
-    ('supress', _('Supress')),
-)

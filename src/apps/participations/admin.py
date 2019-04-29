@@ -63,17 +63,16 @@ class AmendmentAdmin(admin.ModelAdmin):
         'created',
         'modified',
         'invited_group',
-        'excerpt',
         'content',
-        'amendment_type',
         'excerpt_type',
         'number',
         'author',
+        'version',
     )
     list_filter = (
         'created',
         'modified',
         'invited_group',
-        'excerpt',
         'author',
+        'version',
     )

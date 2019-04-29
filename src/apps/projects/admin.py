@@ -91,13 +91,13 @@ class ExcerptAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'document',
-        'parent',
         'order',
         'excerpt_type',
         'number',
         'content',
+        'version',
     )
-    list_filter = ('document', 'parent')
+    list_filter = ('document', 'version', 'created', 'modified',)
 
 
 @admin.register(models.DocumentInfo)
