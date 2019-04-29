@@ -63,6 +63,9 @@ class Document(TimestampedMixin):
         return reverse(
             'edit_document', kwargs={'pk': self.id})
 
+    def get_excerpts(self):
+        return self.excerpts.filter(version=self.version)
+
     def save(self):
         self.slug = slugify(self.title)
         super().save()

@@ -32,8 +32,11 @@ class InvitedGroup(TimestampedMixin):
             'project', kwargs={'id': self.id,
                                'documment_slug': self.document.slug})
 
-    def get_text(self):
-        pass
+    def get_excerpts(self):
+        if self.amendments.count() > 0:
+            return self.amendments.filter(version=self.version)
+        else:
+            return self.document.get_excerpts()
 
     def __str__(self):
         if self.thematic_group:

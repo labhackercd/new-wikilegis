@@ -43,7 +43,7 @@
       <p class="description">{{ object.description }}</p>
       <hr>
     </header>
-    {% for excerpt in object.excerpts.all %}
+    {% for excerpt in object.get_excerpts %}
       {% if excerpt.excerpt_type.align_center %}
       <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
         <h3>{% excerpt_numbering excerpt %}</h3>
