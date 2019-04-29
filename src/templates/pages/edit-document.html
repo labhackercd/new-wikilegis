@@ -55,7 +55,6 @@
         {% if not excerpt.suggestions.all %}
         <span class="js-defaultText">...</span>
         {% endif %}
-        <b contenteditable="false">{% excerpt_numbering excerpt %}</b>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
       </p>
       {% endif %}
