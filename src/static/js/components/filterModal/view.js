@@ -28,7 +28,7 @@ FilterModalView.prototype.subscribers = function () {
 
 FilterModalView.prototype.publishers = function () {
   this.applyFilter.on('click', function() {
-    events.closeModal.publish();
+    events.closeFilterModal.publish(true);
   });
 
   $(window).on('unload', function() {
