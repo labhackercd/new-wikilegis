@@ -15,6 +15,7 @@
 
 // Components
 @import 'components/document-excerpt';
+@import 'components/excerpt-wrapper';
 @import 'components/document-body';
 @import 'components/suggestion-input';
 @import 'components/nav-bar';
@@ -52,7 +53,6 @@
 @import 'components/document-editor';
 @import 'components/side-bar';
 @import 'components/tool-bar';
-@import 'components/add-excerpt';
 
 // Vendor
 @import 'vendor/tooltip';
