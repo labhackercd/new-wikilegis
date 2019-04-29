@@ -116,11 +116,15 @@ def excerpt_numbering(excerpt):
                 return "Art. %d " % excerpt.number
         elif type_name == 'paragrafo':
             if excerpt.number <= 9:
-                siblings_count = Excerpt.objects.filter(
+                prev_excerpt = Excerpt.objects.filter(
                     excerpt_type__slug=excerpt.excerpt_type.slug,
-                    parent=excerpt.parent
+                    order=excerpt.order - 1
                 ).count()
-                if excerpt.number == 1 and siblings_count == 1:
+                next_excerpt = Excerpt.objects.filter(
+                    excerpt_type__slug=excerpt.excerpt_type.slug,
+                    order=excerpt.order + 1
+                ).count()
+                if prev_excerpt + next_excerpt == 0:
                     return "%s. " % _("Sole paragraph")
                 else:
                     return "§ %dº " % excerpt.number
