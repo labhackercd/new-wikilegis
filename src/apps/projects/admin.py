@@ -19,16 +19,12 @@ class DocumentTypeAdmin(admin.ModelAdmin):
 @admin.register(models.Document)
 class DocumentAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
+        'title',
+        'owner',
+        'description',
+        'version',
         'created',
         'modified',
-        'owner',
-        'title',
-        'slug',
-        'description',
-        'document_type',
-        'number',
-        'year',
     )
     list_filter = ('created', 'modified', 'owner', 'document_type')
     search_fields = ('slug',)
