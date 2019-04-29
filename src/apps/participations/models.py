@@ -21,6 +21,7 @@ class InvitedGroup(TimestampedMixin):
     clusters = models.TextField(blank=True, null=True)
     document_version = models.PositiveIntegerField(default=0)
     text_version = models.PositiveIntegerField(default=0)
+    version = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = _('invited group')
