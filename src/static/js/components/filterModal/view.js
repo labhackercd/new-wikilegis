@@ -45,7 +45,7 @@ FilterModalView.prototype.hide = function () {
 };
 
 FilterModalView.prototype.resetForm = function () {
-  $('.js-filterModal .js-groups').html('');
+  // $('.js-filterModal .js-groups').html('');
   $('.js-filterModal .js-tags').html('');
   $('.js-filterModal .js-groupTitle').addClass('_hidden');
   $('.js-filterModal .js-title').addClass('_hidden');

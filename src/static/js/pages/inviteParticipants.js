@@ -12,5 +12,5 @@ filterModalController.initEvents();
 var themeAutocompleteView = new ThemeAutocompleteView();
 themeAutocompleteView.initEvents();
 
-var groupAutocompleteView = new GroupAutocompleteView();
-groupAutocompleteView.initEvents();
+// var groupAutocompleteView = new GroupAutocompleteView();
+// groupAutocompleteView.initEvents();
