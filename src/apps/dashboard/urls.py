@@ -8,6 +8,6 @@ urlpatterns = [
     path('document/<int:pk>', views.EditDocumentView.as_view(),
          name='edit_document'),
     path('page', TemplateView.as_view(template_name='pages/closing-date.html'),
-         name='edit_document'),
+         name='testpage'),
     # path('groups/', views.OwnerGroupsView.as_view(), name='groups')
 ]
