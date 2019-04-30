@@ -167,9 +167,7 @@ body.-white .nav-bar {
       color: $color-deep-gray;
     }
 
-    & > .dropdown {
-      position: relative;
-
+    & > .menu {
       display: flex;
       display: flex;
       align-items: center;
@@ -178,34 +176,46 @@ body.-white .nav-bar {
       margin-top: .25rem;
       margin-right: 1rem;
 
-      cursor: pointer;
-
-      &::after {
-        display: inline-flex;
-
-        width: .75rem;
-        height: .75rem;
-        margin-left: .25rem;
-
-        content: '';
-
-        background-image: url('../../static/img/arrow.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
+      & > .participation {
+        font-size: $font-size-micro;
       }
 
-      & > span {
-        font-size: $font-size-micro;
+      & > .dropdown {
+        position: relative;
 
-        &.-closed {
-          @include icon('padlock');
+        display: flex;
+        align-items: center;
 
-          &::before {
-            margin-right: .25rem;
+        margin-right: 1rem;
+
+        cursor: pointer;
+
+        &::after {
+          display: inline-flex;
+
+          width: .75rem;
+          height: .75rem;
+          margin-left: .25rem;
+
+          content: '';
+
+          background-image: url('../../static/img/arrow.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+        }
+
+        & > span {
+          font-size: $font-size-micro;
+
+          &.-closed {
+            @include icon('padlock');
+
+            &::before {
+              margin-right: .25rem;
+            }
           }
         }
-      }
 
       & > .list {
         position: absolute;
@@ -287,7 +297,7 @@ body.-white .nav-bar {
 
           padding: 1rem 1.5rem;
 
-          color: $color-deep-gray;
+            color: $color-deep-gray;
 
           &:hover {
             & > span {
