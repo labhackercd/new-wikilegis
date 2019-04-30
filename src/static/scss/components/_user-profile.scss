@@ -26,6 +26,14 @@
       font-size: $font-size-mili;
       font-weight: bold;
     }
+
+    & > .tags {
+      display: flex;
+
+      & > * + * {
+        margin-left: .5rem;
+      }
+    }
   }
 
   & > .action {

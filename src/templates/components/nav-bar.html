@@ -1,10 +1,10 @@
-<div class="nav-bar {% if is_owner %} -admin{% endif %}">
+{% load dashboard_tags %}
+<div class="nav-bar {% if request.user.profile.profile_type == 'owner' %} -admin{% endif %}">
   <div class="nav-burger"></div>
   <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
-  {% if is_owner %}
+  {% if request.user.profile.profile_type == 'owner' %}
   <div class="tools">
-    <a href="#" class="-active">Meus documentos</a>
-    <a href="#">Meus grupos</a>
+    <a href="{% url 'owner_documents' %}" {% if request.path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
   </div>
   {% endif %}
 </div>

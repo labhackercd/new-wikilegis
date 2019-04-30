@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<main class="projects-list" id="js-projects-list">
+<main class="dashboard-list" id="js-projects-list">
   <div class="header">
     <h1>Meus Documentos</h1>
     <div class="tabs">
@@ -49,10 +49,6 @@
 {% endblock content %}
 
 {% block page_js %}
-  <script>
-    var prefixURL = '{{prefix_url|default_if_none:""}}';
-  </script>
-
   <script src="{% static 'list.js/dist/list.min.js' %}"></script>
   <script src="{% static 'particles.js/particles.js' %}"></script>
   <script src="{% static 'js/components/backgroundParticle/view.js' %}"></script>

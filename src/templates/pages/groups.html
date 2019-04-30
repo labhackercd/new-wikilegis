@@ -1,0 +1,59 @@
+{% extends "structure/base.html" %}
+{% load staticfiles projects_tags %}
+
+{% block content %}
+
+<main class="dashboard-list">
+  <div class="list">
+    <a href="#" class="simple-card -new">
+      <span class="icon" aria-label="Adicionar grupo"></span>
+
+    </a>
+    {% for group in object_list %}
+    <a href="#" class="simple-card -groups">
+      <div class="header">
+        <span class="participations"><b>{{group.participants.count}}</b> Participantes</span>
+      </div>
+      <h3 class="js-title">{{group.name}}</h3>
+      <div class="info">
+        <div class="list">
+          {% for participant in group.participants.all %}
+          <div class="user-profile js-user" data-user-id="{{participant.id}}">
+            {% if participant.profile.avatar %}
+            <img class="avatar" src="{{ participant.profile.avatar }}" alt="Usuário">
+            {% else %}
+            <img class="avatar" src="{% static 'img/avatar.png' %}">
+            {% endif %}
+            <div class="info">
+              <span class="name">{{participant}}</span>
+              <div class="tags">
+                {% for theme in participant.profile.themes.all %}
+                <div class="theme-tag">
+                  <span class="dot" style="background-color: {{theme.color}};"></span>
+                   {{theme.name}}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+</main>
+
+{% endblock content %}
+
+{% block page_js %}
+  <script src="{% static 'list.js/dist/list.min.js' %}"></script>
+  <script src="{% static 'particles.js/particles.js' %}"></script>
+  <script src="{% static 'js/components/backgroundParticle/view.js' %}"></script>
+  <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
+  <script src="{% static 'js/components/documentBody/view.js' %}"></script>
+  <script src="{% static 'js/components/navBurger/view.js' %}"></script>
+  <script src="{% static 'js/components/searchInput/view.js' %}"></script>
+  <script src="{% static 'js/pages/home.js' %}"></script>
+{% endblock page_js %}

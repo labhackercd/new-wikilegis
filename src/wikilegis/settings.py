@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'apps.projects',
     'apps.notifications',
     'apps.api',
+    'apps.dashboard',
 ]
 
 MIDDLEWARE = [
@@ -239,6 +240,7 @@ else:
     ]
 
 FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', default='')
+JS_SCRIPT_PREFIX = config('JS_SCRIPT_PREFIX', default=FORCE_SCRIPT_NAME)
 SESSION_COOKIE_NAME = config('SESSION_COOKIE_NAME', default='sessionid')
 
 CONSTANCE_CONFIG = {
