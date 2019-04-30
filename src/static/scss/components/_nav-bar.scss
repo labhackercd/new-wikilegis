@@ -167,73 +167,84 @@ body.-white .nav-bar {
       color: $color-deep-gray;
     }
 
-    & > .dropdown {
-      position: relative;
-
+    & > .menu {
       display: flex;
       align-items: center;
 
       margin-top: .25rem;
 
-      cursor: pointer;
-
-      &::after {
-        display: inline-flex;
-
-        width: .75rem;
-        height: .75rem;
-        margin-left: .25rem;
-
-        content: '';
-
-        background-image: url('../../static/img/arrow.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-      }
-
-      & > span {
+      & > .participation {
         font-size: $font-size-micro;
-
-        &.-closed {
-          @include icon('padlock');
-
-          &::before {
-            margin-right: .25rem;
-          }
-        }
       }
 
-      & > .list {
-        position: absolute;
-        top: 1.7rem;
-        left: -.2rem;
+      & > .dropdown {
+        position: relative;
 
-        display: none;
-        flex-direction: column;
+        display: flex;
+        align-items: center;
 
-        max-width: 20rem;
+        margin-right: 1rem;
 
-        border: 1px solid $color-grayish;
-        background-color: #FFF;
+        cursor: pointer;
 
-        & > a {
+        &::after {
+          display: inline-flex;
+
+          width: .75rem;
+          height: .75rem;
+          margin-left: .25rem;
+
+          content: '';
+
+          background-image: url('../../static/img/arrow.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+        }
+
+        & > span {
           font-size: $font-size-micro;
-          line-height: 1.4;
-
-          padding: .75rem 1rem;
-
-          color: $color-deep-gray;
-
-          &:hover {
-            color: $color-brand;
-          }
 
           &.-closed {
             @include icon('padlock');
 
             &::before {
               margin-right: .25rem;
+            }
+          }
+        }
+
+        & > .list {
+          position: absolute;
+          top: 1.7rem;
+          left: -.2rem;
+
+          display: none;
+          flex-direction: column;
+
+          max-width: 20rem;
+
+          border: 1px solid $color-grayish;
+          background-color: #FFF;
+
+          & > a {
+            font-size: $font-size-micro;
+            line-height: 1.4;
+
+            padding: .75rem 1rem;
+
+            color: $color-deep-gray;
+
+            &:hover {
+              color: $color-brand;
+            }
+
+            &.-closed {
+              @include icon('padlock');
+
+              &::before {
+                margin-right: .25rem;
+              }
             }
           }
         }

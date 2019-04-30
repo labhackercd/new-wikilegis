@@ -10,21 +10,24 @@
   {% if is_owner %}
   <div class="project">
     <span class="title">{{object.title}}</span>
-    <div class="dropdown">
-      {% if group.public_participation %}
-      <span>Participação pública</span>
-      {% else %}
-      <span class="-closed">{{group.thematic_group.name}}</span>
-      {% endif %}
-      <ul class="list">
-        {% for invited_group in object.invited_groups.all %}
-          {% if invited_group.public_participation %}
-          <a href="?group_id={{invited_group.id}}">Participação pública</a>
-          {% else %}
-          <a class="-closed" href="?group_id={{invited_group.id}}">{{invited_group.thematic_group.name}}</a>
-          {% endif %}
-        {% endfor %}
-      </ul>
+    <div class="menu">
+      <div class="dropdown">
+        {% if group.public_participation %}
+        <span>Participação pública</span>
+        {% else %}
+        <span class="-closed">{{group.thematic_group.name}}</span>
+        {% endif %}
+        <ul class="list">
+          {% for invited_group in object.invited_groups.all %}
+            {% if invited_group.public_participation %}
+            <a href="?group_id={{invited_group.id}}">Participação pública</a>
+            {% else %}
+            <a class="-closed" href="?group_id={{invited_group.id}}">{{invited_group.thematic_group.name}}</a>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="participation">Abrir para participação</div>
     </div>
   </div>
   {% endif %}
