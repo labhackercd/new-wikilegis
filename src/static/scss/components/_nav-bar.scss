@@ -104,11 +104,9 @@ body.-white .nav-bar {
   & > .tools {
     display: flex;
     align-items: center;
-    flex: auto;
-    justify-content: center;
 
     height: 100%;
-    margin-right: 7rem;
+    margin-left: auto;
 
     color: $color-gray;
 
