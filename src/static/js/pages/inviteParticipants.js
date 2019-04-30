@@ -1,4 +1,4 @@
-/*global ParticipantsAutocompleteView FilterModalView FilterModalController ThemeAutocompleteView GroupAutocompleteView */
+/*global ParticipantsAutocompleteView FilterModalView FilterModalController ThemeAutocompleteView */
 
 var participantsAutocompleteView = new ParticipantsAutocompleteView();
 participantsAutocompleteView.initEvents();
