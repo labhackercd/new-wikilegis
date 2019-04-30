@@ -3,11 +3,13 @@
 {% block title %}
   {{ object.title }}
 {% endblock title %}
+
 {% block navbar %}
-<div class="nav-bar {% if is_owner %} -admin{% endif %}">
+{% load dashboard_tags %}
+<div class="nav-bar {% if request.user.profile.profile_type == 'owner' %} -admin{% endif %}">
   <div class="nav-burger"></div>
   <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
-  {% if is_owner %}
+  {% if request.user.profile.profile_type == 'owner' %}
   <div class="project">
     <span class="title">{{object.title}}</span>
     <div class="menu">
@@ -29,6 +31,9 @@
       </div>
       <div class="participation">Abrir para participação</div>
     </div>
+  </div>
+  <div class="tools">
+    <a href="{% url 'owner_documents' %}" {% if request.path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
   </div>
   {% endif %}
 </div>
