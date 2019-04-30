@@ -54,12 +54,14 @@
       <button class="suggestion-opinion -all js-allOpinionsButton" aria-label="Ver todas as opiniões"></button>
       {% endif %}
     </header>
-    {% for excerpt in object.document.excerpts.all %}
+    {% for excerpt in object.document.get_excerpts %}
       {% if excerpt.excerpt_type.align_center %}
-      <h3>{% excerpt_numbering excerpt %}</h3>
-      <h3>{{ excerpt.content|safe }}</h3>
+      <div class="excerpt-wrapper {% excerpt_classes excerpt %}">
+        <h3>{% excerpt_numbering excerpt %}</h3>
+        <h3>{{ excerpt.content|safe }}</h3>
+      </div>
       {% else %}
-      <p class="js-excerptWrapper">
+      <p class="excerpt-wrapper {% excerpt_classes excerpt %} js-excerptWrapper">
         <b>{% excerpt_numbering excerpt %}</b>
         {% include "components/document-excerpt.html" with excerpt=excerpt group=object %}
         {% if request.user.is_authenticated %}

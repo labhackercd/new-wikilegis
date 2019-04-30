@@ -1,7 +1,8 @@
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db import models
-from utils.model_mixins import TimestampedMixin
+from django.urls import reverse
+from utils.model_mixins import TimestampedMixin, ExcerptMixin
 from colorful.fields import RGBColorField
 
 
@@ -40,20 +41,30 @@ class Document(TimestampedMixin):
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                               related_name='documents',
                               verbose_name=_('owner'))
-    title = models.CharField(_('title'), max_length=200)
+    title = models.CharField(_('title'), max_length=200,
+                             default=_('Untitled Document'))
     slug = models.SlugField(max_length=200)
-    description = models.TextField(_('description'))
+    description = models.TextField(_('description'),
+                                   default=_('Document description'))
     document_type = models.ForeignKey('projects.DocumentType', blank=True,
                                       null=True, on_delete=models.CASCADE,
                                       verbose_name=_('document type'))
     themes = models.ManyToManyField('projects.Theme', verbose_name=_('themes'))
     number = models.IntegerField(_('number'), blank=True, null=True)
     year = models.IntegerField(_('year'), blank=True, null=True)
+    version = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = _('document')
         verbose_name_plural = _('documents')
         unique_together = ('document_type', 'number', 'year')
+
+    def get_absolute_url(self):
+        return reverse(
+            'edit_document', kwargs={'pk': self.id})
+
+    def get_excerpts(self):
+        return self.excerpts.filter(version=self.version)
 
     def save(self):
         self.slug = slugify(self.title)
@@ -153,25 +164,11 @@ class ExcerptType(models.Model):
         return '%s' % (self.name)
 
 
-class Excerpt(models.Model):
-    document = models.ForeignKey('projects.Document', on_delete=models.CASCADE,
-                                 verbose_name=_('document'),
-                                 related_name='excerpts')
-    parent = models.ForeignKey('self', related_name='children',
-                               verbose_name=_('parent'), null=True, blank=True,
-                               on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(_('order'), default=0)
-    excerpt_type = models.ForeignKey('projects.ExcerptType',
-                                     verbose_name=_('excerpt type'),
-                                     blank=True, null=True,
-                                     on_delete=models.SET_NULL)
-    number = models.PositiveIntegerField(_('number'), null=True, blank=True)
-    content = models.TextField(_('content'))
-
+class Excerpt(ExcerptMixin):
     class Meta:
         verbose_name = _('excerpt')
         verbose_name_plural = _('excerpts')
-        ordering = ('order', 'id')
+        ordering = ('-version', 'order', 'id')
 
     def __str__(self):
         return '%s' % (self.content)

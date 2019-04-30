@@ -19,16 +19,12 @@ class DocumentTypeAdmin(admin.ModelAdmin):
 @admin.register(models.Document)
 class DocumentAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
+        'title',
+        'owner',
+        'description',
+        'version',
         'created',
         'modified',
-        'owner',
-        'title',
-        'slug',
-        'description',
-        'document_type',
-        'number',
-        'year',
     )
     list_filter = ('created', 'modified', 'owner', 'document_type')
     search_fields = ('slug',)
@@ -91,13 +87,13 @@ class ExcerptAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'document',
-        'parent',
         'order',
         'excerpt_type',
         'number',
         'content',
+        'version',
     )
-    list_filter = ('document', 'parent')
+    list_filter = ('document', 'version', 'created', 'modified',)
 
 
 @admin.register(models.DocumentInfo)
