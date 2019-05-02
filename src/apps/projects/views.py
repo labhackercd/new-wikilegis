@@ -37,8 +37,6 @@ class DocumentCreateRedirectView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         document = Document()
         document.owner = self.request.user
-        document.title = "Nome da proposição"
-        document.description = "Adicione aqui a ementa da proposição"
         document.save()
 
         return reverse('document_editor_cluster',
