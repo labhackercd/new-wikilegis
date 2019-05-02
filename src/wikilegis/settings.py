@@ -87,6 +87,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wikilegis.processors.settings_variables',
+                'wikilegis.processors.current_url',
             ],
         },
     },

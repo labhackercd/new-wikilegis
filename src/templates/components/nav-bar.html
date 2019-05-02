@@ -4,7 +4,7 @@
   <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
   {% if request.user.profile.profile_type == 'owner' %}
   <div class="tools">
-    <a href="{% url 'owner_documents' %}" {% if request.path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
+    <a href="{% url 'owner_documents' %}" {% if current_path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
   </div>
   {% endif %}
 </div>
