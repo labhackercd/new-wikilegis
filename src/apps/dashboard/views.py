@@ -51,19 +51,3 @@ class DocumentEditorClusterView(DetailView):
             else:
                 context['group'] = self.object.invited_groups.first()
         return context
-
-
-# @method_decorator(login_required, name='dispatch')
-# @method_decorator(owner_required, name='dispatch')
-# class OwnerGroupsView(ListView):
-#     model = ThematicGroup
-#     template_name = 'pages/groups.html'
-
-#     def get_queryset(self):
-#         return ThematicGroup.objects.filter(owner=self.request.user)
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['is_owner'] = True
-
-#         return context
