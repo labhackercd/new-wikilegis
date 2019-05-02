@@ -13,6 +13,7 @@
   <div class="project">
     <span class="title">{{object.title}}</span>
     <div class="menu">
+      {% if object.invited_groups.all %}
       <div class="dropdown">
         {% if group.public_participation %}
         <span>Participação pública</span>
@@ -29,6 +30,7 @@
           {% endfor %}
         </ul>
       </div>
+      {% endif %}
       <div class="participation">Abrir para participação</div>
     </div>
   </div>
