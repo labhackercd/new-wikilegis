@@ -11,6 +11,4 @@ urlpatterns = [
          name="invitation"),
     path('new/', views.DocumentCreateRedirectView.as_view(),
          name="new_document"),
-    path('edit/<int:pk>-<slug:documment_slug>/',
-         views.DocumentUpdateView.as_view(), name="edit_document"),
 ]

@@ -41,7 +41,9 @@ class DocumentCreateRedirectView(RedirectView):
         document.description = "Adicione aqui a ementa da proposição"
         document.save()
 
-        return reverse('edit_document', kwargs={'pk': document.id})
+        return reverse('document_editor_cluster',
+                       kwargs={'template': 'editor',
+                               'pk': document.id})
 
 
 @method_decorator(login_required, name='dispatch')

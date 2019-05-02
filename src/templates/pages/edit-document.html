@@ -1,70 +1,11 @@
 {% extends "structure/base.html" %}
 {% load staticfiles projects_tags participations_tags %}
 {% block title %}
-  {{ object.title }}
+  Editor - {{ object.title }}
 {% endblock title %}
 
 {% block navbar %}
-{% load dashboard_tags %}
-<div class="nav-bar {% if request.user.profile.profile_type == 'owner' %} -admin{% endif %}">
-  <div class="nav-burger"></div>
-  <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
-  {% if request.user.profile.profile_type == 'owner' %}
-  <div class="project">
-    <span class="title">{{object.title}}</span>
-    {% if object.invited_groups.all %}
-    <div class="dropdown">
-      {% if group.public_participation %}
-      <span>Participação pública</span>
-      {% else %}
-      <span class="-closed">{{group.thematic_group.name}}</span>
-      {% endif %}
-      <ul class="list">
-        <a href="#">
-          <span>Minhas Versões</span>
-          <div class="info">
-            <div class="item -versions">11</div>
-          </div>
-        </a>
-        <!-- Número de versões -->
-        <hr>
-        <div class="title">
-          <span class="-closed">Participações Privadas</span>
-          <a href="#" class="-add">Adicionar</a>
-        </div>
-        <!-- Criar nova -->
-        {% for invited_group in object.invited_groups.all %}
-          <!-- {% if invited_group.public_participation %}
-          <a href="?group_id={{invited_group.id}}">Participação pública</a>
-          {% else %} -->
-          <a href="?group_id={{invited_group.id}}">
-            <span>{{invited_group.thematic_group.name}}</span>
-            <div class="info">
-              <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
-              <div class="item -opinions">{{invited_group.suggestions.count}}</div>
-            </div>
-          </a>
-          <!-- {% endif %} -->
-        {% endfor %}
-        <hr>
-        <a href="?group_id={{invited_group.id}}">
-          <span>Participação Pública</span>
-          <div class="info">
-            <div class="item">Solicitar</div>
-          </div>
-        </a>
-        <!-- Solicitar (solicita)-->
-        <!-- Aguardando (explica)-->
-        <!-- Em andamento (acessa)-->
-      </ul>
-    </div>
-    {% endif %}
-  </div>
-  <div class="tools">
-    <a href="{% url 'owner_documents' %}" {% if request.path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
-  </div>
-  {% endif %}
-</div>
+{% include "components/document-navbar.html" %}
 {% endblock navbar %}
 
 {% block body_classes %}-white{% endblock %}
@@ -72,41 +13,19 @@
 {% block content %}
 
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
-  {% include "components/side-bar.html" %}
   <article>
     <header>
-      <h1>{{ object.title }}</h1>
+      <h1 contentEditable="true">{{ object.title }}</h1>
       <p class="description">{{ object.description }}</p>
       <hr>
     </header>
-    {% for excerpt in object.get_excerpts %}
-      {% if excerpt.excerpt_type.align_center %}
-      <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
-        <h3>{% excerpt_numbering excerpt %}</h3>
-        <h3>{{ excerpt.content|safe }}</h3>
-      </div>
-      {% else %}
-      <p class="excerpt-wrapper {% excerpt_classes excerpt%} {% if not excerpt.suggestions.all %}-reduce{% endif %} js-excerptWrapper">
-        <b>{% excerpt_numbering excerpt %}</b>
-        {% if not excerpt.suggestions.all %}
-        <span class="js-defaultText">...</span>
-        {% endif %}
-        {% include "components/document-excerpt.html" with excerpt=excerpt %}
-      </p>
-      {% endif %}
-    {% endfor %}
     <div class="js-textEditor"></div>
   </article>
-  {% include "components/tool-bar.html" %}
+  {% include "components/tool-bar.html" with pk=object.id %}
 </main>
 
 {% endblock content %}
 
 {% block page_js %}
 <script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js.js' %}"></script>
-<script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
-<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
-<script src="{% static 'js/components/clusters/view.js' %}"></script>
-<script src="{% static 'js/components/textHighlight/view.js' %}"></script>
-<script src="{% static 'js/pages/editDocument.js' %}"></script>
 {% endblock page_js %}

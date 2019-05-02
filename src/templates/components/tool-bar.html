@@ -15,6 +15,15 @@
     <a href="#" class="icon js-collapseExpand -collapse -collapsed" aria-label="Expandir">
       {% include "svgs/expand-icon.html" %}
     </a>
+    {% if 'clusters' in request.path %}
+    <a href="{% url 'document_editor_cluster' 'editor' pk %}" class="icon" aria-label="Editor">
+      {% include "svgs/arrows-icon.html" %}
+    </a>
+    {% elif 'editor' in request.path %}
+    <a href="{% url 'document_editor_cluster' 'clusters' pk %}" class="icon" aria-label="Clusters">
+      {% include "svgs/arrows-icon.html" %}
+    </a>
+    {% endif %}
     <!-- <a href="#" class="icon" aria-label="Compartilhar">
       {% include "svgs/share-icon.html" %}
     </a> -->

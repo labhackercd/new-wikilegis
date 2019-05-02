@@ -19,7 +19,7 @@
 
     </a>
     {% for document in object_list %}
-      <a href="{% url 'edit_document' pk=document.id %}" class="simple-card">
+      <a href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="simple-card">
       <h3 class="js-title">{{ document.title }}</h3>
       <p class="js-description">{{ document.description }}</p>
       <div class="info">

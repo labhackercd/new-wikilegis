@@ -4,7 +4,6 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from utils.decorators import owner_required
 from apps.projects.models import Document
-from apps.accounts.models import ThematicGroup
 
 
 @method_decorator(login_required, name='dispatch')
@@ -25,9 +24,16 @@ class OwnerDocumentsView(ListView):
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(owner_required, name='dispatch')
-class EditDocumentView(DetailView):
+class DocumentEditorClusterView(DetailView):
     model = Document
-    template_name = 'pages/edit-document.html'
+
+    def get_template_names(self):
+        if self.kwargs['template'] == 'editor':
+            return 'pages/edit-document.html'
+        elif self.kwargs['template'] == 'clusters':
+            return 'pages/clusters-document.html'
+        else:
+            raise Http404
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -46,17 +52,17 @@ class EditDocumentView(DetailView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(owner_required, name='dispatch')
-class OwnerGroupsView(ListView):
-    model = ThematicGroup
-    template_name = 'pages/groups.html'
+# @method_decorator(login_required, name='dispatch')
+# @method_decorator(owner_required, name='dispatch')
+# class OwnerGroupsView(ListView):
+#     model = ThematicGroup
+#     template_name = 'pages/groups.html'
 
-    def get_queryset(self):
-        return ThematicGroup.objects.filter(owner=self.request.user)
+#     def get_queryset(self):
+#         return ThematicGroup.objects.filter(owner=self.request.user)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_owner'] = True
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['is_owner'] = True
 
-        return context
+#         return context
