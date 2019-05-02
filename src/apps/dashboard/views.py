@@ -47,8 +47,6 @@ class DocumentEditorClusterView(DetailView):
         group_id = self.request.GET.get('group_id', None)
         if group_id:
             context['group'] = self.object.invited_groups.get(id=group_id)
-        else:
-            context['group'] = self.object.invited_groups.first()
         return context
 
 
