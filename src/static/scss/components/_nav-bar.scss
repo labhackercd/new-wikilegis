@@ -155,7 +155,7 @@ body.-white .nav-bar {
     border-left: 1px solid $color-grayish;
 
     &:hover {
-      & > .dropdown > .list {
+      & > .menu > .dropdown > .list {
         display: flex;
       }
     }

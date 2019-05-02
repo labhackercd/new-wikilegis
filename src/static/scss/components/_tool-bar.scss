@@ -50,19 +50,26 @@
       &.-collapse {
         transition: all .3s $swift-out;
 
-        .arrow1 {
-          transform: translateY(12px);
+        .arrow1,
+        .arrow2 {
+          display: none;
         }
 
-        .arrow2 {
-          transform: translateY(-12px);
+        .arrow3,
+        .arrow4 {
+          display: block;
         }
       }
 
       &.-collapsed {
         .arrow1,
         .arrow2 {
-          transform: translateY(0);
+          display: block;
+        }
+
+        .arrow3,
+        .arrow4 {
+          display: none;
         }
       }
     }
