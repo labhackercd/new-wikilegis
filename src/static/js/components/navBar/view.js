@@ -1,9 +1,19 @@
-/*global $ */
+/*global $ events */
 
 var NavBarView = function() {};
 
 NavBarView.prototype.initEvents = function() {
-  this.addShadowOnScroll();
+  if (!$('.js-navbar').hasClass('js-owner')) {
+    this.addShadowOnScroll();
+  }
+  this.subscribers();
+};
+
+NavBarView.prototype.subscribers = function() {
+  var self = this;
+  events.documentTitleEditionEnd.subscribe(function(newTitle) {
+    self.updateTitle(newTitle);
+  });
 };
 
 NavBarView.prototype.addShadowOnScroll = function () {
@@ -15,4 +25,8 @@ NavBarView.prototype.addShadowOnScroll = function () {
       $('.nav-bar').removeClass('-shadow');
     }
   });
+};
+
+NavBarView.prototype.updateTitle = function(newTitle) {
+  $('.js-navbar .js-documentTitle').text(newTitle);
 };

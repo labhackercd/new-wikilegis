@@ -1,12 +1,12 @@
 {% load dashboard_tags %}
-<div class="nav-bar {% if request.user.profile.profile_type == 'owner' %} -admin{% endif %}">
+<div class="nav-bar js-navbar{% if request.user.profile.profile_type == 'owner' %} -admin js-owner{% endif %}">
   <div class="nav-burger"></div>
   <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
   {% if request.user.profile.profile_type == 'owner' %}
   <div class="project">
-    <span class="title">{{object.title}}</span>
-    {% if object.invited_groups.all %}
-    <div class="dropdown">
+    <span class="title js-documentTitle">{{object.title}}</span>
+      {% if object.invited_groups.all %}
+      <div class="dropdown">
       {% if group.public_participation %}
       <span>Participação pública</span>
       {% else %}

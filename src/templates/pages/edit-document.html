@@ -14,9 +14,11 @@
 
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
   <article>
-    <header>
-      <h1 contentEditable="true">{{ object.title }}</h1>
-      <p class="description">{{ object.description }}</p>
+    <header class="js-documentHeader">
+      <h1 class="js-title">{{ object.title }}</h1>
+      <input type="hidden" name="title" class="js-titleInput" value="{{ object.title }}">
+      <p class="description js-description">{{ object.description }}</p>
+      <input type="hidden" name="description" class="js-descriptionInput" value="{{ object.description }}">
       <hr>
     </header>
     <div class="js-textEditor"></div>
@@ -28,4 +30,7 @@
 
 {% block page_js %}
 <script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js.js' %}"></script>
+<script src="{% static '/js/components/documentEditor/view.js' %}"></script>
+<script src="{% static '/js/components/navBar/view.js' %}"></script>
+<script src="{% static '/js/pages/editDocument.js' %}"></script>
 {% endblock page_js %}

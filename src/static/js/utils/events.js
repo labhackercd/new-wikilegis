@@ -176,4 +176,8 @@ var events = {
 
   // Triggered when user click Expand or Zip button
   collapseExpandExcerpts: $.Topic('collapseExpandExcerpts'),
+
+  // Triggered when user ends document title edition
+  // Params: newTitle
+  documentTitleEditionEnd: $.Topic('documentTitleEditionEnd'),
 };
