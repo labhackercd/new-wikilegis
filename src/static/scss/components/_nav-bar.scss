@@ -155,7 +155,7 @@ body.-white .nav-bar {
     border-left: 1px solid $color-grayish;
 
     &:hover {
-      & > .menu > .dropdown > .list {
+      & > .dropdown > .list {
         display: flex;
       }
     }
@@ -167,86 +167,201 @@ body.-white .nav-bar {
       color: $color-deep-gray;
     }
 
-    & > .menu {
+    & > .dropdown {
+      position: relative;
+
       display: flex;
+      display: flex;
+      align-items: center;
       align-items: center;
 
       margin-top: .25rem;
+      margin-right: 1rem;
 
-      & > .participation {
-        font-size: $font-size-micro;
+      cursor: pointer;
+
+      &::after {
+        display: inline-flex;
+
+        width: .75rem;
+        height: .75rem;
+        margin-left: .25rem;
+
+        content: '';
+
+        background-image: url('../../static/img/arrow.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
       }
 
-      & > .dropdown {
-        position: relative;
+      & > span {
+        font-size: $font-size-micro;
 
-        display: flex;
-        align-items: center;
+        &.-closed {
+          @include icon('padlock');
 
-        margin-right: 1rem;
-
-        cursor: pointer;
-
-        &::after {
-          display: inline-flex;
-
-          width: .75rem;
-          height: .75rem;
-          margin-left: .25rem;
-
-          content: '';
-
-          background-image: url('../../static/img/arrow.svg');
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: contain;
-        }
-
-        & > span {
-          font-size: $font-size-micro;
-
-          &.-closed {
-            @include icon('padlock');
-
-            &::before {
-              margin-right: .25rem;
-            }
+          &::before {
+            margin-right: .25rem;
           }
         }
+      }
 
-        & > .list {
-          position: absolute;
-          top: 1.7rem;
-          left: -.2rem;
+      & > .list {
+        position: absolute;
+        top: 1.3rem;
+        left: -.2rem;
 
-          display: none;
-          flex-direction: column;
+        display: none;
+        flex-direction: column;
 
-          max-width: 20rem;
+        width: 25rem;
+        padding: .5rem 0;
 
-          border: 1px solid $color-grayish;
-          background-color: #FFF;
+        border: 1px solid $color-grayish;
+        background-color: #FFF;
 
-          & > a {
-            font-size: $font-size-micro;
+        @include card-shadow;
+
+        & > .title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          padding: .5rem 1.25rem;
+
+          cursor: text;
+
+          & > span {
+            font-size: $font-size-centi;
+            font-weight: bold;
             line-height: 1.4;
 
-            padding: .75rem 1rem;
-
             color: $color-deep-gray;
-
-            &:hover {
-              color: $color-brand;
-            }
 
             &.-closed {
               @include icon('padlock');
 
               &::before {
-                margin-right: .25rem;
+                font-size: $font-size-micro;
+
+                margin-right: .35rem;
               }
             }
           }
+
+          & > a {
+            font-size: $font-size-micro;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: .5rem 0;
+
+            cursor: pointer;
+            letter-spacing: .5px;
+
+            color: $color-brand;
+
+            &:hover {
+              opacity: .8;
+            }
+          }
+
+          & > .-add {
+            @include icon('add');
+
+            &::before {
+              font-size: $font-size-nano;
+
+              margin-right: .35rem;
+            }
+          }
+        }
+
+        & > a {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          padding: 1rem 1.5rem;
+
+          color: $color-deep-gray;
+
+          &:hover {
+            & > span {
+              color: $color-brand;
+            }
+
+            & > .info > .item {
+              color: $color-brand;
+            }
+          }
+
+          & > span {
+            font-size: $font-size-mili;
+            line-height: 1.4;
+          }
+
+          & > .info {
+            display: flex;
+            align-items: center;
+
+            & > * + * {
+              margin-left: .75rem;
+            }
+
+            & > .item {
+              display: flex;
+              align-items: center;
+              font-size: $font-size-micro;
+
+              &.-versions {
+                @include icon('document');
+
+                &::before {
+                  font-size: $font-size-micro;
+
+                  margin-right: .25rem;
+                }
+              }
+
+              &.-participants {
+                @include icon('avatar');
+
+                &::before {
+                  font-size: $font-size-micro;
+
+                  margin-right: .25rem;
+                }
+              }
+
+              &.-opinions {
+                @include icon('comment-black');
+
+                &::before {
+                  font-size: $font-size-micro;
+
+                  margin-right: .25rem;
+                }
+              }
+
+              &.-blue {
+                color: $color-twitter;
+              }
+
+              &.-green {
+                color: $color-brand;
+              }
+            }
+          }
+        }
+
+        & > hr {
+          margin: .5rem 0;
+
+          color: $color-grayish;
         }
       }
     }

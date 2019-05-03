@@ -12,27 +12,53 @@
   {% if request.user.profile.profile_type == 'owner' %}
   <div class="project">
     <span class="title">{{object.title}}</span>
-    <div class="menu">
-      {% if object.invited_groups.all %}
-      <div class="dropdown">
-        {% if group.public_participation %}
-        <span>Participação pública</span>
-        {% else %}
-        <span class="-closed">{{group.thematic_group.name}}</span>
-        {% endif %}
-        <ul class="list">
-          {% for invited_group in object.invited_groups.all %}
-            {% if invited_group.public_participation %}
-            <a href="?group_id={{invited_group.id}}">Participação pública</a>
-            {% else %}
-            <a class="-closed" href="?group_id={{invited_group.id}}">{{invited_group.thematic_group.name}}</a>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
+    {% if object.invited_groups.all %}
+    <div class="dropdown">
+      {% if group.public_participation %}
+      <span>Participação pública</span>
+      {% else %}
+      <span class="-closed">{{group.thematic_group.name}}</span>
       {% endif %}
-      <div class="participation">Abrir para participação</div>
+      <ul class="list">
+        <a href="#">
+          <span>Minhas Versões</span>
+          <div class="info">
+            <div class="item -versions">11</div>
+          </div>
+        </a>
+        <!-- Número de versões -->
+        <hr>
+        <div class="title">
+          <span class="-closed">Participações Privadas</span>
+          <a href="#" class="-add">Adicionar</a>
+        </div>
+        <!-- Criar nova -->
+        {% for invited_group in object.invited_groups.all %}
+          <!-- {% if invited_group.public_participation %}
+          <a href="?group_id={{invited_group.id}}">Participação pública</a>
+          {% else %} -->
+          <a href="?group_id={{invited_group.id}}">
+            <span>{{invited_group.thematic_group.name}}</span>
+            <div class="info">
+              <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
+              <div class="item -opinions">{{invited_group.suggestions.count}}</div>
+            </div>
+          </a>
+          <!-- {% endif %} -->
+        {% endfor %}
+        <hr>
+        <a href="?group_id={{invited_group.id}}">
+          <span>Participação Pública</span>
+          <div class="info">
+            <div class="item">Solicitar</div>
+          </div>
+        </a>
+        <!-- Solicitar (solicita)-->
+        <!-- Aguardando (explica)-->
+        <!-- Em andamento (acessa)-->
+      </ul>
     </div>
+    {% endif %}
   </div>
   <div class="tools">
     <a href="{% url 'owner_documents' %}" {% if request.path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
