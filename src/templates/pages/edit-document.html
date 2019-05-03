@@ -14,11 +14,11 @@
 
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
   <article>
-    <header class="js-documentHeader">
+    <header class="-editable js-documentHeader">
       <h1 class="js-title">{{ object.title }}</h1>
-      <input type="hidden" name="title" class="js-titleInput" value="{{ object.title }}">
+      <input type="hidden" name="title" class="title js-titleInput" value="{{ object.title }}">
       <p class="description js-description">{{ object.description }}</p>
-      <input type="hidden" name="description" class="js-descriptionInput" value="{{ object.description }}">
+      <input type="hidden" name="description" class="description js-descriptionInput" value="{{ object.description }}">
       <hr>
     </header>
     <div class="js-textEditor"></div>
