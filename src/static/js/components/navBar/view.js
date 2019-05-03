@@ -12,7 +12,9 @@ NavBarView.prototype.initEvents = function() {
 NavBarView.prototype.subscribers = function() {
   var self = this;
   events.documentTitleEditionEnd.subscribe(function(newTitle) {
-    self.updateTitle(newTitle);
+    if (newTitle != '') {
+      self.updateTitle(newTitle);
+    }
   });
 };
 

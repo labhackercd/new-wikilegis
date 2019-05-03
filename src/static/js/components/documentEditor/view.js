@@ -8,6 +8,7 @@ DocumentEditorView.prototype.initEvents = function(editorCtrl) {
   this.documentTitleInput = $('.js-documentEditor .js-documentHeader .js-titleInput');
   this.documentDescription = $('.js-documentEditor .js-documentHeader .js-description');
   this.documentDescriptionInput = $('.js-documentEditor .js-documentHeader .js-descriptionInput');
+  this.documentHeaderInputs = $('.js-documentEditor .js-documentHeader .js-input');
 
   autosize(this.documentTitleInput);
   autosize(this.documentDescriptionInput);
@@ -41,6 +42,13 @@ DocumentEditorView.prototype.publishers = function() {
   self.documentDescriptionInput.on('focusout', function() {
     self.endDescriptionEdition(this.value);
   });
+
+  self.documentHeaderInputs.on('keypress', function(event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+      self.documentHeaderInputs.focusout();
+    }
+  })
 };
 
 DocumentEditorView.prototype.startTitleEdition = function() {
@@ -62,13 +70,21 @@ DocumentEditorView.prototype.startDescriptionEdition = function() {
 };
 
 DocumentEditorView.prototype.endTitleEdition = function(newTitle) {
-  this.documentTitle.text(newTitle);
+  if (newTitle != '') {
+    this.documentTitle.text(newTitle);
+  } else {
+    this.documentTitleInput.val(this.documentTitle.text());
+  }
   this.documentTitle.removeClass('_hidden');
   this.documentTitleInput.addClass('_hidden');
 };
 
 DocumentEditorView.prototype.endDescriptionEdition = function(newDescription) {
-  this.documentDescription.text(newDescription);
+  if (newDescription != '') {
+    this.documentDescription.text(newDescription);
+  } else {
+    this.documentDescriptionInput.val(this.documentDescription.text());
+  }
   this.documentDescription.removeClass('_hidden');
   this.documentDescriptionInput.addClass('_hidden');
 };
