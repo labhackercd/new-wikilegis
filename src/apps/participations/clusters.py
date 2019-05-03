@@ -28,8 +28,8 @@ def clustering_suggestions(suggestions, n_clusters=None):
     vectorizer = TfidfVectorizer(stop_words=stopwords.words('portuguese'),
                                  tokenizer=process_text,
                                  use_idf=True,
-                                 max_df=0.9,
-                                 min_df=0.01,
+                                 max_df=0.95,
+                                 min_df=0.05,
                                  ngram_range=(1, 2),
                                  lowercase=True)
 
