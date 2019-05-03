@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^9.3.1",
+    "autosize": "^4.0.2",
     "eslint": "^5.9.0",
     "jquery": "^3.3.1",
     "jquery-ui-dist": "^1.12.1",

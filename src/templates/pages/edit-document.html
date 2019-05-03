@@ -16,9 +16,9 @@
   <article>
     <header class="-editable js-documentHeader">
       <h1 class="js-title">{{ object.title }}</h1>
-      <input type="hidden" name="title" class="title js-titleInput" value="{{ object.title }}">
+      <textarea name="title" class="title _hidden js-titleInput"></textarea>
       <p class="description js-description">{{ object.description }}</p>
-      <input type="hidden" name="description" class="description js-descriptionInput" value="{{ object.description }}">
+      <textarea name="description" class="_hidden description js-descriptionInput"></textarea>
       <hr>
     </header>
     <div class="js-textEditor"></div>

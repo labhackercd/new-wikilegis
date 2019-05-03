@@ -9,6 +9,9 @@ DocumentEditorView.prototype.initEvents = function(editorCtrl) {
   this.documentDescription = $('.js-documentEditor .js-documentHeader .js-description');
   this.documentDescriptionInput = $('.js-documentEditor .js-documentHeader .js-descriptionInput');
 
+  autosize(this.documentTitleInput);
+  autosize(this.documentDescriptionInput);
+
   this.subscribers();
   this.publishers();
 };
@@ -42,26 +45,30 @@ DocumentEditorView.prototype.publishers = function() {
 
 DocumentEditorView.prototype.startTitleEdition = function() {
   this.documentTitle.addClass('_hidden');
-  this.documentTitleInput.attr('type', 'text');
+  this.documentTitleInput.val(this.documentTitle.text());
+  this.documentTitleInput.removeClass('_hidden');;
   this.documentTitleInput.focus();
   this.documentTitleInput.select();
+  autosize.update(this.documentTitleInput);
 };
 
 DocumentEditorView.prototype.startDescriptionEdition = function() {
   this.documentDescription.addClass('_hidden');
-  this.documentDescriptionInput.attr('type', 'text');
+  this.documentDescriptionInput.val(this.documentDescription.text());
+  this.documentDescriptionInput.removeClass('_hidden');
   this.documentDescriptionInput.focus();
   this.documentDescriptionInput.select();
+  autosize.update(this.documentDescriptionInput);
 };
 
 DocumentEditorView.prototype.endTitleEdition = function(newTitle) {
   this.documentTitle.text(newTitle);
   this.documentTitle.removeClass('_hidden');
-  this.documentTitleInput.attr('type', 'hidden');
+  this.documentTitleInput.addClass('_hidden');
 };
 
 DocumentEditorView.prototype.endDescriptionEdition = function(newDescription) {
   this.documentDescription.text(newDescription);
   this.documentDescription.removeClass('_hidden');
-  this.documentDescriptionInput.attr('type', 'hidden');
+  this.documentDescriptionInput.addClass('_hidden');
 };
