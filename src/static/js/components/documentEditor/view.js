@@ -10,6 +10,17 @@ DocumentEditorView.prototype.initEvents = function(editorCtrl) {
   this.documentDescriptionInput = $('.js-documentEditor .js-documentHeader .js-descriptionInput');
   this.documentHeaderInputs = $('.js-documentEditor .js-documentHeader .js-input');
 
+  this.infos = {
+    'title': {
+      'input': this.documentTitleInput,
+      'text': this.documentTitle
+    },
+    'description': {
+      'input': this.documentDescriptionInput,
+      'text': this.documentDescription
+    }
+  }
+
   autosize(this.documentTitleInput);
   autosize(this.documentDescriptionInput);
 
@@ -21,18 +32,18 @@ DocumentEditorView.prototype.subscribers = function() {
   var self = this;
 
   events.documentTitleEditionEnd.subscribe(function(newTitle) {
-    self.endTitleEdition(newTitle);
+    self.endEdition('title', newTitle);
   });
 };
 
 DocumentEditorView.prototype.publishers = function() {
   var self = this;
   self.documentTitle.on('click', function() {
-    self.startTitleEdition();
+    self.startEdition('title');
   });
 
   self.documentDescription.on('click', function() {
-    self.startDescriptionEdition();
+    self.startEdition('description');
   });
 
   self.documentTitleInput.on('focusout', function() {
@@ -40,7 +51,7 @@ DocumentEditorView.prototype.publishers = function() {
   });
 
   self.documentDescriptionInput.on('focusout', function() {
-    self.endDescriptionEdition(this.value);
+    self.endEdition('description', this.value);
   });
 
   self.documentHeaderInputs.on('keypress', function(event) {
@@ -51,40 +62,21 @@ DocumentEditorView.prototype.publishers = function() {
   })
 };
 
-DocumentEditorView.prototype.startTitleEdition = function() {
-  this.documentTitle.addClass('_hidden');
-  this.documentTitleInput.val(this.documentTitle.text());
-  this.documentTitleInput.removeClass('_hidden');;
-  this.documentTitleInput.focus();
-  this.documentTitleInput.select();
-  autosize.update(this.documentTitleInput);
+DocumentEditorView.prototype.startEdition = function(info) {
+  this.infos[info]['text'].addClass('_hidden');
+  this.infos[info]['input'].val(this.infos[info]['text'].text());
+  this.infos[info]['input'].removeClass('_hidden');;
+  this.infos[info]['input'].focus();
+  this.infos[info]['input'].select();
+  autosize.update(this.infos[info]['input']);
 };
 
-DocumentEditorView.prototype.startDescriptionEdition = function() {
-  this.documentDescription.addClass('_hidden');
-  this.documentDescriptionInput.val(this.documentDescription.text());
-  this.documentDescriptionInput.removeClass('_hidden');
-  this.documentDescriptionInput.focus();
-  this.documentDescriptionInput.select();
-  autosize.update(this.documentDescriptionInput);
-};
-
-DocumentEditorView.prototype.endTitleEdition = function(newTitle) {
-  if (newTitle != '') {
-    this.documentTitle.text(newTitle);
+DocumentEditorView.prototype.endEdition = function(info, newText) {
+  if (newText != '') {
+    this.infos[info]['text'].text(newText);
   } else {
-    this.documentTitleInput.val(this.documentTitle.text());
+    this.infos[info]['input'].val(this.infos[info]['text'].text());
   }
-  this.documentTitle.removeClass('_hidden');
-  this.documentTitleInput.addClass('_hidden');
-};
-
-DocumentEditorView.prototype.endDescriptionEdition = function(newDescription) {
-  if (newDescription != '') {
-    this.documentDescription.text(newDescription);
-  } else {
-    this.documentDescriptionInput.val(this.documentDescription.text());
-  }
-  this.documentDescription.removeClass('_hidden');
-  this.documentDescriptionInput.addClass('_hidden');
+  this.infos[info]['text'].removeClass('_hidden');
+  this.infos[info]['input'].addClass('_hidden');
 };
