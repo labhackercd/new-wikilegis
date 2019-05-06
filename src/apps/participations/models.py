@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from utils.model_mixins import TimestampedMixin, ExcerptMixin
-from utils.choices import OPINION_VOTE_CHOICES
+from utils.choices import OPINION_VOTE_CHOICES, PARTICIPATION_GROUP_CHOICES
 from django.urls import reverse
 
 
@@ -22,6 +22,9 @@ class InvitedGroup(TimestampedMixin):
     document_version = models.PositiveIntegerField(default=0)
     text_version = models.PositiveIntegerField(default=0)
     version = models.PositiveIntegerField(default=0)
+    group_status = models.CharField(_('group status'), max_length=200,
+                                    choices=PARTICIPATION_GROUP_CHOICES,
+                                    default='in_progress')
 
     class Meta:
         verbose_name = _('invited group')

@@ -43,7 +43,11 @@
         <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{public_participation.id}}">
           <span>Participação Pública</span>
           <div class="info">
-            <div class="item">Em andamento</div>
+            {% if public_participation.group_status == 'waiting' %}
+              <div class="item -blue">Aguardando</div>
+            {% else %}
+              <div class="item -green">Em andamento</div>
+            {% endif %}
           </div>
         </a>
         {% empty %}
@@ -54,9 +58,6 @@
           </div>
         </a>
         {% endfor %}
-        <!-- Solicitar (solicita)-->
-        <!-- Aguardando (explica)-->
-        <!-- Em andamento (acessa)-->
       </ul>
     </div>
   </div>

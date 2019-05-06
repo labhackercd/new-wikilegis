@@ -47,3 +47,8 @@ OPINION_VOTE_CHOICES = (
     ('reject', _('Reject')),
     ('neutral', _('Neutral')),
 )
+
+PARTICIPATION_GROUP_CHOICES = (
+    ('waiting', _('Waiting')),
+    ('in_progress', _('In Progress')),
+)
