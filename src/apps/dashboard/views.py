@@ -26,14 +26,7 @@ class OwnerDocumentsView(ListView):
 @method_decorator(owner_required, name='dispatch')
 class DocumentEditorClusterView(DetailView):
     model = Document
-
-    def get_template_names(self):
-        if self.kwargs['template'] == 'editor':
-            return 'pages/edit-document.html'
-        elif self.kwargs['template'] == 'clusters':
-            return 'pages/clusters-document.html'
-        else:
-            raise Http404
+    template_name = 'pages/edit-document.html'
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -48,8 +41,11 @@ class DocumentEditorClusterView(DetailView):
             public_participation=False)
         context['public_group'] = self.object.invited_groups.filter(
             public_participation=True)[:1]
+
+        page = self.kwargs['template']
+        context['page'] = page
         group_id = self.request.GET.get('group_id', None)
-        if self.kwargs['template'] == 'clusters':
+        if page == 'clusters':
             if group_id:
                 context['group'] = self.object.invited_groups.get(id=group_id)
             else:

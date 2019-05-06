@@ -183,4 +183,10 @@ var events = {
 
   // Triggered when user clicks outside of text editor
   closeContextualToolbox: $.Topic('closeContextualToolbox'),
+
+  // Triggered when user click on openValidationButton
+  openValidationModal: $.Topic('openValidationModal'),
+
+  // Triggered when user click on closeValidationModal
+  closeValidationModal: $.Topic('closeValidationModal'),
 };

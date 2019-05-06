@@ -102,6 +102,14 @@ BodyView.prototype.subscribers = function() {
   events.closeAppOnboarding.subscribe(function() {
     self.enableScroll();
   });
+
+  events.openValidationModal.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closeValidationModal.subscribe(function() {
+    self.enableScroll();
+  });
 };
 
 

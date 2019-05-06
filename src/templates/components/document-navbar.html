@@ -26,7 +26,11 @@
         <hr>
         <div class="title">
           <span class="-closed">Participações Privadas</span>
-          <a href="#" class="-add js-openPrivateParticipation">Adicionar</a>
+          {% if not object.title or not object.description or not object.themes.all %}
+          <a href="#" class="-add js-openValidationButton">Adicionar</a>
+          {% else %}
+          <a href="{% url 'new_group' object.id %}" class="-add">Adicionar</a>
+          {% endif %}
         </div>
         <!-- Criar nova -->
         {% for invited_group in private_groups %}

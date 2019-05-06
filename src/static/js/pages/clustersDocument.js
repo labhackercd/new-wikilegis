@@ -1,4 +1,4 @@
-/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView */
+/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView ValidationModalView */
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
@@ -11,3 +11,6 @@ textHighlightView.initEvents();
 
 var reduceExcerptsView = new ReduceExcerptsView();
 reduceExcerptsView.initEvents();
+
+var validationModalView = new ValidationModalView();
+validationModalView.initEvents();
