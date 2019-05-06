@@ -47,6 +47,14 @@
     }
   }
 
+  &.-validate {
+    height: 100%;
+
+    @include bp-mediumup {
+      display: none !important;
+    }
+  }
+
   &.-onboarding {
     overflow-y: auto;
     align-items: center;

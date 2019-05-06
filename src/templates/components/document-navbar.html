@@ -26,7 +26,7 @@
         <hr>
         <div class="title">
           <span class="-closed">Participações Privadas</span>
-          <a href="#" class="-add">Adicionar</a>
+          <a href="#" class="-add js-openPrivateParticipation">Adicionar</a>
         </div>
         <!-- Criar nova -->
         {% for invited_group in private_groups %}
@@ -51,7 +51,7 @@
           </div>
         </a>
         {% empty %}
-        <a href="#">
+        <a href="#" class="js-openPublicParticipation">
           <span>Participação Pública</span>
           <div class="info">
             <div class="item">Solicitar</div>
