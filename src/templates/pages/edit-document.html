@@ -21,6 +21,7 @@
       <textarea name="description" class="_hidden description js-descriptionInput js-input"></textarea>
       <hr>
     </header>
+    {% include "components/contextual-toolbar.html" %}
     <div class="js-textEditor"></div>
   </article>
   {% include "components/tool-bar.html" with pk=object.id %}
@@ -31,6 +32,7 @@
 {% block page_js %}
 <script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js.js' %}"></script>
 <script src="{% static '/js/components/documentEditor/view.js' %}"></script>
+<script src="{% static '/js/components/contextualToolbar/view.js' %}"></script>
 <script src="{% static '/js/components/navBar/view.js' %}"></script>
 <script src="{% static '/js/pages/editDocument.js' %}"></script>
 {% endblock page_js %}
