@@ -18,6 +18,7 @@ ContextualToolbarView.prototype.subscribers = function() {
 
   self.editor.addEventListener('contexto', function (e) {
     self.showAllowedExcerptTypes(e.detail.permissoes);
+    self.updateToolbarPosition(e.detail.cursor.dispositivo);
   });
 };
 
@@ -44,4 +45,14 @@ ContextualToolbarView.prototype.showAllowedExcerptTypes = function(permissions) 
 ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
   this.editor.ctrlArticulacao.alterarTipoDispositivoSelecionado(excerptType);
   $('.js-textEditor')[0].focus()
+};
+
+ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) {
+  var navbarHeight = $('.js-navbar').outerHeight();
+  var anchorBBox = anchorElement.getBoundingClientRect();
+  var toolbarBBox = this.contextualToolbar[0].getBoundingClientRect();
+  console.log(toolbarBBox)
+
+  this.contextualToolbar.css('top', anchorBBox.top + anchorBBox.height - navbarHeight);
+  this.contextualToolbar.css('left', anchorBBox.left + (anchorBBox.width / 2) - (toolbarBBox.width / 2));
 };

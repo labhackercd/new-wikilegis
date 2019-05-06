@@ -1,0 +1,13 @@
+.contextual-toolbar {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #FFF;
+
+  & > ul {
+    display: flex;
+
+    & > li + li {
+      margin-left: 1rem;
+    }
+  }
+}
