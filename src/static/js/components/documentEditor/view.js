@@ -2,8 +2,8 @@
 
 var DocumentEditorView = function() {};
 
-DocumentEditorView.prototype.initEvents = function(editorCtrl) {
-  this.editorCtrl = editorCtrl;
+DocumentEditorView.prototype.initEvents = function(editor) {
+  this.editor = editor;
   this.documentTitle = $('.js-documentEditor .js-documentHeader .js-title');
   this.documentTitleInput = $('.js-documentEditor .js-documentHeader .js-titleInput');
   this.documentDescription = $('.js-documentEditor .js-documentHeader .js-description');

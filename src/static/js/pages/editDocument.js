@@ -1,4 +1,4 @@
-var editorCtrl = silegismgEditorArticulacaoController($('.js-textEditor')[0], {
+var editor = $('.js-textEditor')[0];silegismgEditorArticulacaoController(editor, {
   rotulo: {
     separadorArtigo: '',
     separadorArtigoSemOrdinal: '.',
@@ -8,7 +8,7 @@ var editorCtrl = silegismgEditorArticulacaoController($('.js-textEditor')[0], {
 });
 
 var documentEditorView = new DocumentEditorView();
-documentEditorView.initEvents(editorCtrl);
+documentEditorView.initEvents(editor);
 
 var contextualToolbarView = new ContextualToolbarView();
-contextualToolbarView.initEvents(editorCtrl);
+contextualToolbarView.initEvents(editor);
