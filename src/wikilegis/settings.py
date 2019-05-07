@@ -261,3 +261,5 @@ CONSTANCE_CONFIG = {
 }
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

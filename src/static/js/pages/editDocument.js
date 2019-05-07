@@ -1,4 +1,4 @@
-/*global $ silegismgEditorArticulacaoController ContextualToolbarView DocumentEditorView */
+/*global $ silegismgEditorArticulacaoController ContextualToolbarView DocumentEditorView ValidationModalView InfoMessageView */
 
 var editor = $('.js-textEditor')[0];
 silegismgEditorArticulacaoController(editor, {
@@ -15,3 +15,9 @@ contextualToolbarView.initEvents(editor);
 
 var documentEditorView = new DocumentEditorView();
 documentEditorView.initEvents(editor, contextualToolbarView);
+
+var validationModalView = new ValidationModalView();
+validationModalView.initEvents();
+
+var infoMessageView = new InfoMessageView();
+infoMessageView.initEvents();

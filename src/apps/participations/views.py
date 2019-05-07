@@ -11,6 +11,7 @@ from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation
 from django.contrib.auth import get_user_model
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.forms import ValidationError
 from django.db.models import Q, Count
@@ -22,10 +23,11 @@ import json
 User = get_user_model()
 
 
-class InvitedGroupCreate(CreateView):
+class InvitedGroupCreate(SuccessMessageMixin, CreateView):
     model = InvitedGroup
     template_name = 'pages/invite-participants.html'
     fields = ['closing_date']
+    success_message = "InvitedGroup was created successfully"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,8 +60,9 @@ class InvitedGroupCreate(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy(
-            'new_group', kwargs={'pk': self.object.document.id})
+        return reverse_lazy('document_editor_cluster',
+                            kwargs={'template': 'editor',
+                                    'pk': self.object.document.id})
 
 
 class InvitedGroupListView(ListView):

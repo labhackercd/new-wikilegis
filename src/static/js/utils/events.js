@@ -195,4 +195,7 @@ var events = {
 
   // Triggered when user click on closeConfirmFormModal
   closeConfirmFormModal: $.Topic('closeConfirmFormModal'),
+
+  // Triggered when user create invited group
+  closeInfoMessage: $.Topic('closeInfoMessage'),
 };
