@@ -19,6 +19,9 @@
     <a href="{% url 'document_editor_cluster' 'editor' pk %}" class="icon" aria-label="Editor">
       {% include "svgs/arrows-icon.html" %}
     </a>
+    <a href="{% url 'edit_group' group.pk %}" class="icon" aria-label="Editar grupo">
+      {% include "svgs/arrows-icon.html" %}
+    </a>
     {% elif 'editor' in request.path %}
     <a href="{% url 'document_editor_cluster' 'clusters' pk %}" class="icon" aria-label="Clusters">
       {% include "svgs/arrows-icon.html" %}

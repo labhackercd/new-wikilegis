@@ -101,7 +101,7 @@ ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id,
   }
   var element = `
     <div class="user-profile js-user" data-user-id="${user_id}">
-      <img class="avatar" src="${avatar || '/static/img/avatar.png'}">
+      <img class="avatar" src="${avatar || '/new-wikilegis/static/img/avatar.png'}">
       <div class="info">
         <span class="name">${first_name} ${last_name}</span>
         <div class="tags">
@@ -209,7 +209,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       if (self.validateEmail(email)) {
         var element = `
         <div class="user-profile js-email" data-email="${email}">
-          <img class="avatar" src="/static/img/avatar.png">
+          <img class="avatar" src="/new-wikilegis/static/img/avatar.png">
           <div class="info">
             <span class="name">${email}</span>
           </div>
@@ -236,7 +236,7 @@ ParticipantsAutocompleteView.prototype.addParticipant = function(participantId) 
   var participantInput = $('input[name="participants"][value="' + participantId + '"]');
   if (participantInput.length === 0) {
     var input = $('<input type="hidden" name="participants" value="' + participantId + '">');
-    $('.js-openParticipation').append(input);
+    $('.js-participants').append(input);
   }
 };
 
@@ -244,7 +244,7 @@ ParticipantsAutocompleteView.prototype.addEmail = function(email) {
   var emailInput = $('input[name="emails"][value="' + email + '"]');
   if (emailInput.length === 0) {
     var input = $('<input type="hidden" name="emails" value="' + email + '">');
-    $('.js-openParticipation').append(input);
+    $('.js-participants').append(input);
   }
 };
 

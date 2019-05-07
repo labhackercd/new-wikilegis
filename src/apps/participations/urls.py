@@ -14,6 +14,8 @@ urlpatterns = [
          name='new_opinion'),
     path('invited-group/new/<int:pk>', views.InvitedGroupCreate.as_view(),
          name='new_group'),
+    path('invited-group/edit/<int:pk>', views.InvitedGroupUpdateView.as_view(),
+         name='edit_group'),
     path('document/<int:document_pk>/clusters', views.clusters,
          name='document_clusters'),
 ]

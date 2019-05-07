@@ -32,7 +32,7 @@ class InvitationRedirectView(RedirectView):
 @method_decorator(login_required, name='dispatch')
 @method_decorator(owner_required, name='dispatch')
 class DocumentCreateRedirectView(RedirectView):
-    permanent = True
+    permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
         document = Document()
