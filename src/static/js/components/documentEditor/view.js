@@ -62,10 +62,6 @@ DocumentEditorView.prototype.publishers = function() {
     }
   });
 
-  $(self.editor).on('focusout', function() {
-    self.toolbarView.hide();
-  });
-
   $(self.editor).on('focus', function() {
     self.toolbarView.show();
   });

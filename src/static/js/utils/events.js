@@ -180,4 +180,7 @@ var events = {
   // Triggered when user ends document title edition
   // Params: newTitle
   documentTitleEditionEnd: $.Topic('documentTitleEditionEnd'),
+
+  // Triggered when user clicks outside of text editor
+  closeContextualToolbox: $.Topic('closeContextualToolbox'),
 };

@@ -20,6 +20,10 @@ ContextualToolbarView.prototype.subscribers = function() {
     self.showAllowedExcerptTypes(e.detail.permissoes);
     self.updateToolbarPosition(e.detail.cursor.dispositivo);
   });
+
+  events.closeContextualToolbox.subscribe(function() {
+    self.hide();
+  });
 };
 
 ContextualToolbarView.prototype.publishers = function() {
