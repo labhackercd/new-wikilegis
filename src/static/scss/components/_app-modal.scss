@@ -48,7 +48,19 @@
   }
 
   &.-validate {
-    height: 100%;
+    padding-bottom: 3rem;
+
+    & > .content {
+      & > p {
+        margin-top: 2rem;
+      }
+
+      & > .app-button {
+        display: inline-flex;
+        margin: 0 auto;
+        margin-top: 2rem;
+      }
+    }
   }
 
   &.-onboarding {
@@ -135,7 +147,9 @@
         align-items: center;
         flex-direction: column;
         justify-content: center;
-        animation: simple-reveal 0.5s 0.2s ease forwards;
+
+        animation: simple-reveal .5s .2s ease forwards;
+
         opacity: 0;
       }
 
@@ -144,7 +158,7 @@
       }
 
       & > .step.-animate {
-        animation: fade-to-left 0.4s $swift-out forwards;
+        animation: fade-to-left .4s $swift-out forwards;
       }
 
       & > .step > h2 {
