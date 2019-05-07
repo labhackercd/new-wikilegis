@@ -25,6 +25,7 @@
   & > .card {
     display: flex;
 
+    min-height: 0;
     margin-top: auto;
 
     transition: transform 1s $swift-out, opacity .3s .2s ease;
@@ -320,27 +321,27 @@
 
     & > .notice {
       font-size: $font-size-centi;
+      font-weight: 400;
 
+      width: 10rem;
       margin-right: auto;
 
       animation: simple-reveal .5s .7s ease forwards;
+      text-align: left;
 
       opacity: 0;
       color: #FFF;
 
-      text-align: left;
-      font-weight: 400;
-
-      width: 10rem;
-
       @include bp-mediumup {
         font-size: $font-size-base;
+
         width: auto;
       }
 
       &.-inactive {
         animation: simple-fade .3s ease forwards;
         pointer-events: none;
+
         opacity: 1;
       }
 
