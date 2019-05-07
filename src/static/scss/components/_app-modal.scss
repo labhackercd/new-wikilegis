@@ -37,6 +37,11 @@
 
   &.-filter {
     background-color: $color-whitesmoke;
+
+    & > .content > .app-button {
+      margin-left: auto;
+      margin-top: 2rem;
+    }
   }
 
   &.-info {
@@ -56,7 +61,6 @@
       }
 
       & > .app-button {
-        display: inline-flex;
         margin: 0 auto;
         margin-top: 2rem;
       }
@@ -106,8 +110,8 @@
 
   & > .header > .close-icon {
     position: absolute;
-    top: 1.6rem;
-    right: 1.6rem;
+    top: 1rem;
+    right: 1rem;
 
     display: flex;
     align-items: center;

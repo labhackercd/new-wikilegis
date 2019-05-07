@@ -171,10 +171,6 @@ body.-white .nav-bar {
       position: relative;
 
       display: flex;
-      display: flex;
-      display: flex;
-      align-items: center;
-      align-items: center;
       align-items: center;
 
       margin-top: .25rem;
@@ -388,9 +384,10 @@ body.-white .nav-bar {
             }
 
             & > .item {
+              font-size: $font-size-micro;
+
               display: flex;
               align-items: center;
-              font-size: $font-size-micro;
 
               &.-versions {
                 @include icon('document');
@@ -437,6 +434,46 @@ body.-white .nav-bar {
           margin: .5rem 0;
 
           color: $color-grayish;
+        }
+      }
+    }
+
+    & > .breadcrumb {
+      display: flex;
+      align-items: center;
+
+      margin-top: .25rem;
+
+      & > * + * {
+        margin-left: .5rem;
+      }
+
+      & > a {
+        font-size: $font-size-micro;
+
+        display: flex;
+        align-items: center;
+
+        color: $color-deep-gray;
+
+        &:hover {
+          text-decoration: underline;
+
+          color: $color-brand;
+        }
+
+        &:not(:first-child)::before {
+          display: inline-block;
+
+          width: .375rem;
+          height: .375rem;
+          margin-right: .5rem;
+
+          content: '';
+
+          opacity: .8;
+          border-radius: 50%;
+          background-color: $color-deep-gray;
         }
       }
     }

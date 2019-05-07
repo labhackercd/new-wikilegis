@@ -1,0 +1,7 @@
+.link-back {
+  font-size: $font-size-centi;
+
+  color: $color-gray;
+
+  @include link-style;
+}

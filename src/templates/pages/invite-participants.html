@@ -11,13 +11,29 @@
   }
 </style>
 {% endblock extracss %}
+{% block navbar %}
+<div class="nav-bar js-navbar -admin js-owner">
+  <div class="nav-burger"></div>
+  <a href="/" class="brand -beta">Wikilegis</a>
 
+  <div class="project">
+    <span class="title js-documentTitle">Untitled Document</span>
+    <ul class="breadcrumb">
+      <a href="#">Editar Grupo Fechado</a>
+    </ul>
+  </div>
+  <div class="tools">
+    <a href="/dashboard/">Meus documentos</a>
+  </div>
+
+</div>
+{% endblock %}
 {% block content %}
 
 <main class="section-group">
   <header>
     <h2>Criar Grupo Fechado</h2>
-    <div class="close-icon"></div>
+    <a href="#" class="link-back">Voltar</a>
   </header>
   <form method="POST">
     {% csrf_token %}
