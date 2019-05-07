@@ -83,6 +83,7 @@ DocumentEditorView.prototype.startEdition = function(info) {
 DocumentEditorView.prototype.endEdition = function(info, newText) {
   if (newText != '') {
     this.infos[info]['text'].text(newText);
+    document.title = "Editor - " + newText;
   } else {
     this.infos[info]['input'].val(this.infos[info]['text'].text());
   }
