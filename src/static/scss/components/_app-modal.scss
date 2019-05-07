@@ -56,6 +56,24 @@
     padding-bottom: 3rem;
 
     & > .content {
+      margin: 0 auto;
+      width: 80%;
+
+      & > p {
+        margin-top: 2rem;
+      }
+
+      & > .app-button {
+        margin: 0 auto;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  &.-confirm {
+    padding-bottom: 3rem;
+
+    & > .content {
       & > p {
         margin-top: 2rem;
       }
