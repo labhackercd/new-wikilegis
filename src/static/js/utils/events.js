@@ -189,4 +189,10 @@ var events = {
 
   // Triggered when user click on closeValidationModal
   closeValidationModal: $.Topic('closeValidationModal'),
+
+  // Triggered when user click on openConfirmFormButton
+  openConfirmFormModal: $.Topic('openConfirmFormModal'),
+
+  // Triggered when user click on closeConfirmFormModal
+  closeConfirmFormModal: $.Topic('closeConfirmFormModal'),
 };

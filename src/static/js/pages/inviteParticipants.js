@@ -1,4 +1,4 @@
-/*global ParticipantsAutocompleteView FilterModalView FilterModalController ThemeAutocompleteView */
+/*global ParticipantsAutocompleteView FilterModalView FilterModalController ThemeAutocompleteView ConfirmFormModalView */
 
 var participantsAutocompleteView = new ParticipantsAutocompleteView();
 participantsAutocompleteView.initEvents();
@@ -11,6 +11,9 @@ filterModalController.initEvents();
 
 var themeAutocompleteView = new ThemeAutocompleteView();
 themeAutocompleteView.initEvents();
+
+var confirmFormModalView = new ConfirmFormModalView();
+confirmFormModalView.initEvents();
 
 // var groupAutocompleteView = new GroupAutocompleteView();
 // groupAutocompleteView.initEvents();

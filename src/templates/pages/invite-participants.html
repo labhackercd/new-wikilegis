@@ -62,7 +62,8 @@
       </div>
     </div>
 
-    <button class="app-button -green">Salvar</button>
+    <a class="app-button -green js-openConfirmFormButton">Continuar</a>
+    {% include "components/confirm-form-modal.html" %}
   </form>
 </main>
 {% include "components/filter-modal.html" %}
@@ -75,6 +76,7 @@
 <script src="{% static 'js/components/filterModal/view.js' %}"></script>
 <script src="{% static 'js/components/filterModal/controller.js' %}"></script>
 <script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
+<script src="{% static 'js/components/confirmFormModal/view.js' %}"></script>
 {# <script src="{% static 'js/components/groupAutocomplete/views.js' %}"></script> #}
 <script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
 {% endblock page_js %}
