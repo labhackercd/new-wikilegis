@@ -2,8 +2,9 @@
 
 var DocumentEditorView = function() {};
 
-DocumentEditorView.prototype.initEvents = function(editor) {
+DocumentEditorView.prototype.initEvents = function(editor, toolbarView) {
   this.editor = editor;
+  this.toolbarView = toolbarView;
   this.documentTitle = $('.js-documentEditor .js-documentHeader .js-title');
   this.documentTitleInput = $('.js-documentEditor .js-documentHeader .js-titleInput');
   this.documentDescription = $('.js-documentEditor .js-documentHeader .js-description');
@@ -59,7 +60,15 @@ DocumentEditorView.prototype.publishers = function() {
     if(keycode == '13'){
       self.documentHeaderInputs.focusout();
     }
-  })
+  });
+
+  $(self.editor).on('focusout', function() {
+    self.toolbarView.hide();
+  });
+
+  $(self.editor).on('focus', function() {
+    self.toolbarView.show();
+  });
 };
 
 DocumentEditorView.prototype.startEdition = function(info) {
