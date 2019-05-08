@@ -24,25 +24,6 @@
         </a>
         <!-- Número de versões -->
         <hr>
-        <div class="title">
-          <span class="-closed">Participações Privadas</span>
-          {% if not object.title or not object.description or not object.themes.all %}
-          <a href="#" class="-add js-openValidationButton">Adicionar</a>
-          {% else %}
-          <a href="{% url 'new_group' object.id %}" class="-add">Adicionar</a>
-          {% endif %}
-        </div>
-        <!-- Criar nova -->
-        {% for invited_group in private_groups %}
-          <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{invited_group.id}}">
-            <span>{{invited_group.thematic_group.name}}</span>
-            <div class="info">
-              <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
-              <div class="item -opinions">{{invited_group.suggestions.count}}</div>
-            </div>
-          </a>
-        {% endfor %}
-        <hr>
         {% for public_participation in public_group %}
         <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{public_participation.id}}">
           <span>Participação Pública</span>
@@ -61,6 +42,25 @@
             <div class="item">Solicitar</div>
           </div>
         </a>
+        {% endfor %}
+        <hr>
+        <div class="title">
+          <span class="-closed">Participações Privadas</span>
+          {% if not object.title or not object.description or not object.themes.all %}
+          <a href="#" class="-add js-openValidationButton">Adicionar</a>
+          {% else %}
+          <a href="{% url 'new_group' object.id %}" class="-add">Adicionar</a>
+          {% endif %}
+        </div>
+        <!-- Criar nova -->
+        {% for invited_group in private_groups %}
+          <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{invited_group.id}}">
+            <span>{{invited_group.thematic_group.name}}</span>
+            <div class="info">
+              <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
+              <div class="item -opinions">{{invited_group.suggestions.count}}</div>
+            </div>
+          </a>
         {% endfor %}
       </ul>
     </div>
