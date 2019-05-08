@@ -63,7 +63,15 @@ DocumentEditorView.prototype.publishers = function() {
   });
 
   $(self.editor).on('focus', function() {
-    self.toolbarView.show();
+    self.toolbarView.hide();
+    $(self.editor).attr('tabindex', 1);
+  })
+
+  $(self.editor).on('keydown', function() {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '9') {
+      self.toolbarView.show();
+    }
   });
 };
 

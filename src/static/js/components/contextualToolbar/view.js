@@ -33,6 +33,23 @@ ContextualToolbarView.prototype.publishers = function() {
     var target = $(e.target);
     self.updateExcerptType(target.data('excerptType'));
   });
+
+  self.excerptTypes.on('focus', function(e) {
+    var target = e.target;
+    self.updateEditorTabindex(target);
+  });
+};
+
+ContextualToolbarView.prototype.updateEditorTabindex = function(excerptType) {
+  var self = this;
+  var typeList = $(excerptType).closest('.js-typeList');
+  var last = typeList.find('.js-excerptType:not(._hidden)').last()[0];
+
+  if (last == excerptType) {
+    $(self.editor).attr('tabindex', 3);
+  } else {
+    $(self.editor).attr('tabindex', 1);
+  }
 };
 
 ContextualToolbarView.prototype.showAllowedExcerptTypes = function(permissions) {
