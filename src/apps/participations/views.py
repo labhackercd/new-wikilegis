@@ -1,4 +1,4 @@
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
@@ -12,7 +12,7 @@ from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation
 from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.forms import ValidationError
 from django.db.models import Q, Count
 from django.conf import settings
@@ -21,7 +21,10 @@ from django.contrib.sites.models import Site
 from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
+from constance import config
+from apps.notifications.emails import send_public_participation
 import json
+import requests
 
 User = get_user_model()
 
@@ -312,3 +315,32 @@ def list_propositions(request):
         result.append(obj)
 
     return JsonResponse(result, safe=False)
+
+
+@login_required
+@owner_required
+def create_public_participation(request, *args, **kwargs):
+    if request.POST:
+        closing_date = request.POST.get('closing_date', None)
+        congressman_id = request.POST.get('congressman_id', None)
+        group = InvitedGroup()
+        group.document = Document.objects.get(id=kwargs.get('pk'))
+        group.closing_date = closing_date
+        group.public_participation = True
+        group.group_status = 'waiting'
+        group.save()
+        url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
+        data = requests.get(url).json()
+        congressman = data['dados']['ultimoStatus']
+        send_public_participation(request.user.get_full_name(),
+                                  congressman['nome'],
+                                  congressman['gabinete']['telefone'],
+                                  congressman['gabinete']['email'],
+                                  group.document.title)
+
+        return HttpResponseRedirect(
+            reverse('document_editor_cluster',
+                    kwargs={'template': 'editor',
+                            'pk': group.document.id}))
+    else:
+        raise Http404

@@ -24,3 +24,18 @@ def send_owner_invitation(email):
                                   [email])
     mail.attach_alternative(html, 'text/html')
     mail.send()
+
+
+def send_public_participation(owner, congressman, phone, email, document):
+    html = render_to_string('emails/participation_request.html',
+                            {'owner': owner,
+                             'congressman': congressman,
+                             'phone': phone,
+                             'email': email,
+                             'document_title': document})
+    subject = _('[Wikilegis] Public participation request')
+    mail = EmailMultiAlternatives(subject, '',
+                                  settings.EMAIL_HOST_USER,
+                                  [settings.EMAIL_HOST_USER])
+    mail.attach_alternative(html, 'text/html')
+    mail.send()

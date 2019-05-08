@@ -18,4 +18,7 @@ urlpatterns = [
          name='edit_group'),
     path('document/<int:document_pk>/clusters', views.clusters,
          name='document_clusters'),
+    path('invited-group/public/new/<int:pk>',
+         views.create_public_participation,
+         name='new_public_participation'),
 ]
