@@ -8,7 +8,7 @@
   <div class="step js-step">
     <h2>Dê a sua opinião</h2>
     <img class="selectimage" src="{% static 'img/text-select-onboarding.svg' %}">
-    {% if request.path|startswith:"/p/" and request.path != "/p/new/" %}
+    {% if current_path|startswith:"/p/" and current_path != "/p/new/" %}
       <p><span class="text-highlight">Selecione o texto</span> do projeto para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
     {% else %}
       <p>Acesse um projeto e <span class="text-highlight">selecione o texto</span> dentro dele para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
@@ -20,7 +20,7 @@
     <h2>Avalie opiniões</h2>
     <img class="opinionimage" src="{% static 'img/opinion-onboarding.svg' %}">
 
-    {% if request.path|startswith:"/p/" and request.path != "/p/new/" %}
+    {% if current_path|startswith:"/p/" and current_path != "/p/new/" %}
       <p>E que tal passar por opinões de outros cidadãos antes de dar a sua? <br> Acesse-as pelos ícones de balões <span class="opinion"></span></p>
       <button class="app-button -green js-button js-action">Voltar para o texto</button>
     {% else %}
