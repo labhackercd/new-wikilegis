@@ -235,3 +235,20 @@ p > a {
 ._hide {
   display: none !important;
 }
+
+form {
+  & > .errorlist {
+    display: flex;
+    flex-direction: column;
+
+    & > li {
+      font-size: $font-size-mili;
+
+      margin-top: .5rem;
+      padding: .25rem .5rem;
+
+      color: #FFF;
+      background-color: rgba($color-red, .8);
+    }
+  }
+}
