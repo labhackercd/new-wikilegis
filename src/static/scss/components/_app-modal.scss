@@ -12,7 +12,7 @@
 
   animation: simple-reveal .3s ease;
 
-  background-color: #FFF;
+  background-color: $color-whitesmoke;
 
   @include bp-mediumup {
     top: 50%;
@@ -36,11 +36,13 @@
   }
 
   &.-filter {
+    padding: 0 2rem 2rem 2rem;
+
     background-color: $color-whitesmoke;
 
     & > .content > .app-button {
-      margin-left: auto;
       margin-top: 2rem;
+      margin-left: auto;
     }
   }
 
@@ -53,11 +55,29 @@
   }
 
   &.-validate {
-    padding-bottom: 3rem;
+    padding: 0 2rem 2rem 2rem;
 
     & > .content {
-      margin: 0 auto;
       width: 80%;
+      margin: 0 auto;
+
+      & > p {
+        margin-top: 2rem;
+      }
+
+      & > .app-button {
+        margin: 0 auto;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  &.-public {
+    padding: 0 2rem 2rem 2rem;
+
+    & > .content > .step {
+      width: 80%;
+      margin: 0 auto;
 
       & > p {
         margin-top: 2rem;
@@ -71,7 +91,7 @@
   }
 
   &.-confirm {
-    padding-bottom: 3rem;
+    padding: 0 2rem 2rem 2rem;
 
     & > .content {
       & > p {
