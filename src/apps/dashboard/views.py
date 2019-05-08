@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from utils.decorators import owner_required
 from apps.projects.models import Document
+from constance import config
 
 
 @method_decorator(login_required, name='dispatch')
@@ -41,6 +42,8 @@ class DocumentEditorClusterView(DetailView):
             public_participation=False)
         context['public_group'] = self.object.invited_groups.filter(
             public_participation=True)[:1]
+        context['api_url'] = config.CD_OPEN_DATA_URL
+        context['legislature'] = config.CD_CURRENT_LEGISLATURE
 
         page = self.kwargs['template']
         context['page'] = page

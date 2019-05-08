@@ -1,4 +1,4 @@
-/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView ValidationModalView */
+/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView ValidationModalView CongressmanAutocompleteView */
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
@@ -14,3 +14,6 @@ reduceExcerptsView.initEvents();
 
 var validationModalView = new ValidationModalView();
 validationModalView.initEvents();
+
+var congressmanAutocompleteView = new CongressmanAutocompleteView();
+congressmanAutocompleteView.initEvents();

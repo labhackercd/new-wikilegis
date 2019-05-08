@@ -8,6 +8,14 @@
 {% include "components/document-navbar.html" %}
 {% endblock navbar %}
 
+{% block extracss %}
+<style>
+  .ui-autocomplete-loading {
+    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
+{% endblock extracss %}
+
 {% block body_classes %}-white{% endblock %}
 
 {% block content %}
@@ -29,11 +37,14 @@
 
 {% include "components/validate-modal.html" %}
 {% include "components/public-participation-modal.html" %}
+{% include "components/participation-info-modal.html" %}
 
 {% endblock content %}
 
 {% block page_js %}
+<script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
 <script src="{% static '/js/components/validationModal/view.js' %}"></script>
+<script src="{% static 'js/components/congressmanAutocomplete/view.js' %}"></script>
 {% if page == 'editor' %}
 <script src="{% static '/js/utils/position.js' %}"></script>
 <script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>

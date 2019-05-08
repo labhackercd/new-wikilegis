@@ -38,6 +38,13 @@
       letter-spacing: 1px;
       text-transform: uppercase;
     }
+
+    &.-date {
+      & input,
+      & textarea {
+        color: $color-deep-gray;
+      }
+    }
   }
 
   &.-required {
@@ -73,6 +80,64 @@
     pointer-events: none;
 
     color: $color-gray;
+  }
+
+  &.-date {
+    & input:focus,
+    & input:active,
+    & textarea:focus,
+    & textarea:active {
+      color: $color-deep-gray;
+    }
+
+    & > input {
+      color: transparent;
+    }
+  }
+
+  &.-congressman {
+    position: relative;
+
+    & > ul {
+      display: flex;
+      overflow: hidden;
+      overflow-y: auto;
+      flex-direction: column;
+
+      width: 100% !important;
+      max-height: 10rem;
+
+      background-color: #FFF;
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+
+      & > .list {
+        display: flex;
+
+        box-sizing: border-box;
+        width: 100%;
+        padding: 1rem;
+
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-grayish;
+        }
+
+        & > .avatar {
+          overflow: hidden;
+
+          width: 2rem;
+          height: 2rem;
+          margin-right: 1rem;
+
+          border-radius: 50%;
+        }
+
+        & > .name {
+          font-size: $font-size-centi;
+        }
+      }
+    }
   }
 
   & input:focus + label,

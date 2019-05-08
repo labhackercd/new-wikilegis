@@ -220,7 +220,7 @@ body.-white .nav-bar {
         display: flex;
         visibility: hidden;
         overflow: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
         flex-direction: column;
 
         width: 25rem;

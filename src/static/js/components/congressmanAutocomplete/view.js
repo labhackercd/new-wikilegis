@@ -28,19 +28,22 @@ CongressmanAutocompleteView.prototype.publishers = function() {
         }
       } );
     },
+    appendTo: '.js-congressman',
+    messages: {
+       noResults: '',
+       results: function() {}
+     },
     minLength: 2,
     create: function (event, ui) {
       $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
-      return $('<li>')
-      .append("<img src=" + item.urlFoto + " alt='img' style='width: 50px; height: 50px;' />")
-      .append("<a style='font-size: 16px; color: #000; position: absolute; margin: 5px;'>" + item.nome +
-           '<span style="margin: 15px;">' + '( ' + item.siglaPartido + ' )' + "</a>")
+      return $("<li class='list'>")
+      .append("<img class='avatar' src=" + item.urlFoto + " alt='img' />")
+      .append("<div class='name'>" + item.nome + '( ' + item.siglaPartido + ' )' + "</div>")
       .appendTo(ul);
     };},
     select: function( event, ui ) {
-      setInput(ui.item.nome + " ( " + ui.item.siglaPartido + " ) ");
+      $('.js-inputAutocomplete').val(ui.item.nome + " ( " + ui.item.siglaPartido + " ) ");
       return false;
     }
   });
 };
-

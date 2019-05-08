@@ -2,32 +2,22 @@
 {% load staticfiles projects_tags %}
 
 
-{% block extra_classes %}-public js-validateModal js-stepModal{% endblock %}
+{% block extra_classes %}-public {% endblock %}
 
 {% block title_modal %}
 
 {% endblock %}
 
-
 {% block content %}
-<div class="step js-step">
-  <h1>Data de encerramento</h1>
-  <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
-  <div class="input-text">
-    <input type="text" name="title" maxlength="200" id="id_date">
-    <label for="id_date">Data</label>
-  </div>
-  <button class="app-button -green">Próximo</button>
+<h1>Data de encerramento</h1>
+<p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos.</p>
+<div class="input-text -date">
+  <input type="date" name="date" maxlength="200" id="id_date">
+  <label for="id_date">Data de encerramento</label>
 </div>
-<div class="step js-step">
-  <h1>Data de encerramento</h1>
-  <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
-  <div class="input-text">
-    <input type="text" name="title" maxlength="200" id="id_date">
-    <label for="id_date">Data</label>
-  </div>
-  <button class="app-button -green">Próximo</button>
+<div class="input-text -congressman js-congressman" data-api-url="{{api_url}}" data-legislature="{{legislature}}">
+  <input class="js-inputAutocomplete" type="text" name="title" id="id_congressman">
+  <label for="id_congressman">Deputado responsavel</label>
 </div>
+<button class="app-button -green">Enviar</button>
 {% endblock content %}
-
-</div>
