@@ -22,7 +22,7 @@
       <hr>
     </header>
     {% include "components/contextual-toolbar.html" %}
-    <div class="js-textEditor"></div>
+    <div tabindex="1" class="js-textEditor"></div>
   </article>
   {% include "components/tool-bar.html" with pk=object.id %}
 </main>
@@ -31,6 +31,7 @@
 
 {% block page_js %}
 <script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
+<script src="{% static '/js/utils/position.js' %}"></script>
 <script src="{% static '/js/components/documentEditor/view.js' %}"></script>
 <script src="{% static '/js/components/contextualToolbar/view.js' %}"></script>
 <script src="{% static '/js/components/navBar/view.js' %}"></script>

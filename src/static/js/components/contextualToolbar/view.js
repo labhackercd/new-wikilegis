@@ -61,7 +61,7 @@ ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
 
 ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) {
   var navbarHeight = $('.js-navbar').outerHeight();
-  var anchorBBox = anchorElement.getBoundingClientRect();
+  var anchorBBox = absolutePosition(anchorElement);
   var toolbarBBox = this.contextualToolbar[0].getBoundingClientRect();
 
   this.contextualToolbar.css('top', anchorBBox.top + anchorBBox.height - navbarHeight);
