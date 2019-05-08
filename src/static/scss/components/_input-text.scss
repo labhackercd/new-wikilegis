@@ -7,6 +7,23 @@
 
   margin-top: 1rem;
 
+  & .errorlist {
+    position: absolute;
+    top: 3.25rem;
+
+    & > li {
+      font-size: $font-size-nano;
+
+      padding: 0;
+
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: $color-red;
+      background-color: transparent;
+    }
+  }
+
   &.-filled {
     & input,
     & textarea {
@@ -23,8 +40,26 @@
     }
   }
 
+  &.-required {
+    position: relative;
+
+    &::after {
+      font-size: $font-size-centi;
+
+      position: absolute;
+      top: .2rem;
+      right: .45rem;
+
+      display: block;
+
+      content: '*';
+
+      color: $color-gray;
+    }
+  }
+
   label {
-    font-size: .875rem;
+    font-size: $font-size-mili;
     font-weight: 400;
 
     position: absolute;
