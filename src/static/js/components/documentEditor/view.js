@@ -67,7 +67,7 @@ DocumentEditorView.prototype.publishers = function() {
     $(self.editor).attr('tabindex', 1);
   })
 
-  $(self.editor).on('keydown', function() {
+  $(self.editor).on('keydown', function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '9') {
       self.toolbarView.show();

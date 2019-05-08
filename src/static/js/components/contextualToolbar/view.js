@@ -38,6 +38,38 @@ ContextualToolbarView.prototype.publishers = function() {
     var target = e.target;
     self.updateEditorTabindex(target);
   });
+
+  self.excerptTypes.on('keydown', function(event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+
+    if (keycode == '27' || keycode == '38' || keycode == '40') {
+      // Esc, Up arrow, Down arrow
+      self.hide();
+      self.editor.focus();
+    } else if (keycode == '37') {
+      // Left arrow
+      var target = $(event.target);
+      var previous = target.prevAll(':not(._hidden)');
+
+      if (previous.length > 0) {
+        previous.first().focus();
+      } else {
+        var parent = target.closest('.js-typeList');
+        parent.children(':not(._hidden)').last().focus();
+      }
+    } else if (keycode == '39') {
+      // Rigth arrow
+      var target = $(event.target);
+      var next = target.nextAll(':not(._hidden)');
+
+      if (next.length > 0) {
+        next.first().focus();
+      } else {
+        var parent = target.closest('.js-typeList');
+        parent.children(':not(._hidden)').first().focus();
+      }
+    }
+  })
 };
 
 ContextualToolbarView.prototype.updateEditorTabindex = function(excerptType) {

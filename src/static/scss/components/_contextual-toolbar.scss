@@ -8,19 +8,11 @@
     background-color: red;
   }
 
-  & > ul {
-    display: flex;
+  & > div > button {
+    background-color: blue;
 
-    & > li > button {
-      background-color: blue;
-
-      &:focus {
-        background-color: green;
-      }
-    }
-
-    & > li + li {
-      margin-left: 1rem;
+    &:focus {
+      background-color: green;
     }
   }
 }
