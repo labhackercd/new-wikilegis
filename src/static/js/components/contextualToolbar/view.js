@@ -18,7 +18,6 @@ ContextualToolbarView.prototype.subscribers = function() {
 
   self.editor.addEventListener('contexto', function (e) {
     self.showAllowedExcerptTypes(e.detail.permissoes);
-    self.updateToolbarPosition(e.detail.cursor.dispositivo);
   });
 
   events.closeContextualToolbox.subscribe(function() {
@@ -101,6 +100,7 @@ ContextualToolbarView.prototype.hide = function() {
 
 ContextualToolbarView.prototype.show = function() {
   this.contextualToolbar.removeClass('_hidden');
+  this.updateToolbarPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
 };
 
 ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
@@ -110,9 +110,10 @@ ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
 
 ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) {
   var navbarHeight = $('.js-navbar').outerHeight();
-  var anchorBBox = absolutePosition(anchorElement);
-  var toolbarBBox = this.contextualToolbar[0].getBoundingClientRect();
+  var anchorPosition = absolutePosition(anchorElement);
+  var toolbarBBox = absolutePosition(this.contextualToolbar[0]);
+  var editorBBox = this.editor.getBoundingClientRect();
 
-  this.contextualToolbar.css('top', anchorBBox.top + anchorBBox.height - navbarHeight);
-  this.contextualToolbar.css('left', anchorBBox.left + (anchorBBox.width / 2) - (toolbarBBox.width / 2));
+  this.contextualToolbar.css('top', anchorPosition.top + anchorPosition.height - navbarHeight);
+  this.contextualToolbar.css('left', editorBBox.left + (editorBBox.width / 2) - (toolbarBBox.width / 2));
 };
