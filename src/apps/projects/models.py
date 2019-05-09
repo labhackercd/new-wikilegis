@@ -37,6 +37,24 @@ class DocumentType(models.Model):
         return '%s' % (self.title)
 
 
+class DocumentVersion(TimestampedMixin):
+    document = models.ForeignKey('projects.Document',
+                                 related_name='versions',
+                                 on_delete=models.CASCADE,
+                                 verbose_name=_('document'))
+    number = models.PositiveIntegerField(default=0)
+    auto_save = models.BooleanField(default=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('document version')
+        verbose_name_plural = _('document versions')
+        ordering = ['-created']
+
+    def __str__(self):
+        return '{} - version {}'.format(self.created, self.number)
+
+
 class Document(TimestampedMixin):
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                               related_name='documents',
@@ -52,7 +70,6 @@ class Document(TimestampedMixin):
     themes = models.ManyToManyField('projects.Theme', verbose_name=_('themes'))
     number = models.IntegerField(_('number'), blank=True, null=True)
     year = models.IntegerField(_('year'), blank=True, null=True)
-    version = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = _('document')
@@ -65,7 +82,8 @@ class Document(TimestampedMixin):
                                'pk': self.id})
 
     def get_excerpts(self):
-        return self.excerpts.filter(version=self.version)
+        last_version = self.versions.first()
+        return self.excerpts.filter(version=last_version.number)
 
     def save(self):
         self.slug = slugify(self.title)
