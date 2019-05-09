@@ -12,7 +12,7 @@
 
   animation: simple-reveal .3s ease;
 
-  background-color: #FFF;
+  background-color: $color-whitesmoke;
 
   @include bp-mediumup {
     top: 50%;
@@ -36,7 +36,14 @@
   }
 
   &.-filter {
+    padding: 0 2rem 2rem 2rem;
+
     background-color: $color-whitesmoke;
+
+    & > .content > .app-button {
+      margin-top: 2rem;
+      margin-left: auto;
+    }
   }
 
   &.-info {
@@ -44,6 +51,57 @@
 
     @include bp-mediumup {
       display: none !important;
+    }
+  }
+
+  &.-validate {
+    padding: 0 2rem 2rem 2rem;
+
+    & > .content {
+      width: 80%;
+      margin: 0 auto;
+
+      & > p {
+        margin-top: 2rem;
+      }
+
+      & > .app-button {
+        margin: 0 auto;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  &.-public {
+    padding: 0 2rem 2rem 2rem;
+
+    & > .content {
+      width: 80%;
+      margin: 0 auto;
+
+      & > p {
+        margin-top: 2rem;
+      }
+
+      & > .app-button {
+        margin: 0 auto;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  &.-confirm {
+    padding: 0 2rem 2rem 2rem;
+
+    & > .content {
+      & > p {
+        margin-top: 2rem;
+      }
+
+      & > .app-button {
+        margin: 0 auto;
+        margin-top: 2rem;
+      }
     }
   }
 
@@ -90,8 +148,8 @@
 
   & > .header > .close-icon {
     position: absolute;
-    top: 1.6rem;
-    right: 1.6rem;
+    top: 1rem;
+    right: 1rem;
 
     display: flex;
     align-items: center;
@@ -131,7 +189,9 @@
         align-items: center;
         flex-direction: column;
         justify-content: center;
-        animation: simple-reveal 0.5s 0.2s ease forwards;
+
+        animation: simple-reveal .5s .2s ease forwards;
+
         opacity: 0;
       }
 
@@ -140,7 +200,7 @@
       }
 
       & > .step.-animate {
-        animation: fade-to-left 0.4s $swift-out forwards;
+        animation: fade-to-left .4s $swift-out forwards;
       }
 
       & > .step > h2 {

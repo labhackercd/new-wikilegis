@@ -1,0 +1,16 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles %}
+
+
+{% block extra_classes %}-confirm js-confirmFormModal{% endblock %}
+
+{% block title_modal %}{% endblock %}
+
+
+{% block content %}
+<h1>Estamos quase lá!</h1>
+<p>Para finalizar seu cadastro, é só clicar no botão abaixo! 😉 Integrantes inseridos ou removidos do grupo sempre serão notificados via e-mail, ok? </p>
+<button class="app-button -green" form="invited_group_form">Enviar</button>
+{% endblock content %}
+
+</div>

@@ -254,6 +254,10 @@ CONSTANCE_CONFIG = {
         'https://dadosabertos.camara.leg.br/api/v2/',
         _('Câmara dos Deputados open data API')
     ),
+    'CD_CURRENT_LEGISLATURE': (
+        '56',
+        _('Câmara dos Deputados current legislature')
+    ),
     'MIN_SUGGESTIONS': (
         50,
         _('Minimum suggestions to clustering')
@@ -261,3 +265,5 @@ CONSTANCE_CONFIG = {
 }
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

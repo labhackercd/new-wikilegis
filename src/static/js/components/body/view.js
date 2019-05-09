@@ -102,6 +102,38 @@ BodyView.prototype.subscribers = function() {
   events.closeAppOnboarding.subscribe(function() {
     self.enableScroll();
   });
+
+  events.openValidationModal.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closeValidationModal.subscribe(function() {
+    self.enableScroll();
+  });
+
+  events.openConfirmFormModal.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closeConfirmFormModal.subscribe(function() {
+    self.enableScroll();
+  });
+
+  events.openPublicFormModal.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closePublicFormModal.subscribe(function() {
+    self.enableScroll();
+  });
+
+  events.openPublicInfoModal.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closePublicInfoModal.subscribe(function() {
+    self.enableScroll();
+  });
 };
 
 

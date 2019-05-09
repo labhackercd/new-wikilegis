@@ -5,27 +5,37 @@ from django.utils.translation import ugettext_lazy as _
 from utils.decorators import require_ajax
 from datetime import date
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 from apps.projects.models import Excerpt, Theme, Document
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation
 from django.contrib.auth import get_user_model
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.forms import ValidationError
 from django.db.models import Q, Count
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.sites.models import Site
+from django.utils.decorators import method_decorator
+from utils.decorators import owner_required
+from django.contrib.auth.decorators import login_required
+from constance import config
+from apps.notifications.emails import send_public_participation
 import json
+import requests
 
 User = get_user_model()
 
 
-class InvitedGroupCreate(CreateView):
+@method_decorator(login_required, name='dispatch')
+@method_decorator(owner_required, name='dispatch')
+class InvitedGroupCreate(SuccessMessageMixin, CreateView):
     model = InvitedGroup
     template_name = 'pages/invite-participants.html'
     fields = ['closing_date']
+    success_message = "Grupo criado com sucesso"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,8 +68,57 @@ class InvitedGroupCreate(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy(
-            'new_group', kwargs={'pk': self.object.document.id})
+        return reverse_lazy('document_editor_cluster',
+                            kwargs={'template': 'editor',
+                                    'pk': self.object.document.id})
+
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(owner_required, name='dispatch')
+class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
+    model = InvitedGroup
+    template_name = 'pages/invite-participants.html'
+    fields = ['closing_date']
+    success_message = "Grupo alterado com sucesso!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['themes'] = Theme.objects.all()
+        return context
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj.document.owner != self.request.user:
+            raise Http404
+        return obj
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        thematic_group = ThematicGroup(owner=self.request.user)
+        thematic_group.name = self.request.POST.get('group_name', None)
+        thematic_group.save()
+        participants_ids = self.request.POST.getlist('participants', [])
+        emails = self.request.POST.getlist('emails', None)
+        if emails:
+            for email in emails:
+                email_user = User.objects.create(
+                    email=email, username=email, is_active=False)
+                participants_ids.append(email_user.id)
+        if participants_ids:
+            participants = User.objects.filter(id__in=participants_ids)
+            thematic_group.participants.set(participants)
+        if not len(participants_ids):
+            form.add_error(None, ValidationError(
+                _('Participants are required')))
+            return super().form_invalid(form)
+        self.object.thematic_group = thematic_group
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('document_editor_cluster',
+                            kwargs={'template': 'editor',
+                                    'pk': self.object.document.id})
 
 
 class InvitedGroupListView(ListView):
@@ -256,3 +315,32 @@ def list_propositions(request):
         result.append(obj)
 
     return JsonResponse(result, safe=False)
+
+
+@require_ajax
+def create_public_participation(request, document_pk):
+    document = Document.objects.get(id=document_pk)
+    congressman_id = request.POST.get('congressman_id')
+    closing_date = request.POST.get('closing_date')
+    group, created = InvitedGroup.objects.get_or_create(
+        document=document, public_participation=True,
+        defaults={'closing_date': closing_date})
+    if created:
+        group.group_status = 'waiting'
+        group.save()
+        url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
+        data = requests.get(url).json()
+        congressman = data['dados']['ultimoStatus']
+        send_public_participation(request.user.get_full_name(),
+                                  congressman['nome'],
+                                  congressman['gabinete']['telefone'],
+                                  congressman['gabinete']['email'],
+                                  group.document.title)
+
+        return JsonResponse(
+            {'message': _('Sent request!')})
+    else:
+        return JsonResponse(
+            {'error': _('You cannot request a public participation again')},
+            status=409
+        )

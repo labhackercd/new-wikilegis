@@ -1,0 +1,18 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+
+{% block extra_classes %}-validate js-validateModal{% endblock %}
+
+{% block title_modal %}
+
+{% endblock %}
+
+
+{% block content %}
+<h1>Calma aí 😀</h1>
+<p>É que alguns dados obrigatórios não foram informados. 🙁 Antes da gente prosseguir, você pode dar uma conferida e preencher o que falta?</p>
+<a href="{% url 'edit_document' object.id object.slug %}" class="app-button -green">Conferir</a>
+{% endblock content %}
+
+</div>

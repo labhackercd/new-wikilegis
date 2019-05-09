@@ -1,39 +1,65 @@
 {% extends "structure/base.html" %}
-{% load staticfiles projects_tags participations_tags %}
+{% load staticfiles %}
 {% block title %}
-  Editor - {{ object.title }}
+{{ object.title }}
 {% endblock title %}
 
 {% block navbar %}
 {% include "components/document-navbar.html" %}
 {% endblock navbar %}
 
+{% block extracss %}
+<style>
+  .ui-autocomplete-loading {
+    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
+{% endblock extracss %}
+
 {% block body_classes %}-white{% endblock %}
 
 {% block content %}
 
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
-  <article class="js-textEditorWrapper">
-    <header class="-editable js-documentHeader">
-      <h1 class="js-title">{{ object.title }}</h1>
-      <textarea name="title" class="title _hidden js-titleInput js-input"></textarea>
-      <p class="description js-description">{{ object.description }}</p>
-      <textarea name="description" class="_hidden description js-descriptionInput js-input"></textarea>
-      <hr>
-    </header>
-    {% include "components/contextual-toolbar.html" %}
-    <div tabindex="1" class="js-textEditor"></div>
-  </article>
+
+  {% if page == 'editor' %}
+    {% include "components/document-editor.html" %}
+  {% elif page == 'clusters' %}
+    {% include "components/side-bar.html" %}
+    {% include "components/document-opinions.html" %}
+  {% endif %}
+
   {% include "components/tool-bar.html" with pk=object.id %}
+  {% for message in messages %}
+  {% include "components/info-message.html" with message=message %}
+  {% endfor %}
 </main>
+
+{% include "components/validate-modal.html" %}
+{% include "components/public-participation-modal.html" %}
+{% include "components/participation-info-modal.html" %}
 
 {% endblock content %}
 
 {% block page_js %}
-<script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
+<script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static '/js/components/validationModal/view.js' %}"></script>
+<script src="{% static 'js/components/publicParticipationModal/view.js' %}"></script>
+<script src="{% static 'js/components/publicParticipationModal/controller.js' %}"></script>
+<script src="{% static 'js/components/congressmanAutocomplete/view.js' %}"></script>
+{% if page == 'editor' %}
 <script src="{% static '/js/utils/position.js' %}"></script>
+<script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
+<script src="{% static '/js/components/infoMessage/view.js' %}"></script>
 <script src="{% static '/js/components/documentEditor/view.js' %}"></script>
 <script src="{% static '/js/components/contextualToolbar/view.js' %}"></script>
 <script src="{% static '/js/components/navBar/view.js' %}"></script>
 <script src="{% static '/js/pages/editDocument.js' %}"></script>
+{% elif page == 'clusters' %}
+<script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
+<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
+<script src="{% static 'js/components/clusters/view.js' %}"></script>
+<script src="{% static 'js/components/textHighlight/view.js' %}"></script>
+<script src="{% static 'js/pages/clustersDocument.js' %}"></script>
+{% endif %}
 {% endblock page_js %}

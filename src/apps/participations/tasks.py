@@ -29,3 +29,10 @@ def clustering_group(sender, instance, **kwargs):
     group = InvitedGroup.objects.get(id=instance.invited_group.id)
     group.clusters = clusters
     group.save()
+
+
+@receiver(post_save, sender=InvitedGroup)
+def private_group_status(sender, instance, created, **kwargs):
+    if created and instance.public_participation:
+        instance.group_status = 'waiting'
+        instance.save()

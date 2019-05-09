@@ -43,6 +43,12 @@
         font-weight: 400 !important;
       }
 
+      &.-active {
+        > svg path {
+          fill: $color-brand;
+        }
+      }
+
       &.-settings {
         margin-top: auto;
       }

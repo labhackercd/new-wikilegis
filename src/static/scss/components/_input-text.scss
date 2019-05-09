@@ -7,6 +7,23 @@
 
   margin-top: 1rem;
 
+  & .errorlist {
+    position: absolute;
+    top: 3.25rem;
+
+    & > li {
+      font-size: $font-size-nano;
+
+      padding: 0;
+
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: $color-red;
+      background-color: transparent;
+    }
+  }
+
   &.-filled {
     & input,
     & textarea {
@@ -21,10 +38,35 @@
       letter-spacing: 1px;
       text-transform: uppercase;
     }
+
+    &.-date {
+      & input,
+      & textarea {
+        color: $color-deep-gray;
+      }
+    }
+  }
+
+  &.-required {
+    position: relative;
+
+    &::after {
+      font-size: $font-size-centi;
+
+      position: absolute;
+      top: .2rem;
+      right: .45rem;
+
+      display: block;
+
+      content: '*';
+
+      color: $color-gray;
+    }
   }
 
   label {
-    font-size: .875rem;
+    font-size: $font-size-mili;
     font-weight: 400;
 
     position: absolute;
@@ -38,6 +80,64 @@
     pointer-events: none;
 
     color: $color-gray;
+  }
+
+  &.-date {
+    & input:focus,
+    & input:active,
+    & textarea:focus,
+    & textarea:active {
+      color: $color-deep-gray;
+    }
+
+    & > input {
+      color: transparent;
+    }
+  }
+
+  &.-congressman {
+    position: relative;
+
+    & > ul {
+      display: flex;
+      overflow: hidden;
+      overflow-y: auto;
+      flex-direction: column;
+
+      width: 100% !important;
+      max-height: 10rem;
+
+      background-color: #FFF;
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+
+      & > .list {
+        display: flex;
+
+        box-sizing: border-box;
+        width: 100%;
+        padding: 1rem;
+
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-grayish;
+        }
+
+        & > .avatar {
+          overflow: hidden;
+
+          width: 2rem;
+          height: 2rem;
+          margin-right: 1rem;
+
+          border-radius: 50%;
+        }
+
+        & > .name {
+          font-size: $font-size-centi;
+        }
+      }
+    }
   }
 
   & input:focus + label,

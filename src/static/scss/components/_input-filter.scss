@@ -43,29 +43,51 @@
   }
 
   & > .filters {
+    font-size: $font-size-nano;
+
     display: flex;
     align-items: center;
 
+    margin-top: .5rem;
     padding-top: .5rem;
-  }
 
-  & > .filters > .title {
-    font-size: .5625rem;
-    font-weight: 500;
-
-    margin-right: .75rem;
-
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
 
     color: $color-gray;
-  }
 
-  & > .filters > .tags {
-    display: flex;
+     > .title {
+      margin-right: .75rem;
+    }
 
-    & > * + * {
-      margin-left: .75rem;
+     > .list {
+      display: flex;
+
+      & > * + * {
+        margin-left: .75rem;
+      }
+
+      & > .item {
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: line-through;
+
+          color: $color-red;
+        }
+      }
+    }
+
+    & > .clear {
+      margin-left: auto;
+
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: line-through;
+
+        color: $color-red;
+      }
     }
   }
 }

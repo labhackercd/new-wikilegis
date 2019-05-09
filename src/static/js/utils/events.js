@@ -183,4 +183,35 @@ var events = {
 
   // Triggered when user clicks outside of text editor
   closeContextualToolbox: $.Topic('closeContextualToolbox'),
+
+  // Triggered when user click on openValidationButton
+  openValidationModal: $.Topic('openValidationModal'),
+
+  // Triggered when user click on closeValidationModal
+  closeValidationModal: $.Topic('closeValidationModal'),
+
+  // Triggered when user click on openConfirmFormButton
+  openConfirmFormModal: $.Topic('openConfirmFormModal'),
+
+  // Triggered when user click on closeConfirmFormModal
+  closeConfirmFormModal: $.Topic('closeConfirmFormModal'),
+
+  // Triggered when user click on openPublicFormModal
+  openPublicFormModal: $.Topic('openPublicFormModal'),
+
+  // Triggered when user click on closePublicFormModal
+  closePublicFormModal: $.Topic('closePublicFormModal'),
+
+  // Triggered when user click on openPublicInfoModal
+  openPublicInfoModal: $.Topic('openPublicInfoModal'),
+
+  // Triggered when user click on closePublicInfoModal
+  closePublicInfoModal: $.Topic('closePublicInfoModal'),
+
+  // Triggered when user create invited group
+  closeInfoMessage: $.Topic('closeInfoMessage'),
+
+  // Triggered when user click on send button
+  // Params: documentId, closingDate, congressmanId
+  sendPublicForm: $.Topic('sendPublicForm'),
 };

@@ -1,0 +1,25 @@
+{% load projects_tags participations_tags %}
+
+<article>
+  <header>
+    <h1 contentEditable="true">{{ object.title }}</h1>
+    <p class="description">{{ object.description }}</p>
+    <hr>
+  </header>
+  {% for excerpt in object.get_excerpts %}
+    {% if excerpt.excerpt_type.align_center %}
+    <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
+      <h3>{% excerpt_numbering excerpt %}</h3>
+      <h3>{{ excerpt.content|safe }}</h3>
+    </div>
+    {% else %}
+    <p class="excerpt-wrapper {% excerpt_classes excerpt %} {% if not excerpt.suggestions.all %}-reduce{% endif %} js-excerptWrapper">
+      <b>{% excerpt_numbering excerpt %}</b>
+      {% if not excerpt.suggestions.all %}
+      <span class="js-defaultText">...</span>
+      {% endif %}
+      {% include "components/document-excerpt.html" with excerpt=excerpt %}
+    </p>
+    {% endif %}
+  {% endfor %}
+</article>
