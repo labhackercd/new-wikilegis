@@ -1,34 +1,11 @@
 {% extends "structure/base.html" %}
 {% load staticfiles projects_tags participations_tags %}
 {% block title %}
-  {{ object.title }}
+  Editor - {{ object.title }}
 {% endblock title %}
+
 {% block navbar %}
-<div class="nav-bar {% if is_owner %} -admin{% endif %}">
-  <div class="nav-burger"></div>
-  <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
-  {% if is_owner %}
-  <div class="project">
-    <span class="title">{{object.title}}</span>
-    <div class="dropdown">
-      {% if group.public_participation %}
-      <span>Participação pública</span>
-      {% else %}
-      <span class="-closed">{{group.thematic_group.name}}</span>
-      {% endif %}
-      <ul class="list">
-        {% for invited_group in object.invited_groups.all %}
-          {% if invited_group.public_participation %}
-          <a href="?group_id={{invited_group.id}}">Participação pública</a>
-          {% else %}
-          <a class="-closed" href="?group_id={{invited_group.id}}">{{invited_group.thematic_group.name}}</a>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-  {% endif %}
-</div>
+{% include "components/document-navbar.html" %}
 {% endblock navbar %}
 
 {% block body_classes %}-white{% endblock %}
@@ -36,41 +13,27 @@
 {% block content %}
 
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
-  {% include "components/side-bar.html" %}
-  <article>
-    <header>
-      <h1>{{ object.title }}</h1>
-      <p class="description">{{ object.description }}</p>
+  <article class="js-textEditorWrapper">
+    <header class="-editable js-documentHeader">
+      <h1 class="js-title">{{ object.title }}</h1>
+      <textarea name="title" class="title _hidden js-titleInput js-input"></textarea>
+      <p class="description js-description">{{ object.description }}</p>
+      <textarea name="description" class="_hidden description js-descriptionInput js-input"></textarea>
       <hr>
     </header>
-    {% for excerpt in object.get_excerpts %}
-      {% if excerpt.excerpt_type.align_center %}
-      <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
-        <h3>{% excerpt_numbering excerpt %}</h3>
-        <h3>{{ excerpt.content|safe }}</h3>
-      </div>
-      {% else %}
-      <p class="excerpt-wrapper {% excerpt_classes excerpt%} {% if not excerpt.suggestions.all %}-reduce{% endif %} js-excerptWrapper">
-        <b>{% excerpt_numbering excerpt %}</b>
-        {% if not excerpt.suggestions.all %}
-        <span class="js-defaultText">...</span>
-        {% endif %}
-        {% include "components/document-excerpt.html" with excerpt=excerpt %}
-      </p>
-      {% endif %}
-    {% endfor %}
-    <div class="js-textEditor"></div>
+    {% include "components/contextual-toolbar.html" %}
+    <div tabindex="1" class="js-textEditor"></div>
   </article>
-  {% include "components/tool-bar.html" %}
+  {% include "components/tool-bar.html" with pk=object.id %}
 </main>
 
 {% endblock content %}
 
 {% block page_js %}
-<script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js.js' %}"></script>
-<script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
-<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
-<script src="{% static 'js/components/clusters/view.js' %}"></script>
-<script src="{% static 'js/components/textHighlight/view.js' %}"></script>
-<script src="{% static 'js/pages/editDocument.js' %}"></script>
+<script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
+<script src="{% static '/js/utils/position.js' %}"></script>
+<script src="{% static '/js/components/documentEditor/view.js' %}"></script>
+<script src="{% static '/js/components/contextualToolbar/view.js' %}"></script>
+<script src="{% static '/js/components/navBar/view.js' %}"></script>
+<script src="{% static '/js/pages/editDocument.js' %}"></script>
 {% endblock page_js %}

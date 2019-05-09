@@ -1,0 +1,51 @@
+{% extends "structure/base.html" %}
+{% load staticfiles projects_tags participations_tags %}
+{% block title %}
+  Clusters - {{ object.title }}
+{% endblock title %}
+
+{% block navbar %}
+{% include "components/document-navbar.html" %}
+{% endblock navbar %}
+
+{% block body_classes %}-white{% endblock %}
+
+{% block content %}
+
+<main class="document-editor -readonly -active js-documentEditor" data-document-id="{{ object.id }}">
+  {% include "components/side-bar.html" %}
+  <article>
+    <header>
+      <h1 contentEditable="true">{{ object.title }}</h1>
+      <p class="description">{{ object.description }}</p>
+      <hr>
+    </header>
+    {% for excerpt in object.get_excerpts %}
+      {% if excerpt.excerpt_type.align_center %}
+      <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
+        <h3>{% excerpt_numbering excerpt %}</h3>
+        <h3>{{ excerpt.content|safe }}</h3>
+      </div>
+      {% else %}
+      <p class="excerpt-wrapper {% excerpt_classes excerpt%} {% if not excerpt.suggestions.all %}-reduce{% endif %} js-excerptWrapper">
+        <b>{% excerpt_numbering excerpt %}</b>
+        {% if not excerpt.suggestions.all %}
+        <span class="js-defaultText">...</span>
+        {% endif %}
+        {% include "components/document-excerpt.html" with excerpt=excerpt %}
+      </p>
+      {% endif %}
+    {% endfor %}
+  </article>
+  {% include "components/tool-bar.html" with pk=object.id %}
+</main>
+
+{% endblock content %}
+
+{% block page_js %}
+<script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
+<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
+<script src="{% static 'js/components/clusters/view.js' %}"></script>
+<script src="{% static 'js/components/textHighlight/view.js' %}"></script>
+<script src="{% static 'js/pages/clustersDocument.js' %}"></script>
+{% endblock page_js %}

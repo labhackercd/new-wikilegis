@@ -29,6 +29,10 @@ BodyView.prototype.publishers = function() {
     if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
       events.closeModal.publish();
     }
+
+    if (target.closest('.js-textEditorWrapper').length == 0) {
+      events.closeContextualToolbox.publish();
+    }
   });
 
   $('body').on('mousedown', function(e) {

@@ -1,0 +1,18 @@
+.contextual-toolbar {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #FFF;
+  user-select: none;
+
+  &:focus {
+    background-color: red;
+  }
+
+  & > div > button {
+    background-color: blue;
+
+    &:focus {
+      background-color: green;
+    }
+  }
+}

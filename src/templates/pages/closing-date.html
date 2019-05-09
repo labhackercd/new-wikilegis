@@ -1,0 +1,14 @@
+{% extends "structure/base.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+  <form class="document-form" method="POST">
+    <h2>Data de encerramento</h2>
+    <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos. Os deputados relatores das proposições acompanham as participações e podem adotar a sua ideia!</p>
+    <div class="input-text">
+      <input type="text" name="title" maxlength="200" required="" id="id_date">
+      <label for="id_date">{% trans "Data" %}</label>
+    </div>
+    <button class="app-button -green">Enviar</button>
+  </form>
+{% endblock content %}

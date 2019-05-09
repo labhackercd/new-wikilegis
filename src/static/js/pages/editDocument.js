@@ -1,13 +1,17 @@
-/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView */
+/*global $ silegismgEditorArticulacaoController ContextualToolbarView DocumentEditorView */
 
-var documentSideBarView = new DocumentSideBarView();
-documentSideBarView.initEvents();
+var editor = $('.js-textEditor')[0];
+silegismgEditorArticulacaoController(editor, {
+  rotulo: {
+    separadorArtigo: '',
+    separadorArtigoSemOrdinal: '.',
+    separadorParagrafo: '',
+    separadorParagrafoSemOrdinal: '.'
+  }
+});
 
-var clustersView = new ClustersView();
-clustersView.initEvents();
+var contextualToolbarView = new ContextualToolbarView();
+contextualToolbarView.initEvents(editor);
 
-var textHighlightView = new TextHighlightView();
-textHighlightView.initEvents();
-
-var reduceExcerptsView = new ReduceExcerptsView();
-reduceExcerptsView.initEvents();
+var documentEditorView = new DocumentEditorView();
+documentEditorView.initEvents(editor, contextualToolbarView);
