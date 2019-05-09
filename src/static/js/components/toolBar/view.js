@@ -16,7 +16,7 @@ ToolBarView.prototype.subscribers = function() {
 
   events.autoSaveDocument.subscribe(function() {
     self.saveDocument(true);
-  })
+  });
 };
 
 ToolBarView.prototype.publishers = function() {
