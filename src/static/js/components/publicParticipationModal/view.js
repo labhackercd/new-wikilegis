@@ -53,8 +53,6 @@ PublicFormModalView.prototype.publishers = function () {
 };
 
 PublicFormModalView.prototype.sendPublicForm = function() {
-  var self = this;
-
   var documentId = $('.js-documentEditor').data('documentId');
   var closingDate = $('.js-closingDate').val();
   var congressmanId = $('.js-congressmanId').val();

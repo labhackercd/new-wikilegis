@@ -20,7 +20,7 @@ InfoMessageView.prototype.publishers = function () {
   var self = this;
   $(window).on('load', function() {
     self.infoMessageElement.addClass('-show');
-    setTimeout(events.closeInfoMessage.publish, 4000)
+    setTimeout(events.closeInfoMessage.publish, 4000);
   });
   self.closeMessage.on('click', function() {
     events.closeInfoMessage.publish();

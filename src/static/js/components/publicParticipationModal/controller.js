@@ -24,7 +24,7 @@ PublicFormController.prototype.sendForm = function(documentId, closingDate, cong
     }
   });
 
-  request.done(function(data) {
+  request.done(function() {
     events.closePublicFormModal.publish();
     events.openPublicInfoModal.publish();
     $('.js-openPublicParticipation').after(`
