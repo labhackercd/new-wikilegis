@@ -1,10 +1,13 @@
-from django.views.generic import ListView, DetailView
-from django.http import Http404
+from django.views.generic import ListView, DetailView, View
+from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext_lazy as _
 from utils.decorators import owner_required
-from apps.projects.models import Document
 from constance import config
+from apps.projects.models import Document, DocumentVersion
+from apps.projects.parser import parse_html
 
 
 @method_decorator(login_required, name='dispatch')
@@ -54,3 +57,33 @@ class DocumentEditorClusterView(DetailView):
             else:
                 context['group'] = self.object.invited_groups.first()
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(owner_required, name='dispatch')
+class SaveDocumentView(View):
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        document = get_object_or_404(Document, pk=kwargs['pk'])
+
+        title = request.POST.get('title', '')
+        description = request.POST.get('description', '')
+        html = request.POST.get('html', None)
+
+        if html:
+            last_version = document.versions.first()
+            number = last_version.number + 1
+
+            parse_html(html, number, document)
+
+            DocumentVersion.objects.create(
+                document=document,
+                number=number
+            )
+
+        document.title = title
+        document.description = description
+        document.save()
+
+        return JsonResponse({'message': _('Document saved successfully!')})

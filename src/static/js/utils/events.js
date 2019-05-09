@@ -221,4 +221,8 @@ var events = {
   // Triggered when user click on send button
   // Params: groupId, closingDate, congressmanId
   sendUpdatePublicForm: $.Topic('sendUpdatePublicForm'),
+
+  // Triggered when users want to save the document
+  // Params: data (pk, title, description, html)
+  saveDocument: $.Topic('saveDocument'),
 };
