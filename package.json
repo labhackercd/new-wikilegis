@@ -6,6 +6,9 @@
   "scripts": {
     "lint": "eslint src/static/js/**/*"
   },
+  "eslintIgnore": [
+    "src/static/js/vendor/*"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

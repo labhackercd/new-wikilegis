@@ -1,3 +1,5 @@
+/* exported absolutePosition */
+
 function absolutePosition(el) {
   var
     found,

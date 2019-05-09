@@ -1,3 +1,5 @@
+/*global $ silegismgEditorArticulacaoController ContextualToolbarView DocumentEditorView */
+
 var editor = $('.js-textEditor')[0];
 silegismgEditorArticulacaoController(editor, {
   rotulo: {

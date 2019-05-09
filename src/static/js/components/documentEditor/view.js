@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ events autosize */
 
 var DocumentEditorView = function() {};
 
@@ -20,7 +20,7 @@ DocumentEditorView.prototype.initEvents = function(editor, toolbarView) {
       'input': this.documentDescriptionInput,
       'text': this.documentDescription
     }
-  }
+  };
 
   autosize(this.documentTitleInput);
   autosize(this.documentDescriptionInput);
@@ -65,7 +65,7 @@ DocumentEditorView.prototype.publishers = function() {
   $(self.editor).on('focus', function() {
     self.toolbarView.hide();
     $(self.editor).attr('tabindex', 1);
-  })
+  });
 
   $(self.editor).on('keydown', function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -78,7 +78,7 @@ DocumentEditorView.prototype.publishers = function() {
 DocumentEditorView.prototype.startEdition = function(info) {
   this.infos[info]['text'].addClass('_hidden');
   this.infos[info]['input'].val(this.infos[info]['text'].text());
-  this.infos[info]['input'].removeClass('_hidden');;
+  this.infos[info]['input'].removeClass('_hidden');
   this.infos[info]['input'].focus();
   this.infos[info]['input'].select();
   autosize.update(this.infos[info]['input']);
@@ -87,7 +87,7 @@ DocumentEditorView.prototype.startEdition = function(info) {
 DocumentEditorView.prototype.endEdition = function(info, newText) {
   if (newText != '') {
     this.infos[info]['text'].text(newText);
-    document.title = "Editor - " + newText;
+    document.title = 'Editor - ' + newText;
   } else {
     this.infos[info]['input'].val(this.infos[info]['text'].text());
   }
