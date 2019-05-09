@@ -292,79 +292,6 @@ body.-white .nav-bar {
           }
         }
 
-      & > .list {
-        position: absolute;
-        top: 1.3rem;
-        left: -.2rem;
-
-        display: none;
-        flex-direction: column;
-
-        width: 25rem;
-        padding: .5rem 0;
-
-        border: 1px solid $color-grayish;
-        background-color: #FFF;
-
-        @include card-shadow;
-
-        & > .title {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          padding: .5rem 1.25rem;
-
-          cursor: text;
-
-          & > span {
-            font-size: $font-size-centi;
-            font-weight: bold;
-            line-height: 1.4;
-
-            color: $color-deep-gray;
-
-            &.-closed {
-              @include icon('padlock');
-
-              &::before {
-                font-size: $font-size-micro;
-
-                margin-right: .35rem;
-              }
-            }
-          }
-
-          & > a {
-            font-size: $font-size-micro;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: .5rem 0;
-
-            cursor: pointer;
-            letter-spacing: .5px;
-
-            color: $color-brand;
-
-            &:hover {
-              opacity: .8;
-            }
-          }
-
-          & > .-add {
-            @include icon('add');
-
-            &::before {
-              font-size: $font-size-nano;
-
-              margin-right: .35rem;
-            }
-          }
-        }
-
         & > a {
           display: flex;
           align-items: center;
@@ -372,7 +299,7 @@ body.-white .nav-bar {
 
           padding: 1rem 1.5rem;
 
-            color: $color-deep-gray;
+          color: $color-deep-gray;
 
           &:hover {
             & > span {
