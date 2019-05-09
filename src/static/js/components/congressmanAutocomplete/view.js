@@ -43,6 +43,8 @@ CongressmanAutocompleteView.prototype.publishers = function() {
     };},
     select: function( event, ui ) {
       $('.js-inputAutocomplete').val(ui.item.nome + " ( " + ui.item.siglaPartido + " ) ");
+      var input = $('<input type="hidden" name="congressman-id" class="js-congressmanId" value="' + ui.item.id + '">');
+      $('.js-congressman').append(input);
       return false;
     }
   });

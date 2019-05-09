@@ -1,4 +1,4 @@
-/*global $ silegismgEditorArticulacaoController ContextualToolbarView DocumentEditorView ValidationModalView InfoMessageView CongressmanAutocompleteView */
+/*global $ silegismgEditorArticulacaoController ContextualToolbarView DocumentEditorView ValidationModalView InfoMessageView CongressmanAutocompleteView PublicFormModalView PublicFormController */
 
 var editor = $('.js-textEditor')[0];
 silegismgEditorArticulacaoController(editor, {
@@ -24,3 +24,9 @@ infoMessageView.initEvents();
 
 var congressmanAutocompleteView = new CongressmanAutocompleteView();
 congressmanAutocompleteView.initEvents();
+
+var publicFormModalView = new PublicFormModalView();
+publicFormModalView.initEvents();
+
+var publicFormController = new PublicFormController();
+publicFormController.initEvents();

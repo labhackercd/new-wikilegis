@@ -15,7 +15,7 @@
       {% else %}
         <span>Minhas Versões</span>
       {% endif %}
-      <ul class="list">
+      <ul class="list js-menuList">
         <a href="{% url 'document_editor_cluster' 'editor' object.id %}">
           <span>Minhas Versões</span>
           <div class="info">
@@ -25,23 +25,37 @@
         <!-- Número de versões -->
         <hr>
         {% for public_participation in public_group %}
+        {% if public_participation.group_status == 'waiting' %}
+        <a href="#" class="js-waitingButton">
+          <span>Participação Pública</span>
+          <div class="info">
+              <div class="item -blue">Aguardando</div>
+          </div>
+        </a>
+        {% else %}
         <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{public_participation.id}}">
           <span>Participação Pública</span>
           <div class="info">
-            {% if public_participation.group_status == 'waiting' %}
-              <div class="item -blue">Aguardando</div>
-            {% else %}
               <div class="item -green">Em andamento</div>
-            {% endif %}
           </div>
         </a>
+        {% endif %}
         {% empty %}
+        {% if not object.title or not object.description or not object.themes.all %}
+        <a href="#" class="js-openValidationButton">
+          <span>Participação Pública</span>
+          <div class="info">
+            <div class="item">Solicitar</div>
+          </div>
+        </a>
+        {% else %}
         <a href="#" class="js-openPublicParticipation">
           <span>Participação Pública</span>
           <div class="info">
             <div class="item">Solicitar</div>
           </div>
         </a>
+        {% endif %}
         {% endfor %}
         <hr>
         <div class="title">

@@ -118,6 +118,22 @@ BodyView.prototype.subscribers = function() {
   events.closeConfirmFormModal.subscribe(function() {
     self.enableScroll();
   });
+
+  events.openPublicFormModal.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closePublicFormModal.subscribe(function() {
+    self.enableScroll();
+  });
+
+  events.openPublicInfoModal.subscribe(function() {
+    self.disableScroll();
+  });
+
+  events.closePublicInfoModal.subscribe(function() {
+    self.enableScroll();
+  });
 };
 
 

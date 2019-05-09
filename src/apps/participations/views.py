@@ -1,4 +1,4 @@
-from django.http import JsonResponse, Http404, HttpResponseRedirect
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
@@ -12,7 +12,7 @@ from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation
 from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.forms import ValidationError
 from django.db.models import Q, Count
 from django.conf import settings
@@ -317,16 +317,15 @@ def list_propositions(request):
     return JsonResponse(result, safe=False)
 
 
-@login_required
-@owner_required
-def create_public_participation(request, *args, **kwargs):
-    if request.POST:
-        closing_date = request.POST.get('closing_date', None)
-        congressman_id = request.POST.get('congressman_id', None)
-        group = InvitedGroup()
-        group.document = Document.objects.get(id=kwargs.get('pk'))
-        group.closing_date = closing_date
-        group.public_participation = True
+@require_ajax
+def create_public_participation(request, document_pk):
+    document = Document.objects.get(id=document_pk)
+    congressman_id = request.POST.get('congressman_id')
+    closing_date = request.POST.get('closing_date')
+    group, created = InvitedGroup.objects.get_or_create(
+        document=document, public_participation=True,
+        defaults={'closing_date': closing_date})
+    if created:
         group.group_status = 'waiting'
         group.save()
         url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
@@ -338,9 +337,10 @@ def create_public_participation(request, *args, **kwargs):
                                   congressman['gabinete']['email'],
                                   group.document.title)
 
-        return HttpResponseRedirect(
-            reverse('document_editor_cluster',
-                    kwargs={'template': 'editor',
-                            'pk': group.document.id}))
+        return JsonResponse(
+            {'message': _('Sent request!')})
     else:
-        raise Http404
+        return JsonResponse(
+            {'error': _('You cannot request a public participation again')},
+            status=409
+        )
