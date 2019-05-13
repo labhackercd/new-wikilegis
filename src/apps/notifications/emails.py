@@ -39,3 +39,14 @@ def send_public_participation(owner, congressman, phone, email, document):
                                   [settings.EMAIL_HOST_USER])
     mail.attach_alternative(html, 'text/html')
     mail.send()
+
+
+def send_remove_participant(document, participant_email):
+    html = render_to_string('emails/remove_participant.html',
+                            {'document': document})
+    subject = _('[Wikilegis] Participant removed')
+    mail = EmailMultiAlternatives(subject, '',
+                                  settings.EMAIL_HOST_USER,
+                                  [participant_email])
+    mail.attach_alternative(html, 'text/html')
+    mail.send()
