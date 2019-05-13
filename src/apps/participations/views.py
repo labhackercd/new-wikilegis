@@ -108,13 +108,14 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
         if participants_ids:
             new_participants = User.objects.filter(id__in=participants_ids)
             old_participants = thematic_group.participants.all()
-            for old_participant in old_participants:
-                if old_participant not in new_participants:
-                    old_invitation = ParcipantInvitation.objects.get(
-                        group=self.object, email=old_participant.email)
-                    old_invitation.delete()
-                    send_remove_participant(self.object.document,
-                                            old_participant.email)
+            if set(new_participants) != set(old_participants):
+                for old_participant in old_participants:
+                    if old_participant not in new_participants:
+                        old_invitation = ParcipantInvitation.objects.get(
+                            group=self.object, email=old_participant.email)
+                        old_invitation.delete()
+                        send_remove_participant(self.object.document,
+                                                old_participant.email)
             thematic_group.participants.set(new_participants)
         if not len(participants_ids):
             form.add_error(None, ValidationError(
