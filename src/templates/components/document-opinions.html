@@ -2,6 +2,12 @@
 
 <article>
   <header>
+    {% now "Y-m-d" as todays_date %}
+    {% if group.closing_date|date:"Y-m-d" > todays_date %}
+    <span class="date -active">Aberto até {{group.closing_date|date:'d/m/Y'}}</span>
+    {% else %}
+    <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
+    {% endif %}
     <h1 contentEditable="true">{{ object.title }}</h1>
     <p class="description">{{ object.description }}</p>
     <hr>
