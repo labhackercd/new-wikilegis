@@ -1,0 +1,13 @@
+.silegismg-editor-articulacao {
+  &.-blur > p {
+    opacity: .3;
+  }
+
+  & > p {
+    text-align: left;
+  }
+
+  & > p.-highlight {
+    opacity: 1;
+  }
+}
