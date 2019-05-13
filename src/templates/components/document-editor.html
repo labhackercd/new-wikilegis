@@ -2,9 +2,9 @@
   <header class="-editable js-documentHeader">
     <span class="date -active">Aberto até 30/11/2019</span>
     <h1 class="js-title">{{ object.title }}</h1>
-    <textarea name="title" class="title _hidden js-titleInput js-input"></textarea>
+    <textarea name="title" class="title _hidden js-titleInput js-input">{{ object.title }}</textarea>
     <p class="description js-description">{{ object.description }}</p>
-    <textarea name="description" class="_hidden description js-descriptionInput js-input"></textarea>
+    <textarea name="description" class="_hidden description js-descriptionInput js-input">{{ object.description }}</textarea>
     <hr>
   </header>
   {% include "components/contextual-toolbar.html" %}

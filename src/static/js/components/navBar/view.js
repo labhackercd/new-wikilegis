@@ -14,6 +14,7 @@ NavBarView.prototype.subscribers = function() {
   events.documentTitleEditionEnd.subscribe(function(newTitle) {
     if (newTitle != '') {
       self.updateTitle(newTitle);
+      document.title = newTitle;
     }
   });
 };
