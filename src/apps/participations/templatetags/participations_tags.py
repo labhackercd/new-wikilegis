@@ -106,6 +106,19 @@ def can_suggest(group, user):
         return False
 
 
+@register.simple_tag
+def to_reduce(group, excerpt):
+    suggestions_count = excerpt.suggestions.filter(
+        id__in=group.suggestions.values_list('id', flat=True)).count()
+    if suggestions_count > 0:
+        return False
+    else:
+        if group.suggestions.all():
+            return True
+        else:
+            return False
+
+
 @register.filter
 def count_votes(votes, vote_type):
     return votes.filter(opinion_vote=vote_type).count()
