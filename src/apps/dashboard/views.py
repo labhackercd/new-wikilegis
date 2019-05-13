@@ -71,16 +71,14 @@ class SaveDocumentView(View):
         description = request.POST.get('description', '')
         html = request.POST.get('html', None)
 
+        last_version = document.versions.first()
+        number = last_version.number + 1
+        DocumentVersion.objects.create(
+            document=document,
+            number=number
+        )
         if html:
-            last_version = document.versions.first()
-            number = last_version.number + 1
-
             parse_html(html, number, document)
-
-            DocumentVersion.objects.create(
-                document=document,
-                number=number
-            )
 
         document.title = title
         document.description = description

@@ -39,6 +39,10 @@ DocumentEditorView.prototype.subscribers = function() {
   events.closeContextualToolbox.subscribe(function() {
     self.removeBlur();
   });
+
+  events.documentTextLoaded.subscribe(function(html) {
+    self.editor.innerHTML = html;
+  });
 };
 
 DocumentEditorView.prototype.publishers = function() {
@@ -69,7 +73,7 @@ DocumentEditorView.prototype.publishers = function() {
   $(self.editor).on('focus', function() {
     events.closeContextualToolbox.publish();
     $(self.editor).attr('tabindex', 1);
-  }); 
+  });
 
   $(self.editor).on('keydown', function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);

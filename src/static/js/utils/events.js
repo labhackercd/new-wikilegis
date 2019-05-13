@@ -225,4 +225,8 @@ var events = {
   // Triggered when users want to save the document
   // Params: data (pk, title, description, html)
   saveDocument: $.Topic('saveDocument'),
+
+  // Triggered when the document text is loaded
+  // Params: text
+  documentTextLoaded: $.Topic('documentTextLoaded'),
 };

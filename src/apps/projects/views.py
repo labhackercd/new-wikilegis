@@ -1,9 +1,10 @@
-from django.views.generic import RedirectView, UpdateView
+from django.views.generic import RedirectView, UpdateView, View
 from django.shortcuts import get_object_or_404
 from .models import Document
 from .forms import DocumentForm
 from apps.notifications.models import ParcipantInvitation
-from django.http import Http404
+from django.http import Http404, JsonResponse
+from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
@@ -72,3 +73,17 @@ class DocumentUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(owner_required, name='dispatch')
+class DocumentTextView(View):
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        document = get_object_or_404(Document, pk=kwargs['pk'])
+        rendered = render_to_string(
+            'txt/document_text',
+            {'excerpts': document.get_excerpts()}
+        )
+        return JsonResponse({'html': rendered})

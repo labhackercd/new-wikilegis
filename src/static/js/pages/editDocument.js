@@ -16,6 +16,9 @@ silegismgEditorArticulacaoController(editor, {
 var contextualToolbarView = new ContextualToolbarView();
 contextualToolbarView.initEvents(editor);
 
+var documentEditorController = new DocumentEditorController();
+documentEditorController.initEvents();
+
 var documentEditorView = new DocumentEditorView();
 documentEditorView.initEvents(editor, contextualToolbarView);
 

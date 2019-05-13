@@ -11,4 +11,6 @@ urlpatterns = [
          name="invitation"),
     path('new/', views.DocumentCreateRedirectView.as_view(),
          name="new_document"),
+    path('<int:pk>/text/', views.DocumentTextView.as_view(),
+         name="document_text")
 ]
