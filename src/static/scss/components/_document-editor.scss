@@ -16,8 +16,11 @@
   display: flex;
 
   width: calc(100% - 5rem);
+  min-height: 100%;
+  margin: 0;
   margin-right: 5rem;
   padding: 0;
+  padding-top: 3.75rem;
 
   transition: all .25s $swift-out;
 
@@ -42,6 +45,7 @@
   & > article {
     font-size: 1rem;
 
+    box-sizing: border-box;
     width: 100%;
     max-width: 66ch;
     margin: 0 auto;
