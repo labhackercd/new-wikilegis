@@ -6,8 +6,8 @@
 
   user-select: none;
 
-  border: 1px solid #D0D0D0;
-  border-top: 3px solid #2DA965;
+  border: 1px solid $color-grayish;
+  border-top: 3px solid $color-brand;
   border-radius: .25rem;
   background-color: white;
   box-shadow: 2px 2px 9px 0 hsla(0, 0%, 50%, .3);
@@ -31,7 +31,7 @@
     letter-spacing: 1px;
     text-transform: uppercase;
 
-    color: #474747;
+    color: $color-deep-gray;
     border: 1px solid transparent;
     border-radius: .25rem;
     background-color: white;
@@ -43,7 +43,7 @@
 
   & > .list > .item:focus,
   & > .list > .item:hover {
-    color: #474747;
+    color: $color-deep-gray;
     background-color: hsla(0, 0%, 95%, 1);
   }
 }
