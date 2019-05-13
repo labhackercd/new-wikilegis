@@ -1,5 +1,5 @@
 {% load dashboard_tags %}
-<div class="nav-bar js-navbar{% if request.user.profile.profile_type == 'owner' %} -admin js-owner{% endif %}">
+<div class="nav-bar js-navbar{% if request.user.profile.profile_type == 'owner' %} -admin js-owner{% endif %} -edit">
   <div class="nav-burger"></div>
   <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
   {% if request.user.profile.profile_type == 'owner' %}
