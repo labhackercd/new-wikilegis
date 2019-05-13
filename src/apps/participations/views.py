@@ -22,7 +22,8 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
-from apps.notifications.emails import send_public_participation
+from apps.notifications.emails import (send_public_participation,
+                                       send_remove_participant)
 import json
 import requests
 
@@ -94,7 +95,7 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        thematic_group = ThematicGroup(owner=self.request.user)
+        thematic_group = self.object.thematic_group
         thematic_group.name = self.request.POST.get('group_name', None)
         thematic_group.save()
         participants_ids = self.request.POST.getlist('participants', [])
@@ -105,8 +106,17 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
                     email=email, username=email, is_active=False)
                 participants_ids.append(email_user.id)
         if participants_ids:
-            participants = User.objects.filter(id__in=participants_ids)
-            thematic_group.participants.set(participants)
+            new_participants = User.objects.filter(id__in=participants_ids)
+            old_participants = thematic_group.participants.all()
+            if set(new_participants) != set(old_participants):
+                for old_participant in old_participants:
+                    if old_participant not in new_participants:
+                        old_invitation = ParcipantInvitation.objects.get(
+                            group=self.object, email=old_participant.email)
+                        old_invitation.delete()
+                        send_remove_participant(self.object.document,
+                                                old_participant.email)
+            thematic_group.participants.set(new_participants)
         if not len(participants_ids):
             form.add_error(None, ValidationError(
                 _('Participants are required')))
