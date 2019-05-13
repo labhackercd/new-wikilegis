@@ -107,11 +107,10 @@ ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
 };
 
 ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) {
-  var navbarHeight = $('.js-navbar').outerHeight();
   var anchorPosition = absolutePosition(anchorElement);
   var toolbarBBox = absolutePosition(this.contextualToolbar[0]);
   var editorBBox = this.editor.getBoundingClientRect();
 
-  this.contextualToolbar.css('top', anchorPosition.top + anchorPosition.height - navbarHeight);
+  this.contextualToolbar.css('top', anchorPosition.top + anchorPosition.height);
   this.contextualToolbar.css('left', editorBBox.left + (editorBBox.width / 2) - (toolbarBBox.width / 2));
 };
