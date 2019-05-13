@@ -1,0 +1,19 @@
+.save-message {
+  font-size: $font-size-mili;
+
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+
+  padding: 1.5rem;
+
+  color: $color-gray;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
