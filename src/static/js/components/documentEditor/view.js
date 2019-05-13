@@ -35,6 +35,10 @@ DocumentEditorView.prototype.subscribers = function() {
   events.documentTitleEditionEnd.subscribe(function(newTitle) {
     self.endEdition('title', newTitle);
   });
+
+  events.closeContextualToolbox.subscribe(function() {
+    self.removeBlur();
+  });
 };
 
 DocumentEditorView.prototype.publishers = function() {
@@ -63,14 +67,15 @@ DocumentEditorView.prototype.publishers = function() {
   });
 
   $(self.editor).on('focus', function() {
-    self.toolbarView.hide();
+    events.closeContextualToolbox.publish();
     $(self.editor).attr('tabindex', 1);
-  });
+  }); 
 
   $(self.editor).on('keydown', function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '9') {
       self.toolbarView.show();
+      self.highligthCurrentExcerpt();
     }
   });
 };
@@ -93,4 +98,14 @@ DocumentEditorView.prototype.endEdition = function(info, newText) {
   }
   this.infos[info]['text'].removeClass('_hidden');
   this.infos[info]['input'].addClass('_hidden');
+};
+
+DocumentEditorView.prototype.highligthCurrentExcerpt = function() {
+  $(this.editor).addClass('-blur');
+  $(this.editor.ctrlArticulacao.contexto.cursor.elemento).addClass('-highlight');
+};
+
+DocumentEditorView.prototype.removeBlur = function() {
+  $(this.editor).removeClass('-blur');
+  $(this.editor).find('p').removeClass('-highlight');
 };
