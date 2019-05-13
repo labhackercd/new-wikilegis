@@ -92,6 +92,27 @@
   }
 }
 
+@mixin mask-icon($icon, $color: #FFF, $width: 1em, $height:1em, $mask-size: 100%, $margin:0) {
+  &::before {
+    display: inline-flex;
+
+    color: $color;
+    width: $width;
+    min-width: $width;
+    height: $height;
+    min-height: $height;
+    margin: $margin;
+
+    content: '';
+
+    mask-image: url('../../static/img/#{$icon}.svg');
+    mask-mode: alpha;
+    mask-repeat: no-repeat;
+    mask-position: center center;
+    mask-size: $mask-size $mask-size;
+  }
+}
+
 // Floating label for elements with content based of aria-label attributes. Available on :hover
 @mixin hovering-label($direction, $margin: .5em, $color:inherit, $font-size: 1em, $width: auto, $precedence: after, $button-position:relative) {
   position: $button-position;

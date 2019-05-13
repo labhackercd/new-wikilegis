@@ -65,6 +65,46 @@ body.-white .nav-bar {
     background: $color-whitesmoke;
   }
 
+  &.-edit {
+    color: #FFF;
+    background-color: $color-deep-gray !important;
+
+    & > .brand {
+      color: #FFF;
+
+      &.-beta::after {
+        opacity: .8;
+        color: #FFF;
+      }
+    }
+
+    & > .project {
+      & > .title {
+        color: #FFF;
+      }
+
+      & > .dropdown {
+        &::after {
+          background-color: #FFF;
+        }
+
+        &.-closed::before {
+          background-color: #FFF;
+        }
+      }
+    }
+
+    & > .tools > a {
+      opacity: .8;
+      color: #FFF;
+
+      &:hover {
+        opacity: 1;
+        color: #FFF;
+      }
+    }
+  }
+
   & > .brand {
     font-family: $font-family-brand;
     font-size: .875rem;
@@ -194,20 +234,24 @@ body.-white .nav-bar {
 
         content: '';
 
-        background-image: url('../../static/img/arrow.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
+        background-color: $color-deep-gray;
+
+        mask-image: url('../../static/img/arrow.svg');
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
       }
 
       & > span {
         font-size: $font-size-micro;
 
         &.-closed {
-          @include icon('padlock');
+          @include mask-icon('padlock');
 
           &::before {
             margin-right: .25rem;
+
+            background-color: $color-deep-gray;
           }
         }
       }
@@ -252,12 +296,14 @@ body.-white .nav-bar {
             color: $color-deep-gray;
 
             &.-closed {
-              @include icon('padlock');
+              @include mask-icon('padlock');
 
               &::before {
                 font-size: $font-size-micro;
 
                 margin-right: .35rem;
+
+                background-color: $color-deep-gray;
               }
             }
           }
@@ -282,12 +328,14 @@ body.-white .nav-bar {
           }
 
           & > .-add {
-            @include icon('add');
+            @include mask-icon('add');
 
             &::before {
               font-size: $font-size-nano;
 
               margin-right: .35rem;
+
+              background-color: $color-brand;
             }
           }
         }
@@ -302,12 +350,13 @@ body.-white .nav-bar {
           color: $color-deep-gray;
 
           &:hover {
-            & > span {
+            & > span,
+            & > .info > .item {
               color: $color-brand;
             }
 
-            & > .info > .item {
-              color: $color-brand;
+            & > .info > .item::before {
+              background-color: $color-brand;
             }
           }
 
@@ -330,32 +379,32 @@ body.-white .nav-bar {
               display: flex;
               align-items: center;
 
+              &::before {
+                font-size: $font-size-micro;
+
+                background-color: $color-deep-gray;
+              }
+
               &.-versions {
-                @include icon('document');
+                @include mask-icon('document');
 
                 &::before {
-                  font-size: $font-size-micro;
-
                   margin-right: .25rem;
                 }
               }
 
               &.-participants {
-                @include icon('avatar');
+                @include mask-icon('avatar');
 
                 &::before {
-                  font-size: $font-size-micro;
-
                   margin-right: .25rem;
                 }
               }
 
               &.-opinions {
-                @include icon('comment-black');
+                @include mask-icon('comment-black');
 
                 &::before {
-                  font-size: $font-size-micro;
-
                   margin-right: .25rem;
                 }
               }
