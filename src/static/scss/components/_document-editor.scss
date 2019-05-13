@@ -57,6 +57,21 @@
       display: flex;
       flex-direction: column;
 
+      & > .date {
+        font-size: $font-size-mili;
+        font-weight: 500;
+
+        color: $color-deep-gray;
+
+        &.-inactive {
+          color: $color-red;
+        }
+
+        &.-active {
+          color: $color-brand;
+        }
+      }
+
       &.-editable {
         & > h1 {
           min-height: 52px;

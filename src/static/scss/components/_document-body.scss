@@ -83,7 +83,7 @@
   }
 
   & > article > header > .description {
-    font-size: 1.25rem;
+    font-size: $font-size-deci;
     font-weight: 300;
 
     margin-top: 1rem;
@@ -101,7 +101,7 @@
 
   & > article > header > .info > .group > .epigraph,
   & > article > header > .info > .group > .status {
-    font-size: .875rem;
+    font-size: $font-size-mili;
     font-weight: 500;
   }
 
@@ -115,7 +115,7 @@
   }
 
   & > article > header > .info > .group > .date {
-    font-size: .875rem;
+    font-size: $font-size-mili;
     font-weight: 500;
 
     color: $color-deep-gray;
