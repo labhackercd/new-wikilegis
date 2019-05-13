@@ -1,18 +1,49 @@
 .contextual-toolbar {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.75);
-  color: #FFF;
+
+  margin-top: 1rem;
+  padding: .5rem 1rem;
+
   user-select: none;
 
-  &:focus {
-    background-color: red;
+  border: 1px solid #D0D0D0;
+  border-top: 3px solid #2DA965;
+  border-radius: .25rem;
+  background-color: white;
+  box-shadow: 2px 2px 9px 0 hsla(0, 0%, 50%, .3);
+
+  & > .list {
+    display: flex;
   }
 
-  & > div > button {
-    background-color: blue;
+  & > .list > .item {
+    font-size: .75rem;
+    font-weight: 600;
 
-    &:focus {
-      background-color: green;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .6rem 1rem;
+
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: #474747;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background-color: white;
+  }
+
+  & > .list > .item + .item {
+    margin-left: .1rem;
+  }
+
+  & > .list > .item:focus,
+  & > .list > .item:hover {
+    color: #474747;
+    background-color: hsla(0, 0%, 95%, 1);
   }
 }
