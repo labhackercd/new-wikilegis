@@ -100,6 +100,9 @@ var events = {
   // Triggered when user clicks on clear button
   clearFilters: $.Topic('clearFilters'),
 
+  // Triggered when user clicks on apply filter
+  showFilters: $.Topic('showFilters'),
+
   // Triggered when user send filter modal
   updateSearchParticipants: $.Topic('updateSearchParticipants'),
 
