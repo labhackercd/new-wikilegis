@@ -1,7 +1,7 @@
 /*global $ silegismgEditorArticulacaoController ContextualToolbarView
 DocumentEditorView ValidationModalView InfoMessageView
 CongressmanAutocompleteView PublicFormModalView PublicFormController
-ToolBarView ToolBarController */
+ToolBarView ToolBarController SaveMessageView */
 
 var editor = $('.js-textEditor')[0];
 silegismgEditorArticulacaoController(editor, {
@@ -42,3 +42,6 @@ toolBarController.initEvents();
 
 var toolBarView = new ToolBarView();
 toolBarView.initEvents(documentEditorView);
+
+var saveMessageView = new SaveMessageView();
+saveMessageView.initEvents();

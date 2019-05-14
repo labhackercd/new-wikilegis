@@ -19,16 +19,19 @@ ToolBarController.prototype.subscribers = function() {
 ToolBarController.prototype.publishers = function() {
 };
 
-ToolBarController.prototype.saveDocumentData = function(data) {
-  console.log(data);
+ToolBarController.prototype.saveDocumentData = function(updateData) {
   var request = $.ajax({
-    url: Urls.save_document(data.pk),
+    url: Urls.save_document(updateData.pk),
     method: 'POST',
-    data: data
+    data: updateData
   });
 
   request.done(function(data) {
-    events.showMessage.publish(data.message, 'success', null);
+    if (!updateData.autoSave) {
+      events.showMessage.publish(data.message, 'success', null);
+    }
+
+    events.updateSaveMessage.publish(data.updated);
   });
 
   request.fail(function(jqXHR) {

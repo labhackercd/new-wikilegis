@@ -18,7 +18,7 @@ class DocumentTypeAdmin(admin.ModelAdmin):
 
 @admin.register(models.DocumentVersion)
 class DocumentVersionAdmin(admin.ModelAdmin):
-    list_display = ('document', 'name', 'number', 'auto_save')
+    list_display = ('document', 'name', 'number', 'created', 'auto_save')
     list_filter = ('document',)
 
 

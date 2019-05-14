@@ -1,6 +1,4 @@
 .save-message {
-  font-size: $font-size-mili;
-
   position: fixed;
   z-index: 1;
   bottom: 0;
@@ -10,10 +8,29 @@
   align-items: center;
 
   padding: 1.5rem;
-
   color: $color-gray;
+  font-size: $font-size-mili;
 
-  &:hover {
-    text-decoration: underline;
+  &.-saving {
+    & > .message {
+      transform: translateY(calc(100% + 1.5rem));
+      opacity: 0;
+    }
+    & > .-saving {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
+
+  & > .message {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform .5s ease-in-out, opacity .35s ease-in-out;
+  }
+  & > .-saving {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(calc(100% + 1.5rem));
+  }
+
 }

@@ -73,7 +73,7 @@ class SaveDocumentView(View):
 
         last_version = document.versions.first()
         number = last_version.number + 1
-        DocumentVersion.objects.create(
+        version = DocumentVersion.objects.create(
             document=document,
             number=number
         )
@@ -84,4 +84,7 @@ class SaveDocumentView(View):
         document.description = description
         document.save()
 
-        return JsonResponse({'message': _('Document saved successfully!')})
+        return JsonResponse({
+            'message': _('Document saved successfully!'),
+            'updated': version.created.strftime('%d/%m/%Y às %H:%M')
+        })

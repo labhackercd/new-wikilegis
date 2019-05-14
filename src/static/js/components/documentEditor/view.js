@@ -10,6 +10,7 @@ DocumentEditorView.prototype.initEvents = function(editor, toolbarView) {
   this.documentDescription = $('.js-documentEditor .js-documentHeader .js-description');
   this.documentDescriptionInput = $('.js-documentEditor .js-documentHeader .js-descriptionInput');
   this.documentHeaderInputs = $('.js-documentEditor .js-documentHeader .js-input');
+  this.typing = null;
 
   this.infos = {
     'title': {
@@ -82,6 +83,17 @@ DocumentEditorView.prototype.publishers = function() {
       self.highligthCurrentExcerpt();
     }
   });
+
+  $(self.editor).on('keyup', function(event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode < 37 || keycode > 40) {
+      events.documentChanged.publish();
+      clearTimeout(self.typing);
+      self.typing = setTimeout(function() {
+        events.autoSaveDocument.publish();
+      }, 1500);
+    }
+  })
 };
 
 DocumentEditorView.prototype.startEdition = function(info) {

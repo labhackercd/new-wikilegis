@@ -12,17 +12,22 @@ ToolBarView.prototype.initEvents = function(documentEditorView) {
 };
 
 ToolBarView.prototype.subscribers = function() {
+  var self = this;
+
+  events.autoSaveDocument.subscribe(function() {
+    self.saveDocument(true);
+  })
 };
 
 ToolBarView.prototype.publishers = function() {
   var self = this;
 
   self.saveButton.on('click', function() {
-    self.saveDocument();
+    self.saveDocument(false);
   });
 };
 
-ToolBarView.prototype.saveDocument = function() {
+ToolBarView.prototype.saveDocument = function(autoSave) {
   var html = ''
   if (this.documentEditorView.editor.innerText.length >= 2) {
     html = this.documentEditorView.editor.innerHTML;
@@ -32,7 +37,8 @@ ToolBarView.prototype.saveDocument = function() {
     'pk': $('.js-documentEditor').data('documentId'),
     'title': this.documentEditorView.documentTitleInput.val(),
     'description': this.documentEditorView.documentDescriptionInput.val(),
-    'html': html
+    'html': html,
+    'autoSave': autoSave
   }
   events.saveDocument.publish(data);
 };

@@ -226,6 +226,16 @@ var events = {
   // Params: data (pk, title, description, html)
   saveDocument: $.Topic('saveDocument'),
 
+  // Triggered on auto save
+  autoSaveDocument: $.Topic('autoSaveDocument'),
+
+  // Trigger after any document save
+  // Params: dateString
+  updateSaveMessage: $.Topic('updateSaveMessage'),
+
+  // Triggered while the user is typing
+  documentChanged: $.Topic('documentChanged'),
+
   // Triggered when the document text is loaded
   // Params: text
   documentTextLoaded: $.Topic('documentTextLoaded'),
