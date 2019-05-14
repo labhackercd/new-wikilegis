@@ -8,6 +8,7 @@ from utils.decorators import owner_required
 from constance import config
 from apps.projects.models import Document, DocumentVersion
 from apps.projects.parser import parse_html
+from datetime import datetime
 
 
 @method_decorator(login_required, name='dispatch')
@@ -66,19 +67,28 @@ class SaveDocumentView(View):
 
     def post(self, request, *args, **kwargs):
         document = get_object_or_404(Document, pk=kwargs['pk'])
+        now = datetime.now()
+        document.versions.filter(
+            created__gte=datetime(now.year, now.month, now.day, now.hour, 0),
+            created__lte=datetime(now.year, now.month, now.day, now.hour, 59),
+        ).delete()
 
         title = request.POST.get('title', '')
         description = request.POST.get('description', '')
         html = request.POST.get('html', None)
 
         last_version = document.versions.first()
-        number = last_version.number + 1
+        if last_version:
+            number = last_version.number + 1
+        else:
+            number = 1
+
         version = DocumentVersion.objects.create(
             document=document,
             number=number
         )
         if html:
-            parse_html(html, number, document)
+            parse_html(html, version, document)
 
         document.title = title
         document.description = description
