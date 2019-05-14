@@ -330,27 +330,34 @@ def list_propositions(request):
 @require_ajax
 def create_public_participation(request, document_pk):
     document = Document.objects.get(id=document_pk)
-    congressman_id = request.POST.get('congressman_id')
-    closing_date = request.POST.get('closing_date')
-    group, created = InvitedGroup.objects.get_or_create(
-        document=document, public_participation=True,
-        defaults={'closing_date': closing_date})
-    if created:
-        group.group_status = 'waiting'
-        group.save()
-        url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
-        data = requests.get(url).json()
-        congressman = data['dados']['ultimoStatus']
-        send_public_participation(request.user.get_full_name(),
-                                  congressman['nome'],
-                                  congressman['gabinete']['telefone'],
-                                  congressman['gabinete']['email'],
-                                  group.document.title)
+    congressman_id = request.POST.get('congressman_id', None)
+    closing_date = request.POST.get('closing_date', None)
+    if congressman_id and closing_date:
+        group, created = InvitedGroup.objects.get_or_create(
+            document=document, public_participation=True,
+            defaults={'closing_date': closing_date})
+        if created:
+            group.group_status = 'waiting'
+            group.save()
+            url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
+            data = requests.get(url).json()
+            congressman = data['dados']['ultimoStatus']
+            send_public_participation(request.user.get_full_name(),
+                                      congressman['nome'],
+                                      congressman['gabinete']['telefone'],
+                                      congressman['gabinete']['email'],
+                                      group.document.title)
 
-        return JsonResponse(
-            {'message': _('Sent request!')})
+            return JsonResponse(
+                {'message': _('Sent request!')})
+        else:
+            return JsonResponse(
+                {'error':
+                 _('You cannot request a public participation again')},
+                status=409
+            )
     else:
         return JsonResponse(
-            {'error': _('You cannot request a public participation again')},
-            status=409
+            {'error': _('Congressman and closing date are required!')},
+            status=400
         )

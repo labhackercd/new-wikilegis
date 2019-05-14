@@ -47,7 +47,7 @@ PublicFormModalView.prototype.publishers = function () {
     events.closePublicInfoModal.publish();
   });
 
-  $('.js-publicFormModal .js-send').on('click', function() {
+  $('.js-publicFormModal .js-send').on('click', function(e) {
     self.sendPublicForm();
   });
 };
