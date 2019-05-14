@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import InvitedGroup, Suggestion, OpinionVote, Amendment
+from .models import InvitedGroup, Suggestion, OpinionVote
 
 
 @admin.register(InvitedGroup)
@@ -54,25 +54,3 @@ class OpinionVoteAdmin(admin.ModelAdmin):
         'opinion_vote',
     )
     list_filter = ('created', 'modified', 'suggestion', 'owner')
-
-
-@admin.register(Amendment)
-class AmendmentAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'created',
-        'modified',
-        'invited_group',
-        'content',
-        'excerpt_type',
-        'number',
-        'author',
-        'version',
-    )
-    list_filter = (
-        'created',
-        'modified',
-        'invited_group',
-        'author',
-        'version',
-    )

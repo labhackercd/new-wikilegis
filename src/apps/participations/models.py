@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from utils.model_mixins import TimestampedMixin, ExcerptMixin
+from utils.model_mixins import TimestampedMixin
 from utils.choices import OPINION_VOTE_CHOICES, PARTICIPATION_GROUP_CHOICES
 from django.urls import reverse
 
@@ -21,7 +21,10 @@ class InvitedGroup(TimestampedMixin):
     clusters = models.TextField(blank=True, null=True)
     document_version = models.PositiveIntegerField(default=0)
     text_version = models.PositiveIntegerField(default=0)
-    version = models.PositiveIntegerField(default=0)
+    version = models.ForeignKey('projects.DocumentVersion',
+                                on_delete=models.CASCADE,
+                                verbose_name=_('version'),
+                                related_name='invited_groups')
     group_status = models.CharField(_('group status'), max_length=200,
                                     choices=PARTICIPATION_GROUP_CHOICES,
                                     default='in_progress')
@@ -95,23 +98,3 @@ class OpinionVote(TimestampedMixin):
     def __str__(self):
         return '%s <%s>' % (self.owner.email,
                             self.opinion_vote)
-
-
-class Amendment(ExcerptMixin):
-    document = None
-    invited_group = models.ForeignKey('participations.InvitedGroup',
-                                      on_delete=models.CASCADE,
-                                      related_name='amendments',
-                                      verbose_name=_('invited group'))
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
-                               related_name='amendments',
-                               verbose_name=_('author'))
-
-    class Meta:
-        verbose_name = _('amendment')
-        verbose_name_plural = _('amendments')
-        ordering = ('-version', 'order', 'id')
-
-    def __str__(self):
-        return '%s <%s>' % (self.content,
-                            self.author.email)

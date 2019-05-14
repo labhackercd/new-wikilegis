@@ -1,5 +1,4 @@
 from apps.projects.models import Excerpt, ExcerptType
-from apps.participations.models import Amendment
 from bs4 import BeautifulSoup
 from collections import Counter
 

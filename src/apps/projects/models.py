@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db import models
 from django.urls import reverse
-from utils.model_mixins import TimestampedMixin, ExcerptMixin
+from utils.model_mixins import TimestampedMixin
 from colorful.fields import RGBColorField
 
 
@@ -50,6 +50,7 @@ class DocumentVersion(TimestampedMixin):
         verbose_name = _('document version')
         verbose_name_plural = _('document versions')
         ordering = ['-created']
+        unique_together = ('document', 'number')
 
     def __str__(self):
         return '{} - version {}'.format(self.created, self.number)
@@ -183,7 +184,22 @@ class ExcerptType(models.Model):
         return '%s' % (self.name)
 
 
-class Excerpt(ExcerptMixin):
+class Excerpt(TimestampedMixin):
+    document = models.ForeignKey('projects.Document', on_delete=models.CASCADE,
+                                 verbose_name=_('document'),
+                                 related_name='excerpts')
+    order = models.PositiveIntegerField(_('order'), default=0)
+    excerpt_type = models.ForeignKey('projects.ExcerptType',
+                                     verbose_name=_('excerpt type'),
+                                     blank=True, null=True,
+                                     on_delete=models.SET_NULL)
+    number = models.PositiveIntegerField(_('number'), null=True, blank=True)
+    content = models.TextField(_('content'))
+    version = models.ForeignKey('projects.DocumentVersion',
+                                on_delete=models.CASCADE,
+                                verbose_name=_('version'),
+                                related_name='excerpts')
+
     class Meta:
         verbose_name = _('excerpt')
         verbose_name_plural = _('excerpts')
