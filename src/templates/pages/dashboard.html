@@ -13,13 +13,14 @@
     </div>
   </div>
   <input class="search js-search" type="text" placeholder="Buscar">
+
   <div class="list">
     <a href="{% url 'new_document' %}" class="simple-card -new">
       <span class="icon" aria-label="Adicionar projeto"></span>
-
     </a>
+
     {% for document in object_list %}
-      <a href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="simple-card">
+    <a href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="simple-card">
       <h3 class="js-title">{{ document.title }}</h3>
       <p class="js-description">{{ document.description }}</p>
       <div class="info">
@@ -42,6 +43,50 @@
       </div>
     </a>
     {% endfor %}
+
+    <a href="" class="simple-card">
+
+      <ul class="tags">
+        <li class="app-tag">
+          <img src="{% static 'img/public.svg' %}" alt="">
+          <span>Público</span>
+        </li>
+        <li class="app-tag">
+          <img src="{% static 'img/padlock.svg' %}" alt="">
+          <span>7 Privado</span>
+        </li>
+        <li class="app-tag">
+          <img src="{% static 'img/given-opinions.svg' %}" alt="">
+          <span>76 Sugestões</span>
+        </li>
+      </ul>
+
+      <ul class="tags">
+        <li class="app-tag -theme -{{ theme.slug }}">
+          <span>Educação</span>
+        </li>
+      </ul>
+
+      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
+
+      <p class="js-description">
+        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
+      </p>
+
+      <div class="footer">
+        <div class="document-progress">
+          <span class="begin"><span>3</span> dias atrás</span>
+          <span class="end">Encerra em <span>15</span> dias</span>
+          <div class="progress-bar">
+            <span class="value"></span>
+          </div>
+        </div>
+        
+        <span class="pseudolink">Acessar</span>
+      </div>
+
+    </a>
+
   </div>
 
 </main>

@@ -11,10 +11,12 @@
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
-@mixin card-shadow {
-  transition: box-shadow .3s $swift-out;
-
+@mixin card-shadow($transition: true) {
   box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+
+  @if $transition == true {
+    transition: box-shadow .3s $swift-out;
+  }
 }
 
 @mixin card-darkbg-shadow {
@@ -96,7 +98,6 @@
   &::before {
     display: inline-flex;
 
-    color: $color;
     width: $width;
     min-width: $width;
     height: $height;
@@ -104,6 +105,8 @@
     margin: $margin;
 
     content: '';
+
+    color: $color;
 
     mask-image: url('../../static/img/#{$icon}.svg');
     mask-mode: alpha;

@@ -1,27 +1,36 @@
 .simple-card {
-  display: block;
+  position: relative;
 
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 
+  padding: 1.5rem;
+
+  transition: all .2s $swift-out;
+
+  border: transparent .25rem solid;
   background-color: #FFF;
 
-  @include card-shadow;
+  @include card-shadow(noTransition);
 
-  &.-inactive {
-    & > .header > .date {
-      color: $color-red;
-    }
+  &:hover {
+    border-color: $color-brand;
+    box-shadow: 8px 8px 10px 5px rgba(0, 0, 0, .08);
+  }
 
-    & > h3,
-    & > p,
-    & > .header > .status {
-      color: $color-gray;
-    }
+  &::after {
+    position: absolute;
+    bottom: -.25rem;
+    left: -.25rem;
 
-    & > .info,
-    & > .header > .status > img {
-      opacity: .6;
-    }
+    display: block;
+
+    width: calc(100% + .5rem);
+    height: .25rem;
+
+    content: '';
+
+    background: $color-brand;
   }
 
   &.-new {
@@ -110,85 +119,59 @@
     }
   }
 
-  & > p {
-    margin-top: 1rem;
-  }
-
-  & > .header {
+  & > .tags {
     display: flex;
-    justify-content: space-between;
   }
 
-  & > .header > span {
-    font-size: .75rem;
-    font-weight: 500;
+  & > .tags > .app-tag {
+    margin-bottom: 1rem;
   }
 
-  & > .header > .date {
-    color: $color-brand;
-  }
-
-  & > .header > .status {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    color: $color-deep-gray;
-  }
-
-  & > .header > .status > img {
-    margin-right: .35rem;
-    margin-bottom: .2rem;
-  }
-
-  & > h3 {
-    font-size: 1.4rem;
-    line-height: 1.6;
-
-    margin-top: 1rem;
-  }
-
-  & > .info {
-    font-size: .625rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-top: 1.5rem;
-
-    text-transform: uppercase;
-
-    color: $color-gray;
-  }
-
-  & > .info > .themes,
-  & > .info > .suggestions {
-    display: flex;
-
-    text-align: center;
-  }
-
-  & > .info > .themes > * + * {
+  & > .tags > .app-tag + .app-tag {
     margin-left: 1rem;
   }
 
-  & > .info > .themes > .theme,
-  & > .info > .suggestions > .suggestion {
+  & > h3 {
+    font-size: $font-size-deci;
+
+    margin-top: .25rem;
+  }
+
+  & > p {
+    font-size: $font-size-mili;
+    line-height: 2;
+
+    margin-top: .5rem;
+  }
+
+  & > .footer {
     display: flex;
     align-items: center;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+
+    margin-top: auto;
   }
 
-  & > .info > .themes > .theme > img {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-bottom: .35rem;
+  & > .footer > .document-progress {
+    flex: 1 0 auto;
   }
 
-  & > .info > .suggestions > .suggestion > .value {
-    font-size: 1.5rem;
-    font-weight: bold;
+
+  & > .footer > .pseudolink {
+    font-size: $font-size-micro;
+    line-height: 1;
+
+    flex: 0;
+
+    margin-left: 2rem;
+
+    text-align: right;
+    text-transform: uppercase;
+
+    @include link-style(600);
+  }
+
+  &:hover > .footer > .pseudolink {
+    background-size: 100% 100%;
   }
 }
