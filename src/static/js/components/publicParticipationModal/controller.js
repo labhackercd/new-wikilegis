@@ -40,9 +40,7 @@ PublicFormController.prototype.sendForm = function(documentId, closingDate, cong
 
   request.fail(function(jqXHR) {
     $('.js-formError').html(`
-      <ul class="errorlist nonfield">
         <li>${jqXHR.responseJSON.error}</li>
-      </ul>
     `);
   });
 
