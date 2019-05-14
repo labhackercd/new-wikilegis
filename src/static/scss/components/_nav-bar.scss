@@ -79,25 +79,25 @@ body.-white .nav-bar {
     color: #FFF;
   }
 
-  & > .project > .title {
+  &.-edit > .project > .title {
     color: #FFF;
   }
 
-  & > .project > .dropdown::after {
+  &.-edit > .project > .dropdown::after {
     background-color: #FFF;
   }
 
-  & > .project > .dropdown.-closed::before {
+  &.-edit > .project > .dropdown.-closed::before {
     background-color: #FFF;
   }
 
-  & > .tools > a {
+  &.-edit > .tools > a {
     opacity: .8;
-    color: $color-gray;
+    color: #FFF;
 
     &:hover {
       opacity: 1;
-      color: $color-gray;
+      color: #FFF;
     }
   }
 
