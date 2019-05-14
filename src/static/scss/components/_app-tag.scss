@@ -1,0 +1,46 @@
+.app-tag {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  &.-public > span {
+    color: $color-brand;
+  }
+
+  &.-theme::before {
+    display: block;
+
+    width: 7px;
+    height: 7px;
+
+    content: '';
+
+    border-radius: 50%;
+    background-color: $color-grayish;
+  }
+
+  &.-theme {
+    align-items: center;
+  }
+
+  & > span {
+    font-size: .625rem;
+    font-weight: 600;
+    line-height: 1;
+
+    margin-left: .25rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+}
+
+.simple-card > .tags {
+  display: flex;
+}
+
+.simple-card > .tags > .app-tag + .app-tag {
+  margin-left: 1rem;
+}

@@ -1,0 +1,38 @@
+.document-progress {
+  & > span {
+    font-size: $font-size-micro;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  & > span > span {
+    font-size: $font-size-micro;
+    font-weight: 500;
+  }
+
+  & > .begin {
+    color: $color-brand;
+  }
+
+  & > .end {
+    color: $color-red;
+  }
+
+  & {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &::after {
+    display: block;
+
+    width: 100%;
+    height: .25rem;
+
+    background: $color-grayish;
+  }
+}
