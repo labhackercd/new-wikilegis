@@ -49,9 +49,9 @@
         <input type="text" name="group_name" id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
         <label for="id_group_name">Nome do grupo:</label>
       </div>
-      <div class="input-text -required">
+      <div class="input-text -required -date">
         {{form.closing_date.errors}}
-        {{form.closing_date}}
+        <input type="date" name="closing_date" required id="id_closing_date">
         <label for="id_closing_date">Data de encerramento:</label>
       </div>
     </div>

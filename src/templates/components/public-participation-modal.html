@@ -11,11 +11,11 @@
 {% block content %}
 <h1>Data de encerramento</h1>
 <p>Analise os projetos de lei e contribua com sugestões de nova redação a artigos ou parágrafos.</p>
-<div class="input-text -date">
+<div class="input-text -date -required">
   <input type="date" name="date" class="js-closingDate" maxlength="200" id="id_date">
   <label for="id_date">Data de encerramento</label>
 </div>
-<div class="input-text -congressman js-congressman" data-api-url="{{api_url}}" data-legislature="{{legislature}}">
+<div class="input-text -congressman js-congressman -required" data-api-url="{{api_url}}" data-legislature="{{legislature}}">
   <input class="js-inputAutocomplete" type="text" name="title" id="id_congressman">
   <label for="id_congressman">Deputado responsavel</label>
 </div>
