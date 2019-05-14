@@ -35,8 +35,10 @@
         {% else %}
         <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{public_participation.id}}">
           <span>Participação Pública</span>
-          <div class="info">
-              <div class="item -green">Em andamento</div>
+          <div class="info -full">
+            <div class="item -participants">1</div>
+            <div class="item -opinions">0</div>
+            <div class="item -green">Em andamento</div>
           </div>
         </a>
         {% endif %}
