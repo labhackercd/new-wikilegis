@@ -68,13 +68,7 @@
       }
 
       & > .item {
-        cursor: pointer;
-
-        &:hover {
-          text-decoration: line-through;
-
-          color: $color-red;
-        }
+        font-size: $font-size-micro;
       }
     }
 

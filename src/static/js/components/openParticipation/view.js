@@ -6,6 +6,8 @@ ParticipantsAutocompleteView.prototype.initEvents = function() {
   this.inputNameElement = $('.js-openParticipation .js-search-name');
   this.filter = $('.js-openParticipation .js-searchFilter');
   this.clearFiltersElement = $('.js-openParticipation .js-clearFilters');
+  this.filterListElement = $('.js-openParticipation .js-filterList');
+  this.filterBarElement = $('.js-openParticipation .js-filterBar');
   this.initAutocompleteInput();
   this.publishers();
   this.subscribers();
@@ -57,6 +59,9 @@ ParticipantsAutocompleteView.prototype.subscribers = function () {
   });
   events.clearFilters.subscribe(function(){
     self.clearFilters();
+  });
+  events.showFilters.subscribe(function(){
+    self.showFilters();
   });
 };
 
@@ -249,7 +254,45 @@ ParticipantsAutocompleteView.prototype.addEmail = function(email) {
 };
 
 ParticipantsAutocompleteView.prototype.clearFilters = function () {
+  var self = this;
   localStorage.clear();
   events.resetFilterModalForm.publish();
   events.updateSearchParticipants.publish();
+  self.filterListElement.html('');
+  self.filterBarElement.addClass('_hidden');
+};
+
+ParticipantsAutocompleteView.prototype.showFilters = function () {
+  var self = this;
+
+  self.filterBarElement.removeClass('_hidden');
+
+  if(localStorage.getItem('theme')){
+    $('.js-tag').each(function(){
+      self.filterListElement.append(`
+        <li class="item">${$(this).text()}</li>
+      `);
+    });
+  }
+  if(localStorage.getItem('minAge')){
+    self.filterListElement.append(`
+      <li class="item">${$('.js-minAge').val()}</li>
+    `);
+  }
+  if(localStorage.getItem('maxAge')){
+    self.filterListElement.append(`
+      <li class="item">${$('.js-maxAge').val()}</li>
+    `);
+  }
+  if(localStorage.getItem('gender')){
+    self.filterListElement.append(`
+      <li class="item">${$('.js-gender option:selected').text()}</li>
+    `);
+  }
+  if(localStorage.getItem('locale')){
+    self.filterListElement.append(`
+      <li class="item">${$('.js-locale option:selected').text()}</li>
+    `);
+  }
+
 };

@@ -45,12 +45,9 @@ FilterModalView.prototype.hide = function () {
 };
 
 FilterModalView.prototype.resetForm = function () {
-  // $('.js-filterModal .js-groups').html('');
   $('.js-filterModal .js-tags').html('');
-  $('.js-filterModal .js-groupTitle').addClass('_hidden');
   $('.js-filterModal .js-title').addClass('_hidden');
   $('.js-filterModal .js-inputText').removeClass('-filled');
   $('.js-filterModal input[name="themes"]').remove();
-  $('.js-filterModal input[name="groups"]').remove();
   this.formElement[0].reset();
 };
