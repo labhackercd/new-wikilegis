@@ -132,8 +132,6 @@
   }
 
   & > h3 {
-    font-size: $font-size-deci;
-
     margin-top: .25rem;
   }
 
@@ -150,6 +148,7 @@
     justify-content: space-between;
 
     margin-top: auto;
+    padding-top: 1.25rem;
   }
 
   & > .footer > .document-progress {
