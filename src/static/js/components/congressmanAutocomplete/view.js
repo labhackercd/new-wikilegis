@@ -36,7 +36,7 @@ CongressmanAutocompleteView.prototype.publishers = function() {
     minLength: 2,
     create: function () {
       $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
-        return $('<li class="list">')
+        return $('<li class="item">')
           .append('<img class="avatar" src=' + item.urlFoto + ' alt="img" />')
           .append('<div class="name">' + item.nome + '( ' + item.siglaPartido + ' )' + '</div>')
           .appendTo(ul);
