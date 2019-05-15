@@ -110,8 +110,9 @@
       background-color: #FFF;
       box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
 
-      & > .list {
+      & > .item {
         display: flex;
+        flex: 0;
 
         box-sizing: border-box;
         width: 100%;
@@ -131,6 +132,12 @@
           margin-right: 1rem;
 
           border-radius: 50%;
+
+          object-fit: cover;
+
+          & > img {
+            width: 100%;
+          }
         }
 
         & > .name {
