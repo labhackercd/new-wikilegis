@@ -38,4 +38,10 @@ PublicFormController.prototype.sendForm = function(documentId, closingDate, cong
     $('.js-openPublicParticipation').remove();
   });
 
+  request.fail(function(jqXHR) {
+    $('.js-formError').html(`
+        <li>${jqXHR.responseJSON.error}</li>
+    `);
+  });
+
 };

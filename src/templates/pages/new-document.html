@@ -10,10 +10,9 @@
     {% else %}
     <h2>Criar Novo Projeto</h2>
     {% endif %}
-    <div class="theme-autocomplete js-themeAutocomplete">
+    <div class="theme-autocomplete js-themeAutocomplete -required">
       <input class="js-input" type="text" name="theme-autocomplete">
       <label>{% trans "Tema" %}</label>
-      {{form.themes.errors}}
       <div class="themes">
         <span class="title {% if not object.themes.all %}_hidden{% endif %} js-title">Temas Adicionados:</span>
         <ul class="tags js-tags">
@@ -23,6 +22,7 @@
             {% endfor %}
           {% endif %}
         </ul>
+      {{form.themes.errors}}
       </div>
     {% if object.themes.all %}
       {% for theme in object.themes.all %}
@@ -49,12 +49,12 @@
         {{form.year.errors}}
       </div>
     </div>
-    <div class="input-text">
+    <div class="input-text -required">
       {{form.title}}
       <label for="{{form.title.id_for_label}}">{% trans "Título" %}</label>
       {{form.title.errors}}
     </div>
-    <div class="input-text">
+    <div class="input-text -required">
       {{form.description}}
       <label for="{{form.description.id_for_label}}">{% trans "Descrição" %}</label>
       {{form.description.errors}}

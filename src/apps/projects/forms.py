@@ -6,7 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 class DocumentForm(forms.ModelForm):
     document_type = forms.ModelChoiceField(
         queryset=DocumentType.objects.all(),
-        empty_label='Tipo'
+        empty_label='Tipo',
+        required=False
     )
 
     class Meta:
