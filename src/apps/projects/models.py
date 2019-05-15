@@ -42,6 +42,10 @@ class DocumentVersion(TimestampedMixin):
                                  related_name='versions',
                                  on_delete=models.CASCADE,
                                  verbose_name=_('document'))
+    parent = models.ForeignKey('self', related_name='children',
+                               on_delete=models.CASCADE,
+                               verbose_name=_('parent'),
+                               null=True, blank=True)
     number = models.PositiveIntegerField(default=0)
     auto_save = models.BooleanField(default=True)
     name = models.CharField(max_length=100, blank=True, null=True)
@@ -84,7 +88,7 @@ class Document(TimestampedMixin):
 
     def get_excerpts(self):
         last_version = self.versions.first()
-        return self.excerpts.filter(version=last_version.number)
+        return self.excerpts.filter(version=last_version)
 
     def save(self):
         self.slug = slugify(self.title)

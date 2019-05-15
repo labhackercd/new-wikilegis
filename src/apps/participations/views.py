@@ -65,6 +65,15 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
                 _('Participants are required')))
             return super().form_invalid(form)
         self.object.thematic_group = thematic_group
+
+        version = self.request.POST.get('version', None)
+        if version:
+            self.object.version = self.object.document.versions.get(
+                number=version
+            )
+        else:
+            self.object.version = self.object.document.versions.first()
+
         self.object.save()
         return super().form_valid(form)
 
@@ -334,10 +343,22 @@ def create_public_participation(request, document_pk):
     document = Document.objects.get(id=document_pk)
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
+
+    version = request.POST.get('version', None)
+    if version:
+        current_version = document.versions.get(
+            number=version
+        )
+    else:
+        current_version = document.versions.first()
+
     if congressman_id and closing_date:
         group, created = InvitedGroup.objects.get_or_create(
             document=document, public_participation=True,
-            defaults={'closing_date': closing_date})
+            defaults={
+                'closing_date': closing_date,
+                'version': current_version
+            })
         if created:
             group.group_status = 'waiting'
             group.save()
