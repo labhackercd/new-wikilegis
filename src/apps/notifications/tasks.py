@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from apps.notifications.models import OwnerInvitation, PublicAuthorization
 from apps.notifications.emails import (send_owner_invitation,
-                                       send_congressman_authorization)
+                                       send_public_authorization)
 
 
 @receiver(post_save, sender=OwnerInvitation)
@@ -15,6 +15,9 @@ def save_owner_invitation(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=PublicAuthorization)
-def save_public_authorization(sender, instance, created, **kwargs):
+def save_public_authorization(sender, instance, created, update_fields,
+                              **kwargs):
     if created:
-        send_congressman_authorization(instance)
+        send_public_authorization(instance)
+    elif 'closing_date' in update_fields:
+        send_public_authorization(instance, True)

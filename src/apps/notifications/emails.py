@@ -52,12 +52,14 @@ def send_remove_participant(document, participant_email):
     mail.send()
 
 
-def send_congressman_authorization(public_authorization):
+def send_public_authorization(public_authorization, updated=False):
     html = render_to_string(
         'emails/congressman_authorization.html',
         {'document_owner': public_authorization.group.document.owner,
          'document_title': public_authorization.group.document.title,
-         'hash_id': public_authorization.hash_id})
+         'closing_date': public_authorization.group.closing_date,
+         'hash_id': public_authorization.hash_id,
+         'updated': updated})
     subject = _('[Wikilegis] Authorization request')
     mail = EmailMultiAlternatives(subject, '',
                                   settings.EMAIL_HOST_USER,

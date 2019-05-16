@@ -41,6 +41,7 @@ class PublicAuthorization(TimestampedMixin):
                               on_delete=models.CASCADE,
                               related_name='authorization_emails',
                               verbose_name=_('group'))
+    closing_date = models.DateField(_('closing date'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('public authorization')

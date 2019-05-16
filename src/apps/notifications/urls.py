@@ -8,7 +8,7 @@ urlpatterns = [
          views.authorization,
          name="authorization"),
     path('public-participation/authorization/<uuid:hash>/',
-         views.InvitationRedirectView.as_view(),
+         views.PublicAuthorizationView.as_view(),
          name="public-authorization"),
     path('public-participation/authorized/',
          TemplateView.as_view(template_name='pages/group-authorized.html'),

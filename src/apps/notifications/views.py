@@ -20,7 +20,7 @@ def authorization(request, hash):
         raise PermissionDenied
 
 
-class InvitationRedirectView(RedirectView):
+class PublicAuthorizationView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
