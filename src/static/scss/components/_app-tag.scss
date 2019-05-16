@@ -12,6 +12,7 @@
 
     width: 7px;
     height: 7px;
+    margin-bottom: 1px;
 
     content: '';
 
@@ -35,12 +36,4 @@
 
     color: $color-gray;
   }
-}
-
-.simple-card > .tags {
-  display: flex;
-}
-
-.simple-card > .tags > .app-tag + .app-tag {
-  margin-left: 1rem;
 }
