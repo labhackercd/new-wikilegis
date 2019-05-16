@@ -6,7 +6,8 @@ from utils.decorators import require_ajax
 from datetime import date
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
-from apps.projects.models import Excerpt, Theme, Document
+from apps.projects.models import Excerpt, Theme, Document, DocumentVersion
+from apps.projects import versions
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation, PublicAuthorization
@@ -67,12 +68,13 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
         self.object.thematic_group = thematic_group
 
         version = self.request.POST.get('version', None)
-        if version:
-            self.object.version = self.object.document.versions.get(
-                number=version
-            )
-        else:
-            self.object.version = self.object.document.versions.first()
+        new_version = versions.create_named_version(
+            self.object.document,
+            self.object.thematic_group.name,
+            version
+        )
+
+        self.object.version = new_version
 
         self.object.save()
         return super().form_valid(form)
@@ -345,19 +347,18 @@ def create_public_participation(request, document_pk):
     closing_date = request.POST.get('closing_date', None)
 
     version = request.POST.get('version', None)
-    if version:
-        current_version = document.versions.get(
-            number=version
-        )
-    else:
-        current_version = document.versions.first()
+    new_version = versions.create_named_version(
+        document,
+        _('Public participation'),
+        version
+    )
 
     if congressman_id and closing_date:
         group, created = InvitedGroup.objects.get_or_create(
             document=document, public_participation=True,
             defaults={
                 'closing_date': closing_date,
-                'version': current_version
+                'version': new_version
             })
         if created:
             group.group_status = 'waiting'
