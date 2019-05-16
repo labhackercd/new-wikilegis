@@ -1,6 +1,7 @@
 from django.views.generic import RedirectView, UpdateView, View
 from django.shortcuts import get_object_or_404
-from .models import Document
+from django.utils.translation import ugettext_lazy as _
+from .models import Document, DocumentVersion
 from .forms import DocumentForm
 from apps.notifications.models import ParcipantInvitation
 from django.http import Http404, JsonResponse
@@ -84,8 +85,19 @@ class DocumentTextView(View):
         document = get_object_or_404(Document, pk=kwargs['pk'])
         version = request.GET.get('version', None)
 
-        rendered = render_to_string(
-            'txt/document_text',
-            {'excerpts': document.get_excerpts(version=version)}
-        )
-        return JsonResponse({'html': rendered})
+        try:
+            rendered = render_to_string(
+                'txt/document_text',
+                {'excerpts': document.get_excerpts(version=version)}
+            )
+            return JsonResponse({'html': rendered})
+        except DocumentVersion.DoesNotExist:
+            rendered = render_to_string(
+                'txt/document_text',
+                {'excerpts': document.get_excerpts()}
+            )
+            return JsonResponse({
+                'message': _('Version not found! '
+                             'We loaded the last version for you :)'),
+                'html': rendered
+            }, status=404)

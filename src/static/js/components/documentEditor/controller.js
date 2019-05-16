@@ -31,4 +31,12 @@ DocumentEditorController.prototype.loadTextData = function() {
     }
   });
 
+  request.fail(function(jqXHR) {
+    var data = jqXHR.responseJSON;
+    events.showMessage.publish(data.message, 'fail', null);
+
+    if (data.html.trim() !== '') {
+      events.documentTextLoaded.publish(data.html);
+    }
+  })
 };
