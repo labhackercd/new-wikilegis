@@ -41,10 +41,11 @@
 
       &::after {
         font-weight: 400 !important;
+        background-color: rgba(#FFF, .95);
       }
 
       &.-active {
-        > svg path {
+         > svg path {
           fill: $color-brand;
         }
       }

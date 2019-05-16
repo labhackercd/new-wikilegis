@@ -48,3 +48,6 @@ saveMessageView.initEvents();
 
 var saveModalView = new SaveModalView();
 saveModalView.initEvents();
+
+var documentSideBarView = new DocumentSideBarView();
+documentSideBarView.initEvents();

@@ -23,9 +23,10 @@
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
 
   {% if page == 'editor' %}
+    {% include "components/timeline-sidebar.html" %}
     {% include "components/document-editor.html" %}
   {% elif page == 'clusters' %}
-    {% include "components/side-bar.html" %}
+    {% include "components/cluster-sidebar.html" %}
     {% include "components/document-opinions.html" %}
   {% endif %}
 
@@ -44,26 +45,26 @@
 
 {% block page_js %}
 <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
-<script src="{% static '/js/components/validationModal/view.js' %}"></script>
+<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
+<script src="{% static 'js/components/validationModal/view.js' %}"></script>
 <script src="{% static 'js/components/publicParticipationModal/view.js' %}"></script>
 <script src="{% static 'js/components/publicParticipationModal/controller.js' %}"></script>
 <script src="{% static 'js/components/congressmanAutocomplete/view.js' %}"></script>
 {% if page == 'editor' %}
-<script src="{% static '/js/utils/position.js' %}"></script>
-<script src="{% static '/js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
-<script src="{% static '/js/components/infoMessage/view.js' %}"></script>
-<script src="{% static '/js/components/saveMessage/view.js' %}"></script>
-<script src="{% static '/js/components/saveModal/view.js' %}"></script>
-<script src="{% static '/js/components/documentEditor/controller.js' %}"></script>
-<script src="{% static '/js/components/documentEditor/view.js' %}"></script>
-<script src="{% static '/js/components/toolBar/controller.js' %}"></script>
-<script src="{% static '/js/components/toolBar/view.js' %}"></script>
-<script src="{% static '/js/components/contextualToolbar/view.js' %}"></script>
-<script src="{% static '/js/components/navBar/view.js' %}"></script>
-<script src="{% static '/js/pages/editDocument.js' %}"></script>
+<script src="{% static 'js/utils/position.js' %}"></script>
+<script src="{% static 'js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
+<script src="{% static 'js/components/infoMessage/view.js' %}"></script>
+<script src="{% static 'js/components/saveMessage/view.js' %}"></script>
+<script src="{% static 'js/components/saveModal/view.js' %}"></script>
+<script src="{% static 'js/components/documentEditor/controller.js' %}"></script>
+<script src="{% static 'js/components/documentEditor/view.js' %}"></script>
+<script src="{% static 'js/components/toolBar/controller.js' %}"></script>
+<script src="{% static 'js/components/toolBar/view.js' %}"></script>
+<script src="{% static 'js/components/contextualToolbar/view.js' %}"></script>
+<script src="{% static 'js/components/navBar/view.js' %}"></script>
+<script src="{% static 'js/pages/editDocument.js' %}"></script>
 {% elif page == 'clusters' %}
 <script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
-<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
 <script src="{% static 'js/components/clusters/view.js' %}"></script>
 <script src="{% static 'js/components/textHighlight/view.js' %}"></script>
 <script src="{% static 'js/pages/clustersDocument.js' %}"></script>

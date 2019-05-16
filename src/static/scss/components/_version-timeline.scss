@@ -1,0 +1,203 @@
+.version-timeline {
+  $navbar-height: 3.75rem;
+  $border: 1px solid $color-grayish;
+
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-direction: column;
+
+  height: calc(100% - 5rem);
+
+  &::-webkit-scrollbar {
+    width: 0;
+
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #F00;
+  }
+
+  &::before {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+
+    display: block;
+
+    width: 1px;
+    height: 100%;
+
+    content: '';
+
+    background-color: $color-grayish;
+  }
+
+  & > .-active {
+    background-color: #FFF;
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  & > .item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    flex-direction: column;
+
+    cursor: pointer;
+    user-select: none;
+    transition: all .25s ease;
+
+    background-color: $color-whisper;
+
+    &::before {
+      position: absolute;
+      z-index: 2;
+      right: -2px;
+
+      display: block;
+
+      width: 5px;
+      height: 100%;
+
+      content: '';
+      transition: all .15s $swift-out;
+
+      opacity: 0;
+      background-color: #FFF;
+    }
+
+    &:hover {
+      transition: all .1s ease;
+
+      background-color: #FFF;
+
+      & > .count,
+      & > .text {
+        transform: translateX(.5rem);
+      }
+    }
+  }
+
+  & > .item.-active {
+    background-color: #FFF;
+  }
+
+  & > .item:first-of-type > .named::before {
+    top: 50%;
+
+    height: 50%;
+  }
+
+  & > .item > .named > *,
+  & > .item > .autosaves > .save > span {
+    padding-left: 1.6rem;
+  }
+
+  & > .item > .named,
+  & > .item > .autosaves > .save {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem 1.6rem;
+  }
+
+  & > .item > .named::before,
+  & > .item > .named::after,
+  & > .item > .autosaves > .save::before,
+  & > .item > .autosaves > .save::after {
+    position: absolute;
+
+    display: block;
+
+    content: '';
+  }
+
+  & > .item > .named::before,
+  & > .item > .autosaves > .save::before {
+    top: 0;
+
+    height: 100%;
+
+    border: $border;
+  }
+
+  & > .item > .named::after,
+  & > .item > .autosaves > .save::after {
+    top: 50%;
+
+    width: .75rem;
+    height: .75rem;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+  }
+
+  & > .item > .named::after {
+    margin-left: -.5rem;
+
+    border: solid 3px;
+    border-color: $color-brand;
+    background-color: $color-brand;
+  }
+
+  & > .item > .named > * + * {
+    margin-top: .25rem;
+  }
+
+  & > .item > .named > .title {
+    font-size: $font-size-deci;
+
+    color: $color-brand;
+  }
+
+  & > .item > .named > span,
+  & > .item > .autosaves > .save {
+    font-size: $font-size-nano;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+
+  & > .item > .autosaves {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    display: none;
+  }
+
+  & > .item > .autosaves > .save {
+    width: 100%;
+
+    &:hover {
+      background-color: $color-whisper;
+
+      &::after {
+        background-color: $color-blueish;
+      }
+    }
+  }
+
+  & > .item > .autosaves > .save::after {
+    margin-left: -.35rem;
+
+    border: solid 1.5px;
+    border-color: $color-blueish;
+    background-color: #FFF;
+  }
+}
