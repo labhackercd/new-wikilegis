@@ -1,4 +1,4 @@
-.simple-card {
+.document-card {
   position: relative;
 
   display: flex;
@@ -14,8 +14,21 @@
   @include card-shadow(noTransition);
 
   &:hover {
-    border-color: $color-brand;
+    border-color: $color-gray;
     box-shadow: 8px 8px 10px 5px rgba(0, 0, 0, .08);
+  }
+
+  &.-public:hover {
+    border-color: $color-brand;
+  }
+
+  &.-onhold:hover {
+    border-color: $color-orange;
+  }
+
+  &.-owner:hover {
+    border-color: transparent;
+    @include card-shadow(noTransition);
   }
 
   &::after {
@@ -30,7 +43,20 @@
 
     content: '';
 
+    background: $color-gray;
+  }
+
+
+  &.-public::after {
     background: $color-brand;
+  }
+
+  &.-onhold::after {
+    background: $color-orange;
+  }
+
+  &.-owner {
+    cursor: default;
   }
 
   &.-new {
@@ -41,6 +67,11 @@
     border: 2px dashed $color-grayish;
     background: none;
     box-shadow: none;
+
+    &::after {
+      display: none;
+    }
+
 
     &:hover {
       & > .icon {
@@ -121,18 +152,22 @@
 
   & > .tags {
     display: flex;
+    flex-wrap: wrap;
+
+    margin: 0 -.5rem;
   }
 
   & > .tags > .app-tag {
+    margin: 0 .5rem;
     margin-bottom: 1rem;
-  }
-
-  & > .tags > .app-tag + .app-tag {
-    margin-left: 1rem;
   }
 
   & > h3 {
     margin-top: .25rem;
+  }
+
+  &.-closed > h3 {
+    color: $color-gray;
   }
 
   & > p {
@@ -140,6 +175,10 @@
     line-height: 2;
 
     margin-top: .5rem;
+  }
+
+  &.-closed > p {
+    color: $color-gray;
   }
 
   & > .footer {
@@ -155,10 +194,20 @@
     flex: 1 0 auto;
   }
 
+  & > .footer > .status > .closed {
+    font-size: $font-size-mili;
+    font-weight: 500;
+    line-height: 1;
+
+    color: $color-red;
+  }
+
+  & > .footer > .status > .feedback-status {
+    margin-top: .5rem;
+  }
 
   & > .footer > .pseudolink {
     font-size: $font-size-micro;
-    line-height: 1;
 
     flex: 0;
 
@@ -172,5 +221,23 @@
 
   &:hover > .footer > .pseudolink {
     background-size: 100% 100%;
+  }
+
+  & > .footer > .actions {
+    display: flex;
+    align-items: center;
+    flex: 1 0 auto;
+  }
+
+  & > .footer > .actions > a {
+    font-size: .75rem;
+
+    text-transform: uppercase;
+
+    @include link-style(600);
+  }
+
+  & > .footer > .actions > a + a {
+    margin-left: 1.5rem;
   }
 }

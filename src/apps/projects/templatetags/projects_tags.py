@@ -179,3 +179,26 @@ def is_open(closing_date):
     else:
         is_open = False
     return is_open
+
+
+@register.filter()
+def has_public_group(document):
+    if document.invited_groups.filter(public_participation=True):
+        return True
+    else:
+        return False
+
+
+@register.filter()
+def has_group(document):
+    if document.invited_groups.all():
+        return True
+    else:
+        return False
+
+
+@register.filter()
+def count_private_groups(document):
+    total_groups = document.invited_groups.filter(
+        public_participation=False).count()
+    return total_groups

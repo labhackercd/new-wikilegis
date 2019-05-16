@@ -27,7 +27,7 @@
   <div class="list">
   {% if pending_invites and request.user.is_authenticated %}
     {% for invite in pending_invites %}
-    <div class="simple-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
+    <div class="document-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
       <div class="header">
       {% if invite.group.closing_date|is_open %}
         <span class="date">Aberto até {{invite.group.closing_date|date:"d/m/Y"}}</span>
@@ -72,7 +72,7 @@
   {% endif %}
   {% if private_groups and request.user.is_authenticated %}
     {% for private_group in private_groups %}
-    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="simple-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
+    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
       <div class="header">
       {% if private_group.closing_date|is_open %}
         <span class="date">Aberto até {{private_group.closing_date|date:"d/m/Y"}}</span>
@@ -107,7 +107,7 @@
   {% endif %}
   {% if public_groups %}
     {% for public_group in public_groups %}
-    <a href="{% url 'project' public_group.id public_group.document.slug %}" class="simple-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
+    <a href="{% url 'project' public_group.id public_group.document.slug %}" class="document-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
       <div class="header">
       {% if public_group.closing_date|is_open %}
         <span class="date">Aberto até {{public_group.closing_date|date:"d/m/Y"}}</span>
