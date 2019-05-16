@@ -86,8 +86,12 @@ class Document(TimestampedMixin):
                        kwargs={'template': 'editor',
                                'pk': self.id})
 
-    def get_excerpts(self):
-        last_version = self.versions.first()
+    def get_excerpts(self, version=None):
+        if version:
+            last_version = self.versions.get(number=version)
+        else:
+            last_version = self.versions.first()
+
         return self.excerpts.filter(version=last_version)
 
     def save(self):

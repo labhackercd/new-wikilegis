@@ -82,8 +82,10 @@ class DocumentTextView(View):
 
     def get(self, request, *args, **kwargs):
         document = get_object_or_404(Document, pk=kwargs['pk'])
+        version = request.GET.get('version', None)
+
         rendered = render_to_string(
             'txt/document_text',
-            {'excerpts': document.get_excerpts()}
+            {'excerpts': document.get_excerpts(version=version)}
         )
         return JsonResponse({'html': rendered})

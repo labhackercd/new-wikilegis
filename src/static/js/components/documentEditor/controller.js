@@ -13,8 +13,15 @@ DocumentEditorController.prototype.publishers = function() {
 
 DocumentEditorController.prototype.loadTextData = function() {
   var documentId = $('.js-documentEditor').data('documentId');
+
+  var searchParams = new URLSearchParams(window.location.search);
+  var currentVersion = ''
+  if (searchParams.has('version')) {
+    currentVersion = searchParams.get('version');
+  }
+
   var request = $.ajax({
-    url: Urls.document_text(documentId),
+    url: Urls.document_text(documentId) + '?version=' + currentVersion,
     method: 'GET',
   });
 
