@@ -67,11 +67,6 @@ class SaveDocumentView(View):
 
     def post(self, request, *args, **kwargs):
         document = get_object_or_404(Document, pk=kwargs['pk'])
-        now = datetime.now()
-        document.versions.filter(
-            created__gte=datetime(now.year, now.month, now.day, now.hour, 0),
-            created__lte=datetime(now.year, now.month, now.day, now.hour, 59),
-        ).delete()
 
         title = request.POST.get('title', '')
         description = request.POST.get('description', '')
