@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ParcipantInvitation, OwnerInvitation
+from .models import ParcipantInvitation, OwnerInvitation, PublicAuthorization
 
 
 @admin.register(ParcipantInvitation)
@@ -26,3 +26,16 @@ class OwnerInvitationAdmin(admin.ModelAdmin):
         'email',
     )
     list_filter = ('created', 'modified')
+
+
+@admin.register(PublicAuthorization)
+class PublicAuthorizationAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'created',
+        'modified',
+        'congressman_email',
+        'hash_id',
+        'group',
+    )
+    list_filter = ('created', 'modified', 'group')

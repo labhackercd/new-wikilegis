@@ -50,3 +50,17 @@ def send_remove_participant(document, participant_email):
                                   [participant_email])
     mail.attach_alternative(html, 'text/html')
     mail.send()
+
+
+def send_congressman_authorization(public_authorization):
+    html = render_to_string(
+        'emails/congressman_authorization.html',
+        {'document_owner': public_authorization.group.document.owner,
+         'document_title': public_authorization.group.document.title,
+         'hash_id': public_authorization.hash_id})
+    subject = _('[Wikilegis] Authorization request')
+    mail = EmailMultiAlternatives(subject, '',
+                                  settings.EMAIL_HOST_USER,
+                                  [public_authorization.congressman_email])
+    mail.attach_alternative(html, 'text/html')
+    mail.send()

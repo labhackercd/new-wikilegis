@@ -9,7 +9,7 @@ from django.views.generic import ListView, DetailView, UpdateView
 from apps.projects.models import Excerpt, Theme, Document
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
-from apps.notifications.models import ParcipantInvitation
+from apps.notifications.models import ParcipantInvitation, PublicAuthorization
 from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -347,6 +347,9 @@ def create_public_participation(request, document_pk):
                                       congressman['gabinete']['telefone'],
                                       congressman['gabinete']['email'],
                                       group.document.title)
+            PublicAuthorization.objects.create(
+                congressman_email=congressman['gabinete']['email'],
+                group=group)
 
             return JsonResponse(
                 {'message': _('Sent request!')})

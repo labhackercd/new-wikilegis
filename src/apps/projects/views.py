@@ -11,7 +11,7 @@ from django.urls import reverse
 
 
 class InvitationRedirectView(RedirectView):
-    url = '/'
+    permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
         invitation = get_object_or_404(ParcipantInvitation, pk=kwargs['pk'])
@@ -26,7 +26,10 @@ class InvitationRedirectView(RedirectView):
 
         invitation.save()
 
-        return super().get_redirect_url(*args, **kwargs)
+        return reverse(
+            'project',
+            kwargs={'id': invitation.group.id,
+                    'documment_slug': invitation.group.document.slug})
 
 
 @method_decorator(login_required, name='dispatch')
