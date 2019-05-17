@@ -20,7 +20,7 @@ SaveModalView.prototype.subscribers = function() {
 
   events.updateSaveMessage.subscribe(function() {
     self.saveModal.removeClass('-show');
-    this.nameInput.val('');
+    self.nameInput.val('');
     events.closeModal.publish();
   });
 };
