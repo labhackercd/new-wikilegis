@@ -32,7 +32,7 @@ PublicFormModalView.prototype.publishers = function () {
   var self = this;
 
   self.openPublicFormButton.on('click', function(e) {
-     e.preventDefault();
+    e.preventDefault();
     events.openPublicFormModal.publish();
   });
 

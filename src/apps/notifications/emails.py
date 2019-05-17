@@ -53,11 +53,16 @@ def send_remove_participant(document, participant_email):
 
 
 def send_public_authorization(public_authorization, updated=False):
+    if updated:
+        closing_date = public_authorization.closing_date
+    else:
+        closing_date = public_authorization.group.closing_date
+
     html = render_to_string(
         'emails/congressman_authorization.html',
         {'document_owner': public_authorization.group.document.owner,
          'document_title': public_authorization.group.document.title,
-         'closing_date': public_authorization.closing_date,
+         'closing_date': closing_date,
          'hash_id': public_authorization.hash_id,
          'updated': updated})
     subject = _('[Wikilegis] Authorization request')
