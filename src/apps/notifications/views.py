@@ -28,6 +28,8 @@ class PublicAuthorizationView(RedirectView):
                                           hash_id=kwargs['hash'])
         public_group = authorization.group
         public_group.group_status = 'in_progress'
+        if authorization.closing_date:
+            public_group.closing_date = authorization.closing_date
         public_group.save()
 
         return reverse('group-authorized')

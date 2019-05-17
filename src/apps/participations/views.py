@@ -91,6 +91,8 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
         obj = super().get_object(queryset)
         if obj.document.owner != self.request.user:
             raise Http404
+        elif obj.public_participation:
+            raise Http404
         return obj
 
     def form_valid(self, form):

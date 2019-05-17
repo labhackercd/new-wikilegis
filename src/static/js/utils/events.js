@@ -217,4 +217,8 @@ var events = {
   // Triggered when user click on send button
   // Params: documentId, closingDate, congressmanId
   sendPublicForm: $.Topic('sendPublicForm'),
+
+  // Triggered when user click on send button
+  // Params: groupId, closingDate, congressmanId
+  sendUpdatePublicForm: $.Topic('sendUpdatePublicForm'),
 };

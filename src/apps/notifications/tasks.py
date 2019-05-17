@@ -17,7 +17,7 @@ def save_owner_invitation(sender, instance, **kwargs):
 @receiver(post_save, sender=PublicAuthorization)
 def save_public_authorization(sender, instance, created, update_fields,
                               **kwargs):
-    if created:
-        send_public_authorization(instance)
-    elif 'closing_date' in update_fields:
+    if instance.closing_date:
         send_public_authorization(instance, True)
+    else:
+        send_public_authorization(instance)

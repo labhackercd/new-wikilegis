@@ -12,6 +12,10 @@ PublicFormController.prototype.subscribers = function() {
   events.sendPublicForm.subscribe(function(documentId, closingDate, congressmanId) {
     self.sendForm(documentId, closingDate, congressmanId);
   });
+
+  events.sendUpdatePublicForm.subscribe(function(groupId, closingDate, congressmanId) {
+    self.sendUpdateForm(groupId, closingDate, congressmanId);
+  });
 };
 
 PublicFormController.prototype.sendForm = function(documentId, closingDate, congressmanId) {
@@ -36,6 +40,29 @@ PublicFormController.prototype.sendForm = function(documentId, closingDate, cong
         </a>
       `);
     $('.js-openPublicParticipation').remove();
+  });
+
+  request.fail(function(jqXHR) {
+    $('.js-formError').html(`
+        <li>${jqXHR.responseJSON.error}</li>
+    `);
+  });
+
+};
+
+PublicFormController.prototype.sendUpdateForm = function(groupId, closingDate, congressmanId) {
+  var request = $.ajax({
+    url: Urls.update_public_participation(groupId),
+    method: 'POST',
+    data: {
+      closing_date: closingDate,
+      congressman_id: congressmanId
+    }
+  });
+
+  request.done(function() {
+    events.closePublicFormModal.publish();
+    events.openPublicInfoModal.publish();
   });
 
   request.fail(function(jqXHR) {
