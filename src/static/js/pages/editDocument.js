@@ -51,3 +51,6 @@ saveModalView.initEvents();
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
+
+var timelineSidebarView = new TimelineSidebarView();
+timelineSidebarView.initEvents();

@@ -37,7 +37,7 @@
   & > .-active {
     background-color: #FFF;
 
-    &::before {
+    & > .item::before {
       opacity: 1;
     }
   }
@@ -52,7 +52,6 @@
 
     cursor: pointer;
     user-select: none;
-    transition: all .25s ease;
 
     background-color: $color-whisper;
 
@@ -74,14 +73,7 @@
     }
 
     &:hover {
-      transition: all .1s ease;
-
       background-color: #FFF;
-
-      & > .count,
-      & > .text {
-        transform: translateX(.5rem);
-      }
     }
   }
 
@@ -95,9 +87,17 @@
     height: 50%;
   }
 
+  & > .item > .named {
+    &:hover > * {
+      transform: translateX(.5rem);
+    }
+  }
+
   & > .item > .named > *,
   & > .item > .autosaves > .save > span {
     padding-left: 1.6rem;
+
+    transition: all .15s $swift-out;
   }
 
   & > .item > .named,
@@ -149,6 +149,10 @@
 
     border: solid 3px;
     border-color: $color-brand;
+    background-color: $color-whitesmoke;
+  }
+
+  & > .item > .named.-selected::after {
     background-color: $color-brand;
   }
 
@@ -173,24 +177,49 @@
   }
 
   & > .item > .autosaves {
-    display: flex;
+    position: relative;
+
     flex-direction: column;
 
     width: 100%;
 
+    transition: all .35s $swift-out;
+
     display: none;
+  }
+
+  & > .item > .autosaves.-show {
+    display: flex;
   }
 
   & > .item > .autosaves > .save {
     width: 100%;
 
     &:hover {
-      background-color: $color-whisper;
-
-      &::after {
-        background-color: $color-blueish;
+      & > span {
+        transform: translateX(.5rem);
       }
     }
+
+    &.-selected::after {
+      background-color: $color-blueish;
+    }
+  }
+
+  & > .item > .named.-stick,
+  & > .item > .autosaves > .save.-stick {
+    position: sticky;
+    background: white;
+    z-index: 1;
+  }
+
+  & > .item > .named.-stick {
+    top: 0;
+  }
+
+  & > .item > .autosaves > .save.-stick {
+    top: 6.5rem;
+    bottom: 0;
   }
 
   & > .item > .autosaves > .save::after {
