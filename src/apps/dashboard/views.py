@@ -58,6 +58,20 @@ class DocumentEditorClusterView(DetailView):
                 context['group'] = self.object.invited_groups.get(id=group_id)
             else:
                 context['group'] = self.object.invited_groups.first()
+
+        if page == 'editor':
+            context['named_versions'] = self.object.versions.filter(
+                name__isnull=False,
+                auto_save=False
+            )
+            version = self.request.GET.get('version', None)
+            if version:
+                context['selected_version'] = self.object.versions.get(
+                    number=version
+                )
+            else:
+                context['selected_version'] = self.object.versions.first()
+
         return context
 
 

@@ -4,6 +4,20 @@
     <div class="compare">Comparar</div>
   </div>
   <ol class="version-timeline js-timelineSidebar">
+    {% for version in named_versions %}
+      <li class="item js-namedVersions {% if version == selected_version or version == selected_version.parent %}-active{% endif %}">
+        <div class="named js-namedVersion js-version {% if version == selected_version %}-selected{% endif %}">
+          <span class="time">{{version.created|date:'H\hi'}}</span>
+          <h2 class="title">{{version.name}}</h2>
+          <span class="date">{{version.created|date:'d \d\e b, Y'}}</span>
+        </div>
+        <ol class="autosaves js-autosaves {% if version == selected_version.parent %}-show{% endif %}">
+          {% for autosave in version.children.all %}
+            <a href="" class="save js-version {% if autosave == selected_version %}-selected{% endif %}"><span>{{autosave.created|date:'H\hi'}} - {{autosave.created|date:'d \d\e b, Y'}}</span></a>
+          {% endfor %}
+        </ol>
+      </li>
+    {% endfor %}
     <li class="item -active js-namedVersions">
       <div class="named -selected js-namedVersion js-version">
         <span class="time">17:00</span>
