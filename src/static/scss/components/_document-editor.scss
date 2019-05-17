@@ -3,10 +3,10 @@
 
   & > .side-bar {
     transform: translateX(0);
+  }
 
-    & > .toggle::before {
-      transform: rotate(180deg);
-    }
+  & > .side-bar > .toggle::before {
+    transform: rotate(180deg);
   }
 }
 
@@ -50,74 +50,72 @@
     max-width: 66ch;
     margin: 0 auto;
     padding: 2rem 1.6rem 5rem 1.6rem;
+  }
 
-    & > p {
-      position: relative;
-    }
+  & > article > p {
+    position: relative;
+  }
 
-    & > header {
-      position: relative;
+  & > article > header {
+    position: relative;
 
-      display: flex;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
+  }
 
-      & > .date {
-        font-size: $font-size-mili;
-        font-weight: 500;
+  & > article > header > .date {
+    font-size: $font-size-mili;
+    font-weight: 500;
 
-        color: $color-deep-gray;
+    color: $color-deep-gray;
+  }
 
-        &.-inactive {
-          color: $color-red;
-        }
+  & > article > header > .date.-inactive {
+    color: $color-red;
+  }
 
-        &.-active {
-          color: $color-brand;
-        }
-      }
+  & > article > header > .date.-active {
+    color: $color-brand;
+  }
 
-      &.-editable {
-        & > h1 {
-          min-height: 52px;
-        }
+  & > article > header > .-editable > h1 {
+    min-height: 52px;
+  }
 
-        & > .description {
-          min-height: 52px;
-          margin-bottom: 2rem;
-        }
+  & > article > header > .-editable > .description {
+    min-height: 52px;
+    margin-bottom: 2rem;
+  }
 
-        & > textarea {
-          padding: 0;
+  & > article > header > .-editable > textarea {
+    padding: 0;
 
-          box-shadow: none;
+    box-shadow: none;
+  }
 
-          &.title {
-            @extend h1;
+  & > article > header > .-editable > textarea.title {
+    @extend h1;
 
-            margin: 0;
-            margin-top: 1rem;
-          }
+    margin: 0;
+    margin-top: 1rem;
+  }
 
-          &.description {
-            line-height: 1.6;
-          }
-        }
+  & > article > header > .-editable > textarea.description {
+    line-height: 1.6;
+  }
 
-        & > hr {
-          margin-top: 0;
-        }
-      }
-    }
+  & > article > header > .-editable > textarea > hr {
+    margin-top: 0;
+  }
 
-    & > header > hr {
-      margin-bottom: 0;
-    }
+  & > article > header > hr {
+    margin-bottom: 0;
+  }
 
-    & > header > .description {
-      font-size: 1.25rem;
-      font-weight: 300;
+  & > article > header > .description {
+    font-size: 1.25rem;
+    font-weight: 300;
 
-      margin-top: 1rem;
-    }
+    margin-top: 1rem;
   }
 }
