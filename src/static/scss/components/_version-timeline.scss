@@ -34,14 +34,6 @@
     background-color: $color-grayish;
   }
 
-  & > .-active {
-    background-color: #FFF;
-
-    & > .item::before {
-      opacity: 1;
-    }
-  }
-
   & > .item {
     position: relative;
 
@@ -56,20 +48,7 @@
     background-color: $color-whisper;
 
     &::before {
-      position: absolute;
-      z-index: 2;
-      right: -2px;
-
-      display: block;
-
-      width: 5px;
-      height: 100%;
-
       content: '';
-      transition: all .15s $swift-out;
-
-      opacity: 0;
-      background-color: #FFF;
     }
 
     &:hover {
