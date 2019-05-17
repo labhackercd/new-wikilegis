@@ -44,3 +44,26 @@ def create_named_version(document, name, version):
         version.save()
 
     return new_version
+
+
+def concatenate_autosaves(document, version):
+    last_named_version = document.versions.filter(
+        name__isnull=False,
+        auto_save=False
+    ).exclude(id=version.id).first()
+
+    if last_named_version:
+        autosaves = document.versions.filter(
+            auto_save=True,
+            created__gt=last_named_version.created,
+            created__lt=version.created
+        )
+    else:
+        autosaves = document.versions.filter(
+            auto_save=True,
+            created__lt=version.created
+        )
+
+    for autosave_version in autosaves:
+        autosave_version.parent = version
+        autosave_version.save()

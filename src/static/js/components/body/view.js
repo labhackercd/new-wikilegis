@@ -79,6 +79,10 @@ BodyView.prototype.subscribers = function() {
     self.enableScroll();
   });
 
+  events.openModal.subscribe(function() {
+    self.disableScroll();
+  });
+
   events.openFilterModal.subscribe(function() {
     self.disableScroll();
   });

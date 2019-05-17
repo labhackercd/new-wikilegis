@@ -8,6 +8,7 @@ from utils.decorators import owner_required
 from constance import config
 from apps.projects.models import Document, DocumentVersion
 from apps.projects.parser import parse_html
+from apps.projects.versions import concatenate_autosaves
 from datetime import datetime
 
 
@@ -71,6 +72,9 @@ class SaveDocumentView(View):
         title = request.POST.get('title', '')
         description = request.POST.get('description', '')
         html = request.POST.get('html', None)
+        auto_save = request.POST.get('autoSave', True)
+        auto_save = auto_save == 'true'
+        name = request.POST.get('name', None)
 
         last_version = document.versions.first()
         if last_version:
@@ -78,10 +82,20 @@ class SaveDocumentView(View):
         else:
             number = 1
 
-        version = DocumentVersion.objects.create(
-            document=document,
-            number=number
-        )
+        if name:
+            version = DocumentVersion.objects.create(
+                document=document,
+                number=number,
+                name=name,
+                auto_save=auto_save
+            )
+            concatenate_autosaves(document, version)
+        else:
+            version = DocumentVersion.objects.create(
+                document=document,
+                number=number
+            )
+
         if html:
             parse_html(html, version, document)
 
@@ -91,5 +105,11 @@ class SaveDocumentView(View):
 
         return JsonResponse({
             'message': _('Document saved successfully!'),
-            'updated': version.created.strftime('%d/%m/%Y às %H:%M')
+            'updated': version.created.strftime('%d/%m/%Y às %Hh%M'),
+            'version': {
+                'name': version.name,
+                'date': version.created.strftime('%d de %b, %Y'),
+                'time': version.created.strftime('%Hh%M'),
+                'autoSave': version.auto_save,
+            }
         })

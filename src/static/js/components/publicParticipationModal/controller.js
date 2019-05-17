@@ -43,7 +43,7 @@ PublicFormController.prototype.sendForm = function(documentId, closingDate, cong
   });
 
   request.fail(function(jqXHR) {
-    $('.js-formError').html(`
+    $('.js-publicFormModal .js-formError').html(`
         <li>${jqXHR.responseJSON.error}</li>
     `);
   });

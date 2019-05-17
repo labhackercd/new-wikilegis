@@ -30,7 +30,6 @@ ToolBarController.prototype.saveDocumentData = function(updateData) {
     if (!updateData.autoSave) {
       events.showMessage.publish(data.message, 'success', null);
     }
-
     events.updateSaveMessage.publish(data.updated);
   });
 

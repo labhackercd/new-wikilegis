@@ -1,0 +1,23 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+
+{% block extra_classes %}-public js-saveModal{% endblock %}
+
+{% block title_modal %}
+
+{% endblock %}
+
+{% block content %}
+{# XXX: Improve styles #}
+<form>
+  <h1>Criar Versão</h1>
+  <p>Salve o texto atual em uma versão com nome.</p>
+  <ul class="errorlist nonfield js-formError"></ul>
+  <div class="input-text -required">
+    <input class="js-name" type="text" name="name" required id="name">
+    <label for="name">Nome</label>
+  </div>
+  <button class="app-button -green js-send">Salvar</button>
+</form>
+{% endblock content %}

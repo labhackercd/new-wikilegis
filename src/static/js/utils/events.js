@@ -53,6 +53,9 @@ var events = {
   // Triggered when a modal is closed
   closeModal: $.Topic('closeModal'),
 
+  // Triggered when a modal is opened
+  openModal: $.Topic('openModal'),
+
   // Triggered before opinionModal opens
   // Params: user, excerpt, suggestion
   fillOpinionModal: $.Topic('fillOpinionModal'),
@@ -223,7 +226,7 @@ var events = {
   sendUpdatePublicForm: $.Topic('sendUpdatePublicForm'),
 
   // Triggered when users want to save the document
-  // Params: data (pk, title, description, html)
+  // Params: data (pk, title, description, html, autoSave, name)
   saveDocument: $.Topic('saveDocument'),
 
   // Triggered on auto save
@@ -239,4 +242,7 @@ var events = {
   // Triggered when the document text is loaded
   // Params: text
   documentTextLoaded: $.Topic('documentTextLoaded'),
+
+  // Triggered when user clicks on save at toolbar
+  openSaveModal: $.Topic('openSaveModal'),
 };

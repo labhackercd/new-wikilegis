@@ -23,7 +23,8 @@ ToolBarView.prototype.publishers = function() {
   var self = this;
 
   self.saveButton.on('click', function() {
-    self.saveDocument(false);
+    events.openModal.publish();
+    events.openSaveModal.publish();
   });
 };
 

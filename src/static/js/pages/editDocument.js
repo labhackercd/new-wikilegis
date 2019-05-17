@@ -45,3 +45,6 @@ toolBarView.initEvents(documentEditorView);
 
 var saveMessageView = new SaveMessageView();
 saveMessageView.initEvents();
+
+var saveModalView = new SaveModalView();
+saveModalView.initEvents();
