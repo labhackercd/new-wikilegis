@@ -21,4 +21,7 @@ urlpatterns = [
     path('invited-group/public/new/<int:document_pk>',
          views.create_public_participation,
          name='new_public_participation'),
+    path('invited-group/public/edit/<int:group_id>',
+         views.update_closing_date,
+         name='update_public_participation'),
 ]

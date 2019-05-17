@@ -6,12 +6,6 @@
     <a href="#" class="icon" aria-label="Exportar">
       {% include "svgs/download-icon.html" %}
     </a>
-    <!-- <a href="#" class="icon" aria-label="Comparar">
-      {% include "svgs/arrows-icon.html" %}
-    </a> -->
-    <!-- <a href="#" class="icon" aria-label="Editar">
-      {% include "svgs/download-icon.html" %}
-    </a> -->
     <a href="#" class="icon js-collapseExpand -collapse -collapsed" aria-label="Expandir">
       {% include "svgs/expand-icon.html" %}
     </a>
@@ -19,7 +13,10 @@
     <a href="{% url 'document_editor_cluster' 'editor' pk %}" class="icon" aria-label="Editor">
       {% include "svgs/arrows-icon.html" %}
     </a>
-    <a href="{% url 'edit_group' group.pk %}" class="icon" aria-label="Editar grupo">
+    <a href="{% url 'edit_group' group.pk %}" class="icon" aria-label="Editar grupo privado">
+      {% include "svgs/arrows-icon.html" %}
+    </a>
+    <a class="icon js-openPublicParticipation" aria-label="Editar grupo aberto">
       {% include "svgs/arrows-icon.html" %}
     </a>
     {% elif 'editor' in request.path %}
@@ -27,12 +24,7 @@
       {% include "svgs/arrows-icon.html" %}
     </a>
     {% endif %}
-    <!-- <a href="#" class="icon" aria-label="Compartilhar">
-      {% include "svgs/share-icon.html" %}
-    </a> -->
-    <!-- <a href="#" class="icon" aria-label="Publicar">
-      {% include "svgs/publish-icon.html" %}
-    </a> -->
+
     <a href="#" class="icon -settings" aria-label="Configurar">
       {% include "svgs/settings-icon.html" %}
     </a>

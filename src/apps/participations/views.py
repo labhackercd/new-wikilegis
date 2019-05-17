@@ -9,7 +9,7 @@ from django.views.generic import ListView, DetailView, UpdateView
 from apps.projects.models import Excerpt, Theme, Document
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
-from apps.notifications.models import ParcipantInvitation
+from apps.notifications.models import ParcipantInvitation, PublicAuthorization
 from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -90,6 +90,8 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
         if obj.document.owner != self.request.user:
+            raise Http404
+        elif obj.public_participation:
             raise Http404
         return obj
 
@@ -347,15 +349,41 @@ def create_public_participation(request, document_pk):
                                       congressman['gabinete']['telefone'],
                                       congressman['gabinete']['email'],
                                       group.document.title)
+            PublicAuthorization.objects.create(
+                congressman_email=congressman['gabinete']['email'],
+                group=group)
 
             return JsonResponse(
-                {'message': _('Sent request!')})
+                {'message': _('Request sent!')})
         else:
             return JsonResponse(
                 {'error':
                  _('You cannot request a public participation again')},
                 status=409
             )
+    else:
+        return JsonResponse(
+            {'error': _('Congressman and closing date are required!')},
+            status=400
+        )
+
+
+@require_ajax
+def update_closing_date(request, group_id):
+    group = InvitedGroup.objects.get(id=group_id)
+    congressman_id = request.POST.get('congressman_id', None)
+    closing_date = request.POST.get('closing_date', None)
+    if congressman_id and closing_date:
+        url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
+        data = requests.get(url).json()
+        congressman = data['dados']['ultimoStatus']
+        PublicAuthorization.objects.create(
+            group=group,
+            congressman_email=congressman['gabinete']['email'],
+            closing_date=closing_date)
+
+        return JsonResponse(
+            {'message': _('Request sent!')})
     else:
         return JsonResponse(
             {'error': _('Congressman and closing date are required!')},

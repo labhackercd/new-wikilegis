@@ -31,7 +31,8 @@ PublicFormModalView.prototype.subscribers = function () {
 PublicFormModalView.prototype.publishers = function () {
   var self = this;
 
-  self.openPublicFormButton.on('click', function() {
+  self.openPublicFormButton.on('click', function(e) {
+    e.preventDefault();
     events.openPublicFormModal.publish();
   });
 
@@ -48,7 +49,11 @@ PublicFormModalView.prototype.publishers = function () {
   });
 
   $('.js-publicFormModal .js-send').on('click', function() {
-    self.sendPublicForm();
+    if ($('.js-publicFormModal').data('groupId')) {
+      self.sendUpdatePublicForm();
+    } else {
+      self.sendPublicForm();
+    }
   });
 };
 
@@ -59,6 +64,18 @@ PublicFormModalView.prototype.sendPublicForm = function() {
 
   events.sendPublicForm.publish(
     documentId,
+    closingDate,
+    congressmanId
+  );
+};
+
+PublicFormModalView.prototype.sendUpdatePublicForm = function() {
+  var groupId = $('.js-publicFormModal').data('groupId');
+  var closingDate = $('.js-closingDate').val();
+  var congressmanId = $('.js-congressmanId').val();
+
+  events.sendUpdatePublicForm.publish(
+    groupId,
     closingDate,
     congressmanId
   );
