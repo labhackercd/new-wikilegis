@@ -27,27 +27,28 @@
           {% if document|has_public_group %}
             <li class="app-tag">
               <img src="{% static 'img/public.svg' %}" alt="">
-              <span>Público</span>
+              <span class="label">Público</span>
             </li>
           {% endif %}
 
           {% if document|count_private_groups > 0  %}
             <li class="app-tag">
               <img src="{% static 'img/padlock.svg' %}" alt="">
-              <span>{{ document|count_private_groups }} {% if document|count_private_groups == 1  %}Privado{% else %}Privados{% endif %}</span>
+              <span class="label">{{ document|count_private_groups }} {% if document|count_private_groups == 1  %}Privado{% else %}Privados{% endif %}</span>
             </li> 
           {% endif %}
 
           <li class="app-tag">
             <img src="{% static 'img/given-opinions.svg' %}" alt="">
-            <span>76 Sugestões</span>
+            <span class="label">76 Opiniões</span>
           </li>
         </ul>
 
         <ul class="tags">
           {% for theme in document.themes.all %}
-          <li class="app-tag -theme" style="background-color: {{ theme.color }}">
-            <span>{{ theme.name }}</span>
+          <li class="app-tag -theme">
+            <span class="dot" style="background-color: {{ theme.color }}"></span>
+            <span class="label">{{ theme.name }}</span>
           </li>
           {% endfor %}
         </ul>
@@ -90,7 +91,8 @@
 
       <ul class="tags">
         <li class="app-tag -theme -{{ theme.slug }}">
-          <span>Educação</span>
+          <span class="dot"></span>
+          <span class="theme">Educação</span>
         </li>
       </ul>
 

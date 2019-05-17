@@ -7,7 +7,11 @@
     color: $color-brand;
   }
 
-  &.-theme::before {
+  &.-theme {
+    align-items: center;
+  }
+
+  & > .dot {
     display: block;
 
     width: 7px;
@@ -20,11 +24,7 @@
     background-color: $color-grayish;
   }
 
-  &.-theme {
-    align-items: center;
-  }
-
-  & > span {
+  & > .label {
     font-size: .625rem;
     font-weight: 600;
     line-height: 1;
