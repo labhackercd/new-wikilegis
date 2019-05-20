@@ -28,6 +28,7 @@
 
   &.-owner:hover {
     border-color: transparent;
+
     @include card-shadow(noTransition);
   }
 
@@ -184,14 +185,27 @@
   & > .footer {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     margin-top: auto;
-    padding-top: 1.25rem;
+    padding-top: 1.5rem;
+  }
+
+  & > .footer > * + * {
+    margin-top: 1.5rem;
   }
 
   & > .footer > .document-progress {
     flex: 1 0 auto;
+  }
+
+  & > .footer > .status {
+    width: 100%;
+  }
+
+  & > .footer > .status > * + * {
+    margin-top: .5rem;
   }
 
   & > .footer > .status > .closed {
@@ -200,10 +214,6 @@
     line-height: 1;
 
     color: $color-red;
-  }
-
-  & > .footer > .status > .feedback-status {
-    margin-top: .5rem;
   }
 
   & > .footer > .pseudolink {

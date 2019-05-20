@@ -137,6 +137,117 @@
       </div>
     </a>
     {% endfor %}
+  
+    <!-- 
+    XXX improve cards using this markup
+  
+    <a href="" class="document-card -public">
+  
+      <ul class="tags">
+        {% for theme in document.themes.all %}
+        <li class="app-tag">
+          <span class="dot" style="background-color: {{ theme.color }}"></span>
+          <span class="label">{{ theme.name }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+  
+      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
+  
+      <p class="js-description">
+        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
+      </p>
+  
+      <div class="footer">
+        <div class="document-progress">
+          <span class="begin"><span>3</span> dias atrás</span>
+          <span class="end">Encerra em <span>15</span> dias</span>
+          <div class="progress-bar">
+            <span class="value" style="transform: scaleX(.3)"></span>
+          </div>
+        </div>
+        
+        <span class="pseudolink">Acessar</span>
+      </div>
+  
+    </a>
+  
+  
+    <a href="" class="document-card -onhold">
+  
+      <ul class="tags">
+        <li class="app-tag">
+          <span class="dot"></span>
+          <span class="label">Educação</span>
+        </li>
+        <li class="app-tag">
+          <span class="dot"></span>
+          <span class="label">Educação</span>
+        </li>
+        <li class="app-tag">
+          <span class="dot"></span>
+          <span class="label">Educação</span>
+        </li>
+      </ul>
+  
+      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
+  
+      <p class="js-description">
+        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
+      </p>
+  
+      <div class="footer">
+        <div class="status">
+          <p class="closed">Encerrado em 12/04/2019</p>
+          <div class="feedback-status">
+            <img src="{% static 'img/hourglass.svg' %}" alt="">
+            <p class="-onhold">Aguardando feedback do deputado</p>
+          </div>
+        </div>
+        
+        <span class="pseudolink">Ver</span>
+      </div>
+  
+    </a>
+  
+    <a href="" class="document-card -closed">
+  
+      <ul class="tags">
+        <li class="app-tag">
+          <span class="dot"></span>
+          <span class="label">Educação</span>
+        </li>
+        <li class="app-tag">
+          <span class="dot"></span>
+          <span class="label">Educação</span>
+        </li>
+        <li class="app-tag">
+          <span class="dot"></span>
+          <span class="label">Educação</span>
+        </li>
+      </ul>
+  
+      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
+  
+      <p class="js-description">
+        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
+      </p>
+  
+      <div class="footer">
+        <div class="status">
+          <p class="closed">Encerrado em 12/04/2019</p>
+          <div class="feedback-status">
+            <img src="{% static 'img/feedback.svg' %}" alt="">
+            <p class="">Confira o feedback do deputado</p>
+          </div>
+        </div>
+        
+        <span class="pseudolink">Ver</span>
+      </div>
+  
+    </a>
+    -->
+  
   </div>
   {% endif %}
 </main>

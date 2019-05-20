@@ -23,7 +23,6 @@
       <div href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="document-card -owner {% if document|has_group %}-public{% endif %}">
 
         <ul class="tags">
-
           {% if document|has_public_group %}
             <li class="app-tag -public">
               <img src="{% static 'img/public.svg' %}" alt="">
@@ -45,15 +44,6 @@
           </li>
           {% endif %}
         </ul>
-        <!--
-        <ul class="tags">
-          {% for theme in document.themes.all %}
-          <li class="app-tag -theme">
-            <span class="dot" style="background-color: {{ theme.color }}"></span>
-            <span class="label">{{ theme.name }}</span>
-          </li>
-          {% endfor %}
-        </ul> -->
 
         <h3 class="js-title">{{ document.title }}</h3>
 
@@ -61,13 +51,18 @@
           {{ document.description }}
         </p>
 
-        <div class="status">
-          <div class="feedback-status">
-            <img src="{% static 'img/hourglass.svg' %}" alt="">
-            <p class="-onhold">Aguardando feedback do deputado</p>
-          </div>
-        </div>
         <div class="footer">
+
+          <!-- XXX Uncomment when feed status is fully implemented 
+            
+          <div class="status">
+            <div class="feedback-status">
+              <img src="{% static 'img/hourglass.svg' %}" alt="">
+              <p class="-onhold">Aguardando feedback do deputado</p>
+            </div>
+          </div>
+          -->
+
           <div class="actions">
             <a href="{% url 'document_editor_cluster' 'editor' document.id %}">Minhas versões</a>
             {% if document|has_group %}
@@ -79,153 +74,6 @@
       </div>
 
     {% endfor %}
-
-    <a href="" class="document-card -public">
-
-      <ul class="tags">
-        <li class="app-tag">
-          <img src="{% static 'img/public.svg' %}" alt="">
-          <span>Público</span>
-        </li>
-        <li class="app-tag">
-          <img src="{% static 'img/padlock.svg' %}" alt="">
-          <span>7 Privado</span>
-        </li>
-        <li class="app-tag">
-          <img src="{% static 'img/given-opinions.svg' %}" alt="">
-          <span>76 Sugestões</span>
-        </li>
-      </ul>
-
-      <ul class="tags">
-        <li class="app-tag -theme -{{ theme.slug }}">
-          <span class="dot"></span>
-          <span class="theme">Educação</span>
-        </li>
-      </ul>
-
-      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
-
-      <p class="js-description">
-        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
-      </p>
-
-      <div class="footer">
-        <div class="document-progress">
-          <span class="begin"><span>3</span> dias atrás</span>
-          <span class="end">Encerra em <span>15</span> dias</span>
-          <div class="progress-bar">
-            <span class="value" style="transform: scaleX(.3)"></span>
-          </div>
-        </div>
-        
-        <span class="pseudolink">Acessar</span>
-      </div>
-
-    </a>
-
-
-    <div href="" class="document-card -public -owner">
-
-      <ul class="tags">
-        <li class="app-tag">
-          <img src="{% static 'img/public.svg' %}" alt="">
-          <span>Público</span>
-        </li>
-        <li class="app-tag">
-          <img src="{% static 'img/padlock.svg' %}" alt="">
-          <span>7 Privado</span>
-        </li>
-        <li class="app-tag">
-          <img src="{% static 'img/given-opinions.svg' %}" alt="">
-          <span>76 Sugestões</span>
-        </li>
-      </ul>
-
-      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
-
-      <p class="js-description">
-        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
-      </p>
-
-      <div class="footer">
-        <div class="actions">
-          <a href="">Minhas versões</a>
-          <a href="">Ver participação</a>
-        </div>
-      </div>
-
-    </div>
-
-
-
-    <a href="" class="document-card -onhold">
-
-      <ul class="tags">
-        <li class="app-tag -theme">
-          <span>Educação</span>
-        </li>
-        <li class="app-tag -theme">
-          <span>Educação</span>
-        </li>
-        <li class="app-tag -theme">
-          <span>Educação</span>
-        </li>
-      </ul>
-
-      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
-
-      <p class="js-description">
-        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
-      </p>
-
-      <div class="footer">
-        <div class="status">
-          <p class="closed">Encerrado em 12/04/2019</p>
-          <div class="feedback-status">
-            <img src="{% static 'img/hourglass.svg' %}" alt="">
-            <p class="-onhold">Aguardando feedback do deputado</p>
-          </div>
-        </div>
-        
-        <span class="pseudolink">Ver</span>
-      </div>
-
-    </a>
-
-    <a href="" class="document-card -closed">
-
-      <ul class="tags">
-        <li class="app-tag -theme">
-          <span>Educação</span>
-        </li>
-        <li class="app-tag -theme">
-          <span>Educação</span>
-        </li>
-        <li class="app-tag -theme">
-          <span>Educação</span>
-        </li>
-      </ul>
-
-      <h3 class="js-title">Patrocínio de bancos públicos a clubes de futebol</h3>
-
-      <p class="js-description">
-        Condiciona o recebimento de patrocínio de bancos públicos pelos clubes de futebol e associações esportivas à adoção de medidas de proteção de crianças e adolescentes contra a violência sexual.
-      </p>
-
-      <div class="footer">
-        <div class="status">
-          <p class="closed">Encerrado em 12/04/2019</p>
-          <div class="feedback-status">
-            <img src="{% static 'img/feedback.svg' %}" alt="">
-            <p class="">Confira o feedback do deputado</p>
-          </div>
-        </div>
-        
-        <span class="pseudolink">Ver</span>
-      </div>
-
-    </a>
 
   </div>
 
