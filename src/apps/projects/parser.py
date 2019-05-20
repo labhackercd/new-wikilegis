@@ -22,10 +22,9 @@ RESET_BY_ARTICULATION = {
     'continuacao': [],
 }
 
-ARTICULATION_COUNTER = Counter()
-
 
 def parse_html(html, version, document):
+    ARTICULATION_COUNTER = Counter()
     soup = BeautifulSoup(html, features='html.parser')
     excerpts = soup.findAll('p')
     for order, excerpt in enumerate(excerpts):
