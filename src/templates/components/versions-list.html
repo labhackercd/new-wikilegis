@@ -18,6 +18,12 @@
       <span class="time">{{version.created|date:'H\hi'}}</span>
       <h2 class="title">{{version.name}}</h2>
       <span class="date">{{version.created|date:'d \d\e b, Y'}}</span>
+      <div class="compare-checkbox">
+        <input id="checkbox" type="checkbox" />
+        <label for="checkbox">
+          <span></span>
+        </label>
+      </div>
     </div>
     <ol class="autosaves js-autosaves {% if version == selected_version.parent %}-show{% endif %}">
       {% for autosave in version.children.all %}
