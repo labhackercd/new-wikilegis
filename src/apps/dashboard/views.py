@@ -66,11 +66,14 @@ class DocumentEditorClusterView(DetailView):
                 auto_save=False
             )
 
-            context['latest_saves'] = self.object.versions.filter(
-                auto_save=True,
-                name__isnull=True,
-                created__gte=context['named_versions'].first().created
-            )
+            if context['named_versions'].count() > 0:
+                context['latest_saves'] = self.object.versions.filter(
+                    auto_save=True,
+                    name__isnull=True,
+                    created__gte=context['named_versions'].first().created
+                )
+            else:
+                context['latest_saves'] = self.object.versions.all()
 
             version = self.request.GET.get('version', None)
             if version:
@@ -132,11 +135,14 @@ class SaveDocumentView(View):
             auto_save=False
         )
 
-        context['latest_saves'] = document.versions.filter(
-            auto_save=True,
-            name__isnull=True,
-            created__gte=context['named_versions'].first().created
-        )
+        if context['named_versions'].count() > 0:
+            context['latest_saves'] = document.versions.filter(
+                auto_save=True,
+                name__isnull=True,
+                created__gte=context['named_versions'].first().created
+            )
+        else:
+            context['latest_saves'] = document.versions.all()
 
         context['selected_version'] = version
 
