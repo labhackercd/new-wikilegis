@@ -69,9 +69,9 @@
         </div>
         <div class="footer">
           <div class="actions">
-            <a href="">Minhas versões</a>
+            <a href="{% url 'document_editor_cluster' 'editor' document.id %}">Minhas versões</a>
             {% if document|has_group %}
-              <a href="">Ver participação</a>
+              <a href="{% url 'document_editor_cluster' 'clusters' document.id %}?group_id={{document|participation_group_id}}">Ver participação</a>
             {% endif %}
           </div>
         </div>

@@ -5,7 +5,6 @@ from collections import OrderedDict
 import string
 from apps.projects.models import Excerpt
 from apps.participations.models import InvitedGroup, Suggestion
-from django.db.models import Count
 
 register = template.Library()
 
@@ -213,3 +212,18 @@ def count_opinions(document):
     total_opinions = Suggestion.objects.filter(
         invited_group_id__in=groups_id).count()
     return total_opinions
+
+
+@register.filter()
+def participation_group_id(document):
+    if document.invited_groups.all():
+        public_group = document.invited_groups.filter(
+            public_participation=True)
+        if public_group:
+            group = public_group.first()
+        else:
+            group = document.invited_groups.filter(
+                public_participation=False).last()
+        return group.id
+    else:
+        return False
