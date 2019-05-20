@@ -39,10 +39,7 @@ class InvitedGroup(TimestampedMixin):
                                'documment_slug': self.document.slug})
 
     def get_excerpts(self):
-        if self.amendments.count() > 0:
-            return self.amendments.filter(version=self.version)
-        else:
-            return self.document.get_excerpts()
+        return self.document.get_excerpts(version=self.version.number)
 
     def __str__(self):
         if self.thematic_group:

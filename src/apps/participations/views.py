@@ -42,6 +42,12 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['themes'] = Theme.objects.all()
+        document = Document.objects.get(id=self.kwargs.get('pk'))
+        context['versions'] = document.versions.filter(
+            auto_save=False,
+            name__isnull=False
+        )
+
         return context
 
     def form_valid(self, form):
@@ -68,12 +74,7 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
         self.object.thematic_group = thematic_group
 
         version = self.request.POST.get('version', None)
-        new_version = versions.create_named_version(
-            self.object.document,
-            self.object.thematic_group.name,
-            version
-        )
-
+        new_version = self.object.document.versions.get(number=version)
         self.object.version = new_version
 
         self.object.save()

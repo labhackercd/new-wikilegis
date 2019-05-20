@@ -17,13 +17,17 @@
   <a href="/" class="brand -beta">Wikilegis</a>
 
   <div class="project">
-    <span class="title js-documentTitle">Untitled Document</span>
+    <span class="title js-documentTitle">{{object}}</span>
     <ul class="breadcrumb">
-      <a href="#">Editar Grupo Fechado</a>
+      {% if object %}
+        <a href="#">Editar Grupo Fechado</a>
+      {% else %}
+        <a href="#">Criar Grupo Fechado</a>
+      {% endif %}
     </ul>
   </div>
   <div class="tools">
-    <a href="/dashboard/">Meus documentos</a>
+    <a href="{% url 'owner_documents' %}">Meus documentos</a>
   </div>
 
 </div>
@@ -38,7 +42,7 @@
     <h2>Criar Grupo Fechado</h2>
     {% endif %}
 
-    <a href="#" class="link-back">Voltar</a>
+    <a onclick="window.history.back();" class="link-back">Voltar</a>
 
   </header>
   <form method="POST" id="invited_group_form">
@@ -48,6 +52,22 @@
       <div class="input-text">
         <input type="text" name="group_name" id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
         <label for="id_group_name">Nome do grupo:</label>
+      </div>
+      <div class="input-select">
+        <div class="select">
+          <label for="id_version_name">Versão do Documento:</label>
+          <select id="id_version_name" required name="version" {% if not versions %}disabled{% endif %}>
+            {% for version in versions %}
+              <option value="{{version.number}}">{{version.name}}</option>
+            {% endfor %}
+          </select>
+          <div class="icon"><i class="arrow"></i></div>
+        </div>
+        {% if not versions %}
+          <ul class="errorlist">
+            <li>Você precisa salvar uma versão do documento antes de abrir o projeto para um grupo de participação.</li>
+          </ul>
+        {% endif %}
       </div>
       <div class="input-text -required -date">
         {{form.closing_date.errors}}
