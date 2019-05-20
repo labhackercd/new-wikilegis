@@ -9,9 +9,9 @@ SaveMessageView.prototype.initEvents = function() {
 SaveMessageView.prototype.subscribers = function() {
   var self = this;
 
-  events.updateSaveMessage.subscribe(function (dateString) {
+  events.documentSaved.subscribe(function (data) {
     $('.js-saveMessage').removeClass('-saving');
-    $('.js-saveMessage .js-timestamp').text(dateString);
+    $('.js-saveMessage .js-timestamp').text(data.updated);
   });
 
   events.documentChanged.subscribe(function() {

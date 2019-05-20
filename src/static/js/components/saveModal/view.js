@@ -18,7 +18,7 @@ SaveModalView.prototype.subscribers = function() {
     self.saveModal.addClass('-show');
   });
 
-  events.updateSaveMessage.subscribe(function() {
+  events.documentSaved.subscribe(function() {
     self.saveModal.removeClass('-show');
     self.nameInput.val('');
     events.closeModal.publish();

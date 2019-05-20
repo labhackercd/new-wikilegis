@@ -4,13 +4,17 @@ var TimelineSidebarView = function() {};
 
 TimelineSidebarView.prototype.initEvents = function () {
   this.timelineSidebar = $('.js-timelineSidebar');
-  this.namedVersions = $('.js-timelineSidebar .js-namedVersions');
 
   this.subscribers();
   this.publishers();
 };
 
 TimelineSidebarView.prototype.subscribers = function () {
+  var self = this;
+
+  events.documentSaved.subscribe(function(data) {
+    self.timelineSidebar.html(data.timelineHTML);
+  });
 };
 
 TimelineSidebarView.prototype.publishers = function () {
@@ -33,7 +37,7 @@ TimelineSidebarView.prototype.publishers = function () {
 
 TimelineSidebarView.prototype.activateVersion = function (version) {
   this.timelineSidebar.find('.js-version').removeClass('-selected');
-  
+
   if (version.hasClass('js-namedVersion')) {
     this.timelineSidebar.find('.js-version').removeClass('-stick');
   } else {

@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy as _
+from django.template.loader import render_to_string
 from utils.decorators import owner_required
 from constance import config
 from apps.projects.models import Document, DocumentVersion
@@ -64,6 +65,13 @@ class DocumentEditorClusterView(DetailView):
                 name__isnull=False,
                 auto_save=False
             )
+
+            context['latest_saves'] = self.object.versions.filter(
+                auto_save=True,
+                name__isnull=True,
+                created__gte=context['named_versions'].first().created
+            )
+
             version = self.request.GET.get('version', None)
             if version:
                 context['selected_version'] = self.object.versions.get(
@@ -117,9 +125,26 @@ class SaveDocumentView(View):
         document.description = description
         document.save()
 
+        context = {}
+
+        context['named_versions'] = document.versions.filter(
+            name__isnull=False,
+            auto_save=False
+        )
+
+        context['latest_saves'] = document.versions.filter(
+            auto_save=True,
+            name__isnull=True,
+            created__gte=context['named_versions'].first().created
+        )
+
+        context['selected_version'] = version
+
         return JsonResponse({
             'message': _('Document saved successfully!'),
             'updated': version.created.strftime('%d/%m/%Y às %Hh%M'),
+            'timelineHTML': render_to_string('components/versions-list.html',
+                                             context),
             'version': {
                 'name': version.name,
                 'date': version.created.strftime('%d de %b, %Y'),
