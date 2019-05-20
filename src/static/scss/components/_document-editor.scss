@@ -1,5 +1,6 @@
-.document-editor.-readonly.-active {
-  width: calc(100% - 29rem);
+.document-editor.-active {
+  width: calc(100% - 11rem);
+  padding-left: 27rem;
 
   & > .side-bar {
     transform: translateX(0);
@@ -43,13 +44,13 @@
   }
 
   & > article {
-    font-size: 1rem;
-
     box-sizing: border-box;
     width: 100%;
     max-width: 66ch;
     margin: 0 auto;
     padding: 2rem 1.6rem 5rem 1.6rem;
+
+    font-size: 1rem;
   }
 
   & > article > p {
@@ -64,10 +65,10 @@
   }
 
   & > article > header > .date {
+    color: $color-deep-gray;
+
     font-size: $font-size-mili;
     font-weight: 500;
-
-    color: $color-deep-gray;
   }
 
   & > article > header > .date.-inactive {
@@ -94,10 +95,10 @@
   }
 
   & > article > header > .-editable > textarea.title {
-    @extend h1;
-
     margin: 0;
     margin-top: 1rem;
+
+    @extend h1;
   }
 
   & > article > header > .-editable > textarea.description {
@@ -113,9 +114,9 @@
   }
 
   & > article > header > .description {
+    margin-top: 1rem;
+
     font-size: 1.25rem;
     font-weight: 300;
-
-    margin-top: 1rem;
   }
 }
