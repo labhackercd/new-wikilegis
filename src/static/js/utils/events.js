@@ -243,6 +243,9 @@ var events = {
   // Params: text
   documentTextLoaded: $.Topic('documentTextLoaded'),
 
+  // Triggered before a text is loaded
+  loadDocumentText: $.Topic('loadDocumentText'),
+
   // Triggered when user clicks on save at toolbar
   openSaveModal: $.Topic('openSaveModal'),
 };

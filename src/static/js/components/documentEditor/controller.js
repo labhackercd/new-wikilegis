@@ -3,12 +3,21 @@
 var DocumentEditorController = function() {};
 
 DocumentEditorController.prototype.initEvents = function() {
+  this.subscribers();
   this.publishers();
+};
+
+DocumentEditorController.prototype.subscribers = function() {
+  var self = this;
+
+  events.loadDocumentText.subscribe(function() {
+    self.loadTextData();
+  })
 };
 
 DocumentEditorController.prototype.publishers = function() {
   var self = this;
-  self.loadTextData();
+  events.loadDocumentText.publish();
 };
 
 DocumentEditorController.prototype.loadTextData = function() {

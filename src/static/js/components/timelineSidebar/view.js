@@ -30,8 +30,12 @@ TimelineSidebarView.prototype.publishers = function () {
   });
 
   this.timelineSidebar.on('click', '.js-version', function(event) {
+    event.preventDefault();
     var version = $(event.target).closest('.js-version');
-    self.activateVersion(version);
+
+    if (!version.hasClass('-selected')) {
+      self.activateVersion(version);
+    }
   });
 };
 
@@ -45,7 +49,18 @@ TimelineSidebarView.prototype.activateVersion = function (version) {
   }
   version.addClass('-selected');
   version.addClass('-stick');
+
+  this.updateURLParameters(version.data('versionNumber'));
+  events.loadDocumentText.publish();
 };
+
+TimelineSidebarView.prototype.updateURLParameters = function(versionNumber) {
+  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+  var searchParams = new URLSearchParams(window.location.search);
+  searchParams.set('version', versionNumber);
+  newURL = newURL + '?' + searchParams.toString();
+  window.history.replaceState(null, null, newURL);
+}
 
 TimelineSidebarView.prototype.activateNamedVersion = function (namedVersion) {
   this.timelineSidebar.find('.js-namedVersions').removeClass('-active');
