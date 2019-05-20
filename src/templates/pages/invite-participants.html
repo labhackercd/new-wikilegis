@@ -11,23 +11,18 @@
   }
 </style>
 {% endblock extracss %}
-{% block navbar %}
-<div class="nav-bar js-navbar -admin js-owner">
-  <div class="nav-burger"></div>
-  <a href="/" class="brand -beta">Wikilegis</a>
 
+{% block navbar_extra_classes %}js-navbar js-owner{% endblock navbar_extra_classes %}
+
+{% block navbar_admin_tools %}
   <div class="project">
-    <span class="title js-documentTitle">Untitled Document</span>
+    <span class="title js-documentTitle">{{ object.document.title }}</span>
     <ul class="breadcrumb">
       <a href="#">Editar Grupo Fechado</a>
     </ul>
   </div>
-  <div class="tools">
-    <a href="/dashboard/">Meus documentos</a>
-  </div>
+{% endblock navbar_admin_tools %}
 
-</div>
-{% endblock %}
 {% block content %}
 
 <main class="section-group">
@@ -38,7 +33,7 @@
     <h2>Criar Grupo Fechado</h2>
     {% endif %}
 
-    <a href="#" class="link-back">Voltar</a>
+    <a href="{% url 'document_editor_cluster' 'clusters' object.document.id %}?group_id={{object.id}}" class="link-back">Voltar</a>
 
   </header>
   <form method="POST" id="invited_group_form">
