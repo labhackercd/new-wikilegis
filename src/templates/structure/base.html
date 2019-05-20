@@ -1,4 +1,4 @@
-{% load staticfiles compress projects_tags %}
+{% load staticfiles compress projects_tags dashboard_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -38,11 +38,20 @@
     {% endblock extracss %}
   </head>
   <body class="js-body {% block body_classes %}{% endblock %}">
-    {% block navbar %}
-    {% include "components/nav-bar.html" %}
-    {% endblock %}
+    <div class="nav-bar{% if request.user.profile.profile_type == 'owner' %} -admin{% endif %} {% block navbar_extra_classes %}{% endblock navbar_extra_classes %}">
+      <div class="nav-burger"></div>
+      <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
 
-    {% include "components/nav-menu.html" %}
+      {% block navbar_admin_tools %}
+      {% endblock navbar_admin_tools %}
+
+      {% if request.user.profile.profile_type == 'owner' %}
+      <div class="tools">
+        <a href="{% url 'owner_documents' %}" {% if current_path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
+      </div>
+      {% endif %}
+    </div>
+
     {% include "components/alert-message.html" %}
 
     {% block content %}
