@@ -25,7 +25,7 @@
         <ul class="tags">
 
           {% if document|has_public_group %}
-            <li class="app-tag">
+            <li class="app-tag -public">
               <img src="{% static 'img/public.svg' %}" alt="">
               <span class="label">Público</span>
             </li>
@@ -35,15 +35,17 @@
             <li class="app-tag">
               <img src="{% static 'img/padlock.svg' %}" alt="">
               <span class="label">{{ document|count_private_groups }} {% if document|count_private_groups == 1  %}Privado{% else %}Privados{% endif %}</span>
-            </li> 
+            </li>
           {% endif %}
 
+          {% if document|count_opinions > 0  %}
           <li class="app-tag">
             <img src="{% static 'img/given-opinions.svg' %}" alt="">
-            <span class="label">76 Opiniões</span>
+            <span class="label">{{ document|count_opinions }} {% if document|count_opinions == 1  %}Opinião{% else %}Opiniões{% endif %}</span>
           </li>
+          {% endif %}
         </ul>
-
+        <!--
         <ul class="tags">
           {% for theme in document.themes.all %}
           <li class="app-tag -theme">
@@ -51,7 +53,7 @@
             <span class="label">{{ theme.name }}</span>
           </li>
           {% endfor %}
-        </ul>
+        </ul> -->
 
         <h3 class="js-title">{{ document.title }}</h3>
 
@@ -59,10 +61,16 @@
           {{ document.description }}
         </p>
 
+        <div class="status">
+          <div class="feedback-status">
+            <img src="{% static 'img/hourglass.svg' %}" alt="">
+            <p class="-onhold">Aguardando feedback do deputado</p>
+          </div>
+        </div>
         <div class="footer">
           <div class="actions">
             <a href="">Minhas versões</a>
-            {% if document|has_group %}        
+            {% if document|has_group %}
               <a href="">Ver participação</a>
             {% endif %}
           </div>

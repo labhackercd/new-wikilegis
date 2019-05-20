@@ -4,6 +4,8 @@ from datetime import date
 from collections import OrderedDict
 import string
 from apps.projects.models import Excerpt
+from apps.participations.models import InvitedGroup, Suggestion
+from django.db.models import Count
 
 register = template.Library()
 
@@ -202,3 +204,12 @@ def count_private_groups(document):
     total_groups = document.invited_groups.filter(
         public_participation=False).count()
     return total_groups
+
+
+@register.filter()
+def count_opinions(document):
+    groups_id = InvitedGroup.objects.filter(
+        document=document).values_list('id', flat=True)
+    total_opinions = Suggestion.objects.filter(
+        invited_group_id__in=groups_id).count()
+    return total_opinions
