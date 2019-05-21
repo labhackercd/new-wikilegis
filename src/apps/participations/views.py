@@ -345,7 +345,15 @@ def create_public_participation(request, document_pk):
     closing_date = request.POST.get('closing_date', None)
 
     version = request.POST.get('versionId', None)
-    version = document.versions.get(id=version)
+    if version:
+        version = document.versions.get(id=version)
+    else:
+        return JsonResponse(
+            {'error':
+             _('You must create a version from your text before '
+               'open to participation')},
+            status=409
+        )
 
     if congressman_id and closing_date:
         group, created = InvitedGroup.objects.get_or_create(
