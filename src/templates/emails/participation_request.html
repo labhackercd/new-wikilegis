@@ -1,3 +1,4 @@
+{% load staticfiles i18n %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -289,8 +290,13 @@
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:12px;font-family:arial,helvetica,sans-serif;" align="left">
 
                               <div style="color: #000; line-height: 150%; text-align: center; word-wrap: break-word;">
-                                <p style="margin-top: 13px; margin-bottom: 13px; line-height: 150%; font-size: 14px;"><span style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 14px; line-height: 21px;"><span style="font-size: 16px; line-height: 24px;">O consultor(a) {{owner}}, solicita a participa&ccedil;&atilde;o p&uacute;blica do dodocumento "{{document_title}}" ao(&agrave;) dep. {{congressman}}.</span></span>
+                                {% if updated %}
+                                <p style="margin-top: 13px; margin-bottom: 13px; line-height: 150%; font-size: 14px;"><span style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 14px; line-height: 21px;"><span style="font-size: 16px; line-height: 24px;">O consultor(a) {{owner}}, solicita o adiamento da consulta pública do dodocumento "{{document_title}}" ao(&agrave;) dep. {{congressman}} com data de encerramento para {{closing_date}}.</span></span>
                                 </p>
+                                {% else %}
+                                <p style="margin-top: 13px; margin-bottom: 13px; line-height: 150%; font-size: 14px;"><span style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 14px; line-height: 21px;"><span style="font-size: 16px; line-height: 24px;">O consultor(a) {{owner}}, solicita a participação pública do dodocumento "{{document_title}}" ao(&agrave;) dep. {{congressman}} com data de encerramento para {{closing_date}}.</span></span>
+                                </p>
+                                {% endif %}
                                 <p style="margin-top: 13px; margin-bottom: 13px; line-height: 150%; font-size: 14px;"><span style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 14px; line-height: 21px;"><span style="font-size: 16px; line-height: 24px;"><strong>Email:</strong> {{email}}</span></span>
                                 </p>
                                 <p style="margin-top: 13px; margin-bottom: 13px; line-height: 150%; font-size: 14px;"><span style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 14px; line-height: 21px;"><span style="font-size: 16px; line-height: 24px;"><strong>Telefone:</strong> {{phone}}</span></span>

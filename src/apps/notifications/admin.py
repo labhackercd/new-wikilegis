@@ -34,7 +34,7 @@ class PublicAuthorizationAdmin(admin.ModelAdmin):
         'id',
         'created',
         'modified',
-        'congressman_email',
+        'congressman',
         'hash_id',
         'group',
     )

@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from apps.notifications.models import ParcipantInvitation, PublicAuthorization
+from apps.projects.models import Document
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import RedirectView
@@ -30,6 +31,9 @@ class PublicAuthorizationView(RedirectView):
         public_group.group_status = 'in_progress'
         if authorization.closing_date:
             public_group.closing_date = authorization.closing_date
+            document = Document.objects.get(id=authorization.group.document.id)
+            document.responsible = authorization.congressman
+            document.save()
         public_group.save()
 
         return reverse('group-authorized')
