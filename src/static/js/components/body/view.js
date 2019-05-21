@@ -30,6 +30,10 @@ BodyView.prototype.publishers = function() {
       events.closeModal.publish();
     }
 
+    if (target.closest('.js-notificationDropdown').length == 0) {
+      events.closeNotificationList.publish();
+    }
+
     if (target.closest('.js-textEditorWrapper').length == 0) {
       events.closeContextualToolbox.publish();
     }

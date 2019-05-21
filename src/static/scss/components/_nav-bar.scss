@@ -211,13 +211,31 @@ body.-white .nav-bar {
     }
   }
 
-  & > .tools > .dropdown-menu > .list.-show {
+  & > .tools > .dropdown-menu.-notifications.-active > .list {
     visibility: visible;
 
     transition-delay: 0s, 0s, .3s;
     transform: translateX(0%);
 
     opacity: 1;
+  }
+
+  & > .tools > .dropdown-menu.-notifications.-active > .list > li.-new {
+    transition: background-color .25s linear;
+    transition-delay: .3s;
+
+    background-color: rgba($color-highlight-on-white, .4);
+
+    & > .datetime::after {
+      transition: opacity .25s linear;
+      transition-delay: .3s;
+
+      opacity: 1;
+    }
+  }
+
+  & > .tools > .dropdown-menu.-notifications.-active > .icon > svg path {
+    fill: $color-brand;
   }
 
   & > .tools > .dropdown-menu.-notifications > .icon > svg circle {

@@ -5,6 +5,7 @@
   align-items: center;
 
   cursor: pointer;
+  user-select: none;
 
   &::after {
     display: inline-flex;
@@ -40,10 +41,74 @@
     display: none;
   }
 
+  &.-notifications > button {
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+  }
+
   &.-notifications > .list {
     top: 3.25rem;
     right: -.2rem;
     left: auto;
+
+    overflow: hidden;
+    overflow-y: auto;
+
+    cursor: default;
+  }
+
+  &.-notifications > .list > li {
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    padding: .5rem 1rem;
+
+    border-style: solid;
+    border-color: #FFF;
+    border-top-width: .5rem;
+    border-right-width: 1rem;
+    border-bottom-width: .5rem;
+    border-left-width: 1rem;
+  }
+
+  &.-notifications > .list > li {
+    background-color: #FFF;
+  }
+
+  &.-notifications > .list > li > .text {
+    font-size: $font-size-centi;
+
+    color: $color-deep-gray;
+  }
+
+  &.-notifications > .list > li > .datetime {
+    font-size: $font-size-nano;
+
+    position: relative;
+
+    margin-top: .5rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    opacity: .8;
+    color: $color-gray;
+
+    &::after {
+      font-size: $font-size-nano;
+
+      position: absolute;
+      right: 0;
+
+      content: 'Novo';
+      letter-spacing: 1px;
+
+      opacity: 0;
+      color: $color-gray;
+    }
   }
 
   & > span {
@@ -84,6 +149,8 @@
   }
 
   & > .list a {
+    font-size: $font-size-centi;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
