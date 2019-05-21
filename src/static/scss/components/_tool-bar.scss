@@ -24,60 +24,54 @@
     flex-direction: column;
 
     height: 100%;
+  }
 
-    & > .icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  & > .tools > .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-      width: 100%;
-      height: 4.5rem;
+    width: 100%;
+    height: 4.5rem;
 
-      @include hovering-label(left, 1.5em, $color-gray, .875rem);
+    @include hovering-label(left, 1.5em, $color-gray, .875rem);
 
-      &:hover > svg path {
-        fill: $color-deep-gray;
-      }
+    &:hover > svg path {
+      fill: $color-deep-gray;
+    }
+  }
 
-      &::after {
-        font-weight: 400 !important;
-      }
+  & > .tools > .icon::after {
+    font-weight: 400 !important;
+  }
 
-      &.-active {
-        > svg path {
-          fill: $color-brand;
-        }
-      }
+  & > .tools > .icon.-active > svg path {
+    fill: $color-brand;
+  }
 
-      &.-settings {
-        margin-top: auto;
-      }
+  & > .tools > .icon.-collapse {
+    transition: all .3s $swift-out;
 
-      &.-collapse {
-        transition: all .3s $swift-out;
+    .arrow1,
+    .arrow2 {
+      display: none;
+    }
 
-        .arrow1,
-        .arrow2 {
-          display: none;
-        }
+    .arrow3,
+    .arrow4 {
+      display: block;
+    }
+  }
 
-        .arrow3,
-        .arrow4 {
-          display: block;
-        }
-      }
+  & > .tools > .icon.-collapsed {
+    .arrow1,
+    .arrow2 {
+      display: block;
+    }
 
-      &.-collapsed {
-        .arrow1,
-        .arrow2 {
-          display: block;
-        }
-
-        .arrow3,
-        .arrow4 {
-          display: none;
-        }
-      }
+    .arrow3,
+    .arrow4 {
+      display: none;
     }
   }
 }

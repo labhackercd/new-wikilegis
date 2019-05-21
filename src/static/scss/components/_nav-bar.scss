@@ -152,7 +152,7 @@ body.-white .nav-bar {
   }
 
   & > .tools > * + * {
-    margin-left: 3rem;
+    margin-left: 2rem;
   }
 
   & > .tools > a {
@@ -177,6 +177,28 @@ body.-white .nav-bar {
     &:hover {
       color: lighten($color-brand, 5%);
     }
+  }
+
+  & > .tools > .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    @include hovering-label(left, .5em, $color-gray, .875rem);
+
+    &:hover > svg path {
+      fill: $color-deep-gray;
+    }
+  }
+
+  & > .tools > .icon::after {
+    font-weight: 400 !important;
+  }
+
+  & > .tools > .icon.-settings {
+    margin-top: auto;
   }
 
   & > .project {
