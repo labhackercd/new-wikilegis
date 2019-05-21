@@ -23,6 +23,7 @@ from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
 from apps.notifications.emails import send_remove_participant
+from datetime import date, datetime
 import json
 import requests
 
@@ -330,16 +331,72 @@ def list_propositions(request):
 
 @require_ajax
 def create_public_participation(request, document_pk):
+    today = date.today()
     document = Document.objects.get(id=document_pk)
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
+    end_date = datetime.strptime(closing_date, "%Y-%m-%d").date()
     if congressman_id and closing_date:
-        group, created = InvitedGroup.objects.get_or_create(
-            document=document, public_participation=True,
-            defaults={'closing_date': closing_date})
-        if created:
-            group.group_status = 'waiting'
-            group.save()
+        if end_date < today:
+            return JsonResponse(
+                {'error':
+                    _('Closing date must be greater than or equal to today!')},
+                status=400
+            )
+        else:
+            group, created = InvitedGroup.objects.get_or_create(
+                document=document, public_participation=True,
+                defaults={'closing_date': closing_date})
+            if created:
+                group.group_status = 'waiting'
+                group.save()
+                url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
+                data = requests.get(url).json()
+                congressman = data['dados']['ultimoStatus']
+                responsible = DocumentResponsible.objects.get_or_create(
+                    cd_id=congressman_id)[0]
+                responsible.name = congressman['nome']
+                responsible.image_url = congressman['urlFoto']
+                responsible.party_initials = congressman['siglaPartido']
+                responsible.uf = congressman['siglaUf']
+                responsible.email = congressman['gabinete']['email']
+                responsible.phone = congressman['gabinete']['telefone']
+                responsible.save()
+                document.responsible = responsible
+                document.save()
+                PublicAuthorization.objects.create(
+                    congressman=responsible, group=group)
+
+                return JsonResponse(
+                    {'message': _('Request sent!')})
+            else:
+                return JsonResponse(
+                    {'error':
+                     _('You cannot request a public participation again')},
+                    status=409
+                )
+    else:
+        return JsonResponse(
+            {'error': _('Congressman and closing date are required!')},
+            status=400
+        )
+
+
+@require_ajax
+def update_closing_date(request, group_id):
+    today = date.today()
+    group = InvitedGroup.objects.get(id=group_id)
+    congressman_id = request.POST.get('congressman_id', None)
+    closing_date = request.POST.get('closing_date', None)
+    end_date = datetime.strptime(closing_date, "%Y-%m-%d").date()
+    if congressman_id and closing_date:
+        if end_date < today:
+            return JsonResponse(
+                {'error':
+                    _('Closing date must be greater than or equal to today!')},
+                status=400
+            )
+        else:
             url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
             data = requests.get(url).json()
             congressman = data['dados']['ultimoStatus']
@@ -352,51 +409,13 @@ def create_public_participation(request, document_pk):
             responsible.email = congressman['gabinete']['email']
             responsible.phone = congressman['gabinete']['telefone']
             responsible.save()
-            document.responsible = responsible
-            document.save()
             PublicAuthorization.objects.create(
-                congressman=responsible, group=group)
+                group=group,
+                congressman=responsible,
+                closing_date=closing_date)
 
             return JsonResponse(
                 {'message': _('Request sent!')})
-        else:
-            return JsonResponse(
-                {'error':
-                 _('You cannot request a public participation again')},
-                status=409
-            )
-    else:
-        return JsonResponse(
-            {'error': _('Congressman and closing date are required!')},
-            status=400
-        )
-
-
-@require_ajax
-def update_closing_date(request, group_id):
-    group = InvitedGroup.objects.get(id=group_id)
-    congressman_id = request.POST.get('congressman_id', None)
-    closing_date = request.POST.get('closing_date', None)
-    if congressman_id and closing_date:
-        url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
-        data = requests.get(url).json()
-        congressman = data['dados']['ultimoStatus']
-        responsible = DocumentResponsible.objects.get_or_create(
-            cd_id=congressman_id)[0]
-        responsible.name = congressman['nome']
-        responsible.image_url = congressman['urlFoto']
-        responsible.party_initials = congressman['siglaPartido']
-        responsible.uf = congressman['siglaUf']
-        responsible.email = congressman['gabinete']['email']
-        responsible.phone = congressman['gabinete']['telefone']
-        responsible.save()
-        PublicAuthorization.objects.create(
-            group=group,
-            congressman=responsible,
-            closing_date=closing_date)
-
-        return JsonResponse(
-            {'message': _('Request sent!')})
     else:
         return JsonResponse(
             {'error': _('Congressman and closing date are required!')},

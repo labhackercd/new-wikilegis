@@ -48,7 +48,8 @@ PublicFormModalView.prototype.publishers = function () {
     events.closePublicInfoModal.publish();
   });
 
-  $('.js-publicFormModal .js-send').on('click', function() {
+  $('.js-publicFormModal .js-send').on('click', function(e) {
+    e.preventDefault();
     if ($('.js-publicFormModal').data('groupId')) {
       self.sendUpdatePublicForm();
     } else {

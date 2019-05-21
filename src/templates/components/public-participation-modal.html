@@ -20,9 +20,9 @@
 <ul class="errorlist nonfield js-formError"></ul>
 <div class="input-text -date -required">
   {% if group.public_participation %}
-  <input type="date" name="date" class="js-closingDate" required maxlength="200" value="{{group.closing_date|date:'Y-m-d'}}" id="id_date">
+  <input type="date" name="date" class="js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" value="{{group.closing_date|date:'Y-m-d'}}" id="id_date">
   {% else %}
-  <input type="date" name="date" class="js-closingDate" required maxlength="200" id="id_date">
+  <input type="date" name="date" class="js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" id="id_date">
   {% endif %}
   <label for="id_date">Data de encerramento</label>
 </div>
