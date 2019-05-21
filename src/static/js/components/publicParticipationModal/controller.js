@@ -9,22 +9,44 @@ PublicFormController.prototype.initEvents = function() {
 PublicFormController.prototype.subscribers = function() {
   var self = this;
 
-  events.sendPublicForm.subscribe(function(documentId, closingDate, congressmanId) {
-    self.sendForm(documentId, closingDate, congressmanId);
+  events.sendPublicForm.subscribe(function(documentId, closingDate, congressmanId, versionId) {
+    self.sendForm(documentId, closingDate, congressmanId, versionId);
   });
 
   events.sendUpdatePublicForm.subscribe(function(groupId, closingDate, congressmanId) {
     self.sendUpdateForm(groupId, closingDate, congressmanId);
   });
+
+  events.openPublicFormModal.subscribe(function() {
+    self.populateNamedVersions();
+  });
 };
 
-PublicFormController.prototype.sendForm = function(documentId, closingDate, congressmanId) {
+PublicFormController.prototype.populateNamedVersions = function() {
+  var documentId = $('.js-documentEditor').data('documentId');
+  var request = $.ajax({
+    url: Urls.list_document_versions(documentId),
+    method: 'GET',
+  });
+
+  request.done(function(data) {
+    var versionList = $('.js-publicFormModal .js-versionsSelect');
+    versionList.html('');
+    $.each(data.versions, function(idx, value) {
+      versionList.append(`<option value="${value.pk}">${value.name}</option>`);
+    });
+    versionList.parent().addClass('-filled');
+  });
+};
+
+PublicFormController.prototype.sendForm = function(documentId, closingDate, congressmanId, versionId) {
   var request = $.ajax({
     url: Urls.new_public_participation(documentId),
     method: 'POST',
     data: {
       closing_date: closingDate,
-      congressman_id: congressmanId
+      congressman_id: congressmanId,
+      versionId: versionId
     }
   });
 

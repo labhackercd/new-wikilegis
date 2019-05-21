@@ -218,7 +218,7 @@ var events = {
   closeInfoMessage: $.Topic('closeInfoMessage'),
 
   // Triggered when user click on send button
-  // Params: documentId, closingDate, congressmanId
+  // Params: documentId, closingDate, congressmanId, versionId
   sendPublicForm: $.Topic('sendPublicForm'),
 
   // Triggered when user click on send button

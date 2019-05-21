@@ -158,3 +158,24 @@ class SaveDocumentView(View):
                 'autoSave': version.auto_save,
             }
         })
+
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(owner_required, name='dispatch')
+class ListDocumentVersionsView(View):
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        document = get_object_or_404(Document, pk=kwargs['pk'])
+        named_versions = document.versions.filter(
+            name__isnull=False,
+            auto_save=False
+        )
+        versions = [
+            {'pk': v.pk, 'number': v.number, 'name': v.name}
+            for v in named_versions
+        ]
+
+        return JsonResponse({
+            'versions': versions
+        })
