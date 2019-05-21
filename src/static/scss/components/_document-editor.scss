@@ -11,6 +11,35 @@
   }
 }
 
+.document-editor.-compare {
+  width: 100%;
+  padding-left: 0;
+
+  & > .side-bar {
+    transform: translateX(-100%);
+  }
+
+  & > .side-bar > .toggle::before {
+    transform: rotate(0);
+    opacity: 0;
+  }
+
+  & > .tool-bar {
+    transform: translateX(100%);
+  }
+
+  & > article.-compare {
+    visibility: visible;
+    width: 100%;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  & > article > .save-message {
+    opacity: 0;
+  }
+}
+
 .document-editor {
   position: relative;
 
@@ -50,6 +79,14 @@
     max-width: 66ch;
     margin: 0 auto;
     padding: 2rem 1.6rem 5rem 1.6rem;
+  }
+
+  & > article.-compare {
+    visibility: hidden;
+    width: 0;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: opacity .15s $swift-out, transform .25s $swift-out;
   }
 
   & > article > p {
