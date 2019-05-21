@@ -49,6 +49,8 @@ body.-white .nav-bar {
   &.-admin {
     justify-content: flex-start;
 
+    padding-right: 0;
+
     border-bottom: 1px solid $color-grayish;
     background: #FFF;
   }
@@ -151,10 +153,6 @@ body.-white .nav-bar {
     color: $color-gray;
   }
 
-  & > .tools > * + * {
-    margin-left: 2rem;
-  }
-
   & > .tools > a {
     font-size: .875rem;
     font-weight: bold;
@@ -162,6 +160,7 @@ body.-white .nav-bar {
     display: flex;
     align-items: center;
 
+    width: 5rem;
     height: 100%;
 
     text-transform: uppercase;
@@ -186,8 +185,6 @@ body.-white .nav-bar {
 
     height: 100%;
 
-    @include hovering-label(left, .5em, $color-gray, .875rem);
-
     &:hover > svg path {
       fill: $color-deep-gray;
     }
@@ -199,6 +196,36 @@ body.-white .nav-bar {
 
   & > .tools > .icon.-settings {
     margin-top: auto;
+  }
+
+  & > .tools > .dropdown-menu {
+    &:hover {
+      & > a,
+      & > a > .info > .item {
+        color: $color-brand;
+      }
+
+      & > a > .info > .item::before {
+        background-color: $color-brand;
+      }
+    }
+  }
+
+  & > .tools > .dropdown-menu > .list.-show {
+    visibility: visible;
+
+    transition-delay: 0s, 0s, .3s;
+    transform: translateX(0%);
+
+    opacity: 1;
+  }
+
+  & > .tools > .dropdown-menu.-notifications > .icon > svg circle {
+    fill: none;
+  }
+
+  & > .tools > .dropdown-menu.-notifications.-notified > .icon > svg circle {
+    fill: $color-red;
   }
 
   & > .project {

@@ -47,7 +47,25 @@
 
       {% if request.user.profile.profile_type == 'owner' %}
       <div class="tools">
-        <a href="{% url 'owner_documents' %}" {% if current_path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
+        <!-- <a href="{% url 'owner_documents' %}" {% if current_path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a> -->
+        <div class="dropdown-menu -notifications js-notificationButton">
+          <a href="#" class="icon" aria-label="Configurar">
+            {% include "svgs/notifications-icon.html" %}
+          </a>
+
+          <ul class="list js-menuList">
+            <div class="dropdown">
+              <a href="href=" dashboard="" editor="" document="" 1""="">
+                <span>Versão 1</span>
+                <div class="info">
+                  <div class="item -versions">4</div>
+                </div>
+              </a>
+            </div>
+            <!-- Número de versões -->
+            <hr>
+          </ul>
+        </div>
         <a href="#" class="icon -settings" aria-label="Configurar">
           {% include "svgs/settings-icon.html" %}
         </a>

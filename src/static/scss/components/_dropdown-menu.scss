@@ -23,6 +23,29 @@
     mask-size: contain;
   }
 
+  &.-notifications {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 5rem;
+    height: 100%;
+
+    &:hover > .icon svg path {
+      fill: $color-deep-gray;
+    }
+  }
+
+  &.-notifications::after {
+    display: none;
+  }
+
+  &.-notifications > .list {
+    top: 3.25rem;
+    right: -.2rem;
+    left: auto;
+  }
+
   & > span {
     font-size: $font-size-micro;
   }
