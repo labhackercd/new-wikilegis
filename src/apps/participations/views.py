@@ -344,19 +344,15 @@ def create_public_participation(request, document_pk):
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
 
-    version = request.POST.get('version', None)
-    new_version = versions.create_named_version(
-        document,
-        _('Public participation'),
-        version
-    )
+    version = request.POST.get('versionId', None)
+    version = document.versions.get(id=version)
 
     if congressman_id and closing_date:
         group, created = InvitedGroup.objects.get_or_create(
             document=document, public_participation=True,
             defaults={
                 'closing_date': closing_date,
-                'version': new_version
+                'version': version
             })
         if created:
             group.group_status = 'waiting'

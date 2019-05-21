@@ -48,7 +48,8 @@ PublicFormModalView.prototype.publishers = function () {
     events.closePublicInfoModal.publish();
   });
 
-  $('.js-publicFormModal .js-send').on('click', function() {
+  $('.js-publicFormModal .js-send').on('click', function(e) {
+    e.preventDefault();
     if ($('.js-publicFormModal').data('groupId')) {
       self.sendUpdatePublicForm();
     } else {
@@ -58,7 +59,7 @@ PublicFormModalView.prototype.publishers = function () {
 };
 
 PublicFormModalView.prototype.sendPublicForm = function() {
-  var documentId = $('.js-publicFormModal .js-documentEditor').data('documentId');
+  var documentId = $('.js-documentEditor').data('documentId');
   var closingDate = $('.js-publicFormModal .js-closingDate').val();
   var congressmanId = $('.js-publicFormModal .js-congressmanId').val();
   var versionId = $('.js-publicFormModal .js-versionsSelect').val();
