@@ -9,7 +9,7 @@
 {% block navbar_admin_tools %}
   <div class="project">
     <span class="title js-documentTitle">{{object.title}}</span>
-      <div class="dropdown">
+      <div class="dropdown-menu">
       {% if group %}
         {% if group.public_participation %}
         <span>Participação pública</span>
@@ -17,7 +17,7 @@
         <span class="-closed">{{group.thematic_group.name}}</span>
         {% endif %}
       {% else %}
-      <div class="drop">
+      <div class="dropdown">
         <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
           <span>Versão 1</span>
           <div class="info">
@@ -31,7 +31,7 @@
       </div>
       {% endif %}
       <ul class="list js-menuList">
-        <div class="drop">
+        <div class="dropdown">
           <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
             <span>Versão 1</span>
             <div class="info">
