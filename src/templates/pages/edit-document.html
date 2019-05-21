@@ -9,7 +9,7 @@
 {% block navbar_admin_tools %}
   <div class="project">
     <span class="title js-documentTitle">{{object.title}}</span>
-      <div class="dropdown">
+      <div class="dropdown-menu">
       {% if group %}
         {% if group.public_participation %}
         <span>Participação pública</span>
@@ -17,15 +17,32 @@
         <span class="-closed">{{group.thematic_group.name}}</span>
         {% endif %}
       {% else %}
-        <span>Minhas Versões</span>
-      {% endif %}
-      <ul class="list js-menuList">
-        <a href="{% url 'document_editor_cluster' 'editor' object.id %}">
-          <span>Minhas Versões</span>
+      <div class="dropdown">
+        <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
+          <span>Versão 1</span>
           <div class="info">
             <div class="item -versions">{{ object.invited_groups.all.count }}</div>
           </div>
         </a>
+        <ul class="itens">
+          <a href="#">Versão 2</a>
+          <a href="#">Versão 3</a>
+        </ul>
+      </div>
+      {% endif %}
+      <ul class="list js-menuList">
+        <div class="dropdown">
+          <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
+            <span>Versão 1</span>
+            <div class="info">
+              <div class="item -versions">{{ object.invited_groups.all.count }}</div>
+            </div>
+          </a>
+          <ul class="itens">
+            <a href="#">Versão 2</a>
+            <a href="#">Versão 3</a>
+          </ul>
+        </div>
         <!-- Número de versões -->
         <hr>
         {% for public_participation in public_group %}
@@ -64,24 +81,26 @@
         {% endif %}
         {% endfor %}
         <hr>
-        <div class="title">
-          <span class="-closed">Participações Privadas</span>
-          {% if not object.title or not object.description or not object.themes.all %}
-          <a href="#" class="-add js-openValidationButton">Adicionar</a>
-          {% else %}
-          <a href="{% url 'new_group' object.id %}" class="-add">Adicionar</a>
-          {% endif %}
+        <div class="private">
+          <div class="title">
+            <span class="-closed">Participações Privadas</span>
+            {% if not object.title or not object.description or not object.themes.all %}
+            <a href="#" class="-add js-openValidationButton">Adicionar</a>
+            {% else %}
+            <a href="{% url 'new_group' object.id %}" class="-add">Adicionar</a>
+            {% endif %}
+          </div>
+          <!-- Criar nova -->
+          {% for invited_group in private_groups %}
+            <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{invited_group.id}}">
+              <span>{{invited_group.thematic_group.name}}</span>
+              <div class="info">
+                <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
+                <div class="item -opinions">{{invited_group.suggestions.count}}</div>
+              </div>
+            </a>
+          {% endfor %}
         </div>
-        <!-- Criar nova -->
-        {% for invited_group in private_groups %}
-          <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{invited_group.id}}">
-            <span>{{invited_group.thematic_group.name}}</span>
-            <div class="info">
-              <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
-              <div class="item -opinions">{{invited_group.suggestions.count}}</div>
-            </div>
-          </a>
-        {% endfor %}
       </ul>
     </div>
   </div>
