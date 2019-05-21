@@ -41,6 +41,11 @@ class Document(TimestampedMixin):
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                               related_name='documents',
                               verbose_name=_('owner'))
+    responsible = models.ForeignKey('projects.DocumentResponsible',
+                                    on_delete=models.SET_NULL,
+                                    related_name='documents',
+                                    verbose_name=_('responsible'),
+                                    blank=True, null=True)
     title = models.CharField(_('title'), max_length=200,
                              default=_('Untitled Document'))
     slug = models.SlugField(max_length=200)
@@ -73,6 +78,25 @@ class Document(TimestampedMixin):
 
     def __str__(self):
         return '%s' % (self.title)
+
+
+class DocumentResponsible(models.Model):
+    name = models.CharField(max_length=250)
+    cd_id = models.PositiveIntegerField(_('CD ID'), default=0)
+    image_url = models.URLField(_('image url'), null=True, blank=True)
+    party_initials = models.CharField(_('party initials'), max_length=250,
+                                      null=True, blank=True)
+    uf = models.CharField(_('uf'), max_length=250, null=True, blank=True)
+    email = models.EmailField(_('email'), max_length=250, null=True,
+                              blank=True)
+    phone = models.CharField(_('phone'), max_length=250, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("Document Responsible")
+        verbose_name_plural = _("Document Responsibles")
+
+    def __str__(self):
+        return self.name
 
 
 class DocumentInfo(models.Model):

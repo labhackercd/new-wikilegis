@@ -6,7 +6,7 @@ from utils.decorators import require_ajax
 from datetime import date
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
-from apps.projects.models import Excerpt, Theme, Document
+from apps.projects.models import Excerpt, Theme, Document, DocumentResponsible
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation, PublicAuthorization
@@ -22,8 +22,7 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
-from apps.notifications.emails import (send_public_participation,
-                                       send_remove_participant)
+from apps.notifications.emails import send_remove_participant
 import json
 import requests
 
@@ -344,14 +343,19 @@ def create_public_participation(request, document_pk):
             url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
             data = requests.get(url).json()
             congressman = data['dados']['ultimoStatus']
-            send_public_participation(request.user.get_full_name(),
-                                      congressman['nome'],
-                                      congressman['gabinete']['telefone'],
-                                      congressman['gabinete']['email'],
-                                      group.document.title)
+            responsible = DocumentResponsible.objects.get_or_create(
+                cd_id=congressman_id)[0]
+            responsible.name = congressman['nome']
+            responsible.image_url = congressman['urlFoto']
+            responsible.party_initials = congressman['siglaPartido']
+            responsible.uf = congressman['siglaUf']
+            responsible.email = congressman['gabinete']['email']
+            responsible.phone = congressman['gabinete']['telefone']
+            responsible.save()
+            document.responsible = responsible
+            document.save()
             PublicAuthorization.objects.create(
-                congressman_email=congressman['gabinete']['email'],
-                group=group)
+                congressman=responsible, group=group)
 
             return JsonResponse(
                 {'message': _('Request sent!')})
@@ -377,9 +381,18 @@ def update_closing_date(request, group_id):
         url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
         data = requests.get(url).json()
         congressman = data['dados']['ultimoStatus']
+        responsible = DocumentResponsible.objects.get_or_create(
+            cd_id=congressman_id)[0]
+        responsible.name = congressman['nome']
+        responsible.image_url = congressman['urlFoto']
+        responsible.party_initials = congressman['siglaPartido']
+        responsible.uf = congressman['siglaUf']
+        responsible.email = congressman['gabinete']['email']
+        responsible.phone = congressman['gabinete']['telefone']
+        responsible.save()
         PublicAuthorization.objects.create(
             group=group,
-            congressman_email=congressman['gabinete']['email'],
+            congressman=responsible,
             closing_date=closing_date)
 
         return JsonResponse(
