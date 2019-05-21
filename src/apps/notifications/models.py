@@ -35,7 +35,11 @@ class OwnerInvitation(TimestampedMixin):
 
 
 class PublicAuthorization(TimestampedMixin):
-    congressman_email = models.EmailField()
+    congressman = models.ForeignKey('projects.DocumentResponsible',
+                                    on_delete=models.CASCADE,
+                                    related_name='authorizations',
+                                    verbose_name=_('congressman'),
+                                    blank=True, null=True)
     hash_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     group = models.ForeignKey('participations.InvitedGroup',
                               on_delete=models.CASCADE,
@@ -48,4 +52,4 @@ class PublicAuthorization(TimestampedMixin):
         verbose_name_plural = _('public authorization')
 
     def __str__(self):
-        return '%s' % (self.congressman_email)
+        return '%s' % (self.congressman.name)

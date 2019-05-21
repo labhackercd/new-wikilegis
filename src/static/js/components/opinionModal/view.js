@@ -6,6 +6,7 @@ OpinionModalView.prototype.initEvents = function() {
   this.opinionModalElement = $('.js-opinionModal');
   this.buttonsElements = $('.js-opinionModal .js-opinionButton');
   this.nextOpinionElements = $('.js-opinionModal .js-nextOpinion');
+  this.loginNotice = $('.js-opinionModal .js-loginNotice');
   this.modalContentElement = $('.js-opinionModal .js-appModalContent');
   this.documentSuggestion = undefined;
   this.currentExcerptId = undefined;
@@ -87,6 +88,7 @@ OpinionModalView.prototype.subscribers = function () {
     self.unrippleCircleButton(self.buttonsElements);
     self.enableOpinionButtons(self.nextOpinionElements);
     self.enableOpinionButtons(self.buttonsElements);
+    self.enableLoginNotice(self.loginNotice);
   });
 };
 
@@ -184,6 +186,10 @@ OpinionModalView.prototype.disableOpinionButtons = function(disabledButtons) {
 
 OpinionModalView.prototype.enableOpinionButtons = function(disabledButtons) {
   disabledButtons.removeClass('-inactive');
+};
+
+OpinionModalView.prototype.enableLoginNotice = function(loginNotice) {
+  loginNotice.removeClass('-inactive');
 };
 
 OpinionModalView.prototype.showSubmissionCue = function(opinion) {

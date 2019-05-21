@@ -83,11 +83,11 @@ body.-white .nav-bar {
     color: #FFF;
   }
 
-  &.-edit > .project > .dropdown::after {
+  &.-edit > .project > .dropdown-menu::after {
     background-color: #FFF;
   }
 
-  &.-edit > .project > .dropdown.-closed::before {
+  &.-edit > .project > .dropdown-menu.-closed::before {
     background-color: #FFF;
   }
 
@@ -192,7 +192,7 @@ body.-white .nav-bar {
 
     border-left: 1px solid $color-grayish;
 
-    &:hover > .dropdown > .list {
+    &:hover > .dropdown-menu > .list {
       visibility: visible;
 
       transition-delay: 0s, 0s, .3s;
@@ -209,262 +209,12 @@ body.-white .nav-bar {
     color: $color-deep-gray;
   }
 
-  & > .project > .dropdown {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
+  & > .project > .dropdown-menu {
     margin-top: .25rem;
     margin-right: 1rem;
-
-    cursor: pointer;
   }
 
-  & > .project > .dropdown::after {
-    display: inline-flex;
-
-    width: .75rem;
-    height: .75rem;
-    margin-left: .25rem;
-
-    content: '';
-
-    background-color: $color-deep-gray;
-
-    mask-image: url('../../static/img/arrow.svg');
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: contain;
-  }
-
-  & > .project > .dropdown > span {
-    font-size: $font-size-micro;
-  }
-
-  & > .project > .dropdown > span.-closed {
-    @include mask-icon('padlock');
-  }
-
-  & > .project > .dropdown > span.-closed::before {
-    margin-right: .25rem;
-
-    background-color: $color-deep-gray;
-  }
-
-  & > .project > .dropdown > .list {
-    position: absolute;
-    top: 1.3rem;
-    left: -.2rem;
-
-    display: flex;
-    visibility: hidden;
-    overflow: hidden;
-    overflow-y: auto;
-    flex-direction: column;
-
-    width: 25rem;
-    max-height: 70vh;
-    padding: .5rem 0;
-
-    transition: all .3s ease-in-out 0s, visibility 0s linear .2s, z-index 0s linear .01s;
-    transform: translateY(-2%);
-
-    opacity: 0;
-    border: 1px solid $color-grayish;
-    background-color: #FFF;
-    box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
-  }
-
-  & > .project > .dropdown > .list > .title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: .5rem 1.25rem;
-
-    cursor: text;
-  }
-
-  & > .project > .dropdown > .list > .title > span {
-    font-size: $font-size-centi;
-    font-weight: bold;
-    line-height: 1.4;
-
-    color: $color-deep-gray;
-  }
-
-  & > .project > .dropdown > .list > .title > span.-closed {
-    @include mask-icon('padlock');
-  }
-
-  & > .project > .dropdown > .list > .title > span.-closed::before {
-    font-size: $font-size-micro;
-
-    margin-right: .35rem;
-
-    background-color: $color-deep-gray;
-  }
-
-  & > .project > .dropdown > .list > .title > a {
-    font-size: $font-size-micro;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: .5rem 0;
-
-    cursor: pointer;
-    letter-spacing: .5px;
-
-    color: $color-brand;
-
-    &:hover {
-      opacity: .8;
-    }
-  }
-
-  & > .project > .dropdown > .list > .title.-add {
-    @include mask-icon('add');
-  }
-
-  & > .project > .dropdown > .list > .title.-add::before {
-    font-size: $font-size-nano;
-
-    margin-right: .35rem;
-
-    background-color: $color-brand;
-  }
-
-  & > .project > .dropdown > .list > a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 1rem 1.5rem;
-
-    color: $color-deep-gray;
-
-    &:hover {
-      & > span,
-      & > .info > .item {
-        color: $color-brand;
-      }
-
-      & > .info > .item::before {
-        background-color: $color-brand;
-      }
-    }
-  }
-
-  & > .project > .dropdown > .list > a > span {
-    font-size: $font-size-mili;
-    line-height: 1.4;
-  }
-
-  & > .project > .dropdown > .list > a > .info {
-    display: flex;
-    align-items: center;
-  }
-
-  & > .project > .dropdown > .list > a > .info > * + * {
-    margin-left: .75rem;
-  }
-
-  & > .project > .dropdown > .list > a > .info.-full {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-
-    width: 9rem;
-  }
-
-  & > .project > .dropdown > .list > a > .info.-full > .-green {
-    margin-top: .75rem;
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item {
-    font-size: $font-size-micro;
-
-    display: flex;
-    align-items: center;
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item::before {
-    font-size: $font-size-micro;
-
-    background-color: $color-deep-gray;
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item.-versions {
-    @include mask-icon('document');
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item.-participants {
-    @include mask-icon('avatar');
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item.-opinions {
-    @include mask-icon('comment-black');
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item.-versions::before,
-  & > .project > .dropdown > .list > a > .info > .item.-participants::before,
-  & > .project > .dropdown > .list > a > .info > .item.-opinions::before {
-    margin-right: .25rem;
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item.-blue {
-    color: $color-twitter;
-  }
-
-  & > .project > .dropdown > .list > a > .info > .item.-green {
-    color: $color-brand;
-  }
-
-  & > .project > .dropdown > .list > hr {
-    margin: .5rem 0;
-
-    color: $color-grayish;
-  }
-
-  & > .project > .breadcrumb {
-    display: flex;
-    align-items: center;
-
+  & > .project > .breadcrumb-menu {
     margin-top: .25rem;
-  }
-
-  & > .project > .breadcrumb > * + * {
-    margin-left: .5rem;
-  }
-
-  & > .project > .breadcrumb > a {
-    font-size: $font-size-micro;
-
-    display: flex;
-    align-items: center;
-
-    color: $color-deep-gray;
-
-    &:hover {
-      text-decoration: underline;
-
-      color: $color-brand;
-    }
-  }
-
-  & > .project > .breadcrumb > a:not(:first-child)::before {
-    display: inline-block;
-
-    width: .375rem;
-    height: .375rem;
-    margin-right: .5rem;
-
-    content: '';
-
-    opacity: .8;
-    border-radius: 50%;
-    background-color: $color-deep-gray;
   }
 }

@@ -4,11 +4,10 @@ from django import forms
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from utils.decorators import require_ajax
-from datetime import date
+from datetime import date, datetime
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
-from apps.projects.models import Excerpt, Theme, Document, DocumentVersion
-from apps.projects import versions
+from apps.projects.models import Excerpt, Theme, Document, DocumentResponsible
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation, PublicAuthorization
@@ -24,8 +23,7 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
-from apps.notifications.emails import (send_public_participation,
-                                       send_remove_participant)
+from apps.notifications.emails import send_remove_participant
 import json
 import requests
 
@@ -53,6 +51,11 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        today = date.today()
+        if self.object.closing_date < today:
+            form.add_error('closing_date', ValidationError(
+                _('Closing date must be greater than or equal to today!')))
+            return super().form_invalid(form)
         self.object.document = Document.objects.get(id=self.kwargs.get('pk'))
         self.object.public_participation = False
         thematic_group = ThematicGroup(owner=self.request.user)
@@ -106,6 +109,11 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        today = date.today()
+        if self.object.closing_date < today:
+            form.add_error('closing_date', ValidationError(
+                _('Closing date must be greater than or equal to today!')))
+            return super().form_invalid(form)
         thematic_group = self.object.thematic_group
         thematic_group.name = self.request.POST.get('group_name', None)
         thematic_group.save()
@@ -340,6 +348,7 @@ def list_propositions(request):
 
 @require_ajax
 def create_public_participation(request, document_pk):
+    today = date.today()
     document = Document.objects.get(id=document_pk)
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
@@ -355,36 +364,49 @@ def create_public_participation(request, document_pk):
             status=409
         )
 
+    end_date = datetime.strptime(closing_date, "%Y-%m-%d").date()
     if congressman_id and closing_date:
-        group, created = InvitedGroup.objects.get_or_create(
-            document=document, public_participation=True,
-            defaults={
-                'closing_date': closing_date,
-                'version': version
-            })
-        if created:
-            group.group_status = 'waiting'
-            group.save()
-            url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
-            data = requests.get(url).json()
-            congressman = data['dados']['ultimoStatus']
-            send_public_participation(request.user.get_full_name(),
-                                      congressman['nome'],
-                                      congressman['gabinete']['telefone'],
-                                      congressman['gabinete']['email'],
-                                      group.document.title)
-            PublicAuthorization.objects.create(
-                congressman_email=congressman['gabinete']['email'],
-                group=group)
-
-            return JsonResponse(
-                {'message': _('Request sent!')})
-        else:
+        if end_date < today:
             return JsonResponse(
                 {'error':
-                 _('You cannot request a public participation again')},
-                status=409
+                    _('Closing date must be greater than or equal to today!')},
+                status=400
             )
+        else:
+            group, created = InvitedGroup.objects.get_or_create(
+                document=document, public_participation=True,
+                defaults={
+                    'closing_date': closing_date,
+                    'version': version
+                })
+            if created:
+                group.group_status = 'waiting'
+                group.save()
+                url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
+                data = requests.get(url).json()
+                congressman = data['dados']['ultimoStatus']
+                responsible = DocumentResponsible.objects.get_or_create(
+                    cd_id=congressman_id)[0]
+                responsible.name = congressman['nome']
+                responsible.image_url = congressman['urlFoto']
+                responsible.party_initials = congressman['siglaPartido']
+                responsible.uf = congressman['siglaUf']
+                responsible.email = congressman['gabinete']['email']
+                responsible.phone = congressman['gabinete']['telefone']
+                responsible.save()
+                document.responsible = responsible
+                document.save()
+                PublicAuthorization.objects.create(
+                    congressman=responsible, group=group)
+
+                return JsonResponse(
+                    {'message': _('Request sent!')})
+            else:
+                return JsonResponse(
+                    {'error':
+                     _('You cannot request a public participation again')},
+                    status=409
+                )
     else:
         return JsonResponse(
             {'error': _('Congressman and closing date are required!')},
@@ -394,20 +416,38 @@ def create_public_participation(request, document_pk):
 
 @require_ajax
 def update_closing_date(request, group_id):
+    today = date.today()
     group = InvitedGroup.objects.get(id=group_id)
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
+    end_date = datetime.strptime(closing_date, "%Y-%m-%d").date()
     if congressman_id and closing_date:
-        url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
-        data = requests.get(url).json()
-        congressman = data['dados']['ultimoStatus']
-        PublicAuthorization.objects.create(
-            group=group,
-            congressman_email=congressman['gabinete']['email'],
-            closing_date=closing_date)
+        if end_date < today:
+            return JsonResponse(
+                {'error':
+                    _('Closing date must be greater than or equal to today!')},
+                status=400
+            )
+        else:
+            url = config.CD_OPEN_DATA_URL + 'deputados/' + congressman_id
+            data = requests.get(url).json()
+            congressman = data['dados']['ultimoStatus']
+            responsible = DocumentResponsible.objects.get_or_create(
+                cd_id=congressman_id)[0]
+            responsible.name = congressman['nome']
+            responsible.image_url = congressman['urlFoto']
+            responsible.party_initials = congressman['siglaPartido']
+            responsible.uf = congressman['siglaUf']
+            responsible.email = congressman['gabinete']['email']
+            responsible.phone = congressman['gabinete']['telefone']
+            responsible.save()
+            PublicAuthorization.objects.create(
+                group=group,
+                congressman=responsible,
+                closing_date=closing_date)
 
-        return JsonResponse(
-            {'message': _('Request sent!')})
+            return JsonResponse(
+                {'message': _('Request sent!')})
     else:
         return JsonResponse(
             {'error': _('Congressman and closing date are required!')},

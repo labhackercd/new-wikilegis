@@ -45,7 +45,7 @@
 
   & > article {
     font-size: 1rem;
-
+    box-sizing: border-box;
     width: 100%;
     max-width: 66ch;
     margin: 0 auto;
@@ -64,10 +64,10 @@
   }
 
   & > article > header > .date {
+    color: $color-deep-gray;
+
     font-size: $font-size-mili;
     font-weight: 500;
-
-    color: $color-deep-gray;
   }
 
   & > article > header > .date.-inactive {
@@ -78,33 +78,33 @@
     color: $color-brand;
   }
 
-  & > article > header > .-editable & > h1 {
+  & > article > header > .-editable > h1 {
     min-height: 52px;
   }
 
-  & > article > header > .-editable & > .description {
+  & > article > header > .-editable > .description {
     min-height: 52px;
     margin-bottom: 2rem;
   }
 
-  & > article > header > .-editable & > textarea {
+  & > article > header > .-editable > textarea {
     padding: 0;
 
     box-shadow: none;
   }
 
-  & > article > header > .-editable & > textarea.title {
-    @extend h1;
-
+  & > article > header > .-editable > textarea.title {
     margin: 0;
     margin-top: 1rem;
+
+    @extend h1;
   }
 
-  & > article > header > .-editable & > textarea.description {
+  & > article > header > .-editable > textarea.description {
     line-height: 1.6;
   }
 
-  & > article > header > .-editable & > hr {
+  & > article > header > .-editable > textarea > hr {
     margin-top: 0;
   }
 
@@ -113,9 +113,9 @@
   }
 
   & > article > header > .description {
+    margin-top: 1rem;
+
     font-size: 1.25rem;
     font-weight: 300;
-
-    margin-top: 1rem;
   }
 }

@@ -11,14 +11,13 @@
   }
 </style>
 {% endblock extracss %}
-{% block navbar %}
-<div class="nav-bar js-navbar -admin js-owner">
-  <div class="nav-burger"></div>
-  <a href="/" class="brand -beta">Wikilegis</a>
 
+{% block navbar_extra_classes %}js-navbar js-owner{% endblock navbar_extra_classes %}
+
+{% block navbar_admin_tools %}
   <div class="project">
-    <span class="title js-documentTitle">{{object}}</span>
-    <ul class="breadcrumb">
+    <span class="title js-documentTitle">{{ object.document.title }}</span>
+    <ul class="breadcrumb-menu">
       {% if object %}
         <a href="#">Editar Grupo Fechado</a>
       {% else %}
@@ -29,9 +28,8 @@
   <div class="tools">
     <a href="{% url 'owner_documents' %}">Meus documentos</a>
   </div>
+{% endblock navbar_admin_tools %}
 
-</div>
-{% endblock %}
 {% block content %}
 
 <main class="section-group">
@@ -71,7 +69,7 @@
       </div>
       <div class="input-text -required -date">
         {{form.closing_date.errors}}
-        <input type="date" name="closing_date" required id="id_closing_date">
+        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}"required id="id_closing_date">
         <label for="id_closing_date">Data de encerramento:</label>
       </div>
     </div>
@@ -146,6 +144,5 @@
 <script src="{% static 'js/components/filterModal/controller.js' %}"></script>
 <script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
 <script src="{% static 'js/components/confirmFormModal/view.js' %}"></script>
-{# <script src="{% static 'js/components/groupAutocomplete/views.js' %}"></script> #}
 <script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
 {% endblock page_js %}

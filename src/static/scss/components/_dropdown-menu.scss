@@ -1,0 +1,281 @@
+.dropdown-menu {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  &::after {
+    display: inline-flex;
+
+    width: .75rem;
+    height: .75rem;
+    margin-left: .25rem;
+
+    content: '';
+
+    background-color: $color-deep-gray;
+
+    mask-image: url('../../static/img/arrow.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+  }
+
+  & > span {
+    font-size: $font-size-micro;
+  }
+
+  & > span.-closed {
+    @include mask-icon('padlock');
+  }
+
+  & > span.-closed::before {
+    margin-right: .25rem;
+
+    background-color: $color-deep-gray;
+  }
+
+  & > .list,
+  & > .list > .dropdown > .itens {
+    position: absolute;
+    top: 1.3rem;
+    left: -.2rem;
+
+    display: flex;
+    visibility: hidden;
+    flex-direction: column;
+
+    width: 25rem;
+    max-height: 70vh;
+    padding: .5rem 0;
+
+    transition: all .3s ease-in-out 0s, visibility 0s linear .2s, z-index 0s linear .01s;
+    transform: translateY(-2%);
+
+    opacity: 0;
+    border: 1px solid $color-grayish;
+    background-color: #FFF;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+  }
+
+  & > .list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem 1.5rem;
+
+    color: $color-deep-gray;
+
+    &:hover {
+      & > span,
+      & > .info > .item {
+        color: $color-brand;
+      }
+
+      & > .info > .item::before {
+        background-color: $color-brand;
+      }
+    }
+  }
+
+  & > .list .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: .5rem 1.25rem;
+
+    cursor: text;
+  }
+
+  & > .list .title.-add {
+    @include mask-icon('add');
+  }
+  & > .list .title.-add::before {
+    font-size: $font-size-nano;
+
+    margin-right: .35rem;
+
+    background-color: $color-brand;
+  }
+
+  & > .list .title > span {
+    font-size: $font-size-centi;
+    font-weight: bold;
+    line-height: 1.4;
+
+    color: $color-deep-gray;
+  }
+
+  & > .list .title > span.-closed {
+    @include mask-icon('padlock');
+  }
+
+  & > .list .title > span.-closed::before {
+    font-size: $font-size-micro;
+
+    margin-right: .35rem;
+
+    background-color: $color-deep-gray;
+  }
+
+  & > .list .title > a {
+    font-size: $font-size-micro;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .5rem 0;
+
+    cursor: pointer;
+    letter-spacing: .5px;
+
+    color: $color-brand;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  & > .list > .private {
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  & > .list > .private > .title {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+
+    box-sizing: border-box;
+
+    background-color: #FFF;
+  }
+
+  & > .list > .dropdown {
+    position: relative;
+
+    padding: 1rem 1.5rem;
+
+    color: $color-deep-gray;
+
+
+    &:hover {
+      & > a,
+      & > a > .info > .item {
+        color: $color-brand;
+      }
+
+      & > a > .info > .item::before {
+        background-color: $color-brand;
+      }
+
+      & > .itens {
+        visibility: visible;
+
+        transition-delay: 0s, 0s, .3s;
+        transform: translateX(0%);
+
+        opacity: 1;
+      }
+    }
+  }
+
+  & > .list > .dropdown > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0;
+  }
+
+  & > .list > .dropdown > .itens {
+    position: absolute;
+    top: -.6rem;
+    left: 25rem;
+
+    display: flex;
+
+    transform: translateY(0);
+    transform: translateX(-4%);
+  }
+
+  & > .list > .dropdown > .itens > a:hover {
+    color: $color-brand;
+  }
+
+  & > .list a > span,
+  & > .list > .dropdown > .itens > a {
+    font-size: $font-size-mili;
+    line-height: 1.4;
+  }
+
+  & > .list a > .info {
+    display: flex;
+    align-items: center;
+  }
+
+  & > .list a > .info > * + * {
+    margin-left: .75rem;
+  }
+
+  & > .list a > .info.-full {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    width: 9rem;
+  }
+
+  & > .list a > .info.-full > .-green {
+    margin-top: .75rem;
+  }
+
+  & > .list a > .info > .item {
+    font-size: $font-size-micro;
+
+    display: flex;
+    align-items: center;
+  }
+
+  & > .list a > .info > .item::before {
+    font-size: $font-size-micro;
+
+    background-color: $color-deep-gray;
+  }
+
+  & > .list a > .info > .item.-versions {
+    @include mask-icon('document');
+  }
+
+  & > .list a > .info > .item.-participants {
+    @include mask-icon('avatar');
+  }
+
+  & > .list a > .info > .item.-opinions {
+    @include mask-icon('comment-black');
+  }
+
+  & > .list a > .info > .item.-versions::before,
+  & > .list a > .info > .item.-participants::before,
+  & > .list a > .info > .item.-opinions::before {
+    margin-right: .25rem;
+  }
+
+  & > .list a > .info > .item.-blue {
+    color: $color-twitter;
+  }
+
+  & > .list a > .info > .item.-green {
+    color: $color-brand;
+  }
+
+  & > .list > hr {
+    margin: .5rem 0;
+
+    color: $color-grayish;
+  }
+}

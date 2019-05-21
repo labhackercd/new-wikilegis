@@ -4,9 +4,108 @@
 {{ object.title }}
 {% endblock title %}
 
-{% block navbar %}
-{% include "components/document-navbar.html" %}
-{% endblock navbar %}
+{% block navbar_extra_classes %}js-navbar js-owner{% endblock navbar_extra_classes %}
+
+{% block navbar_admin_tools %}
+  <div class="project">
+    <span class="title js-documentTitle">{{object.title}}</span>
+      <div class="dropdown-menu">
+      {% if group %}
+        {% if group.public_participation %}
+        <span>Participação pública</span>
+        {% else %}
+        <span class="-closed">{{group.thematic_group.name}}</span>
+        {% endif %}
+      {% else %}
+      <div class="dropdown">
+        <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
+          <span>Versão 1</span>
+          <div class="info">
+            <div class="item -versions">{{ object.invited_groups.all.count }}</div>
+          </div>
+        </a>
+        <ul class="itens">
+          <a href="#">Versão 2</a>
+          <a href="#">Versão 3</a>
+        </ul>
+      </div>
+      {% endif %}
+      <ul class="list js-menuList">
+        <div class="dropdown">
+          <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
+            <span>Versão 1</span>
+            <div class="info">
+              <div class="item -versions">{{ object.invited_groups.all.count }}</div>
+            </div>
+          </a>
+          <ul class="itens">
+            <a href="#">Versão 2</a>
+            <a href="#">Versão 3</a>
+          </ul>
+        </div>
+        <!-- Número de versões -->
+        <hr>
+        {% for public_participation in public_group %}
+        {% if public_participation.group_status == 'waiting' %}
+        <a href="#" class="js-waitingButton">
+          <span>Participação Pública</span>
+          <div class="info">
+              <div class="item -blue">Aguardando</div>
+          </div>
+        </a>
+        {% else %}
+        <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{public_participation.id}}">
+          <span>Participação Pública</span>
+          <div class="info -full">
+            <div class="item -participants">1</div>
+            <div class="item -opinions">0</div>
+            <div class="item -green">Em andamento</div>
+          </div>
+        </a>
+        {% endif %}
+        {% empty %}
+        {% if not object.title or not object.description or not object.themes.all %}
+        <a href="#" class="js-openValidationButton">
+          <span>Participação Pública</span>
+          <div class="info">
+            <div class="item">Solicitar</div>
+          </div>
+        </a>
+        {% else %}
+        <a href="#" class="js-openPublicParticipation">
+          <span>Participação Pública</span>
+          <div class="info">
+            <div class="item">Solicitar</div>
+          </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+        <hr>
+        <div class="private">
+          <div class="title">
+            <span class="-closed">Participações Privadas</span>
+            {% if not object.title or not object.description or not object.themes.all %}
+            <a href="#" class="-add js-openValidationButton">Adicionar</a>
+            {% else %}
+            <a href="{% url 'new_group' object.id %}" class="-add">Adicionar</a>
+            {% endif %}
+          </div>
+          <!-- Criar nova -->
+          {% for invited_group in private_groups %}
+            <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{invited_group.id}}">
+              <span>{{invited_group.thematic_group.name}}</span>
+              <div class="info">
+                <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
+                <div class="item -opinions">{{invited_group.suggestions.count}}</div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </ul>
+    </div>
+  </div>
+{% endblock navbar_admin_tools %}
+
 
 {% block extracss %}
 <style>

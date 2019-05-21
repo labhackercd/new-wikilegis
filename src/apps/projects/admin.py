@@ -133,3 +133,18 @@ class DocumentAuthorInfoAdmin(admin.ModelAdmin):
         'uf',
     )
     list_filter = ('author',)
+
+
+@admin.register(models.DocumentResponsible)
+class DocumentResponsibleAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'cd_id',
+        'image_url',
+        'party_initials',
+        'uf',
+        'email',
+        'phone',
+    )
+    search_fields = ('name',)

@@ -3,6 +3,18 @@
   <span class="epigraph">{{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}</span>
   {% endif %}
 </div>
+{% if object.document.responsible %}
+<div class="item">
+  <span class="title">Responsável</span>
+  <a class="autor" target="_blank" href="http://www2.camara.leg.br/deputados/pesquisa/layouts_deputados_biografia?pk={{object.document.responsible.cd_id}}">
+    <div class="info">
+      <span class="text -name">{{ object.document.responsible.name }}</span>
+      <span class="text">({{object.document.responsible.party_initials}}-{{object.document.responsible.uf}})</span>
+    </div>
+    <img src="{{object.document.responsible.image_url}}">
+  </a>
+</div>
+{% endif %}
 {% if object.document.infos.authors.all %}
 <div class="item">
   <span class="title">Autor</span>
@@ -11,7 +23,7 @@
     <a class="autor" target="_blank" href="http://www2.camara.leg.br/deputados/pesquisa/layouts_deputados_biografia?pk={{author.infos.cd_id}}">
       <div class="info">
         <span class="text -name">{{ author.name }}</span>
-        <span class="text">{{author.author_type}} {% if author.infos %}({{author.infos.party_initials}}-{{author.infos.uf}}){% endif %}</span>
+        <span class="text">{% if author.infos %}({{author.infos.party_initials}}-{{author.infos.uf}}){% endif %}</span>
       </div>
       {% if author.infos %}
       <img src="{{author.infos.image_url}}">
