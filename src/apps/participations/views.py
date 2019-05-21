@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from utils.decorators import require_ajax
-from datetime import date
+from datetime import date, datetime
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
 from apps.projects.models import Excerpt, Theme, Document, DocumentResponsible
@@ -23,7 +23,6 @@ from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
 from apps.notifications.emails import send_remove_participant
-from datetime import date, datetime
 import json
 import requests
 
@@ -45,6 +44,11 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        today = date.today()
+        if self.object.closing_date < today:
+            form.add_error('closing_date', ValidationError(
+                _('Closing date must be greater than or equal to today!')))
+            return super().form_invalid(form)
         self.object.document = Document.objects.get(id=self.kwargs.get('pk'))
         self.object.public_participation = False
         thematic_group = ThematicGroup(owner=self.request.user)
@@ -97,6 +101,11 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        today = date.today()
+        if self.object.closing_date < today:
+            form.add_error('closing_date', ValidationError(
+                _('Closing date must be greater than or equal to today!')))
+            return super().form_invalid(form)
         thematic_group = self.object.thematic_group
         thematic_group.name = self.request.POST.get('group_name', None)
         thematic_group.save()
