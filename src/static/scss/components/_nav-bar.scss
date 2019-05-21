@@ -252,15 +252,14 @@ body.-white .nav-bar {
     background-color: $color-deep-gray;
   }
 
-  & > .project > .dropdown > .list {
+  & > .project > .dropdown > .list,
+  & > .project > .dropdown > .list > .drop > .itens {
     position: absolute;
     top: 1.3rem;
     left: -.2rem;
 
     display: flex;
     visibility: hidden;
-    overflow: hidden;
-    overflow-y: auto;
     flex-direction: column;
 
     width: 25rem;
@@ -276,7 +275,7 @@ body.-white .nav-bar {
     box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
   }
 
-  & > .project > .dropdown > .list > .title {
+  & > .project > .dropdown > .list .title {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -286,7 +285,7 @@ body.-white .nav-bar {
     cursor: text;
   }
 
-  & > .project > .dropdown > .list > .title > span {
+  & > .project > .dropdown > .list .title > span {
     font-size: $font-size-centi;
     font-weight: bold;
     line-height: 1.4;
@@ -294,11 +293,11 @@ body.-white .nav-bar {
     color: $color-deep-gray;
   }
 
-  & > .project > .dropdown > .list > .title > span.-closed {
+  & > .project > .dropdown > .list .title > span.-closed {
     @include mask-icon('padlock');
   }
 
-  & > .project > .dropdown > .list > .title > span.-closed::before {
+  & > .project > .dropdown > .list .title > span.-closed::before {
     font-size: $font-size-micro;
 
     margin-right: .35rem;
@@ -306,7 +305,7 @@ body.-white .nav-bar {
     background-color: $color-deep-gray;
   }
 
-  & > .project > .dropdown > .list > .title > a {
+  & > .project > .dropdown > .list .title > a {
     font-size: $font-size-micro;
 
     display: flex;
@@ -325,11 +324,11 @@ body.-white .nav-bar {
     }
   }
 
-  & > .project > .dropdown > .list > .title.-add {
+  & > .project > .dropdown > .list .title.-add {
     @include mask-icon('add');
   }
 
-  & > .project > .dropdown > .list > .title.-add::before {
+  & > .project > .dropdown > .list .title.-add::before {
     font-size: $font-size-nano;
 
     margin-right: .35rem;
@@ -337,7 +336,22 @@ body.-white .nav-bar {
     background-color: $color-brand;
   }
 
-  & > .project > .dropdown > .list > a {
+  & > .project > .dropdown > .list > .private {
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  & > .project > .dropdown > .list > .private > .title {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+
+    box-sizing: border-box;
+
+    background-color: #FFF;
+  }
+
+  & > .project > .dropdown > .list a {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -358,67 +372,119 @@ body.-white .nav-bar {
     }
   }
 
-  & > .project > .dropdown > .list > a > span {
+  & > .project > .dropdown > .list > .drop {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem 1.5rem;
+
+    color: $color-deep-gray;
+
+
+    &:hover {
+      & > a,
+      & > .info > .item {
+        color: $color-brand;
+      }
+
+      & > .info > .item::before {
+        background-color: $color-brand;
+      }
+
+      & > .itens {
+        visibility: visible;
+
+        transition-delay: 0s, 0s, .3s;
+        transform: translateX(0%);
+
+        opacity: 1;
+      }
+    }
+  }
+
+  & > .project > .dropdown > .list > .drop > a {
+    padding: 0;
+  }
+
+  & > .project > .dropdown > .list > .drop > .itens {
+    position: absolute;
+    top: -.6rem;
+    left: 25rem;
+
+    display: flex;
+
+    transform: translateY(0);
+    transform: translateX(-4%);
+  }
+
+  & > .project > .dropdown > .list > .drop > .itens > a:hover {
+    color: $color-brand;
+  }
+
+  & > .project > .dropdown > .list a > span {
     font-size: $font-size-mili;
     line-height: 1.4;
   }
 
-  & > .project > .dropdown > .list > a > .info {
+  & > .project > .dropdown > .list a > .info {
     display: flex;
     align-items: center;
   }
 
-  & > .project > .dropdown > .list > a > .info > * + * {
+  & > .project > .dropdown > .list a > .info > * + * {
     margin-left: .75rem;
   }
 
-  & > .project > .dropdown > .list > a > .info.-full {
+  & > .project > .dropdown > .list a > .info.-full {
     flex-wrap: wrap;
     justify-content: flex-end;
 
     width: 9rem;
   }
 
-  & > .project > .dropdown > .list > a > .info.-full > .-green {
+  & > .project > .dropdown > .list a > .info.-full > .-green {
     margin-top: .75rem;
   }
 
-  & > .project > .dropdown > .list > a > .info > .item {
+  & > .project > .dropdown > .list a > .info > .item {
     font-size: $font-size-micro;
 
     display: flex;
     align-items: center;
   }
 
-  & > .project > .dropdown > .list > a > .info > .item::before {
+  & > .project > .dropdown > .list a > .info > .item::before {
     font-size: $font-size-micro;
 
     background-color: $color-deep-gray;
   }
 
-  & > .project > .dropdown > .list > a > .info > .item.-versions {
+  & > .project > .dropdown > .list a > .info > .item.-versions {
     @include mask-icon('document');
   }
 
-  & > .project > .dropdown > .list > a > .info > .item.-participants {
+  & > .project > .dropdown > .list a > .info > .item.-participants {
     @include mask-icon('avatar');
   }
 
-  & > .project > .dropdown > .list > a > .info > .item.-opinions {
+  & > .project > .dropdown > .list a > .info > .item.-opinions {
     @include mask-icon('comment-black');
   }
 
-  & > .project > .dropdown > .list > a > .info > .item.-versions::before,
-  & > .project > .dropdown > .list > a > .info > .item.-participants::before,
-  & > .project > .dropdown > .list > a > .info > .item.-opinions::before {
+  & > .project > .dropdown > .list a > .info > .item.-versions::before,
+  & > .project > .dropdown > .list a > .info > .item.-participants::before,
+  & > .project > .dropdown > .list a > .info > .item.-opinions::before {
     margin-right: .25rem;
   }
 
-  & > .project > .dropdown > .list > a > .info > .item.-blue {
+  & > .project > .dropdown > .list a > .info > .item.-blue {
     color: $color-twitter;
   }
 
-  & > .project > .dropdown > .list > a > .info > .item.-green {
+  & > .project > .dropdown > .list a > .info > .item.-green {
     color: $color-brand;
   }
 
