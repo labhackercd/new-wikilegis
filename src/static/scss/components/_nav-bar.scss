@@ -375,10 +375,6 @@ body.-white .nav-bar {
   & > .project > .dropdown > .list > .drop {
     position: relative;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
     padding: 1rem 1.5rem;
 
     color: $color-deep-gray;
@@ -386,11 +382,11 @@ body.-white .nav-bar {
 
     &:hover {
       & > a,
-      & > .info > .item {
+      & > a > .info > .item {
         color: $color-brand;
       }
 
-      & > .info > .item::before {
+      & > a > .info > .item::before {
         background-color: $color-brand;
       }
 
@@ -406,6 +402,10 @@ body.-white .nav-bar {
   }
 
   & > .project > .dropdown > .list > .drop > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     padding: 0;
   }
 

@@ -17,20 +17,27 @@
         <span class="-closed">{{group.thematic_group.name}}</span>
         {% endif %}
       {% else %}
-        <div class="drop">
+      <div class="drop">
+        <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
           <span>Versão 1</span>
-          <ul class="itens">
-            <a href="#">Versão 2</a>
-            <a href="#">Versão 3</a>
-          </ul>
-        </div>
-      {% endif %}
-      <ul class="list js-menuList">
-        <div class="drop">
-          <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">Versão 1</a>
           <div class="info">
             <div class="item -versions">{{ object.invited_groups.all.count }}</div>
           </div>
+        </a>
+        <ul class="itens">
+          <a href="#">Versão 2</a>
+          <a href="#">Versão 3</a>
+        </ul>
+      </div>
+      {% endif %}
+      <ul class="list js-menuList">
+        <div class="drop">
+          <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
+            <span>Versão 1</span>
+            <div class="info">
+              <div class="item -versions">{{ object.invited_groups.all.count }}</div>
+            </div>
+          </a>
           <ul class="itens">
             <a href="#">Versão 2</a>
             <a href="#">Versão 3</a>
