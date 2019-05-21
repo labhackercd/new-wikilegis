@@ -1,5 +1,6 @@
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
+from django import forms
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from utils.decorators import require_ajax
@@ -36,7 +37,7 @@ User = get_user_model()
 class InvitedGroupCreate(SuccessMessageMixin, CreateView):
     model = InvitedGroup
     template_name = 'pages/invite-participants.html'
-    fields = ['closing_date']
+    fields = ['closing_date', 'version']
     success_message = "Grupo criado com sucesso"
 
     def get_context_data(self, **kwargs):
@@ -72,10 +73,6 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
                 _('Participants are required')))
             return super().form_invalid(form)
         self.object.thematic_group = thematic_group
-
-        version = self.request.POST.get('version', None)
-        new_version = self.object.document.versions.get(number=version)
-        self.object.version = new_version
 
         self.object.save()
         return super().form_valid(form)
