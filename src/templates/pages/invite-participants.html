@@ -18,8 +18,15 @@
   <div class="project">
     <span class="title js-documentTitle">{{ object.document.title }}</span>
     <ul class="breadcrumb-menu">
-      <a href="#">Editar Grupo Fechado</a>
+      {% if object %}
+        <a href="#">Editar Grupo Fechado</a>
+      {% else %}
+        <a href="#">Criar Grupo Fechado</a>
+      {% endif %}
     </ul>
+  </div>
+  <div class="tools">
+    <a href="{% url 'owner_documents' %}">Meus documentos</a>
   </div>
 {% endblock navbar_admin_tools %}
 
@@ -33,7 +40,7 @@
     <h2>Criar Grupo Fechado</h2>
     {% endif %}
 
-    <a href="{% url 'document_editor_cluster' 'clusters' object.document.id %}?group_id={{object.id}}" class="link-back">Voltar</a>
+    <a onclick="window.history.back();" class="link-back">Voltar</a>
 
   </header>
   <form method="POST" id="invited_group_form">
@@ -43,6 +50,22 @@
       <div class="input-text">
         <input type="text" name="group_name" id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
         <label for="id_group_name">Nome do grupo:</label>
+      </div>
+      <div class="input-select -required">
+        <div class="select">
+          <select id="id_version_name" required name="version" {% if not versions %}disabled{% endif %}>
+            {% for version in versions %}
+              <option value="{{version.pk}}">{{version.name}}</option>
+            {% endfor %}
+          </select>
+          <label for="id_version_name">Versão do Documento:</label>
+          <div class="icon"><i class="arrow"></i></div>
+        </div>
+        {% if not versions %}
+          <ul class="errorlist">
+            <li>Você precisa salvar uma versão do documento antes de abrir o projeto para um grupo de participação.</li>
+          </ul>
+        {% endif %}
       </div>
       <div class="input-text -required -date">
         {{form.closing_date.errors}}
@@ -121,6 +144,5 @@
 <script src="{% static 'js/components/filterModal/controller.js' %}"></script>
 <script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
 <script src="{% static 'js/components/confirmFormModal/view.js' %}"></script>
-{# <script src="{% static 'js/components/groupAutocomplete/views.js' %}"></script> #}
 <script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
 {% endblock page_js %}

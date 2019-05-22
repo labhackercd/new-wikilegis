@@ -34,12 +34,18 @@ User = get_user_model()
 class InvitedGroupCreate(SuccessMessageMixin, CreateView):
     model = InvitedGroup
     template_name = 'pages/invite-participants.html'
-    fields = ['closing_date']
+    fields = ['closing_date', 'version']
     success_message = "Grupo criado com sucesso"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['themes'] = Theme.objects.all()
+        document = Document.objects.get(id=self.kwargs.get('pk'))
+        context['versions'] = document.versions.filter(
+            auto_save=False,
+            name__isnull=False
+        )
+
         return context
 
     def form_valid(self, form):
@@ -69,6 +75,7 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
                 _('Participants are required')))
             return super().form_invalid(form)
         self.object.thematic_group = thematic_group
+
         self.object.save()
         return super().form_valid(form)
 
@@ -344,6 +351,18 @@ def create_public_participation(request, document_pk):
     document = Document.objects.get(id=document_pk)
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
+
+    version = request.POST.get('versionId', None)
+    if version:
+        version = document.versions.get(id=version)
+    else:
+        return JsonResponse(
+            {'error':
+             _('You must create a version from your text before '
+               'open to participation')},
+            status=409
+        )
+
     end_date = datetime.strptime(closing_date, "%Y-%m-%d").date()
     if congressman_id and closing_date:
         if end_date < today:
@@ -355,7 +374,10 @@ def create_public_participation(request, document_pk):
         else:
             group, created = InvitedGroup.objects.get_or_create(
                 document=document, public_participation=True,
-                defaults={'closing_date': closing_date})
+                defaults={
+                    'closing_date': closing_date,
+                    'version': version
+                })
             if created:
                 group.group_status = 'waiting'
                 group.save()

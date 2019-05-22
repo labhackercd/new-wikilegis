@@ -1,5 +1,4 @@
 from apps.projects.models import Excerpt, ExcerptType
-from apps.participations.models import Amendment
 from bs4 import BeautifulSoup
 from collections import Counter
 
@@ -23,15 +22,9 @@ RESET_BY_ARTICULATION = {
     'continuacao': [],
 }
 
-ARTICULATION_COUNTER = Counter()
 
-
-def parse_html(html, version, document=None, group=None, author=None):
-    if document is None and group is None:
-        raise Exception(
-            'Missing parameters! You need to provide a Document or a group'
-        )
-
+def parse_html(html, version, document):
+    ARTICULATION_COUNTER = Counter()
     soup = BeautifulSoup(html, features='html.parser')
     excerpts = soup.findAll('p')
     for order, excerpt in enumerate(excerpts):
@@ -39,29 +32,15 @@ def parse_html(html, version, document=None, group=None, author=None):
         number = ARTICULATION_COUNTER[excerpt_type] + 1
         content = excerpt.text
         ARTICULATION_COUNTER.update([excerpt_type])
-        print(excerpt_type)
-        if document:
-            Excerpt.objects.create(
-                document=document,
-                order=order,
-                excerpt_type=ExcerptType.objects.get(slug=excerpt_type),
-                number=number,
-                content=content,
-                version=version
-            )
-        elif group:
-            if author is None:
-                raise Exception('Author is mandatory when group is not None')
 
-            Amendment.objects.create(
-                invited_group=group,
-                order=order,
-                excerpt_type=ExcerptType.objects.get(slug=excerpt_type),
-                number=number,
-                content=content,
-                version=version,
-                author=author,
-            )
+        Excerpt.objects.create(
+            document=document,
+            order=order,
+            excerpt_type=ExcerptType.objects.get(slug=excerpt_type),
+            number=number,
+            content=content,
+            version=version
+        )
 
         for resetable in RESET_BY_ARTICULATION[excerpt_type]:
             ARTICULATION_COUNTER[resetable] = 0

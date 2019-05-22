@@ -69,9 +69,60 @@
       display: block;
     }
 
-    .arrow3,
-    .arrow4 {
-      display: none;
+    & > .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 4.5rem;
+
+      @include hovering-label(left, 1.5em, $color-gray, .875rem);
+
+      &:hover > svg path {
+        fill: $color-deep-gray;
+      }
+
+      &::after {
+        font-weight: 400 !important;
+        background-color: rgba(#FFF, .95);
+      }
+
+      &.-active {
+         > svg path {
+          fill: $color-brand;
+        }
+      }
+
+      &.-settings {
+        margin-top: auto;
+      }
+
+      &.-collapse {
+        transition: all .3s $swift-out;
+
+        .arrow1,
+        .arrow2 {
+          display: none;
+        }
+
+        .arrow3,
+        .arrow4 {
+          display: block;
+        }
+      }
+
+      &.-collapsed {
+        .arrow1,
+        .arrow2 {
+          display: block;
+        }
+
+        .arrow3,
+        .arrow4 {
+          display: none;
+        }
+      }
     }
   }
 }

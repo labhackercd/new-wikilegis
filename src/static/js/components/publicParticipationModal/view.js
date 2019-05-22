@@ -60,13 +60,15 @@ PublicFormModalView.prototype.publishers = function () {
 
 PublicFormModalView.prototype.sendPublicForm = function() {
   var documentId = $('.js-documentEditor').data('documentId');
-  var closingDate = $('.js-closingDate').val();
-  var congressmanId = $('.js-congressmanId').val();
+  var closingDate = $('.js-publicFormModal .js-closingDate').val();
+  var congressmanId = $('.js-publicFormModal .js-congressmanId').val();
+  var versionId = $('.js-publicFormModal .js-versionsSelect').val();
 
   events.sendPublicForm.publish(
     documentId,
     closingDate,
-    congressmanId
+    congressmanId,
+    versionId
   );
 };
 

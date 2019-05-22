@@ -1,14 +1,14 @@
 .side-bar {
-  $navbar-height: 2.75rem;
+  $navbar-height: 3.75rem;
   $border: 1px solid $color-grayish;
 
   position: fixed;
   z-index: 1;
-  top: 0;
+  top: $navbar-height;
   left: 0;
 
   width: 24rem;
-  height: 100%;
+  height: calc(100% - #{$navbar-height});
 
   transition: all .25s $swift-out;
   transform: translateX(-100%);
@@ -35,8 +35,7 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 2rem 1.6rem;
-    padding-top: $navbar-height + 3rem;
+    padding: 1.6rem;
 
     border-bottom: $border;
 
@@ -46,6 +45,20 @@
 
     & > .filter {
       @include icon('filter');
+    }
+
+    & > .compare {
+      font-size: $font-size-micro;
+
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: $color-brand;
+
+      &:hover {
+        color: lighten($color-brand, 10%);
+      }
     }
   }
 

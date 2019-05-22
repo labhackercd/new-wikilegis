@@ -53,6 +53,9 @@ var events = {
   // Triggered when a modal is closed
   closeModal: $.Topic('closeModal'),
 
+  // Triggered when a modal is opened
+  openModal: $.Topic('openModal'),
+
   // Triggered before opinionModal opens
   // Params: user, excerpt, suggestion
   fillOpinionModal: $.Topic('fillOpinionModal'),
@@ -215,12 +218,36 @@ var events = {
   closeInfoMessage: $.Topic('closeInfoMessage'),
 
   // Triggered when user click on send button
-  // Params: documentId, closingDate, congressmanId
+  // Params: documentId, closingDate, congressmanId, versionId
   sendPublicForm: $.Topic('sendPublicForm'),
 
   // Triggered when user click on send button
   // Params: groupId, closingDate, congressmanId
   sendUpdatePublicForm: $.Topic('sendUpdatePublicForm'),
+
+  // Triggered when users want to save the document
+  // Params: data (pk, title, description, html, autoSave, name)
+  saveDocument: $.Topic('saveDocument'),
+
+  // Triggered on auto save
+  autoSaveDocument: $.Topic('autoSaveDocument'),
+
+  // Trigger after any document save
+  // Params: data (message, updated, timelineHTML, dropdownHTML, version)
+  documentSaved: $.Topic('documentSaved'),
+
+  // Triggered while the user is typing
+  documentChanged: $.Topic('documentChanged'),
+
+  // Triggered when the document text is loaded
+  // Params: data (html, versionName)
+  documentTextLoaded: $.Topic('documentTextLoaded'),
+
+  // Triggered before a text is loaded
+  loadDocumentText: $.Topic('loadDocumentText'),
+
+  // Triggered when user clicks on save at toolbar
+  openSaveModal: $.Topic('openSaveModal'),
 
   // Triggered when user closes notificationList
   closeNotificationList: $.Topic('closeNotificationList')

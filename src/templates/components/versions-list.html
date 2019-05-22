@@ -1,0 +1,30 @@
+{% if latest_saves %}
+  <li class="item js-namedVersions js-currentVersion {% if not selected_version.parent and selected_version.auto_save %}-active{% endif %}">
+    <div class="named js-namedVersion js-version {% if not selected_version.parent and selected_version.auto_save %}-selected{% endif %}" data-version-number="{{latest_saves.first.number}}">
+      <h2 class="title">Versão Atual</h2>
+    </div>
+    <ol class="autosaves js-autosaves {% if not selected_version.parent %}-show{% endif %}">
+      {% for autosave in latest_saves %}
+        <a href="" class="save js-version {% if autosave == selected_version %}-selected{% endif %}" data-version-number="{{autosave.number}}">
+          <span>{{autosave.created|date:'H\hi'}} - {{autosave.created|date:'d \d\e b, Y'}}</span>
+        </a>
+      {% endfor %}
+    </ol>
+  </li>
+{% endif %}
+{% for version in named_versions %}
+  <li class="item js-namedVersions {% if version == selected_version or version == selected_version.parent %}-active{% endif %}">
+    <div class="named js-namedVersion js-version {% if version == selected_version %}-selected{% endif %}" data-version-number="{{version.number}}">
+      <span class="time">{{version.created|date:'H\hi'}}</span>
+      <h2 class="title">{{version.name}}</h2>
+      <span class="date">{{version.created|date:'d \d\e b, Y'}}</span>
+    </div>
+    <ol class="autosaves js-autosaves {% if version == selected_version.parent %}-show{% endif %}">
+      {% for autosave in version.children.all %}
+        <a href="" class="save js-version {% if autosave == selected_version %}-selected{% endif %}" data-version-number="{{autosave.number}}">
+          <span>{{autosave.created|date:'H\hi'}} - {{autosave.created|date:'d \d\e b, Y'}}</span>
+        </a>
+      {% endfor %}
+    </ol>
+  </li>
+{% endfor %}

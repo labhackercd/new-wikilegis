@@ -1,9 +1,11 @@
-from django.views.generic import RedirectView, UpdateView
+from django.views.generic import RedirectView, UpdateView, View
 from django.shortcuts import get_object_or_404
-from .models import Document
+from django.utils.translation import ugettext_lazy as _
+from .models import Document, DocumentVersion
 from .forms import DocumentForm
 from apps.notifications.models import ParcipantInvitation
-from django.http import Http404
+from django.http import Http404, JsonResponse
+from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
@@ -72,3 +74,44 @@ class DocumentUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(owner_required, name='dispatch')
+class DocumentTextView(View):
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        document = get_object_or_404(Document, pk=kwargs['pk'])
+        version = request.GET.get('version', None)
+
+        try:
+            rendered = render_to_string(
+                'txt/document_text',
+                {'excerpts': document.get_excerpts(version=version)}
+            )
+            version = document.versions.get(number=version)
+            if version.name:
+                version_name = version.name
+            else:
+                version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
+
+            return JsonResponse({'html': rendered,
+                                 'versionName': version_name})
+        except DocumentVersion.DoesNotExist:
+            rendered = render_to_string(
+                'txt/document_text',
+                {'excerpts': document.get_excerpts()}
+            )
+            version = document.versions.first()
+            if version.name:
+                version_name = version.name
+            else:
+                version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
+
+            return JsonResponse({
+                'message': _('Version not found! '
+                             'We loaded the last version for you :)'),
+                'versionName': version_name,
+                'html': rendered
+            }, status=404)

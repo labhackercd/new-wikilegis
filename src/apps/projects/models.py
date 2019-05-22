@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.db import models
 from django.urls import reverse
-from utils.model_mixins import TimestampedMixin, ExcerptMixin
+from utils.model_mixins import TimestampedMixin
 from colorful.fields import RGBColorField
 
 
@@ -37,6 +37,29 @@ class DocumentType(models.Model):
         return '%s' % (self.title)
 
 
+class DocumentVersion(TimestampedMixin):
+    document = models.ForeignKey('projects.Document',
+                                 related_name='versions',
+                                 on_delete=models.CASCADE,
+                                 verbose_name=_('document'))
+    parent = models.ForeignKey('self', related_name='children',
+                               on_delete=models.CASCADE,
+                               verbose_name=_('parent'),
+                               null=True, blank=True)
+    number = models.PositiveIntegerField(default=0)
+    auto_save = models.BooleanField(default=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('document version')
+        verbose_name_plural = _('document versions')
+        ordering = ['-created']
+        unique_together = ('document', 'number')
+
+    def __str__(self):
+        return '{} - version {}'.format(self.created, self.number)
+
+
 class Document(TimestampedMixin):
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                               related_name='documents',
@@ -57,7 +80,6 @@ class Document(TimestampedMixin):
     themes = models.ManyToManyField('projects.Theme', verbose_name=_('themes'))
     number = models.IntegerField(_('number'), blank=True, null=True)
     year = models.IntegerField(_('year'), blank=True, null=True)
-    version = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = _('document')
@@ -69,8 +91,16 @@ class Document(TimestampedMixin):
                        kwargs={'template': 'editor',
                                'pk': self.id})
 
-    def get_excerpts(self):
-        return self.excerpts.filter(version=self.version)
+    def get_excerpts(self, version=None):
+        if version:
+            last_version = self.versions.get(number=version)
+        else:
+            last_version = self.versions.first()
+
+        return self.excerpts.filter(version=last_version)
+
+    def named_versions(self):
+        return self.versions.filter(name__isnull=False, auto_save=False)
 
     def save(self):
         self.slug = slugify(self.title)
@@ -189,7 +219,22 @@ class ExcerptType(models.Model):
         return '%s' % (self.name)
 
 
-class Excerpt(ExcerptMixin):
+class Excerpt(TimestampedMixin):
+    document = models.ForeignKey('projects.Document', on_delete=models.CASCADE,
+                                 verbose_name=_('document'),
+                                 related_name='excerpts')
+    order = models.PositiveIntegerField(_('order'), default=0)
+    excerpt_type = models.ForeignKey('projects.ExcerptType',
+                                     verbose_name=_('excerpt type'),
+                                     blank=True, null=True,
+                                     on_delete=models.SET_NULL)
+    number = models.PositiveIntegerField(_('number'), null=True, blank=True)
+    content = models.TextField(_('content'))
+    version = models.ForeignKey('projects.DocumentVersion',
+                                on_delete=models.CASCADE,
+                                verbose_name=_('version'),
+                                related_name='excerpts')
+
     class Meta:
         verbose_name = _('excerpt')
         verbose_name_plural = _('excerpts')

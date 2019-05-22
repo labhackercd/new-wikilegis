@@ -16,13 +16,19 @@ class DocumentTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'initials')
 
 
+@admin.register(models.DocumentVersion)
+class DocumentVersionAdmin(admin.ModelAdmin):
+    list_display = ('document', 'name', 'number', 'created', 'auto_save',
+                    'parent')
+    list_filter = ('document',)
+
+
 @admin.register(models.Document)
 class DocumentAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'owner',
         'description',
-        'version',
         'created',
         'modified',
     )

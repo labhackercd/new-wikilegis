@@ -14,8 +14,28 @@ NavBarView.prototype.subscribers = function() {
   events.documentTitleEditionEnd.subscribe(function(newTitle) {
     if (newTitle != '') {
       self.updateTitle(newTitle);
+      document.title = newTitle;
     }
   });
+
+  events.documentSaved.subscribe(function(data) {
+    self.updateCurrentVersion(data);
+  });
+
+  events.documentTextLoaded.subscribe(function(data) {
+    $('.js-navbar .js-versionName').text(data.versionName);
+  });
+};
+
+NavBarView.prototype.updateCurrentVersion = function(data) {
+  var versionName = $('.js-navbar .js-versionName');
+  if (data.version.name != null) {
+    versionName.text(data.version.name);
+  } else {
+    versionName.text(data.version.time + ' - ' + data.version.date);
+  }
+
+  $('.js-navbar .js-versionsList').html(data.dropdownHTML);
 };
 
 NavBarView.prototype.addShadowOnScroll = function () {

@@ -1,0 +1,5 @@
+{% load projects_tags %}
+
+{% for excerpt in excerpts %}
+<p data-tipo="{{excerpt.excerpt_type.slug}}">{{excerpt.content}}</p>
+{% endfor %}
