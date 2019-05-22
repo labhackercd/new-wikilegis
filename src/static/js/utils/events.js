@@ -221,4 +221,7 @@ var events = {
   // Triggered when user click on send button
   // Params: groupId, closingDate, congressmanId
   sendUpdatePublicForm: $.Topic('sendUpdatePublicForm'),
+
+  // Triggered when user closes notificationList
+  closeNotificationList: $.Topic('closeNotificationList')
 };
