@@ -1,4 +1,4 @@
-{% load staticfiles compress projects_tags dashboard_tags %}
+{% load staticfiles compress projects_tags dashboard_tags notification_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -50,41 +50,25 @@
         <a href="{% url 'owner_documents' %}" class="icon {% if current_path|endswith:'/dashboard/' %}-active{% endif %}">
           {% include "svgs/dashboard-icon.html" %}
         </a>
-        <div class="dropdown-menu -notifications -notified js-notificationDropdown">
+        <div class="dropdown-menu -notifications {% if request.user.notifications.all|has_new %}-notified{% endif %} js-notificationDropdown">
           <button class="icon js-notificationButton" aria-label="Configurar">
             {% include "svgs/notifications-icon.html" %}
           </button>
 
           <ul class="list js-notificationList">
-            <li class="-new">
-              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
-              <span class="datetime">01 de Out às 15h04</span>
+            {% for notification in request.user.notifications.all %}
+              <li {% if not notification.was_read %}class="-new"{% endif %}>
+                <span class="text">{{ notification.text }}</span>
+                <span class="datetime">{{ notification.created }}</span>
+              </li>
+              {% if not forloop.last %}
+              <hr>
+              {% endif %}
+            {% empty %}
+            <li class="-empty">
+              <span class="text">Sem notificações</span>
             </li>
-            <hr>
-            <li class="-new">
-              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
-              <span class="datetime">01 de Out às 15h04</span>
-            </li>
-            <hr>
-            <li class="-new">
-              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
-              <span class="datetime">01 de Out às 15h04</span>
-            </li>
-            <hr>
-            <li>
-              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
-              <span class="datetime">01 de Out às 15h04</span>
-            </li>
-            <hr>
-            <li>
-              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
-              <span class="datetime">01 de Out às 15h04</span>
-            </li>
-            <hr>
-            <li>
-              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
-              <span class="datetime">01 de Out às 15h04</span>
-            </li>
+            {% endfor %}
           </ul>
         </div>
         {% block navbar_tools %}{% endblock navbar_tools %}

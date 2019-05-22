@@ -53,3 +53,18 @@ class PublicAuthorization(TimestampedMixin):
 
     def __str__(self):
         return '%s' % (self.congressman.name)
+
+
+class Notification(TimestampedMixin):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE,
+                             related_name='notifications',
+                             verbose_name=_('user'))
+    message = models.TextField()
+    was_read = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _('notification')
+        verbose_name_plural = _('notifications')
+
+    def __str__(self):
+        return '%s' % (self.user.get_full_name())
