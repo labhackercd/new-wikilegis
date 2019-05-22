@@ -24,16 +24,8 @@
         {% endif %}
       {% endif %}
       <ul class="list js-menuList">
-        <div class="dropdown">
-          <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
-            <span>Minhas Versões</span>
-            <div class="info">
-              <div class="item -versions">{{ object.named_versions.count }}</div>
-            </div>
-          </a>
-          <ul class="itens js-versionsList">
-            {% include "components/dropdown-version-list.html" %}
-          </ul>
+        <div class="dropdown js-versionsList">
+          {% include "components/dropdown-version-list.html" %}
         </div>
         <hr>
         {% for public_participation in public_group %}
