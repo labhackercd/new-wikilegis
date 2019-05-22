@@ -13,6 +13,10 @@
   background-color: white;
   box-shadow: 2px 2px 9px 0 hsla(0, 0%, 50%, .3);
 
+  &.-error {
+    border-color: $color-red;
+  }
+
   & > .list {
     display: flex;
   }
