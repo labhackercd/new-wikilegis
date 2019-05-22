@@ -248,4 +248,7 @@ var events = {
 
   // Triggered when user clicks on save at toolbar
   openSaveModal: $.Topic('openSaveModal'),
+
+  // Triggered when user closes notificationList
+  closeNotificationList: $.Topic('closeNotificationList')
 };

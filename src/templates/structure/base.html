@@ -47,7 +47,47 @@
 
       {% if request.user.profile.profile_type == 'owner' %}
       <div class="tools">
-        <a href="{% url 'owner_documents' %}" {% if current_path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a>
+        <!-- <a href="{% url 'owner_documents' %}" {% if current_path|endswith:'/dashboard/' %}class="-active"{% endif %}>Meus documentos</a> -->
+        <div class="dropdown-menu -notifications -notified js-notificationDropdown">
+          <button class="icon js-notificationButton" aria-label="Configurar">
+            {% include "svgs/notifications-icon.html" %}
+          </button>
+
+          <ul class="list js-notificationList">
+            <li class="-new">
+              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
+              <span class="datetime">01 de Out às 15h04</span>
+            </li>
+            <hr>
+            <li class="-new">
+              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
+              <span class="datetime">01 de Out às 15h04</span>
+            </li>
+            <hr>
+            <li class="-new">
+              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
+              <span class="datetime">01 de Out às 15h04</span>
+            </li>
+            <hr>
+            <li>
+              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
+              <span class="datetime">01 de Out às 15h04</span>
+            </li>
+            <hr>
+            <li>
+              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
+              <span class="datetime">01 de Out às 15h04</span>
+            </li>
+            <hr>
+            <li>
+              <span class="text">O deputado Alexandre Frota não aceitou o projeto Lei de Acesso à Informação.</span>
+              <span class="datetime">01 de Out às 15h04</span>
+            </li>
+          </ul>
+        </div>
+        <a href="#" class="icon -settings" aria-label="Configurar">
+          {% include "svgs/settings-icon.html" %}
+        </a>
       </div>
       {% endif %}
     </div>
@@ -66,6 +106,7 @@
       <script src="{% static 'js/utils/cookies.js' %}"></script>
       <script src="{% static 'js/utils/ajax.js' %}"></script>
       <script src="{% static 'js/components/navBar/view.js' %}"></script>
+      <script src="{% static 'js/components/notificationButton/view.js' %}"></script>
       <script src="{% static 'js/components/appModal/view.js' %}"></script>
       <script src="{% static 'js/components/body/view.js' %}"></script>
       <script src="{% static 'js/components/textInput/view.js' %}"></script>

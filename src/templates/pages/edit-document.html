@@ -17,23 +17,12 @@
         <span class="-closed">{{group.thematic_group.name}}</span>
         {% endif %}
       {% else %}
-      <div class="dropdown">
-        <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
-          <span>Versão 1</span>
-          <div class="info">
-            <div class="item -versions">{{ object.invited_groups.all.count }}</div>
-          </div>
-        </a>
-        <ul class="itens">
-          <a href="#">Versão 2</a>
-          <a href="#">Versão 3</a>
-        </ul>
-      </div>
+      <span>Minhas Versões</span>
       {% endif %}
       <ul class="list js-menuList">
         <div class="dropdown">
           <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
-            <span>Versão 1</span>
+            <span>Minhas Versões</span>
             <div class="info">
               <div class="item -versions">{{ object.invited_groups.all.count }}</div>
             </div>
@@ -43,7 +32,6 @@
             <a href="#">Versão 3</a>
           </ul>
         </div>
-        <!-- Número de versões -->
         <hr>
         {% for public_participation in public_group %}
         {% if public_participation.group_status == 'waiting' %}
