@@ -1,6 +1,5 @@
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
-from django import forms
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from utils.decorators import require_ajax

@@ -10,7 +10,6 @@ from constance import config
 from apps.projects.models import Document, DocumentVersion
 from apps.projects.parser import parse_html
 from apps.projects.versions import concatenate_autosaves
-from datetime import datetime
 
 
 @method_decorator(login_required, name='dispatch')
