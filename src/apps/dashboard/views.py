@@ -134,6 +134,7 @@ class SaveDocumentView(View):
             name__isnull=False,
             auto_save=False
         )
+        context['object'] = document
 
         if context['named_versions'].count() > 0:
             context['latest_saves'] = document.versions.filter(
@@ -151,8 +152,13 @@ class SaveDocumentView(View):
             'updated': version.created.strftime('%d/%m/%Y às %Hh%M'),
             'timelineHTML': render_to_string('components/versions-list.html',
                                              context),
+            'dropdownHTML': render_to_string(
+                'components/dropdown-version-list.html',
+                context
+            ),
             'version': {
                 'name': version.name,
+                'number': version.number,
                 'date': version.created.strftime('%d de %b, %Y'),
                 'time': version.created.strftime('%Hh%M'),
                 'autoSave': version.auto_save,

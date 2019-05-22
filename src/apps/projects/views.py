@@ -90,14 +90,28 @@ class DocumentTextView(View):
                 'txt/document_text',
                 {'excerpts': document.get_excerpts(version=version)}
             )
-            return JsonResponse({'html': rendered})
+            version = document.versions.get(number=version)
+            if version.name:
+                version_name = version.name
+            else:
+                version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
+
+            return JsonResponse({'html': rendered,
+                                 'versionName': version_name})
         except DocumentVersion.DoesNotExist:
             rendered = render_to_string(
                 'txt/document_text',
                 {'excerpts': document.get_excerpts()}
             )
+            version = document.versions.first()
+            if version.name:
+                version_name = version.name
+            else:
+                version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
+
             return JsonResponse({
                 'message': _('Version not found! '
                              'We loaded the last version for you :)'),
+                'versionName': version_name,
                 'html': rendered
             }, status=404)

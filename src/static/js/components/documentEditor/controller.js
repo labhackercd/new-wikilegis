@@ -36,7 +36,7 @@ DocumentEditorController.prototype.loadTextData = function() {
 
   request.done(function(data) {
     if (data.html.trim() !== '') {
-      events.documentTextLoaded.publish(data.html);
+      events.documentTextLoaded.publish(data);
     }
   });
 
@@ -45,7 +45,7 @@ DocumentEditorController.prototype.loadTextData = function() {
     events.showMessage.publish(data.message, 'fail', null);
 
     if (data.html.trim() !== '') {
-      events.documentTextLoaded.publish(data.html);
+      events.documentTextLoaded.publish(data);
     }
   })
 };

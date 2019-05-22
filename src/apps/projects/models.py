@@ -99,6 +99,9 @@ class Document(TimestampedMixin):
 
         return self.excerpts.filter(version=last_version)
 
+    def named_versions(self):
+        return self.versions.filter(name__isnull=False, auto_save=False)
+
     def save(self):
         self.slug = slugify(self.title)
         super().save()

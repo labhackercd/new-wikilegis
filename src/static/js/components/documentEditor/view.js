@@ -41,8 +41,8 @@ DocumentEditorView.prototype.subscribers = function() {
     self.removeBlur();
   });
 
-  events.documentTextLoaded.subscribe(function(html) {
-    self.editor.innerHTML = html;
+  events.documentTextLoaded.subscribe(function(data) {
+    self.editor.innerHTML = data.html;
   });
 };
 

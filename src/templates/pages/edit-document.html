@@ -17,19 +17,22 @@
         <span class="-closed">{{group.thematic_group.name}}</span>
         {% endif %}
       {% else %}
-      <span>Minhas Versões</span>
+        {% if selected_version.name %}
+          <span class="js-versionName">{{selected_version.name}}</span>
+        {% else %}
+          <span class="js-versionName">{{selected_version.created|date:'H\hi - d \d\e b, Y'}}</span>
+        {% endif %}
       {% endif %}
       <ul class="list js-menuList">
         <div class="dropdown">
           <a href="href="{% url 'document_editor_cluster' 'editor' object.id %}"">
             <span>Minhas Versões</span>
             <div class="info">
-              <div class="item -versions">{{ object.invited_groups.all.count }}</div>
+              <div class="item -versions">{{ object.named_versions.count }}</div>
             </div>
           </a>
-          <ul class="itens">
-            <a href="#">Versão 2</a>
-            <a href="#">Versão 3</a>
+          <ul class="itens js-versionsList">
+            {% include "components/dropdown-version-list.html" %}
           </ul>
         </div>
         <hr>

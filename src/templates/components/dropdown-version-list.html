@@ -1,0 +1,3 @@
+{% for version in named_versions %}
+  <a href="{% url 'document_editor_cluster' template='editor' pk=object.pk %}?version={{version.number}}">{{version.name}}</a>
+{% endfor %}

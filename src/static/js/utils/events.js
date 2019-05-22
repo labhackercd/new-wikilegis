@@ -233,14 +233,14 @@ var events = {
   autoSaveDocument: $.Topic('autoSaveDocument'),
 
   // Trigger after any document save
-  // Params: data (message, updated, timelineHTML, version)
+  // Params: data (message, updated, timelineHTML, dropdownHTML, version)
   documentSaved: $.Topic('documentSaved'),
 
   // Triggered while the user is typing
   documentChanged: $.Topic('documentChanged'),
 
   // Triggered when the document text is loaded
-  // Params: text
+  // Params: data (html, versionName)
   documentTextLoaded: $.Topic('documentTextLoaded'),
 
   // Triggered before a text is loaded

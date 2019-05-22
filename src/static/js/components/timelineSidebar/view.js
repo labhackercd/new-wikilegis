@@ -14,6 +14,7 @@ TimelineSidebarView.prototype.subscribers = function () {
 
   events.documentSaved.subscribe(function(data) {
     self.timelineSidebar.html(data.timelineHTML);
+    self.updateURLParameters(data.version.number);
   });
 };
 
