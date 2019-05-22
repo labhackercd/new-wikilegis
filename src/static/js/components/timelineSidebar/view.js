@@ -56,12 +56,12 @@ TimelineSidebarView.prototype.activateVersion = function (version) {
 };
 
 TimelineSidebarView.prototype.updateURLParameters = function(versionNumber) {
-  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+  var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname;
   var searchParams = new URLSearchParams(window.location.search);
   searchParams.set('version', versionNumber);
   newURL = newURL + '?' + searchParams.toString();
   window.history.replaceState(null, null, newURL);
-}
+};
 
 TimelineSidebarView.prototype.activateNamedVersion = function (namedVersion) {
   this.timelineSidebar.find('.js-namedVersions').removeClass('-active');

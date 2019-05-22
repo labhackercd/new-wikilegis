@@ -29,7 +29,7 @@ ToolBarView.prototype.publishers = function() {
 };
 
 ToolBarView.prototype.saveDocument = function(autoSave) {
-  var html = ''
+  var html = '';
   if (this.documentEditorView.editor.innerText.length >= 2) {
     html = this.documentEditorView.editor.innerHTML;
   }
@@ -38,6 +38,6 @@ ToolBarView.prototype.saveDocument = function(autoSave) {
     'pk': $('.js-documentEditor').data('documentId'),
     'html': html,
     'autoSave': autoSave
-  }
+  };
   events.saveDocument.publish(data);
 };

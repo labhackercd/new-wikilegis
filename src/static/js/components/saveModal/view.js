@@ -53,5 +53,5 @@ SaveModalView.prototype.publishers = function() {
 
     events.saveDocument.publish(data);
     return false;
-  })
+  });
 };

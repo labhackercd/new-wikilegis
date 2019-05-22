@@ -1,4 +1,4 @@
-/*global $ events autosize */
+/*global $ events Urls */
 
 var DocumentEditorController = function() {};
 
@@ -12,11 +12,10 @@ DocumentEditorController.prototype.subscribers = function() {
 
   events.loadDocumentText.subscribe(function() {
     self.loadTextData();
-  })
+  });
 };
 
 DocumentEditorController.prototype.publishers = function() {
-  var self = this;
   events.loadDocumentText.publish();
 };
 
@@ -24,7 +23,7 @@ DocumentEditorController.prototype.loadTextData = function() {
   var documentId = $('.js-documentEditor').data('documentId');
 
   var searchParams = new URLSearchParams(window.location.search);
-  var currentVersion = ''
+  var currentVersion = '';
   if (searchParams.has('version')) {
     currentVersion = searchParams.get('version');
   }
@@ -47,5 +46,5 @@ DocumentEditorController.prototype.loadTextData = function() {
     if (data.html.trim() !== '') {
       events.documentTextLoaded.publish(data);
     }
-  })
+  });
 };

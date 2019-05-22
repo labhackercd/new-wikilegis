@@ -1,4 +1,4 @@
-/*global $ events autosize */
+/*global $ events */
 
 var DocumentEditorView = function() {};
 
@@ -52,7 +52,7 @@ DocumentEditorView.prototype.publishers = function() {
         events.autoSaveDocument.publish();
       }, 1500);
     }
-  })
+  });
 };
 
 DocumentEditorView.prototype.highligthCurrentExcerpt = function() {

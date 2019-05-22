@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ events Urls */
 
 var ToolBarController = function() {};
 

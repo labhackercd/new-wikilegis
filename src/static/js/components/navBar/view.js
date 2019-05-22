@@ -32,7 +32,7 @@ NavBarView.prototype.updateCurrentVersion = function(data) {
   if (data.version.name != null) {
     versionName.text(data.version.name);
   } else {
-    versionName.text(data.version.time + ' - ' + data.version.date)
+    versionName.text(data.version.time + ' - ' + data.version.date);
   }
 
   $('.js-navbar .js-versionsList').html(data.dropdownHTML);
