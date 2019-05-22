@@ -94,8 +94,6 @@ class SaveDocumentView(View):
     def post(self, request, *args, **kwargs):
         document = get_object_or_404(Document, pk=kwargs['pk'])
 
-        title = request.POST.get('title', '')
-        description = request.POST.get('description', '')
         html = request.POST.get('html', None)
         auto_save = request.POST.get('autoSave', True)
         auto_save = auto_save == 'true'
@@ -124,8 +122,6 @@ class SaveDocumentView(View):
         if html:
             parse_html(html, version, document)
 
-        document.title = title
-        document.description = description
         document.save()
 
         context = {}

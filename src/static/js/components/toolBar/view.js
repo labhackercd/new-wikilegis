@@ -36,8 +36,6 @@ ToolBarView.prototype.saveDocument = function(autoSave) {
 
   var data = {
     'pk': $('.js-documentEditor').data('documentId'),
-    'title': this.documentEditorView.documentTitleInput.val(),
-    'description': this.documentEditorView.documentDescriptionInput.val(),
     'html': html,
     'autoSave': autoSave
   }
