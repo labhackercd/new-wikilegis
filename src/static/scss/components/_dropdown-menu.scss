@@ -29,7 +29,7 @@
     align-items: center;
     justify-content: center;
 
-    width: 5rem;
+    width: 5rm;
     height: 100%;
 
     &:hover > .icon svg path {
@@ -42,7 +42,11 @@
   }
 
   &.-notifications > button {
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 5rem;
     height: 100%;
 
     cursor: pointer;
@@ -61,6 +65,7 @@
 
   &.-notifications > .list > li {
     display: flex;
+    flex: 0 0 auto;
     flex-direction: column;
 
     box-sizing: border-box;
@@ -72,7 +77,6 @@
     border-right-width: 1rem;
     border-bottom-width: .5rem;
     border-left-width: 1rem;
-    flex: 0 0 auto;
   }
 
   &.-notifications > .list > li {
