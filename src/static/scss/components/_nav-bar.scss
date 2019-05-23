@@ -103,6 +103,28 @@ body.-white .nav-bar {
     }
   }
 
+  &.-edit > .tools > .icon > svg path {
+    opacity: .8;
+
+    fill: #FFF;
+  }
+
+  &.-edit > .tools > .icon:hover > svg path,
+  &.-edit > .tools > .dropdown-menu.-notifications > .icon:hover > svg path {
+    opacity: 1;
+
+    fill: #FFF;
+  }
+
+  &.-edit > .tools > .dropdown-menu.-notifications.-active > .icon > svg path,
+  &.-edit > .tools > .dropdown-menu.-notifications.-active > .icon:hover > svg path {
+    fill: #FFF;
+  }
+
+  &.-edit > .tools > .dropdown-menu.-notifications.-notified > .icon > svg circle {
+    fill: $color-highlight;
+  }
+
   & > .brand {
     font-family: $font-family-brand;
     font-size: .875rem;
@@ -234,8 +256,8 @@ body.-white .nav-bar {
     }
   }
 
-  & > .tools > .dropdown-menu.-notifications > button {
-    background-color: #FFF;
+  & > .tools > .icon.-active > svg path {
+    fill: $color-brand;
   }
 
   & > .tools > .dropdown-menu.-notifications.-active > .icon > svg path {
