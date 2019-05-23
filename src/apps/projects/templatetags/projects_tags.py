@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django import template
-from datetime import date
+from datetime import date, datetime
 from collections import OrderedDict
 import string
 from apps.projects.models import Excerpt
@@ -227,3 +227,27 @@ def participation_group_id(document):
         return group.id
     else:
         return False
+
+
+@register.filter()
+def absolute_days_since(date):
+    today = datetime.now().date()
+    try:
+        delta = date.date() - today
+    except:
+        delta = date - today
+    return "%s" % abs(delta.days)
+
+
+@register.simple_tag()
+def progress_time_normalized(start_date, end_date):
+    today = datetime.now().date()
+    try:
+        participation_days = end_date - start_date.date()
+        days_since_start = today - start_date.date()
+        result_percent = (days_since_start * 100) / participation_days
+    except:
+        participation_days = end_date - start_date
+        days_since_start = today - start_date
+        result_percent = (days_since_start * 100) / participation_days
+    return "%s" % (result_percent / 100)
