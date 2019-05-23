@@ -56,7 +56,7 @@
           </button>
 
           <ul class="list js-notificationList">
-            {% for notification in request.user.notifications.all %}
+            {% for notification in request.user.notifications.all reversed %}
               <li {% if not notification.was_read %}class="-new"{% endif %}>
                 <span class="text">{{ notification.message }}</span>
                 <span class="datetime">{{ notification.created }}</span>

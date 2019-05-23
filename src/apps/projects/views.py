@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from apps.notifications.models import Notification
+from django.contrib.auth.models import User
 
 
 class InvitationRedirectView(RedirectView):
@@ -21,8 +23,24 @@ class InvitationRedirectView(RedirectView):
 
         if kwargs['accept'] == 'accepted':
             invitation.accepted = True
+            notification = Notification()
+            notification.user = invitation.group.document.owner
+            participant = User.objects.get(email=invitation.email)
+            notification.message = '%s aceitou o convite para participar do \
+                                    grupo %s' % (
+                participant.get_full_name(),
+                invitation.group.thematic_group.name)
+            notification.save()
         elif kwargs['accept'] == 'declined':
             invitation.accepted = False
+            notification = Notification()
+            notification.user = invitation.group.document.owner
+            participant = User.objects.get(email=invitation.email)
+            notification.message = '%s não aceitou o convite para participar \
+                                    do grupo %s' % (
+                participant.get_full_name(),
+                invitation.group.thematic_group.name)
+            notification.save()
         else:
             raise Http404
 
