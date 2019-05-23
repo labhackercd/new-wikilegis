@@ -238,6 +238,10 @@ body.-white .nav-bar {
     background-color: #FFF;
   }
 
+  & > .tools > .icon.-active > svg path {
+    fill: $color-brand;
+  }
+
   & > .tools > .dropdown-menu.-notifications.-active > .icon > svg path {
     fill: $color-brand;
   }

@@ -47,7 +47,7 @@
 
       {% if request.user.profile.profile_type == 'owner' %}
       <div class="tools">
-        <a href="{% url 'owner_documents' %}" class="icon">
+        <a href="{% url 'owner_documents' %}" class="icon {% if current_path|endswith:'/dashboard/' %}-active{% endif %}">
           {% include "svgs/dashboard-icon.html" %}
         </a>
         <div class="dropdown-menu -notifications -notified js-notificationDropdown">
