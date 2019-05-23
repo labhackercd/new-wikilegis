@@ -1,0 +1,39 @@
+.app-tag {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  &.-public > span {
+    color: $color-brand;
+  }
+
+  &.-theme {
+    align-items: center;
+  }
+
+  & > .dot {
+    display: block;
+
+    width: 7px;
+    height: 7px;
+    margin-bottom: 1px;
+
+    content: '';
+
+    border-radius: 50%;
+    background-color: $color-grayish;
+  }
+
+  & > .label {
+    font-size: .625rem;
+    font-weight: 600;
+    line-height: 1;
+
+    margin-left: .25rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+}

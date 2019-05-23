@@ -1,9 +1,10 @@
 from django.utils.translation import ugettext_lazy as _
 from django import template
-from datetime import date
+from datetime import date, datetime
 from collections import OrderedDict
 import string
 from apps.projects.models import Excerpt
+from apps.participations.models import InvitedGroup, Suggestion
 
 register = template.Library()
 
@@ -179,3 +180,74 @@ def is_open(closing_date):
     else:
         is_open = False
     return is_open
+
+
+@register.filter()
+def has_public_group(document):
+    if document.invited_groups.filter(public_participation=True):
+        return True
+    else:
+        return False
+
+
+@register.filter()
+def has_group(document):
+    if document.invited_groups.all():
+        return True
+    else:
+        return False
+
+
+@register.filter()
+def count_private_groups(document):
+    total_groups = document.invited_groups.filter(
+        public_participation=False).count()
+    return total_groups
+
+
+@register.filter()
+def count_opinions(document):
+    groups_id = InvitedGroup.objects.filter(
+        document=document).values_list('id', flat=True)
+    total_opinions = Suggestion.objects.filter(
+        invited_group_id__in=groups_id).count()
+    return total_opinions
+
+
+@register.filter()
+def participation_group_id(document):
+    if document.invited_groups.all():
+        public_group = document.invited_groups.filter(
+            public_participation=True)
+        if public_group:
+            group = public_group.first()
+        else:
+            group = document.invited_groups.filter(
+                public_participation=False).last()
+        return group.id
+    else:
+        return False
+
+
+@register.filter()
+def absolute_days_since(date):
+    today = datetime.now().date()
+    try:
+        delta = date.date() - today
+    except:
+        delta = date - today
+    return "%s" % abs(delta.days)
+
+
+@register.simple_tag()
+def progress_time_normalized(start_date, end_date):
+    today = datetime.now().date()
+    try:
+        participation_days = end_date - start_date.date()
+        days_since_start = today - start_date.date()
+        result_percent = (days_since_start * 100) / participation_days
+    except:
+        participation_days = end_date - start_date
+        days_since_start = today - start_date
+        result_percent = (days_since_start * 100) / participation_days
+    return "%s" % (result_percent / 100)

@@ -13,35 +13,68 @@
     </div>
   </div>
   <input class="search js-search" type="text" placeholder="Buscar">
-  <div class="list">
-    <a href="{% url 'new_document' %}" class="simple-card -new">
-      <span class="icon" aria-label="Adicionar projeto"></span>
 
+  <div class="list">
+    <a href="{% url 'new_document' %}" class="document-card -new">
+      <span class="icon" aria-label="Adicionar projeto"></span>
     </a>
+
     {% for document in object_list %}
-      <a href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="simple-card">
-      <h3 class="js-title">{{ document.title }}</h3>
-      <p class="js-description">{{ document.description }}</p>
-      <div class="info">
-        <div class="themes">
-          {% for theme in document.themes.all %}
-          <div class="theme">
-            {% if theme.icon %}
-            <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
+      <div href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="document-card -owner {% if document|has_group %}-public{% endif %}">
+
+        <ul class="tags">
+          {% if document|has_public_group %}
+            <li class="app-tag -public">
+              <img src="{% static 'img/public.svg' %}" alt="">
+              <span class="label">Público</span>
+            </li>
+          {% endif %}
+
+          {% if document|count_private_groups > 0  %}
+            <li class="app-tag">
+              <img src="{% static 'img/padlock.svg' %}" alt="">
+              <span class="label">{{ document|count_private_groups }} {% if document|count_private_groups == 1  %}Privado{% else %}Privados{% endif %}</span>
+            </li>
+          {% endif %}
+
+          {% if document|count_opinions > 0  %}
+          <li class="app-tag">
+            <img src="{% static 'img/given-opinions.svg' %}" alt="">
+            <span class="label">{{ document|count_opinions }} {% if document|count_opinions == 1  %}Opinião{% else %}Opiniões{% endif %}</span>
+          </li>
+          {% endif %}
+        </ul>
+
+        <h3 class="js-title">{{ document.title }}</h3>
+
+        <p class="js-description">
+          {{ document.description }}
+        </p>
+
+        <div class="footer">
+
+          <!-- XXX Uncomment when feed status is fully implemented 
+            
+          <div class="status -owner">
+            <div class="feedback-status">
+              <img src="{% static 'img/hourglass.svg' %}" alt="">
+              <p class="-onhold">Aguardando feedback do deputado</p>
+            </div>
+          </div>
+          -->
+
+          <div class="actions">
+            <a href="{% url 'document_editor_cluster' 'editor' document.id %}">Minhas versões</a>
+            {% if document|has_group %}
+              <a href="{% url 'document_editor_cluster' 'clusters' document.id %}?group_id={{document|participation_group_id}}">Ver participação</a>
             {% endif %}
-            <span>{{ theme.name }}</span>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="suggestions">
-          <div class="suggestion">
-            <span class="value">{{document.invited_groups.all.count}}</span>
-            <span>Grupos</span>
           </div>
         </div>
+
       </div>
-    </a>
+
     {% endfor %}
+
   </div>
 
 </main>

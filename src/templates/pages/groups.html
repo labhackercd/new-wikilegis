@@ -5,12 +5,12 @@
 
 <main class="dashboard-list">
   <div class="list">
-    <a href="#" class="simple-card -new">
+    <a href="#" class="document-card -new">
       <span class="icon" aria-label="Adicionar grupo"></span>
 
     </a>
     {% for group in object_list %}
-    <a href="#" class="simple-card -groups">
+    <a href="#" class="document-card -groups">
       <div class="header">
         <span class="participations"><b>{{group.participants.count}}</b> Participantes</span>
       </div>
