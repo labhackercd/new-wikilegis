@@ -21,3 +21,6 @@ alertMessageController.initEvents();
 
 var notificationButtonView = new NotificationButtonView();
 notificationButtonView.initEvents();
+
+var notificationController = new NotificationController();
+notificationController.initEvents();

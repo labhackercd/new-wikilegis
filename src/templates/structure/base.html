@@ -58,7 +58,7 @@
           <ul class="list js-notificationList">
             {% for notification in request.user.notifications.all %}
               <li {% if not notification.was_read %}class="-new"{% endif %}>
-                <span class="text">{{ notification.text }}</span>
+                <span class="text">{{ notification.message }}</span>
                 <span class="datetime">{{ notification.created }}</span>
               </li>
               {% if not forloop.last %}
@@ -91,6 +91,7 @@
       <script src="{% static 'js/utils/ajax.js' %}"></script>
       <script src="{% static 'js/components/navBar/view.js' %}"></script>
       <script src="{% static 'js/components/notificationButton/view.js' %}"></script>
+      <script src="{% static 'js/components/notificationButton/controller.js' %}"></script>
       <script src="{% static 'js/components/appModal/view.js' %}"></script>
       <script src="{% static 'js/components/body/view.js' %}"></script>
       <script src="{% static 'js/components/textInput/view.js' %}"></script>
