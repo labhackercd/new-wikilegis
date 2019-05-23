@@ -25,5 +25,7 @@ NotificationButtonView.prototype.publishers = function () {
   self.notificationButtonElement.on('click', function() {
     $(this).parent().toggleClass('-active');
     $(this).parent().removeClass('-notified');
+    events.updateNotifications.publish();
   });
 };
+

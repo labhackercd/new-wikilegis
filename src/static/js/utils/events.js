@@ -250,5 +250,8 @@ var events = {
   openSaveModal: $.Topic('openSaveModal'),
 
   // Triggered when user closes notificationList
-  closeNotificationList: $.Topic('closeNotificationList')
+  closeNotificationList: $.Topic('closeNotificationList'),
+
+  // Triggered when user click on notification button
+  updateNotifications: $.Topic('updateNotifications')
 };

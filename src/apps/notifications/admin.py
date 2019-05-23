@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import ParcipantInvitation, OwnerInvitation, PublicAuthorization
+from apps.notifications import models
 
 
-@admin.register(ParcipantInvitation)
+@admin.register(models.ParcipantInvitation)
 class ParcipantInvitationAdmin(admin.ModelAdmin):
     list_display = (
         'id',
@@ -17,7 +17,7 @@ class ParcipantInvitationAdmin(admin.ModelAdmin):
     list_filter = ('created', 'modified', 'group', 'accepted', 'answered')
 
 
-@admin.register(OwnerInvitation)
+@admin.register(models.OwnerInvitation)
 class OwnerInvitationAdmin(admin.ModelAdmin):
     list_display = (
         'id',
@@ -28,7 +28,7 @@ class OwnerInvitationAdmin(admin.ModelAdmin):
     list_filter = ('created', 'modified')
 
 
-@admin.register(PublicAuthorization)
+@admin.register(models.PublicAuthorization)
 class PublicAuthorizationAdmin(admin.ModelAdmin):
     list_display = (
         'id',
@@ -39,3 +39,16 @@ class PublicAuthorizationAdmin(admin.ModelAdmin):
         'group',
     )
     list_filter = ('created', 'modified', 'group')
+
+
+@admin.register(models.Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'created',
+        'modified',
+        'user',
+        'message',
+        'was_read',
+    )
+    list_filter = ('created', 'modified', 'user', 'was_read')
