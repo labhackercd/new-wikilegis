@@ -1,6 +1,6 @@
-{% load projects_tags participations_tags %}
+{% load staticfiles projects_tags participations_tags %}
 
-<article>
+<article id="article">
   <header>
     {% now "Y-m-d" as todays_date %}
     {% if group.closing_date|date:"Y-m-d" > todays_date %}
@@ -8,10 +8,11 @@
     {% else %}
     <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
     {% endif %}
-    <h1 contentEditable="true">{{ object.title }}</h1>
-    <p class="description">{{ object.description }}</p>
+    <h1 class="js-documentTitle" contentEditable="true">{{ object.title }}</h1>
+    <p class="js-documentDescription description">{{ object.description }}</p>
     <hr>
   </header>
+  <canvas id='map'></canvas>
   {% for excerpt in group.get_excerpts %}
     {% if excerpt.excerpt_type.align_center %}
     <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
@@ -34,3 +35,36 @@
     {% endif %}
   {% endfor %}
 </article>
+
+<style>
+  #map {
+      position: fixed;
+      top: 60px;
+      right: 80px;
+      width: 200px;
+      height: 100%;
+      z-index: 100;
+  }
+</style>
+
+<script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
+<script>
+  pagemap(document.querySelector('#map'), {
+      viewport: document.querySelector('#article'),
+      styles: {
+          '.js-documentTitle, .js-documentDescription': 'rgba(0,0,0,0.08)',
+          '.js-documentExcerpt': 'rgba(0,0,0,0.08)',
+          '.-first': 'hsla(275, 120%, 90%, 1)',
+          '.-second': 'hsla(275, 120%, 80%, 1)',
+          '.-third': 'hsla(275, 120%, 70%, 1)',
+          '.-fourth': 'hsla(275, 120%, 60%, 1)',
+          '.-fifth': 'hsla(275, 120%, 50%, 1)',
+          // 'h1,a': 'rgba(0,0,0,0.10)',
+          // 'h2,h3,h4': 'rgba(0,0,0,0.08)'
+      },
+      back: 'rgba(0,0,0,0.03)',
+      view: 'rgba(0,0,0,0.01)',
+      drag: 'rgba(0,0,0,0.06)',
+      interval: 50
+  });
+</script>
