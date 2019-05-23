@@ -184,7 +184,7 @@
 
   & > .footer {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
     justify-content: space-between;
 
@@ -192,16 +192,15 @@
     padding-top: 1.5rem;
   }
 
-  & > .footer > * + * {
-    margin-top: 1.5rem;
-  }
-
   & > .footer > .document-progress {
-    flex: 1 0 auto;
+    flex: 1;
   }
 
-  & > .footer > .status {
+  & > .footer > .status.-owner {
+    flex: unset;
+
     width: 100%;
+    margin-bottom: 1.5rem;
   }
 
   & > .footer > .status > * + * {
@@ -221,10 +220,12 @@
 
     flex: 0;
 
-    margin-left: 2rem;
+    margin-left: auto;
 
     text-align: right;
     text-transform: uppercase;
+
+    border-left: 2rem solid transparent;
 
     @include link-style(600);
   }

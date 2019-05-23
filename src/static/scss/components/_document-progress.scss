@@ -3,11 +3,13 @@
     font-size: $font-size-micro;
     font-weight: 500;
     line-height: 1;
+    flex: 1;
   }
 
   & > span > span {
     font-size: $font-size-micro;
     font-weight: 500;
+    white-space: pre;
   }
 
   & > .begin {
@@ -16,6 +18,7 @@
 
   & > .end {
     color: $color-red;
+    text-align: right;
   }
 
   & {
