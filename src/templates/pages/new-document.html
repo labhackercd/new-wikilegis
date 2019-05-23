@@ -2,14 +2,21 @@
 {% load staticfiles i18n %}
 
 {% block content %}
-  <form class="document-form" method="POST">
-    {% csrf_token %}
-    {{form.non_field_errors}}
+<main class="section-group">
+  <header>
     {% if object %}
     <h2>Editar Documento</h2>
     {% else %}
     <h2>Criar Novo Projeto</h2>
     {% endif %}
+
+    <a onclick="window.history.back();" class="link-back">Voltar</a>
+
+  </header>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{form.non_field_errors}}
     <div class="theme-autocomplete js-themeAutocomplete -required">
       <input class="js-input" type="text" name="theme-autocomplete">
       <label>{% trans "Tema" %}</label>
@@ -61,6 +68,7 @@
     </div>
     <button class="app-button -green">Enviar</button>
   </form>
+</main>
 {% endblock content %}
 
 {% block page_js %}

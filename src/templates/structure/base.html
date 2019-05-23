@@ -42,8 +42,8 @@
       <div class="nav-burger"></div>
       <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
 
-      {% block navbar_admin_tools %}
-      {% endblock navbar_admin_tools %}
+      {% block navbar_document %}
+      {% endblock navbar_document %}
 
       {% if request.user.profile.profile_type == 'owner' %}
       <div class="tools">
@@ -85,9 +85,7 @@
             </li>
           </ul>
         </div>
-        <a href="#" class="icon -settings" aria-label="Configurar">
-          {% include "svgs/settings-icon.html" %}
-        </a>
+        {% block navbar_tools %}{% endblock navbar_tools %}
       </div>
       {% endif %}
     </div>
