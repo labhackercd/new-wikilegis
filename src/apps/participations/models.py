@@ -15,6 +15,7 @@ class InvitedGroup(TimestampedMixin):
                                        related_name='invited_groups',
                                        verbose_name=_('thematic group'),
                                        null=True, blank=True)
+    openning_date = models.DateField(_('openning date'), null=True, blank=True)
     closing_date = models.DateField(_('closing date'))
     public_participation = models.BooleanField(_('public participation'),
                                                default=False)

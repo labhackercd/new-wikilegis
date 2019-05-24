@@ -128,14 +128,16 @@
 
         <div class="footer">
           {% if public_group.closing_date|is_open %}
+            {% if public_group.openning_date %}
             <div class="document-progress">
-              <span class="begin">Aberto há <span>{{ public_group.created|absolute_days_since }} dias</span></span>
+              <span class="begin">Aberto há <span>{{ public_group.openning_date|absolute_days_since }} dias</span></span>
               <span class="end">Encerra em <span>{{ public_group.closing_date|absolute_days_since }} dias</span></span>
 
               <div class="progress-bar">
-                <span class="value" style="transform: scaleX({% progress_time_normalized public_group.created public_group.closing_date %})"></span>
+                <span class="value" style="transform: scaleX({% progress_time_normalized public_group.openning_date public_group.closing_date %})"></span>
               </div>
             </div>
+            {% endif %}
           {% else %}
             <div class="status">
               <p class="closed">Encerrado em {{public_group.closing_date|date:"d/m/Y"}}</p>
@@ -147,7 +149,7 @@
                -->
             </div>
           {% endif %}
-          
+
           <span class="pseudolink">Acessar</span>
         </div>
       </a>
