@@ -130,7 +130,9 @@ def participation_class(excerpt, max_suggestions):
     for suggestion in excerpt.suggestions.all():
         votes_sum += suggestion.votes.count()
 
-    if votes_sum / max_suggestions < 0.2:
+    if votes_sum == 0:
+        return ''
+    elif votes_sum / max_suggestions < 0.2:
         return '-first'
     elif votes_sum / max_suggestions < 0.4:
         return '-second'
