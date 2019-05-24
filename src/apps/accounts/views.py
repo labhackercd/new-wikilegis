@@ -39,7 +39,7 @@ def participants_autocomplete(request):
     if query:
         query &= Q(is_active=True)
         users = User.objects.filter(query).distinct().exclude(
-            id__in=selected_ids)
+            id__in=selected_ids).exclude(id=request.user.id)
     else:
         users = User.objects.none()
 
