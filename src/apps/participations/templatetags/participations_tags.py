@@ -133,12 +133,12 @@ def participation_class(excerpt, max_suggestions):
     if votes_sum == 0:
         return ''
     elif votes_sum / max_suggestions < 0.2:
-        return '-first'
+        return 'js-relevanceAmount1'
     elif votes_sum / max_suggestions < 0.4:
-        return '-second'
+        return 'js-relevanceAmount2'
     elif votes_sum / max_suggestions < 0.6:
-        return '-third'
+        return 'js-relevanceAmount3'
     elif votes_sum / max_suggestions < 0.8:
-        return '-fourth'
+        return 'js-relevanceAmount4'
     else:
-        return '-fifth'
+        return 'js-relevanceAmount5'
