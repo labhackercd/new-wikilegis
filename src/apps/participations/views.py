@@ -156,7 +156,8 @@ class InvitedGroupListView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = object_list if object_list is not None else self.object_list
-        context['public_groups'] = queryset.filter(public_participation=True)
+        context['public_groups'] = queryset.filter(
+            public_participation=True, group_status='in_progress')
         if self.request.user.is_authenticated:
             user = self.request.user
             accepted_invitations = ParcipantInvitation.objects.filter(
@@ -330,6 +331,7 @@ def clusters(request, document_pk):
 def list_propositions(request):
     groups = InvitedGroup.objects.filter(
         public_participation=True,
+        group_status='in_progress',
         document__document_type__isnull=False).distinct()
     result = []
     for group in groups:
