@@ -23,3 +23,6 @@ publicFormModalView.initEvents();
 
 var publicFormController = new PublicFormController();
 publicFormController.initEvents();
+
+var pageMinimap = new PageMinimap();
+pageMinimap.initEvents();

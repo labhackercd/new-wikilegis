@@ -12,58 +12,27 @@
     <p class="js-documentDescription description">{{ object.description }}</p>
     <hr>
   </header>
-  <canvas id='map'></canvas>
+  <canvas class="page-minimap js-pageMinimap"></canvas>
   {% for excerpt in group.get_excerpts %}
     {% if excerpt.excerpt_type.align_center %}
     <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
-      <h3>{% excerpt_numbering excerpt %}</h3>
+      <h3 class="js-excerptNumbering">{% excerpt_numbering excerpt %}</h3>
       <h3>{{ excerpt.content|safe }}</h3>
     </div>
     {% else %}
       {% to_reduce group excerpt as reduce %}
       {% if reduce %}
       <p class="excerpt-wrapper {% excerpt_classes excerpt %} -reduce js-excerptWrapper">
-        <b>{% excerpt_numbering excerpt %}</b>
+        <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
         <span class="js-defaultText">...</span>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
       </p>
       {% else %}
       <p class="excerpt-wrapper {% excerpt_classes excerpt %} js-excerptWrapper">
-        <b>{% excerpt_numbering excerpt %}</b>
+        <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
       </p>
       {% endif %}
     {% endif %}
   {% endfor %}
 </article>
-
-<style>
-  #map {
-      position: fixed;
-      top: 60px;
-      right: 80px;
-      width: 200px;
-      height: 100%;
-      z-index: 100;
-  }
-</style>
-
-<script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
-<script>
-  pagemap(document.querySelector('#map'), {
-      // viewport: document.querySelector('#article'),
-      styles: {
-          '.js-documentTitle, .js-documentDescription': 'rgba(0,0,0,0.08)',
-          '.js-documentExcerpt': 'rgba(0,0,0,0.08)',
-          '.js-relevanceAmount1': 'hsla(275, 120%, 90%, 1)',
-          '.js-relevanceAmount2': 'hsla(275, 120%, 80%, 1)',
-          '.js-relevanceAmount3': 'hsla(275, 120%, 70%, 1)',
-          '.js-relevanceAmount4': 'hsla(275, 120%, 60%, 1)',
-          '.js-relevanceAmount5': 'hsla(275, 120%, 50%, 1)',
-      },
-      back: 'rgba(0,0,0,0.03)',
-      view: 'rgba(0,0,0,0.05)',
-      drag: 'rgba(0,0,0,0.065)',
-      interval: 50
-  });
-</script>
