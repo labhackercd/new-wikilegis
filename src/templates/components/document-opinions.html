@@ -25,6 +25,7 @@
       <p class="excerpt-wrapper {% excerpt_classes excerpt %} -reduce js-excerptWrapper">
         <b>{% excerpt_numbering excerpt %}</b>
         <span class="js-defaultText">...</span>
+        {% include "components/document-excerpt.html" with excerpt=excerpt %}
       </p>
       {% else %}
       <p class="excerpt-wrapper {% excerpt_classes excerpt %} js-excerptWrapper">
@@ -50,7 +51,7 @@
 <script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
 <script>
   pagemap(document.querySelector('#map'), {
-      viewport: document.querySelector('#article'),
+      // viewport: document.querySelector('#article'),
       styles: {
           '.js-documentTitle, .js-documentDescription': 'rgba(0,0,0,0.08)',
           '.js-documentExcerpt': 'rgba(0,0,0,0.08)',
@@ -63,8 +64,8 @@
           // 'h2,h3,h4': 'rgba(0,0,0,0.08)'
       },
       back: 'rgba(0,0,0,0.03)',
-      view: 'rgba(0,0,0,0.01)',
-      drag: 'rgba(0,0,0,0.06)',
+      view: 'rgba(0,0,0,0.05)',
+      drag: 'rgba(0,0,0,0.065)',
       interval: 50
   });
 </script>
