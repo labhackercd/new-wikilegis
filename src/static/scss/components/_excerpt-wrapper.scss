@@ -1,11 +1,15 @@
 .excerpt-wrapper {
+  position: relative;
+
   margin-top: 2rem;
 
   &.-center {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
+
     text-transform: uppercase;
+
     h3 {
       margin: 0;
     }
@@ -13,5 +17,26 @@
 
   &.-quote {
     font-style: italic;
+  }
+
+  & > .votes {
+    font-size: $font-size-micro;
+
+    position: absolute;
+    top: 50%;
+    left: -4.5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    transform: translateY(-50%);
+    text-align: right;
+    text-transform: uppercase;
+
+    color: $color-brand;
+  }
+
+  & > .votes > .value {
+    font-size: $font-size-centi;
   }
 }
