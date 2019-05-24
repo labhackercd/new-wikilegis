@@ -34,7 +34,7 @@
     width: 100%;
     height: 4.5rem;
 
-    @include hovering-label(left, 1.5em, $color-gray, .875rem);
+    @include hovering-label(left, 2em, $color-whitesmoke, .875rem);
 
     &:hover > svg path {
       fill: $color-deep-gray;
@@ -42,7 +42,10 @@
   }
 
   & > .tools > .icon::after {
-    font-weight: 400 !important;
+    background-color: $color-deep-gray;
+    padding: 0.75em 1em;
+    border-radius: 0.25rem;
+    margin-right: 1em;
   }
 
   & > .tools > .icon.-active > svg path {
@@ -56,8 +59,6 @@
 
     width: 100%;
     height: 4.5rem;
-
-    @include hovering-label(left, 1.5em, $color-gray, .875rem);
 
     &:hover > svg path {
       fill: $color-deep-gray;
