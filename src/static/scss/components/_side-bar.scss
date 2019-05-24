@@ -47,7 +47,7 @@
       @include icon('filter');
     }
 
-    & > .compare {
+    & > .action {
       font-size: $font-size-micro;
 
       cursor: pointer;
@@ -55,6 +55,10 @@
       text-transform: uppercase;
 
       color: $color-brand;
+
+      &.-disable {
+        color: $color-gray;
+      }
 
       &:hover {
         color: lighten($color-brand, 10%);

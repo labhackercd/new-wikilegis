@@ -312,16 +312,17 @@ def clusters(request, document_pk):
         group = get_object_or_404(InvitedGroup, pk=group_pk)
     else:
         group = Document.objects.get(pk=document_pk).invited_groups.first()
-    clusters_ids = json.loads(group.clusters)
-    opinion_clusters = []
-    for cluster in clusters_ids:
-        opinion_clusters.append(
-            Suggestion.objects.filter(
-                id__in=cluster
-            ).annotate(num_votes=Count('votes')).order_by('-num_votes'))
+    suggestions = Suggestion.objects.all()
+    # clusters_ids = json.loads(group.clusters)
+    # opinion_clusters = []
+    # for cluster in clusters_ids:
+    #     opinion_clusters.append(
+    #         Suggestion.objects.filter(
+    #             id__in=cluster
+    #         ).annotate(num_votes=Count('votes')).order_by('-num_votes'))
     html = render_to_string(
         'components/clusters.html', {
-            'clusters': opinion_clusters,
+            'sugestions': suggestions,
         }
     )
 
