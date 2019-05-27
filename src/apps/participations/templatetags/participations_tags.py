@@ -125,12 +125,13 @@ def count_votes(votes, vote_type):
 
 
 @register.filter
-def participation_class(excerpt, max_suggestions):
+def participation_class(excerpt, group):
+    max_suggestions = group.suggestions.count()
     votes_sum = 0
-    for suggestion in excerpt.suggestions.all():
+    for suggestion in excerpt.suggestions.filter(invited_group=group):
         votes_sum += suggestion.votes.count()
 
-    if votes_sum == 0:
+    if votes_sum == 0 or max_suggestions == 0:
         return ''
     elif votes_sum / max_suggestions < 0.2:
         return 'js-relevanceAmount1'
