@@ -253,5 +253,8 @@ var events = {
   closeNotificationList: $.Topic('closeNotificationList'),
 
   // Triggered when user click on notification button
-  updateNotifications: $.Topic('updateNotifications')
+  updateNotifications: $.Topic('updateNotifications'),
+
+  // Triggered when user selects an version to compare
+  versionSelectedToCompare: $.Topic('versionSelectedToCompare'),
 };

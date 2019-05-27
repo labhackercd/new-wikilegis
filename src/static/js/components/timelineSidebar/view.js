@@ -20,22 +20,37 @@ TimelineSidebarView.prototype.subscribers = function () {
 
 TimelineSidebarView.prototype.publishers = function () {
   var self = this;
-  this.timelineSidebar.on('click', '.js-namedVersion', function(event) {
+  self.timelineSidebar.on('click', '.js-namedVersion', function(event) {
     var target = $(event.target);
     var namedVersion = target.closest('.js-namedVersions');
-    self.activateNamedVersion(namedVersion);
 
-    if (target.closest('.js-namedVersion')) {
-      self.toggleAutosaves(namedVersion);
+    if (!self.timelineSidebar.hasClass('js-comparing')) {
+      self.activateNamedVersion(namedVersion);
+
+      if (target.closest('.js-namedVersion')) {
+        self.toggleAutosaves(namedVersion);
+      }
+    } else {
+      var compareCheckbox = namedVersion.find('.js-compareCheckbox .js-checkboxElement');
+      if (compareCheckbox.attr('checked')) {
+        compareCheckbox.removeAttr('checked');
+      } else {
+        if (self.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement:checked').length < 2) {
+          compareCheckbox.attr('checked', true);
+        }
+      }
+      events.versionSelectedToCompare.publish();
     }
   });
 
-  this.timelineSidebar.on('click', '.js-version', function(event) {
+  self.timelineSidebar.on('click', '.js-version', function(event) {
     event.preventDefault();
-    var version = $(event.target).closest('.js-version');
+    if (!self.timelineSidebar.hasClass('js-comparing')) {
+      var version = $(event.target).closest('.js-version');
 
-    if (!version.hasClass('-selected')) {
-      self.activateVersion(version);
+      if (!version.hasClass('-selected')) {
+        self.activateVersion(version);
+      }
     }
   });
 };
