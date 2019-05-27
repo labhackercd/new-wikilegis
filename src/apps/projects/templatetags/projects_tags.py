@@ -254,7 +254,8 @@ def progress_time_normalized(start_date, end_date):
 
 
 @register.filter()
-def exerpt_votes(excerpt):
+def exerpt_votes(excerpt, group):
     votes_list = [suggestion.votes.count()
-                  for suggestion in excerpt.suggestions.all()]
+                  for suggestion in excerpt.suggestions.filter(
+                      invited_group=group)]
     return sum(votes_list)
