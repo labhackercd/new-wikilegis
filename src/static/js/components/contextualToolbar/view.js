@@ -67,8 +67,8 @@ ContextualToolbarView.prototype.publishers = function() {
       }
     } else if (keycode == '84') { self.activateShortcut('titulo'); } // "T" Key
     else if (keycode == '67') { self.activateShortcut('capitulo'); } // "C" Key
-    else if (keycode == '83') { self.activateShortcut('sessao'); } // "S" Key
-    else if (keycode == '85') { self.activateShortcut('subsessao'); } // "U" Key
+    else if (keycode == '83') { self.activateShortcut('secao'); } // "S" Key
+    else if (keycode == '85') { self.activateShortcut('subsecao'); } // "U" Key
     else if (keycode == '65') { self.activateShortcut('artigo'); } // "A" Key
     else if (keycode == '80') { self.activateShortcut('paragrafo'); } // "P" Key
     else if (keycode == '73') { self.activateShortcut('inciso'); } // "I" Key
