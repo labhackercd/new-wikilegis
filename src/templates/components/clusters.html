@@ -1,6 +1,6 @@
 {% load static participations_tags %}
 
-{% for sugestion in sugestions %}
+{% for suggestion in suggestions %}
 <div class="card">
   <div class="header">
     <span class="votes">{{ sugestion.votes.all|length }} VOTOS</span>
@@ -19,15 +19,27 @@
     <p class="sugestion">{{ sugestion.content }}</p>
   </div>
   <div class="votes">
+    {% if suggestion.votes.all %}
     <div class="bar -positive" style="width: 58%;">
-      <span class="value">12</span>
+      <span class="value">{{suggestion.votes.all|count_votes:'approve'}}</span>
     </div>
     <div class="bar -neutral" style="width: 12%;">
-      <span class="value">3</span>
+      <span class="value">{{suggestion.votes.all|count_votes:'neutral'}}</span>
     </div>
     <div class="bar -negative" style="width: 30%;">
-      <span class="value">8</span>
+      <span class="value">{{suggestion.votes.all|count_votes:'reject'}}</span>
     </div>
+    {% else %}
+    <div class="bar -positive" style="width: 58%;">
+      <span class="value">0</span>
+    </div>
+    <div class="bar -neutral" style="width: 12%;">
+      <span class="value">0</span>
+    </div>
+    <div class="bar -negative" style="width: 30%;">
+      <span class="value">0</span>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% empty %}

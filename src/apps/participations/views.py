@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.forms import ValidationError
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.sites.models import Site
@@ -23,7 +23,6 @@ from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
 from apps.notifications.emails import send_remove_participant
-import json
 import requests
 
 User = get_user_model()
@@ -307,22 +306,15 @@ def new_opinion(request):
 
 @require_ajax
 def clusters(request, document_pk):
-    group_pk = request.POST.get('groupId', None)
-    if group_pk:
-        group = get_object_or_404(InvitedGroup, pk=group_pk)
-    else:
-        group = Document.objects.get(pk=document_pk).invited_groups.first()
+    # group_pk = request.POST.get('groupId', None)
+    # if group_pk:
+    #     group = get_object_or_404(InvitedGroup, pk=group_pk)
+    # else:
+    #     group = Document.objects.get(pk=document_pk).invited_groups.first()
     suggestions = Suggestion.objects.all()
-    # clusters_ids = json.loads(group.clusters)
-    # opinion_clusters = []
-    # for cluster in clusters_ids:
-    #     opinion_clusters.append(
-    #         Suggestion.objects.filter(
-    #             id__in=cluster
-    #         ).annotate(num_votes=Count('votes')).order_by('-num_votes'))
     html = render_to_string(
         'components/clusters.html', {
-            'sugestions': suggestions,
+            'suggestions': suggestions,
         }
     )
 

@@ -234,7 +234,7 @@ def absolute_days_since(date):
     today = datetime.now().date()
     try:
         delta = date.date() - today
-    except:
+    except TypeError:
         delta = date - today
     return "%s" % abs(delta.days)
 
@@ -246,8 +246,15 @@ def progress_time_normalized(start_date, end_date):
         participation_days = end_date - start_date.date()
         days_since_start = today - start_date.date()
         result_percent = (days_since_start * 100) / participation_days
-    except:
+    except TypeError:
         participation_days = end_date - start_date
         days_since_start = today - start_date
         result_percent = (days_since_start * 100) / participation_days
     return "%s" % (result_percent / 100)
+
+
+@register.filter()
+def exerpt_votes(excerpt):
+    votes_list = [suggestion.votes.count()
+                  for suggestion in excerpt.suggestions.all()]
+    return sum(votes_list)
