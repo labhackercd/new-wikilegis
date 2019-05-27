@@ -125,6 +125,13 @@ def count_votes(votes, vote_type):
 
 
 @register.filter
+def votes_percent(votes, vote_type):
+    total_votes = votes.count()
+    votes_by_type = votes.filter(opinion_vote=vote_type).count()
+    return int((votes_by_type / total_votes) * 100)
+
+
+@register.filter
 def participation_class(excerpt, group):
     max_suggestions = group.suggestions.count()
     votes_sum = 0

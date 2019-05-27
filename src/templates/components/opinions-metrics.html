@@ -20,23 +20,23 @@
   </div>
   <div class="votes">
     {% if opinion.votes.all %}
-    <div class="bar -positive" style="width: 58%;">
+    <div class="bar -positive {% if opinion.votes.all|count_votes:'approve' == 0 %}_hidden{% endif %}" style="width: {{opinion.votes.all|votes_percent:'approve'}}%;">
       <span class="value">{{opinion.votes.all|count_votes:'approve'}}</span>
     </div>
-    <div class="bar -neutral" style="width: 12%;">
+    <div class="bar -neutral {% if opinion.votes.all|count_votes:'neutral' == 0 %}_hidden{% endif %}" style="width: {{opinion.votes.all|votes_percent:'neutral'}}%;">
       <span class="value">{{opinion.votes.all|count_votes:'neutral'}}</span>
     </div>
-    <div class="bar -negative" style="width: 30%;">
+    <div class="bar -negative {% if opinion.votes.all|count_votes:'reject' == 0 %}_hidden{% endif %}" style="width: {{opinion.votes.all|votes_percent:'reject'}}%;">
       <span class="value">{{opinion.votes.all|count_votes:'reject'}}</span>
     </div>
     {% else %}
-    <div class="bar -positive" style="width: 58%;">
+    <div class="bar -positive" style="width: 33%;">
       <span class="value">0</span>
     </div>
-    <div class="bar -neutral" style="width: 12%;">
+    <div class="bar -neutral" style="width: 33%;">
       <span class="value">0</span>
     </div>
-    <div class="bar -negative" style="width: 30%;">
+    <div class="bar -negative" style="width: 33%;">
       <span class="value">0</span>
     </div>
     {% endif %}
