@@ -40,6 +40,10 @@ TimelineSidebarView.prototype.publishers = function () {
   });
 };
 
+TimelineSidebarView.prototype.collapseAutosaves = function() {
+  this.timelineSidebar.find('.js-autosaves').removeClass('-show');
+};
+
 TimelineSidebarView.prototype.activateVersion = function (version) {
   this.timelineSidebar.find('.js-version').removeClass('-selected');
 

@@ -76,8 +76,9 @@
 
   & > .item > .named > .compare-checkbox {
     position: absolute;
-    top: 1.5rem;
+    top: 50%;
     right: .6rem;
+    transform: translateY(-50%);
   }
 
   & > .item > .named > *:not(.compare-checkbox),

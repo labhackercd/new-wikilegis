@@ -2,6 +2,13 @@
   <li class="item js-namedVersions js-currentVersion {% if not selected_version.parent and selected_version.auto_save %}-active{% endif %}">
     <div class="named js-namedVersion js-version {% if not selected_version.parent and selected_version.auto_save %}-selected{% endif %}" data-version-number="{{latest_saves.first.number}}">
       <h2 class="title">Versão Atual</h2>
+
+      <div class="compare-checkbox _hidden js-compareCheckbox">
+        <input id="checkbox" type="checkbox" />
+        <label for="checkbox">
+          <span></span>
+        </label>
+      </div>
     </div>
     <ol class="autosaves js-autosaves {% if not selected_version.parent %}-show{% endif %}">
       {% for autosave in latest_saves %}
@@ -19,7 +26,7 @@
       <h2 class="title">{{version.name}}</h2>
       <span class="date">{{version.created|date:'d \d\e b, Y'}}</span>
 
-      <div class="compare-checkbox">
+      <div class="compare-checkbox _hidden js-compareCheckbox">
         <input id="checkbox" type="checkbox" />
         <label for="checkbox">
           <span></span>
