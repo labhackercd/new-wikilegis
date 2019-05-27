@@ -26,7 +26,12 @@ CompareVersionsView.prototype.toggleAction = function() {
     this.compareVersionAction.text('CANCELAR');
     $('.js-timelineSidebar .js-compareCheckbox').removeClass('_hidden');
     this.timelineSidebar.collapseAutosaves();
-    this.timelineSidebar.addClass('js-comparing');
+    this.timelineSidebar.timelineSidebar.addClass('js-comparing');
+
+    var selectedVersion = $('.js-timelineSidebar .js-version.-selected');
+    var namedParent = selectedVersion.closest('.js-namedVersions');
+    namedParent.find('.js-namedVersion').addClass('-selected');
+    namedParent.find('.js-compareCheckbox .js-checkboxElement').attr('checked', true);
   } else {
     this.compareVersionAction.addClass('js-compare');
     this.compareVersionAction.text('COMPARAR');
