@@ -1,6 +1,6 @@
 {% load staticfiles projects_tags participations_tags %}
 
-<article id="article">
+<article id="article" class="js-articleDocument" data-group-id={{group.id}}>
   <header>
     {% now "Y-m-d" as todays_date %}
     {% if group.closing_date|date:"Y-m-d" > todays_date %}

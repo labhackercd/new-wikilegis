@@ -305,20 +305,21 @@ def new_opinion(request):
 
 
 @require_ajax
-def clusters(request, document_pk):
-    # group_pk = request.POST.get('groupId', None)
-    # if group_pk:
-    #     group = get_object_or_404(InvitedGroup, pk=group_pk)
-    # else:
-    #     group = Document.objects.get(pk=document_pk).invited_groups.first()
-    suggestions = Suggestion.objects.all()
+def get_opinions(request, excerpt_pk):
+    excerpt = get_object_or_404(Excerpt, pk=excerpt_pk)
+    group_pk = request.POST.get('groupId', None)
+    if group_pk:
+        group = get_object_or_404(InvitedGroup, pk=group_pk)
+    else:
+        group = excerpt.document.invited_groups.first()
+    opinions = excerpt.suggestions.filter(invited_group=group)
     html = render_to_string(
-        'components/clusters.html', {
-            'suggestions': suggestions,
+        'components/opinions-metrics.html', {
+            'opinions': opinions,
         }
     )
 
-    return JsonResponse({'clustersHtml': html})
+    return JsonResponse({'opinionsHtml': html})
 
 
 def list_propositions(request):

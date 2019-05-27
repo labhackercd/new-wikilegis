@@ -112,7 +112,7 @@
     {% include "components/timeline-sidebar.html" %}
     {% include "components/document-editor.html" %}
   {% elif page == 'clusters' %}
-    {% include "components/cluster-sidebar.html" %}
+    {% include "components/opinions-sidebar.html" %}
     {% include "components/document-opinions.html" %}
   {% endif %}
 
@@ -153,9 +153,9 @@
 {% elif page == 'clusters' %}
 <script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
 <script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
-<script src="{% static 'js/components/clusters/view.js' %}"></script>
 <script src="{% static 'js/components/pageMinimap/view.js' %}"></script>
+<script src="{% static 'js/components/opinionsMetrics/view.js' %}"></script>
 <script src="{% static 'js/components/textHighlight/view.js' %}"></script>
-<script src="{% static 'js/pages/clustersDocument.js' %}"></script>
+<script src="{% static 'js/pages/opinionsDocument.js' %}"></script>
 {% endif %}
 {% endblock page_js %}
