@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from .models import Suggestion, InvitedGroup
 from .clusters import clustering_suggestions
 from constance import config
+from datetime import datetime
 
 
 def save_invited_email(sender, instance, **kwargs):
@@ -33,6 +34,10 @@ def clustering_group(sender, instance, **kwargs):
 
 @receiver(post_save, sender=InvitedGroup)
 def private_group_status(sender, instance, created, **kwargs):
-    if created and instance.public_participation:
-        instance.group_status = 'waiting'
-        instance.save()
+    if created:
+        if instance.public_participation:
+            instance.group_status = 'waiting'
+            instance.save()
+        else:
+            instance.oppening_date = datetime.now().date
+            instance.save()
