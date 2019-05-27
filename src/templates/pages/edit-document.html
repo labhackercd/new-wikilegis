@@ -4,9 +4,9 @@
 {{ object.title }}
 {% endblock title %}
 
-{% block navbar_extra_classes %}js-navbar js-owner{% endblock navbar_extra_classes %}
+{% block navbar_extra_classes %}js-navbar js-owner {% if 'editor' in request.path %}-edit{% endif %}{% endblock navbar_extra_classes %}
 
-{% block navbar_admin_tools %}
+{% block navbar_document %}
   <div class="project">
     <span class="title js-documentTitle">{{object.title}}</span>
       <div class="dropdown-menu">
@@ -87,8 +87,12 @@
       </ul>
     </div>
   </div>
-{% endblock navbar_admin_tools %}
-
+{% endblock navbar_document %}
+{% block navbar_tools %}
+<a href="{% url 'edit_document' object.id object.slug %}" class="icon -settings" aria-label="Configurar">
+  {% include "svgs/settings-icon.html" %}
+</a>
+{% endblock %}
 
 {% block extracss %}
 <style>
@@ -147,8 +151,10 @@
 <script src="{% static 'js/components/navBar/view.js' %}"></script>
 <script src="{% static 'js/pages/editDocument.js' %}"></script>
 {% elif page == 'clusters' %}
+<script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
 <script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
 <script src="{% static 'js/components/clusters/view.js' %}"></script>
+<script src="{% static 'js/components/pageMinimap/view.js' %}"></script>
 <script src="{% static 'js/components/textHighlight/view.js' %}"></script>
 <script src="{% static 'js/pages/clustersDocument.js' %}"></script>
 {% endif %}

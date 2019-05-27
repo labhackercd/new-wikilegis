@@ -1,28 +1,28 @@
 <aside class="tool-bar js-toolBar">
   <div class="tools">
-    <a href="#" class="icon js-saveButton" aria-label="Criar versão">
-      {% include "svgs/cloud-icon.html" %}
-    </a>
-    <a href="#" class="icon" aria-label="Exportar">
-      {% include "svgs/download-icon.html" %}
+    {% if 'clusters' in request.path %}
+    <a href="{% url 'document_editor_cluster' 'editor' pk %}" class="icon" aria-label="Ir para o Editor">
+      {% include "svgs/edit-icon.html" %}
     </a>
     <a href="#" class="icon js-collapseExpand -collapse -collapsed" aria-label="Expandir">
       {% include "svgs/expand-icon.html" %}
     </a>
-    {% if 'clusters' in request.path %}
-    <a href="{% url 'document_editor_cluster' 'editor' pk %}" class="icon" aria-label="Editor">
-      {% include "svgs/arrows-icon.html" %}
+    {% if group.public_participation %}
+    <a href="#" class="icon js-openPublicParticipation" aria-label="Editar grupo aberto">
+      {% include "svgs/public-icon.html" %}
     </a>
+    {% else %}
     <a href="{% url 'edit_group' group.pk %}" class="icon" aria-label="Editar grupo privado">
-      {% include "svgs/arrows-icon.html" %}
-    </a>
-    <a class="icon js-openPublicParticipation" aria-label="Editar grupo aberto">
-      {% include "svgs/arrows-icon.html" %}
-    </a>
-    {% elif 'editor' in request.path %}
-    <a href="{% url 'document_editor_cluster' 'clusters' pk %}" class="icon" aria-label="Clusters">
-      {% include "svgs/arrows-icon.html" %}
+      {% include "svgs/closed-icon.html" %}
     </a>
     {% endif %}
+    {% elif 'editor' in request.path %}
+    <a href="#" class="icon js-saveButton" aria-label="Criar versão">
+      {% include "svgs/cloud-icon.html" %}
+    </a>
+    {% endif %}
+    <a href="#" class="icon" aria-label="Exportar">
+      {% include "svgs/download-icon.html" %}
+    </a>
   </div>
 </aside>

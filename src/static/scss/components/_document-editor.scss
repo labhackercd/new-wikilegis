@@ -1,5 +1,4 @@
 .document-editor.-active {
-  width: calc(100% - 11rem);
   padding-left: 27rem;
 
   & > .side-bar {
@@ -45,12 +44,12 @@
 
   display: flex;
 
-  width: calc(100% - 5rem);
+  width: 100%;
   min-height: 100%;
   margin: 0;
-  margin-right: 5rem;
   padding: 0;
   padding-top: 3.75rem;
+  padding-right: 5rem;
 
   transition: all .25s $swift-out;
 
@@ -74,6 +73,7 @@
 
   & > article {
     font-size: 1rem;
+
     box-sizing: border-box;
     width: 100%;
     max-width: 66ch;
@@ -101,10 +101,10 @@
   }
 
   & > article > header > .date {
-    color: $color-deep-gray;
-
     font-size: $font-size-mili;
     font-weight: 500;
+
+    color: $color-deep-gray;
   }
 
   & > article > header > .date.-inactive {
@@ -131,10 +131,10 @@
   }
 
   & > article > header > .-editable > textarea.title {
+    @extend h1;
+
     margin: 0;
     margin-top: 1rem;
-
-    @extend h1;
   }
 
   & > article > header > .-editable > textarea.description {
@@ -150,9 +150,9 @@
   }
 
   & > article > header > .description {
-    margin-top: 1rem;
-
     font-size: 1.25rem;
     font-weight: 300;
+
+    margin-top: 1rem;
   }
 }

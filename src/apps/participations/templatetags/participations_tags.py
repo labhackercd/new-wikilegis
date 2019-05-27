@@ -122,3 +122,23 @@ def to_reduce(group, excerpt):
 @register.filter
 def count_votes(votes, vote_type):
     return votes.filter(opinion_vote=vote_type).count()
+
+
+@register.filter
+def participation_class(excerpt, max_suggestions):
+    votes_sum = 0
+    for suggestion in excerpt.suggestions.all():
+        votes_sum += suggestion.votes.count()
+
+    if votes_sum == 0:
+        return ''
+    elif votes_sum / max_suggestions < 0.2:
+        return 'js-relevanceAmount1'
+    elif votes_sum / max_suggestions < 0.4:
+        return 'js-relevanceAmount2'
+    elif votes_sum / max_suggestions < 0.6:
+        return 'js-relevanceAmount3'
+    elif votes_sum / max_suggestions < 0.8:
+        return 'js-relevanceAmount4'
+    else:
+        return 'js-relevanceAmount5'

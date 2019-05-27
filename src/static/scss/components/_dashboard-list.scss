@@ -67,7 +67,7 @@
       grid-auto-rows: minmax(347px, 1fr);
     }
 
-    & > .simple-card {
+    & > .document-card {
       margin-top: 1.5rem;
 
       @include bp-smallup {

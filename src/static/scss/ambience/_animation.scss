@@ -158,21 +158,24 @@ $swift-out: cubic-bezier(.55, 0, .1, 1);
 
 @keyframes zoom-out-reveal {
   0% {
-    opacity: 0;
     transform: scale(2);
+
+    opacity: 0;
   }
 
 
   100% {
-    opacity: 1;
     transform: scale(1);
+
+    opacity: 1;
   }
 }
 
 @keyframes fade-to-left {
   0% {
-    opacity: 1;
     transform: translateX(0);
+
+    opacity: 1;
   }
 
   90% {
@@ -181,8 +184,18 @@ $swift-out: cubic-bezier(.55, 0, .1, 1);
 
 
   100% {
-    opacity: 0;
     transform: translateX(-100%);
+
+    opacity: 0;
   }
 }
 
+
+@keyframes moving-gradient {
+  0% {
+    background-position: left bottom;
+  }
+  100% {
+    background-position: right bottom;
+  }
+}

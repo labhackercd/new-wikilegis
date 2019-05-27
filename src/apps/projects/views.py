@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from apps.notifications.models import Notification
+from django.contrib.auth.models import User
 
 
 class InvitationRedirectView(RedirectView):
@@ -21,8 +23,24 @@ class InvitationRedirectView(RedirectView):
 
         if kwargs['accept'] == 'accepted':
             invitation.accepted = True
+            notification = Notification()
+            notification.user = invitation.group.document.owner
+            participant = User.objects.get(email=invitation.email)
+            notification.message = '%s aceitou o convite para participar do \
+                                    grupo %s' % (
+                participant.get_full_name(),
+                invitation.group.thematic_group.name)
+            notification.save()
         elif kwargs['accept'] == 'declined':
             invitation.accepted = False
+            notification = Notification()
+            notification.user = invitation.group.document.owner
+            participant = User.objects.get(email=invitation.email)
+            notification.message = '%s não aceitou o convite para participar \
+                                    do grupo %s' % (
+                participant.get_full_name(),
+                invitation.group.thematic_group.name)
+            notification.save()
         else:
             raise Http404
 
@@ -81,37 +99,36 @@ class DocumentUpdateView(UpdateView):
 class DocumentTextView(View):
     http_method_names = ['get']
 
+    def get_json_data(self, document, version):
+        if version.name:
+            version_name = version.name
+        else:
+            version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
+
+        rendered = render_to_string(
+            'txt/document_text',
+            {'excerpts': document.get_excerpts(version=version.number)}
+        )
+
+        return {
+            'html': rendered,
+            'versionName': version_name
+        }
+
     def get(self, request, *args, **kwargs):
         document = get_object_or_404(Document, pk=kwargs['pk'])
         version = request.GET.get('version', None)
 
         try:
-            rendered = render_to_string(
-                'txt/document_text',
-                {'excerpts': document.get_excerpts(version=version)}
-            )
             version = document.versions.get(number=version)
-            if version.name:
-                version_name = version.name
-            else:
-                version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
-
-            return JsonResponse({'html': rendered,
-                                 'versionName': version_name})
-        except DocumentVersion.DoesNotExist:
-            rendered = render_to_string(
-                'txt/document_text',
-                {'excerpts': document.get_excerpts()}
-            )
+            return JsonResponse(self.get_json_data(document, version))
+        except ValueError:
             version = document.versions.first()
-            if version.name:
-                version_name = version.name
-            else:
-                version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
+            return JsonResponse(self.get_json_data(document, version))
+        except DocumentVersion.DoesNotExist:
+            version = document.versions.first()
+            data = self.get_json_data(document, version)
+            data['message'] = _('Version not found! '
+                                'We loaded the last version for you :)')
+            return JsonResponse(data, status=404)
 
-            return JsonResponse({
-                'message': _('Version not found! '
-                             'We loaded the last version for you :)'),
-                'versionName': version_name,
-                'html': rendered
-            }, status=404)

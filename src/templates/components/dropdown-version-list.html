@@ -7,5 +7,7 @@
 <ul class="itens">
   {% for version in named_versions %}
     <a href="{% url 'document_editor_cluster' template='editor' pk=object.pk %}?version={{version.number}}">{{version.name}}</a>
+    {% empty %}
+    <a href="#" class="-empty">Sem versões</a>
   {% endfor %}
 </ul>

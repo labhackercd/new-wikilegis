@@ -27,7 +27,7 @@
   <div class="list">
   {% if pending_invites and request.user.is_authenticated %}
     {% for invite in pending_invites %}
-    <div class="simple-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
+    <div class="document-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
       <div class="header">
       {% if invite.group.closing_date|is_open %}
         <span class="date">Aberto até {{invite.group.closing_date|date:"d/m/Y"}}</span>
@@ -72,7 +72,7 @@
   {% endif %}
   {% if private_groups and request.user.is_authenticated %}
     {% for private_group in private_groups %}
-    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="simple-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
+    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
       <div class="header">
       {% if private_group.closing_date|is_open %}
         <span class="date">Aberto até {{private_group.closing_date|date:"d/m/Y"}}</span>
@@ -106,37 +106,53 @@
     {% endfor %}
   {% endif %}
   {% if public_groups %}
+
     {% for public_group in public_groups %}
-    <a href="{% url 'project' public_group.id public_group.document.slug %}" class="simple-card{% if not public_group.closing_date|is_open %} -inactive{% endif %}">
-      <div class="header">
-      {% if public_group.closing_date|is_open %}
-        <span class="date">Aberto até {{public_group.closing_date|date:"d/m/Y"}}</span>
-      {% else %}
-        <span class="date">Encerrado em {{public_group.closing_date|date:"d/m/Y"}}</span>
-      {% endif %}
-      </div>
-      <h3 class="js-title">{{ public_group.document.title }}</h3>
-      <p class="js-description">{{ public_group.document.description }}</p>
-      <div class="info">
-        <div class="themes">
+      <a href="{% url 'project' public_group.id public_group.document.slug %}" class="document-card {% if public_group.closing_date|is_open %}-public{% endif %}">
+
+        <ul class="tags">
           {% for theme in public_group.document.themes.all %}
-          <div class="theme">
-            {% if theme.icon %}
-            <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-            {% endif %}
-            <span>{{ theme.name }}</span>
-          </div>
+          <li class="app-tag -theme">
+            <span class="dot" style="background-color: {{ theme.color }}"></span>
+            <span class="label">{{ theme.name }}</span>
+          </li>
           {% endfor %}
+        </ul>
+
+
+        <h3 class="js-title">{{ public_group.document.title }}</h3>
+        <p class="js-description">
+          {{ public_group.document.description }}
+        </p>
+
+
+        <div class="footer">
+          {% if public_group.closing_date|is_open %}
+            <div class="document-progress">
+              <span class="begin">Aberto há <span>{{ public_group.created|absolute_days_since }} dias</span></span>
+              <span class="end">Encerra em <span>{{ public_group.closing_date|absolute_days_since }} dias</span></span>
+
+              <div class="progress-bar">
+                <span class="value" style="transform: scaleX({% progress_time_normalized public_group.created public_group.closing_date %})"></span>
+              </div>
+            </div>
+          {% else %}
+            <div class="status">
+              <p class="closed">Encerrado em {{public_group.closing_date|date:"d/m/Y"}}</p>
+              <!-- Uncomment whenever document feedback status is implemented
+              <div class="feedback-status">
+                <img src="{% static 'img/hourglass.svg' %}" alt="">
+                <p class="-onhold">Aguardando feedback do deputado</p>
+              </div>
+               -->
+            </div>
+          {% endif %}
+          
+          <span class="pseudolink">Acessar</span>
         </div>
-        <div class="suggestions">
-          <div class="suggestion">
-            <span class="value">{{public_group.suggestions.all.count}}</span>
-            <span>Sugestões</span>
-          </div>
-        </div>
-      </div>
-    </a>
+      </a>
     {% endfor %}
+
   </div>
   {% endif %}
 </main>

@@ -1,7 +1,7 @@
 .suggestion-input {
   position: fixed;
   z-index: 2;
-  bottom: 0;
+  top: 0;
 
   visibility: hidden;
 
@@ -12,11 +12,17 @@
   padding-left: 1.6rem;
 
   transition: transform .3s 0s ease, visibility 0s .3s;
-  transform: translateY(100%);
+  transform: translateY(-100%);
 
   background-color: #FFF;
 
   @include footer-shadow;
+  @include bp-mediumup {
+    top: unset;
+    bottom: 0;
+
+    transform: translateY(100%);
+  }
 
   &.-show {
     visibility: visible;

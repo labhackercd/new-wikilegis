@@ -13,4 +13,7 @@ urlpatterns = [
     path('public-participation/authorized/',
          TemplateView.as_view(template_name='pages/group-authorized.html'),
          name="group-authorized"),
+    path('read/',
+         views.update_notifications,
+         name="read_notifications"),
 ]

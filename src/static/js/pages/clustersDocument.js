@@ -1,4 +1,6 @@
-/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView ValidationModalView CongressmanAutocompleteView PublicFormModalView PublicFormController */
+/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView
+ValidationModalView CongressmanAutocompleteView PublicFormModalView
+PublicFormController PageMinimap */
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
@@ -23,3 +25,6 @@ publicFormModalView.initEvents();
 
 var publicFormController = new PublicFormController();
 publicFormController.initEvents();
+
+var pageMinimap = new PageMinimap();
+pageMinimap.initEvents();
