@@ -85,8 +85,7 @@ ContextualToolbarView.prototype.activateShortcut = function(excerptType) {
     self.editor.focus();
     event.preventDefault();
   } else {
-    self.contextualToolbar.addClass('-error');
-    self.contextualToolbar.effect('shake', 150, function() {
+    self.contextualToolbar.addClass('-error').one('animationend', function() {
       self.contextualToolbar.removeClass('-error');
     });
   }
