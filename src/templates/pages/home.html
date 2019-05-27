@@ -27,7 +27,7 @@
   <div class="list">
   {% if pending_invites and request.user.is_authenticated %}
     {% for invite in pending_invites %}
-      <div class="document-card {% if invite.group.closing_date|is_open %}-public{% endif %}">
+      <div class="document-card -owner {% if invite.group.closing_date|is_open %}-public{% endif %}">
 
         <ul class="tags">
           {% for theme in invite.group.document.themes.all %}
@@ -66,9 +66,20 @@
                -->
             </div>
           {% endif %}
-
-          <span class="pseudolink">Acessar</span>
         </div>
+
+        <hr>
+
+        <div class="voting-action">
+          <span class="info-text">
+            <h4>Você foi convidado para participar nesta proposição</h3>
+          </span>
+          <div class="actions">
+            <a href="{% url 'invitation' invite.pk 'accepted' %}" class="app-button -green">Aceitar</a>
+            <a href="{% url 'invitation' invite.pk 'declined' %}" class="app-button -red">Recusar</a>
+          </div>
+        </div>
+       
       </div>
     {% endfor %}
   {% endif %}

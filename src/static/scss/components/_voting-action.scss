@@ -16,9 +16,16 @@
     margin-right: .25rem;
   }
 
+  & > .info-text > h4 {
+    font-size: 1rem;
+    font-weight: 600;
+
+    color: $color-deep-gray;
+  }
+
   & > .actions {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 
     margin-top: 1rem;
   }

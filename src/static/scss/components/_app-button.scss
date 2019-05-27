@@ -1,12 +1,13 @@
 .app-button {
-  font-size: $font-size-mili;
+  font-size: $font-size-micro;
+  font-weight: 500;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
   min-width: 5rem;
-  padding: .7rem 1.2rem;
+  padding: .5rem .75rem;
 
   cursor: pointer;
   transition: all .3s $swift-out;
@@ -16,9 +17,9 @@
   background-color: transparent;
 
   @include bp-mediumup {
-    font-size: $font-size-centi;
+    font-size: $font-size-mili;
 
-    padding: .75rem 1.5rem;
+    padding: .75rem 1.25rem;
   }
 
   ///
