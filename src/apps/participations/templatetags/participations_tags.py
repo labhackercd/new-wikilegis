@@ -2,6 +2,7 @@ from django import template
 from django.db.models import Q
 from django.utils.safestring import mark_safe
 from django.utils import timezone
+from apps.participations.models import OpinionVote
 
 
 register = template.Library()
@@ -161,21 +162,29 @@ def majority_votes(votes):
 
 
 @register.filter
-def participation_class(excerpt, group):
-    max_suggestions = group.suggestions.count()
-    votes_sum = 0
-    for suggestion in excerpt.suggestions.filter(invited_group=group):
-        votes_sum += suggestion.votes.count()
+def excerpt_participants(excerpt, group):
+    excerpt_opinions = excerpt.suggestions.filter(invited_group=group)
+    excerpt_author_opinions = excerpt_opinions.values_list(
+        'author_id', flat=True)
+    opinions_author_votes = OpinionVote.objects.filter(
+        suggestion__in=excerpt_opinions).values_list(
+        'owner_id', flat=True)
+    participants_ids = set(list(excerpt_author_opinions) +
+                           list(opinions_author_votes))
+    return len(participants_ids)
 
-    if votes_sum == 0 or max_suggestions == 0:
+
+@register.simple_tag
+def participation_class(participant_count, total):
+    if participant_count == 0 or total == 0:
         return ''
-    elif votes_sum / max_suggestions < 0.2:
+    elif participant_count / total < 0.2:
         return 'js-relevanceAmount1'
-    elif votes_sum / max_suggestions < 0.4:
+    elif participant_count / total < 0.4:
         return 'js-relevanceAmount2'
-    elif votes_sum / max_suggestions < 0.6:
+    elif participant_count / total < 0.6:
         return 'js-relevanceAmount3'
-    elif votes_sum / max_suggestions < 0.8:
+    elif participant_count / total < 0.8:
         return 'js-relevanceAmount4'
     else:
         return 'js-relevanceAmount5'

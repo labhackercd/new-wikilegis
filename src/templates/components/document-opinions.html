@@ -1,4 +1,4 @@
-{% load staticfiles projects_tags participations_tags %}
+{% load staticfiles projects_tags participations_tags dashboard_tags %}
 
 <article id="article" class="js-articleDocument" data-group-id={{group.id}}>
   <header>
@@ -37,8 +37,8 @@
         <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
         <span class="votes">
-          <span class="value" >{{excerpt|exerpt_votes:group}}</span>
-          <span class="bar" style="width: 22%;"></span>
+          <span class="value">{{excerpt|excerpt_participants:group}}</span>
+          <span class="bar" style="width: {% get_percent excerpt|excerpt_participants:group participation_count %}%;"></span>
         </span>
       </p>
       {% endif %}

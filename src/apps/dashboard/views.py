@@ -10,6 +10,7 @@ from constance import config
 from apps.projects.models import Document, DocumentVersion
 from apps.projects.parser import parse_html
 from apps.projects.versions import concatenate_autosaves
+from apps.participations.models import Suggestion, OpinionVote
 
 
 @method_decorator(login_required, name='dispatch')
@@ -55,9 +56,20 @@ class DocumentEditorClusterView(DetailView):
         group_id = self.request.GET.get('group_id', None)
         if page == 'clusters':
             if group_id:
-                context['group'] = self.object.invited_groups.get(id=group_id)
+                group = self.object.invited_groups.get(id=group_id)
             else:
-                context['group'] = self.object.invited_groups.first()
+                group = self.object.invited_groups.first()
+            group_opinions = Suggestion.objects.filter(invited_group=group)
+            group_author_opinions = group_opinions.values_list(
+                'author_id', flat=True)
+            group_opinions_ids = group_opinions.values_list('id', flat=True)
+            group_author_votes = OpinionVote.objects.filter(
+                suggestion_id__in=group_opinions_ids).values_list(
+                'owner_id', flat=True)
+            participants_ids = set(list(group_author_votes) +
+                                   list(group_author_opinions))
+            context['group'] = group
+            context['participation_count'] = len(participants_ids)
 
         if page == 'editor':
             context['named_versions'] = self.object.versions.filter(
