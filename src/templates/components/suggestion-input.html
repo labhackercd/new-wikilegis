@@ -2,20 +2,19 @@
 
 <div class="suggestion-input js-suggestionInput">
   <div class="content">
-    <div class="close-icon js-close"><img class="icon" src="{% static 'img/close.svg' %}"></div>
+    <button class="close-icon js-close" type="button"><img class="icon" src="{% static 'img/close.svg' %}"></button>
     <h3>Você destacou o trecho:</h3>
     <div class="text">
-      <p class="js-selectedText"></p>
+      <p><span class="text-highlight js-selectedText"></span></p>
     </div>
     {% if request.user.is_authenticated %}
       <span class="info-text">
-        <img src="{% static 'img/atention.svg' %}">
         <h3>Digite sua opinião sobre ele:</h3>
       </span>
       <div class="input">
         <input class="js-input" type="text" name="">
-        <div class="send">
-          <img class="icon js-send" src="{% static 'img/send.svg' %}">
+        <div class="send js-send">
+          <img class="icon" src="{% static 'img/send.svg' %}">
         </div>
       </div>
       <span class="error js-inputError"></span>
