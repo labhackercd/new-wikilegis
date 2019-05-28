@@ -132,6 +132,35 @@ def votes_percent(votes, vote_type):
 
 
 @register.filter
+def votes_consensus(votes):
+    total = votes.count()
+    if total == 0:
+        return 0
+    else:
+        approves = votes.filter(opinion_vote='approve').count()
+        neutrals = votes.filter(opinion_vote='neutral').count()
+        rejects = votes.filter(opinion_vote='reject').count()
+        result = (abs(approves - neutrals) + abs(approves - rejects) +
+                  abs(rejects - neutrals)) / (total * 2)
+        return int(result * 100)
+
+
+@register.filter
+def majority_votes(votes):
+    approves = votes.filter(opinion_vote='approve').count()
+    neutrals = votes.filter(opinion_vote='neutral').count()
+    rejects = votes.filter(opinion_vote='reject').count()
+    if approves > neutrals and approves > rejects:
+        return "approves"
+    elif rejects > neutrals and rejects > approves:
+        return "rejects"
+    elif neutrals > rejects and neutrals > approves:
+        return "neutrals"
+    else:
+        return False
+
+
+@register.filter
 def participation_class(excerpt, group):
     max_suggestions = group.suggestions.count()
     votes_sum = 0

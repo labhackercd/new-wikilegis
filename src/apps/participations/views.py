@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.forms import ValidationError
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.sites.models import Site
@@ -312,7 +312,8 @@ def get_opinions(request, excerpt_pk):
         group = get_object_or_404(InvitedGroup, pk=group_pk)
     else:
         group = excerpt.document.invited_groups.first()
-    opinions = excerpt.suggestions.filter(invited_group=group)
+    opinions = excerpt.suggestions.filter(invited_group=group).annotate(
+        num_votes=Count('votes')).order_by('-num_votes')
     html = render_to_string(
         'components/opinions-metrics.html', {
             'opinions': opinions,
