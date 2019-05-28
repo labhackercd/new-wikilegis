@@ -24,6 +24,12 @@ OpinionMetricsView.prototype.publishers = function() {
   $('.js-excerptWrapper').on('click', function() {
     events.showOpinions.publish($(this).children('.js-documentExcerpt').data('id'));
   });
+  $('.js-opinions').on('click .js-suggestionOpinion', function(e) {
+    var excerptId = $(e.target).closest('.js-suggestionOpinion').data('excerptId');
+    var currentId = $(e.target).closest('.js-suggestionOpinion').data('opinionId');
+    var excerpt = $(`.js-documentExcerpt[data-id='${excerptId}']`);
+    events.openHighlightTooltip.publish(excerpt, currentId.toString());
+  });
 };
 
 OpinionMetricsView.prototype.get_opinions = function(excerptId=undefined) {

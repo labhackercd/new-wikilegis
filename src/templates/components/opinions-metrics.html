@@ -1,7 +1,7 @@
 {% load static participations_tags %}
 
 {% for opinion in opinions %}
-<div class="card js-suggestionOpinion" data-opinion-id="{{opinion.id}}" data-opinion-consensus="{{ opinion.votes.all|votes_consensus }}" data-opinion-votes="{{ opinion.votes.count }}">
+<div class="card js-suggestionOpinion" data-opinion-id="{{opinion.id}}" data-opinion-consensus="{{ opinion.votes.all|votes_consensus }}" data-opinion-votes="{{ opinion.votes.count }}" data-excerpt-id="{{opinion.excerpt.id}}">
   <div class="header">
     <span class="votes">{{ opinion.votes.count }} VOTOS</span>
     <div class="consensus {% if opinion.votes|majority_votes == 'approves' %}-green{% elif opinion.votes|majority_votes == 'neutrals' %}-gray{% elif opinion.votes|majority_votes == 'rejects' %}-red{% endif %}">
