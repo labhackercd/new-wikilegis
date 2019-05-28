@@ -20,23 +20,41 @@
   }
 
   & > .votes {
-    font-size: $font-size-micro;
-
     position: absolute;
     top: 50%;
     left: -4.5rem;
 
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.5rem;
+    height: 1.4rem;
 
     transform: translateY(-50%);
-    text-align: right;
-    text-transform: uppercase;
 
-    color: $color-brand;
+    border: 1px solid #B255C9;
+    background-color: rgba(#B255C9, .6);
   }
 
   & > .votes > .value {
     font-size: $font-size-centi;
+    font-weight: bold;
+
+    position: absolute;
+    z-index: 1;
+
+    text-transform: uppercase;
+
+    color: #FFF;
+  }
+
+  & > .votes > .bar {
+    position: absolute;
+    left: 0;
+
+    height: 100%;
+
+    background-color: #B255C9;
   }
 }

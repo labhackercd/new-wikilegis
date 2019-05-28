@@ -29,7 +29,6 @@
         {% if excerpt|exerpt_votes:group > 0 %}
         <span class="votes">
           <span class="value">{{excerpt|exerpt_votes:group}}</span>
-          votos
         </span>
         {% endif %}
       </p>
@@ -38,8 +37,8 @@
         <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
         <span class="votes">
-          <span class="value">{{excerpt|exerpt_votes:group}}</span>
-          votos
+          <span class="value" >{{excerpt|exerpt_votes:group}}</span>
+          <span class="bar" style="width: 22%;"></span>
         </span>
       </p>
       {% endif %}
