@@ -2,10 +2,12 @@
 
 var CompareVersionsView = function() {};
 
-CompareVersionsView.prototype.initEvents = function(timelineSidebar) {
+CompareVersionsView.prototype.initEvents = function(timelineSidebar, controller) {
   this.timelineSidebar = timelineSidebar;
+  this.controller = controller;
   this.compareVersionAction = $('.js-compareVersionAction');
   this.showDiffButton = $('.js-showDiff');
+  this.versionsData = [];
 
   this.subscribers();
   this.publishers();
@@ -16,6 +18,14 @@ CompareVersionsView.prototype.subscribers = function() {
   events.versionSelectedToCompare.subscribe(function() {
     self.toggleShowDiffButton();
   });
+
+  events.textVersionLoaded.subscribe(function(data) {
+    self.updateVersionDataList(data);
+  });
+
+  events.closeDiff.subscribe(function() {
+    self.versionsData = [];
+  });
 };
 
 CompareVersionsView.prototype.publishers = function() {
@@ -23,17 +33,41 @@ CompareVersionsView.prototype.publishers = function() {
   self.compareVersionAction.on('click', function() {
     self.toggleAction();
   });
+
+  self.showDiffButton.on('click', function() {
+    if (!self.showDiffButton.hasClass('js-disabled')) {
+      self.fetchVersionsData();
+    }
+  });
+};
+
+CompareVersionsView.prototype.fetchVersionsData = function() {
+  var self = this;
+  var checked = self.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement:checked');
+  var documentId = $('.js-documentEditor').data('documentId');
+  var textsData = [];
+  checked.each(function(idx, element) {
+    var namedVersion = $(element).closest('.js-namedVersion');
+    self.controller.loadDiffText(documentId, namedVersion.data('versionNumber'));
+  });
+};
+
+CompareVersionsView.prototype.updateVersionDataList = function(data) {
+  this.versionsData.push(data);
+  if (this.versionsData.length === 2) {
+    events.showDiff.publish(this.versionsData[0], this.versionsData[1]);
+  }
 };
 
 CompareVersionsView.prototype.toggleShowDiffButton = function() {
   if (this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement:checked').length < 2) {
-    this.showDiffButton.addClass('-red');
+    this.showDiffButton.addClass('-gray');
     this.showDiffButton.removeClass('-green');
-    this.showDiffButton.removeClass('js-disabled');
-  } else {
-    this.showDiffButton.removeClass('-red');
-    this.showDiffButton.addClass('-green');
     this.showDiffButton.addClass('js-disabled');
+  } else {
+    this.showDiffButton.removeClass('-gray');
+    this.showDiffButton.addClass('-green');
+    this.showDiffButton.removeClass('js-disabled');
   }
 };
 
@@ -44,7 +78,7 @@ CompareVersionsView.prototype.toggleAction = function() {
     this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox').removeClass('_hidden');
     this.timelineSidebar.collapseAutosaves();
     this.timelineSidebar.timelineSidebar.addClass('js-comparing');
-    this.showDiffButton.removeClass('_hidden');
+    this.showDiffButton.addClass('-show');
 
     this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement').removeAttr('checked');
     var selectedVersion = $('.js-timelineSidebar .js-version.-selected');
@@ -57,6 +91,6 @@ CompareVersionsView.prototype.toggleAction = function() {
     this.compareVersionAction.text('COMPARAR');
     $('.js-timelineSidebar .js-compareCheckbox').addClass('_hidden');
     this.timelineSidebar.timelineSidebar.removeClass('js-comparing');
-    this.showDiffButton.addClass('_hidden');
+    this.showDiffButton.removeClass('-show');
   }
 };

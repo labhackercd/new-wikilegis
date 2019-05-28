@@ -107,6 +107,7 @@
 {% block content %}
 
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
+  <div class="close-diff js-closeDiff">Cancelar comparação</div>
 
   {% if page == 'editor' %}
     {% include "components/timeline-sidebar.html" %}
@@ -147,6 +148,7 @@
 <script src="{% static 'js/components/toolBar/controller.js' %}"></script>
 <script src="{% static 'js/components/toolBar/view.js' %}"></script>
 <script src="{% static 'js/components/timelineSidebar/view.js' %}"></script>
+<script src="{% static 'js/components/compareVersions/controller.js' %}"></script>
 <script src="{% static 'js/components/compareVersions/view.js' %}"></script>
 <script src="{% static 'js/components/contextualToolbar/view.js' %}"></script>
 <script src="{% static 'js/components/navBar/view.js' %}"></script>

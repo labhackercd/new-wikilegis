@@ -56,5 +56,8 @@ documentSideBarView.initEvents();
 var timelineSidebarView = new TimelineSidebarView();
 timelineSidebarView.initEvents();
 
+var compareVersionsController = new CompareVersionsController();
+compareVersionsController.initEvents();
+
 var compareVersionsView = new CompareVersionsView();
-compareVersionsView.initEvents(timelineSidebarView);
+compareVersionsView.initEvents(timelineSidebarView, compareVersionsController);

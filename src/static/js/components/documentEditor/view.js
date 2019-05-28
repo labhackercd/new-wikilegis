@@ -6,6 +6,9 @@ DocumentEditorView.prototype.initEvents = function(editor, toolbarView) {
   this.editor = editor;
   this.toolbarView = toolbarView;
   this.typing = null;
+  this.documentEditorElement = $('.js-documentEditor');
+  this.closeDiffButton = $('.js-closeDiff');
+  this.textEditorWrapper = $('.js-documentEditor .js-textEditorWrapper');
 
   this.subscribers();
   this.publishers();
@@ -25,6 +28,22 @@ DocumentEditorView.prototype.subscribers = function() {
   events.documentTextLoaded.subscribe(function(data) {
     self.editor.innerHTML = data.html;
   });
+
+  events.showDiff.subscribe(function(text1, text2) {
+    self.documentEditorElement.addClass('-compare');
+    self.textEditorWrapper.addClass('_hidden');
+    self.createDiffDocument(text2);
+    self.createDiffDocument(text1);
+
+    self.closeDiffButton.addClass('-show');
+  });
+
+  events.closeDiff.subscribe(function() {
+    $('.js-documentEditor .js-documentDiff').remove();
+    self.textEditorWrapper.removeClass('_hidden');
+    self.documentEditorElement.removeClass('-compare');
+    self.closeDiffButton.removeClass('-show');
+  })
 };
 
 DocumentEditorView.prototype.publishers = function() {
@@ -53,6 +72,10 @@ DocumentEditorView.prototype.publishers = function() {
       }, 1500);
     }
   });
+
+  self.closeDiffButton.on('click', function() {
+    events.closeDiff.publish();
+  });
 };
 
 DocumentEditorView.prototype.highligthCurrentExcerpt = function() {
@@ -63,4 +86,26 @@ DocumentEditorView.prototype.highligthCurrentExcerpt = function() {
 DocumentEditorView.prototype.removeBlur = function() {
   $(this.editor).removeClass('-blur');
   $(this.editor).find('p').removeClass('-highlight');
+};
+
+DocumentEditorView.prototype.createDiffDocument = function(data) {
+  var versionName = data.versionName;
+  if (data.autoSave) {
+    versionName = 'Versão Atual';
+  }
+  var article = `
+  <article class="js-textEditorWrapper js-documentDiff">
+    <header class="-editable js-documentHeader">
+      <h1 class="js-title">${versionName}</h1>
+      <p class="description js-description">${data.date}</p>
+      <hr>
+    </header>
+
+    <div tabindex="1" class="js-textEditor">
+      ${data.html}
+    </div>
+  </article>
+  `
+
+  this.documentEditorElement.append($(article));
 };

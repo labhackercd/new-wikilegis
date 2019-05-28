@@ -1,0 +1,30 @@
+.close-diff {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  background-color: $color-orange;
+  padding: 1rem 2rem;
+  color: white;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  transition: all .35s $swift-out;
+  transition-delay: 0;
+  opacity: 0;
+
+  @include mask-icon('close');
+
+  &::before {
+    background-color: white;
+    margin-left: .5rem;
+    right: 0;
+  }
+
+  &.-show {
+    opacity: 1;
+    transform: translate(-50%, 1.5rem);
+    transition-delay: .35s;
+  }
+}

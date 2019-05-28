@@ -47,13 +47,47 @@
       @include icon('filter');
     }
 
-    & > .action {
+    & > .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    & > .actions > .app-button {
+      position: absolute;
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      visibility: hidden;
+      transform: translateY(-2.75rem);
+      transition: none;
+      opacity: 0;
+
+      & ~ .action {
+        padding: 0.5rem 1rem;
+        transform: translateX(1rem);
+      }
+
+      &.-show {
+        position: relative;
+        visibility: visible;
+        transform: translateY(0);
+        opacity: 1;
+        transition: all .25s $swift-out;
+
+        & ~ .action {
+          transform: translateX(0);
+        }
+      }
+    }
+
+    & > .actions > .action {
       font-size: $font-size-micro;
 
       cursor: pointer;
       letter-spacing: 1px;
       text-transform: uppercase;
-
       color: $color-brand;
 
       &:hover {

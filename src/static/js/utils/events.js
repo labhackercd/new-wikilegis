@@ -240,7 +240,7 @@ var events = {
   documentChanged: $.Topic('documentChanged'),
 
   // Triggered when the document text is loaded
-  // Params: data (html, versionName)
+  // Params: data (html, versionName, date, autoSave)
   documentTextLoaded: $.Topic('documentTextLoaded'),
 
   // Triggered before a text is loaded
@@ -257,4 +257,15 @@ var events = {
 
   // Triggered when user selects an version to compare
   versionSelectedToCompare: $.Topic('versionSelectedToCompare'),
+
+  // Triggered when the server returns data from diff text
+  // Params: data (html, versionName, date, auto_save)
+  textVersionLoaded: $.Topic('textVersionLoaded'),
+
+  // Triggered when the versions are ready and will show the diff
+  // Params: text1 (html, versionName, date, auto_save), text2 (html, versionName, date, autoSave)
+  showDiff: $.Topic('showDiff'),
+
+  // Triggered when user click on closeDiffButton
+  closeDiff: $.Topic('closeDiff'),
 };
