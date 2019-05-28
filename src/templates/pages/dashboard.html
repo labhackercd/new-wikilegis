@@ -20,7 +20,7 @@
     </a>
 
     {% for document in object_list %}
-      <div href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="document-card -owner {% if document|has_group %}-public{% endif %}">
+      <div href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="document-card -owner {% if document|has_group %}-public{% else %}-closed{% endif %}">
 
         <ul class="tags">
           {% if document|has_public_group %}

@@ -27,7 +27,7 @@
   <div class="list">
   {% if pending_invites and request.user.is_authenticated %}
     {% for invite in pending_invites %}
-      <div class="document-card -owner {% if invite.group.closing_date|is_open %}-public{% endif %}">
+      <div class="document-card -owner {% if invite.group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
         <ul class="tags">
           {% for theme in invite.group.document.themes.all %}
@@ -90,7 +90,7 @@
 
   {% if private_groups and request.user.is_authenticated %}
     {% for private_group in private_groups %}
-    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card {% if private_group.closing_date|is_open %}-public{% endif %}">
+    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card {% if private_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
       <ul class="tags">
         {% for theme in private_group.document.themes.all %}
@@ -142,7 +142,7 @@
   {% if public_groups %}
 
     {% for public_group in public_groups %}
-      <a href="{% url 'project' public_group.id public_group.document.slug %}" class="document-card {% if public_group.closing_date|is_open %}-public{% endif %}">
+      <a href="{% url 'project' public_group.id public_group.document.slug %}" class="document-card {% if public_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
         <ul class="tags">
           {% for theme in public_group.document.themes.all %}
