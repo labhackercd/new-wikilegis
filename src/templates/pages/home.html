@@ -27,80 +27,114 @@
   <div class="list">
   {% if pending_invites and request.user.is_authenticated %}
     {% for invite in pending_invites %}
-    <div class="document-card{% if not invite.group.closing_date|is_open %} -inactive{% endif %}">
-      <div class="header">
-      {% if invite.group.closing_date|is_open %}
-        <span class="date">Aberto até {{invite.group.closing_date|date:"d/m/Y"}}</span>
-        <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-      {% else %}
-        <span class="status">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</span>
-      {% endif %}
-      </div>
-      <h3 class="js-title">{{ invite.group.document.title }}</h3>
-      <p class="js-description">{{ invite.group.document.description }}</p>
-      <div class="info">
-        <div class="themes">
+      <div class="document-card -owner {% if invite.group.closing_date|is_open %}-public{% endif %}">
+
+        <ul class="tags">
           {% for theme in invite.group.document.themes.all %}
-          <div class="theme">
-            {% if theme.icon %}
-            <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-            {% endif %}
-            <span>{{ theme.name }}</span>
-          </div>
+          <li class="app-tag -private">
+            <img src="{% static 'img/padlock.svg' %}" alt="">
+            <span class="label">Privado</span>
+          </li>
+          <li class="app-tag -theme">
+            <span class="dot" style="background-color: {{ theme.color }}"></span>
+            <span class="label">{{ theme.name }}</span>
+          </li>
           {% endfor %}
+        </ul>
+
+        <h3 class="js-title">{{ invite.group.document.title }}</h3>
+        <p class="js-description">
+          {{ invite.group.document.description }}
+        </p>
+
+        <div class="footer">
+          {% if invite.group.closing_date|is_open %}
+            {% if invite.group.openning_date %}
+            <div class="document-progress">
+              <span class="begin">Aberto há <span>{{ invite.group.openning_date|absolute_days_since }} dias</span></span>
+              <span class="end">Encerra em <span>{{ invite.group.closing_date|absolute_days_since }} dias</span></span>
+
+              <div class="progress-bar">
+                <span class="value" style="transform: scaleX({% progress_time_normalized invite.group.openning_date invite.group.closing_date %})"></span>
+              </div>
+            </div>
+            {% endif %}
+          {% else %}
+            <div class="status">
+              <p class="closed">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</p>
+              <!-- Uncomment whenever document feedback status is implemented
+              <div class="feedback-status">
+                <img src="{% static 'img/hourglass.svg' %}" alt="">
+                <p class="-onhold">Aguardando feedback do deputado</p>
+              </div>
+               -->
+            </div>
+          {% endif %}
         </div>
-        <div class="suggestions">
-          <div class="suggestion">
-            <span class="value">{{ invite.group.suggestions.all.count }}</span>
-            <span>Sugestões</span>
+
+        <hr>
+
+        <div class="voting-action">
+          <span class="info-text">
+            <h4>Você foi convidado para participar nesta proposição</h3>
+          </span>
+          <div class="actions">
+            <a href="{% url 'invitation' invite.pk 'accepted' %}" class="app-button -green">Aceitar</a>
+            <a href="{% url 'invitation' invite.pk 'declined' %}" class="app-button -red">Recusar</a>
           </div>
         </div>
+       
       </div>
-      <hr/>
-      <div class="voting-action">
-        <span class="info-text">
-          <img src="{% static 'img/information.svg' %}">
-          <h3>Você foi convidado para participar nesta proposição</h3>
-        </span>
-        <div class="actions">
-          <a href="{% url 'invitation' invite.pk 'accepted' %}" class="app-button -green">Aceitar</a>
-          <a href="{% url 'invitation' invite.pk 'declined' %}" class="app-button -red">Recusar</a>
-        </div>
-      </div>
-    </div>
     {% endfor %}
   {% endif %}
+
   {% if private_groups and request.user.is_authenticated %}
     {% for private_group in private_groups %}
-    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card{% if not private_group.closing_date|is_open %} -inactive{% endif %}">
-      <div class="header">
-      {% if private_group.closing_date|is_open %}
-        <span class="date">Aberto até {{private_group.closing_date|date:"d/m/Y"}}</span>
-        <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-      {% else %}
-        <span class="date">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</span>
-        <span class="status"><img src="{% static 'img/padlock.svg' %}">Privado</span>
-      {% endif %}
-      </div>
+    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card {% if private_group.closing_date|is_open %}-public{% endif %}">
+
+      <ul class="tags">
+        {% for theme in private_group.document.themes.all %}
+        <li class="app-tag -private">
+          <img src="{% static 'img/padlock.svg' %}" alt="">
+          <span class="label">Privado</span>
+        </li>
+        <li class="app-tag -theme">
+          <span class="dot" style="background-color: {{ theme.color }}"></span>
+          <span class="label">{{ theme.name }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+
       <h3 class="js-title">{{ private_group.document.title }}</h3>
-      <p class="js-description">{{ private_group.document.description }}</p>
-      <div class="info">
-        <div class="themes">
-          {% for theme in private_group.document.themes.all %}
-          <div class="theme">
-            {% if theme.icon %}
-            <img src="{{ theme.icon.url }}" alt="{{ theme.slug }}">
-            {% endif %}
-            <span>{{ theme.name }}</span>
+      <p class="js-description">
+        {{ private_group.document.description }}
+      </p>
+
+      <div class="footer">
+        {% if private_group.closing_date|is_open %}
+          {% if private_group.openning_date %}
+          <div class="document-progress">
+            <span class="begin">Aberto há <span>{{ private_group.openning_date|absolute_days_since }} dias</span></span>
+            <span class="end">Encerra em <span>{{ private_group.closing_date|absolute_days_since }} dias</span></span>
+
+            <div class="progress-bar">
+              <span class="value" style="transform: scaleX({% progress_time_normalized private_group.openning_date private_group.closing_date %})"></span>
+            </div>
           </div>
-          {% endfor %}
-        </div>
-        <div class="suggestions">
-          <div class="suggestion">
-            <span class="value">{{private_group.suggestions.all.count}}</span>
-            <span>Sugestões</span>
+          {% endif %}
+        {% else %}
+          <div class="status">
+            <p class="closed">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</p>
+            <!-- Uncomment whenever document feedback status is implemented
+            <div class="feedback-status">
+              <img src="{% static 'img/hourglass.svg' %}" alt="">
+              <p class="-onhold">Aguardando feedback do deputado</p>
+            </div>
+             -->
           </div>
-        </div>
+        {% endif %}
+
+        <span class="pseudolink">Acessar</span>
       </div>
     </a>
     {% endfor %}
