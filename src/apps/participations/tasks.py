@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from .models import Suggestion, InvitedGroup
 from .clusters import clustering_suggestions
 from constance import config
-from datetime import datetime
+from datetime import date
 
 
 def save_invited_email(sender, instance, **kwargs):
@@ -39,5 +39,5 @@ def private_group_status(sender, instance, created, **kwargs):
             instance.group_status = 'waiting'
             instance.save()
         else:
-            instance.oppening_date = datetime.now().date
+            instance.openning_date = date.today()
             instance.save()
