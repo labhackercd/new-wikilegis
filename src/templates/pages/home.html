@@ -31,6 +31,10 @@
 
         <ul class="tags">
           {% for theme in invite.group.document.themes.all %}
+          <li class="app-tag -private">
+            <img src="{% static 'img/padlock.svg' %}" alt="">
+            <span class="label">Privado</span>
+          </li>
           <li class="app-tag -theme">
             <span class="dot" style="background-color: {{ theme.color }}"></span>
             <span class="label">{{ theme.name }}</span>
@@ -90,6 +94,10 @@
 
       <ul class="tags">
         {% for theme in private_group.document.themes.all %}
+        <li class="app-tag -private">
+          <img src="{% static 'img/padlock.svg' %}" alt="">
+          <span class="label">Privado</span>
+        </li>
         <li class="app-tag -theme">
           <span class="dot" style="background-color: {{ theme.color }}"></span>
           <span class="label">{{ theme.name }}</span>
