@@ -190,12 +190,26 @@ $swift-out: cubic-bezier(.55, 0, .1, 1);
   }
 }
 
-
 @keyframes moving-gradient {
   0% {
     background-position: left bottom;
   }
   100% {
     background-position: right bottom;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(5px, 0);
+  }
+  50% {
+    transform: translate(-5px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }
