@@ -45,11 +45,15 @@
     padding: 1.6rem;
 
     cursor: pointer;
+    transition: transform .15s $swift-out;
 
     border: 1px solid $color-grayish;
     background-color: #FFF;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
 
-    @include card-shadow;
+    &:hover {
+      transform: translateX(.25rem);
+    }
   }
 
   & > .card > .header {
@@ -200,6 +204,7 @@
 
   & > .card > .votes > .bar {
     position: relative;
+
     flex: 1 0 auto;
 
     width: 100%;
@@ -266,5 +271,16 @@
     & > .value::before {
       background-color: $color-red;
     }
+  }
+
+  & > .empty {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    text-align: center;
+
+    color: $color-grayish;
   }
 }
