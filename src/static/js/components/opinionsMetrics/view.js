@@ -18,18 +18,25 @@ OpinionMetricsView.prototype.subscribers = function() {
   events.selectSuggestion.subscribe(function (suggestionOpinion) {
     self.select(suggestionOpinion);
   });
+
+  events.highlightExcerpt.subscribe(function (excerptElement) {
+    self.highlightExcerpt(excerptElement);
+  });
 };
 
 OpinionMetricsView.prototype.publishers = function() {
   $('.js-excerptWrapper').on('click', function() {
-    events.showOpinions.publish($(this).children('.js-documentExcerpt').data('id'));
+    if (!$(this).closest('.js-excerptWrapper').hasClass('-enabled')) {
+      events.showOpinions.publish($(this).children('.js-documentExcerpt').data('id'));
+    }
+    events.highlightExcerpt.publish($(this).closest('.js-excerptWrapper'));
   });
-  $('.js-opinions').on('click .js-suggestionOpinion', function(e) {
-    var excerptId = $(e.target).closest('.js-suggestionOpinion').data('excerptId');
-    var currentId = $(e.target).closest('.js-suggestionOpinion').data('opinionId');
-    var excerpt = $(`.js-documentExcerpt[data-id='${excerptId}']`);
-    events.openHighlightTooltip.publish(excerpt, currentId.toString());
-  });
+  // $('.js-opinions').on('click .js-suggestionOpinion', function(e) {
+  //   var excerptId = $(e.target).closest('.js-suggestionOpinion').data('excerptId');
+  //   var currentId = $(e.target).closest('.js-suggestionOpinion').data('opinionId');
+  //   var excerpt = $(`.js-documentExcerpt[data-id='${excerptId}']`);
+  //   events.openHighlightTooltip.publish(excerpt, currentId.toString());
+  // });
 };
 
 OpinionMetricsView.prototype.get_opinions = function(excerptId=undefined) {
@@ -64,12 +71,25 @@ OpinionMetricsView.prototype.select = function (suggestionOpinion) {
 
     $(suggestionOpinion).addClass('-active');
 
-    $(suggestionOpinion).find('.js-opinion').each(function(i, element){
-      events.openHighlightTooltip.publish(
-        $('.js-documentExcerpt'),
-        $(element).data('opinionId').toString()
-      );
-    });
+    var excerptId = $(suggestionOpinion).data('excerptId');
+    var currentId = $(suggestionOpinion).data('opinionId');
+    var excerpt = $(`.js-documentExcerpt[data-id='${excerptId}']`);
+    events.openHighlightTooltip.publish(excerpt, currentId.toString());
+  }
+};
 
+OpinionMetricsView.prototype.highlightExcerpt = function (excerptElement) {
+  if (excerptElement.hasClass('-enabled')) {
+    $('.js-documentEditor').removeClass('-supressed')
+    $('.js-excerptWrapper').removeClass('-enabled');
+    this.opinionsElement.html(`
+      <div class="empty">
+        Selecione um trecho ao lado para ver as opiniões.
+      </div>
+    `)
+  } else {
+    $('.js-excerptWrapper').removeClass('-enabled');
+    $('.js-documentEditor').addClass('-supressed')
+    excerptElement.addClass('-enabled')
   }
 };

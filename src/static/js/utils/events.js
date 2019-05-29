@@ -252,5 +252,8 @@ var events = {
   closeNotificationList: $.Topic('closeNotificationList'),
 
   // Triggered when user click on notification button
-  updateNotifications: $.Topic('updateNotifications')
+  updateNotifications: $.Topic('updateNotifications'),
+
+  // Triggered when user click on excerpt
+  highlightExcerpt: $.Topic('highlightExcerpt')
 };
