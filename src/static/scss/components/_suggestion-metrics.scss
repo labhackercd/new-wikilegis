@@ -54,6 +54,10 @@
     &:hover {
       transform: translateX(.25rem);
     }
+
+    &.-active {
+      transform: scale(1.03);
+    }
   }
 
   & > .card > .header {
