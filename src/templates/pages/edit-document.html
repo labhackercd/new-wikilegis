@@ -97,7 +97,7 @@
             </div>
             <!-- Criar nova -->
             {% for invited_group in private_groups %}
-              <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{invited_group.id}}">
+              <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{invited_group.id}}">
                 <span>{{invited_group.thematic_group.name}}</span>
                 <div class="info">
                   <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
