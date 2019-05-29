@@ -28,62 +28,45 @@
         {% endif %}
         <ul class="list js-menuList">
           {% include "components/dropdown-version-list.html" %}
-        </div>
-        <hr>
-        {% for public_participation in public_group %}
-        {% if public_participation.group_status == 'waiting' %}
-        <a href="#" class="js-waitingButton">
-          <span>Participação Pública</span>
-          <div class="info">
-              <div class="item -blue">Aguardando</div>
-          </div>
-        </a>
-        {% else %}
-        <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}">
-          <span>Participação Pública</span>
-          <div class="info -full">
-            <div class="item -participants">{{ public_participation|group_participants }}</div>
-            <div class="item -opinions">{{ public_participation.suggestions.count }}</div>
-            <div class="item -green">Em andamento</div>
-          </div>
-        </a>
-        {% endif %}
-        {% empty %}
-        {% if not object.title or not object.description or not object.themes.all %}
-        <a href="#" class="js-openValidationButton">
-          <span>Participação Pública</span>
-          <div class="info">
-            <div class="item">Solicitar</div>
-          </div>
-        </a>
-        {% else %}
-        <a href="#" class="js-openPublicParticipation">
-          <span>Participação Pública</span>
-          <div class="info">
-            <div class="item">Solicitar</div>
-          </div>
-        </a>
-        {% endif %}
-        {% endfor %}
-        <hr>
-        <div class="private">
-          <div class="title">
-            <span class="-closed">Participações Privadas</span>
-            {% if not object.title or not object.description or not object.themes.all %}
-            <a href="#" class="-add js-openValidationButton">Adicionar</a>
-            {% else %}
-            <a href="{% url 'new_group' object.id %}" class="-add">Adicionar</a>
-            {% endif %}
-          </div>
-          <!-- Criar nova -->
-          {% for invited_group in private_groups %}
-            <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{invited_group.id}}">
-              <span>{{invited_group.thematic_group.name}}</span>
-              <div class="info">
-                <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
-                <div class="item -opinions">{{invited_group.suggestions.count}}</div>
-              </div>
-            </a>
+        </ul>
+      </div>
+      <div class="dropdown-menu">
+        <span>Participação</span>
+        <ul class="list js-menuList">
+          {% for public_participation in public_group %}
+          {% if public_participation.group_status == 'waiting' %}
+          <a href="#" class="title -opened js-waitingButton">
+            <span>Participação Pública</span>
+            <div class="info">
+                <div class="item -blue">Aguardando</div>
+            </div>
+          </a>
+          {% else %}
+          <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}" class="title -opened">
+            <span>Participação Pública</span>
+            <div class="info -full">
+              <div class="item -participants">1</div>
+              <div class="item -opinions">0</div>
+              <div class="item -green">Em andamento</div>
+            </div>
+          </a>
+          {% endif %}
+          {% empty %}
+          {% if not object.title or not object.description or not object.themes.all %}
+          <a href="#" class="title -opened js-openValidationButton">
+            <span>Participação Pública</span>
+            <div class="info">
+              <div class="item">Solicitar</div>
+            </div>
+          </a>
+          {% else %}
+          <a href="#" "title -opened js-openPublicParticipation">
+            <span>Participação Pública</span>
+            <div class="info">
+              <div class="item">Solicitar</div>
+            </div>
+          </a>
+          {% endif %}
           {% endfor %}
           <hr>
           <div class="private">

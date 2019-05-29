@@ -7,7 +7,7 @@
 {% for version in named_versions %}
   <hr>
   <a href="{% url 'document_editor_analyze' template='editor' pk=object.pk %}?version={{version.number}}">{{version.name}}</a>
-  {% empty %}
+{% empty %}
   <hr>
   <a href="#" class="-empty">Sem versões</a>
 {% endfor %}

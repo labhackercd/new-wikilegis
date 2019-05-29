@@ -353,4 +353,8 @@ body.-white .nav-bar {
     display: flex;
     align-items: center;
   }
+
+  & > .project > .menu > * + * {
+    margin-left: .5rem;
+  }
 }
