@@ -192,6 +192,25 @@ body.-white .nav-bar {
     }
   }
 
+  & > .tools > a,
+  & > .tools > .dropdown-menu.-notifications > .icon {
+    @include hovering-label(bottom, 2em, $color-whitesmoke, .875rem);
+  }
+
+  & > .tools > a::after,
+  & > .tools > .dropdown-menu.-notifications > .icon::after {
+    margin-top: .5em;
+    padding: .75em 1em;
+
+    border-radius: .25rem;
+    background-color: $color-deep-gray;
+  }
+
+  & > .tools > a.-settings::after,
+  & > .tools > .dropdown-menu.-notifications > .icon::after {
+    left: 0;
+  }
+
   & > .tools > a.-active {
     color: $color-brand;
 
@@ -210,10 +229,6 @@ body.-white .nav-bar {
     &:hover > svg path {
       fill: $color-deep-gray;
     }
-  }
-
-  & > .tools > .icon::after {
-    font-weight: 400 !important;
   }
 
   & > .tools > .icon.-settings {

@@ -1,12 +1,12 @@
-/*global DocumentSideBarView ClustersView TextHighlightView ReduceExcerptsView
+/*global DocumentSideBarView OpinionMetricsView TextHighlightView ReduceExcerptsView
 ValidationModalView CongressmanAutocompleteView PublicFormModalView
 PublicFormController PageMinimap */
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
 
-var clustersView = new ClustersView();
-clustersView.initEvents();
+var opinionMetricsView = new OpinionMetricsView();
+opinionMetricsView.initEvents();
 
 var textHighlightView = new TextHighlightView();
 textHighlightView.initEvents();

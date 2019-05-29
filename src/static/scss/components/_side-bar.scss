@@ -35,11 +35,11 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 1.6rem;
-
     border-bottom: $border;
 
     & > h3 {
+      padding: 1.6rem;
+
       color: $color-gray;
     }
 
@@ -47,14 +47,27 @@
       @include icon('filter');
     }
 
-    & > .compare {
+    & > .action {
+      display: flex;
+
+      height: 100%;
+      margin-right: .8rem;
+    }
+
+    & > .action > .item {
       font-size: $font-size-micro;
+
+      height: 100%;
+      padding: 1.6rem .8rem;
 
       cursor: pointer;
       letter-spacing: 1px;
       text-transform: uppercase;
 
       color: $color-brand;
+      &.-disable {
+        color: $color-gray;
+      }
 
       &:hover {
         color: lighten($color-brand, 10%);

@@ -23,7 +23,6 @@ from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
 from apps.notifications.emails import send_remove_participant
-import json
 import requests
 
 User = get_user_model()
@@ -306,26 +305,22 @@ def new_opinion(request):
 
 
 @require_ajax
-def clusters(request, document_pk):
+def get_opinions(request, excerpt_pk):
+    excerpt = get_object_or_404(Excerpt, pk=excerpt_pk)
     group_pk = request.POST.get('groupId', None)
     if group_pk:
         group = get_object_or_404(InvitedGroup, pk=group_pk)
     else:
-        group = Document.objects.get(pk=document_pk).invited_groups.first()
-    clusters_ids = json.loads(group.clusters)
-    opinion_clusters = []
-    for cluster in clusters_ids:
-        opinion_clusters.append(
-            Suggestion.objects.filter(
-                id__in=cluster
-            ).annotate(num_votes=Count('votes')).order_by('-num_votes'))
+        group = excerpt.document.invited_groups.first()
+    opinions = excerpt.suggestions.filter(invited_group=group).annotate(
+        num_votes=Count('votes')).order_by('-num_votes')
     html = render_to_string(
-        'components/clusters.html', {
-            'clusters': opinion_clusters,
+        'components/opinions-metrics.html', {
+            'opinions': opinions,
         }
     )
 
-    return JsonResponse({'clustersHtml': html})
+    return JsonResponse({'opinionsHtml': html})
 
 
 def list_propositions(request):
