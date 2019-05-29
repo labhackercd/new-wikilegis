@@ -2,7 +2,7 @@ from django import template
 from django.db.models import Q
 from django.utils.safestring import mark_safe
 from django.utils import timezone
-from apps.participations.models import OpinionVote
+from apps.participations.models import OpinionVote, Suggestion
 
 
 register = template.Library()
@@ -171,6 +171,20 @@ def excerpt_participants(excerpt, group):
         'owner_id', flat=True)
     participants_ids = set(list(excerpt_author_opinions) +
                            list(opinions_author_votes))
+    return len(participants_ids)
+
+
+@register.filter
+def group_participants(group):
+    group_opinions = Suggestion.objects.filter(invited_group=group)
+    group_author_opinions = group_opinions.values_list(
+        'author_id', flat=True)
+    group_opinions_ids = group_opinions.values_list('id', flat=True)
+    group_author_votes = OpinionVote.objects.filter(
+        suggestion_id__in=group_opinions_ids).values_list(
+        'owner_id', flat=True)
+    participants_ids = set(list(group_author_votes) +
+                           list(group_author_opinions))
     return len(participants_ids)
 
 
