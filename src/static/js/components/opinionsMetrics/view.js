@@ -79,6 +79,7 @@ OpinionMetricsView.prototype.select = function (suggestionOpinion) {
 };
 
 OpinionMetricsView.prototype.highlightExcerpt = function (excerptElement) {
+  events.closeHighlightTooltip.publish($('.js-documentExcerpt'));
   if (excerptElement.hasClass('-enabled')) {
     $('.js-documentEditor').removeClass('-supressed');
     $('.js-excerptWrapper').removeClass('-enabled');
