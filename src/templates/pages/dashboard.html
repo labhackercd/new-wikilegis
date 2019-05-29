@@ -20,7 +20,7 @@
     </a>
 
     {% for document in object_list %}
-      <div href="{% url 'document_editor_cluster' template='editor' pk=document.id %}" class="document-card -owner {% if document|has_group %}-public{% else %}-closed{% endif %}">
+      <div href="{% url 'document_editor_analyze' template='editor' pk=document.id %}" class="document-card -owner {% if document|has_group %}-public{% else %}-closed{% endif %}">
 
         <ul class="tags">
           {% if document|has_public_group %}
@@ -64,9 +64,9 @@
           -->
 
           <div class="actions">
-            <a href="{% url 'document_editor_cluster' 'editor' document.id %}">Minhas versões</a>
+            <a href="{% url 'document_editor_analyze' 'editor' document.id %}">Minhas versões</a>
             {% if document|has_group %}
-              <a href="{% url 'document_editor_cluster' 'clusters' document.id %}?group_id={{document|participation_group_id}}">Ver participação</a>
+              <a href="{% url 'document_editor_analyze' 'analysis' document.id %}?group_id={{document|participation_group_id}}">Ver participação</a>
             {% endif %}
           </div>
         </div>

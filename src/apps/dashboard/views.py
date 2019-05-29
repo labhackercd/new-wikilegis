@@ -31,7 +31,7 @@ class OwnerDocumentsView(ListView):
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(owner_required, name='dispatch')
-class DocumentEditorClusterView(DetailView):
+class DocumentEditorAnalyzeView(DetailView):
     model = Document
     template_name = 'pages/edit-document.html'
 
@@ -54,7 +54,7 @@ class DocumentEditorClusterView(DetailView):
         page = self.kwargs['template']
         context['page'] = page
         group_id = self.request.GET.get('group_id', None)
-        if page == 'clusters':
+        if page == 'analysis':
             if group_id:
                 group = self.object.invited_groups.get(id=group_id)
             else:
