@@ -41,7 +41,7 @@ OpinionMetricsView.prototype.publishers = function() {
 
 OpinionMetricsView.prototype.get_opinions = function(excerptId=undefined) {
   var self = this;
-  var groupId = $('.js-articleDocument').data('groupId')
+  var groupId = $('.js-articleDocument').data('groupId');
 
   var request = $.ajax({
     url: Urls.excerpt_opinions(excerptId),
@@ -80,16 +80,16 @@ OpinionMetricsView.prototype.select = function (suggestionOpinion) {
 
 OpinionMetricsView.prototype.highlightExcerpt = function (excerptElement) {
   if (excerptElement.hasClass('-enabled')) {
-    $('.js-documentEditor').removeClass('-supressed')
+    $('.js-documentEditor').removeClass('-supressed');
     $('.js-excerptWrapper').removeClass('-enabled');
     this.opinionsElement.html(`
       <div class="empty">
         Selecione um trecho ao lado para ver as opiniões.
       </div>
-    `)
+    `);
   } else {
     $('.js-excerptWrapper').removeClass('-enabled');
-    $('.js-documentEditor').addClass('-supressed')
-    excerptElement.addClass('-enabled')
+    $('.js-documentEditor').addClass('-supressed');
+    excerptElement.addClass('-enabled');
   }
 };
