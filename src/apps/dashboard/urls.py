@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.OwnerDocumentsView.as_view(), name="owner_documents"),
     path('<str:template>/document/<int:pk>',
          views.DocumentEditorAnalyzeView.as_view(),
-         name='document_editor_analyse'),
+         name='document_editor_analyze'),
     path('editor/document/<int:pk>/save/',
          views.SaveDocumentView.as_view(),
          name='save_document'),

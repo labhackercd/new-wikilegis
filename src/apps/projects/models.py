@@ -87,7 +87,7 @@ class Document(TimestampedMixin):
         unique_together = ('document_type', 'number', 'year')
 
     def get_absolute_url(self):
-        return reverse('document_editor_analyse',
+        return reverse('document_editor_analyze',
                        kwargs={'template': 'editor',
                                'pk': self.id})
 

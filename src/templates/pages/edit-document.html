@@ -37,7 +37,7 @@
           </div>
         </a>
         {% else %}
-        <a href="{% url 'document_editor_analyse' 'analysis' object.id %}?group_id={{public_participation.id}}">
+        <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}">
           <span>Participação Pública</span>
           <div class="info -full">
             <div class="item -participants">1</div>
@@ -75,7 +75,7 @@
           </div>
           <!-- Criar nova -->
           {% for invited_group in private_groups %}
-            <a href="{% url 'document_editor_analyse' 'analysis' object.id %}?group_id={{invited_group.id}}">
+            <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{invited_group.id}}">
               <span>{{invited_group.thematic_group.name}}</span>
               <div class="info">
                 <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>

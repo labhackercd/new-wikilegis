@@ -79,7 +79,7 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('document_editor_analyse',
+        return reverse_lazy('document_editor_analyze',
                             kwargs={'template': 'editor',
                                     'pk': self.object.document.id})
 
@@ -143,7 +143,7 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('document_editor_analyse',
+        return reverse_lazy('document_editor_analyze',
                             kwargs={'template': 'editor',
                                     'pk': self.object.document.id})
 
