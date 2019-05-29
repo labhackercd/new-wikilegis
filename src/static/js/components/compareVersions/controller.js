@@ -7,7 +7,7 @@ CompareVersionsController.prototype.initEvents = function() {
 
 CompareVersionsController.prototype.loadDiffText = function(documentId, versionNumber) {
   var request = $.ajax({
-    url: Urls.document_text(documentId) + '?format=html&version=' + versionNumber,
+    url: Urls.document_text(documentId) + '?format=text&version=' + versionNumber,
     method: 'GET',
   });
 

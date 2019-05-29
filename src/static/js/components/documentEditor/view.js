@@ -9,6 +9,7 @@ DocumentEditorView.prototype.initEvents = function(editor, toolbarView) {
   this.documentEditorElement = $('.js-documentEditor');
   this.closeDiffButton = $('.js-closeDiff');
   this.textEditorWrapper = $('.js-documentEditor .js-textEditorWrapper');
+  this.mergelyWrapper = $('.js-mergelyWrapper');
 
   this.subscribers();
   this.publishers();
@@ -32,10 +33,37 @@ DocumentEditorView.prototype.subscribers = function() {
   events.showDiff.subscribe(function(text1, text2) {
     self.documentEditorElement.addClass('-compare');
     self.textEditorWrapper.addClass('_hidden');
-    self.createDiffDocument(text2);
-    self.createDiffDocument(text1);
-
     self.closeDiffButton.addClass('-show');
+
+    self.mergelyWrapper.append('<div id="mergely"></div>');
+
+    $('#mergely').mergely({
+      cmsettings: {
+        readOnly: true,
+        lineWrapping: true
+      },
+      wrap_lines: true,
+
+      autoresize: true,
+      ignorews: true,
+      license: 'gpl',
+      line_numbers: false,
+      sidebar: false,
+
+      editor_width: 'calc(50% - 25px)',
+      editor_height: '100%',
+      lhs: function(setValue) {
+        setValue(text1.html);
+      },
+      rhs: function(setValue) {
+        setValue(text2.html);
+      },
+      loaded: function() {
+        setTimeout(function() {
+          $('#mergely').mergely('resize');
+        }, 300)
+      },
+    });
   });
 
   events.closeDiff.subscribe(function() {
@@ -43,6 +71,7 @@ DocumentEditorView.prototype.subscribers = function() {
     self.textEditorWrapper.removeClass('_hidden');
     self.documentEditorElement.removeClass('-compare');
     self.closeDiffButton.removeClass('-show');
+    self.mergelyWrapper.html('');
   })
 };
 

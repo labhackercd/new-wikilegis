@@ -14,10 +14,12 @@
   "dependencies": {
     "autoprefixer": "^9.3.1",
     "autosize": "^4.0.2",
+    "codemirror": "^5.47.0",
     "eslint": "^5.9.0",
     "jquery": "^3.3.1",
     "jquery-ui-dist": "^1.12.1",
     "list.js": "^1.5.0",
+    "mergely": "^4.0.11",
     "node-sass": "^4.10.0",
     "particles.js": "^2.0.0",
     "popper.js": "^1.14.6",

@@ -1,11 +1,5 @@
 {% load projects_tags %}
 
 {% for excerpt in excerpts %}
-{% if full_html %}
-<span class="document-excerpt js-documentExcerpt" data-id="{{excerpt.id}}">{{excerpt.content}}</span>
-{% else %}
-<p class="excerpt-wrapper">
-  <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b> <span data-tipo="{{excerpt.excerpt_type.slug}}">{{excerpt.content}}</span>
-</p>
-{% endif %}
+{% if format == 'editor' %}<p data-tipo="{{excerpt.excerpt_type.slug}}">{{excerpt.content}}</p>{% elif format == 'html' %}<p class="excerpt-wrapper"><b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b> <span data-tipo="{{excerpt.excerpt_type.slug}}">{{excerpt.content}}</span></p>{% elif format == 'text' %}{% excerpt_numbering excerpt %} {{excerpt.content}}{% endif %}
 {% endfor %}

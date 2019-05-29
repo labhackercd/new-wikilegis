@@ -100,6 +100,9 @@
     background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
   }
 </style>
+
+<link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
+<link rel="stylesheet" href="{% static 'mergely/lib/mergely.css' %}">
 {% endblock extracss %}
 
 {% block body_classes %}-white{% endblock %}
@@ -121,6 +124,25 @@
   {% for message in messages %}
   {% include "components/info-message.html" with message=message %}
   {% endfor %}
+
+  {% if page == 'editor' %}
+  <div class="text-diff">
+    <div class="mergely-full-screen-8">
+      <div class="titles">
+        <div class="title -left">
+          <div class="name">Versão 1</div>
+          <div class="date">17h - Mai 2019</div>
+        </div>
+        <div class="title -right">
+          <div class="name">Versão 1</div>
+          <div class="date">17h - Mai 2019</div>
+        </div>
+      </div>
+      <div class="mergely-resizer js-mergelyWrapper">
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </main>
 
 {% include "components/validate-modal.html" %}
@@ -138,6 +160,9 @@
 <script src="{% static 'js/components/publicParticipationModal/controller.js' %}"></script>
 <script src="{% static 'js/components/congressmanAutocomplete/view.js' %}"></script>
 {% if page == 'editor' %}
+<script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+{# <script src="{% static 'codemirror/addon/search/searchcursor.js' %}"></script> #}
+<script src="{% static 'mergely/lib/mergely.js' %}"></script>
 <script src="{% static 'js/utils/position.js' %}"></script>
 <script src="{% static 'js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
 <script src="{% static 'js/components/infoMessage/view.js' %}"></script>

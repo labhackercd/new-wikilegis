@@ -99,7 +99,7 @@ class DocumentUpdateView(UpdateView):
 class DocumentTextView(View):
     http_method_names = ['get']
 
-    def get_json_data(self, document, version, full_html=False):
+    def get_json_data(self, document, version, text_format='editor'):
         if version.name:
             version_name = version.name
         else:
@@ -108,11 +108,11 @@ class DocumentTextView(View):
         rendered = render_to_string(
             'txt/document_text',
             {'excerpts': document.get_excerpts(version=version.number),
-             'full_html': full_html}
+             'format': text_format}
         )
 
         return {
-            'html': rendered,
+            'html': rendered.strip(),
             'versionName': version_name,
             'date': version.created.strftime('%Hh%M - %d de %b, %Y'),
             'autoSave': version.auto_save
@@ -121,21 +121,21 @@ class DocumentTextView(View):
     def get(self, request, *args, **kwargs):
         document = get_object_or_404(Document, pk=kwargs['pk'])
         version = request.GET.get('version', None)
-        full_html = request.GET.get('html', False)
+        text_format = request.GET.get('format', 'editor')
 
         try:
             version = document.versions.get(number=version)
             return JsonResponse(self.get_json_data(
-                document, version, full_html)
+                document, version, text_format)
             )
         except ValueError:
             version = document.versions.first()
             return JsonResponse(self.get_json_data(
-                document, version, full_html)
+                document, version, text_format)
             )
         except DocumentVersion.DoesNotExist:
             version = document.versions.first()
-            data = self.get_json_data(document, version, full_html)
+            data = self.get_json_data(document, version, text_format)
             data['message'] = _('Version not found! '
                                 'We loaded the last version for you :)')
             return JsonResponse(data, status=404)

@@ -1,0 +1,129 @@
+.text-diff {
+  display: none;
+  position: relative;
+  flex: 1;
+  width: calc(66ch + 66ch + 4rem);
+  max-width: 100%;
+  align-self: center;
+  z-index: 0;
+  border-left: 4vw solid transparent;
+  border-right: 4vw solid transparent;
+  margin-top: 2rem;
+
+  #mergely-splash {
+    display: none !important;
+  }
+
+  #mergely-lhs-mergely-rhs-canvas {
+      // margin-top: 9px;
+  }
+
+  #mergely-editor-lhs .CodeMirror-vscrollbar {
+    display: none !important;
+  }
+
+  #mergely-editor-lhs .CodeMirror-sizer {
+    padding-right: 0 !important;
+  }
+
+  .CodeMirror {
+    font-family: inherit;
+  }
+
+  .mergely-column {
+      box-sizing: border-box;
+      border: none;
+  }
+
+  .text-diff {
+      width: calc(66ch + 66ch + 4rem);
+      align-self: center;
+      z-index: 0;
+  }
+
+  .CodeMirror-scroll {
+      // padding-top: 4rem;
+  }
+
+  .mergely-full-screen-8 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    & > .titles {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 15px;
+      margin-bottom: 2rem;
+
+      & > .title {
+        display: flex;
+        flex-direction: column;
+
+        &.-right {
+          text-align: right;
+        }
+      }
+
+      & > .title > * + * {
+        margin-top: .5rem;
+      }
+
+      & > .title > .name {
+        @extend h1;
+      }
+
+      & > .title > .date {
+        color: $color-gray;
+        font-size: $font-size-mili;
+      }
+    }
+
+  }
+
+  .CodeMirror-hscrollbar {
+      display: block !important;
+  }
+
+  .CodeMirror-linebackground.lhs {
+      border-left: 1px solid;
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      box-sizing: content-box;
+  }
+
+
+  .CodeMirror-linebackground.lhs:not(.current) {
+      color: #a2a2a2;
+  }
+
+  .CodeMirror-linebackground, .CodeMirror-linebackground.current {
+      border: none !important;
+  }
+
+  .CodeMirror-linebackground.rhs {
+      background-color: rgba(187, 230, 210, 0.5) !important;
+  }
+
+  .CodeMirror-linebackground.lhs {
+      background-color: rgba(251, 225, 226, 0.5) !important;
+  }
+
+  .CodeMirror-linebackground{
+      padding: 0.5rem 1rem;
+  }
+
+  .mergely.ch.a.rhs {
+      background-color: rgba(45, 169, 101, 0.5);
+  }
+
+  .mergely.a.rhs {
+      background-color: rgba(45, 169, 101, 0.5);
+  }
+
+  .mergely.ch.d.lhs {
+      color: #EB6767 !important;
+      background-color: rgba(235, 103, 103, 0.4);
+  }
+}

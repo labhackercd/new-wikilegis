@@ -46,6 +46,19 @@ CompareVersionsView.prototype.fetchVersionsData = function() {
   var checked = self.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement:checked');
   var documentId = $('.js-documentEditor').data('documentId');
   var textsData = [];
+
+  checked.sort(function(a, b) {
+    var versionA = parseInt($(a).closest('.js-namedVersion').data('versionNumber'));
+    var versionB = parseInt($(b).closest('.js-namedVersion').data('versionNumber'));
+    if (versionA > versionB) {
+      return 1;
+    } else {
+      return -1;
+    }
+
+    return 0;
+  });
+
   checked.each(function(idx, element) {
     var namedVersion = $(element).closest('.js-namedVersion');
     self.controller.loadDiffText(documentId, namedVersion.data('versionNumber'));
