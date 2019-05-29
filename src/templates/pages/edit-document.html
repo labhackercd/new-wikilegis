@@ -1,5 +1,5 @@
 {% extends "structure/base.html" %}
-{% load staticfiles %}
+{% load staticfiles participations_tags %}
 {% block title %}
 {{ object.title }}
 {% endblock title %}
@@ -40,8 +40,8 @@
         <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}">
           <span>Participação Pública</span>
           <div class="info -full">
-            <div class="item -participants">1</div>
-            <div class="item -opinions">0</div>
+            <div class="item -participants">{{ public_participation|group_participants }}</div>
+            <div class="item -opinions">{{ public_participation.suggestions.count }}</div>
             <div class="item -green">Em andamento</div>
           </div>
         </a>
