@@ -62,7 +62,7 @@ class DocumentCreateRedirectView(RedirectView):
         document.owner = self.request.user
         document.save()
 
-        return reverse('document_editor_cluster',
+        return reverse('document_editor_analyse',
                        kwargs={'template': 'editor',
                                'pk': document.id})
 

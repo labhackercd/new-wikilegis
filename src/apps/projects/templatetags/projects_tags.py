@@ -230,12 +230,12 @@ def participation_group_id(document):
 
 
 @register.filter()
-def absolute_days_since(date):
+def absolute_days_since(input_date):
     today = datetime.now().date()
     try:
-        delta = date.date() - today
-    except TypeError:
-        delta = date - today
+        delta = input_date.date() - today
+    except (TypeError, AttributeError):
+        delta = input_date - today
     return "%s" % abs(delta.days)
 
 
@@ -246,7 +246,7 @@ def progress_time_normalized(start_date, end_date):
         participation_days = end_date - start_date.date()
         days_since_start = today - start_date.date()
         result_percent = (days_since_start * 100) / participation_days
-    except TypeError:
+    except (TypeError, AttributeError):
         participation_days = end_date - start_date
         days_since_start = today - start_date
         result_percent = (days_since_start * 100) / participation_days

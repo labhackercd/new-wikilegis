@@ -37,7 +37,7 @@
           </div>
         </a>
         {% else %}
-        <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{public_participation.id}}">
+        <a href="{% url 'document_editor_analyse' 'analysis' object.id %}?group_id={{public_participation.id}}">
           <span>Participação Pública</span>
           <div class="info -full">
             <div class="item -participants">1</div>
@@ -75,7 +75,7 @@
           </div>
           <!-- Criar nova -->
           {% for invited_group in private_groups %}
-            <a href="{% url 'document_editor_cluster' 'clusters' object.id %}?group_id={{invited_group.id}}">
+            <a href="{% url 'document_editor_analyse' 'analysis' object.id %}?group_id={{invited_group.id}}">
               <span>{{invited_group.thematic_group.name}}</span>
               <div class="info">
                 <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
@@ -111,7 +111,7 @@
   {% if page == 'editor' %}
     {% include "components/timeline-sidebar.html" %}
     {% include "components/document-editor.html" %}
-  {% elif page == 'clusters' %}
+  {% elif page == 'analysis' %}
     {% include "components/opinions-sidebar.html" %}
     {% include "components/document-opinions.html" %}
   {% endif %}
@@ -150,7 +150,7 @@
 <script src="{% static 'js/components/contextualToolbar/view.js' %}"></script>
 <script src="{% static 'js/components/navBar/view.js' %}"></script>
 <script src="{% static 'js/pages/editDocument.js' %}"></script>
-{% elif page == 'clusters' %}
+{% elif page == 'analysis' %}
 <script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
 <script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
 <script src="{% static 'js/components/pageMinimap/view.js' %}"></script>

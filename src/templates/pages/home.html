@@ -54,8 +54,7 @@
 
               <span class="begin">Aberto{% if invite.group.openning_date|absolute_days_since == "0" %} hoje{% elif group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ invite.group.openning_date|absolute_days_since }} dias{% endif %}</span>
               </span>
-              
-              <span class="end">Encerra{% if invite.group.closing_date|absolute_days_since == "0" %} hoje{% elif invite.group.closing_date|absolute_days_since == "1" %} amanhã{% else %}em <span>{{ invite.group.closing_date|absolute_days_since }} dias{% endif %}</span>
+              <span class="end">Encerra{% if invite.group.closing_date|absolute_days_since == "0" %} hoje{% elif invite.group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ invite.group.closing_date|absolute_days_since }} dias{% endif %}</span>
               </span>
 
               <div class="progress-bar">
@@ -97,11 +96,11 @@
     <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card {% if private_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
       <ul class="tags">
-        {% for theme in private_group.document.themes.all %}
         <li class="app-tag -private">
           <img src="{% static 'img/padlock.svg' %}" alt="">
           <span class="label">Privado</span>
         </li>
+        {% for theme in private_group.document.themes.all %}
         <li class="app-tag -theme">
           <span class="dot" style="background-color: {{ theme.color }}"></span>
           <span class="label">{{ theme.name }}</span>
