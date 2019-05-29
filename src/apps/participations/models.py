@@ -19,7 +19,6 @@ class InvitedGroup(TimestampedMixin):
     closing_date = models.DateField(_('closing date'))
     public_participation = models.BooleanField(_('public participation'),
                                                default=False)
-    clusters = models.TextField(blank=True, null=True)
     document_version = models.PositiveIntegerField(default=0)
     text_version = models.PositiveIntegerField(default=0)
     version = models.ForeignKey('projects.DocumentVersion',

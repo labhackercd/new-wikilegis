@@ -257,10 +257,6 @@ CONSTANCE_CONFIG = {
     'CD_CURRENT_LEGISLATURE': (
         '56',
         _('Câmara dos Deputados current legislature')
-    ),
-    'MIN_SUGGESTIONS': (
-        50,
-        _('Minimum suggestions to clustering')
     )
 }
 
