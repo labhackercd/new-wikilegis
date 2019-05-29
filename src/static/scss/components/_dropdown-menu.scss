@@ -191,8 +191,6 @@
     justify-content: space-between;
 
     padding: .5rem 1.25rem;
-
-    cursor: text;
   }
 
   & > .list .title.-add {
@@ -214,16 +212,27 @@
     color: $color-deep-gray;
   }
 
-  & > .list .title > span.-closed {
+  & > .list .title.-closed > span {
     @include mask-icon('padlock');
   }
 
-  & > .list .title > span.-closed::before {
-    font-size: $font-size-micro;
+  & > .list .title.-opened > span {
+    @include mask-icon('public');
+  }
 
-    margin-right: .35rem;
+  & > .list .title.-closed > span::before,
+  & > .list .title.-opened > span::before {
+    margin-right: .5rem;
 
     background-color: $color-deep-gray;
+  }
+
+  & > .list .title.-closed > span::before {
+    font-size: $font-size-micro;
+  }
+
+  & > .list .title.-opened > span::before {
+    font-size: $font-size-centi;
   }
 
   & > .list .title > a {

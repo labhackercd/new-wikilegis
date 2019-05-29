@@ -212,7 +212,7 @@ body.-white .nav-bar {
     @include hovering-label(bottom, 2em, $color-whitesmoke, .875rem);
   }
 
-  & > .tools > a::after,
+  & > .tools > .icon::after,
   & > .tools > .dropdown-menu.-notifications > .icon::after {
     margin-top: .5em;
     padding: .75em 1em;
@@ -221,9 +221,8 @@ body.-white .nav-bar {
     background-color: $color-deep-gray;
   }
 
-  & > .tools > a.-settings::after,
-  & > .tools > .dropdown-menu.-notifications > .icon::after {
-    left: 0;
+  & > .tools > .icon.-documents::after {
+    left: -1rem;
   }
 
   & > .tools > a.-active {
@@ -353,9 +352,5 @@ body.-white .nav-bar {
   & > .project > .menu {
     display: flex;
     align-items: center;
-  }
-
-  & > .project > .menu > * + * {
-    margin-left: .5rem;
   }
 }

@@ -1,7 +1,7 @@
 <aside class="tool-bar js-toolBar">
   <div class="tools">
     {% if 'analysis' in request.path %}
-    <a href="{% url 'document_editor_analyze' 'editor' pk %}" class="icon" aria-label="Ir para o Editor">
+    <a href="{% url 'document_editor_analyze' 'editor' pk %}" class="icon" target="_blank" aria-label="Ir para o Editor">
       {% include "svgs/edit-icon.html" %}
     </a>
     <a href="#" class="icon js-collapseExpand -collapse -collapsed" aria-label="Expandir">

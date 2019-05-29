@@ -87,8 +87,8 @@
           {% endfor %}
           <hr>
           <div class="private">
-            <div class="title">
-              <span class="-closed">Participações Privadas</span>
+            <div class="title -closed">
+              <span>Participações Privadas</span>
               {% if not object.title or not object.description or not object.themes.all %}
               <a href="#" class="-add js-openValidationButton">Adicionar</a>
               {% else %}
