@@ -7,6 +7,15 @@
   cursor: pointer;
   user-select: none;
 
+  &:not(.-notifications):hover > .list {
+    visibility: visible;
+
+    transition-delay: 0s, 0s, .3s;
+    transform: translateY(0%);
+
+    opacity: 1;
+  }
+
   &::after {
     display: inline-flex;
 
@@ -53,7 +62,7 @@
   }
 
   &.-notifications > .list {
-    top: 3.25rem;
+    top: 3.4rem;
     right: -.2rem;
     left: auto;
 
@@ -133,7 +142,7 @@
   & > .list,
   & > .list > .dropdown > .itens {
     position: absolute;
-    top: 1.3rem;
+    top: 1.75rem;
     left: -.2rem;
 
     display: flex;

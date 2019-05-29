@@ -85,11 +85,26 @@ body.-white .nav-bar {
     color: #FFF;
   }
 
-  &.-edit > .project > .dropdown-menu::after {
+  &.-edit > .project > .title > a {
+    color: rgba(#FFF, .8);
+    border-color: #FFF;
+
+    &:hover {
+      color: #FFF;
+    }
+  }
+
+  &.-edit .dropdown-menu {
+    color: #FFF;
+  }
+
+  &.-edit .dropdown-menu::after {
+    opacity: .8;
     background-color: #FFF;
   }
 
-  &.-edit > .project > .dropdown-menu.-closed::before {
+  &.-edit .dropdown-menu.-closed::before {
+    opacity: .8;
     background-color: #FFF;
   }
 
@@ -299,30 +314,48 @@ body.-white .nav-bar {
     cursor: pointer;
 
     border-left: 1px solid $color-grayish;
-
-    &:hover > .dropdown-menu > .list {
-      visibility: visible;
-
-      transition-delay: 0s, 0s, .3s;
-      transform: translateY(0%);
-
-      opacity: 1;
-    }
   }
 
   & > .project > .title {
     font-size: $font-size-mili;
     font-weight: bold;
 
+    margin-top: .5rem;
+
     color: $color-deep-gray;
   }
 
-  & > .project > .dropdown-menu {
-    margin-top: .25rem;
+  & > .project > .title > a {
+    font-size: $font-size-micro;
+
+    margin-left: 1rem;
+    padding-left: 1rem;
+
+    text-decoration: underline;
+
+    color: $color-brand;
+    border-left: 1px solid $color-deep-gray;
+
+    &:hover {
+      color: lighten($color-brand, 10%);
+    }
+  }
+
+  & > .project > .menu > .dropdown-menu {
     margin-right: 1rem;
+    padding: .5rem 0;
   }
 
   & > .project > .breadcrumb-menu {
     margin-top: .25rem;
+  }
+
+  & > .project > .menu {
+    display: flex;
+    align-items: center;
+  }
+
+  & > .project > .menu > * + * {
+    margin-left: .5rem;
   }
 }
