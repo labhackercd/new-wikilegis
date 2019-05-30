@@ -188,6 +188,15 @@ def group_participants(group):
     return len(participants_ids)
 
 
+@register.filter
+def group_votes(group):
+    group_opinions = Suggestion.objects.filter(invited_group=group)
+    group_opinions_ids = group_opinions.values_list('id', flat=True)
+    group_votes_count = OpinionVote.objects.filter(
+        suggestion_id__in=group_opinions_ids).count()
+    return group_votes_count
+
+
 @register.simple_tag
 def participation_class(participant_count, total):
     if participant_count == 0 or total == 0:
