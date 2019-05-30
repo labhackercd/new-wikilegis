@@ -1,30 +1,31 @@
 .close-diff {
   position: fixed;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  background-color: $color-orange;
-  padding: 1rem 2rem;
-  color: white;
-  top: 0;
+  left: 0.5rem;
+  transform: translateX(-100%);
+  padding: 1rem;
+  color: $color-brand;
+  top: 4.5rem;
   z-index: 2;
   display: flex;
   align-items: center;
-  border-radius: 0.5rem;
-  transition: all .35s $swift-out;
   transition-delay: 0;
+  transition: none;
   opacity: 0;
+  cursor: pointer;
 
-  @include mask-icon('close');
+  @include mask-icon('arrow');
 
   &::before {
-    background-color: white;
-    margin-left: .5rem;
-    right: 0;
+    background-color: $color-brand;
+    margin-right: .5rem;
+    transform: rotate(90deg);
+    font-size: $font-size-centi;
   }
 
   &.-show {
     opacity: 1;
-    transform: translate(-50%, 1.5rem);
+    transform: translateX(0);
+    transition: all .35s $swift-out;
     transition-delay: .35s;
   }
 }
