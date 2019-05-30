@@ -126,16 +126,16 @@
   {% endfor %}
 
   {% if page == 'editor' %}
-  <div class="text-diff">
+  <div class="text-diff js-textDiff">
     <div class="mergely-full-screen-8">
       <div class="titles">
         <div class="title -left">
-          <div class="name">Versão 1</div>
-          <div class="date">17h - Mai 2019</div>
+          <div class="name js-leftVersionName"></div>
+          <div class="date js-leftVersionDate"></div>
         </div>
         <div class="title -right">
-          <div class="name">Versão 1</div>
-          <div class="date">17h - Mai 2019</div>
+          <div class="name js-rightVersionName"></div>
+          <div class="date js-rightVersionDate"></div>
         </div>
       </div>
       <div class="mergely-resizer js-mergelyWrapper">

@@ -68,7 +68,15 @@ CompareVersionsView.prototype.fetchVersionsData = function() {
 CompareVersionsView.prototype.updateVersionDataList = function(data) {
   this.versionsData.push(data);
   if (this.versionsData.length === 2) {
-    events.showDiff.publish(this.versionsData[0], this.versionsData[1]);
+    var data1 = this.versionsData[0];
+    var data2 = this.versionsData[1];
+
+    if (data1.versionNumber > data2.versionNumber) {
+      events.showDiff.publish(data2, data1);
+    } else {
+      events.showDiff.publish(data1, data2);
+    }
+
   }
 };
 

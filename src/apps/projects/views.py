@@ -114,6 +114,7 @@ class DocumentTextView(View):
         return {
             'html': rendered.strip(),
             'versionName': version_name,
+            'versionNumber': version.number,
             'date': version.created.strftime('%Hh%M - %d de %b, %Y'),
             'autoSave': version.auto_save
         }

@@ -31,39 +31,8 @@ DocumentEditorView.prototype.subscribers = function() {
   });
 
   events.showDiff.subscribe(function(text1, text2) {
-    self.documentEditorElement.addClass('-compare');
-    self.textEditorWrapper.addClass('_hidden');
-    self.closeDiffButton.addClass('-show');
-
-    self.mergelyWrapper.append('<div id="mergely"></div>');
-
-    $('#mergely').mergely({
-      cmsettings: {
-        readOnly: true,
-        lineWrapping: true
-      },
-      wrap_lines: true,
-
-      autoresize: true,
-      ignorews: true,
-      license: 'gpl',
-      line_numbers: false,
-      sidebar: false,
-
-      editor_width: 'calc(50% - 25px)',
-      editor_height: '100%',
-      lhs: function(setValue) {
-        setValue(text1.html);
-      },
-      rhs: function(setValue) {
-        setValue(text2.html);
-      },
-      loaded: function() {
-        setTimeout(function() {
-          $('#mergely').mergely('resize');
-        }, 300)
-      },
-    });
+    self.showDiff(text1.html, text2.html);
+    self.updateDiffTitles(text1, text2);
   });
 
   events.closeDiff.subscribe(function() {
@@ -137,4 +106,56 @@ DocumentEditorView.prototype.createDiffDocument = function(data) {
   `
 
   this.documentEditorElement.append($(article));
+};
+
+DocumentEditorView.prototype.showDiff = function(text1, text2) {
+  this.documentEditorElement.addClass('-compare');
+  this.textEditorWrapper.addClass('_hidden');
+  this.closeDiffButton.addClass('-show');
+
+  this.mergelyWrapper.append('<div id="mergely"></div>');
+
+  $('#mergely').mergely({
+    cmsettings: {
+      readOnly: true,
+      lineWrapping: true
+    },
+    wrap_lines: true,
+
+    autoresize: true,
+    ignorews: true,
+    license: 'gpl',
+    line_numbers: false,
+    sidebar: false,
+
+    editor_width: 'calc(50% - 25px)',
+    editor_height: '100%',
+    lhs: function(setValue) {
+      setValue(text1);
+    },
+    rhs: function(setValue) {
+      setValue(text2);
+    },
+    loaded: function() {
+      setTimeout(function() {
+        $('#mergely').mergely('resize');
+      }, 300)
+    },
+  });
+};
+
+DocumentEditorView.prototype.updateDiffTitles = function(text1, text2) {
+  $('.js-textDiff .js-leftVersionDate').text(text1.date);
+  if (!text1.autoSave) {
+    $('.js-textDiff .js-leftVersionName').text(text1.versionName);
+  } else {
+    $('.js-textDiff .js-leftVersionName').text('Versão Atual');
+  }
+
+  $('.js-textDiff .js-rightVersionDate').text(text2.date);
+  if (!text2.autoSave) {
+    $('.js-textDiff .js-rightVersionName').text(text2.versionName);
+  } else {
+    $('.js-textDiff .js-rightVersionName').text('Versão Atual');
+  }
 };
