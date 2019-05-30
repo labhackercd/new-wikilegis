@@ -46,6 +46,35 @@
   }
 }
 
+
+.tip {
+    position: sticky;
+    left: 100%;
+    top: 50%;
+    width: 10rem;
+    text-align: center;
+    margin-right: -11rem;
+    height: 0;
+    pointer-events: none;
+}
+
+.tip > .message {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #949494;
+    line-height: 0.7;
+}
+
+.tip > .message > .key {
+    background-color: #474747;
+    color: white;
+    padding: 0.4rem 0.5rem;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
 .document-editor {
   position: relative;
 
