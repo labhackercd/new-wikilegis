@@ -47,8 +47,8 @@
     {% csrf_token %}
     {{form.non_field_errors}}
     <div class="input-group">
-      <div class="input-text">
-        <input type="text" name="group_name" id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
+      <div class="input-text -required">
+        <input type="text" name="group_name" required id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
         <label for="id_group_name">Nome do grupo:</label>
       </div>
       <div class="input-select -required">
