@@ -92,7 +92,7 @@ class Document(TimestampedMixin):
                                'pk': self.id})
 
     def get_excerpts(self, version=None):
-        if version:
+        if version is not None:
             last_version = self.versions.get(number=version)
         else:
             last_version = self.versions.first()
