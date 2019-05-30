@@ -56,8 +56,13 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
             return super().form_invalid(form)
         self.object.document = Document.objects.get(id=self.kwargs.get('pk'))
         self.object.public_participation = False
+        group_name = self.request.POST.get('group_name', None)
+        if not group_name:
+            form.add_error(None, ValidationError(
+                _('Group name is required')))
+            return super().form_invalid(form)
         thematic_group = ThematicGroup(owner=self.request.user)
-        thematic_group.name = self.request.POST.get('group_name', None)
+        thematic_group.name = group_name
         thematic_group.save()
         participants_ids = self.request.POST.getlist('participants', [])
         emails = self.request.POST.getlist('emails', None)
@@ -112,8 +117,13 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
             form.add_error('closing_date', ValidationError(
                 _('Closing date must be greater than or equal to today!')))
             return super().form_invalid(form)
+        group_name = self.request.POST.get('group_name', None)
+        if not group_name:
+            form.add_error(None, ValidationError(
+                _('Group name is required')))
+            return super().form_invalid(form)
         thematic_group = self.object.thematic_group
-        thematic_group.name = self.request.POST.get('group_name', None)
+        thematic_group.name = group_name
         thematic_group.save()
         participants_ids = self.request.POST.getlist('participants', [])
         emails = self.request.POST.getlist('emails', None)

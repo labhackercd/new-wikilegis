@@ -47,21 +47,27 @@
     {% csrf_token %}
     {{form.non_field_errors}}
     <div class="input-group">
-      <div class="input-text">
-        <input type="text" name="group_name" id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
+      <div class="input-text -required">
+        <input type="text" name="group_name" required id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
         <label for="id_group_name">Nome do grupo:</label>
       </div>
       <div class="input-select -required">
         <div class="select">
+          {% if object %}
+          <select id="id_version_name" name="version" disabled>
+              <option value="{{object.version.pk}}">{{object.version.name|default_if_none:object.version.created|date:'H\hi - d \d\e b, Y'}}</option>
+          </select>
+          {% else %}
           <select id="id_version_name" required name="version" {% if not versions %}disabled{% endif %}>
             {% for version in versions %}
-              <option value="{{version.pk}}">{{version.name}}</option>
+              <option value="{{version.pk}}">{{version.name|default_if_none:version.created|date:'H\hi - d \d\e b, Y'}}</option>
             {% endfor %}
           </select>
+          {% endif %}
           <label for="id_version_name">Versão do Documento:</label>
           <div class="icon"><i class="arrow"></i></div>
         </div>
-        {% if not versions %}
+        {% if not versions and not object %}
           <ul class="errorlist">
             <li>Você precisa salvar uma versão do documento antes de abrir o projeto para um grupo de participação.</li>
           </ul>
