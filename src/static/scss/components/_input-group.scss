@@ -4,4 +4,8 @@
   & > * + * {
     margin-left: 1rem;
   }
+
+  & > .input-profile:first-of-type {
+    margin-left: 0;
+  }
 }

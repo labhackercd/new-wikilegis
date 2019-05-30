@@ -55,12 +55,24 @@
         <div class="select">
           {% if object %}
           <select id="id_version_name" name="version" disabled>
-              <option value="{{object.version.pk}}">{{object.version.name|default_if_none:object.version.created|date:'H\hi - d \d\e b, Y'}}</option>
+              <option value="{{object.version.pk}}">
+                {% if object.version.name %}
+                {{object.version.name}}
+                {% else %}
+                {{object.version.created|date:'H\hi - d \d\e b, Y'}}
+                {% endif %}
+              </option>
           </select>
           {% else %}
           <select id="id_version_name" required name="version" {% if not versions %}disabled{% endif %}>
             {% for version in versions %}
-              <option value="{{version.pk}}">{{version.name|default_if_none:version.created|date:'H\hi - d \d\e b, Y'}}</option>
+              <option value="{{version.pk}}">
+                {% if object.version.name %}
+                {{object.version.name}}
+                {% else %}
+                {{object.version.created|date:'H\hi - d \d\e b, Y'}}
+                {% endif %}
+              </option>
             {% endfor %}
           </select>
           {% endif %}
@@ -75,7 +87,11 @@
       </div>
       <div class="input-text -required -date">
         {{form.closing_date.errors}}
+        {% if object %}
+        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}"required id="id_closing_date" value="{{object.closing_date|date:'Y-m-d'}}">
+        {% else %}
         <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}"required id="id_closing_date">
+        {% endif %}
         <label for="id_closing_date">Data de encerramento:</label>
       </div>
     </div>
@@ -113,7 +129,7 @@
           {% if object.thematic_group.participants.all %}
           {% for participant in object.thematic_group.participants.all %}
             <div class="user-profile js-user" data-user-id="{{ participant.id }}">
-              <img class="avatar" src="{{participant.profile.avatar|default_if_none:'/new-wikilegis/static/img/avatar.png'}}">
+              <img class="avatar" src="{{participant.profile.avatar|default_if_none:'/static/img/avatar.png'}}">
               <div class="info">
                 <span class="name">{{ participant.get_full_name }}</span>
                 {% for theme in participant.themes.all %}
