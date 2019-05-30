@@ -127,18 +127,20 @@
 
   {% if page == 'editor' %}
   <div class="text-diff js-textDiff">
-    <div class="mergely-full-screen-8">
-      <div class="titles">
-        <div class="title -left">
-          <div class="name js-leftVersionName"></div>
-          <div class="date js-leftVersionDate"></div>
-        </div>
-        <div class="title -right">
-          <div class="name js-rightVersionName"></div>
-          <div class="date js-rightVersionDate"></div>
-        </div>
+    <div class="titles">
+      <div class="title -left">
+        <div class="name js-leftVersionName"></div>
+        <div class="date js-leftVersionDate"></div>
       </div>
-      <div class="mergely-resizer js-mergelyWrapper">
+      <div class="title -right">
+        <div class="name js-rightVersionName"></div>
+        <div class="date js-rightVersionDate"></div>
+      </div>
+    </div>
+    <div class="diffs">
+      <div class="mergely-full-screen-8">
+        <div class="mergely-resizer js-mergelyWrapper">
+        </div>
       </div>
     </div>
   </div>

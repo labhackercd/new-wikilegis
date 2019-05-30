@@ -2,18 +2,66 @@
   position: relative;
   z-index: 0;
 
+  display: flex;
   display: none;
-  align-self: center;
   flex: 1;
+  flex-direction: column;
 
-  width: calc(66ch + 66ch + 4rem);
-  max-width: 100%;
   margin-top: 2rem;
 
-  border-right: 4vw solid transparent;
-  border-left: 4vw solid transparent;
+  & > .diffs {
+    position: relative;
 
-  box-sizing: border-box;
+    align-self: center;
+    flex: 1;
+
+    box-sizing: border-box;
+    width: calc(66ch + 66ch + 4rem);
+    max-width: 100%;
+
+    border-right: 4vw solid transparent;
+    border-left: 4vw solid transparent;
+  }
+
+  & > .titles {
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    width: calc(66ch + 66ch + 4rem);
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+
+    border-right: 4vw solid transparent;
+    border-left: 4vw solid transparent;
+
+    & > .title {
+      display: flex;
+      flex-direction: column;
+
+      width: 50%;
+
+      text-align: center;
+    }
+
+    & > .title > * + * {
+      margin-top: .5rem;
+    }
+
+    & > .title > .name {
+      font-size: $font-size-deci;
+      color: $color-brand;
+      font-weight: 700;
+    }
+
+    & > .title > .date {
+      font-size: $font-size-nano;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $color-gray;
+    }
+  }
 
   #mergely {
     display: flex;
@@ -71,36 +119,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-
-    & > .titles {
-      display: flex;
-      justify-content: space-between;
-
-      margin-bottom: 2rem;
-
-      & > .title {
-        display: flex;
-        flex-direction: column;
-
-        width: 50%;
-
-        text-align: center;
-      }
-
-      & > .title > * + * {
-        margin-top: .5rem;
-      }
-
-      & > .title > .name {
-        @extend h1;
-      }
-
-      & > .title > .date {
-        font-size: $font-size-mili;
-
-        color: $color-gray;
-      }
-    }
   }
 
   .CodeMirror-hscrollbar {
@@ -137,16 +155,19 @@
     padding: .5rem 1rem;
   }
 
-  .mergely.ch.a.rhs {
-    background-color: rgba(45, 169, 101, .5);
+  .CodeMirror-lines {
+    padding-bottom: 4rem;
   }
 
-  .mergely.a.rhs {
-    background-color: rgba(45, 169, 101, .5);
+
+  .mergely.ch.a.rhs {
+    background-color: rgba(45, 169, 101, .25);
   }
 
   .mergely.ch.d.lhs {
-    color: #EB6767 !important;
-    background-color: rgba(235, 103, 103, .4);
+    text-decoration: none;
+
+    color: black !important;
+    background-color: rgba(235, 103, 103, .3);
   }
 }
