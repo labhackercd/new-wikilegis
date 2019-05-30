@@ -117,6 +117,9 @@
     background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
   }
 </style>
+
+<link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
+<link rel="stylesheet" href="{% static 'mergely/lib/mergely.css' %}">
 {% endblock extracss %}
 
 {% block body_classes %}-white{% endblock %}
@@ -124,6 +127,7 @@
 {% block content %}
 
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
+  <div class="close-diff js-closeDiff">Voltar</div>
 
   {% if page == 'editor' %}
     {% include "components/timeline-sidebar.html" %}
@@ -137,6 +141,27 @@
   {% for message in messages %}
   {% include "components/info-message.html" with message=message %}
   {% endfor %}
+
+  {% if page == 'editor' %}
+  <div class="text-diff js-textDiff">
+    <div class="titles">
+      <div class="title -left">
+        <div class="name js-leftVersionName"></div>
+        <div class="date js-leftVersionDate"></div>
+      </div>
+      <div class="title -right">
+        <div class="name js-rightVersionName"></div>
+        <div class="date js-rightVersionDate"></div>
+      </div>
+    </div>
+    <div class="diffs">
+      <div class="mergely-full-screen-8">
+        <div class="mergely-resizer js-mergelyWrapper">
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </main>
 
 {% include "components/validate-modal.html" %}
@@ -154,6 +179,9 @@
 <script src="{% static 'js/components/publicParticipationModal/controller.js' %}"></script>
 <script src="{% static 'js/components/congressmanAutocomplete/view.js' %}"></script>
 {% if page == 'editor' %}
+<script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+{# <script src="{% static 'codemirror/addon/search/searchcursor.js' %}"></script> #}
+<script src="{% static 'mergely/lib/mergely.js' %}"></script>
 <script src="{% static 'js/utils/position.js' %}"></script>
 <script src="{% static 'js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
 <script src="{% static 'js/components/infoMessage/view.js' %}"></script>
@@ -164,6 +192,8 @@
 <script src="{% static 'js/components/toolBar/controller.js' %}"></script>
 <script src="{% static 'js/components/toolBar/view.js' %}"></script>
 <script src="{% static 'js/components/timelineSidebar/view.js' %}"></script>
+<script src="{% static 'js/components/compareVersions/controller.js' %}"></script>
+<script src="{% static 'js/components/compareVersions/view.js' %}"></script>
 <script src="{% static 'js/components/contextualToolbar/view.js' %}"></script>
 <script src="{% static 'js/components/navBar/view.js' %}"></script>
 <script src="{% static 'js/pages/editDocument.js' %}"></script>

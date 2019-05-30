@@ -67,12 +67,21 @@
   }
 
   & > .item > .named {
-    &:hover > * {
+    position: relative;
+
+    &:hover > *:not(.compare-checkbox) {
       transform: translateX(.5rem);
     }
   }
 
-  & > .item > .named > *,
+  & > .item > .named > .compare-checkbox {
+    position: absolute;
+    top: 50%;
+    right: .6rem;
+    transform: translateY(-50%);
+  }
+
+  & > .item > .named > *:not(.compare-checkbox),
   & > .item > .autosaves > .save > span {
     padding-left: 1.6rem;
 
@@ -158,13 +167,12 @@
   & > .item > .autosaves {
     position: relative;
 
+    display: none;
     flex-direction: column;
 
     width: 100%;
 
     transition: all .35s $swift-out;
-
-    display: none;
   }
 
   & > .item > .autosaves.-show {
@@ -188,8 +196,9 @@
   & > .item > .named.-stick,
   & > .item > .autosaves > .save.-stick {
     position: sticky;
-    background: white;
     z-index: 1;
+
+    background: white;
   }
 
   & > .item > .named.-stick {

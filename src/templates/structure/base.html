@@ -30,12 +30,12 @@
     {% endblock metatags %}
 
     <title>{% block title %}wikilegis{% endblock title %}</title>
+    {% block extracss %}
+    {% endblock extracss %}
     {% compress css %}
       <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/app.scss' %}">
     {% endcompress %}
 
-    {% block extracss %}
-    {% endblock extracss %}
   </head>
   <body class="js-body {% block body_classes %}{% endblock %}">
     <div class="nav-bar{% if request.user.profile.profile_type == 'owner' %} -admin{% endif %} {% block navbar_extra_classes %}{% endblock navbar_extra_classes %}">

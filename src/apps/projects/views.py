@@ -99,7 +99,7 @@ class DocumentUpdateView(UpdateView):
 class DocumentTextView(View):
     http_method_names = ['get']
 
-    def get_json_data(self, document, version):
+    def get_json_data(self, document, version, text_format='editor'):
         if version.name:
             version_name = version.name
         else:
@@ -107,28 +107,36 @@ class DocumentTextView(View):
 
         rendered = render_to_string(
             'txt/document_text',
-            {'excerpts': document.get_excerpts(version=version.number)}
+            {'excerpts': document.get_excerpts(version=version.number),
+             'format': text_format}
         )
 
         return {
-            'html': rendered,
-            'versionName': version_name
+            'html': rendered.strip(),
+            'versionName': version_name,
+            'versionNumber': version.number,
+            'date': version.created.strftime('%Hh%M - %d de %b, %Y'),
+            'autoSave': version.auto_save
         }
 
     def get(self, request, *args, **kwargs):
         document = get_object_or_404(Document, pk=kwargs['pk'])
         version = request.GET.get('version', None)
+        text_format = request.GET.get('format', 'editor')
 
         try:
             version = document.versions.get(number=version)
-            return JsonResponse(self.get_json_data(document, version))
+            return JsonResponse(self.get_json_data(
+                document, version, text_format)
+            )
         except ValueError:
             version = document.versions.first()
-            return JsonResponse(self.get_json_data(document, version))
+            return JsonResponse(self.get_json_data(
+                document, version, text_format)
+            )
         except DocumentVersion.DoesNotExist:
             version = document.versions.first()
-            data = self.get_json_data(document, version)
+            data = self.get_json_data(document, version, text_format)
             data['message'] = _('Version not found! '
                                 'We loaded the last version for you :)')
             return JsonResponse(data, status=404)
-

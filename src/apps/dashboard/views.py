@@ -54,6 +54,12 @@ class DocumentEditorAnalyzeView(DetailView):
         page = self.kwargs['template']
         context['page'] = page
         group_id = self.request.GET.get('group_id', None)
+
+        context['named_versions'] = self.object.versions.filter(
+            name__isnull=False,
+            auto_save=False
+        )
+
         if page == 'analysis':
             if group_id:
                 group = self.object.invited_groups.get(id=group_id)
@@ -72,10 +78,6 @@ class DocumentEditorAnalyzeView(DetailView):
             context['participation_count'] = len(participants_ids)
 
         if page == 'editor':
-            context['named_versions'] = self.object.versions.filter(
-                name__isnull=False,
-                auto_save=False
-            )
 
             if context['named_versions'].count() > 0:
                 context['latest_saves'] = self.object.versions.filter(
