@@ -54,7 +54,7 @@
       <button class="suggestion-opinion -all js-allOpinionsButton" aria-label="Ver todas as opiniões"></button>
       {% endif %}
     </header>
-    {% for excerpt in object.document.get_excerpts %}
+    {% for excerpt in object.get_excerpts %}
       {% if excerpt.excerpt_type.align_center %}
       <div class="excerpt-wrapper {% excerpt_classes excerpt %}">
         <h3>{% excerpt_numbering excerpt %}</h3>
