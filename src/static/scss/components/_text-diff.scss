@@ -13,6 +13,8 @@
   border-right: 4vw solid transparent;
   border-left: 4vw solid transparent;
 
+  box-sizing: border-box;
+
   #mergely {
     display: flex;
 
@@ -23,19 +25,10 @@
     display: none !important;
   }
 
-  #mergely-editor-lhs .CodeMirror-vscrollbar {
-    // display: none !important;
-
-    overflow-y: scroll !important;
-    overflow-y: overlay !important;
-  }
-
-  #mergely-editor-lhs .CodeMirror-sizer {
-    padding-right: 0 !important;
-  }
-
   .CodeMirror-sizer {
     flex: 1;
+
+    padding-right: 0 !important;
 
     border-right: none;
     border-right-width: 0 !important;
@@ -69,6 +62,7 @@
 
     align-self: center;
 
+    box-sizing: border-box;
     width: calc(66ch + 66ch + 4rem);
   }
 
@@ -87,7 +81,9 @@
       & > .title {
         display: flex;
         flex-direction: column;
+
         width: 50%;
+
         text-align: center;
       }
 
