@@ -14,15 +14,19 @@
     <div class="menu">
       <div class="dropdown-menu">
         {% if group %}
-          {% if group.public_participation %}
-          <span>Participação pública</span>
+          {% if group.version.name %}
+            <span class="version">Versão:</span>
+            <span>{{group.version.name}}</span>
           {% else %}
-          <span class="-closed">{{group.thematic_group.name}}</span>
+            <span class="version">Versão:</span>
+            <span>{{group.version.created|date:'H\hi - d \d\e b, Y'}}</span>
           {% endif %}
         {% else %}
           {% if selected_version.name %}
+            <span class="version">Versão:</span>
             <span class="js-versionName">{{selected_version.name}}</span>
           {% else %}
+            <span class="version">Versão:</span>
             <span class="js-versionName">{{selected_version.created|date:'H\hi - d \d\e b, Y'}}</span>
           {% endif %}
         {% endif %}
@@ -31,7 +35,15 @@
         </ul>
       </div>
       <div class="dropdown-menu">
-        <span>Participação</span>
+        {% if group %}
+          {% if group.public_participation %}
+          <span class="-opened">Participação Pública</span>
+          {% else %}
+          <span class="-closed">{{ group.thematic_group.name }}</span>
+          {% endif %}
+        {% else %}
+          <span>Participação</span>
+        {% endif %}
         <ul class="list js-menuList">
           {% for public_participation in public_group %}
           {% if public_participation.group_status == 'waiting' %}

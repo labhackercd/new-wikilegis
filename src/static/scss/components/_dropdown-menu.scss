@@ -21,7 +21,7 @@
 
     width: .75rem;
     height: .75rem;
-    margin-left: .25rem;
+    margin-left: .5rem;
 
     content: '';
 
@@ -127,6 +127,10 @@
 
   & > span {
     font-size: $font-size-micro;
+  }
+
+  & > span.version {
+    padding-right: .25rem;
   }
 
   & > span.-closed {

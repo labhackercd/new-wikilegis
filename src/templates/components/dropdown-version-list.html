@@ -6,7 +6,9 @@
 </a>
 {% for version in named_versions %}
   <hr>
-  <a href="{% url 'document_editor_analyze' template='editor' pk=object.pk %}?version={{version.number}}">{{version.name}}</a>
+  <a href="{% url 'document_editor_analyze' template='editor' pk=object.pk %}?version={{version.number}}">
+    <span>{{version.name}}</span>
+  </a>
 {% empty %}
   <hr>
   <a href="#" class="-empty">Sem versões</a>
