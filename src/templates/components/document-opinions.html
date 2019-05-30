@@ -2,12 +2,28 @@
 
 <article id="article" class="js-articleDocument" data-group-id={{group.id}}>
   <header>
-    {% now "Y-m-d" as todays_date %}
-    {% if group.closing_date|date:"Y-m-d" > todays_date %}
-    <span class="date -active">Aberto até {{group.closing_date|date:'d/m/Y'}}</span>
-    {% else %}
-    <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
-    {% endif %}
+    <div class="info">
+      {% now "Y-m-d" as todays_date %}
+      {% if group.closing_date|date:"Y-m-d" > todays_date %}
+      <span class="date -active">Aberto até {{group.closing_date|date:'d/m/Y'}}</span>
+      {% else %}
+      <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
+      {% endif %}
+      <ul class="tags">
+        <li class="app-tag">
+          <img src="{% static 'img/public.svg' %}" alt="Participantes">
+          <span class="label">{{participation_count}} Participantes</span>
+        </li>
+        <li class="app-tag">
+          <img src="{% static 'img/given-opinions.svg' %}" alt="Opiniões">
+          <span class="label">{{group.suggestions.count}} Opiniões</span>
+        </li>
+        <li class="app-tag">
+          <img src="{% static 'img/votes.svg' %}" alt="Votos">
+          <span class="label">{{group|group_votes}} Votos</span>
+        </li>
+      </ul>
+    </div>
     <h1 class="js-documentTitle" contentEditable="true">{{ object.title }}</h1>
     <p class="js-documentDescription description">{{ object.description }}</p>
     <hr>
@@ -26,9 +42,10 @@
         <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
         <span class="js-defaultText">...</span>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
-        {% if excerpt|exerpt_votes:group > 0 %}
+        {% if excerpt|excerpt_participants:group > 0 %}
         <span class="votes">
-          <span class="value">{{excerpt|exerpt_votes:group}}</span>
+          <span class="value">{{excerpt|excerpt_participants:group}}</span>
+          <span class="bar" style="width: {% get_percent excerpt|excerpt_participants:group participation_count %}%;"></span>
         </span>
         {% endif %}
       </p>

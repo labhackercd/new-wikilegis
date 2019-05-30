@@ -57,8 +57,12 @@
           <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}" class="title -opened">
             <span>Participação Pública</span>
             <div class="info -full">
-              <div class="item -participants">1</div>
-              <div class="item -opinions">0</div>
+              <div class="item -participants">
+                {{ public_participation|group_participants }}
+              </div>
+              <div class="item -opinions">
+                {{ public_participation.suggestions.count }}
+              </div>
               <div class="item -green">Em andamento</div>
             </div>
           </a>

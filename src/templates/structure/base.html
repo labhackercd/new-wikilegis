@@ -68,7 +68,7 @@
             {% endfor %}
           </ul>
         </div>
-        <a href="{% url 'owner_documents' %}" class="icon -documents{% if current_path|endswith:'/dashboard/' %}-active{% endif %}" aria-label="Meus documentos">
+        <a href="{% url 'owner_documents' %}" class="icon -documents{% if current_path|endswith:'/dashboard/' %} -active{% endif %}" aria-label="Meus documentos">
           {% include "svgs/dashboard-icon.html" %}
         </a>
       </div>
