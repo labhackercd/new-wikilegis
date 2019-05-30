@@ -60,10 +60,8 @@
       & > .title {
         display: flex;
         flex-direction: column;
-
-        &.-right {
-          text-align: right;
-        }
+        width: 50%;
+        text-align: center;
       }
 
       & > .title > * + * {

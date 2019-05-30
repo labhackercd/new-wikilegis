@@ -128,7 +128,7 @@ DocumentEditorView.prototype.showDiff = function(text1, text2) {
     line_numbers: false,
     sidebar: false,
 
-    editor_width: 'calc(50% - 25px)',
+    editor_width: '50%',
     editor_height: '100%',
     lhs: function(setValue) {
       setValue(text1);
