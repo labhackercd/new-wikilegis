@@ -1,0 +1,290 @@
+.suggestion-metrics {
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  height: calc(100% - 5rem);
+  padding: 1.4rem 1rem 5rem 1rem;
+
+
+  &::-webkit-scrollbar {
+    width: 0;
+
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #F00;
+  }
+
+  & > * + * {
+    margin-top: 1.6rem;
+  }
+
+  &::before {
+    position: fixed;
+    z-index: 1;
+    top: calc(100% - 5rem);
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    content: '';
+    pointer-events: none;
+
+    background: linear-gradient(transparent, $color-whisper);
+  }
+
+  & > .card {
+    position: relative;
+
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.6rem;
+
+    cursor: pointer;
+    transition: transform .15s $swift-out;
+
+    border: 1px solid $color-grayish;
+    background-color: #FFF;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+
+    &:hover {
+      transform: translateX(.25rem);
+    }
+
+    &.-active {
+      transform: scale(1.03);
+    }
+  }
+
+  & > .card > .header {
+    font-size: $font-size-micro;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  & > .card > .header > .votes {
+    font-size: $font-size-mili;
+    font-weight: bold;
+
+    color: $color-gray;
+  }
+
+  & > .card > .header > .consensus {
+    font-size: $font-size-micro;
+
+    display: flex;
+    align-items: center;
+
+    color: $color-deep-gray;
+  }
+
+  & > .card > .header > .consensus.-green {
+    color: $color-brand;
+
+    & > .icon {
+      border-color: $color-brand;
+    }
+
+    & > .icon > .value {
+      background-color: $color-brand;
+    }
+  }
+
+  & > .card > .header > .consensus.-gray {
+    color: $color-gray;
+
+    & > .icon {
+      border-color: $color-gray;
+    }
+
+    & > .icon > .value {
+      background-color: $color-gray;
+    }
+  }
+
+  & > .card > .header > .consensus.-red {
+    color: $color-red;
+
+    & > .icon {
+      border-color: $color-red;
+    }
+
+    & > .icon > .value {
+      background-color: $color-red;
+    }
+  }
+
+  & > .card > .header > .consensus > .icon {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1rem;
+    height: .25rem;
+    margin-right: .5rem;
+
+    border-width: 2px;
+    border-style: solid;
+    border-color: $color-deep-gray;
+  }
+
+  & > .card > .header > .consensus > .icon > .value {
+    position: absolute;
+    left: 0;
+
+    height: .25rem;
+
+    background-color: $color-deep-gray;
+  }
+
+
+  & > .card > .header > .consensus > .info {
+    font-weight: bold;
+  }
+
+  & > .card > .content {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 2rem;
+  }
+
+  & > .card > .content > .user {
+    display: flex;
+    align-items: center;
+
+    margin-top: 1.5rem;
+  }
+
+  & > .card > .content > .user > .avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+    object-position: center;
+  }
+
+  & > .card > .content > .user > .name {
+    font-size: $font-size-centi;
+    font-weight: bold;
+
+    margin-left: .5rem;
+
+    color: $color-deep-gray;
+  }
+
+  & > .card > .content > .sugestion {
+    font-size: $font-size-centi;
+    line-height: 1.6;
+
+    margin-top: 1rem;
+
+    color: $color-deep-gray;
+  }
+
+  & > .card > .votes {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+  }
+
+  & > .card > .votes > .bar {
+    position: relative;
+
+    flex: 1 0 auto;
+
+    width: 100%;
+    height: .25rem;
+  }
+
+  & > .card > .votes > .bar > .value {
+    font-size: $font-size-mili;
+    font-weight: bold;
+
+    position: absolute;
+    top: -1.6rem;
+    left: 50%;
+
+    display: flex;
+    align-items: center;
+
+    transform: translateX(-50%);
+
+    &::before {
+      display: block;
+
+      width: .375rem;
+      height: .375rem;
+      margin-right: .125rem;
+
+      content: '';
+
+      border-radius: 50%;
+    }
+  }
+
+  & > .card > .votes > .bar.-positive {
+    background-color: $color-brand;
+
+    & > .value {
+      color: $color-brand;
+    }
+
+    & > .value::before {
+      background-color: $color-brand;
+    }
+  }
+
+  & > .card > .votes > .bar.-neutral {
+    background-color: $color-gray;
+
+    & > .value {
+      color: $color-gray;
+    }
+
+    & > .value::before {
+      background-color: $color-gray;
+    }
+  }
+
+  & > .card > .votes > .bar.-negative {
+    background-color: $color-red;
+
+    & > .value {
+      color: $color-red;
+    }
+
+    & > .value::before {
+      background-color: $color-red;
+    }
+  }
+
+  & > .empty {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    text-align: center;
+
+    color: $color-grayish;
+  }
+}

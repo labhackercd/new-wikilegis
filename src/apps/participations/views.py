@@ -23,7 +23,6 @@ from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
 from apps.notifications.emails import send_remove_participant
-import json
 import requests
 
 User = get_user_model()
@@ -57,8 +56,13 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
             return super().form_invalid(form)
         self.object.document = Document.objects.get(id=self.kwargs.get('pk'))
         self.object.public_participation = False
+        group_name = self.request.POST.get('group_name', None)
+        if not group_name:
+            form.add_error(None, ValidationError(
+                _('Group name is required')))
+            return super().form_invalid(form)
         thematic_group = ThematicGroup(owner=self.request.user)
-        thematic_group.name = self.request.POST.get('group_name', None)
+        thematic_group.name = group_name
         thematic_group.save()
         participants_ids = self.request.POST.getlist('participants', [])
         emails = self.request.POST.getlist('emails', None)
@@ -80,7 +84,7 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('document_editor_cluster',
+        return reverse_lazy('document_editor_analyze',
                             kwargs={'template': 'editor',
                                     'pk': self.object.document.id})
 
@@ -113,8 +117,13 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
             form.add_error('closing_date', ValidationError(
                 _('Closing date must be greater than or equal to today!')))
             return super().form_invalid(form)
+        group_name = self.request.POST.get('group_name', None)
+        if not group_name:
+            form.add_error(None, ValidationError(
+                _('Group name is required')))
+            return super().form_invalid(form)
         thematic_group = self.object.thematic_group
-        thematic_group.name = self.request.POST.get('group_name', None)
+        thematic_group.name = group_name
         thematic_group.save()
         participants_ids = self.request.POST.getlist('participants', [])
         emails = self.request.POST.getlist('emails', None)
@@ -144,7 +153,7 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('document_editor_cluster',
+        return reverse_lazy('document_editor_analyze',
                             kwargs={'template': 'editor',
                                     'pk': self.object.document.id})
 
@@ -156,7 +165,8 @@ class InvitedGroupListView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = object_list if object_list is not None else self.object_list
-        context['public_groups'] = queryset.filter(public_participation=True)
+        context['public_groups'] = queryset.filter(
+            public_participation=True, group_status='in_progress')
         if self.request.user.is_authenticated:
             user = self.request.user
             accepted_invitations = ParcipantInvitation.objects.filter(
@@ -305,31 +315,28 @@ def new_opinion(request):
 
 
 @require_ajax
-def clusters(request, document_pk):
+def get_opinions(request, excerpt_pk):
+    excerpt = get_object_or_404(Excerpt, pk=excerpt_pk)
     group_pk = request.POST.get('groupId', None)
     if group_pk:
         group = get_object_or_404(InvitedGroup, pk=group_pk)
     else:
-        group = Document.objects.get(pk=document_pk).invited_groups.first()
-    clusters_ids = json.loads(group.clusters)
-    opinion_clusters = []
-    for cluster in clusters_ids:
-        opinion_clusters.append(
-            Suggestion.objects.filter(
-                id__in=cluster
-            ).annotate(num_votes=Count('votes')).order_by('-num_votes'))
+        group = excerpt.document.invited_groups.first()
+    opinions = excerpt.suggestions.filter(invited_group=group).annotate(
+        num_votes=Count('votes')).order_by('-num_votes')
     html = render_to_string(
-        'components/clusters.html', {
-            'clusters': opinion_clusters,
+        'components/opinions-metrics.html', {
+            'opinions': opinions,
         }
     )
 
-    return JsonResponse({'clustersHtml': html})
+    return JsonResponse({'opinionsHtml': html})
 
 
 def list_propositions(request):
     groups = InvitedGroup.objects.filter(
         public_participation=True,
+        group_status='in_progress',
         document__document_type__isnull=False).distinct()
     result = []
     for group in groups:

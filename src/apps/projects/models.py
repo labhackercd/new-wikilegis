@@ -87,12 +87,12 @@ class Document(TimestampedMixin):
         unique_together = ('document_type', 'number', 'year')
 
     def get_absolute_url(self):
-        return reverse('document_editor_cluster',
+        return reverse('document_editor_analyze',
                        kwargs={'template': 'editor',
                                'pk': self.id})
 
     def get_excerpts(self, version=None):
-        if version:
+        if version is not None:
             last_version = self.versions.get(number=version)
         else:
             last_version = self.versions.first()

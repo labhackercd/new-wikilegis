@@ -169,12 +169,11 @@ var events = {
   // Triggered when user click on toggle button
   toggleSideBar: $.Topic('toggleSideBar'),
 
-  // Triggered when user click on suggestion cluster
+  // Triggered when user click on suggestion opinion
   selectSuggestion: $.Topic('selectSuggestion'),
 
   // Triggered when load document page or user click in filters
-  // Params: groupId
-  showClusters: $.Topic('showClusters'),
+  showOpinions: $.Topic('showOpinions'),
 
   // Triggered when user click in collapsed excerpts
   // Params: element
@@ -268,4 +267,7 @@ var events = {
 
   // Triggered when user click on closeDiffButton
   closeDiff: $.Topic('closeDiff'),
+
+  // Triggered when user click on excerpt
+  highlightExcerpt: $.Topic('highlightExcerpt')
 };

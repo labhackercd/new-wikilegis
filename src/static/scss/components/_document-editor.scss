@@ -107,18 +107,35 @@
     flex-direction: column;
   }
 
-  & > article > header > .date {
+  & > article > header > .info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+  }
+
+
+  & > article > header .tags {
+    display: flex;
+  }
+
+  & > article > header .tags > * + * {
+    margin-left: 1rem;
+  }
+
+  & > article > header .date {
     font-size: $font-size-mili;
     font-weight: 500;
 
     color: $color-deep-gray;
   }
 
-  & > article > header > .date.-inactive {
+  & > article > header .date.-inactive {
     color: $color-red;
   }
 
-  & > article > header > .date.-active {
+  & > article > header .date.-active {
     color: $color-brand;
   }
 
@@ -161,5 +178,22 @@
     font-weight: 300;
 
     margin-top: 1rem;
+  }
+
+  & > article > p {
+    cursor: pointer;
+  }
+
+  & > article > p:hover > *,
+  & > article > p.-enabled > *,
+  & > article > p.-enabled > .document-excerpt > .text-highlight,
+  & > article > p:hover > .document-excerpt > .text-highlight {
+    color: $color-deep-gray !important;
+  }
+
+  &.-supressed {
+    & > article * {
+      color: #CCC;
+    }
   }
 }

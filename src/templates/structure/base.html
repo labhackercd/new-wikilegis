@@ -47,11 +47,8 @@
 
       {% if request.user.profile.profile_type == 'owner' %}
       <div class="tools">
-        <a href="{% url 'owner_documents' %}" class="icon {% if current_path|endswith:'/dashboard/' %}-active{% endif %}">
-          {% include "svgs/dashboard-icon.html" %}
-        </a>
         <div class="dropdown-menu -notifications {% if request.user.notifications.all|has_new %}-notified{% endif %} js-notificationDropdown">
-          <button class="icon js-notificationButton" aria-label="Configurar">
+          <button class="icon js-notificationButton" aria-label="Notificações">
             {% include "svgs/notifications-icon.html" %}
           </button>
 
@@ -71,7 +68,9 @@
             {% endfor %}
           </ul>
         </div>
-        {% block navbar_tools %}{% endblock navbar_tools %}
+        <a href="{% url 'owner_documents' %}" class="icon -documents{% if current_path|endswith:'/dashboard/' %} -active{% endif %}" aria-label="Meus documentos">
+          {% include "svgs/dashboard-icon.html" %}
+        </a>
       </div>
       {% endif %}
     </div>

@@ -114,7 +114,8 @@ class InvitedGroupFilter(FilterSet):
 
 
 class InvitedGroupViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = InvitedGroup.objects.filter(public_participation=True)
+    queryset = InvitedGroup.objects.filter(
+        public_participation=True, group_status='in_progress')
     serializer_class = serializers.InvitedGroupSerializer
     filter_backends = (
         django_filters.DjangoFilterBackend,

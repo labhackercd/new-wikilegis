@@ -65,8 +65,30 @@ ContextualToolbarView.prototype.publishers = function() {
       } else {
         parent.children(':not(._hidden)').first().focus();
       }
-    }
+    } else if (keycode == '84') { self.activateShortcut('titulo'); } // "T" Key
+    else if (keycode == '67') { self.activateShortcut('capitulo'); } // "C" Key
+    else if (keycode == '83') { self.activateShortcut('secao'); } // "S" Key
+    else if (keycode == '85') { self.activateShortcut('subsecao'); } // "U" Key
+    else if (keycode == '65') { self.activateShortcut('artigo'); } // "A" Key
+    else if (keycode == '80') { self.activateShortcut('paragrafo'); } // "P" Key
+    else if (keycode == '73') { self.activateShortcut('inciso'); } // "I" Key
+    else if (keycode == '76') { self.activateShortcut('alinea'); } // "L" Key
+    else if (keycode == '69') { self.activateShortcut('item'); } // "E" Key
+    else if (keycode == '79') { self.activateShortcut('continuacao'); } // "O" Key
   });
+};
+
+ContextualToolbarView.prototype.activateShortcut = function(excerptType) {
+  var self = this;
+  if (self.editor.ctrlArticulacao.contexto.permissoes[excerptType]) {
+    self.editor.ctrlArticulacao.alterarTipoDispositivoSelecionado(excerptType);
+    self.editor.focus();
+    event.preventDefault();
+  } else {
+    self.contextualToolbar.addClass('-error').one('animationend', function() {
+      self.contextualToolbar.removeClass('-error');
+    });
+  }
 };
 
 ContextualToolbarView.prototype.updateEditorTabindex = function(excerptType) {

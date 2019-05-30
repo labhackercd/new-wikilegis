@@ -2,6 +2,7 @@ from django import template
 from django.db.models import Q
 from django.utils.safestring import mark_safe
 from django.utils import timezone
+from apps.participations.models import OpinionVote, Suggestion
 
 
 register = template.Library()
@@ -125,21 +126,88 @@ def count_votes(votes, vote_type):
 
 
 @register.filter
-def participation_class(excerpt, group):
-    max_suggestions = group.suggestions.count()
-    votes_sum = 0
-    for suggestion in excerpt.suggestions.filter(invited_group=group):
-        votes_sum += suggestion.votes.count()
+def votes_percent(votes, vote_type):
+    total_votes = votes.count()
+    votes_by_type = votes.filter(opinion_vote=vote_type).count()
+    return int((votes_by_type / total_votes) * 100)
 
-    if votes_sum == 0 or max_suggestions == 0:
+
+@register.filter
+def votes_consensus(votes):
+    total = votes.count()
+    if total == 0:
+        return 0
+    else:
+        approves = votes.filter(opinion_vote='approve').count()
+        neutrals = votes.filter(opinion_vote='neutral').count()
+        rejects = votes.filter(opinion_vote='reject').count()
+        result = (abs(approves - neutrals) + abs(approves - rejects) +
+                  abs(rejects - neutrals)) / (total * 2)
+        return int(result * 100)
+
+
+@register.filter
+def majority_votes(votes):
+    approves = votes.filter(opinion_vote='approve').count()
+    neutrals = votes.filter(opinion_vote='neutral').count()
+    rejects = votes.filter(opinion_vote='reject').count()
+    if approves > neutrals and approves > rejects:
+        return "approves"
+    elif rejects > neutrals and rejects > approves:
+        return "rejects"
+    elif neutrals > rejects and neutrals > approves:
+        return "neutrals"
+    else:
+        return False
+
+
+@register.filter
+def excerpt_participants(excerpt, group):
+    excerpt_opinions = excerpt.suggestions.filter(invited_group=group)
+    excerpt_author_opinions = excerpt_opinions.values_list(
+        'author_id', flat=True)
+    opinions_author_votes = OpinionVote.objects.filter(
+        suggestion__in=excerpt_opinions).values_list(
+        'owner_id', flat=True)
+    participants_ids = set(list(excerpt_author_opinions) +
+                           list(opinions_author_votes))
+    return len(participants_ids)
+
+
+@register.filter
+def group_participants(group):
+    group_opinions = Suggestion.objects.filter(invited_group=group)
+    group_author_opinions = group_opinions.values_list(
+        'author_id', flat=True)
+    group_opinions_ids = group_opinions.values_list('id', flat=True)
+    group_author_votes = OpinionVote.objects.filter(
+        suggestion_id__in=group_opinions_ids).values_list(
+        'owner_id', flat=True)
+    participants_ids = set(list(group_author_votes) +
+                           list(group_author_opinions))
+    return len(participants_ids)
+
+
+@register.filter
+def group_votes(group):
+    group_opinions = Suggestion.objects.filter(invited_group=group)
+    group_opinions_ids = group_opinions.values_list('id', flat=True)
+    group_votes_count = OpinionVote.objects.filter(
+        suggestion_id__in=group_opinions_ids).count()
+    return group_votes_count
+
+
+@register.simple_tag
+def participation_class(participant_count, total):
+    if participant_count == 0 or total == 0:
         return ''
-    elif votes_sum / max_suggestions < 0.2:
+    elif participant_count / total < 0.2:
         return 'js-relevanceAmount1'
-    elif votes_sum / max_suggestions < 0.4:
+    elif participant_count / total < 0.4:
         return 'js-relevanceAmount2'
-    elif votes_sum / max_suggestions < 0.6:
+    elif participant_count / total < 0.6:
         return 'js-relevanceAmount3'
-    elif votes_sum / max_suggestions < 0.8:
+    elif participant_count / total < 0.8:
         return 'js-relevanceAmount4'
     else:
         return 'js-relevanceAmount5'

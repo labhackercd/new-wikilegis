@@ -7,12 +7,21 @@
   cursor: pointer;
   user-select: none;
 
+  &:not(.-notifications):hover > .list {
+    visibility: visible;
+
+    transition-delay: 0s, 0s, .3s;
+    transform: translateY(0%);
+
+    opacity: 1;
+  }
+
   &::after {
     display: inline-flex;
 
     width: .75rem;
     height: .75rem;
-    margin-left: .25rem;
+    margin-left: .5rem;
 
     content: '';
 
@@ -53,7 +62,7 @@
   }
 
   &.-notifications > .list {
-    top: 3.25rem;
+    top: 3.4rem;
     right: -.2rem;
     left: auto;
 
@@ -120,6 +129,10 @@
     font-size: $font-size-micro;
   }
 
+  & > span.version {
+    padding-right: .25rem;
+  }
+
   & > span.-closed {
     @include mask-icon('padlock');
   }
@@ -133,7 +146,7 @@
   & > .list,
   & > .list > .dropdown > .itens {
     position: absolute;
-    top: 1.3rem;
+    top: 1.75rem;
     left: -.2rem;
 
     display: flex;
@@ -182,8 +195,6 @@
     justify-content: space-between;
 
     padding: .5rem 1.25rem;
-
-    cursor: text;
   }
 
   & > .list .title.-add {
@@ -205,16 +216,27 @@
     color: $color-deep-gray;
   }
 
-  & > .list .title > span.-closed {
+  & > .list .title.-closed > span {
     @include mask-icon('padlock');
   }
 
-  & > .list .title > span.-closed::before {
-    font-size: $font-size-micro;
+  & > .list .title.-opened > span {
+    @include mask-icon('public');
+  }
 
-    margin-right: .35rem;
+  & > .list .title.-closed > span::before,
+  & > .list .title.-opened > span::before {
+    margin-right: .5rem;
 
     background-color: $color-deep-gray;
+  }
+
+  & > .list .title.-closed > span::before {
+    font-size: $font-size-micro;
+  }
+
+  & > .list .title.-opened > span::before {
+    font-size: $font-size-centi;
   }
 
   & > .list .title > a {

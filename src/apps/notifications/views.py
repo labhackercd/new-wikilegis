@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404, reverse
 from utils.decorators import require_ajax
 from django.utils.translation import ugettext_lazy as _
 from django.http import JsonResponse
+from datetime import datetime
 
 
 @login_required(login_url='/')
@@ -46,6 +47,7 @@ class PublicAuthorizationView(RedirectView):
         else:
             notification.message = '%s aceitou seu pedido para tornar o \
                 documento público' % (authorization.congressman.name.title())
+            public_group.openning_date = datetime.now().date
         notification.save()
         public_group.save()
 

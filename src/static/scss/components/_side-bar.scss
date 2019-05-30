@@ -35,11 +35,11 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 1.6rem;
-
     border-bottom: $border;
 
     & > h3 {
+      padding: 1.6rem;
+
       color: $color-gray;
     }
 
@@ -52,6 +52,7 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      padding: 1.6rem;
     }
 
     & > .actions > .app-button {
@@ -125,207 +126,27 @@
       content: '';
       pointer-events: none;
 
-      background: linear-gradient(transparent, $color-whisper);
+      height: 100%;
+      margin-right: .8rem;
     }
 
-    & > .cluster > .content,
-    & > .cluster > .opinions > .opinion {
-      position: relative;
+    & > .action > .item {
+      font-size: $font-size-micro;
 
-      display: flex;
-      align-items: center;
-      flex: 0 0 auto;
-
-      min-height: 3rem;
-      padding: 1.6rem;
+      height: 100%;
+      padding: 1.6rem .8rem;
 
       cursor: pointer;
-      user-select: none;
-      transition: all .25s ease;
+      letter-spacing: 1px;
+      text-transform: uppercase;
 
-      border-bottom: $border;
-      background-color: $color-whisper;
-
-      &::before {
-        position: absolute;
-        z-index: 2;
-        right: -2px;
-
-        display: block;
-
-        width: 5px;
-        height: 100%;
-
-        content: '';
-        transition: all .15s $swift-out;
-
-        opacity: 0;
-        background-color: #FFF;
+      color: $color-brand;
+      &.-disable {
+        color: $color-gray;
       }
 
       &:hover {
-        transition: all .1s ease;
-
-        background-color: #FFF;
-
-        & > .count,
-        & > .text {
-          transform: translateX(.5rem);
-        }
-      }
-
-      & > .count {
-        font-size: $font-size-micro;
-        font-weight: bold;
-        line-height: 1.2;
-
-        display: flex;
-        align-items: center;
-        flex: 1;
-        flex: 0 0 auto;
-        flex-direction: column;
-
-        margin-right: 1.6rem;
-
-        text-transform: uppercase;
-
-        color: $color-gray;
-      }
-
-      & > .count > .value {
-        font-size: 1.625rem;
-        font-weight: bold;
-      }
-
-      & > .text {
-        font-size: $font-size-mili;
-
-        flex: 1;
-
-        margin-top: 0;
-
-        color: $color-gray;
-      }
-
-      & > .count,
-      & > .text {
-        transition: all .15s $swift-out;
-      }
-    }
-
-    & > .cluster.-active {
-      & > .content {
-        background-color: #FFF;
-
-        & > .count,
-        & > .text {
-          transform: translateX(0);
-        }
-
-        &::before {
-          opacity: 1;
-        }
-      }
-
-      & > .opinions {
-        display: block;
-      }
-    }
-
-    & > .cluster > .opinions {
-      display: none;
-
-      & > .opinion {
-        & > .avatar {
-          margin-right: 1.6rem;
-
-          & > img {
-            width: 2.25rem;
-            height: 2.25rem;
-
-            border-radius: 50%;
-          }
-        }
-
-        & > .content {
-          position: relative;
-
-          padding-bottom: 2rem;
-
-          color: $color-gray;
-
-          & > .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            & > .name {
-              font-size: $font-size-centi;
-              font-weight: bold;
-            }
-
-            & > .date {
-              font-size: $font-size-micro;
-            }
-          }
-
-          & > .text {
-            font-size: $font-size-mili;
-
-            flex: 1;
-
-            margin-top: .5rem;
-
-            color: $color-gray;
-          }
-
-          & > .votes {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-
-            display: flex;
-            align-items: center;
-
-            & > * + * {
-              margin-left: .75rem;
-            }
-
-            & > .vote {
-              font-size: $font-size-micro;
-
-              display: flex;
-              align-items: center;
-
-              color: $color-gray;
-
-              &::before {
-                display: block;
-
-                width: .5rem;
-                height: .5rem;
-                margin-right: .25rem;
-
-                content: '';
-
-                border-radius: 50%;
-                background-color: red;
-              }
-
-              &.-approve::before {
-                background-color: $color-brand;
-              }
-
-              &.-reject::before {
-                background-color: $color-red;
-              }
-
-              &.-neutral::before {
-                background-color: $color-deep-gray;
-              }
-            }
-          }
-        }
+        color: lighten($color-brand, 10%);
       }
     }
   }

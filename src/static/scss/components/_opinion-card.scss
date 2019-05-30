@@ -106,6 +106,8 @@
       overflow-x: hidden;
       overflow-y: auto;
 
+      width: 100%;
+
       @include bp-mediumup {
         display: flex;
         overflow-x: unset;
