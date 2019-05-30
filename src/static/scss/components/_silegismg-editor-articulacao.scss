@@ -4,7 +4,14 @@
   }
 
   & > p {
-    text-align: left;
+    text-align: left !important;
+    text-indent: 0 !important;
+    line-height: 1.75 !important;
+    border-left-width: 1px !important;
+  }
+
+  & > p[data-invalido]::after {
+    font-size: $font-size-micro !important;
   }
 
   & > p.-highlight {
