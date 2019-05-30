@@ -30,6 +30,7 @@ ThemeAutocompleteView.prototype.publishers = function() {
       });
     },
     focus: function(event, ui) {
+      console.log('foi');
       $('.js-autocompleteList .js-themeTag').removeClass('-active');
       $('.js-autocompleteList .js-themeTag[data-value="' + ui.item.slug + '"]')
         .addClass('-active');
@@ -44,6 +45,10 @@ ThemeAutocompleteView.prototype.publishers = function() {
       self.addTheme(ui.item);
     }
   });
+
+  self.inputElement.on('focus', function() {
+    self.inputElement.autocomplete('search', '');
+  })
 
   autocomplete.autocomplete('instance')._renderItem = function(ul, item) {
     var li = $('<li>')
