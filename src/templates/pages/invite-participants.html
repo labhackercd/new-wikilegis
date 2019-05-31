@@ -88,9 +88,9 @@
       <div class="input-text -required -date">
         {{form.closing_date.errors}}
         {% if object %}
-        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}"required id="id_closing_date" value="{{object.closing_date|date:'Y-m-d'}}">
+        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}" required id="id_closing_date" value="{{object.closing_date|date:'Y-m-d'}}">
         {% else %}
-        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}"required id="id_closing_date">
+        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}" required id="id_closing_date">
         {% endif %}
         <label for="id_closing_date">Data de encerramento:</label>
       </div>
@@ -129,7 +129,7 @@
           {% if object.thematic_group.participants.all %}
           {% for participant in object.thematic_group.participants.all %}
             <div class="user-profile js-user" data-user-id="{{ participant.id }}">
-              <img class="avatar" src="{{participant.profile.avatar|default_if_none:'/static/img/avatar.png'}}">
+              <img class="avatar" src="{% if participant.profile.avatar %}{{participant.profile.avatar}}{% else %}{% static 'img/avatar.png' %}{% endif %}">
               <div class="info">
                 <span class="name">{{ participant.get_full_name }}</span>
                 {% for theme in participant.themes.all %}
@@ -160,6 +160,9 @@
 {% endblock content %}
 
 {% block page_js %}
+<script>
+  var prefixURL = '{{prefix_url|default_if_none:""}}';
+</script>
 <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/components/openParticipation/view.js' %}"></script>
 <script src="{% static 'js/components/filterModal/view.js' %}"></script>
