@@ -68,10 +68,10 @@
           <select id="id_version_name" required name="version" {% if not versions %}disabled{% endif %}>
             {% for version in versions %}
               <option value="{{version.pk}}">
-                {% if object.version.name %}
-                {{object.version.name}}
+                {% if version.name %}
+                {{version.name}}
                 {% else %}
-                {{object.version.created|date:'H\hi - d \d\e b, Y'}}
+                {{version.created|date:'H\hi - d \d\e b, Y'}}
                 {% endif %}
               </option>
             {% endfor %}

@@ -123,8 +123,7 @@ ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id,
 
 ParticipantsAutocompleteView.prototype.updateSearchParticipants = function () {
   var self = this;
-
-  self.inputNameElement.focus();
+  self.inputNameElement.autocomplete('search');
 };
 
 ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
@@ -200,7 +199,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       $(`.js-inputProfile .js-user[data-user-id=${ui.item.id}]`).hide();
     }
   })
-    .bind('focus', function(){
+    .bind('keypress', function(){
       $(this).autocomplete('search');
     })
     .data('ui-autocomplete')._renderItem = function (ul, item) {
