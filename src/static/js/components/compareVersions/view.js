@@ -45,7 +45,6 @@ CompareVersionsView.prototype.fetchVersionsData = function() {
   var self = this;
   var checked = self.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement:checked');
   var documentId = $('.js-documentEditor').data('documentId');
-  var textsData = [];
 
   checked.sort(function(a, b) {
     var versionA = parseInt($(a).closest('.js-namedVersion').data('versionNumber'));
@@ -55,8 +54,6 @@ CompareVersionsView.prototype.fetchVersionsData = function() {
     } else {
       return -1;
     }
-
-    return 0;
   });
 
   checked.each(function(idx, element) {

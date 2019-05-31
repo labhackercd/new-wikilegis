@@ -2,7 +2,7 @@
 DocumentEditorView ValidationModalView InfoMessageView
 CongressmanAutocompleteView PublicFormModalView PublicFormController
 ToolBarView ToolBarController SaveMessageView DocumentEditorController
-SaveModalView DocumentSideBarView TimelineSidebarView CompareVersionsView */
+SaveModalView DocumentSideBarView TimelineSidebarView CompareVersionsController CompareVersionsView */
 
 var editor = $('.js-textEditor')[0];
 silegismgEditorArticulacaoController(editor, {

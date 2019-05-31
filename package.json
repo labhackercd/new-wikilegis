@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@chenfengyuan/datepicker": "^1.0.7",
+    "air-datepicker": "^2.2.3",
     "autoprefixer": "^9.3.1",
     "autosize": "^4.0.2",
     "codemirror": "^5.47.0",

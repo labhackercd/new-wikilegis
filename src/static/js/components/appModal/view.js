@@ -30,6 +30,12 @@ AppModalView.prototype.publishers = function() {
   $('.app-modal .js-closeModal').on('click', function() {
     events.closeModal.publish();
   });
+
+  $(document).on('keydown', function(e) {
+    if (e.keyCode == 27) {
+      events.closeModal.publish();
+    }
+  });
 };
 
 AppModalView.prototype.hide = function() {

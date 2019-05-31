@@ -4,6 +4,7 @@ var TextInputView = function() {};
 
 TextInputView.prototype.initEvents = function() {
   this.textInputElement = $('input, textarea, select');
+
   this.publishers();
 };
 

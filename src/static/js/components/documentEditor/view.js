@@ -41,7 +41,7 @@ DocumentEditorView.prototype.subscribers = function() {
     self.documentEditorElement.removeClass('-compare');
     self.closeDiffButton.removeClass('-show');
     self.mergelyWrapper.html('');
-  })
+  });
 };
 
 DocumentEditorView.prototype.publishers = function() {
@@ -103,7 +103,7 @@ DocumentEditorView.prototype.createDiffDocument = function(data) {
       ${data.html}
     </div>
   </article>
-  `
+  `;
 
   this.documentEditorElement.append($(article));
 };
@@ -139,7 +139,7 @@ DocumentEditorView.prototype.showDiff = function(text1, text2) {
     loaded: function() {
       setTimeout(function() {
         $('#mergely').mergely('resize');
-      }, 300)
+      }, 300);
     },
   });
 };

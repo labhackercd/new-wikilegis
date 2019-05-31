@@ -5,6 +5,7 @@
 {% block title %}Convidar participantes{% endblock title %}
 
 {% block extracss %}
+<link rel="stylesheet" href="{% static 'air-datepicker/dist/css/datepicker.min.css' %}">
 <style>
   .ui-autocomplete-loading {
     background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
@@ -43,7 +44,7 @@
     <a onclick="window.history.back();" class="link-back">Voltar</a>
 
   </header>
-  <form method="POST" id="invited_group_form">
+  <form method="POST" id="invited_group_form" autocomplete="off">
     {% csrf_token %}
     {{form.non_field_errors}}
     <div class="input-group">
@@ -88,9 +89,9 @@
       <div class="input-text -required -date">
         {{form.closing_date.errors}}
         {% if object %}
-        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}" required id="id_closing_date" value="{{object.closing_date|date:'Y-m-d'}}">
+        <input class="js-datePicker" name="closing_date" required id="id_closing_date" value="{{object.closing_date|date:'Y-m-d'}}">
         {% else %}
-        <input type="date" name="closing_date" min="{% now 'Y\-m\-d' %}" required id="id_closing_date">
+        <input class="js-datePicker" name="closing_date" required id="id_closing_date">
         {% endif %}
         <label for="id_closing_date">Data de encerramento:</label>
       </div>
@@ -164,6 +165,9 @@
   var prefixURL = '{{prefix_url|default_if_none:""}}';
 </script>
 <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/datepicker.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/i18n/datepicker.pt-BR.js' %}"></script>
+<script src="{% static 'js/components/datePicker/view.js' %}"></script>
 <script src="{% static 'js/components/openParticipation/view.js' %}"></script>
 <script src="{% static 'js/components/filterModal/view.js' %}"></script>
 <script src="{% static 'js/components/filterModal/controller.js' %}"></script>
