@@ -16,7 +16,7 @@
 
   <div class="list">
     <a href="{% url 'new_document' %}" class="document-card -new">
-      <span class="icon" aria-label="Adicionar projeto"></span>
+      <span class="icon" aria-label="Novo Documento"></span>
     </a>
 
     {% for document in object_list %}
@@ -53,8 +53,8 @@
 
         <div class="footer">
 
-          <!-- XXX Uncomment when feed status is fully implemented 
-            
+          <!-- XXX Uncomment when feed status is fully implemented
+
           <div class="status -owner">
             <div class="feedback-status">
               <img src="{% static 'img/hourglass.svg' %}" alt="">
