@@ -21,21 +21,23 @@
       <input class="js-input" type="text" name="theme-autocomplete">
       <label>{% trans "Tema" %}</label>
       <div class="themes">
-        <span class="title {% if not object.themes.all %}_hidden{% endif %} js-title">Temas Adicionados:</span>
-        <ul class="tags js-tags">
-          {% if object.themes.all %}
+        <div class="wrapper">
+          <span class="title {% if not object.themes.all %}_hidden{% endif %} js-title">Temas Adicionados:</span>
+          <ul class="tags js-tags">
+            {% if object.themes.all %}
             {% for theme in object.themes.all %}
-              <li class="theme-tag js-tag -selected" data-theme-id="{{theme.id}}"><span class="dot" style="background-color: {{theme.color}};"></span>{{theme.name}}</li>
+            <li class="theme-tag js-tag -selected" data-theme-id="{{theme.id}}"><span class="dot" style="background-color: {{theme.color}};"></span>{{theme.name}}</li>
             {% endfor %}
-          {% endif %}
-        </ul>
-      {{form.themes.errors}}
+            {% endif %}
+          </ul>
+        </div>
+        {{form.themes.errors}}
       </div>
-    {% if object.themes.all %}
-      {% for theme in object.themes.all %}
-      <input type="hidden" name="themes" value="{{theme.id}}">
-      {% endfor %}
-    {% endif %}
+      {% if object.themes.all %}
+        {% for theme in object.themes.all %}
+        <input type="hidden" name="themes" value="{{theme.id}}">
+        {% endfor %}
+      {% endif %}
     </div>
     <div class="input-select">
       <div class="select">

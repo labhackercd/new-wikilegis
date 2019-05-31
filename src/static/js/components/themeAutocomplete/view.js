@@ -46,9 +46,9 @@ ThemeAutocompleteView.prototype.publishers = function() {
     }
   });
 
-  self.inputElement.on('focus', function() {
-    self.inputElement.autocomplete('search', '');
-  })
+  self.inputElement.on('click', function() {
+    $(this).autocomplete('search', '');
+  });
 
   autocomplete.autocomplete('instance')._renderItem = function(ul, item) {
     var li = $('<li>')
@@ -108,8 +108,8 @@ ThemeAutocompleteView.prototype.addTheme = function(theme) {
 
 ThemeAutocompleteView.prototype.toggleTitle = function() {
   if ($('input[name="themes"]').length > 0) {
-    this.titleElement.removeClass('_hidden');
+    this.titleElement.parent().removeClass('_hidden');
   } else {
-    this.titleElement.addClass('_hidden');
+    this.titleElement.parent().addClass('_hidden');
   }
 };
