@@ -1,9 +1,9 @@
-/*global $ events */
+/*global $ Urls events */
 
 var CompareVersionsController = function() {};
 
 CompareVersionsController.prototype.initEvents = function() {
-}
+};
 
 CompareVersionsController.prototype.loadDiffText = function(documentId, versionNumber) {
   var request = $.ajax({

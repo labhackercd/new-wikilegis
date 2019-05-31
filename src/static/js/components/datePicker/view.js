@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ */
 
 var DatePickerView = function() {};
 
@@ -11,5 +11,5 @@ DatePickerView.prototype.publishers = function () {
     language: 'pt-BR',
     minDate: new Date(),
     autoClose: true,
-  })
+  });
 };

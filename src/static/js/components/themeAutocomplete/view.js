@@ -30,7 +30,6 @@ ThemeAutocompleteView.prototype.publishers = function() {
       });
     },
     focus: function(event, ui) {
-      console.log('foi');
       $('.js-autocompleteList .js-themeTag').removeClass('-active');
       $('.js-autocompleteList .js-themeTag[data-value="' + ui.item.slug + '"]')
         .addClass('-active');
