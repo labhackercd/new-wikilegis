@@ -5,7 +5,8 @@ import re
 
 def settings_variables(request):
     site_url = Site.objects.get_current().domain
-    return {'site_url': site_url}
+    prefix_url = settings.FORCE_SCRIPT_NAME
+    return {'site_url': site_url, 'prefix_url': prefix_url}
 
 
 def current_url(request):

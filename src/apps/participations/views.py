@@ -183,7 +183,6 @@ class InvitedGroupListView(ListView):
             context['private_groups'] = queryset.none()
             context['pending_invites'] = queryset.none()
 
-        context['prefix_url'] = settings.FORCE_SCRIPT_NAME
         return context
 
     def get_queryset(self):

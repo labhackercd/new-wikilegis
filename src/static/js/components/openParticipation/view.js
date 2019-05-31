@@ -106,7 +106,7 @@ ParticipantsAutocompleteView.prototype.participantItem = function (add, user_id,
   }
   var element = `
     <div class="user-profile js-user" data-user-id="${user_id}">
-      <img class="avatar" src="${avatar || '/static/img/avatar.png'}">
+      <img class="avatar" src="${avatar || prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
       <div class="info">
         <span class="name">${first_name} ${last_name}</span>
         <div class="tags">
@@ -214,7 +214,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       if (self.validateEmail(email)) {
         var element = `
         <div class="user-profile js-email" data-email="${email}">
-          <img class="avatar" src="/static/img/avatar.png">
+          <img class="avatar" src="${prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
           <div class="info">
             <span class="name">${email}</span>
           </div>
