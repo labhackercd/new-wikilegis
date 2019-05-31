@@ -1,4 +1,4 @@
-/*global $ events Urls */
+/*global $ events Urls prefixURL */
 
 var ParticipantsAutocompleteView = function() {};
 
