@@ -1,3 +1,4 @@
+
 * {
   font-family: inherit;
   font-size: inherit;
@@ -243,4 +244,40 @@ button {
 
 .silegismg-editor-articulacao {
   margin-top: 2rem;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+  }
+
+  .document-editor,
+  .document-editor.-active {
+    width: 66ch;
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .document-editor > article {
+    overflow: scroll !important;
+
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+  }
+
+  .nav-bar,
+  .side-bar,
+  .tool-bar,
+  .page-minimap,
+  .document-editor > article > header > .info,
+  .document-editor > article > header .date,
+  .excerpt-wrapper > .votes,
+  .save-message {
+    display: none !important;
+  }
 }
