@@ -5,8 +5,9 @@ var CompareVersionsView = function() {};
 CompareVersionsView.prototype.initEvents = function(timelineSidebar, controller) {
   this.timelineSidebar = timelineSidebar;
   this.controller = controller;
-  this.compareVersionAction = $('.js-compareVersionAction');
-  this.showDiffButton = $('.js-showDiff');
+  this.compareActions = $('.js-compareActions');
+  this.startComparisonElement = $('.js-compareActions .js-startComparison');
+  this.cancelComparisonElement = $('.js-compareActions .js-cancelComparison');
   this.versionsData = [];
 
   this.subscribers();
@@ -26,18 +27,26 @@ CompareVersionsView.prototype.subscribers = function() {
   events.closeDiff.subscribe(function() {
     self.versionsData = [];
   });
+
+  events.documentChanged.subscribe(function() {
+    self.cancelComparison();
+  });
 };
 
 CompareVersionsView.prototype.publishers = function() {
   var self = this;
-  self.compareVersionAction.on('click', function() {
-    self.toggleAction();
+  self.startComparisonElement.on('click', function() {
+    if (self.startComparisonElement.hasClass('js-comparing')) {
+      if (!self.startComparisonElement.hasClass('js-disabled')) {
+        self.fetchVersionsData();
+      }
+    } else {
+      self.startComparison();
+    }
   });
 
-  self.showDiffButton.on('click', function() {
-    if (!self.showDiffButton.hasClass('js-disabled')) {
-      self.fetchVersionsData();
-    }
+  self.cancelComparisonElement.on('click', function() {
+    self.cancelComparison();
   });
 };
 
@@ -79,36 +88,38 @@ CompareVersionsView.prototype.updateVersionDataList = function(data) {
 
 CompareVersionsView.prototype.toggleShowDiffButton = function() {
   if (this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement:checked').length < 2) {
-    this.showDiffButton.addClass('-gray');
-    this.showDiffButton.removeClass('-green');
-    this.showDiffButton.addClass('js-disabled');
+    this.startComparisonElement.addClass('-gray');
+    this.startComparisonElement.removeClass('-green');
+    this.startComparisonElement.addClass('js-disabled');
   } else {
-    this.showDiffButton.removeClass('-gray');
-    this.showDiffButton.addClass('-green');
-    this.showDiffButton.removeClass('js-disabled');
+    this.startComparisonElement.removeClass('-gray');
+    this.startComparisonElement.addClass('-green');
+    this.startComparisonElement.removeClass('js-disabled');
   }
 };
 
-CompareVersionsView.prototype.toggleAction = function() {
-  if (this.compareVersionAction.hasClass('js-compare')) {
-    this.compareVersionAction.removeClass('js-compare');
-    this.compareVersionAction.text('CANCELAR');
-    this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox').removeClass('_hidden');
-    this.timelineSidebar.collapseAutosaves();
-    this.timelineSidebar.timelineSidebar.addClass('js-comparing');
-    this.showDiffButton.addClass('-show');
+CompareVersionsView.prototype.startComparison = function () {
+  this.cancelComparisonElement.addClass('-show');
+  this.startComparisonElement.addClass('js-comparing');
 
-    this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement').removeAttr('checked');
-    var selectedVersion = $('.js-timelineSidebar .js-version.-selected');
-    var namedParent = selectedVersion.closest('.js-namedVersions');
-    namedParent.find('.js-namedVersion').addClass('-selected');
-    namedParent.find('.js-compareCheckbox .js-checkboxElement').attr('checked', true);
-    events.versionSelectedToCompare.publish();
-  } else {
-    this.compareVersionAction.addClass('js-compare');
-    this.compareVersionAction.text('COMPARAR');
-    $('.js-timelineSidebar .js-compareCheckbox').addClass('_hidden');
-    this.timelineSidebar.timelineSidebar.removeClass('js-comparing');
-    this.showDiffButton.removeClass('-show');
-  }
+  this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox').removeClass('_hidden');
+  this.timelineSidebar.collapseAutosaves();
+  this.timelineSidebar.timelineSidebar.addClass('js-comparing');
+  this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement').removeAttr('checked');
+
+  var selectedVersion = this.timelineSidebar.timelineSidebar.find('.js-version.-selected');
+  var namedParent = selectedVersion.closest('.js-namedVersions');
+  namedParent.find('.js-namedVersion').addClass('-selected');
+  namedParent.find('.js-compareCheckbox .js-checkboxElement').attr('checked', true);
+  events.versionSelectedToCompare.publish();
+};
+
+CompareVersionsView.prototype.cancelComparison = function () {
+  this.cancelComparisonElement.removeClass('-show');
+  this.startComparisonElement.removeClass('js-comparing');
+  this.startComparisonElement.removeClass('-gray');
+  this.startComparisonElement.addClass('-green');
+
+  $('.js-timelineSidebar .js-compareCheckbox').addClass('_hidden');
+  this.timelineSidebar.timelineSidebar.removeClass('js-comparing');
 };
