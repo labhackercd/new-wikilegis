@@ -36,13 +36,18 @@
   }
 
   &.-filter {
-    padding: 0 2rem 2rem 2rem;
+    padding: 2rem;
 
     background-color: $color-whitesmoke;
 
     & > .content > .app-button {
       margin-top: 2rem;
       margin-left: auto;
+    }
+
+    & .close-icon {
+      margin-top: 2rem;
+      margin-right: 2rem;
     }
   }
 
