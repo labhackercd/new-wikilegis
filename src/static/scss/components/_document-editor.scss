@@ -159,7 +159,7 @@
 
   & > article > .tags {
     position: sticky;
-    z-index: 3;
+    z-index: 4;
     top: 3.75rem;
 
     display: flex;
@@ -172,11 +172,11 @@
     &::before {
       position: absolute;
       top: 0;
-      left: -100%;
+      right: 100%;
 
       display: block;
 
-      width: 100%;
+      width: 8rem;
       height: 100%;
 
       content: '';
