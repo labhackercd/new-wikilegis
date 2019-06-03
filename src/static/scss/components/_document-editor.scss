@@ -168,21 +168,6 @@
     padding: 1rem 0;
 
     background-color: #FFF;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      right: 100%;
-
-      display: block;
-
-      width: 8rem;
-      height: 100%;
-
-      content: '';
-
-      background-color: #FFF;
-    }
   }
 
   & > article > .tags > * + * {
