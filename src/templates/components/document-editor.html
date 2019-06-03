@@ -1,7 +1,11 @@
+{% load staticfiles %}
+
 <article class="js-textEditorWrapper">
-  <div class="tip">
-    <span class="message">Altere o tipo de dispositivo pressionando a tecla <span class="key">TAB</span></span>
-  </div>
+
+  <button class="modify js-openContextualToolbar" aria-label="Trocar articulação  |  Tab">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" fill="#383838"><path d="M3.854.854a.5.5 0 1 0-.707-.707L.793 2.5l2.354 2.354a.5.5 0 0 0 .707-.707L2.707 3H12a.5.5 0 1 0 0-1H2.707L3.854.854zm6.293 5a.5.5 0 0 1 .707-.707L13.207 7.5l-2.354 2.354a.5.5 0 0 1-.707-.707L11.293 8H2a.5.5 0 1 1 0-1h9.293l-1.146-1.146z"/></svg>
+  </button>
+
   {% include "components/contextual-toolbar.html" %}
   <div tabindex="1" class="js-textEditor"></div>
   <div class="save-message js-saveMessage">

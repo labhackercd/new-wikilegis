@@ -21,7 +21,7 @@ var documentEditorController = new DocumentEditorController();
 documentEditorController.initEvents();
 
 var documentEditorView = new DocumentEditorView();
-documentEditorView.initEvents(editor, contextualToolbarView);
+documentEditorView.initEvents(editor);
 
 var validationModalView = new ValidationModalView();
 validationModalView.initEvents();

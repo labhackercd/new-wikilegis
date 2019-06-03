@@ -222,6 +222,50 @@
     margin-top: 1rem;
   }
 
+  & > article > .modify {
+    position: absolute;
+    top: 246px;
+    left: 805px;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 1rem;
+
+    cursor: pointer;
+    transition: background-color .1s ease-in-out;
+    animation: reveal-from-right .3s $swift-out forwards;
+
+    border-radius: .25rem;
+
+    @include hovering-label(left, 0, inherit, $font-size-micro, auto, after, absolute);
+
+    &::after {
+      font-size: $font-size-micro;
+      font-weight: 400;
+
+      margin-right: .5rem;
+      padding: .5rem;
+
+      transition: transform .3s .5s cubic-bezier(.55, 0, .1, 1), opacity .3s .5s cubic-bezier(.55, 0, .1, 1);
+
+      color: #FFF;
+      background-color: $color-deep-gray;
+    }
+  }
+
+  & > article > .modify.-show {
+    display: flex;
+  }
+
+
+  & > article > .modify:hover {
+    background-color: #F2F2F2;
+  }
+
   & > article > p {
     cursor: pointer;
   }

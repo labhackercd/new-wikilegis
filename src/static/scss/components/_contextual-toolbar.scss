@@ -2,18 +2,33 @@
   position: absolute;
   z-index: 1;
 
-  margin-top: 1rem;
+  margin-bottom: .5rem;
   padding: .5rem 1rem;
 
   user-select: none;
   transition: border-color .1s ease, box-shadow .1s ease;
-  animation: reveal-from-bottom .3s $swift-out;
+  animation: zoom-in-reveal .15s $swift-out;
+  transform-origin: 0 100%;
 
   border: 1px solid $color-grayish;
-  border-top: 3px solid $color-brand;
+  border-bottom: 3px solid $color-brand;
   border-radius: .25rem;
   background-color: white;
   box-shadow: 2px 2px 9px 0 hsla(0, 0%, 50%, .3);
+
+  & > .arrow{
+    position: absolute;
+    top: 100%;
+
+    width: 0;
+    height: 0;
+
+    content: '';
+
+    border-top: 10px solid #2DA965;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+  }
 
   &.-error {
     animation: shake .1s 2 ease;
@@ -42,7 +57,6 @@
     text-transform: uppercase;
 
     color: $color-deep-gray;
-    border: 1px solid transparent;
     border-radius: .25rem;
     background-color: white;
   }
