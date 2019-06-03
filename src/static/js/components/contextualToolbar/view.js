@@ -6,6 +6,7 @@ ContextualToolbarView.prototype.initEvents = function(editor) {
   this.editor = editor;
 
   this.contextualToolbar = $('.js-contextualToolbar');
+  this.arrow = $('.js-contextualToolbar .js-contextualToolbarArrow');
   this.openContextualToolbarButton = $('.js-openContextualToolbar');
   this.typeList = $('.js-contextualToolbar .js-typeList');
   this.excerptTypes = $('.js-contextualToolbar .js-excerptType');
@@ -154,11 +155,14 @@ ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
 
 ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) {
   var anchorPosition = absolutePosition(anchorElement);
-  var toolbarBBox = absolutePosition(this.contextualToolbar[0]);
+  var toolbarOuterHeight= this.contextualToolbar.outerHeight(true);
   var editorBBox = this.editor.getBoundingClientRect();
+  var arrowWidth = this.arrow.outerWidth(true)
+  var spanWidth = parseInt(window.getComputedStyle(anchorElement, ':before').width);
 
-  this.contextualToolbar.css('top', anchorPosition.top + anchorPosition.height);
-  this.contextualToolbar.css('left', editorBBox.left + (editorBBox.width / 2) - (toolbarBBox.width / 2));
+  this.contextualToolbar.css('top', anchorPosition.top - toolbarOuterHeight)
+  this.contextualToolbar.css('left', editorBBox.left);
+  this.arrow.css('left', (spanWidth / 2) - (arrowWidth / 2));
 };
 
 ContextualToolbarView.prototype.showOpenToolbarButton = function() {
