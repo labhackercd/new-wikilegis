@@ -25,6 +25,7 @@
 
   & > .metrics {
     position: absolute;
+    z-index: 2;
     top: 50%;
     left: -7.5rem;
 
@@ -42,18 +43,18 @@
   }
 
   & > .metrics > .item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: flex-end;
 
-    @include hovering-label(right, 2em, $color-whitesmoke, .875rem);
+    @include hovering-label(left, 2em, $color-whitesmoke, .875rem);
 
     &::after {
+      margin-right: 1em;
+      padding: .75em 1em;
+
+      border-radius: .25rem;
       background-color: $color-deep-gray;
-      padding: 0.75em 1em;
-      border-radius: 0.25rem;
-      margin-left: 1em;
-      z-index: 2;
     }
   }
 
@@ -65,7 +66,7 @@
 
       margin-right: .25rem;
 
-      background-color: $color-link;
+      background-color: $color-purple;
     }
 
     & > .value {

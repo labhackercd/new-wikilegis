@@ -1,6 +1,20 @@
 {% load staticfiles projects_tags participations_tags dashboard_tags %}
 
 <article id="article" class="-analysis js-articleDocument" data-group-id={{group.id}}>
+  <ul class="tags">
+    <li class="app-tag -button -active -public">
+      <i class="icon" alt="Participantes"></i>
+      <span class="label">{{participation_count}} Participantes</span>
+    </li>
+    <li class="app-tag -button -opinions">
+      <i class="icon" alt="Opiniões"></i>
+      <span class="label">{{group.suggestions.count}} Opiniões</span>
+    </li>
+    <li class="app-tag -button -votes">
+      <i class="icon" alt="Votos"></i>
+      <span class="label">{{group|group_votes}} Votos</span>
+    </li>
+  </ul>
   <header>
     <div class="info">
       {% now "Y-m-d" as todays_date %}
@@ -9,20 +23,6 @@
       {% else %}
       <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
       {% endif %}
-      <ul class="tags">
-        <li class="app-tag -button -active -public">
-          <i class="icon" alt="Participantes"></i>
-          <span class="label">{{participation_count}} Participantes</span>
-        </li>
-        <li class="app-tag -button -opinions">
-          <i class="icon" alt="Opiniões"></i>
-          <span class="label">{{group.suggestions.count}} Opiniões</span>
-        </li>
-        <li class="app-tag -button -votes">
-          <i class="icon" alt="Votos"></i>
-          <span class="label">{{group|group_votes}} Votos</span>
-        </li>
-      </ul>
     </div>
     <h1 class="js-documentTitle" contentEditable="true">{{ object.title }}</h1>
     <p class="js-documentDescription description">{{ object.description }}</p>
@@ -48,19 +48,19 @@
         <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
         <span class="metrics">
-          <span class="item -votes" aria-label="Votos">
+          <span class="item -votes" aria-label="{% get_percent excerpt|excerpt_votes:group group|group_votes %}% de Votos">
             <span class="value">{{excerpt|excerpt_votes:group}}</span>
             <span class="bar">
               <span class="size" style="width: {% get_percent excerpt|excerpt_votes:group group|group_votes %}%;"></span>
             </span>
           </span>
-          <span class="item -opinions" aria-label="Opiniões">
+          <span class="item -opinions" aria-label="{% get_percent excerpt|excerpt_opinions:group group.suggestions.count %}% de Opiniões">
             <span class="value">{{excerpt|excerpt_opinions:group}}</span>
             <span class="bar">
               <span class="size" style="width: {% get_percent excerpt|excerpt_opinions:group group.suggestions.count %}%;"></span>
             </span>
           </span>
-          <span class="item -participants" aria-label="Participantes">
+          <span class="item -participants" aria-label="{% get_percent excerpt|excerpt_participants:group participation_count %}% de Participantes">
             <span class="value">{{excerpt|excerpt_participants:group}}</span>
             <span class="bar">
               <span class="size" style="width: {% get_percent excerpt|excerpt_participants:group participation_count %}%;"></span>

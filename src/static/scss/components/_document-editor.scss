@@ -157,11 +157,35 @@
   }
 
 
-  & > article > header .tags {
+  & > article > .tags {
+    position: sticky;
+    z-index: 3;
+    top: 3.75rem;
+
     display: flex;
+
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+
+    background-color: #FFF;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: -100%;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      content: '';
+
+      background-color: #FFF;
+    }
   }
 
-  & > article > header .tags > * + * {
+  & > article > .tags > * + * {
     margin-left: 1rem;
   }
 
