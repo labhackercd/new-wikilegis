@@ -186,8 +186,17 @@ var events = {
   // Params: newTitle
   documentTitleEditionEnd: $.Topic('documentTitleEditionEnd'),
 
+  // Triggered when user clicks inside of text editor
+  focusEditor: $.Topic('focusEditor'),
+
   // Triggered when user clicks outside of text editor
-  closeContextualToolbox: $.Topic('closeContextualToolbox'),
+  blurEditor: $.Topic('blurEditor'),
+
+  // Triggered when the contextualToolbar is opened
+  openContextualToolbar: $.Topic('openContextualToolbar'),
+
+  // Triggered when the contextualToolbar is closed
+  closeContextualToolbar: $.Topic('closeContextualToolbar'),
 
   // Triggered when user click on openValidationButton
   openValidationModal: $.Topic('openValidationModal'),

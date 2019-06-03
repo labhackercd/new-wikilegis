@@ -2,9 +2,8 @@
 
 var DocumentEditorView = function() {};
 
-DocumentEditorView.prototype.initEvents = function(editor, toolbarView) {
+DocumentEditorView.prototype.initEvents = function(editor) {
   this.editor = editor;
-  this.toolbarView = toolbarView;
   this.typing = null;
   this.documentEditorElement = $('.js-documentEditor');
   this.closeDiffButton = $('.js-closeDiff');
@@ -22,7 +21,19 @@ DocumentEditorView.prototype.subscribers = function() {
     self.endEdition('title', newTitle);
   });
 
-  events.closeContextualToolbox.subscribe(function() {
+  events.openContextualToolbar.subscribe(function() {
+    self.highligthCurrentExcerpt();
+  });
+
+  events.closeContextualToolbar.subscribe(function() {
+    self.removeBlur();
+  });
+
+  events.focusEditor.subscribe(function() {
+    self.removeBlur();
+  });
+
+  events.blurEditor.subscribe(function() {
     self.removeBlur();
   });
 
@@ -48,15 +59,15 @@ DocumentEditorView.prototype.publishers = function() {
   var self = this;
 
   $(self.editor).on('focus', function() {
-    events.closeContextualToolbox.publish();
+    events.focusEditor.publish();
     $(self.editor).attr('tabindex', 1);
   });
 
   $(self.editor).on('keydown', function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '9') {
-      self.toolbarView.show();
-      self.highligthCurrentExcerpt();
+      events.blurEditor.publish();
+      events.openContextualToolbar.publish();
     }
   });
 

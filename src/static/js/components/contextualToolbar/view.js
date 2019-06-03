@@ -6,6 +6,7 @@ ContextualToolbarView.prototype.initEvents = function(editor) {
   this.editor = editor;
 
   this.contextualToolbar = $('.js-contextualToolbar');
+  this.openContextualToolbarButton = $('.js-openContextualToolbar');
   this.typeList = $('.js-contextualToolbar .js-typeList');
   this.excerptTypes = $('.js-contextualToolbar .js-excerptType');
 
@@ -18,9 +19,27 @@ ContextualToolbarView.prototype.subscribers = function() {
 
   self.editor.addEventListener('contexto', function (e) {
     self.showAllowedExcerptTypes(e.detail.permissoes);
+    self.showOpenToolbarButton();
   });
 
-  events.closeContextualToolbox.subscribe(function() {
+  events.blurEditor.subscribe(function() {
+    events.closeContextualToolbar.publish();
+    self.hideOpenToolbarButton();
+  });
+
+  events.focusEditor.subscribe(function() {
+    events.closeContextualToolbar.publish();
+
+    if (self.editor.ctrlArticulacao.contexto !== undefined) { // If the page has just been loaded, returns undefined
+      self.showOpenToolbarButton();
+    }
+  });
+
+  events.openContextualToolbar.subscribe(function() {
+    self.show();
+  });
+
+  events.closeContextualToolbar.subscribe(function() {
     self.hide();
   });
 };
@@ -45,7 +64,7 @@ ContextualToolbarView.prototype.publishers = function() {
 
     if (keycode == '27' || keycode == '38' || keycode == '40') {
       // Esc, Up arrow, Down arrow
-      self.hide();
+      events.closeContextualToolbar.publish();
       self.editor.focus();
     } else if (keycode == '37') {
       // Left arrow
@@ -75,6 +94,11 @@ ContextualToolbarView.prototype.publishers = function() {
     else if (keycode == '76') { self.activateShortcut('alinea'); } // "L" Key
     else if (keycode == '69') { self.activateShortcut('item'); } // "E" Key
     else if (keycode == '79') { self.activateShortcut('continuacao'); } // "O" Key
+  });
+
+  self.openContextualToolbarButton.on('click', function(){
+    events.blurEditor.publish();
+    events.openContextualToolbar.publish();    
   });
 };
 
@@ -135,4 +159,34 @@ ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) 
 
   this.contextualToolbar.css('top', anchorPosition.top + anchorPosition.height);
   this.contextualToolbar.css('left', editorBBox.left + (editorBBox.width / 2) - (toolbarBBox.width / 2));
+};
+
+ContextualToolbarView.prototype.showOpenToolbarButton = function() {
+    var button = this.openContextualToolbarButton
+
+    button.removeClass('-show');
+
+    this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
+
+    // Small delay in order to remove and then add modifier class and trigger its animation
+    setTimeout(function(){
+      button.addClass('-show');
+    },1);
+};
+
+ContextualToolbarView.prototype.hideOpenToolbarButton = function() {
+  this.openContextualToolbarButton.removeClass('-show');
+};
+
+
+ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(anchorElement) {
+  var anchorPosition = absolutePosition(anchorElement);
+  var editorBBox = this.editor.getBoundingClientRect();
+  var spanHeight = parseInt(window.getComputedStyle(anchorElement, ':before').height)
+  var buttonOuterWidth = this.openContextualToolbarButton.outerWidth(true);
+  var buttonOuterHeight= this.openContextualToolbarButton.outerHeight(true);
+
+
+  this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - spanHeight) / 2));
+  this.openContextualToolbarButton.css('left', editorBBox.left - buttonOuterWidth );
 };

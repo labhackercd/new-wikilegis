@@ -35,7 +35,7 @@ BodyView.prototype.publishers = function() {
     }
 
     if (target.closest('.js-textEditorWrapper').length == 0) {
-      events.closeContextualToolbox.publish();
+      events.blurEditor.publish();
     }
   });
 
