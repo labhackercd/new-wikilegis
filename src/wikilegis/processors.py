@@ -6,7 +6,10 @@ import re
 def settings_variables(request):
     site_url = Site.objects.get_current().domain
     prefix_url = settings.FORCE_SCRIPT_NAME
-    return {'site_url': site_url, 'prefix_url': prefix_url}
+    scheme = request.is_secure() and "https" or "http"
+    protocol = scheme + '://'
+    return {
+        'site_url': site_url, 'prefix_url': prefix_url, 'protocol': protocol}
 
 
 def current_url(request):

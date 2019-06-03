@@ -72,9 +72,9 @@
 {% if object.public_participation %}
 <div class="item">
   <div class="social">
-    <a class="facebook" data-social="facebook" title="Facebook" href="http://www.facebook.com/sharer/sharer.php?u={{site_url}}{{request.path}}" target="_blank" rel="noopener"></a>
-    <a class="twitter" data-social="twitter" title="Twitter" href="http://twitter.com/share?text=Eu já estou participando, participe você também!&url={{site_url}}{{request.path}}" target="_blank" rel="noopener"></a>
-    <a class="whatsapp" data-social="whatsapp" title="Whatsapp" href="https://api.whatsapp.com/send?text=Eu já estou participando, participe você também!%0A{{site_url}}{{request.path}}%20" target="_blank" rel="noopener"></a>
+    <a class="facebook" data-social="facebook" title="Facebook" href="http://www.facebook.com/sharer/sharer.php?u={{ protocol }}{{ site_url }}{{request.path}}" target="_blank" rel="noopener"></a>
+    <a class="twitter" data-social="twitter" title="Twitter" href="http://twitter.com/share?text=Eu já estou participando, participe você também!&url={{ protocol }}{{ site_url }}{{request.path}}" target="_blank" rel="noopener"></a>
+    <a class="whatsapp" data-social="whatsapp" title="Whatsapp" href="https://api.whatsapp.com/send?text=Eu já estou participando, participe você também!%0A{{ protocol }}{{ site_url }}{{request.path}}%20" target="_blank" rel="noopener"></a>
   </div>
 </div>
 {% endif %}

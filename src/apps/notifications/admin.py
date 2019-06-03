@@ -17,17 +17,6 @@ class ParcipantInvitationAdmin(admin.ModelAdmin):
     list_filter = ('created', 'modified', 'group', 'accepted', 'answered')
 
 
-@admin.register(models.OwnerInvitation)
-class OwnerInvitationAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'created',
-        'modified',
-        'email',
-    )
-    list_filter = ('created', 'modified')
-
-
 @admin.register(models.PublicAuthorization)
 class PublicAuthorizationAdmin(admin.ModelAdmin):
     list_display = (
