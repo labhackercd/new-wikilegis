@@ -171,6 +171,26 @@ $swift-out: cubic-bezier(.55, 0, .1, 1);
   }
 }
 
+
+@keyframes reveal-from-bottom {
+  0% {
+    transform: translateY(50%);
+
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+
+  100% {
+    transform: translateX(0);
+
+    opacity: 1;
+  }
+}
+
 @keyframes fade-to-left {
   0% {
     transform: translateX(0);
