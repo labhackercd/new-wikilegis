@@ -3,4 +3,4 @@
 {% else %}
 <p>O consultor {{ document_owner }} deseja abrir o documento {{ document_title }} para consulta pública até {{ closing_date }}.</p>
 {% endif %}
-<a href="{{ site_url }}{% url 'public-authorization' hash_id %}">Concordo!</a>
+<a href="http://{{ site_url }}{% url 'public-authorization' hash_id %}">Concordo!</a>
