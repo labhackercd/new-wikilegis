@@ -232,24 +232,24 @@ def relevance_classes(relevance_participations=0,
 
     if relevance_opinions < 20:
         classes += ' js-opinionsAmount1'
-    elif relevance_participations < 40:
+    elif relevance_opinions < 40:
         classes += ' js-opinionsAmount2'
-    elif relevance_participations < 60:
+    elif relevance_opinions < 60:
         classes += ' js-opinionsAmount3'
-    elif relevance_participations < 80:
+    elif relevance_opinions < 80:
         classes += ' js-opinionsAmount4'
-    elif relevance_participations == 100:
+    elif relevance_opinions == 100:
         classes += ' js-opinionsAmount5'
 
     if relevance_votes < 20:
         classes += ' js-votesAmount1'
-    elif relevance_participations < 40:
+    elif relevance_votes < 40:
         classes += ' js-votesAmount2'
-    elif relevance_participations < 60:
+    elif relevance_votes < 60:
         classes += ' js-votesAmount3'
-    elif relevance_participations < 80:
+    elif relevance_votes < 80:
         classes += ' js-votesAmount4'
-    elif relevance_participations == 100:
+    elif relevance_votes == 100:
         classes += ' js-votesAmount5'
 
     return classes

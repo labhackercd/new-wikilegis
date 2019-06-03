@@ -1,6 +1,6 @@
 {% load participations_tags %}
 {% if is_owner %}
-<span class="document-excerpt js-documentExcerpt {% relevance_classes relevance_participations relevance_opinions relevance_opinions %} js-participationActive" data-id="{{excerpt.id}}">{% highlight_excerpt excerpt group %}</span>
+<span class="document-excerpt js-documentExcerpt {% relevance_classes relevance_participations relevance_opinions relevance_votes %} js-participationActive" data-id="{{excerpt.id}}">{% highlight_excerpt excerpt group %}</span>
 {% elif group %}
 <span class="document-excerpt js-documentExcerpt" data-id="{{excerpt.id}}">{% highlight_excerpt excerpt group request.user %}</span>
 {% else %}
