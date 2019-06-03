@@ -1,17 +1,23 @@
 .silegismg-editor-articulacao {
   &.-blur > p {
-    opacity: .3;
+    opacity: .1;
   }
 
   & > p {
+    line-height: 1.75 !important;
+
+    margin-left: -.5rem !important;
+    padding-left: .5rem !important;
+
+    transition: opacity .2s ease;
     text-align: left !important;
     text-indent: 0 !important;
-    line-height: 1.75 !important;
+
     border-left-width: 1px !important;
   }
 
   & > p[data-invalido]::after {
-    font-size: $font-size-micro !important;
+    font-size: $font-size-mili !important;
   }
 
   & > p.-highlight {
