@@ -197,22 +197,6 @@ def group_votes(group):
     return group_votes_count
 
 
-@register.simple_tag
-def participation_class(participant_count, total):
-    if participant_count == 0 or total == 0:
-        return ''
-    elif participant_count / total < 0.2:
-        return 'js-relevanceAmount1'
-    elif participant_count / total < 0.4:
-        return 'js-relevanceAmount2'
-    elif participant_count / total < 0.6:
-        return 'js-relevanceAmount3'
-    elif participant_count / total < 0.8:
-        return 'js-relevanceAmount4'
-    else:
-        return 'js-relevanceAmount5'
-
-
 @register.filter
 def excerpt_opinions(excerpt, group):
     count_opinions = excerpt.suggestions.filter(invited_group=group).count()
@@ -225,3 +209,47 @@ def excerpt_votes(excerpt, group):
                   for suggestion in excerpt.suggestions.filter(
                       invited_group=group)]
     return sum(votes_list)
+
+
+@register.simple_tag
+def relevance_classes(relevance_participations=0,
+                      relevance_opinions=0,
+                      relevance_votes=0):
+    classes = ''
+    relevance_participations = float(relevance_participations)
+    relevance_opinions = float(relevance_opinions)
+    relevance_votes = float(relevance_votes)
+    if relevance_participations < 20:
+        classes += 'js-participationAmount1'
+    elif relevance_participations < 40:
+        classes += 'js-participationAmount2'
+    elif relevance_participations < 60:
+        classes += 'js-participationAmount3'
+    elif relevance_participations < 80:
+        classes += 'js-participationAmount4'
+    elif relevance_participations == 100:
+        classes += 'js-participationAmount5'
+
+    if relevance_opinions < 20:
+        classes += ' js-opinionsAmount1'
+    elif relevance_participations < 40:
+        classes += ' js-opinionsAmount2'
+    elif relevance_participations < 60:
+        classes += ' js-opinionsAmount3'
+    elif relevance_participations < 80:
+        classes += ' js-opinionsAmount4'
+    elif relevance_participations == 100:
+        classes += ' js-opinionsAmount5'
+
+    if relevance_votes < 20:
+        classes += ' js-votesAmount1'
+    elif relevance_participations < 40:
+        classes += ' js-votesAmount2'
+    elif relevance_participations < 60:
+        classes += ' js-votesAmount3'
+    elif relevance_participations < 80:
+        classes += ' js-votesAmount4'
+    elif relevance_participations == 100:
+        classes += ' js-votesAmount5'
+
+    return classes
