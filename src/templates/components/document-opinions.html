@@ -50,20 +50,20 @@
         {% get_percent excerpt|excerpt_opinions:group group.suggestions.count as relevance_opinions %}
         {% get_percent excerpt|excerpt_votes:group group|group_votes as relevance_votes %}
         {% include "components/document-excerpt.html" with excerpt=excerpt %}
-        <span class="metrics">
-          <span class="item -participants" aria-label="{{ relevance_participations }}% de Participantes">
+        <span class="metrics js-metricsIcons">
+          <span class="item -participants js-participantsIcon" aria-label="{{ relevance_participations }}% de Participantes">
             <span class="value">{{excerpt|excerpt_participants:group}}</span>
             <span class="bar">
               <span class="size" style="width: {{ relevance_participations }}%;"></span>
             </span>
           </span>
-          <span class="item -opinions" aria-label="{{ relevance_opinions }}% de Opiniões">
+          <span class="item -opinions js-opinionsIcon" aria-label="{{ relevance_opinions }}% de Opiniões" style="display: None;">
             <span class="value">{{excerpt|excerpt_opinions:group}}</span>
             <span class="bar">
               <span class="size" style="width: {{ relevance_opinions }}%;"></span>
             </span>
           </span>
-          <span class="item -votes" aria-label="{{ relevance_votes }}% de Votos">
+          <span class="item -votes js-votesIcon" aria-label="{{ relevance_votes }}% de Votos" style="display: None;">
             <span class="value">{{excerpt|excerpt_votes:group}}</span>
             <span class="bar">
               <span class="size" style="width: {{ relevance_votes }}%;"></span>
