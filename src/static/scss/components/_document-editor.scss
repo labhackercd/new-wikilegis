@@ -228,7 +228,6 @@
     left: 805px;
 
     display: none;
-    animation: reveal-from-right 0.3s $swift-out forwards;
     align-items: center;
     justify-content: center;
 
@@ -238,11 +237,27 @@
 
     cursor: pointer;
     transition: background-color .1s ease-in-out;
+    animation: reveal-from-right .3s $swift-out forwards;
 
     border-radius: .25rem;
+
+    @include hovering-label(left, 0, inherit, $font-size-micro, auto, after, absolute);
+
+    &::after {
+      font-size: $font-size-micro;
+      font-weight: 400;
+
+      margin-right: .5rem;
+      padding: .5rem;
+
+      transition: transform .3s .5s cubic-bezier(.55, 0, .1, 1), opacity .3s .5s cubic-bezier(.55, 0, .1, 1);
+
+      color: #FFF;
+      background-color: $color-deep-gray;
+    }
   }
 
-  & > article > .modify.-show{
+  & > article > .modify.-show {
     display: flex;
   }
 
