@@ -33,6 +33,6 @@ DocumentOpinionsBodyView.prototype.publishers = function () {
     self.votesButton.addClass('-active');
     $('.js-documentExcerpt').removeClass('js-opinionsActive js-participationActive').addClass('js-votesActive');
     $('.js-metricsIcons').children().hide();
-    $(.'js-metricsIcons .js-votesIcon').show();
+    $('.js-metricsIcons .js-votesIcon').show();
   });
 };
