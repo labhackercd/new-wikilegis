@@ -222,6 +222,35 @@
     margin-top: 1rem;
   }
 
+  & > article > .modify {
+    position: absolute;
+    top: 246px;
+    left: 805px;
+
+    display: none;
+    animation: reveal-from-right 0.3s $swift-out forwards;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 1rem;
+
+    cursor: pointer;
+    transition: background-color .1s ease-in-out;
+
+    border-radius: .25rem;
+  }
+
+  & > article > .modify.-show{
+    display: flex;
+  }
+
+
+  & > article > .modify:hover {
+    background-color: #F2F2F2;
+  }
+
   & > article > p {
     cursor: pointer;
   }
