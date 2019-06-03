@@ -251,11 +251,3 @@ def progress_time_normalized(start_date, end_date):
         days_since_start = today - start_date
         result_percent = (days_since_start * 100) / participation_days
     return "%s" % (result_percent / 100)
-
-
-@register.filter()
-def exerpt_votes(excerpt, group):
-    votes_list = [suggestion.votes.count()
-                  for suggestion in excerpt.suggestions.filter(
-                      invited_group=group)]
-    return sum(votes_list)

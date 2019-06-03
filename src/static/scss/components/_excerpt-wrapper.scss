@@ -45,35 +45,87 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    @include hovering-label(right, 2em, $color-whitesmoke, .875rem);
+
+    &::after {
+      background-color: $color-deep-gray;
+      padding: 0.75em 1em;
+      border-radius: 0.25rem;
+      margin-left: 1em;
+      z-index: 2;
+    }
   }
 
   & > .metrics > .item.-votes {
-    @include icon('votes');
+    @include mask-icon('votes');
 
     &::before {
       font-size: $font-size-mili;
 
       margin-right: .25rem;
+
+      background-color: $color-link;
+    }
+
+    & > .value {
+      color: $color-purple;
+    }
+
+    & > .bar {
+      border-color: $color-purple;
+    }
+
+    & > .bar > .size {
+      background-color: $color-purple;
     }
   }
 
   & > .metrics > .item.-opinions {
-    @include icon('comment-black');
+    @include mask-icon('comment-black');
 
     &::before {
       font-size: $font-size-micro;
 
       margin-right: .25rem;
+
+      background-color: $color-link;
+    }
+
+    & > .value {
+      color: $color-link;
+    }
+
+    & > .bar {
+      border-color: $color-link;
+    }
+
+    & > .bar > .size {
+      background-color: $color-link;
     }
   }
 
   & > .metrics > .item.-participants {
-    @include icon('public');
+    @include mask-icon('public');
 
     &::before {
       font-size: $font-size-centi;
 
       margin-right: .25rem;
+
+      background-color: $color-brand;
+    }
+
+    & > .value {
+      color: $color-brand;
+    }
+
+    & > .bar {
+      border-color: $color-brand;
+    }
+
+    & > .bar > .size {
+      background-color: $color-brand;
     }
   }
 
@@ -94,7 +146,8 @@
     width: 1rem;
     height: .25rem;
 
-    border: 1px solid #B255C9;
+    border-width: 1px;
+    border-style: solid;
   }
 
   & > .metrics > .item > .bar > .size {
@@ -102,7 +155,5 @@
     right: 0;
 
     height: 100%;
-
-    background-color: #B255C9;
   }
 }

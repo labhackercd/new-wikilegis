@@ -214,6 +214,14 @@ def participation_class(participant_count, total):
 
 
 @register.filter
-def opinions_by_group(excerpt, group):
+def excerpt_opinions(excerpt, group):
     count_opinions = excerpt.suggestions.filter(invited_group=group).count()
     return count_opinions
+
+
+@register.filter()
+def excerpt_votes(excerpt, group):
+    votes_list = [suggestion.votes.count()
+                  for suggestion in excerpt.suggestions.filter(
+                      invited_group=group)]
+    return sum(votes_list)
