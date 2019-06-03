@@ -211,3 +211,9 @@ def participation_class(participant_count, total):
         return 'js-relevanceAmount4'
     else:
         return 'js-relevanceAmount5'
+
+
+@register.filter
+def opinions_by_group(excerpt, group):
+    count_opinions = excerpt.suggestions.filter(invited_group=group).count()
+    return count_opinions
