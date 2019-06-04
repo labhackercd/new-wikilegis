@@ -286,8 +286,8 @@
   }
 
   &.-supressed {
-    & > article * {
-      color: #CCC;
+    & > article.-analysis > .excerpt-wrapper:not(.-enabled) > .document-excerpt > .text-highlight {
+      background-image: none;
     }
   }
 }

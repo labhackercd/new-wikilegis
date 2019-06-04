@@ -88,6 +88,7 @@
     position: absolute;
     top: 50%;
     right: .6rem;
+
     transform: translateY(-50%);
   }
 
@@ -160,6 +161,8 @@
 
   & > .item > .named > .title {
     font-size: $font-size-deci;
+
+    max-width: 80%;
 
     color: $color-brand;
   }

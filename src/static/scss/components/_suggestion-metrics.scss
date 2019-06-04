@@ -54,10 +54,6 @@
     &:hover {
       transform: translateX(.25rem);
     }
-
-    &.-active {
-      transform: scale(1.03);
-    }
   }
 
   & > .card > .header {
@@ -186,7 +182,7 @@
     color: $color-deep-gray;
   }
 
-  & > .card > .content > .sugestion {
+  & > .card > .content > .suggestion {
     font-size: $font-size-centi;
     line-height: 1.6;
 
