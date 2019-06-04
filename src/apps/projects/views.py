@@ -91,6 +91,7 @@ class DocumentUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = True
+        context['previous_page'] = self.request.GET.get('previous_page', '')
         return context
 
 

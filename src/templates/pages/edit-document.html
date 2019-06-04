@@ -21,7 +21,7 @@
 {% block navbar_document %}
   <div class="project">
     <span class="title js-documentTitle">
-      {{object.title}} <a href="{% url 'edit_document' object.id object.slug %}">Editar dados do documento</a>
+      {{object.title}} <a href="{% url 'edit_document' object.id object.slug %}?previous_page={{ request.get_full_path }}">Editar dados do documento</a>
     </span>
     <div class="menu">
       <div class="dropdown-menu">

@@ -12,7 +12,7 @@
 {% block content %}
 <h1>Calma aí 😀</h1>
 <p>É que alguns dados obrigatórios não foram informados. 🙁 Antes da gente prosseguir, você pode dar uma conferida e preencher o que falta?</p>
-<a href="{% url 'edit_document' object.id object.slug %}" class="app-button -green">Conferir</a>
+<a href="{% url 'edit_document' object.id object.slug %}?previous_page={{ request.get_full_path }}" class="app-button -green">Conferir</a>
 {% endblock content %}
 
 </div>
