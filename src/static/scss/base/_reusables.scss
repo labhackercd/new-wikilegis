@@ -95,6 +95,7 @@
 }
 
 @mixin mask-icon($icon, $color: #FFF, $width: 1em, $height:1em, $mask-size: 100%, $margin:0) {
+
   &::before {
     display: inline-flex;
 

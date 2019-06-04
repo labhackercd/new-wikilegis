@@ -100,11 +100,11 @@ CompareVersionsView.prototype.toggleShowDiffButton = function() {
 
 CompareVersionsView.prototype.startComparison = function () {
   this.cancelComparisonElement.addClass('-show');
-  this.startComparisonElement.addClass('js-comparing');
+  this.startComparisonElement.addClass('js-comparing -comparing');
 
   this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox').removeClass('_hidden');
   this.timelineSidebar.collapseAutosaves();
-  this.timelineSidebar.timelineSidebar.addClass('js-comparing');
+  this.timelineSidebar.timelineSidebar.addClass('js-comparing -comparing');
   this.timelineSidebar.timelineSidebar.find('.js-compareCheckbox .js-checkboxElement').removeAttr('checked');
 
   var selectedVersion = this.timelineSidebar.timelineSidebar.find('.js-version.-selected');
@@ -116,10 +116,10 @@ CompareVersionsView.prototype.startComparison = function () {
 
 CompareVersionsView.prototype.cancelComparison = function () {
   this.cancelComparisonElement.removeClass('-show');
-  this.startComparisonElement.removeClass('js-comparing');
+  this.startComparisonElement.removeClass('js-comparing -comparing');
   this.startComparisonElement.removeClass('-gray');
   this.startComparisonElement.addClass('-green');
 
   $('.js-timelineSidebar .js-compareCheckbox').addClass('_hidden');
-  this.timelineSidebar.timelineSidebar.removeClass('js-comparing');
+  this.timelineSidebar.timelineSidebar.removeClass('js-comparing -comparing');
 };

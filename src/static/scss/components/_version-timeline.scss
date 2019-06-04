@@ -34,6 +34,10 @@
     background-color: $color-grayish;
   }
 
+  &.-comparing > .item > .named > .title > .more {
+    display: none;
+  }
+
   & > .item {
     position: relative;
 
@@ -66,7 +70,7 @@
     height: 50%;
   }
 
-  & > .item:last-of-type > .named::before {
+  & > .item:not(.-expanded):last-of-type > .named::before {
     bottom: 50%;
 
     height: 50%;
@@ -175,6 +179,46 @@
     text-transform: uppercase;
 
     color: $color-gray;
+  }
+
+  & > .item > .named > .date {
+    display: flex;
+    align-items: center;
+  }
+
+  & > .item > .named .more {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+
+    padding: .5rem;
+
+    text-decoration: underline;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    border-radius: .374rem;
+    background-color: transparent;
+
+    @include mask-icon('arrow');
+
+    &::before {
+      font-size: $font-size-micro;
+
+      transform: rotate(-90deg);
+
+      background-color: $color-brand;
+    }
+
+    &:hover {
+      background-color: rgba($color-grayish, .3);
+    }
+
+    &.-active {
+      &::before {
+        transform: rotate(0);
+      }
+    }
   }
 
   & > .item > .autosaves {

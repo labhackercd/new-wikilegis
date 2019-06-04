@@ -26,10 +26,6 @@ TimelineSidebarView.prototype.publishers = function () {
 
     if (!self.timelineSidebar.hasClass('js-comparing')) {
       self.activateNamedVersion(namedVersion);
-
-      if (target.closest('.js-namedVersion')) {
-        self.toggleAutosaves(namedVersion);
-      }
     } else {
       var compareCheckbox = namedVersion.find('.js-compareCheckbox .js-checkboxElement');
       if (compareCheckbox.attr('checked')) {
@@ -41,6 +37,12 @@ TimelineSidebarView.prototype.publishers = function () {
       }
       events.versionSelectedToCompare.publish();
     }
+  });
+
+  self.timelineSidebar.on('click', '.js-showAutosaves', function(event) {
+    var target = $(event.target);
+    var namedVersion = target.closest('.js-namedVersions');
+    self.toggleAutosaves(namedVersion);
   });
 
   self.timelineSidebar.on('click', '.js-version', function(event) {
@@ -93,8 +95,12 @@ TimelineSidebarView.prototype.toggleAutosaves = function (namedVersion) {
   this.timelineSidebar.find('.js-autosaves').removeClass('-show');
   if (showing) {
     autosaves.removeClass('-show');
+    namedVersion.find('.js-showAutosaves').removeClass('-active');
+    namedVersion.removeClass('-expanded');
   } else {
     autosaves.addClass('-show');
+    namedVersion.find('.js-showAutosaves').addClass('-active');
+    namedVersion.addClass('-expanded')
   }
 
 };
