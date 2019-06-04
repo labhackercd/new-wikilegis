@@ -370,7 +370,7 @@ def create_public_participation(request, document_pk):
             status=409
         )
 
-    end_date = datetime.strptime(closing_date, "%Y-%m-%d").date()
+    end_date = datetime.strptime(closing_date, "%d/%m/%Y").date()
     if congressman_id and closing_date:
         if end_date < today:
             return JsonResponse(
@@ -426,7 +426,7 @@ def update_closing_date(request, group_id):
     group = InvitedGroup.objects.get(id=group_id)
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
-    end_date = datetime.strptime(closing_date, "%Y-%m-%d").date()
+    end_date = datetime.strptime(closing_date, "%d/%m/%Y").date()
     if congressman_id and closing_date:
         if end_date < today:
             return JsonResponse(
@@ -450,7 +450,7 @@ def update_closing_date(request, group_id):
             PublicAuthorization.objects.create(
                 group=group,
                 congressman=responsible,
-                closing_date=closing_date)
+                closing_date=end_date)
 
             return JsonResponse(
                 {'message': _('Request sent!')})
