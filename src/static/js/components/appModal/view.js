@@ -34,6 +34,10 @@ AppModalView.prototype.publishers = function() {
   $(document).on('keydown', function(e) {
     if (e.keyCode == 27) {
       events.closeModal.publish();
+    };
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
     }
   });
 };
