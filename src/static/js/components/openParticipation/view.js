@@ -14,6 +14,12 @@ ParticipantsAutocompleteView.prototype.initEvents = function() {
 };
 
 ParticipantsAutocompleteView.prototype.publishers = function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
   $('.js-sendButton').click(function() {
     events.createInvitedGroup.publish();
   });

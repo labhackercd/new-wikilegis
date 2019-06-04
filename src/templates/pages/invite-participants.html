@@ -46,7 +46,8 @@
   </header>
   <form method="POST" id="invited_group_form" autocomplete="off">
     {% csrf_token %}
-    {{form.non_field_errors}}
+    {{ form.non_field_errors }}
+
     <div class="input-group">
       <div class="input-text -required">
         <input type="text" name="group_name" required id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
@@ -54,9 +55,9 @@
       </div>
       <div class="input-select -required">
         <div class="select">
-          {% if object %}
-          <select id="id_version_name" name="version" disabled>
-              <option value="{{object.version.pk}}">
+          {% if object and not 'new' in request.path %}
+          <select id="id_version" name="version" disabled>
+              <option value="{{object.version.pk}}" selected="selected">
                 {% if object.version.name %}
                 {{object.version.name}}
                 {% else %}
@@ -64,10 +65,23 @@
                 {% endif %}
               </option>
           </select>
-          {% else %}
-          <select id="id_version_name" required name="version" {% if not versions %}disabled{% endif %}>
+          {% elif object and 'new' in request.path %}
+          <select id="id_version" name="version">
             {% for version in versions %}
-              <option value="{{version.pk}}">
+              <option value="{{version.pk}}" {% if object.version.pk == version.pk %}selected="selected"{% endif %}>
+                {% if version.name %}
+                {{version.name}}
+                {% else %}
+                {{version.created|date:'H\hi - d \d\e b, Y'}}
+                {% endif %}
+              </option>
+            {% endfor %}
+            </option>
+          </select>
+          {% else %}
+          <select id="id_version" required name="version" {% if not versions %}disabled{% endif %}>
+            {% for version in versions %}
+              <option value="{{version.pk}}" {% if forloop.first %}selected="selected"{% endif %}>
                 {% if version.name %}
                 {{version.name}}
                 {% else %}
@@ -80,6 +94,7 @@
           <label for="id_version_name">Versão do Documento:</label>
           <div class="icon"><i class="arrow"></i></div>
         </div>
+        {{ form.version.errors }}
         {% if not versions and not object %}
           <ul class="errorlist">
             <li>Você precisa salvar uma versão do documento antes de abrir o projeto para um grupo de participação.</li>
@@ -87,13 +102,13 @@
         {% endif %}
       </div>
       <div class="input-text -required -date">
-        {{form.closing_date.errors}}
         {% if object %}
-        <input class="js-datePicker" name="closing_date" required id="id_closing_date" value="{{object.closing_date|date:'Y-m-d'}}">
+        <input class="js-datePicker" name="closing_date" required id="id_closing_date" value="{{object.closing_date|date:'d/m/Y'}}">
         {% else %}
         <input class="js-datePicker" name="closing_date" required id="id_closing_date">
         {% endif %}
         <label for="id_closing_date">Data de encerramento:</label>
+        {{ form.closing_date.errors }}
       </div>
     </div>
 
