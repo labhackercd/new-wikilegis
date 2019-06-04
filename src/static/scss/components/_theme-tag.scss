@@ -17,6 +17,11 @@
     color: $color-red;
   }
 
+  &.-choosed {
+    opacity: .5;
+    cursor: no-drop;
+  }
+
   & > .dot {
     display: inline-block;
 
