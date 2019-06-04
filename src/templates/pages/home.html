@@ -33,7 +33,7 @@
           {% for theme in invite.group.document.themes.all %}
           <li class="app-tag -private">
             <img src="{% static 'img/padlock.svg' %}" alt="">
-            <span class="label">Privado</span>
+            <span class="label">Restrita</span>
           </li>
           <li class="app-tag -theme">
             <span class="dot" style="background-color: {{ theme.color }}"></span>
@@ -86,7 +86,7 @@
             <a href="{% url 'invitation' invite.pk 'declined' %}" class="app-button -red">Recusar</a>
           </div>
         </div>
-       
+
       </div>
     {% endfor %}
   {% endif %}
@@ -98,7 +98,7 @@
       <ul class="tags">
         <li class="app-tag -private">
           <img src="{% static 'img/padlock.svg' %}" alt="">
-          <span class="label">Privado</span>
+          <span class="label">Restrita</span>
         </li>
         {% for theme in private_group.document.themes.all %}
         <li class="app-tag -theme">

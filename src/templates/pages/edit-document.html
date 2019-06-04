@@ -4,6 +4,18 @@
 {{ object.title }}
 {% endblock title %}
 
+{% block extracss %}
+<style>
+  .ui-autocomplete-loading {
+    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
+
+<link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
+<link rel="stylesheet" href="{% static 'mergely/lib/mergely.css' %}">
+<link rel="stylesheet" href="{% static 'air-datepicker/dist/css/datepicker.min.css' %}">
+{% endblock extracss %}
+
 {% block navbar_extra_classes %}js-navbar js-owner {% if 'editor' in request.path %}-edit{% endif %}{% endblock navbar_extra_classes %}
 
 {% block navbar_document %}
@@ -87,7 +99,7 @@
           <hr>
           <div class="private">
             <div class="title -closed">
-              <span>Participações Privadas</span>
+              <span>Participações Restritas</span>
               {% if not object.title or not object.description or not object.themes.all %}
               <a href="#" class="-add js-openValidationButton">Adicionar</a>
               {% else %}
@@ -110,17 +122,6 @@
     </div>
   </div>
 {% endblock navbar_document %}
-
-{% block extracss %}
-<style>
-  .ui-autocomplete-loading {
-    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
-  }
-</style>
-
-<link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
-<link rel="stylesheet" href="{% static 'mergely/lib/mergely.css' %}">
-{% endblock extracss %}
 
 {% block body_classes %}-white{% endblock %}
 
@@ -173,6 +174,9 @@
 
 {% block page_js %}
 <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/datepicker.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/i18n/datepicker.pt-BR.js' %}"></script>
+<script src="{% static 'js/components/datePicker/view.js' %}"></script>
 <script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
 <script src="{% static 'js/components/validationModal/view.js' %}"></script>
 <script src="{% static 'js/components/publicParticipationModal/view.js' %}"></script>

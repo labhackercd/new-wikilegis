@@ -26,7 +26,7 @@
     content: '';
     pointer-events: none;
 
-    background: linear-gradient(transparent, #FFF);
+    background: linear-gradient(rgba(255,255,255,0), #FFF);
 
     @include bp-smallonly {
       top: calc(100% - 4rem);

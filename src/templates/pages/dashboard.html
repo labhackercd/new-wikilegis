@@ -26,14 +26,14 @@
           {% if document|has_public_group %}
             <li class="app-tag -public">
               <img src="{% static 'img/public.svg' %}" alt="">
-              <span class="label">Público</span>
+              <span class="label">Pública</span>
             </li>
           {% endif %}
 
           {% if document|count_private_groups > 0  %}
             <li class="app-tag">
               <img src="{% static 'img/padlock.svg' %}" alt="">
-              <span class="label">{{ document|count_private_groups }} {% if document|count_private_groups == 1  %}Privado{% else %}Privados{% endif %}</span>
+              <span class="label">{{ document|count_private_groups }} {% if document|count_private_groups == 1  %}Restrita{% else %}Restrita{% endif %}</span>
             </li>
           {% endif %}
 

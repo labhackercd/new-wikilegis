@@ -116,7 +116,7 @@
       content: '';
       pointer-events: none;
 
-      background: linear-gradient(transparent, #FFF);
+      background: linear-gradient(rgba(255,255,255,0), #FFF);
     }
 
     & > .info {

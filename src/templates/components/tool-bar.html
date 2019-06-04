@@ -8,11 +8,11 @@
       {% include "svgs/expand-icon.html" %}
     </a>
     {% if group.public_participation %}
-    <a href="#" class="icon js-openPublicParticipation" aria-label="Editar grupo aberto">
+    <a href="#" class="icon js-openPublicParticipation" aria-label="Editar participação pública">
       {% include "svgs/public-icon.html" %}
     </a>
     {% else %}
-    <a href="{% url 'edit_group' group.pk %}" class="icon" aria-label="Editar grupo privado">
+    <a href="{% url 'edit_group' group.pk %}" class="icon" aria-label="Editar participação restrita">
       {% include "svgs/closed-icon.html" %}
     </a>
     {% endif %}

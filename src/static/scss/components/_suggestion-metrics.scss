@@ -34,7 +34,7 @@
     content: '';
     pointer-events: none;
 
-    background: linear-gradient(transparent, $color-whisper);
+    background: linear-gradient(rgba(255,255,255,0), $color-whisper);
   }
 
   & > .card {
