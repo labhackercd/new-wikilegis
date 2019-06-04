@@ -282,11 +282,15 @@
   & > article > p.-enabled > *,
   & > article > p.-enabled > .document-excerpt > .text-highlight,
   & > article > p:hover > .document-excerpt > .text-highlight {
-    color: $color-deep-gray !important;
+    opacity: 1 !important;
   }
 
   &.-supressed {
-    & > article.-analysis > .excerpt-wrapper:not(.-enabled) > .document-excerpt > .text-highlight {
+    & > article > .excerpt-wrapper {
+      opacity: .3;
+    }
+
+    & > article > .excerpt-wrapper:not(.-enabled) > .document-excerpt > .text-highlight {
       background-image: none;
     }
   }
