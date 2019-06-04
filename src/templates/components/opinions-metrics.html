@@ -16,7 +16,7 @@
       <img src="{% if opinion.author.profile.avatar %}{{ opinion.author.profile.avatar }} {% else %} {% static 'img/avatar.png' %} {% endif %}" class="avatar" alt="Usuário">
       <span class="name">{{ opinion.author }}</span>
     </div>
-    <p class="sugestion">{{ opinion.content }}</p>
+    <p class="suggestion js-suggestionText">{{ opinion.content }}</p>
   </div>
   <div class="votes">
     {% if opinion.votes.all %}

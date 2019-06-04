@@ -2,18 +2,23 @@
   font-weight: 300 !important;
 
   &.-supressed {
-    & * {
-      color: #CCC;
+    & > article > .excerpt-wrapper > b {
+      opacity: .3;
+    }
+
+    & > article > .excerpt-wrapper > .document-excerpt {
+      opacity: .3;
     }
   }
 }
 
 .document-excerpt {
   padding: .25em 0;
+
   &.-enabled {
     user-select: text;
 
-    color: #000;
+    opacity: 1 !important;
   }
 
   .highlighted {
