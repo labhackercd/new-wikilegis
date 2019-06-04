@@ -273,6 +273,13 @@
     background-color: #FFF;
   }
 
+  & > .list .version {
+    color: $color-gray;
+    font-size: $font-size-micro;
+    display: block;
+    margin-top: .25rem;
+  }
+
   & > .list > .dropdown {
     position: relative;
 

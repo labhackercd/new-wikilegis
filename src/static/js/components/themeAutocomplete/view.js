@@ -1,4 +1,4 @@
-/*global $ Urls */
+/*global $ Urls slug */
 
 var ThemeAutocompleteView = function() {};
 
@@ -21,8 +21,9 @@ ThemeAutocompleteView.prototype.publishers = function() {
 
   var autocomplete = self.inputElement.autocomplete({
     source: function(request, response) {
+      var query = slug(request.term);
       $.ajax({
-        url: Urls.theme_list() + '?slug__icontains=' + request.term,
+        url: Urls.theme_list() + '?slug__icontains=' + query,
         dataType: 'json',
         success: function(data) {
           response(data.results);
@@ -40,6 +41,7 @@ ThemeAutocompleteView.prototype.publishers = function() {
       results: function() {}
     },
     minLength: 0,
+    autoFocus: true,
     select: function(event, ui) {
       self.addTheme(ui.item);
     }
@@ -56,6 +58,10 @@ ThemeAutocompleteView.prototype.publishers = function() {
       .addClass('theme-tag')
       .addClass('js-themeTag')
       .text(item.name);
+
+    if (self.tagsElement.find(`.js-tag[data-theme-id="${item.id}"]`).length) {
+      li.addClass('-choosed');
+    }
 
     $('<span>').addClass('dot')
       .css('background-color', item.color)
@@ -77,7 +83,7 @@ ThemeAutocompleteView.prototype.publishers = function() {
 ThemeAutocompleteView.prototype.addTag = function(theme) {
   var li = $('<li class="theme-tag js-tag">')
     .addClass('-selected')
-    .data('themeId', theme.id)
+    .attr('data-theme-id', theme.id)
     .text(theme.name);
 
   $('<span>').addClass('dot')

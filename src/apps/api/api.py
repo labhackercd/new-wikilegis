@@ -58,6 +58,7 @@ class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
     filter_class = ThemeFilter
     search_fields = ('name', 'slug')
     ordering_fields = '__all__'
+    ordering = ('name',)
 
 
 class DocumentTypeViewSet(viewsets.ReadOnlyModelViewSet):

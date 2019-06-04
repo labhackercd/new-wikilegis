@@ -16,4 +16,4 @@ def get_percent(value, total):
         return 0
     else:
         percent = (int(value) / int(total)) * 100
-        return percent
+        return '%.2f' % percent

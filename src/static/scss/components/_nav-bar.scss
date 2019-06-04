@@ -7,7 +7,7 @@ body.-open-menu .nav-bar {
 
   & > .brand,
   & > .nav-burger {
-    z-index: 4;
+    z-index: 6;
 
     color: #FFF;
   }
@@ -19,7 +19,7 @@ body.-white .nav-bar {
 
 .nav-bar {
   position: fixed;
-  z-index: 2;
+  z-index: 6;
   top: 0;
 
   display: flex;

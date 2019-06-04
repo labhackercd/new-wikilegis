@@ -50,7 +50,6 @@
   }
 }
 
-
 .tip {
   position: sticky;
   top: 50%;
@@ -158,11 +157,20 @@
   }
 
 
-  & > article > header .tags {
+  & > article > .tags {
+    position: sticky;
+    z-index: 4;
+    top: 3.75rem;
+
     display: flex;
+
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+
+    background-color: #FFF;
   }
 
-  & > article > header .tags > * + * {
+  & > article > .tags > * + * {
     margin-left: 1rem;
   }
 

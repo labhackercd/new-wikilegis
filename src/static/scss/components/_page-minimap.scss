@@ -1,8 +1,9 @@
 .page-minimap {
   position: fixed;
+  z-index: 4;
   top: 3.75rem;
   right: 5rem;
+
   width: 13rem;
   height: 100%;
-  z-index: 1;
 }
