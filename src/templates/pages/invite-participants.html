@@ -41,7 +41,7 @@
     <h2>Criar Participação Restrita</h2>
     {% endif %}
 
-    <a onclick="window.history.back();" class="link-back">Voltar</a>
+    <a href="{{ previous_page }}" class="link-back">Voltar</a>
 
   </header>
   <form method="POST" id="invited_group_form" autocomplete="off">
@@ -55,7 +55,7 @@
       </div>
       <div class="input-select -required">
         <div class="select">
-          {% if object and not 'new' in request.path %}
+          {% if object and not '/new/' in request.path %}
           <select id="id_version" name="version" disabled>
               <option value="{{object.version.pk}}" selected="selected">
                 {% if object.version.name %}
@@ -65,7 +65,7 @@
                 {% endif %}
               </option>
           </select>
-          {% elif object and 'new' in request.path %}
+          {% elif object and '/new/' in request.path %}
           <select id="id_version" name="version">
             {% for version in versions %}
               <option value="{{version.pk}}" {% if object.version.pk == version.pk %}selected="selected"{% endif %}>

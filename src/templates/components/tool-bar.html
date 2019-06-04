@@ -12,7 +12,7 @@
       {% include "svgs/public-icon.html" %}
     </a>
     {% else %}
-    <a href="{% url 'edit_group' group.pk %}" class="icon" aria-label="Editar participação restrita">
+    <a href="{% url 'edit_group' group.pk %}?previous_page={{ request.get_full_path }}" class="icon" aria-label="Editar participação restrita">
       {% include "svgs/closed-icon.html" %}
     </a>
     {% endif %}

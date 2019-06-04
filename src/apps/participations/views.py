@@ -15,7 +15,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.forms import ValidationError
 from django.db.models import Q, Count
-from django.conf import settings
 from django.utils import timezone
 from django.contrib.sites.models import Site
 from django.utils.decorators import method_decorator
@@ -39,6 +38,7 @@ class InvitedGroupCreate(SuccessMessageMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['themes'] = Theme.objects.all()
+        context['previous_page'] = self.request.GET.get('previous_page', '')
         document = Document.objects.get(id=self.kwargs.get('pk'))
         context['versions'] = document.versions.filter(
             auto_save=False,
@@ -100,6 +100,7 @@ class InvitedGroupUpdateView(SuccessMessageMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['themes'] = Theme.objects.all()
+        context['previous_page'] = self.request.GET.get('previous_page', '')
         return context
 
     def get_object(self, queryset=None):
