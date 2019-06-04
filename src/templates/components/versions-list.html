@@ -1,7 +1,7 @@
 {% if latest_saves %}
   <li class="item js-namedVersions js-currentVersion {% if not selected_version.parent and selected_version.auto_save %}-active{% endif %}">
     <div class="named js-namedVersion js-version {% if not selected_version.parent and selected_version.auto_save %}-selected{% endif %}" data-version-number="{{latest_saves.first.number}}">
-      <h2 class="title">Versão Atual</h2>
+      <h2 class="title">Versão Atual <span class="more js-showAutosaves"></span></h2>
 
       <div class="compare-checkbox _hidden js-compareCheckbox">
         <input id="checkbox" class="js-checkboxElement" type="checkbox" />
@@ -10,7 +10,7 @@
         </label>
       </div>
     </div>
-    <ol class="autosaves js-autosaves {% if not selected_version.parent %}-show{% endif %}">
+    <ol class="autosaves js-autosaves">
       {% for autosave in latest_saves %}
         <a href="" class="save js-version {% if autosave == selected_version %}-selected{% endif %}" data-version-number="{{autosave.number}}">
           <span>{{autosave.created|date:'H\hi'}} - {{autosave.created|date:'d \d\e b, Y'}}</span>
@@ -23,8 +23,8 @@
   <li class="item js-namedVersions {% if version == selected_version or version == selected_version.parent %}-active{% endif %}">
     <div class="named js-namedVersion js-version {% if version == selected_version %}-selected{% endif %}" data-version-number="{{version.number}}">
       <span class="time">{{version.created|date:'H\hi'}}</span>
-      <h2 class="title">{{version.name}}</h2>
-      <span class="date">{{version.created|date:'d \d\e b, Y'}}</span>
+      <h2 class="title">{{version.name}} <span class="more js-showAutosaves"></span></h2>
+      <span class="date">{{version.created|date:'d \d\e b, Y'}} </span>
 
       <div class="compare-checkbox _hidden js-compareCheckbox">
         <input id="checkbox" class="js-checkboxElement" type="checkbox" />
@@ -33,7 +33,7 @@
         </label>
       </div>
     </div>
-    <ol class="autosaves js-autosaves {% if version == selected_version.parent %}-show{% endif %}">
+    <ol class="autosaves js-autosaves">
       {% for autosave in version.children.all %}
         <a href="" class="save js-version {% if autosave == selected_version %}-selected{% endif %}" data-version-number="{{autosave.number}}">
           <span>{{autosave.created|date:'H\hi'}} - {{autosave.created|date:'d \d\e b, Y'}}</span>
