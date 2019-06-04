@@ -66,6 +66,16 @@
     height: 50%;
   }
 
+  & > .item:last-of-type > .named::before {
+    bottom: 50%;
+
+    height: 50%;
+  }
+
+  & > .item:only-of-type > .named::before {
+    height: 0;
+  }
+
   & > .item > .named {
     position: relative;
 

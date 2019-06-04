@@ -37,7 +37,7 @@
     & > .icon::before {
       font-size: $font-size-centi;
 
-      margin-right: .15rem;
+      margin-right: .25rem;
 
       background-color: $color-brand;
     }
@@ -57,7 +57,7 @@
     & > .icon::before {
       font-size: $font-size-centi;
 
-      margin-right: .15rem;
+      margin-right: .25rem;
 
       background-color: $color-deep-gray;
     }
@@ -77,7 +77,7 @@
     & > .icon::before {
       font-size: $font-size-mili;
 
-      margin-right: .15rem;
+      margin-right: .25rem;
 
       background-color: $color-purple;
     }
@@ -97,7 +97,7 @@
     & > .icon::before {
       font-size: $font-size-micro;
 
-      margin-right: .15rem;
+      margin-right: .25rem;
 
       background-color: $color-link;
     }
@@ -125,7 +125,7 @@
     font-weight: 600;
     line-height: 1;
 
-    margin-left: .15rem;
+    margin-left: .25rem;
 
     letter-spacing: 1px;
     text-transform: uppercase;

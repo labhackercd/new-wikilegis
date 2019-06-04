@@ -31,3 +31,6 @@ pageMinimap.initEvents();
 
 var documentOpinionsBodyView = new DocumentOpinionsBodyView();
 documentOpinionsBodyView.initEvents();
+
+var datePickerView = new DatePickerView();
+datePickerView.initEvents();
