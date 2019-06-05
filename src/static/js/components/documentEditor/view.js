@@ -39,6 +39,7 @@ DocumentEditorView.prototype.subscribers = function() {
 
   events.documentTextLoaded.subscribe(function(data) {
     self.editor.focus();
+    self.editor.ctrlArticulacao.limpar()
     self.editor.ctrlArticulacao.clipboardCtrl.colarTexto(data.html);
   });
 
