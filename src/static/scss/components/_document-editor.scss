@@ -262,7 +262,7 @@ body.-analysis {
 
     border-radius: .25rem;
 
-    @include hovering-label(left, 0, inherit, $font-size-micro, auto, after, absolute);
+    @include hovering-label(left, 'tip-shortcut', .75rem, inherit, $font-size-micro, auto, 'default', absolute);
 
     &::after {
       font-size: $font-size-micro;

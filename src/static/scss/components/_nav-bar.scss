@@ -209,20 +209,11 @@ body.-white .nav-bar {
 
   & > .tools > a,
   & > .tools > .dropdown-menu.-notifications > .icon {
-    @include hovering-label(bottom, 2em, $color-whitesmoke, .875rem);
+    @include hovering-label(bottom, 'default', 1rem, $color-whitesmoke, .875rem);
   }
 
-  & > .tools > .icon::after,
-  & > .tools > .dropdown-menu.-notifications > .icon::after {
-    margin-top: .5em;
-    padding: .75em 1em;
-
-    border-radius: .25rem;
-    background-color: $color-deep-gray;
-  }
-
-  & > .tools > .icon.-documents::after {
-    left: -1rem;
+  & > .tools > .icon.-documents {
+    @include hovering-label(bottom, 'default', 1rem, $color-whitesmoke, .875rem, auto, 'right');
   }
 
   & > .tools > a.-active {

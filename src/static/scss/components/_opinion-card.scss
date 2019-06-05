@@ -276,7 +276,7 @@
       animation-delay: .7s;
 
       @include icon('disagree');
-      @include hovering-label(left, 1em, #FFF, 1rem);
+      @include hovering-label(left, 'nobg', 1em, #FFF, 1rem);
     }
 
     & > .indifferent {
@@ -288,7 +288,7 @@
 
       animation-delay: .8s;
 
-      @include hovering-label(bottom, 1em, #FFF, 1rem);
+      @include hovering-label(bottom, 'nobg', 1em, #FFF, 1rem);
       @include bp-mediumup {
         margin: 0 3rem;
       }
@@ -302,7 +302,7 @@
 
       animation-delay: .9s;
 
-      @include hovering-label(right, 1em, #FFF, 1rem);
+      @include hovering-label(right, 'nobg', 1em, #FFF, 1rem);
       @include icon('agree');
     }
 
@@ -318,7 +318,7 @@
       animation-delay: 1s;
 
       @include icon('skip');
-      @include hovering-label(left, 1em, #FFF, 1rem, auto, after, absolute);
+      @include hovering-label(left, 'nobg', 1em, #FFF, 1rem, auto, 'default', absolute);
     }
 
     & > .notice {

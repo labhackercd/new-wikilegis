@@ -12,7 +12,7 @@
 
   box-shadow: none;
 
-  @include hovering-label(left, 1em, $color-gray, $font-size-micro, auto, after, fixed);
+  @include hovering-label(left, 'nobg', 1em, $color-gray, $font-size-micro, auto, 'default', fixed);
   @include bp-smallonly {
     font-size: .7rem;
 
