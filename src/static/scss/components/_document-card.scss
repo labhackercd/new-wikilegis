@@ -90,7 +90,7 @@
       transition: transform .3s $swift-out;
 
       @include icon('add-gray', 4rem, 4rem);
-      @include hovering-label(bottom, .5em, $color-grayish);
+      @include hovering-label(bottom, 'nobg', .5em, $color-grayish);
     }
   }
 

@@ -16,7 +16,7 @@
 
   @include icon(comment, 17px, 18px);
   @include bp-mediumup {
-    @include hovering-label(right, 0, inherit, 1em, 6rem);
+    @include hovering-label(right, 'nobg', 0, inherit, 1em, 6rem);
   }
 
   &.-all {

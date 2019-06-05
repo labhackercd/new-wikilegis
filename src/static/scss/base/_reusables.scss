@@ -118,7 +118,7 @@
 }
 
 // Floating label for elements with content based of aria-label attributes. Available on :hover
-@mixin hovering-label($direction, $margin: .5em, $color:inherit, $font-size: 1em, $width: auto, $precedence: after, $button-position:relative) {
+@mixin hovering-label($direction, $style: 'default', $margin: .5em, $color:inherit, $font-size: 1em, $width: auto, $edge-boundary: 'default', $button-position: relative) {
   position: $button-position;
 
   @include bp-mediumup {
@@ -129,12 +129,83 @@
       @if $direction == 'right' or $direction == 'left' {
         transform: translate(0, -50%);
       } @else if $direction == 'top' or $direction == 'bottom' {
-        transform: translate(-50%, 0);
+        @if $edge-boundary == 'left' {
+          transform: translate(50%, 0);
+        } @else {
+          transform: translate(-50%, 0);
+        }
       }
     }
   }
 
-  &::#{$precedence} {
+  @if $style == 'tip-shortcut' {
+    &:hover::after {
+      transition: transform .3s .5s $swift-out, opacity .3s .5s $swift-out;
+    }
+
+    &:hover::before {
+      transition: transform .2s .6s $swift-out, opacity .2s .6s $swift-out;
+
+      opacity: 1;
+      @if $direction == 'right' {
+        transform: scaleX(-1) translate(0);
+      } @else if $direction == 'bottom' {
+        transform: scaleY(-1) translate(0);
+      } @else {
+        transform: translate(0);
+      }
+    }
+  }
+
+  @if $style != 'nobg' {
+    &::before {
+      position: absolute;
+
+      content: '';
+
+      @if $style == 'tip-shortcut' {
+        transition: transform .2s 0s $swift-out, opacity .1s 0s $swift-out;
+
+        opacity: 0;
+        background-repeat: no-repeat;
+
+
+        @if $direction == 'left' or $direction == 'right' {
+          height: 100%;
+          padding-left: $margin;
+
+          background-image: url('../img/triangle-pip-right.svg');
+          background-position: -1px 50%;
+        } @else if $direction == 'top' or $direction == 'bottom' {
+          width: 100%;
+          padding-bottom: $margin;
+
+          background-image: url('../img/triangle-pip-bottom.svg');
+          background-position: 50% -1px;
+        }
+
+        @if $direction == 'right' {
+          left: 100%;
+
+          transform: scaleX(-1) translateX(-100%);
+        } @else if $direction == 'left' {
+          right: 100%;
+
+          transform: translateX(-1em);
+        } @else if $direction == 'top' {
+          bottom: 100%;
+
+          transform: translateY(-1em);
+        } @else if $direction == 'bottom' {
+          top: 100%;
+
+          transform: scaleY(-1) translateY(-100%);
+        }
+      }
+    }
+  }
+
+  &::after {
     font-size: $font-size;
     font-weight: 600;
     line-height: 1;
@@ -145,46 +216,96 @@
     padding: .5em;
 
     content: attr(aria-label);
-    transition: transform .3s $swift-out, opacity .3s $swift-out;
+    transition: transform .3s 0s $swift-out, opacity .3s 0s $swift-out;
     white-space: nowrap;
     text-transform: uppercase;
     pointer-events: none;
 
     opacity: 0;
-    color: $color;
+    border-radius: 3px;
 
     @if $width != 'auto' {
-      white-space: pre-wrap;
+      white-space: pre-line;
     }
 
     @if $direction == 'right' {
       top: 50%;
       left: 100%;
 
-      padding-left: $margin;
-
       transform: translate(1em, -50%);
     } @else if $direction == 'left' {
       top: 50%;
       right: 100%;
-
-      padding-right: $margin;
 
       transform: translate(-1em, -50%);
     } @else if $direction == 'top' {
       bottom: 100%;
       left: 50%;
 
-      padding-bottom: $margin;
-
       transform: translate(-50%, 1em);
     } @else if $direction == 'bottom' {
       top: 100%;
       left: 50%;
 
-      padding-top: $margin;
-
       transform: translate(-50%, 1em);
+
+      @if $edge-boundary == 'right' {
+        right: unset;
+        left: -1rem;
+      } @else if $edge-boundary == 'left' {
+        right: -1rem;
+        left: unset;
+
+        transform: translate(50%, 1em);
+      }
+    }
+
+    @if $style == 'default' {
+      padding: .75em 1em;
+
+      color: $color-whitesmoke;
+      background: $color-deep-gray;
+    }
+
+    @if $style != 'nobg' {
+      @if $direction == 'right' {
+        margin-left: $margin;
+      } @else if $direction == 'left' {
+        margin-right: $margin;
+      } @else if $direction == 'top' {
+        margin-bottom: $margin;
+      } @else if $direction == 'bottom' {
+        margin-top: $margin;
+      }
+    }
+
+    @if $style == 'nobg' {
+      color: $color;
+      background-color: transparent;
+
+      @if $direction == 'right' {
+        padding-left: $margin;
+      } @else if $direction == 'left' {
+        padding-right: $margin;
+      } @else if $direction == 'top' {
+        padding-bottom: $margin;
+      } @else if $direction == 'bottom' {
+        padding-top: $margin;
+      }
+    }
+
+    @if $style == 'tip-shortcut' {
+      font-size: $font-size-micro;
+      font-weight: 400;
+
+      padding: .5rem;
+
+      content: attr(aria-label) '\2002\2003' attr(aria-keyshortcuts);
+      transition: transform .3s 0s $swift-out, opacity .3s 0s $swift-out;
+      text-transform: unset;
+
+      color: #FFF;
+      background-color: $color-deep-gray;
     }
   }
 }
