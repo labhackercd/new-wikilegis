@@ -278,5 +278,8 @@ var events = {
   closeDiff: $.Topic('closeDiff'),
 
   // Triggered when user click on excerpt
-  highlightExcerpt: $.Topic('highlightExcerpt')
+  highlightExcerpt: $.Topic('highlightExcerpt'),
+
+  // Triggered when the document owner starts typing a document for the very first time
+  showModifyExcerptTip: $.Topic('showModifyExcerptTip')
 };

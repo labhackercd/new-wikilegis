@@ -1,4 +1,4 @@
-/*global $ events */
+/*global $ events getCookie */
 
 var DocumentEditorView = function() {};
 
@@ -9,6 +9,7 @@ DocumentEditorView.prototype.initEvents = function(editor) {
   this.closeDiffButton = $('.js-closeDiff');
   this.textEditorWrapper = $('.js-documentEditor .js-textEditorWrapper');
   this.mergelyWrapper = $('.js-mergelyWrapper');
+  this.cookieName = 'modifyExcerptTip';
 
   this.subscribers();
   this.publishers();
@@ -67,10 +68,16 @@ DocumentEditorView.prototype.publishers = function() {
 
   $(self.editor).on('keydown', function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
+    var cookie = getCookie(self.cookieName);
+
     if (keycode == '9') {
       events.blurEditor.publish();
       events.openContextualToolbar.publish();
     }
+
+    if (!cookie) {
+      events.showModifyExcerptTip.publish();
+    } 
   });
 
   $(self.editor).on('keyup', function(event) {
