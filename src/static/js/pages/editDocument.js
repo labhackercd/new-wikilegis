@@ -2,7 +2,7 @@
 DocumentEditorView ValidationModalView InfoMessageView
 CongressmanAutocompleteView PublicFormModalView PublicFormController
 ToolBarView ToolBarController SaveMessageView DocumentEditorController
-SaveModalView DocumentSideBarView TimelineSidebarView CompareVersionsController CompareVersionsView */
+SaveModalView DocumentSideBarView TimelineSidebarView CompareVersionsController CompareVersionsView DatePickerView */
 
 var editor = $('.js-textEditor')[0];
 silegismgEditorArticulacaoController(editor, {
@@ -61,3 +61,6 @@ compareVersionsController.initEvents();
 
 var compareVersionsView = new CompareVersionsView();
 compareVersionsView.initEvents(timelineSidebarView, compareVersionsController);
+
+var datePickerView = new DatePickerView();
+datePickerView.initEvents();
