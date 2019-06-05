@@ -64,7 +64,7 @@
     background-color: #FFF;
   }
 
-  & > .item:first-of-type > .named::before {
+  & > .item:first-child > .named::before {
     top: 50%;
 
     height: 50%;
@@ -74,6 +74,16 @@
     bottom: 50%;
 
     height: 50%;
+  }
+
+  & > .item.-expanded:first-child:only-of-type > .named::before {
+    bottom: 50%;
+
+    height: 50%;
+  }
+
+  & > .item:first-child:only-of-type > .named::before {
+    height: 0;
   }
 
   & > .item:only-of-type > .named::before {
