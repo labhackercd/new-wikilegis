@@ -38,7 +38,8 @@ DocumentEditorView.prototype.subscribers = function() {
   });
 
   events.documentTextLoaded.subscribe(function(data) {
-    self.editor.innerHTML = data.html;
+    self.editor.focus();
+    self.editor.ctrlArticulacao.clipboardCtrl.colarTexto(data.html);
   });
 
   events.showDiff.subscribe(function(text1, text2) {
