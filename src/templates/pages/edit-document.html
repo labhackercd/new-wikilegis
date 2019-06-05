@@ -1,5 +1,6 @@
 {% extends "structure/base.html" %}
 {% load staticfiles participations_tags %}
+
 {% block title %}
 {{ object.title }}
 {% endblock title %}
@@ -123,7 +124,8 @@
   </div>
 {% endblock navbar_document %}
 
-{% block body_classes %}-white{% endblock %}
+{% block body_classes %}-white{% if page == 'analysis' %} -analysis{% endif %}
+{% endblock %}
 
 {% block content %}
 

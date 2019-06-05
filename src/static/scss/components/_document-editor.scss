@@ -50,6 +50,19 @@
   }
 }
 
+body.-analysis {
+  overflow: hidden;
+  
+  & > .document-editor {
+    overflow: scroll;
+    height: 100%;
+
+    & > article {
+      padding-top: 6rem;
+    }
+  }
+}
+
 .tip {
   position: sticky;
   top: 50%;
@@ -158,7 +171,7 @@
 
 
   & > article > .tags {
-    position: sticky;
+    position: fixed;
     z-index: 4;
     top: 3.75rem;
 
