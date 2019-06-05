@@ -37,15 +37,11 @@
     text-align: right;
   }
 
-  & > .metrics > * + * {
-    margin-top: .5rem;
-    margin-left: 1rem;
-  }
-
   & > .metrics > .item {
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
+    min-height: 2rem;
 
     @include hovering-label(left, 2em, $color-whitesmoke, .875rem);
 
