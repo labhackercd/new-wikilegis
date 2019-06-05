@@ -29,7 +29,7 @@ DocumentEditorController.prototype.loadTextData = function() {
   }
 
   var request = $.ajax({
-    url: Urls.document_text(documentId) + '?version=' + currentVersion,
+    url: Urls.document_text(documentId) + '?format=text&version=' + currentVersion,
     method: 'GET',
   });
 
