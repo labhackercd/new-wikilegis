@@ -382,7 +382,7 @@ def create_public_participation(request, document_pk):
             group, created = InvitedGroup.objects.get_or_create(
                 document=document, public_participation=True,
                 defaults={
-                    'closing_date': closing_date,
+                    'closing_date': end_date,
                     'version': version
                 })
             if created:
