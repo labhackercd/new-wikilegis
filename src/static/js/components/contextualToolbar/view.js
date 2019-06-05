@@ -1,4 +1,4 @@
-/*global $ events absolutePosition */
+/*global $ events absolutePosition setCookie */
 
 var ContextualToolbarView = function() {};
 
@@ -10,6 +10,7 @@ ContextualToolbarView.prototype.initEvents = function(editor) {
   this.openContextualToolbarButton = $('.js-openContextualToolbar');
   this.typeList = $('.js-contextualToolbar .js-typeList');
   this.excerptTypes = $('.js-contextualToolbar .js-excerptType');
+  this.cookieName = 'modifyExcerptTip';
 
   this.subscribers();
   this.publishers();
@@ -42,6 +43,10 @@ ContextualToolbarView.prototype.subscribers = function() {
 
   events.closeContextualToolbar.subscribe(function() {
     self.hide();
+  });
+
+  events.showModifyExcerptTip.subscribe(function() {
+    self.forceShowModifyExcerptTip();
   });
 };
 
@@ -146,6 +151,7 @@ ContextualToolbarView.prototype.hide = function() {
 ContextualToolbarView.prototype.show = function() {
   this.contextualToolbar.removeClass('_hidden');
   this.updateToolbarPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
+  this.openContextualToolbarButton.removeClass('-tip'); // Remove -tip class if 'modifyExcerptTip' cookie was set
 };
 
 ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
@@ -194,3 +200,12 @@ ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(ancho
   this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - spanHeight) / 2));
   this.openContextualToolbarButton.css('left', editorBBox.left - buttonOuterWidth );
 };
+
+ContextualToolbarView.prototype.forceShowModifyExcerptTip = function() {
+  var button = this.openContextualToolbarButton;
+  setCookie(this.cookieName, true);
+
+  setTimeout(function(){
+    button.addClass('-tip');
+  }, 1000)
+}

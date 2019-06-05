@@ -245,6 +245,7 @@ body.-analysis {
 
   & > article > .modify {
     position: absolute;
+    z-index: 1;
     top: 246px;
     left: 805px;
 
@@ -263,25 +264,27 @@ body.-analysis {
     border-radius: .25rem;
 
     @include hovering-label(left, 'tip-shortcut', .75rem, inherit, $font-size-micro, auto, 'default', absolute);
-
-    &::after {
-      font-size: $font-size-micro;
-      font-weight: 400;
-
-      margin-right: .5rem;
-      padding: .5rem;
-
-      transition: transform .3s .5s cubic-bezier(.55, 0, .1, 1), opacity .3s .5s cubic-bezier(.55, 0, .1, 1);
-
-      color: #FFF;
-      background-color: $color-deep-gray;
-    }
   }
 
   & > article > .modify.-show {
     display: flex;
   }
 
+  & > article > .modify.-tip {
+    &::after {
+      transition: transform .3s .5s $swift-out, opacity .3s .5s $swift-out;
+      transform: translate(0, -50%);
+
+      opacity: 1;
+    }
+
+    &::before {
+      transition: transform .2s .6s $swift-out, opacity .2s .6s $swift-out;
+      transform: translate(0);
+
+      opacity: 1;
+    }
+  }
 
   & > article > .modify:hover {
     background-color: #F2F2F2;
