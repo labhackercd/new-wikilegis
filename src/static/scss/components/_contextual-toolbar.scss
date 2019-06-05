@@ -59,6 +59,8 @@
     color: $color-deep-gray;
     border-radius: .25rem;
     background-color: white;
+
+    @include hovering-label(bottom, 'tip-shortcut', .75rem, inherit, $font-size-micro, auto, 'default');
   }
 
   & > .list > .item + .item {

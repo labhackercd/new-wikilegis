@@ -95,7 +95,6 @@
 }
 
 @mixin mask-icon($icon, $color: #FFF, $width: 1em, $height:1em, $mask-size: 100%, $margin:0) {
-
   &::before {
     display: inline-flex;
 
@@ -138,15 +137,22 @@
     }
   }
 
-  @if $style == 'tip-shortcut' {
-    &:hover::after {
-      transition: transform .3s .5s $swift-out, opacity .3s .5s $swift-out;
+  @if $style != 'nobg' {
+    z-index: 3;
+
+    @if $style == 'tip-shortcut' {
+      &:hover::after {
+        transition: transform .3s .5s $swift-out, opacity .3s .5s $swift-out;
+      }
     }
 
     &:hover::before {
-      transition: transform .2s .6s $swift-out, opacity .2s .6s $swift-out;
+      pointer-events: auto;
 
       opacity: 1;
+      @if $style == 'tip-shortcut' {
+        transition: transform .2s .6s $swift-out, opacity .2s .6s $swift-out;
+      }
       @if $direction == 'right' {
         transform: scaleX(-1) translate(0);
       } @else if $direction == 'bottom' {
@@ -162,45 +168,48 @@
       position: absolute;
 
       content: '';
+      transition: transform .2s 0s $swift-out, opacity .1s 0s $swift-out;
+      pointer-events: none;
 
-      @if $style == 'tip-shortcut' {
-        transition: transform .2s 0s $swift-out, opacity .1s 0s $swift-out;
-
-        opacity: 0;
-        background-repeat: no-repeat;
+      opacity: 0;
+      background-repeat: no-repeat;
+      z-index: 3;
 
 
-        @if $direction == 'left' or $direction == 'right' {
-          height: 100%;
-          padding-left: $margin;
+      @if $direction == 'left' or $direction == 'right' {
+        height: 100%;
+        padding-left: $margin;
 
+        @if $style == 'tip-shortcut' {
           background-image: url('../img/triangle-pip-right.svg');
           background-position: -1px 50%;
-        } @else if $direction == 'top' or $direction == 'bottom' {
-          width: 100%;
-          padding-bottom: $margin;
+        }
+      } @else if $direction == 'top' or $direction == 'bottom' {
+        width: 100%;
+        padding-bottom: $margin;
 
+        @if $style == 'tip-shortcut' {
           background-image: url('../img/triangle-pip-bottom.svg');
           background-position: 50% -1px;
         }
+      }
 
-        @if $direction == 'right' {
-          left: 100%;
+      @if $direction == 'right' {
+        left: 100%;
 
-          transform: scaleX(-1) translateX(-100%);
-        } @else if $direction == 'left' {
-          right: 100%;
+        transform: scaleX(-1) translateX(-100%);
+      } @else if $direction == 'left' {
+        right: 100%;
 
-          transform: translateX(-1em);
-        } @else if $direction == 'top' {
-          bottom: 100%;
+        transform: translateX(-1em);
+      } @else if $direction == 'top' {
+        bottom: 100%;
 
-          transform: translateY(-1em);
-        } @else if $direction == 'bottom' {
-          top: 100%;
+        transform: translateY(-1em);
+      } @else if $direction == 'bottom' {
+        top: 100%;
 
-          transform: scaleY(-1) translateY(-100%);
-        }
+        transform: scaleY(-1) translateY(-100%);
       }
     }
   }
@@ -302,7 +311,8 @@
 
       content: attr(aria-label) '\2002\2003' attr(aria-keyshortcuts);
       transition: transform .3s 0s $swift-out, opacity .3s 0s $swift-out;
-      text-transform: unset;
+      letter-spacing: normal;
+      text-transform: none;
 
       color: #FFF;
       background-color: $color-deep-gray;
