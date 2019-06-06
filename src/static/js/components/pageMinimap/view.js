@@ -8,7 +8,7 @@ PageMinimap.prototype.initEvents = function() {
 
 PageMinimap.prototype.publishers = function() {
   pagemap($('.js-pageMinimap')[0], {
-    viewport: $('.js-documentEditor')[0],
+    viewport: $('.js-articleDocument')[0],
     styles: {
       '.js-documentTitle, .js-documentDescription': 'rgba(0,0,0,0.08)',
       '.js-documentExcerpt': 'rgba(0,0,0,0.08)',

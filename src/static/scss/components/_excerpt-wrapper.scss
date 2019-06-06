@@ -41,17 +41,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
+
     min-height: 2rem;
-
-    @include hovering-label(left, 2em, $color-whitesmoke, .875rem);
-
-    &::after {
-      margin-right: 1em;
-      padding: .75em 1em;
-
-      border-radius: .25rem;
-      background-color: $color-deep-gray;
-    }
   }
 
   & > .metrics > .item.-votes {

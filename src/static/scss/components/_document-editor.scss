@@ -52,14 +52,38 @@
 
 body.-analysis {
   overflow: hidden;
-  
-  & > .document-editor {
-    overflow: scroll;
-    height: 100%;
 
-    & > article {
-      padding-top: 6rem;
+  & > .document-editor {
+    justify-content: center;
+
+    height: 100%;
+  }
+
+  & > .document-editor > article {
+    position: relative;
+
+    overflow: auto;
+
+    max-width: calc(66ch + 7rem);
+    height: 100%;
+    margin: 0;
+    padding-top: 0;
+    padding-right: 7rem;
+    padding-left: 7rem;
+
+    &::-webkit-scrollbar {
+      width: 0;
+
+      background: transparent;
     }
+
+    &::-webkit-scrollbar-thumb {
+      background: #F00;
+    }
+  }
+
+  & > .document-editor:not(.-active) > article {
+    margin-left: 7rem;
   }
 }
 
@@ -171,16 +195,21 @@ body.-analysis {
 
 
   & > article > .tags {
-    position: fixed;
+    position: sticky;
     z-index: 4;
-    top: 3.75rem;
+    top: 0;
 
     display: flex;
 
+    width: 100%;
     margin-bottom: 2rem;
-    padding: 1rem 0;
+    padding: 1rem 0 2rem 0;
 
-    background-color: #FFF;
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 70%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  & > .article > .tags > .app-tag {
+    @include card-shadow;
   }
 
   & > article > .tags > * + * {

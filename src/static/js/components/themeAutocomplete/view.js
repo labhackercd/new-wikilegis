@@ -32,8 +32,7 @@ ThemeAutocompleteView.prototype.publishers = function() {
     },
     focus: function(event, ui) {
       $('.js-autocompleteList .js-themeTag').removeClass('-active');
-      $('.js-autocompleteList .js-themeTag[data-value="' + ui.item.slug + '"]')
-        .addClass('-active');
+      $('.js-autocompleteList .js-themeTag[data-value="' + ui.item.slug + '"]').addClass('-active');
     },
     appendTo: '.js-themeAutocomplete',
     messages: {
@@ -44,6 +43,17 @@ ThemeAutocompleteView.prototype.publishers = function() {
     autoFocus: true,
     select: function(event, ui) {
       self.addTheme(ui.item);
+    }
+  });
+
+  self.inputElement.on('blur', function() {
+    self.themeAutocompleteElement.find('.js-input').val('');
+    self.themeAutocompleteElement.removeClass('-filled');
+  });
+
+  $(window).on('load', function() {
+    if (self.themeAutocompleteElement.hasClass('-filled')) {
+      self.themeAutocompleteElement.removeClass('-filled');
     }
   });
 
