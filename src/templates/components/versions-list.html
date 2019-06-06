@@ -2,6 +2,7 @@
   <li class="item js-namedVersions js-currentVersion {% if not selected_version.parent and selected_version.auto_save %}-active{% endif %}">
     <div class="named js-namedVersion js-version {% if not selected_version.parent and selected_version.auto_save %}-selected{% endif %}" data-version-number="{{latest_saves.first.number}}">
       <h2 class="title">Versão Atual <span class="more js-showAutosaves"></span></h2>
+      <span class="datetime">{{latest_saves.first.created|date:'H\hi'}} - {{latest_saves.first.created|date:'d \d\e b, Y'}}</span>
 
       <div class="compare-checkbox _hidden js-compareCheckbox">
         <input id="checkbox" class="js-checkboxElement" type="checkbox" />
@@ -22,9 +23,18 @@
 {% for version in named_versions %}
   <li class="item js-namedVersions {% if version == selected_version or version == selected_version.parent %}-active{% endif %}">
     <div class="named js-namedVersion js-version {% if version == selected_version %}-selected{% endif %}" data-version-number="{{version.number}}">
-      <span class="time">{{version.created|date:'H\hi'}}</span>
+      <span class="tags">
+        {% for group in version.invited_groups.all %}
+          {% if group.public_participation %}
+          Participação Pública
+          {% else %}
+          {{group.thematic_group.name}} Participação Pública
+          {% endif %}
+          {% if not forloop.last %}-{% endif %}
+        {% endfor %}
+      </span>
       <h2 class="title">{{version.name}} <span class="more js-showAutosaves"></span></h2>
-      <span class="date">{{version.created|date:'d \d\e b, Y'}} </span>
+      <span class="datetime">{{version.created|date:'H\hi'}} - {{version.created|date:'d \d\e b, Y'}}</span>
 
       <div class="compare-checkbox _hidden js-compareCheckbox">
         <input id="checkbox" class="js-checkboxElement" type="checkbox" />

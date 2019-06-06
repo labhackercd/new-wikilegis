@@ -13,6 +13,10 @@ TextInputView.prototype.publishers = function() {
 
   self.textInputElement.on('focus', function(e){
     self.addFill($(e.target));
+
+    if ($(this).val() != '') {
+      $(this).select();
+    }
   });
 
   self.textInputElement.on('blur', function(e){

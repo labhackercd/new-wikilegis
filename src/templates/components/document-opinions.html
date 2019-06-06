@@ -28,7 +28,9 @@
     <p class="js-documentDescription description">{{ object.description }}</p>
     <hr>
   </header>
-  <canvas class="page-minimap js-pageMinimap"></canvas>
+  <div class="minimap">
+    <canvas class="page-minimap js-pageMinimap"></canvas>
+  </div>
   {% for excerpt in group.get_excerpts %}
     {% if excerpt.excerpt_type.align_center %}
     <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
