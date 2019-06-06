@@ -31,16 +31,18 @@ def parse_html(html, version, document):
         excerpt_type = excerpt.attrs['data-tipo']
         number = ARTICULATION_COUNTER[excerpt_type] + 1
         content = excerpt.text
-        ARTICULATION_COUNTER.update([excerpt_type])
 
-        Excerpt.objects.create(
-            document=document,
-            order=order,
-            excerpt_type=ExcerptType.objects.get(slug=excerpt_type),
-            number=number,
-            content=content,
-            version=version
-        )
+        if content.strip() != '':
+            ARTICULATION_COUNTER.update([excerpt_type])
 
-        for resetable in RESET_BY_ARTICULATION[excerpt_type]:
-            ARTICULATION_COUNTER[resetable] = 0
+            Excerpt.objects.create(
+                document=document,
+                order=order,
+                excerpt_type=ExcerptType.objects.get(slug=excerpt_type),
+                number=number,
+                content=content,
+                version=version
+            )
+
+            for resetable in RESET_BY_ARTICULATION[excerpt_type]:
+                ARTICULATION_COUNTER[resetable] = 0
