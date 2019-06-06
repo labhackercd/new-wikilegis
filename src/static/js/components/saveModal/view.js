@@ -5,6 +5,8 @@ var SaveModalView = function() {};
 SaveModalView.prototype.initEvents = function() {
   this.saveModal = $('.js-saveModal');
   this.sendButton = $('.js-saveModal .js-send');
+  this.sendButtonLoad = $('.js-saveModal .js-send .js-load');
+  this.sendButtonText = $('.js-saveModal .js-send .js-text');
   this.nameInput = $('.js-saveModal .js-name');
 
   this.subscribers();
@@ -22,6 +24,10 @@ SaveModalView.prototype.subscribers = function() {
     self.saveModal.removeClass('-show');
     self.nameInput.val('');
     events.closeModal.publish();
+  });
+
+  events.documentSaved.subscribe(function() {
+    self.hideLoading();
   });
 };
 
@@ -52,6 +58,25 @@ SaveModalView.prototype.publishers = function() {
     };
 
     events.saveDocument.publish(data);
+    self.showLoading();
     return false;
   });
+};
+
+SaveModalView.prototype.showLoading = function() {
+  this.sendButtonLoad.removeClass('_hidden');
+  this.sendButtonText.text('Salvando');
+
+  this.sendButton.attr('disabled', 'disabled');
+  this.sendButton.removeClass('-green');
+  this.sendButton.addClass('-gray');
+};
+
+SaveModalView.prototype.hideLoading = function() {
+  this.sendButtonLoad.addClass('_hidden');
+  this.sendButtonText.text('Salvar');
+
+  this.sendButton.removeAttr('disabled');
+  this.sendButton.removeClass('-gray');
+  this.sendButton.addClass('-green');
 };

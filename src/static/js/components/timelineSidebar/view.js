@@ -100,7 +100,7 @@ TimelineSidebarView.prototype.toggleAutosaves = function (namedVersion) {
   } else {
     autosaves.addClass('-show');
     namedVersion.find('.js-showAutosaves').addClass('-active');
-    namedVersion.addClass('-expanded')
+    namedVersion.addClass('-expanded');
   }
 
 };

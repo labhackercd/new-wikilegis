@@ -22,6 +22,19 @@
     padding: .75rem 1.25rem;
   }
 
+  & > .load {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+
+    border: 0.2rem solid white;
+    border-radius: 100%;
+    border-top: 0.2rem solid transparent;
+    margin-right: 0.5rem;
+
+    animation: rotate infinite linear 1s;
+  }
+
   ///
   // Circle buttons won't show any text, just an icon. You must add an aria-label attribute on them for accessibility!
   //

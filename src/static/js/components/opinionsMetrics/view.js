@@ -36,12 +36,12 @@ OpinionMetricsView.prototype.publishers = function() {
 
   $('.js-documentEditor').on('click', function(e) {
     if (!$(e.target).hasClass('js-metricsIcons') &&
-        $(e.target).closest('.js-excerptWrapper').length === 0 &&
-        $(e.target).closest('.js-sideBar').length === 0 &&
-        $(e.target).closest('.js-toolBar').length === 0 &&
-        $(e.target).closest('.js-metricsButtons').length === 0
-      ) {
-        self.resetOpinions();
+      $(e.target).closest('.js-excerptWrapper').length === 0 &&
+      $(e.target).closest('.js-sideBar').length === 0 &&
+      $(e.target).closest('.js-toolBar').length === 0 &&
+      $(e.target).closest('.js-metricsButtons').length === 0
+    ) {
+      self.resetOpinions();
     }
   });
 };
@@ -76,7 +76,7 @@ OpinionMetricsView.prototype.get_opinions = function(excerptId=undefined) {
       events.openHighlightTooltip.publish(excerpt, currentId.toString());
     });
 
-    $('.js-opinions .js-suggestionOpinion').on('mouseleave', function(e) {
+    $('.js-opinions .js-suggestionOpinion').on('mouseleave', function() {
       events.closeHighlightTooltip.publish($('.js-documentExcerpt'));
     });
 
@@ -88,7 +88,7 @@ OpinionMetricsView.prototype.select = function (suggestionOpinion) {
   if ($(suggestionOpinion).hasClass('-active')) {
     suggestionOpinion.removeClass('-active');
 
-    suggestionOpinion.find('.js-suggestionText').truncate('collapse')
+    suggestionOpinion.find('.js-suggestionText').truncate('collapse');
 
   } else {
     $('.js-opinions .js-suggestionOpinion').removeClass('-active');
@@ -101,7 +101,7 @@ OpinionMetricsView.prototype.select = function (suggestionOpinion) {
 
 OpinionMetricsView.prototype.resetOpinions = function () {
   var self = this;
-  
+
   $('.js-documentEditor').removeClass('-supressed');
   $('.js-excerptWrapper').removeClass('-enabled');
   self.opinionsElement.html(`

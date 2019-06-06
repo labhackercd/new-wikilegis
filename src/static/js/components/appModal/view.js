@@ -34,10 +34,10 @@ AppModalView.prototype.publishers = function() {
   $(document).on('keydown', function(e) {
     if (e.keyCode == 27) {
       events.closeModal.publish();
-    };
+    }
   });
 
-  $('.app-modal').on('keydown', function(e) {
+  $('.app-modal').on('keydown', function() {
     if(event.keyCode == 13) {
       event.preventDefault();
       return false;

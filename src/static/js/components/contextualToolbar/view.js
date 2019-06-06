@@ -104,7 +104,7 @@ ContextualToolbarView.prototype.publishers = function() {
 
   self.openContextualToolbarButton.on('click', function(){
     events.blurEditor.publish();
-    events.openContextualToolbar.publish();    
+    events.openContextualToolbar.publish();
   });
 };
 
@@ -163,25 +163,25 @@ ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) 
   var anchorPosition = absolutePosition(anchorElement);
   var toolbarOuterHeight= this.contextualToolbar.outerHeight(true);
   var editorBBox = this.editor.getBoundingClientRect();
-  var arrowWidth = this.arrow.outerWidth(true)
+  var arrowWidth = this.arrow.outerWidth(true);
   var spanWidth = parseInt(window.getComputedStyle(anchorElement, ':before').width);
 
-  this.contextualToolbar.css('top', anchorPosition.top - toolbarOuterHeight)
+  this.contextualToolbar.css('top', anchorPosition.top - toolbarOuterHeight);
   this.contextualToolbar.css('left', editorBBox.left);
   this.arrow.css('left', (spanWidth / 2) - (arrowWidth / 2));
 };
 
 ContextualToolbarView.prototype.showOpenToolbarButton = function() {
-    var button = this.openContextualToolbarButton
+  var button = this.openContextualToolbarButton;
 
-    button.removeClass('-show');
+  button.removeClass('-show');
 
-    this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
+  this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
 
-    // Small delay in order to remove and then add modifier class and trigger its animation
-    setTimeout(function(){
-      button.addClass('-show');
-    },1);
+  // Small delay in order to remove and then add modifier class and trigger its animation
+  setTimeout(function(){
+    button.addClass('-show');
+  },1);
 };
 
 ContextualToolbarView.prototype.hideOpenToolbarButton = function() {
@@ -192,7 +192,7 @@ ContextualToolbarView.prototype.hideOpenToolbarButton = function() {
 ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(anchorElement) {
   var anchorPosition = absolutePosition(anchorElement);
   var editorBBox = this.editor.getBoundingClientRect();
-  var spanHeight = parseInt(window.getComputedStyle(anchorElement, ':before').height)
+  var spanHeight = parseInt(window.getComputedStyle(anchorElement, ':before').height);
   var buttonOuterWidth = this.openContextualToolbarButton.outerWidth(true);
   var buttonOuterHeight= this.openContextualToolbarButton.outerHeight(true);
 
@@ -207,5 +207,5 @@ ContextualToolbarView.prototype.forceShowModifyExcerptTip = function() {
 
   setTimeout(function(){
     button.addClass('-tip');
-  }, 1000)
-}
+  }, 1000);
+};

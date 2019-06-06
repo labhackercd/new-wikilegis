@@ -1,6 +1,6 @@
 /*global DocumentSideBarView OpinionMetricsView TextHighlightView ReduceExcerptsView
 ValidationModalView CongressmanAutocompleteView PublicFormModalView
-PublicFormController PageMinimap DocumentOpinionsBodyView */
+PublicFormController PageMinimap DocumentOpinionsBodyView DatePickerView */
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
