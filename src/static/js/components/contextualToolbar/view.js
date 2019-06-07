@@ -21,7 +21,9 @@ ContextualToolbarView.prototype.subscribers = function() {
 
   self.editor.addEventListener('contexto', function (e) {
     self.showAllowedExcerptTypes(e.detail.permissoes);
-    self.showOpenToolbarButton();
+    if (self.editor.ctrlArticulacao.contexto !== undefined) { // If the page has just been loaded, returns undefined
+      self.showOpenToolbarButton();
+    }
   });
 
   events.blurEditor.subscribe(function() {
@@ -172,22 +174,30 @@ ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) 
 };
 
 ContextualToolbarView.prototype.showOpenToolbarButton = function() {
+  var self = this;
   var button = this.openContextualToolbarButton;
 
-  button.removeClass('-show');
+  if (self.editor.ctrlArticulacao.contexto.cursor.elemento == editor) { // Sometimes the context is the editor itself. We don't show the button here.
+    setTimeout(function(){
+      self.hideOpenToolbarButton();
+    },1);
 
-  this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
+  } else {
 
-  // Small delay in order to remove and then add modifier class and trigger its animation
-  setTimeout(function(){
-    button.addClass('-show');
-  },1);
+    button.removeClass('-show');
+
+    this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
+
+    // Small delay in order to remove and then add modifier class and trigger its animation
+    setTimeout(function(){
+      button.addClass('-show');
+    },1);
+  }
 };
 
 ContextualToolbarView.prototype.hideOpenToolbarButton = function() {
   this.openContextualToolbarButton.removeClass('-show');
 };
-
 
 ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(anchorElement) {
   var anchorPosition = absolutePosition(anchorElement);
