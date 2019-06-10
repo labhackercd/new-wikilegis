@@ -137,22 +137,17 @@
     }
   }
 
-  @if $style != 'nobg' {
+  @if $style == 'tip-shortcut' {
     z-index: 3;
 
-    @if $style == 'tip-shortcut' {
-      &:hover::after {
-        transition: transform .3s .5s $swift-out, opacity .3s .5s $swift-out;
-      }
+    &:hover::after {
+      transition: transform .3s .5s $swift-out, opacity .3s .5s $swift-out;
     }
 
     &:hover::before {
-      pointer-events: auto;
+      transition: transform .2s .6s $swift-out, opacity .2s .6s $swift-out;
 
       opacity: 1;
-      @if $style == 'tip-shortcut' {
-        transition: transform .2s .6s $swift-out, opacity .2s .6s $swift-out;
-      }
       @if $direction == 'right' {
         transform: scaleX(-1) translate(0);
       } @else if $direction == 'bottom' {
@@ -163,9 +158,10 @@
     }
   }
 
-  @if $style != 'nobg' {
+  @if $style == 'tip-shortcut' {
     &::before {
       position: absolute;
+      z-index: 3;
 
       content: '';
       transition: transform .2s 0s $swift-out, opacity .1s 0s $swift-out;
@@ -173,25 +169,20 @@
 
       opacity: 0;
       background-repeat: no-repeat;
-      z-index: 3;
 
 
       @if $direction == 'left' or $direction == 'right' {
         height: 100%;
         padding-left: $margin;
 
-        @if $style == 'tip-shortcut' {
-          background-image: url('../img/triangle-pip-right.svg');
-          background-position: -1px 50%;
-        }
+        background-image: url('../img/triangle-pip-right.svg');
+        background-position: -1px 50%;
       } @else if $direction == 'top' or $direction == 'bottom' {
         width: 100%;
         padding-bottom: $margin;
 
-        @if $style == 'tip-shortcut' {
-          background-image: url('../img/triangle-pip-bottom.svg');
-          background-position: 50% -1px;
-        }
+        background-image: url('../img/triangle-pip-bottom.svg');
+        background-position: 50% -1px;
       }
 
       @if $direction == 'right' {
