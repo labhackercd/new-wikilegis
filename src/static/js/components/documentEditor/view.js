@@ -41,7 +41,13 @@ DocumentEditorView.prototype.subscribers = function() {
   events.documentTextLoaded.subscribe(function(data) {
     self.editor.focus();
     self.editor.ctrlArticulacao.limpar();
-    self.editor.ctrlArticulacao.clipboardCtrl.colarTexto(data.html);
+
+    // XXX 
+    // Sometimes the cursor is not defined when pasting text here, which throws an error. 
+    // Shamefully SetTimeouting to "fix" it.
+    setTimeout(function(){
+      self.editor.ctrlArticulacao.clipboardCtrl.colarTexto(data.html);
+    }, 100)
   });
 
   events.showDiff.subscribe(function(text1, text2) {
@@ -71,8 +77,10 @@ DocumentEditorView.prototype.publishers = function() {
     var cookie = getCookie(self.cookieName);
 
     if (keycode == '9') {
-      events.blurEditor.publish();
-      events.openContextualToolbar.publish();
+      if (self.editor.ctrlArticulacao.contexto.cursor.elemento !== editor) {
+        events.blurEditor.publish();
+        events.openContextualToolbar.publish();
+      }
     }
 
     if (!cookie) {

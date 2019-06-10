@@ -6,6 +6,7 @@ ContextualToolbarView.prototype.initEvents = function(editor) {
   this.editor = editor;
 
   this.contextualToolbar = $('.js-contextualToolbar');
+  this.contextualToolbarWrapper = $('.js-contextualToolbarErrorAnimationWrapper');
   this.arrow = $('.js-contextualToolbar .js-contextualToolbarArrow');
   this.openContextualToolbarButton = $('.js-openContextualToolbar');
   this.typeList = $('.js-contextualToolbar .js-typeList');
@@ -21,7 +22,9 @@ ContextualToolbarView.prototype.subscribers = function() {
 
   self.editor.addEventListener('contexto', function (e) {
     self.showAllowedExcerptTypes(e.detail.permissoes);
-    self.showOpenToolbarButton();
+    if (self.editor.ctrlArticulacao.contexto !== undefined) { // If the page has just been loaded, returns undefined
+      self.showOpenToolbarButton();
+    }
   });
 
   events.blurEditor.subscribe(function() {
@@ -115,8 +118,8 @@ ContextualToolbarView.prototype.activateShortcut = function(excerptType) {
     self.editor.focus();
     event.preventDefault();
   } else {
-    self.contextualToolbar.addClass('-error').one('animationend', function() {
-      self.contextualToolbar.removeClass('-error');
+    self.contextualToolbarWrapper.addClass('-error').one('animationend', function() {
+      self.contextualToolbarWrapper.removeClass('-error');
     });
   }
 };
@@ -160,44 +163,71 @@ ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
 };
 
 ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) {
+  var self = this;
   var anchorPosition = absolutePosition(anchorElement);
-  var toolbarOuterHeight= this.contextualToolbar.outerHeight(true);
+  var toolbarOuterHeight = this.contextualToolbar.outerHeight(true);
+  var toolbarOuterWidth = this.contextualToolbar.outerWidth(true);
   var editorBBox = this.editor.getBoundingClientRect();
   var arrowWidth = this.arrow.outerWidth(true);
-  var spanWidth = parseInt(window.getComputedStyle(anchorElement, ':before').width);
+  var beforeWidth = parseInt(window.getComputedStyle(anchorElement, '::before').width);
+  var beforeMargin = (parseInt(window.getComputedStyle(anchorElement, '::before').marginLeft)) * 2;
 
   this.contextualToolbar.css('top', anchorPosition.top - toolbarOuterHeight);
-  this.contextualToolbar.css('left', editorBBox.left);
-  this.arrow.css('left', (spanWidth / 2) - (arrowWidth / 2));
+
+  // If the contextual toolbar is outside the editor, align to the left
+  if (((editorBBox.left + ((beforeWidth + beforeMargin) / 2)) - (toolbarOuterWidth / 2)) - editorBBox.left < 0) {
+
+    this.contextualToolbar.css('left', editorBBox.left);
+    this.arrow.css('left', (beforeWidth / 2) - (arrowWidth / 2));
+
+  // Else, align to center
+  } else {
+
+    this.contextualToolbar.css('left', (editorBBox.left + ((beforeWidth + beforeMargin) / 2)) - (toolbarOuterWidth / 2));
+    this.arrow.css('left', (toolbarOuterWidth / 2) - (arrowWidth / 2));
+  }
+
+  // XXX 
+  // We should define a better positioning behaviour, and specify how to position it whenever the excerpt type 
+  // is "citacao", since this type won't render a ::before, which we depend on for positioning.
+
 };
 
 ContextualToolbarView.prototype.showOpenToolbarButton = function() {
+  var self = this;
   var button = this.openContextualToolbarButton;
 
-  button.removeClass('-show');
+  if (self.editor.ctrlArticulacao.contexto.cursor.elemento == editor) { // Sometimes the context is the editor itself. We don't show the button here.
+    setTimeout(function(){
+      self.hideOpenToolbarButton();
+    },1);
 
-  this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
+  } else {
 
-  // Small delay in order to remove and then add modifier class and trigger its animation
-  setTimeout(function(){
-    button.addClass('-show');
-  },1);
+    button.removeClass('-show');
+
+    this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
+
+    // Small delay in order to remove and then add modifier class and trigger its animation
+    setTimeout(function(){
+      button.addClass('-show');
+    },1);
+  }
 };
 
 ContextualToolbarView.prototype.hideOpenToolbarButton = function() {
   this.openContextualToolbarButton.removeClass('-show');
 };
 
-
 ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(anchorElement) {
   var anchorPosition = absolutePosition(anchorElement);
   var editorBBox = this.editor.getBoundingClientRect();
-  var spanHeight = parseInt(window.getComputedStyle(anchorElement, ':before').height);
+  var beforeHeight = parseInt(window.getComputedStyle(anchorElement, '::before').height);
   var buttonOuterWidth = this.openContextualToolbarButton.outerWidth(true);
   var buttonOuterHeight= this.openContextualToolbarButton.outerHeight(true);
 
 
-  this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - spanHeight) / 2));
+  this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - beforeHeight) / 2));
   this.openContextualToolbarButton.css('left', editorBBox.left - buttonOuterWidth );
 };
 

@@ -2,21 +2,26 @@
   position: absolute;
   z-index: 1;
 
-  margin-bottom: .5rem;
-  padding: .5rem 1rem;
+  animation: reveal-from-bottom .2s $swift-out;
 
-  user-select: none;
-  transition: border-color .1s ease, box-shadow .1s ease;
-  animation: zoom-in-reveal .15s $swift-out;
-  transform-origin: 0 100%;
+  & > .wrapper {
+    position: relative;
 
-  border: 1px solid $color-grayish;
-  border-bottom: 3px solid $color-brand;
-  border-radius: .25rem;
-  background-color: white;
-  box-shadow: 2px 2px 9px 0 hsla(0, 0%, 50%, .3);
+    margin-bottom: .5rem;
+    padding: .5rem 1rem;
 
-  & > .arrow{
+    user-select: none;
+    transition: border-color .1s ease, box-shadow .1s ease;
+    transform-origin: 0 100%;
+
+    border: 1px solid $color-grayish;
+    border-bottom: 3px solid $color-brand;
+    border-radius: .25rem;
+    background-color: white;
+    box-shadow: 2px 2px 9px 0 hsla(0, 0%, 50%, .3);
+  }
+
+  & > .wrapper > .arrow {
     position: absolute;
     top: 100%;
 
@@ -24,24 +29,29 @@
     height: 0;
 
     content: '';
+    transition: border-color .1s ease;
 
-    border-top: 10px solid #2DA965;
+    border-top: 10px solid $color-brand;
     border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
+    border-left: 10px solid transparent;;
   }
 
-  &.-error {
+  & > .wrapper.-error {
     animation: shake .1s 2 ease;
 
     border-color: $color-red;
     box-shadow: 0 0 10px 2px hsla(0, 77%, 66%, .4);
+
+    & > .arrow {
+      border-top-color: $color-red;
+    }
   }
 
-  & > .list {
+  & > .wrapper > .list {
     display: flex;
   }
 
-  & > .list > .item {
+  & > .wrapper > .list > .item {
     font-size: .75rem;
     font-weight: 600;
 
@@ -63,17 +73,17 @@
     @include hovering-label(bottom, 'tip-shortcut', .75rem, inherit, $font-size-micro, auto, 'default');
   }
 
-  & > .list > .item + .item {
+  & > .wrapper > .list > .item + .item {
     margin-left: .1rem;
   }
 
-  & > .list > .item:focus,
-  & > .list > .item:hover {
+  & > .wrapper > .list > .item:focus,
+  & > .wrapper > .list > .item:hover {
     color: $color-deep-gray;
     background-color: hsla(0, 0%, 95%, 1);
   }
 
-  & > .list > .item > .shortcut {
+  & > .wrapper > .list > .item > .shortcut {
     font-weight: 600;
 
     text-decoration: underline;

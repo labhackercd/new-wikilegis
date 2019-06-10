@@ -1,10 +1,12 @@
+$editor-line-height: 1.75em;
+
 .silegismg-editor-articulacao {
   &.-blur > p {
     opacity: .1;
   }
 
   & > p {
-    line-height: 1.75 !important;
+    line-height: $editor-line-height !important;
 
     margin-left: -.5rem !important;
     padding-left: .5rem !important;
@@ -16,11 +18,36 @@
     border-left-width: 1px !important;
   }
 
+  & > p::before {
+    box-sizing: border-box;
+    height: $editor-line-height !important;
+
+    transition: border-bottom-color .15s ease;
+
+    border-bottom: 2px dashed transparent;
+  }
+
+  & > p[data-tipo=titulo],
+  & > p[data-tipo=capitulo] {
+    display: flex !important;
+    flex-direction: column;
+
+    text-align: center !important;
+
+    &::before {
+      margin: 0 auto !important;
+    }
+  }
+
   & > p[data-invalido]::after {
     font-size: $font-size-mili !important;
   }
 
   & > p.-highlight {
     opacity: 1;
+  }
+
+  & > p.-highlight::before {
+    border-bottom-color: $color-brand;
   }
 }
