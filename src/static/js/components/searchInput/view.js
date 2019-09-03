@@ -26,5 +26,11 @@ SearchInputView.prototype.initSearch = function () {
   $('.js-search').on('keyup', function() {
     var searchString = $(this).val();
     listObj.search(searchString);
+
+    if (listObj.matchingItems.length > 0) {
+      $('.no-result').hide()
+    } else {
+      $('.no-result').show()
+    }
   });
 };
