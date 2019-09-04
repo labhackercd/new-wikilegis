@@ -9,9 +9,9 @@
     <h2>Dê a sua opinião</h2>
     <img class="selectimage" src="{% static 'img/text-select-onboarding.svg' %}">
     {% if current_path|startswith:"/p/" and current_path != "/p/new/" %}
-      <p><span class="text-highlight">Selecione o texto</span> do projeto para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
+      <p><span class="text-highlight">Selecione o texto</span> da proposta legislativa para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
     {% else %}
-      <p>Acesse um projeto e <span class="text-highlight">selecione o texto</span> dentro dele para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
+      <p>Acesse uma proposta legislativa e <span class="text-highlight">selecione o texto</span> dentro dele para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
     {% endif %}
     <button class="app-button -green js-next">Próximo</button>
   </div>
