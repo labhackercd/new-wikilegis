@@ -16,13 +16,8 @@
 
     transition: transform 1s $swift-out;
     transform-origin: left;
-    animation: moving-gradient 4s linear infinite;
 
-    background: linear-gradient(.43turn, $color-brand 5%, mix(#FFF, $color-brand, 50%) 15%, $color-brand 30%) repeat;
+    background-color: $color-brand;
     background-size: 50% 100%;
-  }
-
-  & > .value.-caution {
-    background: linear-gradient(.43turn, $color-red 5%, mix(#FFF, $color-red, 50%) 15%, $color-red 30%) repeat;
   }
 }

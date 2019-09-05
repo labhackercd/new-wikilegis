@@ -226,8 +226,12 @@ ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(ancho
   var buttonOuterWidth = this.openContextualToolbarButton.outerWidth(true);
   var buttonOuterHeight= this.openContextualToolbarButton.outerHeight(true);
 
+  if ($('.js-body').children('.edem-content-wrapper').length > 0) {
+    this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - beforeHeight) / 2) - 32);
+  } else {
+    this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - beforeHeight) / 2));
+  }
 
-  this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - beforeHeight) / 2));
   this.openContextualToolbarButton.css('left', editorBBox.left - buttonOuterWidth );
 };
 

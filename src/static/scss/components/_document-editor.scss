@@ -53,19 +53,19 @@
 body.-analysis {
   overflow: hidden;
 
-  & > .document-editor {
+  & .document-editor {
     justify-content: center;
 
     height: 100%;
   }
 
-  & > .document-editor > article {
+  & .document-editor > article {
     position: relative;
 
     overflow: auto;
 
     max-width: calc(66ch + 7rem);
-    height: 100%;
+    height: 85vh;
     margin: 0;
     padding-top: 0;
     padding-right: 7rem;
@@ -82,7 +82,7 @@ body.-analysis {
     }
   }
 
-  & > .document-editor:not(.-active) > article {
+  & .document-editor:not(.-active) > article {
     margin-left: 7rem;
   }
 }
