@@ -14,9 +14,11 @@
   color: $color-deep-gray;
   background-color: transparent;
 
+  line-height: 1.2;
+
   @include icon(comment, 17px, 18px);
   @include bp-mediumup {
-    @include hovering-label(right, 'nobg', 0, inherit, 1em, 6rem);
+    @include hovering-label(right, 'nobg', 0, inherit, 1.2em, 7.75rem);
   }
 
   &.-all {

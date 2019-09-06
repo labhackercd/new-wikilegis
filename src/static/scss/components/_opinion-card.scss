@@ -89,16 +89,28 @@
       width: 100%;
       padding: 1rem;
 
-      background-color: $color-highlight-on-white;
+      background-color: $color-light-black;
 
       @include bp-mediumup {
-        padding: 2rem;
+        padding: 1.25rem 2rem;
+      }
 
-        background-color: transparent;
+      & > h2 {
+        color: #FFF;
+
+        @include bp-mediumup {
+          font-size: 2rem;
+        }
       }
 
       & > .close-icon {
-        right: 1.7rem;
+        right: 0.25rem;
+        top: 0.5rem;
+
+        @include bp-mediumup {
+          right: 1.7rem;
+          top: 1.7rem;
+        }
       }
     }
 
@@ -135,6 +147,7 @@
 
             padding: 0 2rem;
             padding-bottom: 4rem;
+            padding-top: 1.5rem;
           }
 
           & > p {
@@ -155,7 +168,7 @@
 
         @include bp-mediumup {
           padding: 0;
-          padding-top: 6rem;
+          padding-top: 5.5rem;
         }
 
         & > .overflow > .excerpt {
@@ -223,7 +236,7 @@
         background-color: $color-highlight-on-white;
 
         @include bp-mediumup {
-          padding-top: 6rem;
+          padding-top: 5.5rem;
           padding-bottom: 0;
         }
 

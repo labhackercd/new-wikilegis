@@ -24,7 +24,7 @@
 
 {% can_suggest object request.user as selection_enabled %}
 {% if request.user.profile.profile_type != 'owner' %}
-<div class="howto-button js-howtoButton" aria-label="Como participar?"></div>
+<div class="howto-button -navbar js-howtoButton" aria-label="Como participar?"></div>
 {% endif %}
 <main class="document-body js-documentBody" data-selection-enabled="{% if selection_enabled %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
   <div class="wrapper">
@@ -53,7 +53,7 @@
         {% group_suggestions object as has_suggestions %}
       {% endif %}
       {% if has_suggestions %}
-      <button class="suggestion-opinion -all js-allOpinionsButton" aria-label="Ver todas as opiniões"></button>
+      <button class="suggestion-opinion -all js-allOpinionsButton" aria-label="Avaliar todas as opiniões"></button>
       {% endif %}
     </header>
     {% for excerpt in object.get_excerpts %}
@@ -72,7 +72,7 @@
           {% excerpt_suggestions object excerpt as has_suggestions %}
         {% endif %}
         {% if has_suggestions %}
-        <button class="suggestion-opinion js-opinionButton" aria-label="Ver opiniões deste trecho"></button>
+        <button class="suggestion-opinion js-opinionButton" aria-label="Avaliar opiniões deste trecho"></button>
         {% endif %}
       </p>
       {% endif %}
