@@ -211,14 +211,21 @@ def excerpt_votes(excerpt, group):
     return sum(votes_list)
 
 
+def to_float(value):
+    try:
+        return float(value)
+    except ValueError:
+        return 0
+
+
 @register.simple_tag
 def relevance_classes(relevance_participations=0,
                       relevance_opinions=0,
                       relevance_votes=0):
     classes = ''
-    relevance_participations = float(relevance_participations)
-    relevance_opinions = float(relevance_opinions)
-    relevance_votes = float(relevance_votes)
+    relevance_participations = to_float(relevance_participations)
+    relevance_opinions = to_float(relevance_opinions)
+    relevance_votes = to_float(relevance_votes)
     if relevance_participations < 20:
         classes += 'js-participationAmount1'
     elif relevance_participations < 40:
