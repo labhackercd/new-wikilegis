@@ -16,6 +16,7 @@ urlpatterns = [
     path('participation/', include('apps.participations.urls')),
     path('accounts/', include('apps.accounts.urls')),
     path('listarProposicoes/', views.list_propositions),
+    path('listarProposicoes/<int:cd_id>', views.proposition_detail),
 ]
 
 if settings.DEBUG:

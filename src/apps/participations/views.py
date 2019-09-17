@@ -6,7 +6,7 @@ from utils.decorators import require_ajax
 from datetime import date, datetime
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
-from apps.projects.models import Excerpt, Theme, Document, DocumentResponsible
+from apps.projects.models import Excerpt, Theme, Document, DocumentResponsible, DocumentInfo
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation, PublicAuthorization
@@ -333,25 +333,6 @@ def get_opinions(request, excerpt_pk):
     return JsonResponse({'opinionsHtml': html})
 
 
-def list_propositions(request):
-    groups = InvitedGroup.objects.filter(
-        public_participation=True,
-        group_status='in_progress',
-        document__document_type__isnull=False).distinct()
-    result = []
-    for group in groups:
-        obj = {
-            'numProposicao': group.document.number,
-            'anoProposicao': group.document.year,
-            'siglaTipoProposicao': group.document.document_type.initials,
-            'uri': '%s%s' % (Site.objects.get_current().domain,
-                             group.get_absolute_url())
-        }
-        result.append(obj)
-
-    return JsonResponse(result, safe=False)
-
-
 @require_ajax
 def create_public_participation(request, document_pk):
     today = date.today()
@@ -459,3 +440,49 @@ def update_closing_date(request, group_id):
             {'error': _('Congressman and closing date are required!')},
             status=400
         )
+
+
+# Endpoint to link document with Câmara dos Deputados
+def list_propositions(request):
+    groups = InvitedGroup.objects.filter(
+        public_participation=True,
+        group_status='in_progress',
+        document__document_type__isnull=False).distinct()
+    result = []
+    for group in groups:
+        if hasattr(group.document, 'infos'):
+            obj = {
+                'id': group.document.infos.cd_id,
+                'numProposicao': group.document.number,
+                'anoProposicao': group.document.year,
+                'siglaTipoProposicao': group.document.document_type.initials,
+                'uri': '%s%s' % (Site.objects.get_current().domain,
+                                 group.get_absolute_url())
+            }
+        else:
+            obj = {
+                'numProposicao': group.document.number,
+                'anoProposicao': group.document.year,
+                'siglaTipoProposicao': group.document.document_type.initials,
+                'uri': 'https://%s%s' % (Site.objects.get_current().domain,
+                                 group.get_absolute_url())
+            }
+        result.append(obj)
+
+    return JsonResponse(result, safe=False)
+
+
+# Endpoint to link document with Câmara dos Deputados
+def proposition_detail(request, cd_id):
+    doc_info = get_object_or_404(DocumentInfo, cd_id=cd_id)
+    pub_group = doc_info.document.invited_groups.filter(group_status='in_progress').first()
+    obj = {
+        'id': doc_info.cd_id,
+        'numProposicao': doc_info.document.number,
+        'anoProposicao': doc_info.document.year,
+        'siglaTipoProposicao': doc_info.document.document_type.initials,
+        'uri': 'https://%s%s' % (Site.objects.get_current().domain,
+                         pub_group.get_absolute_url())
+    }
+
+    return JsonResponse(obj, safe=False)
