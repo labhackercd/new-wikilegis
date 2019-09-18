@@ -54,7 +54,7 @@
 
               <span class="begin">Aberto{% if invite.group.openning_date|absolute_days_since == "0" %} hoje{% elif group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ invite.group.openning_date|absolute_days_since }} dias{% endif %}</span>
               </span>
-              <span class="end">Encerra{% if invite.group.closing_date|absolute_days_since == "0" %} hoje{% elif invite.group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ invite.group.closing_date|absolute_days_since }} dias{% endif %}</span>
+              <span class="end">Encerra-se{% if invite.group.closing_date|absolute_days_since == "0" %} hoje{% elif invite.group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ invite.group.closing_date|absolute_days_since }} dias{% endif %}</span>
               </span>
 
               <div class="progress-bar">
@@ -121,7 +121,7 @@
             <span class="begin">Aberto{% if private_group.openning_date|absolute_days_since == "0" %} hoje{% elif private_group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ private_group.openning_date|absolute_days_since }} dias{% endif %}</span>
             </span>
 
-            <span class="end">Encerra{% if private_group.closing|absolute_days_since == "0" %} hoje{% elif private_group.closing|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ private_group.closing_date|absolute_days_since }} dias{% endif %}</span>
+            <span class="end">Encerra-se{% if private_group.closing|absolute_days_since == "0" %} hoje{% elif private_group.closing|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ private_group.closing_date|absolute_days_since }} dias{% endif %}</span>
             </span>
 
             <div class="progress-bar">
@@ -175,7 +175,7 @@
               <span class="begin">Aberto{% if public_group.openning_date|absolute_days_since == "0" %} hoje {% elif public_group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ public_group.openning_date|absolute_days_since }} dias {% endif %}</span>
               </span>
 
-              <span class="end">Encerra{% if public_group.closing|absolute_days_since == "0" %} hoje{% elif public_group.closing|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ public_group.closing_date|absolute_days_since }} dias{% endif %}</span>
+              <span class="end">Encerra-se{% if public_group.closing|absolute_days_since == "0" %} hoje{% elif public_group.closing|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ public_group.closing_date|absolute_days_since }} dias{% endif %}</span>
               </span>
 
               <div class="progress-bar">
