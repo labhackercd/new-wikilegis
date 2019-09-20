@@ -90,11 +90,18 @@ class DocumentSerializer(serializers.ModelSerializer):
                   'number', 'year', 'themes', 'owner', 'pub_excerpts')
 
     def get_pub_excerpts(self, obj):
-        pub_group = obj.invited_groups.filter(public_participation=True, group_status='in_progress').last()
-        pub_excerpts = obj.excerpts.filter(version=pub_group.version, content__isnull=False)
-        serializer = ExcerptSerializer(instance=pub_excerpts, many=True, context=self.context)
+        pub_group = obj.invited_groups.filter(
+            public_participation=True,
+            group_status='in_progress').last()
+        pub_excerpts = obj.excerpts.filter(
+            version=pub_group.version)
+        serializer = ExcerptSerializer(
+            instance=pub_excerpts,
+            many=True,
+            context=self.context)
 
         return serializer.data
+
 
 class ExcerptSerializer(serializers.ModelSerializer):
     document = serializers.HyperlinkedRelatedField(
