@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django_js_reverse',
     'constance',
     'constance.backends.database',
+    'celery',
+    'django_celery_beat',
+    'django_celery_results',
 
     'apps.accounts',
     'apps.participations',
@@ -155,7 +158,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -244,6 +247,7 @@ FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', default='')
 JS_SCRIPT_PREFIX = config('JS_SCRIPT_PREFIX', default=FORCE_SCRIPT_NAME)
 SESSION_COOKIE_NAME = config('SESSION_COOKIE_NAME', default='sessionid')
 
+# CONSTANCE related settings
 CONSTANCE_CONFIG = {
     'USE_CD_OPEN_DATA': (
         True,
@@ -263,3 +267,15 @@ CONSTANCE_CONFIG = {
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# CELERY related settings
+REDIS_SERVER = config('REDIS_SERVER', default='redis://localhost:6379/0')
+CELERY_BROKER_URL = REDIS_SERVER
+CELERY_RESULT_BACKEND = 'django_celery_results.backends.DatabaseBackend'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_IMPORTS = ("apps.projects.tasks",)
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
