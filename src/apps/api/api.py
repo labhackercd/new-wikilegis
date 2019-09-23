@@ -75,7 +75,9 @@ class DocumentTypeViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Document.objects.all()
+    queryset = Document.objects.filter(
+        invited_groups__public_participation=True,
+        invited_groups__group_status='in_progress')
     serializer_class = serializers.DocumentSerializer
     filter_backends = (
         django_filters.DjangoFilterBackend,

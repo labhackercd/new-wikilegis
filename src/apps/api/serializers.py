@@ -82,16 +82,25 @@ class DocumentSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
     document_type = DocumentTypeSerializer()
     themes = ThemeSerializer(many=True)
-    excerpts = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='excerpt-detail'
-    )
+    pub_excerpts = serializers.SerializerMethodField('get_pub_excerpts')
 
     class Meta:
         model = Document
         fields = ('id', 'title', 'slug', 'description', 'document_type',
-                  'number', 'year', 'themes', 'owner', 'excerpts')
+                  'number', 'year', 'themes', 'owner', 'pub_excerpts')
+
+    def get_pub_excerpts(self, obj):
+        pub_group = obj.invited_groups.filter(
+            public_participation=True,
+            group_status='in_progress').last()
+        pub_excerpts = obj.excerpts.filter(
+            version=pub_group.version)
+        serializer = ExcerptSerializer(
+            instance=pub_excerpts,
+            many=True,
+            context=self.context)
+
+        return serializer.data
 
 
 class ExcerptSerializer(serializers.ModelSerializer):
@@ -108,6 +117,8 @@ class ExcerptSerializer(serializers.ModelSerializer):
         read_only=True,
         view_name='suggestion-detail'
     )
+
+    excerpt_type = serializers.StringRelatedField()
 
     class Meta:
         model = Excerpt
