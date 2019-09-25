@@ -82,7 +82,7 @@ class DocumentSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
     document_type = DocumentTypeSerializer()
     themes = ThemeSerializer(many=True)
-    pub_excerpts = serializers.SerializerMethodField('get_pub_excerpts')
+    pub_excerpts = serializers.SerializerMethodField()
 
     class Meta:
         model = Document
