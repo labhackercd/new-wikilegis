@@ -43,4 +43,4 @@ class NotificationAdmin(admin.ModelAdmin):
         'was_read',
     )
     list_filter = ('created', 'modified', 'was_read')
-    search_fields = ('user',)
+    search_fields = ('user__first_name',)
