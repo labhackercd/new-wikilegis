@@ -50,6 +50,5 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(ThematicGroup)
 class ThematicGroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'owner')
-    list_filter = ('owner',)
     raw_id_fields = ('participants',)
-    search_fields = ('name',)
+    search_fields = ('name', 'owner__first_name', 'owner__email')

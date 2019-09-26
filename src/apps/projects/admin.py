@@ -14,13 +14,14 @@ class ThemeAdmin(admin.ModelAdmin):
 @admin.register(models.DocumentType)
 class DocumentTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'initials')
+    search_fields = ('title', 'initials')
 
 
 @admin.register(models.DocumentVersion)
 class DocumentVersionAdmin(admin.ModelAdmin):
     list_display = ('document', 'name', 'number', 'created', 'auto_save',
                     'parent')
-    list_filter = ('document',)
+    search_fields = ('document__title', 'number', 'name')
 
 
 @admin.register(models.Document)
@@ -32,8 +33,8 @@ class DocumentAdmin(admin.ModelAdmin):
         'created',
         'modified',
     )
-    list_filter = ('created', 'modified', 'owner', 'document_type')
-    search_fields = ('slug',)
+    list_filter = ('created', 'modified', 'document_type')
+    search_fields = ('slug', 'owner__username', 'title')
     prepopulated_fields = {'slug': ['title']}
     actions = ['fetch_document_informations']
     form = forms.DocumentAdminForm
@@ -99,7 +100,8 @@ class ExcerptAdmin(admin.ModelAdmin):
         'content',
         'version',
     )
-    list_filter = ('document', 'version', 'created', 'modified',)
+    list_filter = ('created', 'modified')
+    search_fields = ('document__title', 'version__number', 'version__name')
 
 
 @admin.register(models.DocumentInfo)
@@ -110,7 +112,8 @@ class DocumentInfoAdmin(admin.ModelAdmin):
         'abridgement',
         'status',
     )
-    list_filter = ('document', 'status')
+    list_filter = ('status', )
+    search_fields = ('document__title', )
 
 
 @admin.register(models.DocumentAuthor)
@@ -120,6 +123,7 @@ class DocumentAuthorAdmin(admin.ModelAdmin):
         'author_type',
     )
     list_filter = ('author_type', )
+    search_fields = ('author_type', 'name')
 
 
 @admin.register(models.DocumentAuthorInfo)
