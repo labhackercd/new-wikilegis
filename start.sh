@@ -16,7 +16,7 @@ python3 src/create_admin.py
 python3 src/manage.py compress --force
 python3 src/manage.py collectstatic --no-input
 python3 src/manage.py collectstatic_js_reverse
-python3 nltk_data.py
+python3 src/manage.py compilemessages
 
 NAME="wikilegis"
 [[ -z "${WORKERS}" ]] && NUM_WORKERS=2 || NUM_WORKERS="${WORKERS}"

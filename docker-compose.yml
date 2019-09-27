@@ -21,7 +21,7 @@ services:
     image: redis:alpine
 
   web:
-    image: labhackercd/new-wikilegis:dev
+    build: .
     command: ./start.sh
     restart: on-failure
     links:
@@ -43,7 +43,7 @@ services:
       COMPRESS_OFFLINE: 'True'
       SITE_DOMAIN: localhost:8000
       SITE_NAME: new-wikilegis
-      REDIS_SERVER: redis
+      REDIS_SERVER: redis://redis:6379
     expose:
       - "8000"
     depends_on:
@@ -52,7 +52,7 @@ services:
 
   celery_worker:
     build: .
-    command: celery -A proj worker -l info
+    command: bash -c "cd src && celery -A wikilegis worker -l info"
     volumes:
       - data:/var/labhacker/new-wikilegis
     depends_on:
@@ -61,7 +61,7 @@ services:
 
   celery-beat:
     build: .
-    command: celery -A proj beat -l info
+    command: bash -c "cd src && celery -A wikilegis beat -l info"
     volumes:
       - data:/var/labhacker/new-wikilegis
     depends_on:
