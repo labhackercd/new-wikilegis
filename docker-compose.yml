@@ -76,6 +76,7 @@ services:
   celery-beat:
     build: .
     command: bash -c "cd src && celery -A wikilegis beat -l info --pidfile="
+    restart: on-failure
     volumes:
       - data:/var/labhacker/new-wikilegis
     depends_on:
