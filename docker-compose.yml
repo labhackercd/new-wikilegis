@@ -63,7 +63,6 @@ services:
     depends_on:
       - db
       - redis
-      - web
     environment:
       DEBUG: 'False'
       DATABASE_ENGINE: postgresql_psycopg2
@@ -76,12 +75,13 @@ services:
 
   celery-beat:
     build: .
-    command: bash -c "cd src && celery -A wikilegis beat -l info --pidfile=/tmp/celeryd.pid"
+    command: bash -c "cd src && celery -A wikilegis beat -l info --pidfile="
     volumes:
       - data:/var/labhacker/new-wikilegis
     depends_on:
       - db
       - redis
+      - web
     environment:
       DEBUG: 'False'
       DATABASE_ENGINE: postgresql_psycopg2
