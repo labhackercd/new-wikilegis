@@ -7,6 +7,11 @@
         <p class="excerpt-wrapper"><b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
         <span data-tipo="{{excerpt.excerpt_type.slug}}">{{excerpt.content}}</span></p>
     {% elif format == 'text' %}
-        {% excerpt_numbering excerpt %} {{excerpt.content|safe}}
+        {% if excerpt.excerpt_type.align_center %}
+            {% excerpt_numbering excerpt %}
+            {{excerpt.content|safe}}
+        {% else %}
+            {% excerpt_numbering excerpt %}{{excerpt.content|safe}}
+        {% endif %}
     {% endif %}
 {% endfor %}
