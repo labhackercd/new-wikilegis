@@ -1,4 +1,4 @@
-![python3-badge](https://img.shields.io/badge/python-django-green.svg) ![enter image description here](https://img.shields.io/badge/license-GPLv3-blue.svg)
+![circle-ci](https://travis-ci.com/labhackercd/new-wikilegis.svg?branch=dev) ![python3-badge](https://img.shields.io/badge/python-django-green.svg) ![enter image description here](https://img.shields.io/badge/license-GPLv3-blue.svg) 
 
 # wikilegis
 > Collaborative editing of legislative texts.
