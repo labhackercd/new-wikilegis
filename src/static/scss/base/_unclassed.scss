@@ -250,7 +250,9 @@ button {
   @page {
     size: A4 portrait;
   }
-
+  .edem-topbar {
+    display: none !important;
+  }
   .document-editor,
   .document-editor.-active {
     width: 66ch;
@@ -263,13 +265,10 @@ button {
   }
 
   .document-editor > article {
-    overflow: scroll !important;
-
     width: 100%;
     height: 100%;
     padding: 0 !important;
   }
-
   .nav-bar,
   .side-bar,
   .tool-bar,
