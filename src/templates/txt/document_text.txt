@@ -1,0 +1,17 @@
+{% load projects_tags %}
+
+{% for excerpt in excerpts %}
+    {% if format == 'editor' %}
+        <p data-tipo="{{excerpt.excerpt_type.slug}}">{{excerpt.content|safe}}</p>
+    {% elif format == 'html' %}
+        <p class="excerpt-wrapper"><b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
+        <span data-tipo="{{excerpt.excerpt_type.slug}}">{{excerpt.content}}</span></p>
+    {% elif format == 'text' %}
+        {% if excerpt.excerpt_type.align_center %}
+            {% excerpt_numbering excerpt %}
+            {{excerpt.content|safe}}
+        {% else %}
+            {% excerpt_numbering excerpt %}{{excerpt.content|safe}}
+        {% endif %}
+    {% endif %}
+{% endfor %}

@@ -107,7 +107,7 @@ class DocumentTextView(View):
             version_name = version.created.strftime('%Hh%M - %d de %b, %Y')
 
         rendered = render_to_string(
-            'txt/document_text',
+            'txt/document_text.txt',
             {'excerpts': document.get_excerpts(version=version.number),
              'format': text_format}
         )
