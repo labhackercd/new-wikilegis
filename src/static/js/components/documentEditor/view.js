@@ -1,8 +1,8 @@
 /*global $ events getCookie */
 
-var DocumentEditorView = function() {};
+var DocumentEditorView = function () { };
 
-DocumentEditorView.prototype.initEvents = function(editor) {
+DocumentEditorView.prototype.initEvents = function (editor) {
   this.editor = editor;
   this.typing = null;
   this.documentEditorElement = $('.js-documentEditor');
@@ -15,47 +15,47 @@ DocumentEditorView.prototype.initEvents = function(editor) {
   this.publishers();
 };
 
-DocumentEditorView.prototype.subscribers = function() {
+DocumentEditorView.prototype.subscribers = function () {
   var self = this;
 
-  events.documentTitleEditionEnd.subscribe(function(newTitle) {
+  events.documentTitleEditionEnd.subscribe(function (newTitle) {
     self.endEdition('title', newTitle);
   });
 
-  events.openContextualToolbar.subscribe(function() {
+  events.openContextualToolbar.subscribe(function () {
     self.highligthCurrentExcerpt();
   });
 
-  events.closeContextualToolbar.subscribe(function() {
+  events.closeContextualToolbar.subscribe(function () {
     self.removeBlur();
   });
 
-  events.focusEditor.subscribe(function() {
+  events.focusEditor.subscribe(function () {
     self.removeBlur();
   });
 
-  events.blurEditor.subscribe(function() {
+  events.blurEditor.subscribe(function () {
     self.removeBlur();
   });
 
-  events.documentTextLoaded.subscribe(function(data) {
+  events.documentTextLoaded.subscribe(function (data) {
     self.editor.focus();
     self.editor.ctrlArticulacao.limpar();
 
     // XXX 
     // Sometimes the cursor is not defined when pasting text here, which throws an error. 
     // Shamefully SetTimeouting to "fix" it.
-    setTimeout(function(){
+    setTimeout(function () {
       self.editor.ctrlArticulacao.clipboardCtrl.colarTexto(data.html);
-    }, 100)
+    }, 100);
   });
 
-  events.showDiff.subscribe(function(text1, text2) {
+  events.showDiff.subscribe(function (text1, text2) {
     self.showDiff(text1.html, text2.html);
     self.updateDiffTitles(text1, text2);
   });
 
-  events.closeDiff.subscribe(function() {
+  events.closeDiff.subscribe(function () {
     $('.js-documentEditor .js-documentDiff').remove();
     self.textEditorWrapper.removeClass('_hidden');
     self.documentEditorElement.removeClass('-compare');
@@ -64,20 +64,20 @@ DocumentEditorView.prototype.subscribers = function() {
   });
 };
 
-DocumentEditorView.prototype.publishers = function() {
+DocumentEditorView.prototype.publishers = function () {
   var self = this;
 
-  $(self.editor).on('focus', function() {
+  $(self.editor).on('focus', function () {
     events.focusEditor.publish();
     $(self.editor).attr('tabindex', 1);
   });
 
-  $(self.editor).on('keydown', function(event) {
+  $(self.editor).on('keydown', function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     var cookie = getCookie(self.cookieName);
 
     if (keycode == '9') {
-      if (self.editor.ctrlArticulacao.contexto.cursor.elemento !== editor) {
+      if (self.editor.ctrlArticulacao.contexto.cursor.elemento !== self.editor) {
         events.blurEditor.publish();
         events.openContextualToolbar.publish();
       }
@@ -88,33 +88,33 @@ DocumentEditorView.prototype.publishers = function() {
     }
   });
 
-  $(self.editor).on('keyup', function(event) {
+  $(self.editor).on('keyup', function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode < 37 || keycode > 40) {
       events.documentChanged.publish();
       clearTimeout(self.typing);
-      self.typing = setTimeout(function() {
+      self.typing = setTimeout(function () {
         events.autoSaveDocument.publish();
       }, 1500);
     }
   });
 
-  self.closeDiffButton.on('click', function() {
+  self.closeDiffButton.on('click', function () {
     events.closeDiff.publish();
   });
 };
 
-DocumentEditorView.prototype.highligthCurrentExcerpt = function() {
+DocumentEditorView.prototype.highligthCurrentExcerpt = function () {
   $(this.editor).addClass('-blur');
   $(this.editor.ctrlArticulacao.contexto.cursor.elemento).addClass('-highlight');
 };
 
-DocumentEditorView.prototype.removeBlur = function() {
+DocumentEditorView.prototype.removeBlur = function () {
   $(this.editor).removeClass('-blur');
   $(this.editor).find('p').removeClass('-highlight');
 };
 
-DocumentEditorView.prototype.createDiffDocument = function(data) {
+DocumentEditorView.prototype.createDiffDocument = function (data) {
   var versionName = data.versionName;
   if (data.autoSave) {
     versionName = 'Versão Atual';
@@ -136,7 +136,7 @@ DocumentEditorView.prototype.createDiffDocument = function(data) {
   this.documentEditorElement.append($(article));
 };
 
-DocumentEditorView.prototype.showDiff = function(text1, text2) {
+DocumentEditorView.prototype.showDiff = function (text1, text2) {
   this.documentEditorElement.addClass('-compare');
   this.textEditorWrapper.addClass('_hidden');
   this.closeDiffButton.addClass('-show');
@@ -158,21 +158,21 @@ DocumentEditorView.prototype.showDiff = function(text1, text2) {
 
     editor_width: '50%',
     editor_height: '100%',
-    lhs: function(setValue) {
+    lhs: function (setValue) {
       setValue(text1);
     },
-    rhs: function(setValue) {
+    rhs: function (setValue) {
       setValue(text2);
     },
-    loaded: function() {
-      setTimeout(function() {
+    loaded: function () {
+      setTimeout(function () {
         $('#mergely').mergely('resize');
       }, 300);
     },
   });
 };
 
-DocumentEditorView.prototype.updateDiffTitles = function(text1, text2) {
+DocumentEditorView.prototype.updateDiffTitles = function (text1, text2) {
   $('.js-textDiff .js-leftVersionDate').text(text1.date);
   if (!text1.autoSave) {
     $('.js-textDiff .js-leftVersionName').text(text1.versionName);

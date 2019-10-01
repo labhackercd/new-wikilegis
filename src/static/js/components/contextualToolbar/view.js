@@ -1,8 +1,8 @@
 /*global $ events absolutePosition setCookie */
 
-var ContextualToolbarView = function() {};
+var ContextualToolbarView = function () { };
 
-ContextualToolbarView.prototype.initEvents = function(editor) {
+ContextualToolbarView.prototype.initEvents = function (editor) {
   this.editor = editor;
 
   this.contextualToolbar = $('.js-contextualToolbar');
@@ -17,7 +17,7 @@ ContextualToolbarView.prototype.initEvents = function(editor) {
   this.publishers();
 };
 
-ContextualToolbarView.prototype.subscribers = function() {
+ContextualToolbarView.prototype.subscribers = function () {
   var self = this;
 
   self.editor.addEventListener('contexto', function (e) {
@@ -27,12 +27,12 @@ ContextualToolbarView.prototype.subscribers = function() {
     }
   });
 
-  events.blurEditor.subscribe(function() {
+  events.blurEditor.subscribe(function () {
     events.closeContextualToolbar.publish();
     self.hideOpenToolbarButton();
   });
 
-  events.focusEditor.subscribe(function() {
+  events.focusEditor.subscribe(function () {
     events.closeContextualToolbar.publish();
 
     if (self.editor.ctrlArticulacao.contexto !== undefined) { // If the page has just been loaded, returns undefined
@@ -40,33 +40,33 @@ ContextualToolbarView.prototype.subscribers = function() {
     }
   });
 
-  events.openContextualToolbar.subscribe(function() {
+  events.openContextualToolbar.subscribe(function () {
     self.show();
   });
 
-  events.closeContextualToolbar.subscribe(function() {
+  events.closeContextualToolbar.subscribe(function () {
     self.hide();
   });
 
-  events.showModifyExcerptTip.subscribe(function() {
+  events.showModifyExcerptTip.subscribe(function () {
     self.forceShowModifyExcerptTip();
   });
 };
 
-ContextualToolbarView.prototype.publishers = function() {
+ContextualToolbarView.prototype.publishers = function () {
   var self = this;
 
-  self.excerptTypes.on('click', function(e) {
+  self.excerptTypes.on('click', function (e) {
     var target = $(e.target);
     self.updateExcerptType(target.data('excerptType'));
   });
 
-  self.excerptTypes.on('focus', function(e) {
+  self.excerptTypes.on('focus', function (e) {
     var target = e.target;
     self.updateEditorTabindex(target);
   });
 
-  self.excerptTypes.on('keydown', function(event) {
+  self.excerptTypes.on('keydown', function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     var target = $(event.target);
     var parent = target.closest('.js-typeList');
@@ -105,26 +105,26 @@ ContextualToolbarView.prototype.publishers = function() {
     else if (keycode == '79') { self.activateShortcut('continuacao'); } // "O" Key
   });
 
-  self.openContextualToolbarButton.on('click', function(){
+  self.openContextualToolbarButton.on('click', function () {
     events.blurEditor.publish();
     events.openContextualToolbar.publish();
   });
 };
 
-ContextualToolbarView.prototype.activateShortcut = function(excerptType) {
+ContextualToolbarView.prototype.activateShortcut = function (excerptType) {
   var self = this;
   if (self.editor.ctrlArticulacao.contexto.permissoes[excerptType]) {
     self.editor.ctrlArticulacao.alterarTipoDispositivoSelecionado(excerptType);
     self.editor.focus();
     event.preventDefault();
   } else {
-    self.contextualToolbarWrapper.addClass('-error').one('animationend', function() {
+    self.contextualToolbarWrapper.addClass('-error').one('animationend', function () {
       self.contextualToolbarWrapper.removeClass('-error');
     });
   }
 };
 
-ContextualToolbarView.prototype.updateEditorTabindex = function(excerptType) {
+ContextualToolbarView.prototype.updateEditorTabindex = function (excerptType) {
   var self = this;
   var typeList = $(excerptType).closest('.js-typeList');
   var last = typeList.find('.js-excerptType:not(._hidden)').last()[0];
@@ -136,34 +136,33 @@ ContextualToolbarView.prototype.updateEditorTabindex = function(excerptType) {
   }
 };
 
-ContextualToolbarView.prototype.showAllowedExcerptTypes = function(permissions) {
+ContextualToolbarView.prototype.showAllowedExcerptTypes = function (permissions) {
   var self = this;
   self.excerptTypes.addClass('_hidden');
 
-  $.each(permissions, function(excerptType, hasPermission) {
+  $.each(permissions, function (excerptType, hasPermission) {
     if (hasPermission) {
       self.excerptTypes.closest('[data-excerpt-type="' + excerptType + '"]').removeClass('_hidden');
     }
   });
 };
 
-ContextualToolbarView.prototype.hide = function() {
+ContextualToolbarView.prototype.hide = function () {
   this.contextualToolbar.addClass('_hidden');
 };
 
-ContextualToolbarView.prototype.show = function() {
+ContextualToolbarView.prototype.show = function () {
   this.contextualToolbar.removeClass('_hidden');
   this.updateToolbarPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
   this.openContextualToolbarButton.removeClass('-tip'); // Remove -tip class if 'modifyExcerptTip' cookie was set
 };
 
-ContextualToolbarView.prototype.updateExcerptType = function(excerptType) {
+ContextualToolbarView.prototype.updateExcerptType = function (excerptType) {
   this.editor.ctrlArticulacao.alterarTipoDispositivoSelecionado(excerptType);
   this.editor.focus();
 };
 
-ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) {
-  var self = this;
+ContextualToolbarView.prototype.updateToolbarPosition = function (anchorElement) {
   var anchorPosition = absolutePosition(anchorElement);
   var toolbarOuterHeight = this.contextualToolbar.outerHeight(true);
   var toolbarOuterWidth = this.contextualToolbar.outerWidth(true);
@@ -180,7 +179,7 @@ ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) 
     this.contextualToolbar.css('left', editorBBox.left);
     this.arrow.css('left', (beforeWidth / 2) - (arrowWidth / 2));
 
-  // Else, align to center
+    // Else, align to center
   } else {
 
     this.contextualToolbar.css('left', (editorBBox.left + ((beforeWidth + beforeMargin) / 2)) - (toolbarOuterWidth / 2));
@@ -193,14 +192,14 @@ ContextualToolbarView.prototype.updateToolbarPosition = function(anchorElement) 
 
 };
 
-ContextualToolbarView.prototype.showOpenToolbarButton = function() {
+ContextualToolbarView.prototype.showOpenToolbarButton = function () {
   var self = this;
   var button = this.openContextualToolbarButton;
 
-  if (self.editor.ctrlArticulacao.contexto.cursor.elemento == editor) { // Sometimes the context is the editor itself. We don't show the button here.
-    setTimeout(function(){
+  if (self.editor.ctrlArticulacao.contexto.cursor.elemento == self.editor) { // Sometimes the context is the editor itself. We don't show the button here.
+    setTimeout(function () {
       self.hideOpenToolbarButton();
-    },1);
+    }, 1);
 
   } else {
 
@@ -209,22 +208,22 @@ ContextualToolbarView.prototype.showOpenToolbarButton = function() {
     this.updateOpenToolbarButtonPosition(self.editor.ctrlArticulacao.contexto.cursor.elemento);
 
     // Small delay in order to remove and then add modifier class and trigger its animation
-    setTimeout(function(){
+    setTimeout(function () {
       button.addClass('-show');
-    },1);
+    }, 1);
   }
 };
 
-ContextualToolbarView.prototype.hideOpenToolbarButton = function() {
+ContextualToolbarView.prototype.hideOpenToolbarButton = function () {
   this.openContextualToolbarButton.removeClass('-show');
 };
 
-ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(anchorElement) {
+ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function (anchorElement) {
   var anchorPosition = absolutePosition(anchorElement);
   var editorBBox = this.editor.getBoundingClientRect();
   var beforeHeight = parseInt(window.getComputedStyle(anchorElement, '::before').height);
   var buttonOuterWidth = this.openContextualToolbarButton.outerWidth(true);
-  var buttonOuterHeight= this.openContextualToolbarButton.outerHeight(true);
+  var buttonOuterHeight = this.openContextualToolbarButton.outerHeight(true);
 
   if ($('.js-body').children('.edem-content-wrapper').length > 0) {
     this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - beforeHeight) / 2) - 32);
@@ -232,14 +231,14 @@ ContextualToolbarView.prototype.updateOpenToolbarButtonPosition = function(ancho
     this.openContextualToolbarButton.css('top', anchorPosition.top - ((buttonOuterHeight - beforeHeight) / 2));
   }
 
-  this.openContextualToolbarButton.css('left', editorBBox.left - buttonOuterWidth );
+  this.openContextualToolbarButton.css('left', editorBBox.left - buttonOuterWidth);
 };
 
-ContextualToolbarView.prototype.forceShowModifyExcerptTip = function() {
+ContextualToolbarView.prototype.forceShowModifyExcerptTip = function () {
   var button = this.openContextualToolbarButton;
   setCookie(this.cookieName, true);
 
-  setTimeout(function(){
+  setTimeout(function () {
     button.addClass('-tip');
   }, 1000);
 };

@@ -6,7 +6,8 @@ from utils.decorators import require_ajax
 from datetime import date, datetime
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
-from apps.projects.models import Excerpt, Theme, Document, DocumentResponsible, DocumentInfo
+from apps.projects.models import (
+    Excerpt, Theme, Document, DocumentResponsible, DocumentInfo)
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation, PublicAuthorization
@@ -465,7 +466,7 @@ def list_propositions(request):
                 'anoProposicao': group.document.year,
                 'siglaTipoProposicao': group.document.document_type.initials,
                 'uri': 'https://%s%s' % (Site.objects.get_current().domain,
-                                 group.get_absolute_url())
+                                         group.get_absolute_url())
             }
         result.append(obj)
 
@@ -475,14 +476,15 @@ def list_propositions(request):
 # Endpoint to link document with Câmara dos Deputados
 def proposition_detail(request, cd_id):
     doc_info = get_object_or_404(DocumentInfo, cd_id=cd_id)
-    pub_group = doc_info.document.invited_groups.filter(group_status='in_progress').first()
+    pub_group = doc_info.document.invited_groups.filter(
+        group_status='in_progress').first()
     obj = {
         'id': doc_info.cd_id,
         'numProposicao': doc_info.document.number,
         'anoProposicao': doc_info.document.year,
         'siglaTipoProposicao': doc_info.document.document_type.initials,
         'uri': 'https://%s%s' % (Site.objects.get_current().domain,
-                         pub_group.get_absolute_url())
+                                 pub_group.get_absolute_url())
     }
 
     return JsonResponse(obj, safe=False)

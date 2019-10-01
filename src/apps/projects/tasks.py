@@ -3,6 +3,8 @@ from apps.projects import models, camara_deputados
 from wikilegis import celery_app
 from celery.utils.log import get_task_logger
 
+logger = get_task_logger(__name__)
+
 
 def create_first_version(sender, instance, created, **kwargs):
     if instance.versions.count() == 0:
@@ -31,4 +33,4 @@ def update_document_infos():
                     'API.'.format(document.title)))
 
     return _('{} document(s) informations was fetched '
-                'successfully.'.format(success))
+             'successfully.'.format(success))
