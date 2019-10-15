@@ -183,7 +183,7 @@ STATICFILES_FINDERS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 NPM_ROOT_PATH = os.path.dirname(BASE_DIR)
-COMPRESS_OFFILNE = config('COMPRESS_OFFILNE', default=not DEBUG, cast=bool)
+COMPRESS_OFFLINE = config('COMPRESS_OFFLINE', default=not DEBUG, cast=bool)
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'compressor_toolkit.precompilers.SCSSCompiler'),
