@@ -15,7 +15,7 @@ ParticipantsAutocompleteView.prototype.initEvents = function() {
 
 ParticipantsAutocompleteView.prototype.publishers = function() {
   $(window).keydown(function(event){
-    if(event.keyCode == 13) {
+    if (event.keyCode == 13 && !$(event.target).hasClass('js-search-name')) {
       event.preventDefault();
       return false;
     }
