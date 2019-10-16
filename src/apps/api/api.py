@@ -123,7 +123,7 @@ class ExcerptViewSet(viewsets.ReadOnlyModelViewSet):
         filters.SearchFilter,
         filters.OrderingFilter
     )
-    filter_fields = ('id', 'document', 'excerpt_type')
+    filter_fields = ('id', 'document__id', 'excerpt_type')
     search_fields = ('excerpt_type', 'number', 'content')
     ordering_fields = '__all__'
 
