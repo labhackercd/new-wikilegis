@@ -2,6 +2,7 @@ from django.core.exceptions import PermissionDenied
 from apps.notifications.models import (ParcipantInvitation,
                                        PublicAuthorization, Notification)
 from apps.projects.models import Document
+from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import RedirectView
@@ -10,6 +11,7 @@ from utils.decorators import require_ajax
 from django.utils.translation import ugettext_lazy as _
 from django.http import JsonResponse
 from datetime import datetime
+from django.views.generic import TemplateView
 
 
 @login_required(login_url='/')
@@ -47,7 +49,10 @@ class PublicAuthorizationView(RedirectView):
         else:
             notification.message = '%s aceitou seu pedido para tornar o \
                 documento público' % (authorization.congressman.name.title())
-            public_group.openning_date = datetime.now().date
+            import ipdb
+            ipdb.set_trace()
+            x = datetime.now()
+            public_group.openning_date = x
         notification.save()
         public_group.save()
 
@@ -59,3 +64,23 @@ def update_notifications(request):
     user = request.user
     user.notifications.update(was_read=True)
     return JsonResponse({'message': _('Notifications read!')})
+
+
+class InformationCongressmanView(TemplateView):
+    template_name = 'pages/congressman_information.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        site_url = Site.objects.get_current().domain
+
+        authorization = get_object_or_404(PublicAuthorization,
+                                          hash_id=kwargs['hash'])
+
+        context['hash_id'] = authorization.hash_id
+        context['update'] = False
+        context['site_url'] = site_url
+        context['closing_date'] = authorization.closing_date
+        context['document_owner'] = authorization.group.document.owner,
+        context['document_title'] = authorization.group.document.title,
+
+        return context
