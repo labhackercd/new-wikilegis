@@ -146,9 +146,9 @@
     </a>
     {% endfor %}
   {% endif %}
-  {% if public_groups %}
+  {% if open_public_groups %}
 
-    {% for public_group in public_groups %}
+    {% for public_group in open_public_groups %}
       <a href="{% url 'project' public_group.id public_group.document.slug %}" class="document-card {% if public_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
         <ul class="tags">
@@ -168,14 +168,15 @@
 
 
         <div class="footer">
-          {% if public_group.closing_date|is_open %}
             {% if public_group.openning_date %}
             <div class="document-progress">
 
               <span class="begin">Aberto{% if public_group.openning_date|absolute_days_since == "0" %} hoje {% elif public_group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ public_group.openning_date|absolute_days_since }} dias {% endif %}</span>
               </span>
 
-              <span class="end">Encerra-se{% if public_group.closing|absolute_days_since == "0" %} hoje{% elif public_group.closing|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ public_group.closing_date|absolute_days_since }} dias{% endif %}</span>
+              <span class="end">Encerra-se{% if public_group.closing_date|absolute_days_since == "0" %}
+                hoje{% elif public_group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em
+                <span>{{ public_group.closing_date|absolute_days_since }} dias{% endif %}</span>
               </span>
 
               <div class="progress-bar">
@@ -183,9 +184,37 @@
               </div>
             </div>
             {% endif %}
-          {% else %}
+
+          <span class="pseudolink">Acessar</span>
+        </div>
+      </a>
+    {% endfor %}
+
+  {% endif %}
+  {% if closed_public_groups %}
+
+    {% for closed_group in closed_public_groups %}
+      <a href="{% url 'project' closed_group.id closed_group.document.slug %}" class="document-card {% if closed_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
+
+        <ul class="tags">
+          {% for theme in closed_group.document.themes.all %}
+          <li class="app-tag -theme">
+            <span class="dot" style="background-color: {{ theme.color }}"></span>
+            <span class="label">{{ theme.name }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+
+
+        <h3 class="js-title">{{ closed_group.document.title }}</h3>
+        <p class="js-description">
+          {{ closed_group.document.description }}
+        </p>
+
+
+        <div class="footer">
             <div class="status">
-              <p class="closed">Encerrado em {{public_group.closing_date|date:"d/m/Y"}}</p>
+              <p class="closed">Encerrado em {{closed_group.closing_date|date:"d/m/Y"}}</p>
               <!-- Uncomment whenever document feedback status is implemented
               <div class="feedback-status">
                 <img src="{% static 'img/hourglass.svg' %}" alt="">
@@ -193,7 +222,6 @@
               </div>
                -->
             </div>
-          {% endif %}
 
           <span class="pseudolink">Acessar</span>
         </div>

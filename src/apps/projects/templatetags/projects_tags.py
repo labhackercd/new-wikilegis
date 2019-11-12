@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django import template
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from collections import OrderedDict
 import string
 from apps.projects.models import Excerpt
@@ -175,7 +175,7 @@ def startswith(text, starts):
 
 @register.filter()
 def is_open(closing_date):
-    if closing_date > date.today():
+    if closing_date >= date.today():
         is_open = True
     else:
         is_open = False
@@ -245,9 +245,9 @@ def progress_time_normalized(start_date, end_date):
     try:
         participation_days = end_date - start_date.date()
         days_since_start = today - start_date.date()
-        result_percent = (days_since_start * 100) / participation_days
     except (TypeError, AttributeError):
         participation_days = end_date - start_date
         days_since_start = today - start_date
-        result_percent = (days_since_start * 100) / participation_days
+    participation_days += timedelta(days=1)
+    result_percent = (days_since_start * 100) / participation_days
     return "%s" % (result_percent / 100)

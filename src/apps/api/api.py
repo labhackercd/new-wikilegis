@@ -149,7 +149,7 @@ class InvitedGroupFilter(FilterSet):
 
 class InvitedGroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = InvitedGroup.objects.filter(
-        public_participation=True, group_status='in_progress')
+        public_participation=True, group_status='in_progress').order_by('-closing_date')
     serializer_class = serializers.InvitedGroupSerializer
     filter_backends = (
         django_filters.DjangoFilterBackend,
