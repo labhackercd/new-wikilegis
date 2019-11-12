@@ -52,7 +52,7 @@ def send_public_authorization(public_authorization, updated=False):
         closing_date = public_authorization.group.closing_date
     site_url = Site.objects.get_current().domain
     html_authorization = render_to_string(
-        'emails/congressman_authorization.html',
+        'emails/congressman_information.html',
         {'document_owner': public_authorization.group.document.owner,
          'document_title': public_authorization.group.document.title,
          'closing_date': closing_date,
