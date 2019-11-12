@@ -167,8 +167,17 @@ class InvitedGroupListView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = object_list if object_list is not None else self.object_list
-        context['public_groups'] = queryset.filter(
-            public_participation=True, group_status='in_progress')
+        context['open_public_groups'] = queryset.filter(
+            public_participation=True,
+            group_status='in_progress',
+            closing_date__gte=date.today()
+        ).order_by('closing_date')
+        context['closed_public_groups'] = queryset.filter(
+            public_participation=True,
+            group_status='in_progress',
+            closing_date__lt=date.today()
+        ).order_by('-closing_date')
+
         if self.request.user.is_authenticated:
             user = self.request.user
             accepted_invitations = ParcipantInvitation.objects.filter(
@@ -238,7 +247,7 @@ def send_suggestion(request, group_pk):
     excerpt = get_object_or_404(Excerpt, pk=excerpt_id)
     invited_group = get_object_or_404(InvitedGroup, pk=group_pk)
 
-    if invited_group.closing_date > date.today():
+    if invited_group.closing_date >= date.today():
         suggestion = Suggestion.objects.create(
             invited_group=invited_group,
             selected_text=excerpt.content[start_index:end_index],
