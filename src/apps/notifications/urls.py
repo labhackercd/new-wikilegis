@@ -4,6 +4,9 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
+    path('information-congressman/<uuid:hash>/',
+         views.InformationCongressmanView.as_view(),
+         name="information_authorization"),
     path('authorization/<uuid:hash>/',
          views.authorization,
          name="authorization"),
