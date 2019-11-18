@@ -76,7 +76,12 @@
               <div class="item -opinions">
                 {{ public_participation.suggestions.count }}
               </div>
+              {% now "Y-m-d" as todays_date %}
+              {% if public_participation.closing_date|date:"Y-m-d" >= todays_date %}
               <div class="item -green">Em andamento</div>
+              {% else %}
+              <div class="item -red">Encerrado</div>
+              {% endif %}
             </div>
           </a>
           {% endif %}
