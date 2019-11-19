@@ -281,5 +281,17 @@ var events = {
   highlightExcerpt: $.Topic('highlightExcerpt'),
 
   // Triggered when the document owner starts typing a document for the very first time
-  showModifyExcerptTip: $.Topic('showModifyExcerptTip')
+  showModifyExcerptTip: $.Topic('showModifyExcerptTip'),
+
+  // Triggered when user click on openFeedbackFormModal
+  openFeedbackFormModal: $.Topic('openFeedbackFormModal'),
+
+  // Triggered when user click on closeFeedbackFormModal
+  closeFeedbackFormModal: $.Topic('closeFeedbackFormModal'),
+
+  // Triggered when user click on openFeedbackInfoModal
+  openFeedbackInfoModal: $.Topic('openFeedbackInfoModal'),
+
+  // Triggered when user click on closeFeedbackInfoModal
+  closeFeedbackInfoModal: $.Topic('closeFeedbackInfoModal'),
 };
