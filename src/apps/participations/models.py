@@ -25,6 +25,11 @@ class InvitedGroup(TimestampedMixin):
                                 on_delete=models.CASCADE,
                                 verbose_name=_('version'),
                                 related_name='invited_groups')
+    final_version = models.ForeignKey('projects.DocumentVersion',
+                                      on_delete=models.CASCADE,
+                                      verbose_name=_('final version'),
+                                      related_name='invited_groups_final',
+                                      null=True, blank=True)
     group_status = models.CharField(_('group status'), max_length=200,
                                     choices=PARTICIPATION_GROUP_CHOICES,
                                     default='in_progress')
