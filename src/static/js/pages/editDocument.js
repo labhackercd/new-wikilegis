@@ -1,8 +1,9 @@
-/*global $ silegismgEditorArticulacaoController ContextualToolbarView
+/* global $ silegismgEditorArticulacaoController ContextualToolbarView
 DocumentEditorView ValidationModalView InfoMessageView
 CongressmanAutocompleteView PublicFormModalView PublicFormController
 ToolBarView ToolBarController SaveMessageView DocumentEditorController
-SaveModalView DocumentSideBarView TimelineSidebarView CompareVersionsController CompareVersionsView DatePickerView */
+SaveModalView DocumentSideBarView TimelineSidebarView CompareVersionsController
+CompareVersionsView DatePickerView */
 
 var editor = $('.js-textEditor')[0];
 silegismgEditorArticulacaoController(editor, {
