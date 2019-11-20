@@ -16,4 +16,9 @@
   & > p.-onhold {
     color: $color-orange;
   }
+
+  & > p.-onhold > span {
+    display: block;
+    font-weight: 600;
+  }
 }
