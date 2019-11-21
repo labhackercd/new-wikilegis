@@ -7,7 +7,7 @@ from datetime import date, datetime
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
 from apps.projects.models import (
-    Excerpt, Theme, Document, DocumentResponsible, DocumentInfo)
+    Excerpt, Theme, Document, DocumentResponsible, DocumentInfo, DocumentVideo)
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import ParcipantInvitation, PublicAuthorization
@@ -24,6 +24,7 @@ from django.contrib.auth.decorators import login_required
 from constance import config
 from apps.notifications.emails import send_remove_participant
 import requests
+import re
 
 User = get_user_model()
 
@@ -349,6 +350,16 @@ def create_public_participation(request, document_pk):
     document = Document.objects.get(id=document_pk)
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
+    url_video = request.POST.get('url_video', None)
+
+    video_id = get_id_video(url_video)
+
+    if video_id is None:
+        return JsonResponse(
+            {'error':
+             _('Invalid link YouTube. Please enter a valid link!')},
+            status=400
+        )
 
     version = request.POST.get('versionId', None)
     if version:
@@ -361,7 +372,15 @@ def create_public_participation(request, document_pk):
             status=409
         )
 
-    end_date = datetime.strptime(closing_date, "%d/%m/%Y").date()
+    try:
+        end_date = datetime.strptime(closing_date, "%d/%m/%Y").date()
+    except Exception:
+        return JsonResponse(
+            {'error':
+             _('Closing date is requeride!')},
+            status=400
+        )
+
     if congressman_id and closing_date:
         if end_date < today:
             return JsonResponse(
@@ -370,6 +389,11 @@ def create_public_participation(request, document_pk):
                 status=400
             )
         else:
+            document_video, created = DocumentVideo.objects.get_or_create(
+                document=document)
+            document_video.video_id = video_id
+            document_video.save()
+
             group, created = InvitedGroup.objects.get_or_create(
                 document=document, public_participation=True,
                 defaults={
@@ -406,9 +430,22 @@ def create_public_participation(request, document_pk):
                 )
     else:
         return JsonResponse(
-            {'error': _('Congressman and closing date are required!')},
+            {'error': _('Congressman is required!')},
             status=400
         )
+
+
+def get_id_video(link_video):
+    regex_id = re.compile("""^.*(youtu\\.be\\/|v\\/|u\\/\\w\\/|
+                          embed\\/|watch\\?v=|\\&v=)([^#\\&\\?]*).*""")
+
+    match = re.match(regex_id, link_video)
+    if match:
+        id_video = match.group(2)
+    else:
+        id_video = None
+
+    return id_video
 
 
 @require_ajax

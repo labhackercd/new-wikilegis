@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-30 08:23-0300\n"
+"POT-Creation-Date: 2019-11-21 11:21-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr "grupo temático"
 msgid "thematic groups"
 msgstr "grupos temáticos"
 
-#: src/apps/dashboard/views.py:158
+#: src/apps/dashboard/views.py:160
 msgid "Document saved successfully!"
 msgstr "Documento salvo com sucesso."
 
@@ -93,23 +93,23 @@ msgstr "Documento salvo com sucesso."
 msgid "Notifications"
 msgstr "Notificações"
 
-#: src/apps/notifications/emails.py:11
+#: src/apps/notifications/emails.py:15
 msgid "[Wikilegis] Edit group invitation"
 msgstr "[Wikilegis] Convite de edição de projeto"
 
-#: src/apps/notifications/emails.py:21
+#: src/apps/notifications/emails.py:27
 msgid "[Wikilegis] Document owner invitation"
 msgstr "[Wikilegis] Convite para consultor"
 
-#: src/apps/notifications/emails.py:32
+#: src/apps/notifications/emails.py:40
 msgid "[Wikilegis] Participant removed"
 msgstr "[Wikilegis] Participante removido"
 
-#: src/apps/notifications/emails.py:53
+#: src/apps/notifications/emails.py:62
 msgid "[Wikilegis] Authorization request"
 msgstr "[Wikilegis] Solicitação de autorização"
 
-#: src/apps/notifications/emails.py:69
+#: src/apps/notifications/emails.py:78
 msgid "[Wikilegis] Public participation request"
 msgstr "[Wikilegis] Solicitação de participação pública"
 
@@ -243,56 +243,73 @@ msgstr "voto opinião"
 msgid "opinion votes"
 msgstr "votos opiniões"
 
-#: src/apps/participations/views.py:55 src/apps/participations/views.py:118
-#: src/apps/participations/views.py:378 src/apps/participations/views.py:434
+#: src/apps/participations/views.py:57 src/apps/participations/views.py:121
+#: src/apps/participations/views.py:388 src/apps/participations/views.py:462
 msgid "Closing date must be greater than or equal to today!"
 msgstr "A data de encerramento deve ser maior ou igual a hoje!"
 
-#: src/apps/participations/views.py:62 src/apps/participations/views.py:123
+#: src/apps/participations/views.py:64 src/apps/participations/views.py:126
 msgid "Group name is required"
 msgstr "Nome do grupo é obrigatóro"
 
-#: src/apps/participations/views.py:79 src/apps/participations/views.py:149
+#: src/apps/participations/views.py:81 src/apps/participations/views.py:152
 msgid "Participants are required"
 msgstr "O campo participantes é obrigatório"
 
-#: src/apps/participations/views.py:264
+#: src/apps/participations/views.py:275
 msgid "Project closed for participation"
 msgstr "Projeto fechado para participação"
 
-#: src/apps/participations/views.py:296
+#: src/apps/participations/views.py:307
 msgid "You cannot undo this suggestion after 1 minute"
 msgstr "Você não pode desfazer esta sugestão depois de 1 minuto"
 
-#: src/apps/participations/views.py:368
-msgid "You must create a version from your text before open to participation"
-msgstr "Você deve criar uma versão para seu texto antes de abrir para participação"
+#: src/apps/participations/views.py:360
+msgid "Invalid link YouTube. Please enter a valid link!"
+msgstr "Link do YouTube inválido. Por favor informe uma link válido!"
 
-#: src/apps/participations/views.py:409 src/apps/participations/views.py:456
+#: src/apps/participations/views.py:370
+msgid "You must create a version from your text before open to participation"
+msgstr ""
+"Você deve criar uma versão para seu texto antes de abrir para participação"
+
+#: src/apps/participations/views.py:380
+msgid "Closing date is requeride!"
+msgstr "O campo data de encerramento é obrigatório"
+
+#: src/apps/participations/views.py:424 src/apps/participations/views.py:484
 msgid "Request sent!"
 msgstr "Solicitação enviada!"
 
-#: src/apps/participations/views.py:413
+#: src/apps/participations/views.py:428
 msgid "You cannot request a public participation again"
-msgstr "Você não pode solicitar uma participação pública novamente para este documento."
+msgstr ""
+"Você não pode solicitar uma participação pública novamente para este "
+"documento."
 
-#: src/apps/participations/views.py:418 src/apps/participations/views.py:459
+#: src/apps/participations/views.py:433
+msgid "Congressman is required!"
+msgstr "Campo deputado é obrigatóro"
+
+#: src/apps/participations/views.py:487
+#, fuzzy
+#| msgid "Closing date is requeride!"
 msgid "Congressman and closing date are required!"
-msgstr "Os campos deputado e data de encerramento são obrigatóros"
+msgstr "O campo data de encerramento é obrigatório"
 
-#: src/apps/projects/admin.py:51
+#: src/apps/projects/admin.py:52 src/apps/projects/tasks.py:32
 msgid "Document \"{}\" not found on Câmara dos Deputados API."
 msgstr "Documento \"{}\" não encontrado na API da Câmara dos Deputados."
 
-#: src/apps/projects/admin.py:56
+#: src/apps/projects/admin.py:57 src/apps/projects/tasks.py:35
 msgid "{} document(s) informations was fetched successfully."
 msgstr "{} documentos tiveram suas informações coletadas com sucesso."
 
-#: src/apps/projects/admin.py:61
+#: src/apps/projects/admin.py:62
 msgid "USE_CD_OPEN_DATA config parameter is disabled."
 msgstr "O parâmetro de configuração USE_CD_OPEN_DATA está desabilitado."
 
-#: src/apps/projects/admin.py:65
+#: src/apps/projects/admin.py:66
 msgid "Fetch documents informations"
 msgstr "Coletar informações sobre os documentos"
 
@@ -475,7 +492,7 @@ msgstr "trechos"
 msgid "Sole paragraph"
 msgstr "Parágrafo único"
 
-#: src/apps/projects/views.py:131
+#: src/apps/projects/views.py:141
 msgid "Version not found! We loaded the last version for you :)"
 msgstr "Versão não encontrada! Nós carregamos a última versão para você :)"
 
@@ -484,23 +501,19 @@ msgstr "Versão não encontrada! Nós carregamos a última versão para você :)
 msgid "Tema"
 msgstr "Tema"
 
-#: src/templates/pages/closing-date.html:10
-msgid "Data"
-msgstr "Data"
-
-#: src/templates/pages/new-document.html:50
+#: src/templates/pages/new-document.html:52
 msgid "Número"
 msgstr "Número"
 
-#: src/templates/pages/new-document.html:55
+#: src/templates/pages/new-document.html:57
 msgid "Ano"
 msgstr "Ano"
 
-#: src/templates/pages/new-document.html:61
+#: src/templates/pages/new-document.html:63
 msgid "Título"
 msgstr "Título"
 
-#: src/templates/pages/new-document.html:66
+#: src/templates/pages/new-document.html:68
 msgid "Descrição"
 msgstr "Descrição"
 
@@ -556,17 +569,20 @@ msgstr "criado"
 msgid "modified"
 msgstr "modificado"
 
-#: src/wikilegis/settings.py:250
+#: src/wikilegis/settings.py:255
 msgid "Get document information from Câmara dos Deputados open data"
 msgstr "Coletar informações da API de dados abertos da Câmara dos Deputados"
 
-#: src/wikilegis/settings.py:255
+#: src/wikilegis/settings.py:260
 msgid "Câmara dos Deputados open data API"
 msgstr "URL da API de dados abertos da Câmara dos Deputados"
 
-#: src/wikilegis/settings.py:259
+#: src/wikilegis/settings.py:264
 msgid "Câmara dos Deputados current legislature"
 msgstr "Legislatura atual da Câmara dos Deputados"
+
+#~ msgid "Data"
+#~ msgstr "Data"
 
 #~ msgid "amendment type"
 #~ msgstr "tipo de emenda"
