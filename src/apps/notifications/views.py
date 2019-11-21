@@ -49,14 +49,13 @@ class PublicAuthorizationView(RedirectView):
         else:
             notification.message = '%s aceitou seu pedido para tornar o \
                 documento público' % (authorization.congressman.name.title())
-            import ipdb
-            ipdb.set_trace()
-            x = datetime.now()
-            public_group.openning_date = x
+            public_group.openning_date = datetime.now()
         notification.save()
         public_group.save()
 
-        return reverse('group-authorized')
+        return reverse('project',
+                       kwargs={'id': public_group.id,
+                               'documment_slug': public_group.document.slug})
 
 
 @require_ajax
@@ -80,7 +79,7 @@ class InformationCongressmanView(TemplateView):
         context['update'] = False
         context['site_url'] = site_url
         context['closing_date'] = authorization.closing_date
-        context['document_owner'] = authorization.group.document.owner,
-        context['document_title'] = authorization.group.document.title,
+        context['document_owner'] = authorization.group.document.owner
+        context['document_title'] = authorization.group.document.title
 
         return context
