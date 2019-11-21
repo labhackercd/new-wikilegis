@@ -1,7 +1,5 @@
 from django.urls import path
 from apps.notifications import views
-from django.views.generic import TemplateView
-
 
 urlpatterns = [
     path('information-congressman/<uuid:hash>/',
@@ -13,9 +11,6 @@ urlpatterns = [
     path('public-participation/authorization/<uuid:hash>/',
          views.PublicAuthorizationView.as_view(),
          name="public-authorization"),
-    path('public-participation/authorized/',
-         TemplateView.as_view(template_name='pages/group-authorized.html'),
-         name="group-authorized"),
     path('read/',
          views.update_notifications,
          name="read_notifications"),
