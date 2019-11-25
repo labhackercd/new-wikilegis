@@ -9,7 +9,7 @@
     </a>
       {% now "Y-m-d" as todays_date %}
       {% if group.closing_date|date:"Y-m-d" < todays_date %}
-      <a href="#" class="icon js-openFeedback" aria-label="Feedback">
+      <a href="#" class="icon js-openFeedbackInfo" aria-label="Feedback">
         {% include "svgs/arrows-icon.html" %}
       </a>
       {% endif %}
