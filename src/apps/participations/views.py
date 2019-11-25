@@ -534,3 +534,31 @@ def proposition_detail(request, cd_id):
     }
 
     return JsonResponse(obj, safe=False)
+
+
+@require_ajax
+def set_final_version(request, group_id):
+    group = InvitedGroup.objects.get(id=group_id)
+    version_id = request.POST.get('version_id', None)
+    video_id = request.POST.get('youtube_id', None)
+    import ipdb; ipdb.set_trace()
+    if version_id and video_id:
+        final_version = group.document.versions.get(id=version_id)
+        if group.version == final_version:
+            return JsonResponse(
+                {'error': _('Final version must be diferent the initial version!')},
+                status=400
+            )
+        else:
+            group.final_version = final_version
+            group.save()
+            document_video = DocumentVideo()
+            document_video.document = group.document
+            document_video.video_id = video_id
+            document_video.save()
+            return JsonResponse({'message': _('Request sent!')})
+    else:
+        return JsonResponse(
+            {'error': _('Version and Video link are required!')},
+            status=400
+        )

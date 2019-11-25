@@ -51,4 +51,21 @@ FeedbackFormModalView.prototype.publishers = function () {
     events.closeFeedbackInfoModal.publish();
   });
 
+  $('.js-feedbackFormModal .js-send').on('click', function (e) {
+    e.preventDefault();
+    self.sendFeedbackForm();
+  });
+
+};
+
+FeedbackFormModalView.prototype.sendFeedbackForm = function () {
+  var groupId = $('.js-feedbackFormModal').data('groupId');
+  var youtubeId = $('.js-feedbackFormModal .js-youtubeId').val();
+  var finalVersion = $('.js-feedbackFormModal .js-versionsSelect').val();
+
+  events.sendFeedbackForm.publish(
+    groupId,
+    youtubeId,
+    finalVersion
+  );
 };
