@@ -5,7 +5,8 @@ var FeedbackFormModalView = function() {};
 FeedbackFormModalView.prototype.initEvents = function () {
   this.feedbackFormModalElement = $('.js-feedbackFormModal');
   this.feedbackInfoModalElement = $('.js-feedbackInfoModal');
-  this.openfeedbackFormButton = $('.js-openFeedback');
+  this.openFeedbackFormButton = $('.js-openFeedback');
+  this.openFeedbackInfoButton = $('.js-openFeedbackInfo');
   this.closeFormElement = $('.js-feedbackFormModal .js-close');
   this.closeInfoElement = $('.js-feedbackInfoModal .js-close');
   this.subscribers();
@@ -31,13 +32,19 @@ FeedbackFormModalView.prototype.subscribers = function () {
 FeedbackFormModalView.prototype.publishers = function () {
   var self = this;
 
-  self.openfeedbackFormButton.on('click', function (e) {
+  self.openFeedbackFormButton.on('click', function (e) {
     e.preventDefault();
+    events.closeFeedbackInfoModal.publish();
     events.openFeedbackFormModal.publish();
   });
 
   self.closeFormElement.on('click', function() {
     events.feedbackFormModalElement.publish();
+  });
+
+  self.openFeedbackInfoButton.on('click', function (e) {
+    e.preventDefault();
+    events.openFeedbackInfoModal.publish();
   });
 
   self.closeInfoElement.on('click', function() {
