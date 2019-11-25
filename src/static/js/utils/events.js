@@ -294,4 +294,8 @@ var events = {
 
   // Triggered when user click on closeFeedbackInfoModal
   closeFeedbackInfoModal: $.Topic('closeFeedbackInfoModal'),
+
+  // Triggered when user click on send button
+  // Params: groupId, youtubeId, versionId
+  sendFeedbackForm: $.Topic('sendFeedbackForm'),
 };

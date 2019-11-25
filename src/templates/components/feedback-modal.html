@@ -1,8 +1,13 @@
 {% extends "structure/app-modal.html" %}
 {% load staticfiles projects_tags %}
 
-
 {% block extra_classes %}-public js-feedbackFormModal{% endblock %}
+
+{% block extra_attributes %}
+    {% if group.public_participation %}
+        data-group-id="{{ group.id }}"
+    {% endif %}
+{% endblock %}
 
 {% block title_modal %}
 
@@ -22,8 +27,8 @@
         </div>
     </div>
     <div class="input-text -required">
-        <input class="js-youtubeUrl" type="text" name="youtube" required id="id_youtube">
-        <label for="name">Link do youtube:</label>
+        <input class="js-youtubeId" type="text" name="youtube_id" required id="id_youtube">
+        <label for="youtube_id">Link do youtube:</label>
     </div>
     <button class="app-button -green js-send">Enviar</button>
 </form>
