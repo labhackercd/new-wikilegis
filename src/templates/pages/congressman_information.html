@@ -176,7 +176,7 @@
         <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
           <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center""><![endif]-->
 
-          <div class="email-row-container" style="padding: 24px;background-color: transparent">
+          <div class="email-row-container" style="padding: 24px 24px 0 24px;background-color: transparent">
             <div style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;" class="email-row">
               <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
                 <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 24px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->
@@ -210,7 +210,7 @@
                                 <tr>
                                   <td style="padding-right: 0px;padding-left: 0px;" align="center">
 
-                                    <img align="center" border="0" src="http://{{ site_url }}{% static 'img/date-mail.png' %}" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;width: 100%;max-width: 180px;"
+                                    <img align="center" border="0" src="http://{{ site_url }}{% static 'img/disclaimer.svg' %}" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;width: 100%;max-width: 180px;"
                                       width="180" />
 
                                   </td>
@@ -264,7 +264,7 @@
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:12px;font-family:arial,helvetica,sans-serif;" align="left">
 
                               <div style="color: #474747; line-height: 150%; text-align: center; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 150%;"><strong style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 11px; text-align: center;"><span style="font-size: 24px; line-height: 36px;">Termo de compromisso para participação pública</span></strong></p>
+                                <p style="font-size: 14px; line-height: 150%;"><strong style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 11px; text-align: center;"><span style="font-weight: bold; font-size: 24px; line-height: 36px;">Termo de compromisso para participação pública</span></strong></p>
                               </div>
 
                             </td>
@@ -277,14 +277,17 @@
                           <tr>
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:12px;font-family:arial,helvetica,sans-serif;" align="left">
 
-                              <div style="color: #000; line-height: 150%; text-align: center; word-wrap: break-word;">
-                                <p style="margin-top: 13px; margin-bottom: 13px; text-align: center; line-height: 150%; font-size: 14px;"><span style="color: #474747; font-family: Roboto, Tahoma, sans-serif; font-size: 14px; line-height: 21px;">
-                                  {% if updated %}
-                                  <span style="font-size: 16px; line-height: 24px;">O(A) servidor(a) {{ document_owner }} deseja alterar a data de encerramento do documento {{ document_title }} para {{ closing_date }}.</span>
-                                  {% else %}
-                                  <span style="font-size: 16px; line-height: 24px;">O(A) servidor(a) {{ document_owner }} deseja abrir o documento {{ document_title }} para consulta pública até {{ closing_date }}. Concordando em realizar todos os passos abaixo mencionados :</span>
-                                  {% endif %}
-                                  </span>
+                              <div style="color: #000; line-height: 150%; text-align: center; word-wrap: break-word; padding: 5%;">
+                                  <p style="text-align: justify;"><span style="font-size: 16px; line-height: 30px; display: block;"> A consulta pública da proposição legislativa {{document.document_type.initials}} {{document.number}}/{{document.year}} entitulada {{document.title}} foi configurada com êxito pelo servidor {{document_owner}} e agora só depende de sua autorização, na qualidade de autor ou relator da proposição,
+                            para que seja disponibilizada para a sociedade participar.</span></p>
+                                  <p style="text-align: justify;"><span style="font-size: 16px; line-height: 24px; display: block;">Clicando em "SIM", a plataforma estará acessível para que qualquer cidadão possa sugerir modificações no texto da proposição, até a data de dd/mm/aa.
+                            Ao final desse prazo, os participantes deverão receber o resultado final da consulta pública, que contempla o texto consolidado da proposição com as opiniões eventualmente acatadas,
+                            bem como um vídeo de feedback do deputado, justificando a incorporação ou não das sugestões e agradecendo o engajamento da sociedade. O sistema notificará automaticamente
+                            os usuários quando esses conteúdos forem disponibilizados, assim como, no caso de não disponibilização, os manterá informados do tempo decorrido desde o encerramento
+                            da consulta pública enquanto o resultado final não for enviado.</span></p>
+                                  <p style="text-align: justify;"><span style="font-size: 16px; line-height: 24px; display: block;">Caso encontre algum erro, por favor clique em "NÃO" e entre em contato com a equipe de gestão do Wikilegis pelo telefone (61) 3216-6012 ou email labhacker@camara.leg.br"</span>
+                                  
+                                  
                                 </p>
                               </div>
 
@@ -293,15 +296,21 @@
                         </tbody>
                       </table>
 
-                      <table id="u_content_button_1" class="u_content_button" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                      <center><p><h3> Deseja autorizar? </h3></p></center>
+  
+                    
+                      <table id="u_content_button_1" class="u_content_button" style="font-family:arial,helvetica,sans-serif; margin-bottom: 3%" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                         <tbody>
                           <tr>
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
 
                               <div align="center">
                                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:arial,helvetica,sans-serif;"><tr><td style="font-family:arial,helvetica,sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="/notifications/authorization/owner/{{ hash }}/" style="height:44px; v-text-anchor:middle; width:152px;" arcsize="0%" stroke="f" fillcolor="#2da965"><w:anchorlock/><center style="color:#FFFFFF;font-family:arial,helvetica,sans-serif;"><![endif]-->
-                                <a href="http://{{ site_url }}{% url 'public-authorization' hash_id %}" target="_self" style="display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #2da965; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: auto; padding: 14px 34px; mso-border-alt: none;">
-                                  <span style="line-height:120%;">CONCORDO</span>
+                                <a href="http://{{ site_url }}{% url 'unpublic-authorization' hash_id %}" target="_self" style="display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #eb6767; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: 25%; padding: 14px 34px; mso-border-alt: none;">
+                                  <span style="font-size: 100%;">NÃO</span>
+                                </a>
+                                <a href="http://{{ site_url }}{% url 'public-authorization' hash_id %}" target="_self" style="display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #2da965; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; width: 25%; padding: 14px 34px; mso-border-alt: none;">
+                                  <span style="font-size: 100%;">SIM</span>
                                 </a>
                                 <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->
                               </div>

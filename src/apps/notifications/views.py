@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from apps.notifications.models import (ParcipantInvitation,
                                        PublicAuthorization, Notification)
+from apps.participations.models import InvitedGroup
 from apps.projects.models import Document
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
@@ -58,6 +59,30 @@ class PublicAuthorizationView(RedirectView):
                                'documment_slug': public_group.document.slug})
 
 
+class PublicUnauthorizationView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        authorization = get_object_or_404(PublicAuthorization,
+                                          hash_id=kwargs['hash'])
+        document = authorization.group.document
+        invited_group = get_object_or_404(
+            InvitedGroup, document=document, public_participation=True)
+        notification = Notification()
+        notification.user = document.owner
+
+        notification.message = '%s não aceitou seu pedido para participação pública \
+            da proposição %s %s/%s.' % (authorization.congressman.name.title(),
+                                        document.document_type.initials,
+                                        document.year, document.number)
+        notification.save()
+
+        invited_group.delete()
+        authorization.delete()
+
+        return reverse('home')
+
+
 @require_ajax
 def update_notifications(request):
     user = request.user
@@ -79,7 +104,6 @@ class InformationCongressmanView(TemplateView):
         context['update'] = False
         context['site_url'] = site_url
         context['closing_date'] = authorization.closing_date
-        context['document_owner'] = authorization.group.document.owner
-        context['document_title'] = authorization.group.document.title
+        context['document'] = authorization.group.document
 
         return context
