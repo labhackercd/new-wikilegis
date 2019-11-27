@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from apps.notifications.models import (ParcipantInvitation,
                                        PublicAuthorization, Notification)
+from apps.participations.models import InvitedGroup
 from apps.projects.models import Document
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
