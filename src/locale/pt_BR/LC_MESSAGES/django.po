@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-21 11:21-0300\n"
+"POT-Creation-Date: 2019-11-29 11:02-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,566 +18,565 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/apps/accounts/admin.py:30 src/apps/accounts/models.py:27
+#: apps/accounts/admin.py:30 apps/accounts/models.py:27
 msgid "profile"
 msgstr "perfil"
 
-#: src/apps/accounts/apps.py:7
+#: apps/accounts/apps.py:7
 msgid "Accounts"
 msgstr "Contas"
 
-#: src/apps/accounts/models.py:10 src/apps/notifications/models.py:61
+#: apps/accounts/models.py:10 apps/notifications/models.py:61
 msgid "user"
 msgstr "usuário"
 
-#: src/apps/accounts/models.py:12 src/apps/projects/models.py:18
-#: src/apps/projects/models.py:80
+#: apps/accounts/models.py:12 apps/projects/models.py:18
+#: apps/projects/models.py:80
 msgid "themes"
 msgstr "temas"
 
-#: src/apps/accounts/models.py:13
+#: apps/accounts/models.py:13
 msgid "profile type"
 msgstr "tipo de perfil"
 
-#: src/apps/accounts/models.py:16
+#: apps/accounts/models.py:16
 msgid "gender"
 msgstr "gênero"
 
-#: src/apps/accounts/models.py:18 src/apps/projects/models.py:119
-#: src/apps/projects/models.py:180
+#: apps/accounts/models.py:18 apps/projects/models.py:119
+#: apps/projects/models.py:180
 msgid "uf"
 msgstr "uf"
 
-#: src/apps/accounts/models.py:20
+#: apps/accounts/models.py:20
 msgid "country"
 msgstr "país"
 
-#: src/apps/accounts/models.py:22
+#: apps/accounts/models.py:22
 msgid "birthdate"
 msgstr "data de nascimento"
 
-#: src/apps/accounts/models.py:23
+#: apps/accounts/models.py:23
 msgid "avatar"
 msgstr "avatar"
 
-#: src/apps/accounts/models.py:28
+#: apps/accounts/models.py:28
 msgid "profiles"
 msgstr "perfis"
 
-#: src/apps/accounts/models.py:42 src/apps/projects/models.py:10
+#: apps/accounts/models.py:42 apps/projects/models.py:10
 msgid "name"
 msgstr "nome"
 
-#: src/apps/accounts/models.py:45 src/apps/participations/models.py:86
-#: src/apps/projects/models.py:66
+#: apps/accounts/models.py:45 apps/participations/models.py:86
+#: apps/projects/models.py:66
 msgid "owner"
 msgstr "responsável"
 
-#: src/apps/accounts/models.py:48
+#: apps/accounts/models.py:48
 msgid "participants"
 msgstr "participantes"
 
-#: src/apps/accounts/models.py:51 src/apps/participations/models.py:16
+#: apps/accounts/models.py:51 apps/participations/models.py:16
 msgid "thematic group"
 msgstr "grupo temático"
 
-#: src/apps/accounts/models.py:52
+#: apps/accounts/models.py:52
 msgid "thematic groups"
 msgstr "grupos temáticos"
 
-#: src/apps/dashboard/views.py:160
+#: apps/dashboard/views.py:160
 msgid "Document saved successfully!"
 msgstr "Documento salvo com sucesso."
 
-#: src/apps/notifications/apps.py:7
+#: apps/notifications/apps.py:7
 msgid "Notifications"
 msgstr "Notificações"
 
-#: src/apps/notifications/emails.py:15
+#: apps/notifications/emails.py:15
 msgid "[Wikilegis] Edit group invitation"
 msgstr "[Wikilegis] Convite de edição de projeto"
 
-#: src/apps/notifications/emails.py:27
+#: apps/notifications/emails.py:27
 msgid "[Wikilegis] Document owner invitation"
 msgstr "[Wikilegis] Convite para consultor"
 
-#: src/apps/notifications/emails.py:40
+#: apps/notifications/emails.py:40
 msgid "[Wikilegis] Participant removed"
 msgstr "[Wikilegis] Participante removido"
 
-#: src/apps/notifications/emails.py:62
+#: apps/notifications/emails.py:62
 msgid "[Wikilegis] Authorization request"
 msgstr "[Wikilegis] Solicitação de autorização"
 
-#: src/apps/notifications/emails.py:78
+#: apps/notifications/emails.py:78
 msgid "[Wikilegis] Public participation request"
 msgstr "[Wikilegis] Solicitação de participação pública"
 
-#: src/apps/notifications/models.py:13 src/apps/notifications/models.py:47
+#: apps/notifications/models.py:13 apps/notifications/models.py:47
 msgid "group"
 msgstr "grupo"
 
-#: src/apps/notifications/models.py:14
+#: apps/notifications/models.py:14
 msgid "accepted"
 msgstr "aceito"
 
-#: src/apps/notifications/models.py:15
+#: apps/notifications/models.py:15
 msgid "answered"
 msgstr "respondido"
 
-#: src/apps/notifications/models.py:19
+#: apps/notifications/models.py:19
 msgid "participant invitation"
 msgstr "convite do participante"
 
-#: src/apps/notifications/models.py:20
+#: apps/notifications/models.py:20
 msgid "participant invitations"
 msgstr "convites dos participantes"
 
-#: src/apps/notifications/models.py:30
+#: apps/notifications/models.py:30
 msgid "owner invitation"
 msgstr "convite do responsável"
 
-#: src/apps/notifications/models.py:31
+#: apps/notifications/models.py:31
 msgid "owner invitations"
 msgstr "convites dos responsáveis"
 
-#: src/apps/notifications/models.py:41
+#: apps/notifications/models.py:41
 msgid "congressman"
 msgstr "deputado"
 
-#: src/apps/notifications/models.py:48 src/apps/participations/models.py:19
+#: apps/notifications/models.py:48 apps/participations/models.py:19
 msgid "closing date"
 msgstr "data de encerramento"
 
-#: src/apps/notifications/models.py:51 src/apps/notifications/models.py:52
+#: apps/notifications/models.py:51 apps/notifications/models.py:52
 msgid "public authorization"
 msgstr "autorização de participação pública"
 
-#: src/apps/notifications/models.py:66
+#: apps/notifications/models.py:66
 msgid "notification"
 msgstr "Notificações"
 
-#: src/apps/notifications/models.py:67
+#: apps/notifications/models.py:67
 msgid "notifications"
 msgstr "Notificações"
 
-#: src/apps/notifications/views.py:61
+#: apps/notifications/views.py:61
 msgid "Notifications read!"
 msgstr "Notificações lidas!"
 
-#: src/apps/participations/apps.py:7
+#: apps/participations/apps.py:7
 msgid "Participations"
 msgstr "Participações"
 
-#: src/apps/participations/models.py:12 src/apps/projects/models.py:44
-#: src/apps/projects/models.py:85 src/apps/projects/models.py:137
-#: src/apps/projects/models.py:192 src/apps/projects/models.py:224
+#: apps/participations/models.py:12 apps/projects/models.py:44
+#: apps/projects/models.py:85 apps/projects/models.py:137
+#: apps/projects/models.py:192 apps/projects/models.py:224
 msgid "document"
 msgstr "documento"
 
-#: src/apps/participations/models.py:18
+#: apps/participations/models.py:18
 msgid "openning date"
 msgstr "data de abertura"
 
-#: src/apps/participations/models.py:20 src/apps/participations/models.py:49
+#: apps/participations/models.py:20 apps/participations/models.py:49
 msgid "public participation"
 msgstr "participação pública"
 
-#: src/apps/participations/models.py:26 src/apps/projects/models.py:235
+#: apps/participations/models.py:26 apps/projects/models.py:235
 msgid "version"
 msgstr "versão"
 
-#: src/apps/participations/models.py:28
+#: apps/participations/models.py:28
 msgid "group status"
 msgstr "estado do grupo"
 
-#: src/apps/participations/models.py:33 src/apps/participations/models.py:56
+#: apps/participations/models.py:33 apps/participations/models.py:56
 msgid "invited group"
 msgstr "grupo convidado"
 
-#: src/apps/participations/models.py:34
+#: apps/participations/models.py:34
 msgid "invited groups"
 msgstr "grupos de convidados"
 
-#: src/apps/participations/models.py:60 src/apps/projects/models.py:239
+#: apps/participations/models.py:60 apps/projects/models.py:239
 msgid "excerpt"
 msgstr "trecho"
 
-#: src/apps/participations/models.py:61
+#: apps/participations/models.py:61
 msgid "selected text"
 msgstr "texto selecionado"
 
-#: src/apps/participations/models.py:62
+#: apps/participations/models.py:62
 msgid "start index"
 msgstr "índice inicial"
 
-#: src/apps/participations/models.py:63
+#: apps/participations/models.py:63
 msgid "end index"
 msgstr "índice final"
 
-#: src/apps/participations/models.py:64 src/apps/projects/models.py:232
+#: apps/participations/models.py:64 apps/projects/models.py:232
 msgid "content"
 msgstr "conteúdo"
 
-#: src/apps/participations/models.py:67 src/apps/projects/models.py:174
+#: apps/participations/models.py:67 apps/projects/models.py:174
 msgid "author"
 msgstr "autor"
 
-#: src/apps/participations/models.py:70 src/apps/participations/models.py:83
+#: apps/participations/models.py:70 apps/participations/models.py:83
 msgid "suggestion"
 msgstr "sugestão"
 
-#: src/apps/participations/models.py:71
+#: apps/participations/models.py:71
 msgid "suggestions"
 msgstr "sugestões"
 
-#: src/apps/participations/models.py:87
+#: apps/participations/models.py:87
 msgid "opinion type"
 msgstr "tipo de opinião"
 
-#: src/apps/participations/models.py:92
+#: apps/participations/models.py:92
 msgid "opinion vote"
 msgstr "voto opinião"
 
-#: src/apps/participations/models.py:93
+#: apps/participations/models.py:93
 msgid "opinion votes"
 msgstr "votos opiniões"
 
-#: src/apps/participations/views.py:57 src/apps/participations/views.py:121
-#: src/apps/participations/views.py:388 src/apps/participations/views.py:462
+#: apps/participations/views.py:57 apps/participations/views.py:121
+#: apps/participations/views.py:388 apps/participations/views.py:462
 msgid "Closing date must be greater than or equal to today!"
 msgstr "A data de encerramento deve ser maior ou igual a hoje!"
 
-#: src/apps/participations/views.py:64 src/apps/participations/views.py:126
+#: apps/participations/views.py:64 apps/participations/views.py:126
 msgid "Group name is required"
 msgstr "Nome do grupo é obrigatóro"
 
-#: src/apps/participations/views.py:81 src/apps/participations/views.py:152
+#: apps/participations/views.py:81 apps/participations/views.py:152
 msgid "Participants are required"
 msgstr "O campo participantes é obrigatório"
 
-#: src/apps/participations/views.py:275
+#: apps/participations/views.py:275
 msgid "Project closed for participation"
 msgstr "Projeto fechado para participação"
 
-#: src/apps/participations/views.py:307
+#: apps/participations/views.py:307
 msgid "You cannot undo this suggestion after 1 minute"
 msgstr "Você não pode desfazer esta sugestão depois de 1 minuto"
 
-#: src/apps/participations/views.py:360
+#: apps/participations/views.py:360
 msgid "Invalid link YouTube. Please enter a valid link!"
 msgstr "Link do YouTube inválido. Por favor informe uma link válido!"
 
-#: src/apps/participations/views.py:370
+#: apps/participations/views.py:370
 msgid "You must create a version from your text before open to participation"
 msgstr ""
 "Você deve criar uma versão para seu texto antes de abrir para participação"
 
-#: src/apps/participations/views.py:380
-msgid "Closing date is requeride!"
+#: apps/participations/views.py:380
+msgid "Closing date is required!"
 msgstr "O campo data de encerramento é obrigatório"
 
-#: src/apps/participations/views.py:424 src/apps/participations/views.py:484
+#: apps/participations/views.py:424 apps/participations/views.py:484
 msgid "Request sent!"
 msgstr "Solicitação enviada!"
 
-#: src/apps/participations/views.py:428
+#: apps/participations/views.py:428
 msgid "You cannot request a public participation again"
 msgstr ""
 "Você não pode solicitar uma participação pública novamente para este "
 "documento."
 
-#: src/apps/participations/views.py:433
+#: apps/participations/views.py:433
 msgid "Congressman is required!"
 msgstr "Campo deputado é obrigatóro"
 
-#: src/apps/participations/views.py:487
+#: apps/participations/views.py:487
 #, fuzzy
-#| msgid "Closing date is requeride!"
 msgid "Congressman and closing date are required!"
 msgstr "O campo data de encerramento é obrigatório"
 
-#: src/apps/projects/admin.py:52 src/apps/projects/tasks.py:32
+#: apps/projects/admin.py:52 apps/projects/tasks.py:32
 msgid "Document \"{}\" not found on Câmara dos Deputados API."
 msgstr "Documento \"{}\" não encontrado na API da Câmara dos Deputados."
 
-#: src/apps/projects/admin.py:57 src/apps/projects/tasks.py:35
+#: apps/projects/admin.py:57 apps/projects/tasks.py:35
 msgid "{} document(s) informations was fetched successfully."
 msgstr "{} documentos tiveram suas informações coletadas com sucesso."
 
-#: src/apps/projects/admin.py:62
+#: apps/projects/admin.py:62
 msgid "USE_CD_OPEN_DATA config parameter is disabled."
 msgstr "O parâmetro de configuração USE_CD_OPEN_DATA está desabilitado."
 
-#: src/apps/projects/admin.py:66
+#: apps/projects/admin.py:66
 msgid "Fetch documents informations"
 msgstr "Coletar informações sobre os documentos"
 
-#: src/apps/projects/apps.py:7
+#: apps/projects/apps.py:7
 msgid "Projects"
 msgstr "Projetos"
 
-#: src/apps/projects/forms.py:20
+#: apps/projects/forms.py:20
 msgid "File in txt format"
 msgstr "Arquivo em formato txt"
 
-#: src/apps/projects/models.py:13
+#: apps/projects/models.py:13
 msgid "icon"
 msgstr "ícone"
 
-#: src/apps/projects/models.py:17
+#: apps/projects/models.py:17
 msgid "theme"
 msgstr "tema"
 
-#: src/apps/projects/models.py:29 src/apps/projects/models.py:72
-#: src/apps/projects/models.py:194
+#: apps/projects/models.py:29 apps/projects/models.py:72
+#: apps/projects/models.py:194
 msgid "title"
 msgstr "título"
 
-#: src/apps/projects/models.py:30
+#: apps/projects/models.py:30
 msgid "initials"
 msgstr "sigla"
 
-#: src/apps/projects/models.py:33 src/apps/projects/models.py:79
+#: apps/projects/models.py:33 apps/projects/models.py:79
 msgid "document type"
 msgstr "tipo de documento"
 
-#: src/apps/projects/models.py:34
+#: apps/projects/models.py:34
 msgid "document types"
 msgstr "tipos de documentos"
 
-#: src/apps/projects/models.py:47
+#: apps/projects/models.py:47
 msgid "parent"
 msgstr "trecho ancestral"
 
-#: src/apps/projects/models.py:54
+#: apps/projects/models.py:54
 msgid "document version"
 msgstr "versão do documento"
 
-#: src/apps/projects/models.py:55
+#: apps/projects/models.py:55
 msgid "document versions"
 msgstr "versões dos documentos"
 
-#: src/apps/projects/models.py:70
+#: apps/projects/models.py:70
 msgid "responsible"
 msgstr "responsável"
 
-#: src/apps/projects/models.py:73
+#: apps/projects/models.py:73
 msgid "Untitled Document"
 msgstr "documento sem título"
 
-#: src/apps/projects/models.py:75
+#: apps/projects/models.py:75
 msgid "description"
 msgstr "descrição"
 
-#: src/apps/projects/models.py:76
+#: apps/projects/models.py:76
 msgid "Document description"
 msgstr "descrição do documento"
 
-#: src/apps/projects/models.py:81 src/apps/projects/models.py:231
+#: apps/projects/models.py:81 apps/projects/models.py:231
 msgid "number"
 msgstr "número"
 
-#: src/apps/projects/models.py:82
+#: apps/projects/models.py:82
 msgid "year"
 msgstr "ano"
 
-#: src/apps/projects/models.py:86
+#: apps/projects/models.py:86
 msgid "documents"
 msgstr "documentos"
 
-#: src/apps/projects/models.py:115 src/apps/projects/models.py:139
-#: src/apps/projects/models.py:176
+#: apps/projects/models.py:115 apps/projects/models.py:139
+#: apps/projects/models.py:176
 msgid "CD ID"
 msgstr "CD ID"
 
-#: src/apps/projects/models.py:116 src/apps/projects/models.py:177
+#: apps/projects/models.py:116 apps/projects/models.py:177
 msgid "image url"
 msgstr "link da imagem"
 
-#: src/apps/projects/models.py:117 src/apps/projects/models.py:178
+#: apps/projects/models.py:117 apps/projects/models.py:178
 msgid "party initials"
 msgstr "sigla do partido"
 
-#: src/apps/projects/models.py:120
+#: apps/projects/models.py:120
 msgid "email"
 msgstr "email"
 
-#: src/apps/projects/models.py:122
+#: apps/projects/models.py:122
 msgid "phone"
 msgstr "telefone"
 
-#: src/apps/projects/models.py:125
+#: apps/projects/models.py:125
 msgid "Document Responsible"
 msgstr "Responsável pelo documento"
 
-#: src/apps/projects/models.py:126
+#: apps/projects/models.py:126
 msgid "Document Responsibles"
 msgstr "Responsáveis pelos documentos"
 
-#: src/apps/projects/models.py:140
+#: apps/projects/models.py:140
 msgid "abridgement"
 msgstr "abreviação"
 
-#: src/apps/projects/models.py:141
+#: apps/projects/models.py:141
 msgid "status"
 msgstr "situação"
 
-#: src/apps/projects/models.py:143
+#: apps/projects/models.py:143
 msgid "legislative body"
 msgstr "órgão legislativo"
 
-#: src/apps/projects/models.py:145
+#: apps/projects/models.py:145
 msgid "keywords"
 msgstr "palavras-chave"
 
-#: src/apps/projects/models.py:150
+#: apps/projects/models.py:150
 msgid "Document Information"
 msgstr "Informação de Documento"
 
-#: src/apps/projects/models.py:151
+#: apps/projects/models.py:151
 msgid "Document Informations"
 msgstr "Informações de Documento"
 
-#: src/apps/projects/models.py:162
+#: apps/projects/models.py:162
 msgid "Document Author"
 msgstr "Autor de Documento"
 
-#: src/apps/projects/models.py:163
+#: apps/projects/models.py:163
 msgid "Document Authors"
 msgstr "Autores de Documento"
 
-#: src/apps/projects/models.py:183
+#: apps/projects/models.py:183
 msgid "Author Information"
 msgstr "Informação do Autor"
 
-#: src/apps/projects/models.py:184
+#: apps/projects/models.py:184
 msgid "Authors Informations"
 msgstr "Informações dos Autores"
 
-#: src/apps/projects/models.py:195
+#: apps/projects/models.py:195
 msgid "youtube id"
 msgstr "id do YouTube"
 
-#: src/apps/projects/models.py:198
+#: apps/projects/models.py:198
 msgid "document video"
 msgstr "vídeo de documento"
 
-#: src/apps/projects/models.py:199
+#: apps/projects/models.py:199
 msgid "document videos"
 msgstr "vídeos de documentos"
 
-#: src/apps/projects/models.py:206 src/apps/projects/models.py:211
-#: src/apps/projects/models.py:228
+#: apps/projects/models.py:206 apps/projects/models.py:211
+#: apps/projects/models.py:228
 msgid "excerpt type"
 msgstr "tipo de trecho"
 
-#: src/apps/projects/models.py:208
+#: apps/projects/models.py:208
 msgid "align center"
 msgstr "alinhar ao centro"
 
-#: src/apps/projects/models.py:212
+#: apps/projects/models.py:212
 msgid "excerpt types"
 msgstr "tipos de trechos"
 
-#: src/apps/projects/models.py:226
+#: apps/projects/models.py:226
 msgid "order"
 msgstr "órdem"
 
-#: src/apps/projects/models.py:240
+#: apps/projects/models.py:240
 msgid "excerpts"
 msgstr "trechos"
 
-#: src/apps/projects/templatetags/projects_tags.py:129
+#: apps/projects/templatetags/projects_tags.py:129
 msgid "Sole paragraph"
 msgstr "Parágrafo único"
 
-#: src/apps/projects/views.py:141
+#: apps/projects/views.py:142
 msgid "Version not found! We loaded the last version for you :)"
 msgstr "Versão não encontrada! Nós carregamos a última versão para você :)"
 
-#: src/templates/components/filter-modal.html:15
-#: src/templates/pages/new-document.html:22
+#: templates/components/filter-modal.html:15
+#: templates/pages/new-document.html:22
 msgid "Tema"
 msgstr "Tema"
 
-#: src/templates/pages/new-document.html:52
+#: templates/pages/new-document.html:52
 msgid "Número"
 msgstr "Número"
 
-#: src/templates/pages/new-document.html:57
+#: templates/pages/new-document.html:57
 msgid "Ano"
 msgstr "Ano"
 
-#: src/templates/pages/new-document.html:63
+#: templates/pages/new-document.html:63
 msgid "Título"
 msgstr "Título"
 
-#: src/templates/pages/new-document.html:68
+#: templates/pages/new-document.html:68
 msgid "Descrição"
 msgstr "Descrição"
 
-#: src/utils/choices.py:4
+#: utils/choices.py:4
 msgid "Male"
 msgstr "Masculino"
 
-#: src/utils/choices.py:5
+#: utils/choices.py:5
 msgid "Female"
 msgstr "Feminino"
 
-#: src/utils/choices.py:6
+#: utils/choices.py:6
 msgid "Other"
 msgstr "Outro"
 
-#: src/utils/choices.py:7
+#: utils/choices.py:7
 msgid "Undisclosed"
 msgstr "Prefiro não informar"
 
-#: src/utils/choices.py:41
+#: utils/choices.py:41
 msgid "Document Owner"
 msgstr "Responsável pelo documento"
 
-#: src/utils/choices.py:42
+#: utils/choices.py:42
 msgid "Default"
 msgstr "Padrão"
 
-#: src/utils/choices.py:46
+#: utils/choices.py:46
 msgid "Approve"
 msgstr "Aprovar"
 
-#: src/utils/choices.py:47
+#: utils/choices.py:47
 msgid "Reject"
 msgstr "Rejeitar"
 
-#: src/utils/choices.py:48
+#: utils/choices.py:48
 msgid "Neutral"
 msgstr "Neutro"
 
-#: src/utils/choices.py:52
+#: utils/choices.py:52
 msgid "Waiting"
 msgstr "Aguardando"
 
-#: src/utils/choices.py:53
+#: utils/choices.py:53
 msgid "In Progress"
 msgstr "Em progresso"
 
-#: src/utils/model_mixins.py:6
+#: utils/model_mixins.py:6
 msgid "created"
 msgstr "criado"
 
-#: src/utils/model_mixins.py:8
+#: utils/model_mixins.py:8
 msgid "modified"
 msgstr "modificado"
 
-#: src/wikilegis/settings.py:255
+#: wikilegis/settings.py:255
 msgid "Get document information from Câmara dos Deputados open data"
 msgstr "Coletar informações da API de dados abertos da Câmara dos Deputados"
 
-#: src/wikilegis/settings.py:260
+#: wikilegis/settings.py:260
 msgid "Câmara dos Deputados open data API"
 msgstr "URL da API de dados abertos da Câmara dos Deputados"
 
-#: src/wikilegis/settings.py:264
+#: wikilegis/settings.py:264
 msgid "Câmara dos Deputados current legislature"
 msgstr "Legislatura atual da Câmara dos Deputados"
 

@@ -377,7 +377,7 @@ def create_public_participation(request, document_pk):
     except Exception:
         return JsonResponse(
             {'error':
-             _('Closing date is requeride!')},
+             _('Closing date is required!')},
             status=400
         )
 
