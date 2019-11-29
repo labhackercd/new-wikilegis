@@ -20,9 +20,9 @@
 <ul class="errorlist nonfield js-formError"></ul>
 <div class="input-text -required -date">
   {% if group.public_participation %}
-  <input name="date" class="js-datePicker js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" value="{{group.closing_date|date:'d/m/Y'}}" id="id_date">
+  <input name="date" type="text" class="js-datePicker js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" value="{{group.closing_date|date:'d/m/Y'}}" id="id_date">
   {% else %}
-  <input name="date" class="js-datePicker js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" id="id_date">
+  <input name="date" type="text" class="js-datePicker js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" id="id_date">
   {% endif %}
   <label for="id_date">Data de encerramento:</label>
 </div>
@@ -31,6 +31,11 @@
   <input class="js-inputAutocomplete" type="text" name="title" required id="id_congressman">
   <label for="id_congressman">Deputado responsavel:</label>
 </div>
+<div class="input-text -required">
+  <input type="text" class="js-urlVideo" required id="link_video">
+  <label for="link_video">Link do YouTube: </label>
+</div>
+
 <div class="input-select -required">
   <div class="select">
     <select id="id_version_name" class="js-versionsSelect" required name="version">
