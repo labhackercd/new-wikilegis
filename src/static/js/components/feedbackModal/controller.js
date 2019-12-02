@@ -13,8 +13,8 @@ FeedbackFormController.prototype.subscribers = function() {
     self.populateNamedVersions();
   });
 
-  events.sendFeedbackForm.subscribe(function (groupId, youtubeId, finalVersion) {
-    self.sendFeedbackForm(groupId, youtubeId, finalVersion);
+  events.sendFeedbackForm.subscribe(function (groupId, youtubeUrl, finalVersion) {
+    self.sendFeedbackForm(groupId, youtubeUrl, finalVersion);
   });
 };
 
@@ -35,13 +35,13 @@ FeedbackFormController.prototype.populateNamedVersions = function() {
   });
 };
 
-FeedbackFormController.prototype.sendFeedbackForm = function (groupId, youtubeId, finalVersion) {
+FeedbackFormController.prototype.sendFeedbackForm = function (groupId, youtubeUrl, finalVersion) {
   var request = $.ajax({
     url: Urls.set_final_version(groupId),
     method: 'POST',
     data: {
       version_id: finalVersion,
-      youtube_id: youtubeId
+      youtube_url: youtubeUrl
     }
   });
 
