@@ -23,8 +23,8 @@ from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
 from apps.notifications.emails import send_remove_participant
+from utils.filters import get_id_video
 import requests
-import re
 
 User = get_user_model()
 
@@ -435,19 +435,6 @@ def create_public_participation(request, document_pk):
         )
 
 
-def get_id_video(link_video):
-    regex_id = re.compile("""^.*(youtu\\.be\\/|v\\/|u\\/\\w\\/|
-                          embed\\/|watch\\?v=|\\&v=)([^#\\&\\?]*).*""")
-
-    match = re.match(regex_id, link_video)
-    if match:
-        id_video = match.group(2)
-    else:
-        id_video = None
-
-    return id_video
-
-
 @require_ajax
 def update_closing_date(request, group_id):
     today = date.today()
@@ -540,8 +527,17 @@ def proposition_detail(request, cd_id):
 def set_final_version(request, group_id):
     group = InvitedGroup.objects.get(id=group_id)
     version_id = request.POST.get('version_id', None)
-    video_id = request.POST.get('youtube_id', None)
-    import ipdb; ipdb.set_trace()
+    video_url = request.POST.get('youtube_url', None)
+
+    video_id = get_id_video(video_url)
+
+    if video_id is None:
+        return JsonResponse(
+            {'error':
+             _('Invalid link YouTube. Please enter a valid link!')},
+            status=400
+        )
+
     if version_id and video_id:
         final_version = group.document.versions.get(id=version_id)
         if group.version == final_version:
