@@ -1,0 +1,67 @@
+$yes-button-color: #2CD27E;
+$no-button-color: #D0D0D0;
+.textual-confirmation-screen {
+	margin: 10%;
+	margin-top: 7%;
+	margin-bottom: 5%;
+	background: #FFFFFF;
+	padding: 2%;
+	@include card-shadow;	
+
+	& > .title {
+		text-align: center;
+		padding-top: 10px;
+	}
+	& > .grid-template-columns {
+			margin-top: 3%;
+			@media screen and (min-width: $bp-medium) {
+				grid-template-columns: 30% 70%;
+				display: grid;
+			}
+			@media screen and (max-width: $bp-medium - 1) {
+				grid-template-columns: 0% 100%;
+				display: grid;
+			}
+		}
+	& > .grid-template-columns > .item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	& > .grid-template-columns > .item > .icon-style {
+			@media screen and (min-width: $bp-medium) {
+				@include icon('textual-confirmation-icon', 10rem, 10rem, 90%);
+			}
+		}
+	& > .button-container {}
+	& > .grid-template-columns > .button-container > .button {
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 1%;
+			margin-right: 0%;
+			float: right;
+			&--yes {
+				@extend .button;
+				margin-right: 0%;
+				background-color: $yes-button-color;
+				&:hover {
+					background-color: $yes-button-color - 20%;
+				}
+			}
+			&--no {
+				@extend .button;
+				background-color: $no-button-color;
+				&:hover {
+					background-color: $no-button-color - 20%;
+				}
+			}
+		}
+	p {
+		text-align: justify;
+	}
+}
