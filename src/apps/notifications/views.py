@@ -116,3 +116,36 @@ class InformationCongressmanView(TemplateView):
             raise Http404
 
         return context
+
+
+
+
+##########################
+
+class TesteTemplate(TemplateView):
+    template_name = 'pages/textual-confirmation-screen.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['hash_id'] = 'c433542a-ecc7-44be-8d25-3374001e4f02'
+        context['update'] = False
+        context['site_url'] = 'localhost:8000'
+        context['closing_date'] = '30/02/2019'
+        context['document'] = 'PL 241'
+
+        return context
+
+class DiffTemplate(TemplateView):
+    template_name = 'pages/diff.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['hash_id'] = 'c433542a-ecc7-44be-8d25-3374001e4f02'
+        context['update'] = False
+        context['site_url'] = 'localhost:8000'
+        context['closing_date'] = '30/02/2019'
+        context['document'] = 'PL 241'
+
+        return context
