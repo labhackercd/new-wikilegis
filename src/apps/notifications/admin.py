@@ -32,6 +32,20 @@ class PublicAuthorizationAdmin(admin.ModelAdmin):
     search_fields = ('group__thematic_group__name',)
 
 
+@admin.register(models.FeedbackAuthorization)
+class FeedbackAuthorizationAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'created',
+        'modified',
+        'video_id',
+        'hash_id',
+        'group',
+        'version',
+    )
+    list_filter = ('created', 'modified', 'group', 'version')
+
+
 @admin.register(models.Notification)
 class NotificationAdmin(admin.ModelAdmin):
     list_display = (

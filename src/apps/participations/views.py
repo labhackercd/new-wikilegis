@@ -10,7 +10,8 @@ from apps.projects.models import (
     Excerpt, Theme, Document, DocumentResponsible, DocumentInfo, DocumentVideo)
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
-from apps.notifications.models import ParcipantInvitation, PublicAuthorization
+from apps.notifications.models import (
+    ParcipantInvitation, PublicAuthorization, FeedbackAuthorization)
 from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -22,7 +23,8 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
-from apps.notifications.emails import send_remove_participant
+from apps.notifications.emails import (
+    send_remove_participant, send_feedback_authorization)
 from utils.filters import get_id_video
 import requests
 
@@ -546,12 +548,12 @@ def set_final_version(request, group_id):
                 status=400
             )
         else:
-            group.final_version = final_version
-            group.save()
-            document_video = DocumentVideo()
-            document_video.document = group.document
-            document_video.video_id = video_id
-            document_video.save()
+            authorization = FeedbackAuthorization()
+            authorization.version = final_version
+            authorization.group = group
+            authorization.video_id = video_id
+            authorization.save()
+            send_feedback_authorization(authorization)
             return JsonResponse({'message': _('Request sent!')})
     else:
         return JsonResponse(
