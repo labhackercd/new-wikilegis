@@ -91,7 +91,7 @@ def update_notifications(request):
 
 
 class InformationCongressmanView(TemplateView):
-    template_name = 'pages/congressman_information.html'
+    template_name = 'pages/public_participation_disclaimer.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,7 +101,6 @@ class InformationCongressmanView(TemplateView):
                                           hash_id=kwargs['hash'])
 
         context['hash_id'] = authorization.hash_id
-        context['update'] = False
         context['site_url'] = site_url
         context['closing_date'] = authorization.closing_date
         context['document'] = authorization.group.document
