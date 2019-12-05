@@ -81,3 +81,20 @@ def send_public_authorization(public_authorization, updated=False):
         [settings.EMAIL_HOST_USER])
     mail_request.attach_alternative(html_request, 'text/html')
     mail_request.send()
+
+
+def send_feedback_authorization(feedback_authorization):
+    site_url = Site.objects.get_current().domain
+    html_authorization = render_to_string(
+        'emails/feedback_authorization.html',
+        {'document': feedback_authorization.group.document,
+         'hash_id': feedback_authorization.hash_id,
+         'site_url': site_url})
+    subject_authorization = _('[Wikilegis] Feedback authorization request')
+    import ipdb; ipdb.set_trace()
+    public_authorization = feedback_authorization.group.authorization_emails.first()
+    mail_authorization = EmailMultiAlternatives(
+        subject_authorization, '', settings.EMAIL_HOST_USER,
+        [public_authorization.congressman.email])
+    mail_authorization.attach_alternative(html_authorization, 'text/html')
+    mail_authorization.send()
