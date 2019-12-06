@@ -2,6 +2,7 @@ from django.core.exceptions import PermissionDenied
 from apps.notifications.models import (ParcipantInvitation,
                                        PublicAuthorization, Notification)
 from apps.projects.models import Document
+from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import RedirectView
@@ -10,6 +11,8 @@ from utils.decorators import require_ajax
 from django.utils.translation import ugettext_lazy as _
 from django.http import JsonResponse
 from datetime import datetime
+from django.views.generic import TemplateView
+from django.http import Http404
 
 
 @login_required(login_url='/')
@@ -47,11 +50,43 @@ class PublicAuthorizationView(RedirectView):
         else:
             notification.message = '%s aceitou seu pedido para tornar o \
                 documento público' % (authorization.congressman.name.title())
-            public_group.openning_date = datetime.now().date
+            public_group.openning_date = datetime.now()
         notification.save()
         public_group.save()
 
-        return reverse('group-authorized')
+        return reverse('project',
+                       kwargs={'id': public_group.id,
+                               'documment_slug': public_group.document.slug})
+
+
+class PublicUnauthorizationView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        authorization = get_object_or_404(PublicAuthorization,
+                                          hash_id=kwargs['hash'])
+        document = authorization.group.document
+        invited_group = authorization.group
+
+        if invited_group.group_status != 'in_progress':
+            invited_group.delete()
+
+            notification = Notification()
+            notification.user = document.owner
+
+            message = '{} não aceitou seu pedido para participação pública da \
+                    proposição {} {}/{}.'
+
+            notification.message = message.format(
+                authorization.congressman.name.title(),
+                document.document_type.initials,
+                document.year, document.number)
+
+            notification.save()
+
+            return reverse('home')
+        else:
+            raise Http404
 
 
 @require_ajax
@@ -59,3 +94,24 @@ def update_notifications(request):
     user = request.user
     user.notifications.update(was_read=True)
     return JsonResponse({'message': _('Notifications read!')})
+
+
+class InformationCongressmanView(TemplateView):
+    template_name = 'pages/public_participation_disclaimer.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        site_url = Site.objects.get_current().domain
+
+        authorization = get_object_or_404(PublicAuthorization,
+                                          hash_id=kwargs['hash'])
+
+        context['hash_id'] = authorization.hash_id
+        context['site_url'] = site_url
+        context['closing_date'] = authorization.closing_date
+        context['document'] = authorization.group.document
+
+        if authorization.group.group_status == 'in_progress':
+            raise Http404
+
+        return context

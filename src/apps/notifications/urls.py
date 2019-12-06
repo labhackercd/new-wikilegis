@@ -1,18 +1,19 @@
 from django.urls import path
 from apps.notifications import views
-from django.views.generic import TemplateView
-
 
 urlpatterns = [
+    path('information-congressman/<uuid:hash>/',
+         views.InformationCongressmanView.as_view(),
+         name="information_authorization"),
     path('authorization/<uuid:hash>/',
          views.authorization,
          name="authorization"),
     path('public-participation/authorization/<uuid:hash>/',
          views.PublicAuthorizationView.as_view(),
          name="public-authorization"),
-    path('public-participation/authorized/',
-         TemplateView.as_view(template_name='pages/group-authorized.html'),
-         name="group-authorized"),
+    path('public-participation/unauthorization/<uuid:hash>/',
+         views.PublicUnauthorizationView.as_view(),
+         name="unpublic-authorization"),
     path('read/',
          views.update_notifications,
          name="read_notifications"),
