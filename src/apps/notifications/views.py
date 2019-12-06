@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.http import JsonResponse
 from datetime import datetime
 from django.views.generic import TemplateView
+from django.http import Http404
 
 
 @login_required(login_url='/')
@@ -66,22 +67,26 @@ class PublicUnauthorizationView(RedirectView):
                                           hash_id=kwargs['hash'])
         document = authorization.group.document
         invited_group = authorization.group
-        invited_group.delete()
 
-        notification = Notification()
-        notification.user = document.owner
+        if invited_group.group_status != 'in_progress':
+            invited_group.delete()
 
-        message = '{} não aceitou seu pedido para participação pública da \
-                  proposição {} {}/{}.'
+            notification = Notification()
+            notification.user = document.owner
 
-        notification.message = message.format(
-            authorization.congressman.name.title(),
-            document.document_type.initials,
-            document.year, document.number)
+            message = '{} não aceitou seu pedido para participação pública da \
+                    proposição {} {}/{}.'
 
-        notification.save()
+            notification.message = message.format(
+                authorization.congressman.name.title(),
+                document.document_type.initials,
+                document.year, document.number)
 
-        return reverse('home')
+            notification.save()
+
+            return reverse('home')
+        else:
+            raise Http404
 
 
 @require_ajax
@@ -105,5 +110,8 @@ class InformationCongressmanView(TemplateView):
         context['site_url'] = site_url
         context['closing_date'] = authorization.closing_date
         context['document'] = authorization.group.document
+
+        if authorization.group.group_status == 'in_progress':
+            raise Http404
 
         return context
