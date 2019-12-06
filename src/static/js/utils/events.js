@@ -304,4 +304,7 @@ var events = {
   // Triggered when user click on send button
   // Params: groupId, youtubeId, versionId
   sendFeedbackForm: $.Topic('sendFeedbackForm'),
+
+  // Switches texts between their original version, the diff version and final version 
+  switchTexts: $.Topic('switchTexts')
 };
