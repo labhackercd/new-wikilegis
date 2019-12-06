@@ -1,7 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from apps.notifications.models import (ParcipantInvitation,
                                        PublicAuthorization, Notification)
-from apps.participations.models import InvitedGroup
 from apps.projects.models import Document
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
@@ -66,19 +65,21 @@ class PublicUnauthorizationView(RedirectView):
         authorization = get_object_or_404(PublicAuthorization,
                                           hash_id=kwargs['hash'])
         document = authorization.group.document
-        invited_group = get_object_or_404(
-            InvitedGroup, document=document, public_participation=True)
+        invited_group = authorization.group
+        invited_group.delete()
+
         notification = Notification()
         notification.user = document.owner
 
-        notification.message = '%s não aceitou seu pedido para participação pública \
-            da proposição %s %s/%s.' % (authorization.congressman.name.title(),
-                                        document.document_type.initials,
-                                        document.year, document.number)
-        notification.save()
+        message = '{} não aceitou seu pedido para participação pública da \
+                  proposição {} {}/{}.'
 
-        invited_group.delete()
-        authorization.delete()
+        notification.message = message.format(
+            authorization.congressman.name.title(),
+            document.document_type.initials,
+            document.year, document.number)
+
+        notification.save()
 
         return reverse('home')
 
