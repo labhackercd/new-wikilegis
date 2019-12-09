@@ -1,14 +1,16 @@
-/*global $ events */
+/* global $ events */
 
 var FeedbackFormModalView = function() {};
 
 FeedbackFormModalView.prototype.initEvents = function () {
   this.feedbackFormModalElement = $('.js-feedbackFormModal');
   this.feedbackInfoModalElement = $('.js-feedbackInfoModal');
+  this.feedbackWaitingModalElement = $('.js-feedbackWaitingModal');
   this.openFeedbackFormButton = $('.js-openFeedback');
-  this.openFeedbackInfoButton = $('.js-openFeedbackInfo');
+  this.openFeedbackButton = $('.js-feedbackButton');
   this.closeFormElement = $('.js-feedbackFormModal .js-close');
   this.closeInfoElement = $('.js-feedbackInfoModal .js-close');
+  this.closeWaitingElement = $('.js-feedbackWaitingModal .js-close');
   this.subscribers();
   this.publishers();
 };
@@ -27,6 +29,12 @@ FeedbackFormModalView.prototype.subscribers = function () {
   events.closeFeedbackInfoModal.subscribe(function () {
     self.feedbackInfoModalElement.removeClass('-show');
   });
+  events.openFeedbackWaitingModal.subscribe(function () {
+    self.feedbackWaitingModalElement.addClass('-show');
+  });
+  events.closeFeedbackWaitingModal.subscribe(function () {
+    self.feedbackWaitingModalElement.removeClass('-show');
+  });
 };
 
 FeedbackFormModalView.prototype.publishers = function () {
@@ -42,13 +50,21 @@ FeedbackFormModalView.prototype.publishers = function () {
     events.feedbackFormModalElement.publish();
   });
 
-  self.openFeedbackInfoButton.on('click', function (e) {
+  self.openFeedbackButton.on('click', function (e) {
     e.preventDefault();
-    events.openFeedbackInfoModal.publish();
+    if ($(e.target).closest('.js-feedbackButton').hasClass('-waiting')) {
+      events.openFeedbackWaitingModal.publish();
+    } else {
+      events.openFeedbackInfoModal.publish();
+    }
   });
 
   self.closeInfoElement.on('click', function() {
     events.closeFeedbackInfoModal.publish();
+  });
+
+  self.closeWaitingElement.on('click', function () {
+    events.closeFeedbackWaitingModal.publish();
   });
 
   $('.js-feedbackFormModal .js-send').on('click', function (e) {

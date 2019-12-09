@@ -158,6 +158,14 @@ BodyView.prototype.subscribers = function() {
   events.closeFeedbackInfoModal.subscribe(function () {
     self.enableScroll();
   });
+
+  events.openFeedbackWaitingModal.subscribe(function () {
+    self.disableScroll();
+  });
+
+  events.closeFeedbackWaitingModal.subscribe(function () {
+    self.enableScroll();
+  });
 };
 
 

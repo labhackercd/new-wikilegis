@@ -13,7 +13,8 @@ FeedbackFormController.prototype.subscribers = function() {
     self.populateNamedVersions();
   });
 
-  events.sendFeedbackForm.subscribe(function (groupId, youtubeUrl, finalVersion) {
+  events.sendFeedbackForm.subscribe(function (
+    groupId, youtubeUrl, finalVersion) {
     self.sendFeedbackForm(groupId, youtubeUrl, finalVersion);
   });
 };
@@ -35,7 +36,8 @@ FeedbackFormController.prototype.populateNamedVersions = function() {
   });
 };
 
-FeedbackFormController.prototype.sendFeedbackForm = function (groupId, youtubeUrl, finalVersion) {
+FeedbackFormController.prototype.sendFeedbackForm = function (
+  groupId, youtubeUrl, finalVersion) {
   var request = $.ajax({
     url: Urls.set_final_version(groupId),
     method: 'POST',
@@ -47,6 +49,7 @@ FeedbackFormController.prototype.sendFeedbackForm = function (groupId, youtubeUr
 
   request.done(function () {
     events.closeFeedbackFormModal.publish();
+    $('.js-feedbackButton').addClass('-waiting');
   });
 
   request.fail(function (jqXHR) {
