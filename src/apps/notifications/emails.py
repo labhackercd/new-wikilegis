@@ -91,8 +91,7 @@ def send_feedback_authorization(feedback_authorization):
          'hash_id': feedback_authorization.hash_id,
          'site_url': site_url})
     subject_authorization = _('[Wikilegis] Feedback authorization request')
-    import ipdb; ipdb.set_trace()
-    public_authorization = feedback_authorization.group.authorization_emails.first()
+    public_authorization = feedback_authorization.group.authorization_emails.first() # noqa
     mail_authorization = EmailMultiAlternatives(
         subject_authorization, '', settings.EMAIL_HOST_USER,
         [public_authorization.congressman.email])

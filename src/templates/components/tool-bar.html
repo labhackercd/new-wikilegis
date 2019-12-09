@@ -9,9 +9,15 @@
     </a>
       {% now "Y-m-d" as todays_date %}
       {% if group.closing_date|date:"Y-m-d" < todays_date %}
-      <a href="#" class="icon js-openFeedbackInfo" aria-label="Feedback">
-        {% include "svgs/arrows-icon.html" %}
-      </a>
+        {% if group.feedback_authorizations.all %}
+        <a href="#" class="icon js-feedbackButton -waiting" aria-label="Feedback">
+          {% include "svgs/arrows-icon.html" %}
+        </a>
+        {% else %}
+        <a href="#" class="icon js-feedbackButton" aria-label="Feedback">
+          {% include "svgs/arrows-icon.html" %}
+        </a>
+        {% endif %}
       {% endif %}
       {% if group.public_participation %}
       <a href="#" class="icon js-openPublicParticipation" aria-label="Editar participação pública">

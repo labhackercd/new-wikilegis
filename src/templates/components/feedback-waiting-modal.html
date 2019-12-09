@@ -1,0 +1,11 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+
+{% block extra_classes %}-public js-feedbackWaitingModal{% endblock %}
+
+{% block content %}
+<h1>Aguardando Autorização</h1>
+<p>Texto Explicativo.</p>
+<button class="app-button -green js-close">Entendi</button>
+{% endblock content %}
