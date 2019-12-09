@@ -67,7 +67,6 @@ class FeedbackAuthorization(TimestampedMixin):
                                 verbose_name=_('version'),
                                 related_name='feedback_authorizations')
 
-
     class Meta:
         verbose_name = _('feedback authorization')
         verbose_name_plural = _('feedback authorization')
