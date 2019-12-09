@@ -544,7 +544,8 @@ def set_final_version(request, group_id):
         final_version = group.document.versions.get(id=version_id)
         if group.version == final_version:
             return JsonResponse(
-                {'error': _('Final version must be diferent the initial version!')},
+                {'error':
+                 _('Final version must be diferent the initial version!')},
                 status=400
             )
         else:

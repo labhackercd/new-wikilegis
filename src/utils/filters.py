@@ -1,5 +1,6 @@
 import re
 
+
 def get_id_video(link_video):
     regex_id = re.compile("""^.*(youtu\\.be\\/|v\\/|u\\/\\w\\/|
                           embed\\/|watch\\?v=|\\&v=)([^#\\&\\?]*).*""")
