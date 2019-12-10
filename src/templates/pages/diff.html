@@ -1,0 +1,21 @@
+{% extends "structure/base.html" %}
+{% load staticfiles participations_tags %}
+{% load staticfiles i18n %}
+
+{% block content %}
+<main class="diff">
+  <h1 class="title"> Diferença entre textos </h1>
+  <ul>
+  	<li class="original"><a href="#">ORIGINAL</a></li>
+  	<li class="diferencas"><a href="#">DIFERENÇAS</a></li>
+  	<li class="final"><a href="#">FINAL</a></li>
+  </ul> 
+
+  <p class="texto"></p>
+</main>
+{% endblock content %}
+
+{% block page_js %}
+  <script src="{% static 'js/components/switchTexts/view.js' %}"></script>
+  <script src="{% static 'js/pages/diff.js' %}"></script>
+{% endblock page_js %}
