@@ -1,0 +1,30 @@
+{% extends "structure/base.html" %}
+{% load staticfiles participations_tags %}
+{% load staticfiles i18n %}
+
+{% block content %}
+<main class="textual-confirmation-screen">
+  <h1 class="title"> Termo de compromisso para participação pública </h1>
+  <div class="grid-template-columns">
+	  <div class="item">
+	  	<span class="icon-style"></span>
+	  </div>
+	  <div class="item">
+	    A consulta pública da proposição legislativa PL 1/2019 entitulada PL 112 foi configurada com êxito pelo servidor e agora só depende de sua autorização, na qualidade de autor ou relator da proposição, para que seja disponibilizada para a sociedade participar. <br><br>
+			Clicando em "SIM", a plataforma estará acessível para que qualquer cidadão possa sugerir modificações no texto da proposição, até a data de dd/mm/aa. Ao final desse prazo, os participantes deverão receber o resultado final da consulta pública, que contempla o texto consolidado da proposição com as opiniões eventualmente acatadas, bem como um vídeo de feedback do deputado, justificando a incorporação ou não das sugestões e agradecendo o engajamento da sociedade. O sistema notificará automaticamente os usuários quando esses conteúdos forem disponibilizados, assim como, no caso de não disponibilização, os manterá informados do tempo decorrido desde o encerramento da consulta pública enquanto o resultado final não for enviado.
+			<br><br>
+			Caso encontre algum erro, por favor clique em "NÃO" e entre em contato com a equipe de gestão do Wikilegis pelo telefone (61) 3216-6012 ou email labhacker@camara.leg.br" 	
+		</div>
+		<div class="item"></div>
+	 	<div class="button-container">
+	 		<div class="button--yes">
+	 			<a href="#">SIM</a>
+	 		</div>
+	 		<div class="button--no">
+	 			<a href="#">NÃO</a>
+	 		</div>
+	 	</div>
+  </div>
+</main>
+{% endblock content %}
+

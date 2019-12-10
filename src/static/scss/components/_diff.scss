@@ -1,0 +1,82 @@
+.diff {
+	margin: 15%;
+	margin-top: 7%;
+	margin-bottom: 5%;
+	background: #FFFFFF;
+	padding: 2%;
+	@include card-shadow;	
+	.title {
+		text-align: center;
+		padding-top: 10px;
+	}
+	.texto {
+		text-align: justify;
+		font-weight: 400;
+		padding: 2% 10% 2% 10%;
+	}
+	& .texto > .deleted {
+		position: relative;
+		&::after {
+			border-bottom: 0.125em solid rgba(255, 0, 0, 0.5);
+			content: "";
+			left: 0;
+			line-height: 1em;
+			margin-top: calc(0.125em/2);
+			position: absolute;
+			right: 0;
+			top: 50%; 
+		}
+	}
+	& .texto > .added {
+		background-color: #2CD27E;
+	}
+	ul {
+		text-align: center;
+		margin-top: 2%
+	}
+	li { 
+		display: inline-block;
+		padding: 20px 0 20px;
+		vertical-align: middle;
+	 }
+	a:hover, a:focus, a:active {
+	    color: #474747;
+	    text-decoration: none;
+	    font-weight: 400;
+	}
+	a {
+	    text-decoration: none;
+	    position: relative;
+	    display: block;
+	    padding: 16px 0;
+	    margin: 0 12px;
+	    letter-spacing: 1px;
+	    font-size: 18px;
+	    line-height: 18px;
+	    font-weight: 300;
+	    text-transform: uppercase;
+	    transition: color 0.1s,background-color 0.1s,padding 0.2s ease-in;
+	    color: #AFAFAF;
+	}
+	a::before {
+	    content: '';
+	    display: block;
+	    position: absolute;
+	    bottom: 3px;
+	    left: 0;
+	    height: 5px;
+	    width: 100%;
+	    background-color: #2EAA68;
+	    transform-origin: right top;
+	    transform: scale(0, 1);
+	    transition: color 0.1s,transform 0.2s ease-out;
+	}
+	a:active::before {
+	    background-color: #2EAA68;
+	}
+	a:hover::before, a:focus::before {
+	    transform-origin: left top;
+	    transform: scale(1, 1);
+	    background-color: #2EAA68;
+	}
+}
