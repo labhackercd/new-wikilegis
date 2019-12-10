@@ -1,7 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from apps.notifications.models import (ParcipantInvitation,
-                                       PublicAuthorization, Notification)
-from apps.projects.models import Document
+                                       PublicAuthorization, Notification,
+                                       FeedbackAuthorization)
+from apps.projects.models import Document, DocumentVideo
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -10,7 +11,7 @@ from django.shortcuts import get_object_or_404, reverse
 from utils.decorators import require_ajax
 from django.utils.translation import ugettext_lazy as _
 from django.http import JsonResponse
-from datetime import datetime
+from datetime import datetime, date
 from django.views.generic import TemplateView
 from django.http import Http404
 
@@ -65,35 +66,31 @@ class PublicUnauthorizationView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         authorization = get_object_or_404(PublicAuthorization,
                                           hash_id=kwargs['hash'])
-        document = authorization.group.document
-        invited_group = authorization.group
+        public_group = authorization.group
+        document = public_group.document
 
-        if invited_group.group_status != 'in_progress':
-            invited_group.delete()
+        if public_group.group_status != 'in_progress':
+            public_group.delete()
 
             notification = Notification()
             notification.user = document.owner
 
-            message = '{} não aceitou seu pedido para participação pública da \
-                    proposição {} {}/{}.'
+            if document.document_type and document.year and document.number:
+                proposal_title = "%s %s/%s" % (document.document_type.initials,
+                                               document.year, document.number)
+            else:
+                proposal_title = document.title
 
+            message = '{} não aceitou seu pedido para participação pública da \
+                    proposição {}.'
             notification.message = message.format(
-                authorization.congressman.name.title(),
-                document.document_type.initials,
-                document.year, document.number)
+                authorization.congressman.name.title(), proposal_title)
 
             notification.save()
 
             return reverse('home')
         else:
             raise Http404
-
-
-@require_ajax
-def update_notifications(request):
-    user = request.user
-    user.notifications.update(was_read=True)
-    return JsonResponse({'message': _('Notifications read!')})
 
 
 class InformationCongressmanView(TemplateView):
@@ -145,3 +142,92 @@ class DiffTemplate(TemplateView):
         context['document'] = 'PL 241'
 
         return context
+class FeedbackAuthorizationView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        authorization = get_object_or_404(FeedbackAuthorization,
+                                          hash_id=kwargs['hash'])
+        public_group = authorization.group
+        public_group.final_version = authorization.version
+        public_group.save()
+
+        document = public_group.document
+
+        video = DocumentVideo()
+        video.document = document
+        video.video_id = public_group.video_id
+        video.save()
+
+        notification = Notification()
+        notification.user = document.owner
+        if document.document_type and document.year and document.number:
+            proposal_title = "%s %s/%s" % (document.document_type.initials,
+                                           document.year, document.number)
+        else:
+            proposal_title = document.title
+        message = '{} aceitou seu pedido para versão final da \
+                proposição {}.'
+        notification.message = message.format(
+            authorization.congressman.name.title(), proposal_title)
+        notification.save()
+
+        return reverse('project',
+                       kwargs={'id': public_group.id,
+                               'documment_slug': public_group.document.slug})
+
+
+class FeedbackUnauthorizationView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        authorization = get_object_or_404(FeedbackAuthorization,
+                                          hash_id=kwargs['hash'])
+        document = authorization.group.document
+        notification = Notification()
+        notification.user = document.owner
+        if document.document_type and document.year and document.number:
+            proposal_title = "%s %s/%s" % (document.document_type.initials,
+                                           document.year, document.number)
+        else:
+            proposal_title = document.title
+        message = '{} não aceitou seu pedido para versão final da \
+                proposição {}.'
+        notification.message = message.format(
+            authorization.congressman.name.title(), proposal_title)
+
+        notification.save()
+
+        return reverse('project',
+                       kwargs={'id': authorization.group.id,
+                               'documment_slug': document.slug})
+
+
+class FeedbackInformationView(TemplateView):
+    template_name = 'pages/feedback_disclaimer.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        site_url = Site.objects.get_current().domain
+        today = date.today()
+
+        authorization = get_object_or_404(FeedbackAuthorization,
+                                          hash_id=kwargs['hash'])
+
+        context['hash_id'] = authorization.hash_id
+        context['site_url'] = site_url
+        context['document'] = authorization.group.document
+        context['closing_date'] = authorization.group.closing_date
+
+        if authorization.group.closing_date > today:
+            raise Http404
+
+        return context
+
+
+@require_ajax
+def update_notifications(request):
+    user = request.user
+    user.notifications.update(was_read=True)
+    return JsonResponse({'message': _('Notifications read!')})
+
