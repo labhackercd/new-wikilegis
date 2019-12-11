@@ -4,6 +4,11 @@ from constance import config
 from . import models, forms, camara_deputados, import_document
 
 
+class VideoInline(admin.TabularInline):
+    model = models.DocumentVideo
+    verbose_name_plural = _('videos')
+    extra = 0
+
 @admin.register(models.Theme)
 class ThemeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'slug')
@@ -38,6 +43,7 @@ class DocumentAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
     actions = ['fetch_document_informations']
     form = forms.DocumentAdminForm
+    inlines = (VideoInline, )
 
     def fetch_document_informations(self, request, queryset):
         if config.USE_CD_OPEN_DATA:
