@@ -142,6 +142,8 @@ class DiffTemplate(TemplateView):
         context['document'] = 'PL 241'
 
         return context
+
+
 class FeedbackAuthorizationView(RedirectView):
     permanent = False
 
@@ -230,4 +232,3 @@ def update_notifications(request):
     user = request.user
     user.notifications.update(was_read=True)
     return JsonResponse({'message': _('Notifications read!')})
-
