@@ -25,6 +25,40 @@
   </div>
   <input class="search js-search" type="text" placeholder="Buscar">
   <div class="list">
+
+  {% if pending_groups and request.user.is_superuser %}
+    {% for pending_group in pending_groups %}
+    <a href="{% url 'project' pending_group.id pending_group.document.slug %}"
+      class="document-card {% if pending_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
+
+      <ul class="tags">
+        <li class="app-tag -private">
+          <img src="{% static 'img/padlock.svg' %}" alt="">
+          <span class="label">Aguardando análise</span>
+        </li>
+        {% for theme in pending_group.document.themes.all %}
+        <li class="app-tag -theme">
+          <span class="dot" style="background-color: {{ theme.color }}"></span>
+          <span class="label">{{ theme.name }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <h3 class="js-title">{{ pending_group.document.title }}</h3>
+      <p class="js-description">
+        {{ pending_group.document.description }}
+      </p>
+
+      <div class="footer">
+        <div class="status">
+          <p class="closed">Aguardando análise</p>
+        </div>
+        <span class="pseudolink">Acessar</span>
+      </div>
+    </a>
+    {% endfor %}
+  {% endif %}
+
   {% if pending_invites and request.user.is_authenticated %}
     {% for invite in pending_invites %}
       <div class="document-card -owner {% if invite.group.closing_date|is_open %}-public{% else %}-closed{% endif %}">

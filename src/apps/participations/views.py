@@ -197,6 +197,14 @@ class InvitedGroupListView(ListView):
             context['private_groups'] = queryset.none()
             context['pending_invites'] = queryset.none()
 
+        if self.request.user.is_superuser:
+             context['pending_groups'] = queryset.filter(
+                 public_participation=True,
+                 group_status='analyzing'
+             ).order_by('closing_date')
+        else:
+            context['pending_groups'] = queryset.none()
+
         return context
 
     def get_queryset(self):
