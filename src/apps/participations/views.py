@@ -197,6 +197,14 @@ class InvitedGroupListView(ListView):
             context['private_groups'] = queryset.none()
             context['pending_invites'] = queryset.none()
 
+        if self.request.user.is_superuser:
+            context['pending_groups'] = queryset.filter(
+                public_participation=True,
+                group_status='analyzing'
+            ).order_by('closing_date')
+        else:
+            context['pending_groups'] = queryset.none()
+
         return context
 
     def get_queryset(self):
@@ -232,11 +240,18 @@ class InvitedGroupDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = get_object_or_404(
             InvitedGroup, pk=self.kwargs.get('id'),
-            document__slug=self.kwargs.get('documment_slug'))
-        if obj.public_participation:
+            document__slug=self.kwargs.get('documment_slug'),
+            group_status__in=['in_progress', 'analyzing'])
+        if obj.public_participation and obj.group_status == 'in_progress':
             return obj
-        elif self.request.user in obj.thematic_group.participants.all():
+        elif (self.request.user.is_superuser and
+              obj.group_status == 'analyzing'):
             return obj
+        elif obj.thematic_group:
+            if self.request.user in obj.thematic_group.participants.all():
+                return obj
+            else:
+                raise Http404()
         else:
             raise Http404()
 
