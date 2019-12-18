@@ -397,6 +397,10 @@
     color: $color-brand;
   }
 
+  & > .list a > .info > .item.-red {
+    color: $color-red;
+  }
+
   & > .list > hr {
     margin: .5rem 0;
 

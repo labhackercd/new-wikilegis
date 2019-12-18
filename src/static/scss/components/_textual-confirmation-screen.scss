@@ -1,4 +1,4 @@
-$yes-button-color: #2DA965;
+$yes-button-color: #2CD27E;
 $no-button-color: #D0D0D0;
 .textual-confirmation-screen {
 	margin: 15%;
@@ -58,11 +58,11 @@ $no-button-color: #D0D0D0;
 			}
 			&--no {
 				@extend .button;
-				background-color: $no-button-color - 60%;
+				background-color: $no-button-color;
 				margin-left: 2%;
 				margin-right: 1%;
 				&:hover {
-					background-color: #eb6666 - 20%;
+					background-color: $no-button-color - 20%;
 				}
 			}
 		}

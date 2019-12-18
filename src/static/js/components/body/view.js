@@ -142,6 +142,30 @@ BodyView.prototype.subscribers = function() {
   events.closePublicInfoModal.subscribe(function() {
     self.enableScroll();
   });
+
+  events.openFeedbackFormModal.subscribe(function () {
+    self.disableScroll();
+  });
+
+  events.closeFeedbackFormModal.subscribe(function () {
+    self.enableScroll();
+  });
+
+  events.openFeedbackInfoModal.subscribe(function () {
+    self.disableScroll();
+  });
+
+  events.closeFeedbackInfoModal.subscribe(function () {
+    self.enableScroll();
+  });
+
+  events.openFeedbackWaitingModal.subscribe(function () {
+    self.disableScroll();
+  });
+
+  events.closeFeedbackWaitingModal.subscribe(function () {
+    self.enableScroll();
+  });
 };
 
 

@@ -55,6 +55,26 @@ class PublicAuthorization(TimestampedMixin):
         return '%s' % (self.congressman.name)
 
 
+class FeedbackAuthorization(TimestampedMixin):
+    video_id = models.CharField(_('video id'), max_length=50)
+    hash_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    group = models.ForeignKey('participations.InvitedGroup',
+                              on_delete=models.CASCADE,
+                              related_name='feedback_authorizations',
+                              verbose_name=_('group'))
+    version = models.ForeignKey('projects.DocumentVersion',
+                                on_delete=models.CASCADE,
+                                verbose_name=_('version'),
+                                related_name='feedback_authorizations')
+
+    class Meta:
+        verbose_name = _('feedback authorization')
+        verbose_name_plural = _('feedback authorization')
+
+    def __str__(self):
+        return '%s' % (self.group.document.slug)
+
+
 class Notification(TimestampedMixin):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                              related_name='notifications',

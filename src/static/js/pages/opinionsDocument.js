@@ -1,6 +1,7 @@
-/*global DocumentSideBarView OpinionMetricsView TextHighlightView ReduceExcerptsView
+/* global DocumentSideBarView OpinionMetricsView TextHighlightView ReduceExcerptsView
 ValidationModalView CongressmanAutocompleteView PublicFormModalView
-PublicFormController PageMinimap DocumentOpinionsBodyView DatePickerView */
+PublicFormController PageMinimap DocumentOpinionsBodyView DatePickerView
+FeedbackFormModalView FeedbackFormController  */
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
@@ -34,3 +35,9 @@ documentOpinionsBodyView.initEvents();
 
 var datePickerView = new DatePickerView();
 datePickerView.initEvents();
+
+var feedbackFormModalView = new FeedbackFormModalView();
+feedbackFormModalView.initEvents();
+
+var feedbackFormController = new FeedbackFormController();
+feedbackFormController.initEvents();

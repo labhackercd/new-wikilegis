@@ -7,15 +7,27 @@
     <a href="#" class="icon js-collapseExpand -collapse -collapsed" aria-label="Expandir">
       {% include "svgs/expand-icon.html" %}
     </a>
-    {% if group.public_participation %}
-    <a href="#" class="icon js-openPublicParticipation" aria-label="Editar participação pública">
-      {% include "svgs/public-icon.html" %}
-    </a>
-    {% else %}
-    <a href="{% url 'edit_group' group.pk %}?previous_page={{ request.get_full_path }}" class="icon" aria-label="Editar participação restrita">
-      {% include "svgs/closed-icon.html" %}
-    </a>
-    {% endif %}
+      {% now "Y-m-d" as todays_date %}
+      {% if group.closing_date|date:"Y-m-d" < todays_date %}
+        {% if group.feedback_authorizations.all %}
+        <a href="#" class="icon js-feedbackButton -waiting" aria-label="Feedback">
+          {% include "svgs/arrows-icon.html" %}
+        </a>
+        {% else %}
+        <a href="#" class="icon js-feedbackButton" aria-label="Feedback">
+          {% include "svgs/arrows-icon.html" %}
+        </a>
+        {% endif %}
+      {% endif %}
+      {% if group.public_participation %}
+      <a href="#" class="icon js-openPublicParticipation" aria-label="Editar participação pública">
+        {% include "svgs/public-icon.html" %}
+      </a>
+      {% else %}
+      <a href="{% url 'edit_group' group.pk %}?previous_page={{ request.get_full_path }}" class="icon" aria-label="Editar participação restrita">
+        {% include "svgs/closed-icon.html" %}
+      </a>
+      {% endif %}
     {% elif 'editor' in request.path %}
     <a href="#" class="icon js-saveButton" aria-label="Criar versão">
       {% include "svgs/cloud-icon.html" %}

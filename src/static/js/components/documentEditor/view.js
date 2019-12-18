@@ -67,6 +67,20 @@ DocumentEditorView.prototype.subscribers = function () {
 DocumentEditorView.prototype.publishers = function () {
   var self = this;
 
+  $(document).bind('paste', function(e) {
+    var pastedData = e.originalEvent.clipboardData.getData('text');
+    var last = $(self.editor).children().length - 1; 
+    $(self.editor).children()[last].append(pastedData);
+  });
+
+  $(document).ready(function() {
+    self.editor.focus();
+  });
+
+  $('p').on('paste focus cut', function(e) {
+    e.preventDefault();
+  });
+
   $(self.editor).on('focus', function () {
     events.focusEditor.publish();
     $(self.editor).attr('tabindex', 1);

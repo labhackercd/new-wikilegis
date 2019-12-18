@@ -76,7 +76,12 @@
               <div class="item -opinions">
                 {{ public_participation.suggestions.count }}
               </div>
+              {% now "Y-m-d" as todays_date %}
+              {% if public_participation.closing_date|date:"Y-m-d" >= todays_date %}
               <div class="item -green">Em andamento</div>
+              {% else %}
+              <div class="item -red">Encerrado</div>
+              {% endif %}
             </div>
           </a>
           {% endif %}
@@ -170,6 +175,9 @@
 {% include "components/validate-modal.html" %}
 {% include "components/public-participation-modal.html" %}
 {% include "components/participation-info-modal.html" %}
+{% include "components/feedback-modal.html" %}
+{% include "components/feedback-info-modal.html" %}
+{% include "components/feedback-waiting-modal.html" %}
 {% include "components/save-modal.html" %}
 
 {% endblock content %}
@@ -211,6 +219,8 @@
 <script src="{% static 'js/components/opinionsMetrics/view.js' %}"></script>
 <script src="{% static 'js/components/textHighlight/view.js' %}"></script>
 <script src="{% static 'js/components/documentOpinionsBody/view.js' %}"></script>
+<script src="{% static 'js/components/feedbackModal/view.js' %}"></script>
+<script src="{% static 'js/components/feedbackModal/controller.js' %}"></script>
 <script src="{% static 'js/pages/opinionsDocument.js' %}"></script>
 {% endif %}
 {% endblock page_js %}

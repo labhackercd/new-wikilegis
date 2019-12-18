@@ -10,7 +10,8 @@ from apps.projects.models import (
     Excerpt, Theme, Document, DocumentResponsible, DocumentInfo, DocumentVideo)
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
-from apps.notifications.models import ParcipantInvitation, PublicAuthorization
+from apps.notifications.models import (
+    ParcipantInvitation, PublicAuthorization, FeedbackAuthorization)
 from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -22,9 +23,10 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
-from apps.notifications.emails import send_remove_participant
+from apps.notifications.emails import (
+    send_remove_participant, send_feedback_authorization)
+from utils.filters import get_id_video
 import requests
-import re
 
 User = get_user_model()
 
@@ -195,6 +197,14 @@ class InvitedGroupListView(ListView):
             context['private_groups'] = queryset.none()
             context['pending_invites'] = queryset.none()
 
+        if self.request.user.is_superuser:
+            context['pending_groups'] = queryset.filter(
+                public_participation=True,
+                group_status='analyzing'
+            ).order_by('closing_date')
+        else:
+            context['pending_groups'] = queryset.none()
+
         return context
 
     def get_queryset(self):
@@ -230,11 +240,18 @@ class InvitedGroupDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = get_object_or_404(
             InvitedGroup, pk=self.kwargs.get('id'),
-            document__slug=self.kwargs.get('documment_slug'))
-        if obj.public_participation:
+            document__slug=self.kwargs.get('documment_slug'),
+            group_status__in=['in_progress', 'analyzing'])
+        if obj.public_participation and obj.group_status == 'in_progress':
             return obj
-        elif self.request.user in obj.thematic_group.participants.all():
+        elif (self.request.user.is_superuser and
+              obj.group_status == 'analyzing'):
             return obj
+        elif obj.thematic_group:
+            if self.request.user in obj.thematic_group.participants.all():
+                return obj
+            else:
+                raise Http404()
         else:
             raise Http404()
 
@@ -435,19 +452,6 @@ def create_public_participation(request, document_pk):
         )
 
 
-def get_id_video(link_video):
-    regex_id = re.compile("""^.*(youtu\\.be\\/|v\\/|u\\/\\w\\/|
-                          embed\\/|watch\\?v=|\\&v=)([^#\\&\\?]*).*""")
-
-    match = re.match(regex_id, link_video)
-    if match:
-        id_video = match.group(2)
-    else:
-        id_video = None
-
-    return id_video
-
-
 @require_ajax
 def update_closing_date(request, group_id):
     today = date.today()
@@ -534,3 +538,41 @@ def proposition_detail(request, cd_id):
     }
 
     return JsonResponse(obj, safe=False)
+
+
+@require_ajax
+def set_final_version(request, group_id):
+    group = InvitedGroup.objects.get(id=group_id)
+    version_id = request.POST.get('version_id', None)
+    video_url = request.POST.get('youtube_url', None)
+
+    video_id = get_id_video(video_url)
+
+    if video_id is None:
+        return JsonResponse(
+            {'error':
+             _('Invalid link YouTube. Please enter a valid link!')},
+            status=400
+        )
+
+    if version_id and video_id:
+        final_version = group.document.versions.get(id=version_id)
+        if group.version == final_version:
+            return JsonResponse(
+                {'error':
+                 _('Final version must be diferent the initial version!')},
+                status=400
+            )
+        else:
+            authorization = FeedbackAuthorization()
+            authorization.version = final_version
+            authorization.group = group
+            authorization.video_id = video_id
+            authorization.save()
+            send_feedback_authorization(authorization)
+            return JsonResponse({'message': _('Request sent!')})
+    else:
+        return JsonResponse(
+            {'error': _('Version and Video link are required!')},
+            status=400
+        )

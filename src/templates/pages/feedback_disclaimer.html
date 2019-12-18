@@ -1,0 +1,41 @@
+{% extends "structure/base.html" %}
+{% load staticfiles participations_tags %}
+{% load staticfiles i18n %}
+
+{% block content %}
+<main class="textual-confirmation-screen">
+    <h1 class="title"> Bem vindo de volta ao Wikilegis! </h1>
+    <div class="grid-template-columns">
+        <div class="item">
+            <span class="icon-style"></span>
+        </div>
+        <div class="item">
+            O resultado final da consulta pública da proposição legislativa abaixo foi configurada com êxito pelo
+            servidor {{document.owner}} e agora só depende de sua autorização, na qualidade de autor ou relator da proposição,
+            para que seja disponibilizada para a sociedade participar. <br><br>
+            {% if document.document_type.initials and document.number and document.year %}
+            Projeto: {{document.document_type.initials}} {{document.number}}/{{document.year}}
+            {% else %}
+            Título: {{document.title}}
+            {% endif %}
+            <br><br>
+            Clicando em "SIM", a plataforma ficará acessível para qualquer cidadão analisar o texto final
+            consolidado da proposição com as opiniões eventualmente acatadas,
+            bem como o vídeo de feedback do deputado, justificando a incorporação ou não das sugestões e agradecendo o
+            engajamento da sociedade.
+            <br><br>
+            Caso encontre algum erro, por favor clique em "NÃO" e entre em contato com a equipe de gestão do Wikilegis
+            pelo telefone (61) 3216-6012 ou email labhacker@camara.leg.br"
+        </div>
+        <div class="item"></div>
+        <div class="button-container">
+            <div class="button--yes">
+                <a href="http://{{ site_url }}{% url 'feedback_authorization' hash_id %}">SIM</a>
+            </div>
+            <div class="button--no">
+                <a href="http://{{ site_url }}{% url 'feedback_unauthorization' hash_id %}">NÃO</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

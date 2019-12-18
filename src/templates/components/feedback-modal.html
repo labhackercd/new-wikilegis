@@ -1,0 +1,35 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+{% block extra_classes %}-public js-feedbackFormModal{% endblock %}
+
+{% block extra_attributes %}
+    {% if group.public_participation %}
+        data-group-id="{{ group.id }}"
+    {% endif %}
+{% endblock %}
+
+{% block title_modal %}
+
+{% endblock %}
+
+{% block content %}
+<form>
+    <h1 class="js-titleModal">Definir documento final</h1>
+    <p>Defina uam versão final e adicione um vídeo de agradecimento aos participantes.</p>
+    <ul class="errorlist nonfield js-formError"></ul>
+    <div class="input-select -required">
+        <div class="select">
+            <select id="id_version_name" class="js-versionsSelect" required name="version">
+            </select>
+            <label for="id_version_name">Versão Final do Documento:</label>
+            <div class="icon"><i class="arrow"></i></div>
+        </div>
+    </div>
+    <div class="input-text -required">
+        <input class="js-youtubeId" type="text" name="youtube_url" required id="id_youtube_url">
+        <label for="youtube_url">Link do youtube:</label>
+    </div>
+    <button class="app-button -green js-send">Enviar</button>
+</form>
+{% endblock content %}
