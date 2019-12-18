@@ -9,6 +9,7 @@ class VideoInline(admin.TabularInline):
     verbose_name_plural = _('videos')
     extra = 0
 
+
 @admin.register(models.Theme)
 class ThemeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'slug')

@@ -198,10 +198,10 @@ class InvitedGroupListView(ListView):
             context['pending_invites'] = queryset.none()
 
         if self.request.user.is_superuser:
-             context['pending_groups'] = queryset.filter(
-                 public_participation=True,
-                 group_status='analyzing'
-             ).order_by('closing_date')
+            context['pending_groups'] = queryset.filter(
+                public_participation=True,
+                group_status='analyzing'
+            ).order_by('closing_date')
         else:
             context['pending_groups'] = queryset.none()
 
@@ -245,7 +245,7 @@ class InvitedGroupDetailView(DetailView):
         if obj.public_participation and obj.group_status == 'in_progress':
             return obj
         elif (self.request.user.is_superuser and
-            obj.group_status == 'analyzing'):
+              obj.group_status == 'analyzing'):
             return obj
         elif obj.thematic_group:
             if self.request.user in obj.thematic_group.participants.all():
