@@ -52,16 +52,26 @@
         </p>
 
         <div class="footer">
-
-          <!-- XXX Uncomment when feed status is fully implemented
-
+          <!-- uncomment when feedback status is implemented 
+          {% if not document|has_public_group %}
           <div class="status -owner">
             <div class="feedback-status">
               <img src="{% static 'img/hourglass.svg' %}" alt="">
-              <p class="-onhold">Aguardando feedback do deputado</p>
+              <p class="-onhold">público aguarda resposta 
+              há x dias </p>
             </div>
           </div>
-          -->
+         {% endif %} -->
+
+<!--          uncomment when feedback_sent is implemented
+        {% if not document|feedback_sent %}
+         <div class="status -owner">
+            <div class="feedback-status">
+              <img src="{% static 'img/check.svg' %}" alt="">
+              <p>Resposta enviada </p>
+            </div>
+          </div>
+        {% endif %}  -->
 
           <div class="actions">
             <a href="{% url 'document_editor_analyze' 'editor' document.id %}">Minhas versões</a>
@@ -69,6 +79,9 @@
               <a href="{% url 'document_editor_analyze' 'analysis' document.id %}?group_id={{document|participation_group_id}}">Ver participação</a>
             {% endif %}
           </div>
+
+         
+
         </div>
 
       </div>
