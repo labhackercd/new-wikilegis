@@ -99,12 +99,6 @@
           {% else %}
             <div class="status">
               <p class="closed">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</p>
-              <!-- Uncomment whenever document feedback status is implemented
-              <div class="feedback-status">
-                <img src="{% static 'img/hourglass.svg' %}" alt="">
-                <p class="-onhold">Aguardando feedback do deputado</p>
-              </div>
-               -->
             </div>
           {% endif %}
         </div>
@@ -166,12 +160,6 @@
         {% else %}
           <div class="status">
             <p class="closed">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</p>
-            <!-- Uncomment whenever document feedback status is implemented
-            <div class="feedback-status">
-              <img src="{% static 'img/hourglass.svg' %}" alt="">
-              <p class="-onhold">Aguardando feedback do deputado</p>
-            </div>
-             -->
           </div>
         {% endif %}
 
