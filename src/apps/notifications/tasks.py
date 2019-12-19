@@ -31,7 +31,7 @@ def closed_participation_notify(public_group):
     notification.user = document.owner
     if document.document_type and document.year and document.number:
         proposal_title = "%s %s/%s" % (document.document_type.initials,
-                                        document.year, document.number)
+                                       document.year, document.number)
     else:
         proposal_title = document.title
     message = 'A sua consulta pública sobre o proposição legislativa "{}"  \
