@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-29 11:02-0300\n"
+"POT-Creation-Date: 2019-12-19 12:07-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "perfil"
 msgid "Accounts"
 msgstr "Contas"
 
-#: apps/accounts/models.py:10 apps/notifications/models.py:61
+#: apps/accounts/models.py:10 apps/notifications/models.py:81
 msgid "user"
 msgstr "usuário"
 
@@ -68,7 +68,7 @@ msgstr "perfis"
 msgid "name"
 msgstr "nome"
 
-#: apps/accounts/models.py:45 apps/participations/models.py:86
+#: apps/accounts/models.py:45 apps/participations/models.py:91
 #: apps/projects/models.py:66
 msgid "owner"
 msgstr "responsável"
@@ -113,7 +113,12 @@ msgstr "[Wikilegis] Solicitação de autorização"
 msgid "[Wikilegis] Public participation request"
 msgstr "[Wikilegis] Solicitação de participação pública"
 
+#: apps/notifications/emails.py:93
+msgid "[Wikilegis] Feedback authorization request"
+msgstr "[Wikilegis] Solicitação de autorização de resposta"
+
 #: apps/notifications/models.py:13 apps/notifications/models.py:47
+#: apps/notifications/models.py:64
 msgid "group"
 msgstr "grupo"
 
@@ -153,15 +158,28 @@ msgstr "data de encerramento"
 msgid "public authorization"
 msgstr "autorização de participação pública"
 
-#: apps/notifications/models.py:66
+#: apps/notifications/models.py:59
+msgid "video id"
+msgstr ""
+
+#: apps/notifications/models.py:67 apps/participations/models.py:26
+#: apps/projects/models.py:235
+msgid "version"
+msgstr "versão"
+
+#: apps/notifications/models.py:71 apps/notifications/models.py:72
+msgid "feedback authorization"
+msgstr "autorização de resposta da participação"
+
+#: apps/notifications/models.py:86
 msgid "notification"
 msgstr "Notificações"
 
-#: apps/notifications/models.py:67
+#: apps/notifications/models.py:87
 msgid "notifications"
 msgstr "Notificações"
 
-#: apps/notifications/views.py:61
+#: apps/notifications/views.py:234
 msgid "Notifications read!"
 msgstr "Notificações lidas!"
 
@@ -179,136 +197,150 @@ msgstr "documento"
 msgid "openning date"
 msgstr "data de abertura"
 
-#: apps/participations/models.py:20 apps/participations/models.py:49
+#: apps/participations/models.py:20 apps/participations/models.py:54
 msgid "public participation"
 msgstr "participação pública"
 
-#: apps/participations/models.py:26 apps/projects/models.py:235
-msgid "version"
-msgstr "versão"
+#: apps/participations/models.py:30
+msgid "final version"
+msgstr "versão final"
 
-#: apps/participations/models.py:28
+#: apps/participations/models.py:33
 msgid "group status"
 msgstr "estado do grupo"
 
-#: apps/participations/models.py:33 apps/participations/models.py:56
+#: apps/participations/models.py:38 apps/participations/models.py:61
 msgid "invited group"
 msgstr "grupo convidado"
 
-#: apps/participations/models.py:34
+#: apps/participations/models.py:39
 msgid "invited groups"
 msgstr "grupos de convidados"
 
-#: apps/participations/models.py:60 apps/projects/models.py:239
+#: apps/participations/models.py:65 apps/projects/models.py:239
 msgid "excerpt"
 msgstr "trecho"
 
-#: apps/participations/models.py:61
+#: apps/participations/models.py:66
 msgid "selected text"
 msgstr "texto selecionado"
 
-#: apps/participations/models.py:62
+#: apps/participations/models.py:67
 msgid "start index"
 msgstr "índice inicial"
 
-#: apps/participations/models.py:63
+#: apps/participations/models.py:68
 msgid "end index"
 msgstr "índice final"
 
-#: apps/participations/models.py:64 apps/projects/models.py:232
+#: apps/participations/models.py:69 apps/projects/models.py:232
 msgid "content"
 msgstr "conteúdo"
 
-#: apps/participations/models.py:67 apps/projects/models.py:174
+#: apps/participations/models.py:72 apps/projects/models.py:174
 msgid "author"
 msgstr "autor"
 
-#: apps/participations/models.py:70 apps/participations/models.py:83
+#: apps/participations/models.py:75 apps/participations/models.py:88
 msgid "suggestion"
 msgstr "sugestão"
 
-#: apps/participations/models.py:71
+#: apps/participations/models.py:76
 msgid "suggestions"
 msgstr "sugestões"
 
-#: apps/participations/models.py:87
+#: apps/participations/models.py:92
 msgid "opinion type"
 msgstr "tipo de opinião"
 
-#: apps/participations/models.py:92
+#: apps/participations/models.py:97
 msgid "opinion vote"
 msgstr "voto opinião"
 
-#: apps/participations/models.py:93
+#: apps/participations/models.py:98
 msgid "opinion votes"
 msgstr "votos opiniões"
 
-#: apps/participations/views.py:57 apps/participations/views.py:121
-#: apps/participations/views.py:388 apps/participations/views.py:462
+#: apps/participations/views.py:59 apps/participations/views.py:123
+#: apps/participations/views.py:405 apps/participations/views.py:466
 msgid "Closing date must be greater than or equal to today!"
 msgstr "A data de encerramento deve ser maior ou igual a hoje!"
 
-#: apps/participations/views.py:64 apps/participations/views.py:126
+#: apps/participations/views.py:66 apps/participations/views.py:128
 msgid "Group name is required"
 msgstr "Nome do grupo é obrigatóro"
 
-#: apps/participations/views.py:81 apps/participations/views.py:152
+#: apps/participations/views.py:83 apps/participations/views.py:154
 msgid "Participants are required"
 msgstr "O campo participantes é obrigatório"
 
-#: apps/participations/views.py:275
+#: apps/participations/views.py:292
 msgid "Project closed for participation"
 msgstr "Projeto fechado para participação"
 
-#: apps/participations/views.py:307
+#: apps/participations/views.py:324
 msgid "You cannot undo this suggestion after 1 minute"
 msgstr "Você não pode desfazer esta sugestão depois de 1 minuto"
 
-#: apps/participations/views.py:360
+#: apps/participations/views.py:377 apps/participations/views.py:554
 msgid "Invalid link YouTube. Please enter a valid link!"
 msgstr "Link do YouTube inválido. Por favor informe uma link válido!"
 
-#: apps/participations/views.py:370
+#: apps/participations/views.py:387
 msgid "You must create a version from your text before open to participation"
 msgstr ""
 "Você deve criar uma versão para seu texto antes de abrir para participação"
 
-#: apps/participations/views.py:380
+#: apps/participations/views.py:397
 msgid "Closing date is required!"
 msgstr "O campo data de encerramento é obrigatório"
 
-#: apps/participations/views.py:424 apps/participations/views.py:484
+#: apps/participations/views.py:441 apps/participations/views.py:488
+#: apps/participations/views.py:573
 msgid "Request sent!"
 msgstr "Solicitação enviada!"
 
-#: apps/participations/views.py:428
+#: apps/participations/views.py:445
 msgid "You cannot request a public participation again"
 msgstr ""
 "Você não pode solicitar uma participação pública novamente para este "
 "documento."
 
-#: apps/participations/views.py:433
+#: apps/participations/views.py:450
 msgid "Congressman is required!"
 msgstr "Campo deputado é obrigatóro"
 
-#: apps/participations/views.py:487
+#: apps/participations/views.py:491
 #, fuzzy
 msgid "Congressman and closing date are required!"
 msgstr "O campo data de encerramento é obrigatório"
 
-#: apps/projects/admin.py:52 apps/projects/tasks.py:32
+#: apps/participations/views.py:563
+msgid "Final version must be diferent the initial version!"
+msgstr ""
+
+#: apps/participations/views.py:576
+#, fuzzy
+msgid "Version and Video link are required!"
+msgstr "O campo data de encerramento é obrigatório"
+
+#: apps/projects/admin.py:9
+msgid "videos"
+msgstr ""
+
+#: apps/projects/admin.py:59 apps/projects/tasks.py:32
 msgid "Document \"{}\" not found on Câmara dos Deputados API."
 msgstr "Documento \"{}\" não encontrado na API da Câmara dos Deputados."
 
-#: apps/projects/admin.py:57 apps/projects/tasks.py:35
+#: apps/projects/admin.py:64 apps/projects/tasks.py:35
 msgid "{} document(s) informations was fetched successfully."
 msgstr "{} documentos tiveram suas informações coletadas com sucesso."
 
-#: apps/projects/admin.py:62
+#: apps/projects/admin.py:69
 msgid "USE_CD_OPEN_DATA config parameter is disabled."
 msgstr "O parâmetro de configuração USE_CD_OPEN_DATA está desabilitado."
 
-#: apps/projects/admin.py:66
+#: apps/projects/admin.py:73
 msgid "Fetch documents informations"
 msgstr "Coletar informações sobre os documentos"
 
@@ -491,7 +523,7 @@ msgstr "trechos"
 msgid "Sole paragraph"
 msgstr "Parágrafo único"
 
-#: apps/projects/views.py:142
+#: apps/projects/views.py:141
 msgid "Version not found! We loaded the last version for you :)"
 msgstr "Versão não encontrada! Nós carregamos a última versão para você :)"
 
@@ -557,8 +589,16 @@ msgid "Waiting"
 msgstr "Aguardando"
 
 #: utils/choices.py:53
+msgid "Analyzing"
+msgstr "Em análise"
+
+#: utils/choices.py:54
 msgid "In Progress"
 msgstr "Em progresso"
+
+#: utils/choices.py:55
+msgid "Waiting Feedback"
+msgstr "Aguardando resposta"
 
 #: utils/model_mixins.py:6
 msgid "created"
@@ -568,15 +608,15 @@ msgstr "criado"
 msgid "modified"
 msgstr "modificado"
 
-#: wikilegis/settings.py:255
+#: wikilegis/settings.py:254
 msgid "Get document information from Câmara dos Deputados open data"
 msgstr "Coletar informações da API de dados abertos da Câmara dos Deputados"
 
-#: wikilegis/settings.py:260
+#: wikilegis/settings.py:259
 msgid "Câmara dos Deputados open data API"
 msgstr "URL da API de dados abertos da Câmara dos Deputados"
 
-#: wikilegis/settings.py:264
+#: wikilegis/settings.py:263
 msgid "Câmara dos Deputados current legislature"
 msgstr "Legislatura atual da Câmara dos Deputados"
 

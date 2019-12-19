@@ -66,6 +66,35 @@
                 <div class="item -blue">Aguardando</div>
             </div>
           </a>
+          {% elif public_participation.group_status == 'analyzing' %}
+          <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}"
+            class="title -opened">
+            <span>Participação Pública<span class="version">{{public_participation.version.name}}</span></span>
+            <div class="info -full">
+              <div class="item -participants">
+                {{ public_participation|group_participants }}
+              </div>
+              <div class="item -opinions">
+                {{ public_participation.suggestions.count }}
+              </div>
+              <div class="item -blue">Em análise</div>
+            </div>
+          </a>
+          </a>
+          {% elif public_participation.group_status == 'waiting_feedback' %}
+          <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}"
+            class="title -opened">
+            <span>Participação Pública<span class="version">{{public_participation.version.name}}</span></span>
+            <div class="info -full">
+              <div class="item -participants">
+                {{ public_participation|group_participants }}
+              </div>
+              <div class="item -opinions">
+                {{ public_participation.suggestions.count }}
+              </div>
+              <div class="item -orange">Aguardando resposta</div>
+            </div>
+          </a>
           {% else %}
           <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}" class="title -opened">
             <span>Participação Pública<span class="version">{{public_participation.version.name}}</span></span>

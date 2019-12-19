@@ -52,4 +52,5 @@ PARTICIPATION_GROUP_CHOICES = (
     ('waiting', _('Waiting')),
     ('analyzing', _('Analyzing')),
     ('in_progress', _('In Progress')),
+    ('waiting_feedback', _('Waiting Feedback')),
 )
