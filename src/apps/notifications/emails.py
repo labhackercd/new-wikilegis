@@ -97,3 +97,15 @@ def send_feedback_authorization(feedback_authorization):
         [public_authorization.congressman.email])
     mail_authorization.attach_alternative(html_authorization, 'text/html')
     mail_authorization.send()
+
+
+def send_owner_closed_participation(public_group, proposal_title):
+    html = render_to_string(
+        'emails/closed-participation-owner.html',
+        {'proposal_title': proposal_title})
+    subject = _('[Wikilegis] Closed public participation')
+    mail_authorization = EmailMultiAlternatives(
+        subject, '', settings.EMAIL_HOST_USER,
+        [public_group.document.owner.email])
+    mail_authorization.attach_alternative(html, 'text/html')
+    mail_authorization.send()
