@@ -232,6 +232,8 @@ def participation_group_id(document):
 @register.filter()
 def absolute_days_since(input_date):
     today = datetime.now().date()
+    if type(input_date) is str:
+        input_date = datetime.strptime(input_date, '%d/%m/%Y')
     try:
         delta = input_date.date() - today
     except (TypeError, AttributeError):
@@ -251,3 +253,14 @@ def progress_time_normalized(start_date, end_date):
     participation_days += timedelta(days=1)
     result_percent = (days_since_start * 100) / participation_days
     return "%s" % (result_percent / 100)
+
+
+@register.filter()
+def feedback_sent(document):
+    public_group = document.invited_groups.filter(
+        public_participation=True).first()
+
+    if public_group.final_version:
+        return True
+    else:
+        return False
