@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-19 12:07-0200\n"
+"POT-Creation-Date: 2019-12-19 15:26-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,9 +113,13 @@ msgstr "[Wikilegis] Solicitação de autorização"
 msgid "[Wikilegis] Public participation request"
 msgstr "[Wikilegis] Solicitação de participação pública"
 
-#: apps/notifications/emails.py:93
+#: apps/notifications/emails.py:93 apps/notifications/emails.py:109
 msgid "[Wikilegis] Feedback authorization request"
 msgstr "[Wikilegis] Solicitação de autorização de resposta"
+
+#: apps/notifications/emails.py:123
+msgid "[Wikilegis] Closed public participation"
+msgstr "[Wikilegis] Consulta pública encerrada"
 
 #: apps/notifications/models.py:13 apps/notifications/models.py:47
 #: apps/notifications/models.py:64
@@ -311,18 +315,16 @@ msgid "Congressman is required!"
 msgstr "Campo deputado é obrigatóro"
 
 #: apps/participations/views.py:491
-#, fuzzy
 msgid "Congressman and closing date are required!"
-msgstr "O campo data de encerramento é obrigatório"
+msgstr "Os campos Deputado e data de encerramento são obrigatórios"
 
 #: apps/participations/views.py:563
 msgid "Final version must be diferent the initial version!"
 msgstr ""
 
 #: apps/participations/views.py:576
-#, fuzzy
 msgid "Version and Video link are required!"
-msgstr "O campo data de encerramento é obrigatório"
+msgstr "Os campos versão e link do youtube são obrigatórios"
 
 #: apps/projects/admin.py:9
 msgid "videos"
