@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from wikilegis import celery_app
 from celery.utils.log import get_task_logger
 from datetime import date, timedelta
+from utils.format_text import format_proposal_title
 
 
 logger = get_task_logger(__name__)
@@ -62,7 +63,7 @@ def participations_wait_feedback():
     users_emails = []
 
     for invited_group in invited_groups:
-
+        proposal_title = format_proposal_title(invited_group.document)
         suggestions = invited_group.suggestions.all()
         suggestions_id = suggestions.values_list('id', flat=True)
         opnions = OpinionVote.objects.filter(id__in=suggestions_id)
@@ -73,10 +74,11 @@ def participations_wait_feedback():
         users_emails.extend(list(users_suggestions))
         users_emails.extend(list(users_opnions))
 
-    users_emails = list(set(users_emails))
+        users_emails = list(set(users_emails))
 
-    for user_email in users_emails:
-        send_finish_participations(invited_group, user_email)
+        for user_email in users_emails:
+            send_finish_participations(
+                invited_group, proposal_title, user_email)
 
-    return _(' Group {} participants were'
-             'informed by email'.format(invited_group.document.title))
+        _(' Group {} participants were'
+          'informed by email'.format(invited_group.document.title))

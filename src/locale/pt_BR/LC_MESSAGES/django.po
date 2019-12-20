@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-19 15:26-0200\n"
+"POT-Creation-Date: 2019-12-20 17:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,16 +109,20 @@ msgstr "[Wikilegis] Participante removido"
 msgid "[Wikilegis] Authorization request"
 msgstr "[Wikilegis] Solicitação de autorização"
 
-#: apps/notifications/emails.py:78
+#: apps/notifications/emails.py:79
 msgid "[Wikilegis] Public participation request"
 msgstr "[Wikilegis] Solicitação de participação pública"
 
-#: apps/notifications/emails.py:93 apps/notifications/emails.py:109
+#: apps/notifications/emails.py:94
 msgid "[Wikilegis] Feedback authorization request"
 msgstr "[Wikilegis] Solicitação de autorização de resposta"
 
-#: apps/notifications/emails.py:123
+#: apps/notifications/emails.py:107
 msgid "[Wikilegis] Closed public participation"
+msgstr "[Wikilegis] Consulta pública encerrada"
+
+#: apps/notifications/emails.py:125
+msgid "[Wikilegis] Finish pulic participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
 #: apps/notifications/models.py:13 apps/notifications/models.py:47
@@ -183,7 +187,11 @@ msgstr "Notificações"
 msgid "notifications"
 msgstr "Notificações"
 
-#: apps/notifications/views.py:234
+#: apps/notifications/tasks.py:83
+msgid " Group {} participants wereinformed by email"
+msgstr ""
+
+#: apps/notifications/views.py:211
 msgid "Notifications read!"
 msgstr "Notificações lidas!"
 

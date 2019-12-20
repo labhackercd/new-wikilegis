@@ -112,11 +112,13 @@ def send_owner_closed_participation(public_group, proposal_title):
     mail_authorization.send()
 
 
-def send_finish_participations(invited_group, user_email):
+def send_finish_participations(invited_group, proposal_title, user_email):
     site_url = Site.objects.get_current().domain
     html = render_to_string(
-        'emails/finish_public_participation.html',
-        {'invited_group': invited_group,
+        'emails/participant-participation-closed.html',
+        {'proposal_title': proposal_title,
+         'id_group': invited_group.id,
+         'slug': invited_group.document.slug,
          'site_url': site_url})
     subject = _('[Wikilegis] Finish pulic participation')
     mail = EmailMultiAlternatives(
