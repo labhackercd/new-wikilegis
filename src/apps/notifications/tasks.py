@@ -6,7 +6,7 @@ from apps.notifications.models import (OwnerInvitation, PublicAuthorization,
 from apps.notifications.emails import (send_owner_invitation,
                                        send_public_authorization,
                                        send_owner_closed_participation,
-                                       send_feedback_participations)
+                                       send_finish_participations)
 from apps.participations.models import InvitedGroup, OpinionVote
 from django.utils.translation import ugettext_lazy as _
 from wikilegis import celery_app
@@ -64,14 +64,11 @@ def participations_wait_feedback():
     for invited_group in invited_groups:
 
         suggestions = invited_group.suggestions.all()
+        suggestions_id = suggestions.values_list('id', flat=True)
+        opnions = OpinionVote.objects.filter(id__in=suggestions_id)
 
         users_suggestions = suggestions.values_list('author__email', flat=True)
-
-        suggestions_id = suggestions.values_list('id', flat=True)
-
-        user_opnions = OpinionVote.objects.filter(id__in=suggestions_id)
-
-        users_opnions = user_opnions.values_list('owner__email', flat=True)
+        users_opnions = opnions.values_list('owner__email', flat=True)
 
         users_emails.extend(list(users_suggestions))
         users_emails.extend(list(users_opnions))
@@ -79,7 +76,7 @@ def participations_wait_feedback():
     users_emails = list(set(users_emails))
 
     for user_email in users_emails:
-        send_feedback_participations(invited_group, user_email)
+        send_finish_participations(invited_group, user_email)
 
     return _(' Group {} participants were'
              'informed by email'.format(invited_group.document.title))

@@ -91,7 +91,7 @@ def send_feedback_authorization(feedback_authorization):
          'hash_id': feedback_authorization.hash_id,
          'site_url': site_url})
     subject_authorization = _('[Wikilegis] Feedback authorization request')
-    public_authorization = feedback_authorization.group.authorization_emails.first() # noqa
+    public_authorization = feedback_authorization.group.authorization_emails.first()  # noqa
     mail_authorization = EmailMultiAlternatives(
         subject_authorization, '', settings.EMAIL_HOST_USER,
         [public_authorization.congressman.email])
@@ -109,3 +109,17 @@ def send_owner_closed_participation(public_group, proposal_title):
         [public_group.document.owner.email])
     mail_authorization.attach_alternative(html, 'text/html')
     mail_authorization.send()
+
+
+def send_finish_participations(invited_group, user_email):
+    site_url = Site.objects.get_current().domain
+    html = render_to_string(
+        'emails/finish_public_participation.html',
+        {'invited_group': invited_group,
+         'site_url': site_url})
+    subject = _('[Wikilegis] Finish pulic participation')
+    mail = EmailMultiAlternatives(
+        subject, '', settings.EMAIL_HOST_USER,
+        [user_email])
+    mail.attach_alternative(html, 'text/html')
+    mail.send()
