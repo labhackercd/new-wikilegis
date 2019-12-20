@@ -56,7 +56,7 @@ def send_public_authorization(public_authorization, updated=False):
         {'document_owner': public_authorization.group.document.owner,
          'document_title': public_authorization.group.document.title,
          'closing_date': closing_date,
-         'hash_id': public_authorization.hash_id,
+         'hash': public_authorization.hash_id,
          'updated': updated,
          'site_url': site_url})
     subject_authorization = _('[Wikilegis] Authorization request')
@@ -74,6 +74,7 @@ def send_public_authorization(public_authorization, updated=False):
          'email': public_authorization.congressman.email,
          'document_title': public_authorization.group.document.title,
          'closing_date': closing_date,
+         'hash': public_authorization.hash_id,
          'updated': updated})
     subject_request = _('[Wikilegis] Public participation request')
     mail_request = EmailMultiAlternatives(
@@ -91,7 +92,7 @@ def send_feedback_authorization(feedback_authorization):
          'hash_id': feedback_authorization.hash_id,
          'site_url': site_url})
     subject_authorization = _('[Wikilegis] Feedback authorization request')
-    public_authorization = feedback_authorization.group.authorization_emails.first() # noqa
+    public_authorization = feedback_authorization.group.authorization_emails.first()  # noqa
     mail_authorization = EmailMultiAlternatives(
         subject_authorization, '', settings.EMAIL_HOST_USER,
         [public_authorization.congressman.email])
@@ -109,3 +110,19 @@ def send_owner_closed_participation(public_group, proposal_title):
         [public_group.document.owner.email])
     mail_authorization.attach_alternative(html, 'text/html')
     mail_authorization.send()
+
+
+def send_finish_participations(invited_group, proposal_title, user_email):
+    site_url = Site.objects.get_current().domain
+    html = render_to_string(
+        'emails/participant-participation-closed.html',
+        {'proposal_title': proposal_title,
+         'id_group': invited_group.id,
+         'slug': invited_group.document.slug,
+         'site_url': site_url})
+    subject = _('[Wikilegis] Finish pulic participation')
+    mail = EmailMultiAlternatives(
+        subject, '', settings.EMAIL_HOST_USER,
+        [user_email])
+    mail.attach_alternative(html, 'text/html')
+    mail.send()

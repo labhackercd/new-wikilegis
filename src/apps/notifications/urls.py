@@ -26,10 +26,4 @@ urlpatterns = [
     path('read/',
          views.update_notifications,
          name="read_notifications"),
-    path('teste/',
-         views.TesteTemplate.as_view(),
-         name="teste"),
-    path('diff/',
-         views.DiffTemplate.as_view(),
-         name="diff")
 ]
