@@ -56,7 +56,7 @@ def send_public_authorization(public_authorization, updated=False):
         {'document_owner': public_authorization.group.document.owner,
          'document_title': public_authorization.group.document.title,
          'closing_date': closing_date,
-         'hash_id': public_authorization.hash_id,
+         'hash': public_authorization.hash_id,
          'updated': updated,
          'site_url': site_url})
     subject_authorization = _('[Wikilegis] Authorization request')
@@ -74,6 +74,7 @@ def send_public_authorization(public_authorization, updated=False):
          'email': public_authorization.congressman.email,
          'document_title': public_authorization.group.document.title,
          'closing_date': closing_date,
+         'hash': public_authorization.hash_id,
          'updated': updated})
     subject_request = _('[Wikilegis] Public participation request')
     mail_request = EmailMultiAlternatives(

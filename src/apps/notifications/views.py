@@ -68,9 +68,16 @@ class PublicUnauthorizationView(RedirectView):
                                           hash_id=kwargs['hash'])
         public_group = authorization.group
         document = public_group.document
+        updated = self.request.GET.get('updated', False)
 
         if public_group.group_status != 'in_progress':
-            public_group.delete()
+            if updated:
+                message = '{} não aceitou seu pedido de alteração da data \
+                     final da consluta pública da proposição {}.'
+            else:
+                public_group.delete()
+                message = '{} não aceitou seu pedido para participação \
+                pública da proposição {}.'
 
             notification = Notification()
             notification.user = document.owner
@@ -81,8 +88,6 @@ class PublicUnauthorizationView(RedirectView):
             else:
                 proposal_title = document.title
 
-            message = '{} não aceitou seu pedido para participação pública da \
-                    proposição {}.'
             notification.message = message.format(
                 authorization.congressman.name.title(), proposal_title)
 
@@ -102,44 +107,16 @@ class InformationCongressmanView(TemplateView):
 
         authorization = get_object_or_404(PublicAuthorization,
                                           hash_id=kwargs['hash'])
+        updated = self.request.GET.get('updated', False)
 
         context['hash_id'] = authorization.hash_id
         context['site_url'] = site_url
         context['closing_date'] = authorization.closing_date
         context['document'] = authorization.group.document
+        context['updated'] = updated
 
         if authorization.group.group_status == 'in_progress':
             raise Http404
-
-        return context
-
-
-class TesteTemplate(TemplateView):
-    template_name = 'pages/textual-confirmation-screen.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['hash_id'] = 'c433542a-ecc7-44be-8d25-3374001e4f02'
-        context['update'] = False
-        context['site_url'] = 'localhost:8000'
-        context['closing_date'] = '30/02/2019'
-        context['document'] = 'PL 241'
-
-        return context
-
-
-class DiffTemplate(TemplateView):
-    template_name = 'pages/diff.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['hash_id'] = 'c433542a-ecc7-44be-8d25-3374001e4f02'
-        context['update'] = False
-        context['site_url'] = 'localhost:8000'
-        context['closing_date'] = '30/02/2019'
-        context['document'] = 'PL 241'
 
         return context
 
