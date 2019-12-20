@@ -5,10 +5,15 @@
 {% endblock title %}
 
 {% block content %}
+<tr class="center">
 {% if updated %}
-O(A) servidor(a) {{ document_owner }} deseja alterar a data de encerramento do documento {{ document_title }} para {{ closing_date }}.
+<p>O(A) servidor(a) {{ document_owner }} deseja alterar a data de encerramento do documento {{ document_title }} para {{ closing_date }}.</p>
 {% else %}
-O(A) servidor(a) {{ document_owner }} deseja abrir o documento {{ document_title }} para consulta pública até {{ closing_date }}.
+<p>O(A) servidor(a) {{ document_owner }} deseja abrir o documento {{ document_title }} para consulta pública até {{ closing_date }}.</p>
 {% endif %}
-<a href="http://{{ site_url }}{% url 'information_authorization' hash_id %}">CONCORDO</a>
+</tr>
 {% endblock content %}
+
+{% block button %}
+<a href="http://{{ site_url }}{% url 'information_authorization' hash %}?updated={{updated}}">CONCORDO</a>
+{% endblock button %}
