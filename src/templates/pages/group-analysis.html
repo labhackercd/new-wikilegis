@@ -1,0 +1,34 @@
+{% extends "structure/base.html" %}
+{% load staticfiles participations_tags %}
+
+{% block title %}
+{{ object.document.title }}
+{% endblock title %}
+
+{% block body_classes %}-white -analysis{% endblock %}
+
+{% block navbar_extra_classes %}-non-admin{% endblock %}
+{% block content %}
+
+<main class="document-editor -active js-documentEditor" data-document-id="{{ object.document.id }}">
+
+    {% include "components/opinions-sidebar.html" with object=object.document %}
+    {% include "components/document-opinions.html" with object=object.document %}
+
+</main>
+
+{% endblock content %}
+
+{% block page_js %}
+<script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static 'truncate.js/dist/truncate.min.js' %}"></script>
+<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
+
+<script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
+<script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
+<script src="{% static 'js/components/pageMinimap/view.js' %}"></script>
+<script src="{% static 'js/components/opinionsMetrics/view.js' %}"></script>
+<script src="{% static 'js/components/textHighlight/view.js' %}"></script>
+<script src="{% static 'js/components/documentOpinionsBody/view.js' %}"></script>
+<script src="{% static 'js/pages/analysisGroup.js' %}"></script>
+{% endblock page_js %}

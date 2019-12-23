@@ -72,6 +72,14 @@
 
     opacity: .5;
 
+    & > .estatistica {
+      color: $color-brand;
+      font-size: $font-size-mili;
+      &:hover {
+        color: $color-brand - 50%;
+      }
+    }
+
     &.-video {
       position: relative;
 

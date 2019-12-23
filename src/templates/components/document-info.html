@@ -66,6 +66,9 @@
   </ul>
 </div>
 {% endif %}
+<div class="item">
+  <a class="estatistica" href="{% url 'group-analysis' object.id object.document.slug %}">Estatísticas</a>
+</div>
 {% if object.document.videos.all %}
   {% for video in object.document.videos.all %}
   <div class="item -video">

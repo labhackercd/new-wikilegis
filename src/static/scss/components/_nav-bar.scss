@@ -59,6 +59,11 @@ body.-white .nav-bar {
     padding: 0;
   }
 
+  &.-non-admin {
+    border-bottom: 1px solid $color-grayish;
+    background: #FFF;
+  }
+
   &.-shadow {
     @include header-shadow;
   }
