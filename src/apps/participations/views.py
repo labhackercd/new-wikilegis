@@ -243,7 +243,7 @@ class InvitedGroupDetailView(DetailView):
             document__slug=self.kwargs.get('documment_slug'),
             group_status__in=['in_progress', 'analyzing', 'waiting_feedback'])
         if (obj.public_participation and
-            obj.group_status in ['in_progress', 'waiting_feedback']):
+                obj.group_status in ['in_progress', 'waiting_feedback']):
             return obj
         elif (self.request.user.is_superuser and
               obj.group_status == 'analyzing'):
@@ -614,7 +614,7 @@ class InvitedGroupAnalyzeView(DetailView):
             suggestion_id__in=group_opinions_ids).values_list(
             'owner_id', flat=True)
         participants_ids = set(list(group_author_votes) +
-                                list(group_author_opinions))
+                               list(group_author_opinions))
         context['group'] = group
         context['analysis_page'] = True
         context['participation_count'] = len(participants_ids)
