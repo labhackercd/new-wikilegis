@@ -177,7 +177,7 @@ class InvitedGroupListView(ListView):
         ).order_by('closing_date')
         context['closed_public_groups'] = queryset.filter(
             public_participation=True,
-            group_status='in_progress',
+            group_status__in=['in_progress', 'waiting_feedback'],
             closing_date__lt=date.today()
         ).order_by('-closing_date')
 
@@ -241,8 +241,9 @@ class InvitedGroupDetailView(DetailView):
         obj = get_object_or_404(
             InvitedGroup, pk=self.kwargs.get('id'),
             document__slug=self.kwargs.get('documment_slug'),
-            group_status__in=['in_progress', 'analyzing'])
-        if obj.public_participation and obj.group_status == 'in_progress':
+            group_status__in=['in_progress', 'analyzing', 'waiting_feedback'])
+        if (obj.public_participation and
+            obj.group_status in ['in_progress', 'waiting_feedback']):
             return obj
         elif (self.request.user.is_superuser and
               obj.group_status == 'analyzing'):
@@ -576,3 +577,46 @@ def set_final_version(request, group_id):
             {'error': _('Version and Video link are required!')},
             status=400
         )
+
+
+class InvitedGroupAnalyzeView(DetailView):
+    model = InvitedGroup
+    template_name = 'pages/group-analysis.html'
+
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(
+            InvitedGroup, pk=self.kwargs.get('id'),
+            document__slug=self.kwargs.get('documment_slug'),
+            group_status__in=['in_progress', 'analyzing', 'waiting_feedback'])
+        if (obj.public_participation and
+                obj.group_status in ['in_progress', 'waiting_feedback']):
+            return obj
+        elif (self.request.user.is_superuser and
+              obj.group_status == 'analyzing'):
+            return obj
+        elif obj.thematic_group:
+            if self.request.user in obj.thematic_group.participants.all():
+                return obj
+            else:
+                raise Http404()
+        else:
+            raise Http404()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        group = self.object
+        group_opinions = Suggestion.objects.filter(invited_group=group)
+        group_author_opinions = group_opinions.values_list(
+            'author_id', flat=True)
+        group_opinions_ids = group_opinions.values_list('id', flat=True)
+        group_author_votes = OpinionVote.objects.filter(
+            suggestion_id__in=group_opinions_ids).values_list(
+            'owner_id', flat=True)
+        participants_ids = set(list(group_author_votes) +
+                                list(group_author_opinions))
+        context['group'] = group
+        context['analysis_page'] = True
+        context['participation_count'] = len(participants_ids)
+
+        return context
