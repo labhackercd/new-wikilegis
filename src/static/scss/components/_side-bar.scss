@@ -37,6 +37,10 @@
 
     border-bottom: $border;
 
+    & > .csv {
+      align-items: right;
+    }
+
     & > h3 {
       padding: 1.6rem;
 
