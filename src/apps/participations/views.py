@@ -1,4 +1,4 @@
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
 from apps.projects.models import (
     Excerpt, Theme, Document, DocumentResponsible, DocumentInfo, DocumentVideo)
+from apps.projects.templatetags.projects_tags import excerpt_numbering
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from apps.notifications.models import (
@@ -27,6 +28,7 @@ from apps.notifications.emails import (
     send_remove_participant, send_feedback_authorization)
 from utils.filters import get_id_video
 import requests
+import csv
 
 User = get_user_model()
 
@@ -620,3 +622,32 @@ class InvitedGroupAnalyzeView(DetailView):
         context['participation_count'] = len(participants_ids)
 
         return context
+
+
+def download_csv(request, group_pk):
+    group = InvitedGroup.objects.get(id=group_pk)
+    suggestions = group.suggestions.all()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="%s.csv"' % (
+        group.document.slug)
+    writer = csv.writer(response)
+    writer.writerow([_('Excerpt'), _('Selected Text'), _('Suggestion'),
+                     _('Approve Votes'), _('Reject Votes'), _('Neutral Votes'),
+                     _('Total Votes'), _('Autor')])
+
+    for suggestion in suggestions:
+        excerpt_content = "%s %s" % (excerpt_numbering(suggestion.excerpt),
+                                     suggestion.excerpt.content)
+        writer.writerow([
+            excerpt_content,
+            suggestion.selected_text,
+            suggestion.content,
+            suggestion.votes_count('approve'),
+            suggestion.votes_count('reject'),
+            suggestion.votes_count('neutral'),
+            suggestion.votes_count(),
+            suggestion.author.get_full_name()
+        ])
+
+    return response

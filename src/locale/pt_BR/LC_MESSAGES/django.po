@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 17:05-0300\n"
+"POT-Creation-Date: 2019-12-26 17:07-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr "perfis"
 msgid "name"
 msgstr "nome"
 
-#: apps/accounts/models.py:45 apps/participations/models.py:91
+#: apps/accounts/models.py:45 apps/participations/models.py:98
 #: apps/projects/models.py:66
 msgid "owner"
 msgstr "responsável"
@@ -121,7 +121,7 @@ msgstr "[Wikilegis] Solicitação de autorização de resposta"
 msgid "[Wikilegis] Closed public participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
-#: apps/notifications/emails.py:125
+#: apps/notifications/emails.py:123
 msgid "[Wikilegis] Finish pulic participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
@@ -253,7 +253,7 @@ msgstr "conteúdo"
 msgid "author"
 msgstr "autor"
 
-#: apps/participations/models.py:75 apps/participations/models.py:88
+#: apps/participations/models.py:75 apps/participations/models.py:95
 msgid "suggestion"
 msgstr "sugestão"
 
@@ -261,78 +261,110 @@ msgstr "sugestão"
 msgid "suggestions"
 msgstr "sugestões"
 
-#: apps/participations/models.py:92
+#: apps/participations/models.py:99
 msgid "opinion type"
 msgstr "tipo de opinião"
 
-#: apps/participations/models.py:97
+#: apps/participations/models.py:104
 msgid "opinion vote"
 msgstr "voto opinião"
 
-#: apps/participations/models.py:98
+#: apps/participations/models.py:105
 msgid "opinion votes"
 msgstr "votos opiniões"
 
-#: apps/participations/views.py:59 apps/participations/views.py:123
-#: apps/participations/views.py:405 apps/participations/views.py:466
+#: apps/participations/views.py:61 apps/participations/views.py:125
+#: apps/participations/views.py:408 apps/participations/views.py:469
 msgid "Closing date must be greater than or equal to today!"
 msgstr "A data de encerramento deve ser maior ou igual a hoje!"
 
-#: apps/participations/views.py:66 apps/participations/views.py:128
+#: apps/participations/views.py:68 apps/participations/views.py:130
 msgid "Group name is required"
 msgstr "Nome do grupo é obrigatóro"
 
-#: apps/participations/views.py:83 apps/participations/views.py:154
+#: apps/participations/views.py:85 apps/participations/views.py:156
 msgid "Participants are required"
 msgstr "O campo participantes é obrigatório"
 
-#: apps/participations/views.py:292
+#: apps/participations/views.py:295
 msgid "Project closed for participation"
 msgstr "Projeto fechado para participação"
 
-#: apps/participations/views.py:324
+#: apps/participations/views.py:327
 msgid "You cannot undo this suggestion after 1 minute"
 msgstr "Você não pode desfazer esta sugestão depois de 1 minuto"
 
-#: apps/participations/views.py:377 apps/participations/views.py:554
+#: apps/participations/views.py:380 apps/participations/views.py:557
 msgid "Invalid link YouTube. Please enter a valid link!"
 msgstr "Link do YouTube inválido. Por favor informe uma link válido!"
 
-#: apps/participations/views.py:387
+#: apps/participations/views.py:390
 msgid "You must create a version from your text before open to participation"
 msgstr ""
 "Você deve criar uma versão para seu texto antes de abrir para participação"
 
-#: apps/participations/views.py:397
+#: apps/participations/views.py:400
 msgid "Closing date is required!"
 msgstr "O campo data de encerramento é obrigatório"
 
-#: apps/participations/views.py:441 apps/participations/views.py:488
-#: apps/participations/views.py:573
+#: apps/participations/views.py:444 apps/participations/views.py:491
+#: apps/participations/views.py:576
 msgid "Request sent!"
 msgstr "Solicitação enviada!"
 
-#: apps/participations/views.py:445
+#: apps/participations/views.py:448
 msgid "You cannot request a public participation again"
 msgstr ""
 "Você não pode solicitar uma participação pública novamente para este "
 "documento."
 
-#: apps/participations/views.py:450
+#: apps/participations/views.py:453
 msgid "Congressman is required!"
 msgstr "Campo deputado é obrigatóro"
 
-#: apps/participations/views.py:491
+#: apps/participations/views.py:494
 msgid "Congressman and closing date are required!"
 msgstr "Os campos Deputado e data de encerramento são obrigatórios"
 
-#: apps/participations/views.py:563
+#: apps/participations/views.py:566
 msgid "Final version must be diferent the initial version!"
 msgstr ""
 
-#: apps/participations/views.py:576
+#: apps/participations/views.py:579
 msgid "Version and Video link are required!"
 msgstr "Os campos versão e link do youtube são obrigatórios"
+
+#: apps/participations/views.py:635
+msgid "Excerpt"
+msgstr "trecho"
+
+#: apps/participations/views.py:635
+msgid "Selected Text"
+msgstr "texto selecionado"
+
+#: apps/participations/views.py:635
+msgid "Suggestion"
+msgstr "sugestão"
+
+#: apps/participations/views.py:636
+msgid "Approve Votes"
+msgstr "Votos a favor"
+
+#: apps/participations/views.py:636
+msgid "Reject Votes"
+msgstr "Votos contra"
+
+#: apps/participations/views.py:636
+msgid "Neutral Votes"
+msgstr "Votos neutros"
+
+#: apps/participations/views.py:637
+msgid "Total Votes"
+msgstr "Total de votos"
+
+#: apps/participations/views.py:637
+msgid "Autor"
+msgstr "Autor"
 
 #: apps/projects/admin.py:9
 msgid "videos"

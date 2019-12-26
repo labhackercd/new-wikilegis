@@ -76,6 +76,13 @@ class Suggestion(TimestampedMixin):
         verbose_name_plural = _('suggestions')
         ordering = ('start_index', )
 
+    def votes_count(self, opinion_type=None):
+        if opinion_type:
+            count_result = self.votes.filter(opinion_vote=opinion_type).count()
+        else:
+            count_result = self.votes.count()
+        return count_result
+
     def __str__(self):
         return '%s <%s>' % (self.content,
                             self.author.email)
