@@ -1,7 +1,7 @@
-from django.views.generic import RedirectView, UpdateView, View
+from django.views.generic import RedirectView, UpdateView, View, TemplateView
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from .models import Document, DocumentVersion
+from .models import Document, DocumentVersion, Excerpt
 from .forms import DocumentForm
 from apps.notifications.models import ParcipantInvitation
 from django.http import Http404, JsonResponse
@@ -10,8 +10,9 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from apps.notifications.models import Notification
+from apps.notifications.models import Notification, PublicAuthorization
 from django.contrib.auth.models import User
+import diff_match_patch as dmp_module
 
 
 class InvitationRedirectView(RedirectView):
@@ -141,3 +142,60 @@ class DocumentTextView(View):
             data['message'] = _('Version not found! '
                                 'We loaded the last version for you :)')
             return JsonResponse(data, status=404)
+
+
+class DocumentDiffTemplateView(TemplateView):
+    template_name = "pages/diff.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        hash_id = kwargs['hash']
+        public_authorization = get_object_or_404(PublicAuthorization,
+                                                 hash_id=hash_id)
+
+        first_excerpts = self.get_first_text(public_authorization)
+        final_excerpts = self.get_final_text(public_authorization)
+
+        diff_text = self.get_diff(first_excerpts, final_excerpts)
+
+        context['diff_text'] = diff_text
+        context['hash_id'] = hash_id
+        return context
+
+    def get_diff(self, first_excerpts, final_excerpts):
+        dmp = dmp_module.diff_match_patch()
+
+        full_first_text = self.fortmat_text(first_excerpts)
+        full_final_text = self.fortmat_text(final_excerpts)
+
+        diff = dmp.diff_main(full_first_text, full_final_text)
+        dmp.diff_cleanupSemantic(diff)
+
+        return diff
+
+    def get_first_text(self, public_authorization):
+        first_version = public_authorization.group.version
+        first_excerpts = Excerpt.objects.filter(
+            version=first_version).order_by('-order')
+
+        return first_excerpts
+
+    def get_final_text(self, public_authorization):
+        final_version = public_authorization.group.final_version
+        final_excerpts = Excerpt.objects.filter(
+            version=final_version).order_by('-order')
+
+        return final_excerpts
+
+    def fortmat_text(self, list_excerpt):
+        text = ''
+        for excerpt in list_excerpt:
+            excerpt_apresentation = (excerpt.excerpt_type.name +
+                                     '-' + str(excerpt.number))
+
+            if excerpt.excerpt_type.align_center:
+                excerpt_apresentation = excerpt_apresentation + '\n'
+
+            text = (excerpt.excerpt_type.name + '-' + str(excerpt.number) +
+                    ' ' + excerpt.content + '\n\n\n' + text)
+        return text
