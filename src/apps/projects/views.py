@@ -159,7 +159,9 @@ class DocumentDiffTemplateView(TemplateView):
         diff_text = self.get_diff(first_excerpts, final_excerpts)
 
         context['diff_text'] = diff_text
-        context['hash_id'] = hash_id
+        context['group'] = public_authorization.group
+        context['is_congressman'] = True
+
         return context
 
     def get_diff(self, first_excerpts, final_excerpts):
@@ -194,8 +196,8 @@ class DocumentDiffTemplateView(TemplateView):
                                      '-' + str(excerpt.number))
 
             if excerpt.excerpt_type.align_center:
-                excerpt_apresentation = excerpt_apresentation + '\n'
+                excerpt_apresentation = excerpt_apresentation + '<br>'
 
-            text = (excerpt.excerpt_type.name + '-' + str(excerpt.number) +
-                    ' ' + excerpt.content + '\n\n\n' + text)
+            text = (excerpt.excerpt_type.name + ' - ' + str(excerpt.number) +
+                    ' ' + excerpt.content + '<br><br><br>' + text)
         return text
