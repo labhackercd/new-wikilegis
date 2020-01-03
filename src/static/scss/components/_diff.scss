@@ -17,15 +17,16 @@
 	& .texto > .deleted {
 		position: relative;
 		&::after {
-			border-bottom: 0.125em solid rgba(255, 0, 0, 0.5);
+			border-bottom: 0.125em solid rgb(212, 8, 8);
 			content: "";
 			left: 0;
 			line-height: 1em;
 			margin-top: calc(0.125em/2);
 			position: absolute;
 			right: 0;
-			top: 50%; 
+			top: 50%;
 		}
+		background-color: rgb(243, 112, 112);
 	}
 	& .texto > .added {
 		background-color: #2CD27E;
@@ -79,4 +80,13 @@
 	    transform: scale(1, 1);
 	    background-color: #2EAA68;
 	}
+
+}
+
+#original {
+	display: none;
+}
+
+#final {
+	display: none;
 }
