@@ -6,16 +6,70 @@
 <main class="diff">
   <h1 class="title"> Diferença entre textos </h1>
   <ul>
-  	<li class="original"><a href="#">ORIGINAL</a></li>
-  	<li class="diferencas"><a href="#">DIFERENÇAS</a></li>
-  	<li class="final"><a href="#">FINAL</a></li>
-  </ul> 
+    <li class="original"><a href="#">ORIGINAL</a></li>
+    <li class="diferencas"><a href="#">DIFERENÇAS</a></li>
+    <li class="final"><a href="#">FINAL</a></li>
+  </ul>
 
-  <p class="texto"></p>
+  <div class="texto" id="diff">
+    {% autoescape on %}
+    {% for word in diff_text %}
+
+    {% if word.0 == -1 %}
+    <span class="deleted">
+      {{word.1|safe}}
+    </span>
+
+    {% elif word.0 == 1 %}
+    <span class="added">
+      {{word.1|safe}}
+    </span>
+
+    {% else %}
+    {{word.1|safe}}
+    {% endif %}
+
+    {% endfor %}
+    {% endautoescape %}
+  </div>
+
+  <div class="texto" id="original">
+    {% autoescape on %}
+    {% for word in diff_text %}
+
+    {% if word.0 == -1 %}
+    {{word.1|safe}}
+
+    {% elif word.0 == 0 %}
+    {{word.1|safe}}
+
+    {% endif %}
+
+    {% endfor %}
+    {% endautoescape %}
+  </div>
+
+  <div class="texto" id="final">
+    {% autoescape on %}
+    {% for word in diff_text %}
+
+    {% if word.0 == 1 %}
+    {{word.1|safe}}
+
+    {% elif word.0 == 0 %}
+    {{word.1|safe}}
+
+    {% endif %}
+
+    {% endfor %}
+    {% endautoescape %}
+  </div>
+
+
 </main>
 {% endblock content %}
 
 {% block page_js %}
-  <script src="{% static 'js/components/switchTexts/view.js' %}"></script>
-  <script src="{% static 'js/pages/diff.js' %}"></script>
-{% endblock page_js %}
+<script src="{% static 'js/components/switchTexts/view.js' %}"></script>
+<script src="{% static 'js/pages/diff.js' %}"></script>
+{% endblock page_js %}original
