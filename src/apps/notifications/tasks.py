@@ -35,20 +35,14 @@ def save_public_authorization(sender, instance, created, update_fields,
         send_public_authorization(instance)
 
 
-def closed_participation_notify(public_group):
+def closed_participation_notify(public_group, proposal_title):
     document = public_group.document
     notification = Notification()
     notification.user = document.owner
-    if document.document_type and document.year and document.number:
-        proposal_title = "%s %s/%s" % (document.document_type.initials,
-                                       document.year, document.number)
-    else:
-        proposal_title = document.title
     message = 'A sua consulta pública sobre o proposição legislativa "{}"  \
                encontra-se encerrada'
     notification.message = message.format(proposal_title)
     notification.save()
-    send_owner_closed_participation(public_group, proposal_title)
 
 
 @celery_app.task
@@ -82,3 +76,18 @@ def participations_wait_feedback():
 
         _(' Group {} participants were'
           'informed by email'.format(invited_group.document.title))
+
+
+@celery_app.task
+def notify_closed_participation():
+    yesterday = date.today() - timedelta(days=1)
+
+    invited_groups = InvitedGroup.objects.filter(
+        closing_date=yesterday,
+        public_participation=True
+    )
+
+    for invited_group in invited_groups:
+        proposal_title = format_proposal_title(invited_group.document)
+        closed_participation_notify(invited_group, proposal_title)
+        send_owner_closed_participation(invited_group, proposal_title)

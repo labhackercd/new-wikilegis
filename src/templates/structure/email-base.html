@@ -1,4 +1,3 @@
-{% load staticfiles %}
 <head>
     <style>
         .center {
@@ -50,7 +49,8 @@
 </head>
 <table>
     <tr>
-        <img src="{% static 'img/mail.png' %}">
+        {% block img %}
+        {% endblock img %}
     </tr>
     <tr class="center">
         <h1 class="title">
