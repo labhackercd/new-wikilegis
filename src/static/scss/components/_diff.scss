@@ -40,12 +40,12 @@
 		padding: 20px 0 20px;
 		vertical-align: middle;
 	 }
-	a:hover, a:focus, a:active {
+	& .menu > a:hover, a:focus, a:active {
 	    color: #474747;
 	    text-decoration: none;
 	    font-weight: 400;
 	}
-	a {
+	& .menu > a {
 	    text-decoration: none;
 	    position: relative;
 	    display: block;
@@ -59,7 +59,7 @@
 	    transition: color 0.1s,background-color 0.1s,padding 0.2s ease-in;
 	    color: #AFAFAF;
 	}
-	a::before {
+	& .menu > a::before {
 	    content: '';
 	    display: block;
 	    position: absolute;
@@ -72,13 +72,38 @@
 	    transform: scale(0, 1);
 	    transition: color 0.1s,transform 0.2s ease-out;
 	}
-	a:active::before {
+	& .menu > a:active::before {
 	    background-color: #2EAA68;
 	}
 	a:hover::before, a:focus::before {
 	    transform-origin: left top;
 	    transform: scale(1, 1);
 	    background-color: #2EAA68;
+	}
+
+	& .button {
+		align-items: center;
+		display: inline;
+		border: none;
+		color: white;
+		padding: 15px 32px;
+		font-size: 16px;
+		&--yes {
+			@extend .button;
+			background-color: $yes-button-color;
+			&:hover {
+				background-color: $yes-button-color - 20%;
+			}
+		}
+		&--no {
+			@extend .button;
+			background-color: $no-button-color;
+			margin-left: 2%;
+			margin-right: 1%;
+			&:hover {
+				background-color: $no-button-color - 20%;
+			}
+		}
 	}
 
 }
