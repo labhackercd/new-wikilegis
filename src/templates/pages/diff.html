@@ -6,10 +6,21 @@
 <main class="diff">
   <h1 class="title"> Diferença entre textos </h1>
   <ul>
-    <li class="original"><a href="#">ORIGINAL</a></li>
-    <li class="diferencas"><a href="#">DIFERENÇAS</a></li>
-    <li class="final"><a href="#">FINAL</a></li>
+    <li class="menu original"><a href="#">ORIGINAL</a></li>
+    <li class="menu diferencas"><a href="#">DIFERENÇAS</a></li>
+    <li class="menu final"><a href="#">FINAL</a></li>
   </ul>
+
+  <div align="center">
+    <div class="button">
+      <div class="button--yes">
+        <a href="http://{{ site_url  }}">SIM</a>
+      </div>
+      <div class="button--no">
+        <a href="http://{{ site_url }}">NÃO</a>
+      </div>
+    </div>
+  </div>
 
   <div class="texto" id="diff">
     {% autoescape on %}
