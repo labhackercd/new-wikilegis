@@ -17,21 +17,21 @@ SwitchTexts.prototype.initEvents = function () {
 SwitchTexts.prototype.alternateTexts = function (obj) { // eslint-disable-line no-unused-vars
   this.original.on('click', function (obj) {
     $('.diff .texto').html(obj.originalText);
-    $("#diff").css("display", "none");
-    $("#final").css("display", "none");
-    $("#original").css("display", "block");
+    $('#diff').css('display', 'none');
+    $('#final').css('display', 'none');
+    $('#original').css('display', 'block');
   });
   this.diferencas.on('click', function (obj) {
     $('.diff .texto').html(obj.diffText);
-    $("#original").css("display", "none");
-    $("#final").css("display", "none");
-    $("#diff").css("display", "block");
+    $('#original').css('display', 'none');
+    $('#final').css('display', 'none');
+    $('#diff').css('display', 'block');
   });
   this.final.on('click', function (obj) {
     $('.diff .texto').text(obj.finalText);
-    $("#diff").css("display", "none");
-    $("#original").css("display", "none");
-    $("#final").css("display", "block");
+    $('#diff').css('display', 'none');
+    $('#original').css('display', 'none');
+    $('#final').css('display', 'block');
   });
   $(document).ready(function (obj) {
     $('.diff .texto').html(obj.diffText);

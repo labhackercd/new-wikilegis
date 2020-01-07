@@ -151,7 +151,7 @@ class DocumentDiffTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         hash_id = kwargs['hash']
         feedback_authorization = get_object_or_404(FeedbackAuthorization,
-                                                 hash_id=hash_id)
+                                                   hash_id=hash_id)
 
         first_excerpts = self.get_first_text(feedback_authorization)
         final_excerpts = self.get_final_text(feedback_authorization)
