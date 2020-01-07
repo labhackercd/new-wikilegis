@@ -6,6 +6,7 @@
       <i class="icon" alt="Participantes"></i>
       <span class="label">{{participation_count}} Participantes</span>
     </li>
+
     <li class="app-tag -button -opinions js-opinionsButton">
       <i class="icon" alt="Opiniões"></i>
       <span class="label">{{group.suggestions.count}} Opiniões</span>
@@ -13,6 +14,9 @@
     <li class="app-tag -button -votes js-votesButton">
       <i class="icon" alt="Votos"></i>
       <span class="label">{{group|group_votes}} Votos</span>
+    </li>
+    <li class="app-tag -button">
+      <span class="label"><a href="{% url 'download-csv' group.id %}">CSV</a></span>
     </li>
   </ul>
   <header>

@@ -103,6 +103,13 @@
     }
   }
 
+  // &.-csv {
+  //   & > a {
+  //     font-weight: 600;
+  //     font-size: 
+  //   }
+  // }
+
   &.-theme {
     align-items: center;
   }
@@ -131,6 +138,10 @@
     text-transform: uppercase;
 
     color: $color-gray;
+
+    & > a {
+      font-weight: 600;
+    }
   }
 
   & > .icon {

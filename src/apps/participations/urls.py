@@ -27,4 +27,7 @@ urlpatterns = [
     path('invited-group/final-version/<int:group_id>',
          views.set_final_version,
          name='set_final_version'),
+    path('invited-group/<int:group_pk>/report/download-csv/',
+         views.download_csv,
+         name='download-csv'),
 ]
