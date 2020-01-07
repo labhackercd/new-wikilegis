@@ -11,6 +11,7 @@
     <li class="menu final"><a href="#">FINAL</a></li>
   </ul>
 
+{% if is_congressman %}
   <div align="center">
     <div class="button">
       <div class="button--yes">
@@ -21,6 +22,7 @@
       </div>
     </div>
   </div>
+{% endif %}
 
   <div class="texto" id="diff">
     {% autoescape on %}
@@ -83,4 +85,4 @@
 {% block page_js %}
 <script src="{% static 'js/components/switchTexts/view.js' %}"></script>
 <script src="{% static 'js/pages/diff.js' %}"></script>
-{% endblock page_js %}original
+{% endblock page_js %}
