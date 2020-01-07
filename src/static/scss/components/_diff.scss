@@ -83,10 +83,12 @@
 
 	& .button {
 		align-items: center;
-		display: inline;
+		display: flex;
+		justify-content: center;
 		border: none;
 		color: white;
 		padding: 15px 32px;
+		margin-bottom: 2%;
 		font-size: 16px;
 		&--yes {
 			@extend .button;
