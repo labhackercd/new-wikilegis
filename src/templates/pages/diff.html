@@ -11,19 +11,6 @@
     <li class="menu final"><a href="#">FINAL</a></li>
   </ul>
 
-{% if is_congressman %}
-  <div align="center">
-    <div class="button">
-      <div class="button--yes">
-        <a href="http://{{ site_url  }}">SIM</a>
-      </div>
-      <div class="button--no">
-        <a href="http://{{ site_url }}">NÃO</a>
-      </div>
-    </div>
-  </div>
-{% endif %}
-
   <div class="texto" id="diff">
     {% autoescape on %}
     {% for word in diff_text %}
@@ -78,7 +65,17 @@
     {% endautoescape %}
   </div>
 
-
+{% if is_congressman %}
+Esta é a diferença entre os textos, você concorda com isso?
+    <div class="button">
+      <div class="button--yes">
+        <a href="http://{{ site_url  }}">SIM</a>
+      </div>
+      <div class="button--no">
+        <a href="http://{{ site_url }}">NÃO</a>
+      </div>
+    </div>
+{% endif %}
 </main>
 {% endblock content %}
 
