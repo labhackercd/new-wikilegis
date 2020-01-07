@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from apps.notifications.models import Notification, PublicAuthorization
+from apps.notifications.models import Notification, FeedbackAuthorization
 from django.contrib.auth.models import User
 import diff_match_patch as dmp_module
 
@@ -150,16 +150,16 @@ class DocumentDiffTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         hash_id = kwargs['hash']
-        public_authorization = get_object_or_404(PublicAuthorization,
+        feedback_authorization = get_object_or_404(FeedbackAuthorization,
                                                  hash_id=hash_id)
 
-        first_excerpts = self.get_first_text(public_authorization)
-        final_excerpts = self.get_final_text(public_authorization)
+        first_excerpts = self.get_first_text(feedback_authorization)
+        final_excerpts = self.get_final_text(feedback_authorization)
 
         diff_text = self.get_diff(first_excerpts, final_excerpts)
 
         context['diff_text'] = diff_text
-        context['group'] = public_authorization.group
+        context['group'] = feedback_authorization.group
         context['is_congressman'] = True
 
         return context
@@ -175,15 +175,15 @@ class DocumentDiffTemplateView(TemplateView):
 
         return diff
 
-    def get_first_text(self, public_authorization):
-        first_version = public_authorization.group.version
+    def get_first_text(self, feedback_authorization):
+        first_version = feedback_authorization.group.version
         first_excerpts = Excerpt.objects.filter(
             version=first_version).order_by('-order')
 
         return first_excerpts
 
-    def get_final_text(self, public_authorization):
-        final_version = public_authorization.group.final_version
+    def get_final_text(self, feedback_authorization):
+        final_version = feedback_authorization.version
         final_excerpts = Excerpt.objects.filter(
             version=final_version).order_by('-order')
 
