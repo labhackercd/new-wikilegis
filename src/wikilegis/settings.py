@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_beat',
     'django_celery_results',
+    'graphene_django',
 
     'apps.accounts',
     'apps.participations',
@@ -232,6 +233,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 
+GRAPHENE = {
+    'SCHEMA': 'apps.api.schema.schema',
+}
 
 if config('ENABLE_REMOTE_USER', default=0, cast=bool):
     AUTHENTICATION_BACKENDS = [
