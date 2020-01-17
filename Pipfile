@@ -32,6 +32,8 @@ django_celery_results = "*"
 django_celery_beat = "*"
 diff-match-patch = "*"
 django-cors-headers = "*"
+graphene-django = "*"
+django-graphql-jwt = "*"
 
 [dev-packages]
 ipdb = "*"
