@@ -32,13 +32,13 @@ class Query(graphene.ObjectType):
         return UserProfile.objects.filter(user__is_active=True)
 
     def resolve_user(self, info, **kwargs):
-          id = kwargs.get('id')
-          name = kwargs.get('firstName')
+        id = kwargs.get('id')
+        name = kwargs.get('firstName')
 
-          if id is not None:
-              return User.objects.get(pk=id)
+        if id is not None:
+            return User.objects.get(pk=id)
 
-          if name is not None:
-              return User.objects.get(first_name=name)
+        if name is not None:
+            return User.objects.get(first_name=name)
 
-          return None
+        return None
