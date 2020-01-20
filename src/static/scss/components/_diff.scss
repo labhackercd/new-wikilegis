@@ -1,6 +1,6 @@
 .diff {
 	margin: 15%;
-	margin-top: 7%;
+	margin-top: 8rem;
 	margin-bottom: 5%;
 	background: #FFFFFF;
 	padding: 2%;
@@ -11,7 +11,7 @@
 	}
 	.texto {
 		text-align: justify;
-		font-weight: 400;
+		font-weight: 200;
 		padding: 2% 10% 2% 10%;
 	}
 	& .texto > .deleted {
@@ -31,15 +31,6 @@
 	& .texto > .added {
 		background-color: #2CD27E;
 	}
-	ul {
-		text-align: center;
-		margin-top: 2%
-	}
-	li { 
-		display: inline-block;
-		padding: 20px 0 20px;
-		vertical-align: middle;
-	 }
 	& .menu > a:hover, a:focus, a:active {
 	    color: #474747;
 	    text-decoration: none;
@@ -107,7 +98,25 @@
 			}
 		}
 	}
-
+	ul {
+		text-align: center;
+		margin-top: 2%
+	}
+	li { 
+		display: inline-block;
+		padding: 20px 0 20px;
+		vertical-align: middle;
+	 }
+	.congressman-question {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		font-weight: 400;
+		text-align: center;
+		margin: 5%;
+		margin-bottom: 2rem;
+	}
 }
 
 #original {

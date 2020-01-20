@@ -35,5 +35,6 @@ SwitchTexts.prototype.alternateTexts = function (obj) { // eslint-disable-line n
   });
   $(document).ready(function (obj) {
     $('.diff .texto').html(obj.diffText);
+    $('#diff').css('display', 'block');
   });
 };
