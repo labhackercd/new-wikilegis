@@ -16,5 +16,8 @@ urlpatterns = [
     path('new/', views.DocumentCreateRedirectView.as_view(),
          name="new_document"),
     path('<int:pk>/text/', views.DocumentTextView.as_view(),
-         name="document_text")
+         name="document_text"),
+    path('diff/<uuid:hash>/',
+         views.DocumentDiffTemplateView.as_view(),
+         name="diff_version"),
 ]

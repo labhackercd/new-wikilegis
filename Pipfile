@@ -30,6 +30,7 @@ beautifulsoup4 = "*"
 celery = {extras = ["redis"]}
 django_celery_results = "*"
 django_celery_beat = "*"
+diff-match-patch = "*"
 
 [dev-packages]
 ipdb = "*"
