@@ -63,13 +63,25 @@
 	    transform: scale(0, 1);
 	    transition: color 0.1s,transform 0.2s ease-out;
 	}
-	& .menu > a:active::before {
+	& .menu > a.initialStyle::before {
+	    content: '';
+	    display: block;
+	    position: absolute;
+	    bottom: 3px;
+	    left: 0;
+	    height: 5px;
+	    width: 100%;
 	    background-color: #2EAA68;
+	    transform-origin: right top;
+	    transform: scale(1, 1);
+	    transition: color 0.1s,transform 0.2s ease-out;
 	}
+	
+
+
 	a:hover::before, a:focus::before {
 	    transform-origin: left top;
 	    transform: scale(1, 1);
-	    background-color: #2EAA68;
 	}
 
 	& .button {
@@ -98,10 +110,11 @@
 			}
 		}
 	}
-	ul {
+	nav {
 		text-align: center;
 		margin-top: 2%
 	}
+
 	li { 
 		display: inline-block;
 		padding: 20px 0 20px;
