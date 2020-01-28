@@ -14,6 +14,10 @@ from django.http import JsonResponse
 from datetime import datetime, date
 from django.views.generic import TemplateView
 from django.http import Http404
+from utils.format_text import format_proposal_title
+from apps.notifications.emails import (
+    send_feedback_authorization_owner_document,
+    send_feedback_authorization_management)
 
 
 @login_required(login_url='/')
@@ -82,11 +86,7 @@ class PublicUnauthorizationView(RedirectView):
             notification = Notification()
             notification.user = document.owner
 
-            if document.document_type and document.year and document.number:
-                proposal_title = "%s %s/%s" % (document.document_type.initials,
-                                               document.year, document.number)
-            else:
-                proposal_title = document.title
+            proposal_title = format_proposal_title(document)
 
             notification.message = message.format(
                 authorization.congressman.name.title(), proposal_title)
@@ -127,29 +127,28 @@ class FeedbackAuthorizationView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         authorization = get_object_or_404(FeedbackAuthorization,
                                           hash_id=kwargs['hash'])
+        document = authorization.group.document
+
         public_group = authorization.group
         public_group.final_version = authorization.version
         public_group.save()
 
-        document = public_group.document
-
-        video = DocumentVideo()
-        video.document = document
-        video.video_id = public_group.video_id
+        video = DocumentVideo(document=document,
+                              video_id=authorization.video_id)
         video.save()
 
         notification = Notification()
         notification.user = document.owner
-        if document.document_type and document.year and document.number:
-            proposal_title = "%s %s/%s" % (document.document_type.initials,
-                                           document.year, document.number)
-        else:
-            proposal_title = document.title
+        proposal_title = format_proposal_title(document)
+
         message = '{} aceitou seu pedido para versão final da \
                 proposição {}.'
         notification.message = message.format(
-            authorization.congressman.name.title(), proposal_title)
+            document.responsible.name.title(), proposal_title)
         notification.save()
+
+        send_feedback_authorization_owner_document(authorization)
+        send_feedback_authorization_management(authorization)
 
         return reverse('project',
                        kwargs={'id': public_group.id,
@@ -165,15 +164,13 @@ class FeedbackUnauthorizationView(RedirectView):
         document = authorization.group.document
         notification = Notification()
         notification.user = document.owner
-        if document.document_type and document.year and document.number:
-            proposal_title = "%s %s/%s" % (document.document_type.initials,
-                                           document.year, document.number)
-        else:
-            proposal_title = document.title
+
+        proposal_title = format_proposal_title(document)
+
         message = '{} não aceitou seu pedido para versão final da \
                 proposição {}.'
         notification.message = message.format(
-            authorization.congressman.name.title(), proposal_title)
+            document.responsible.name.title(), proposal_title)
 
         notification.save()
 
@@ -193,7 +190,7 @@ class FeedbackInformationView(TemplateView):
         authorization = get_object_or_404(FeedbackAuthorization,
                                           hash_id=kwargs['hash'])
 
-        context['hash_id'] = authorization.hash_id
+        context['hash_id'] = kwargs['hash']
         context['site_url'] = site_url
         context['document'] = authorization.group.document
         context['closing_date'] = authorization.group.closing_date
