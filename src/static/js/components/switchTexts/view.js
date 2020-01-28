@@ -20,26 +20,26 @@ SwitchTexts.prototype.alternateTexts = function (obj) { // eslint-disable-line n
     $('#diff').css('display', 'none');
     $('#final').css('display', 'none');
     $('#original').css('display', 'block');
-    document.getElementById("diffItem").classList.remove("initialStyle");
+    document.getElementById('diffItem').classList.remove('initialStyle');
   });
   this.diferencas.on('click', function (obj) {
     $('.diff .texto').html(obj.diffText);
     $('#original').css('display', 'none');
     $('#final').css('display', 'none');
     $('#diff').css('display', 'block');
-    document.getElementById("diffItem").classList.remove("initialStyle");
+    document.getElementById('diffItem').classList.remove('initialStyle');
   });
   this.final.on('click', function (obj) {
     $('.diff .texto').text(obj.finalText);
     $('#diff').css('display', 'none');
     $('#original').css('display', 'none');
     $('#final').css('display', 'block');
-    document.getElementById("diffItem").classList.remove("initialStyle");
+    document.getElementById('diffItem').classList.remove('initialStyle');
   });
   $(document).ready(function (obj) {
     $('.diff .texto').html(obj.diffText);
     $('#diff').css('display', 'block');
-    document.getElementById("diffItem").classList.add("initialStyle");
+    document.getElementById('diffItem').classList.add('initialStyle');
 
   });
 };
