@@ -3,6 +3,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.sites.models import Site
+from utils.format_text import format_proposal_title
 
 
 def get_site_domain():
@@ -86,17 +87,55 @@ def send_public_authorization(public_authorization, updated=False):
     mail_request.send()
 
 
-def send_feedback_authorization(feedback_authorization):
+def send_feedback_authorization_congressman(feedback_authorization):
+    group_authorization = feedback_authorization.group
     html_authorization = render_to_string(
         'emails/feedback_authorization.html',
-        {'document': feedback_authorization.group.document,
+        {'document': group_authorization.document,
          'hash_id': feedback_authorization.hash_id,
          'site_url': get_site_domain()})
     subject_authorization = _('[Wikilegis] Feedback authorization request')
-    public_authorization = feedback_authorization.group.authorization_emails.first()  # noqa
+    public_authorization = group_authorization.authorization_emails.first()
     mail_authorization = EmailMultiAlternatives(
         subject_authorization, '', settings.EMAIL_HOST_USER,
         [public_authorization.congressman.email])
+    mail_authorization.attach_alternative(html_authorization, 'text/html')
+    mail_authorization.send()
+
+
+def send_feedback_authorization_owner_document(feedback_authorization):
+    document = feedback_authorization.group.document
+    proposal_title = format_proposal_title(document)
+
+    html_authorization = render_to_string(
+        'emails/feedback_authorization_owner.html',
+        {'site_url': get_site_domain(),
+         'hash_id': feedback_authorization.hash_id,
+         'proposal_title': proposal_title})
+    subject_authorization = _('[Wikilegis] Congressman accepted feedback')
+    email_owner = document.owner.email
+    mail_authorization = EmailMultiAlternatives(
+        subject_authorization, '', settings.EMAIL_HOST_USER,
+        [email_owner])
+    mail_authorization.attach_alternative(html_authorization, 'text/html')
+    mail_authorization.send()
+
+
+def send_feedback_authorization_management(feedback_authorization):
+    import ipdb
+    ipdb.set_trace()
+    document = feedback_authorization.group.document
+    proposal_title = format_proposal_title(document)
+
+    html_authorization = render_to_string(
+        'emails/feedback_authorization_management.html',
+        {'site_url': get_site_domain(),
+         'hash_id': feedback_authorization.hash_id,
+         'proposal_title': proposal_title})
+    subject_authorization = _('[Wikilegis] Congressman accepted feedback')
+    mail_authorization = EmailMultiAlternatives(
+        subject_authorization, '', settings.EMAIL_HOST_USER,
+        [settings.EMAIL_HOST_USER])
     mail_authorization.attach_alternative(html_authorization, 'text/html')
     mail_authorization.send()
 
