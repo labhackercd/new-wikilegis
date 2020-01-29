@@ -105,13 +105,9 @@ def send_feedback_authorization_congressman(feedback_authorization):
 
 def send_feedback_authorization_owner_document(feedback_authorization):
     document = feedback_authorization.group.document
-    proposal_title = format_proposal_title(document)
 
     html_authorization = render_to_string(
-        'emails/feedback_authorization_owner.html',
-        {'site_url': get_site_domain(),
-         'hash_id': feedback_authorization.hash_id,
-         'proposal_title': proposal_title})
+        'emails/feedback_authorization_owner.html')
     subject_authorization = _('[Wikilegis] Congressman accepted feedback')
     email_owner = document.owner.email
     mail_authorization = EmailMultiAlternatives(
@@ -122,16 +118,11 @@ def send_feedback_authorization_owner_document(feedback_authorization):
 
 
 def send_feedback_authorization_management(feedback_authorization):
-    import ipdb
-    ipdb.set_trace()
-    document = feedback_authorization.group.document
-    proposal_title = format_proposal_title(document)
-
     html_authorization = render_to_string(
         'emails/feedback_authorization_management.html',
         {'site_url': get_site_domain(),
          'hash_id': feedback_authorization.hash_id,
-         'proposal_title': proposal_title})
+         'video_id': feedback_authorization.video_id})
     subject_authorization = _('[Wikilegis] Congressman accepted feedback')
     mail_authorization = EmailMultiAlternatives(
         subject_authorization, '', settings.EMAIL_HOST_USER,
