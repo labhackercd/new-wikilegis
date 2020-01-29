@@ -103,7 +103,7 @@
 		&--no {
 			@extend .button;
 			background-color: $no-button-color;
-			margin-left: 2%;
+			margin-left: 10%;
 			margin-right: 1%;
 			&:hover {
 				background-color: $no-button-color - 20%;
