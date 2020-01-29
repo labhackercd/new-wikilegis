@@ -5,84 +5,84 @@
 {% block content %}
 <main class="diff">
   <h1 class="title"> Diferença entre textos </h1>
+  <nav>
+    <li class="menu original"><a href="#">ORIGINAL</a></li>
+    <li class="menu diferencas"><a id="diffItem" href="#">DIFERENÇAS</a></li>
+    <li class="menu final"><a href="#">FINAL</a></li>
     <nav>
-      <li class="menu original"><a href="#">ORIGINAL</a></li>
-      <li class="menu diferencas"><a id="diffItem" href="#">DIFERENÇAS</a></li>
-      <li class="menu final"><a href="#">FINAL</a></li>
-    <nav>
 
-  <div class="texto" id="diff">
-    {% autoescape on %}
-    {% for word in diff_text %}
+      <div class="texto" id="diff">
+        {% autoescape on %}
+        {% for word in diff_text %}
 
-    {% if word.0 == -1 %}
-    <span class="deleted">
-      {{word.1|safe}}
-    </span>
+        {% if word.0 == -1 %}
+        <span class="deleted">
+          {{word.1|safe}}
+        </span>
 
-    {% elif word.0 == 1 %}
-    <span class="added">
-      {{word.1|safe}}
-    </span>
+        {% elif word.0 == 1 %}
+        <span class="added">
+          {{word.1|safe}}
+        </span>
 
-    {% else %}
-    {{word.1|safe}}
-    {% endif %}
+        {% else %}
+        {{word.1|safe}}
+        {% endif %}
 
-    {% endfor %}
-    {% endautoescape %}
-  </div>
+        {% endfor %}
+        {% endautoescape %}
+      </div>
 
-  <div class="texto" id="original">
-    {% autoescape on %}
-    {% for word in diff_text %}
+      <div class="texto" id="original">
+        {% autoescape on %}
+        {% for word in diff_text %}
 
-    {% if word.0 == -1 %}
-    {{word.1|safe}}
+        {% if word.0 == -1 %}
+        <span class="deleted">
+          {{word.1|safe}}
+        </span>
+        {% elif word.0 == 0 %}
+        {{word.1|safe}}
+        {% endif %}
 
-    {% elif word.0 == 0 %}
-    {{word.1|safe}}
+        {% endfor %}
+        {% endautoescape %}
+      </div>
 
-    {% endif %}
+      <div class="texto" id="final">
+        {% autoescape on %}
+        {% for word in diff_text %}
 
-    {% endfor %}
-    {% endautoescape %}
-  </div>
+        {% if word.0 == 1 %}
+        <span class="added">
+          {{word.1|safe}}
+        </span>
+        {% elif word.0 == 0 %}
+        {{word.1|safe}}
+        {% endif %}
 
-  <div class="texto" id="final">
-    {% autoescape on %}
-    {% for word in diff_text %}
+        {% endfor %}
+        {% endautoescape %}
+      </div>
 
-    {% if word.0 == 1 %}
-    {{word.1|safe}}
+      {% if is_congressman %}
+      <div class="congressman-question">
+        Esta é a diferença entre os textos, você concorda?
+      </div>
+      <div class="button">
+        <a href="http://{{ site_url }}{% url 'feedback_authorization' hash_id %}">
+          <div class="button--yes">
+            SIM
+          </div>
+        </a>
+        <a href="http://{{ site_url }}{% url 'feedback_unauthorization' hash_id %}">
+          <div class="button--no">
+            NÃO
+          </div>
+        </a>
 
-    {% elif word.0 == 0 %}
-    {{word.1|safe}}
-
-    {% endif %}
-
-    {% endfor %}
-    {% endautoescape %}
-  </div>
-
-{% if is_congressman %}
-<div class="congressman-question">
-Esta é a diferença entre os textos, você concorda?
-</div>
-    <div class="button">
-      <a href="http://{{ site_url  }}">       
-        <div class="button--yes">
-          SIM
-        </div>
-     </a>
-     <a href="http://{{ site_url  }}">       
-        <div class="button--no">
-          NÃO
-        </div>
-      </a>
-
-  </div>
-{% endif %}
+      </div>
+      {% endif %}
 </main>
 {% endblock content %}
 
