@@ -1,5 +1,5 @@
 /*global NavBurgerView NavBarView SearchInputView BackgroundParticle
-AnimateScrollView HowtoButtonView AppOnboardingView */
+AnimateScrollView HowtoButtonView AppOnboardingView InfoMessageView*/
 
 var navBurgerView = new NavBurgerView();
 navBurgerView.initEvents();
@@ -21,3 +21,6 @@ appOnboardingView.initEvents('home');
 
 var howtoButton = new HowtoButtonView();
 howtoButton.initEvents();
+
+var infoMessageView = new InfoMessageView();
+infoMessageView.initEvents();
