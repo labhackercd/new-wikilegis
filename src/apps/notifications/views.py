@@ -6,6 +6,7 @@ from apps.projects.models import Document, DocumentVideo
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.messages import success
 from django.views.generic import RedirectView
 from django.shortcuts import get_object_or_404, reverse
 from utils.decorators import require_ajax
@@ -125,16 +126,17 @@ class FeedbackAuthorizationView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
-        authorization = get_object_or_404(FeedbackAuthorization,
-                                          hash_id=kwargs['hash'])
-        document = authorization.group.document
+        feedback_authorization = get_object_or_404(FeedbackAuthorization,
+                                                   hash_id=kwargs['hash'])
+        document = feedback_authorization.group.document
 
-        public_group = authorization.group
-        public_group.final_version = authorization.version
+        public_group = feedback_authorization.group
+        public_group.final_version = feedback_authorization.version
+        public_group.group_status = 'analyzing'
         public_group.save()
 
         video = DocumentVideo(document=document,
-                              video_id=authorization.video_id)
+                              video_id=feedback_authorization.video_id)
         video.save()
 
         notification = Notification()
@@ -147,12 +149,12 @@ class FeedbackAuthorizationView(RedirectView):
             document.responsible.name.title(), proposal_title)
         notification.save()
 
-        send_feedback_authorization_owner_document(authorization)
-        send_feedback_authorization_management(authorization)
+        send_feedback_authorization_owner_document(feedback_authorization)
+        send_feedback_authorization_management(feedback_authorization)
+        success(self.request, _('''The system management will audit the video
+                                and document information. Wait please!'''))
 
-        return reverse('project',
-                       kwargs={'id': public_group.id,
-                               'documment_slug': public_group.document.slug})
+        return reverse('home')
 
 
 class FeedbackUnauthorizationView(RedirectView):

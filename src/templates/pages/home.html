@@ -16,10 +16,9 @@
 </header>
 
 <main class="projects-list" id="js-projects-list">
-  <div>
-    oi
-  </div>
-  {% include "components/info-message.html" with message='message' %}
+  {% for message in messages %}
+  {% include "components/info-message.html" with message=message %}
+  {% endfor %}
   <div class="header">
     <h1>Propostas legislativas</h1>
     
