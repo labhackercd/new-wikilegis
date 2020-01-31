@@ -4,9 +4,7 @@ from apps.notifications.models import (ParcipantInvitation,
                                        FeedbackAuthorization)
 from apps.projects.models import Document, DocumentVideo
 from django.contrib.sites.models import Site
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.messages import success
 from django.views.generic import RedirectView
 from django.shortcuts import get_object_or_404, reverse
 from utils.decorators import require_ajax
@@ -19,20 +17,35 @@ from utils.format_text import format_proposal_title
 from apps.notifications.emails import (
     send_feedback_authorization_owner_document,
     send_feedback_authorization_management)
+from django.contrib import messages
 
 
-@login_required(login_url='/')
-def authorization(request, hash):
-    participant_invitation = ParcipantInvitation.objects.get(hash_id=hash)
-    if request.user.email == participant_invitation.email:
-        participant_invitation.accepted = True
-        participant_invitation.save()
-        user = User.objects.get(email=participant_invitation.email)
-        for theme in participant_invitation.group.document.themes.all():
-            user.profile.themes.add(theme)
-        return reverse('home')
-    else:
-        raise PermissionDenied
+class ParcipantInvitationView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        participant_invitation = get_object_or_404(ParcipantInvitation,
+                                                   hash_id=kwargs['hash'])
+        if self.request.user.is_authenticated:
+            if self.request.user.email == participant_invitation.email:
+                participant_invitation.accepted = True
+                participant_invitation.save()
+                group = participant_invitation.group
+                user = User.objects.get(email=participant_invitation.email)
+                for theme in group.document.themes.all():
+                    user.profile.themes.add(theme)
+
+                return reverse('project',
+                               kwargs={'id': group.id,
+                                       'documment_slug': group.document.slug})
+            else:
+                messages.warning(self.request, _(
+                    'You must be logged with same user received email.'))
+                return reverse('home')
+        else:
+            messages.warning(self.request, _(
+                'You must be logged to accept email invitation.'))
+            return reverse('home')
 
 
 class PublicAuthorizationView(RedirectView):
@@ -151,8 +164,9 @@ class FeedbackAuthorizationView(RedirectView):
 
         send_feedback_authorization_owner_document(feedback_authorization)
         send_feedback_authorization_management(feedback_authorization)
-        success(self.request, _('''The system management will audit the video
-                                and document information. Wait please!'''))
+        messages.success(self.request, _(
+            '''The system management will audit the video
+             and document information. Wait please!'''))
 
         return reverse('home')
 
