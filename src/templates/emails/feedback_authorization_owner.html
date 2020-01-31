@@ -1,0 +1,19 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+  Autorização de feedback
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+  <tr class="center">
+    Devolutiva autorizada!
+  </tr>
+  <tr class="center">
+    O Deputado analisou a versão do documento selecionada por você e validou as diferenças entre ela e a versão original, inicialmente disponibilizada para consulta pública. Diante da autorização do parlamentar, agora a equipe técnica revisará todos os detalhes antes da publicação final da devolutiva.
+  </tr>
+{% endblock content %}

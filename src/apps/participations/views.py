@@ -24,8 +24,8 @@ from django.utils.decorators import method_decorator
 from utils.decorators import owner_required
 from django.contrib.auth.decorators import login_required
 from constance import config
-from apps.notifications.emails import (
-    send_remove_participant, send_feedback_authorization)
+from apps.notifications.emails import (send_remove_participant,
+                                       send_feedback_authorization_congressman)
 from utils.filters import get_id_video
 import requests
 import csv
@@ -567,12 +567,11 @@ def set_final_version(request, group_id):
                 status=400
             )
         else:
-            authorization = FeedbackAuthorization()
-            authorization.version = final_version
-            authorization.group = group
-            authorization.video_id = video_id
-            authorization.save()
-            send_feedback_authorization(authorization)
+            feedback_authorization = FeedbackAuthorization(
+                version=final_version, group=group, video_id=video_id)
+            feedback_authorization.save()
+
+            send_feedback_authorization_congressman(feedback_authorization)
             return JsonResponse({'message': _('Request sent!')})
     else:
         return JsonResponse(

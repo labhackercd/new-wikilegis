@@ -13,6 +13,7 @@ from django.urls import reverse
 from apps.notifications.models import Notification, FeedbackAuthorization
 from django.contrib.auth.models import User
 import diff_match_patch as dmp_module
+from apps.projects.templatetags.projects_tags import excerpt_numbering
 
 
 class InvitationRedirectView(RedirectView):
@@ -161,6 +162,7 @@ class DocumentDiffTemplateView(TemplateView):
         context['diff_text'] = diff_text
         context['group'] = feedback_authorization.group
         context['is_congressman'] = True
+        context['hash_id'] = hash_id
 
         return context
 
@@ -192,12 +194,11 @@ class DocumentDiffTemplateView(TemplateView):
     def fortmat_text(self, list_excerpt):
         text = ''
         for excerpt in list_excerpt:
-            excerpt_apresentation = (excerpt.excerpt_type.name +
-                                     '-' + str(excerpt.number))
+            excerpt_apresentation = excerpt_numbering(excerpt)
 
             if excerpt.excerpt_type.align_center:
                 excerpt_apresentation = excerpt_apresentation + '<br>'
+            text = (excerpt_apresentation +
+                    excerpt.content + '<br><br><br>' + text)
 
-            text = (excerpt.excerpt_type.name + ' - ' + str(excerpt.number) +
-                    ' ' + excerpt.content + '<br><br><br>' + text)
         return text

@@ -12,11 +12,16 @@
   </div>
 
   <div class="canvas-wrapper" id="headerParticles"></div>
+            
 </header>
 
 <main class="projects-list" id="js-projects-list">
+  {% for message in messages %}
+  {% include "components/info-message.html" with message=message %}
+  {% endfor %}
   <div class="header">
     <h1>Propostas legislativas</h1>
+    
     <div class="tabs">
       <div class="tab -active">Participação Popular</div>
       <div class="tab">Abertos</div>
@@ -273,5 +278,10 @@
   <script src="{% static 'js/components/animateScroll/view.js' %}"></script>
   <script src="{% static 'js/components/howtoButton/view.js' %}"></script>
   <script src="{% static 'js/components/appOnboarding/view.js' %}"></script>
+  <script src="{% static 'js/components/infoMessage/view.js' %}"></script>
+
   <script src="{% static 'js/pages/home.js' %}"></script>
+
+
+
 {% endblock page_js %}

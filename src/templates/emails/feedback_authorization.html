@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}
-  Alterar Data de Encerramento
+  Autorização de feedback
 {% endblock title %}
 
 {% block img %}
@@ -25,8 +25,8 @@
   <tr class="center">
     O sistema notificará automaticamente os usuários quando esses conteúdos forem disponibilizados, assim como, no caso de não disponibilização, os manterá informados do tempo decorrido desde o encerramento da consulta pública, enquanto o resultado final não for enviado.
   </tr>
-  {% block button %}
-    <a href="http://{{ site_url }}{% url 'feedback_information' hash_id %}">ACESSAR O WIKILEGIS</a>
-  {% endblock button %}
 {% endblock content %}
 
+{% block button %}
+    <a href="http://{{ site_url }}{% url 'diff_version' hash_id %}">ACESSAR O WIKILEGIS</a>
+{% endblock button %}
