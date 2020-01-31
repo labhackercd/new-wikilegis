@@ -3,7 +3,6 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.sites.models import Site
-from utils.format_text import format_proposal_title
 
 
 def get_site_domain():

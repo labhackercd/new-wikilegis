@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-26 17:07-0200\n"
+"POT-Creation-Date: 2020-01-31 09:10-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,35 +93,39 @@ msgstr "Documento salvo com sucesso."
 msgid "Notifications"
 msgstr "Notificações"
 
-#: apps/notifications/emails.py:15
+#: apps/notifications/emails.py:20
 msgid "[Wikilegis] Edit group invitation"
 msgstr "[Wikilegis] Convite de edição de projeto"
 
-#: apps/notifications/emails.py:27
+#: apps/notifications/emails.py:31
 msgid "[Wikilegis] Document owner invitation"
 msgstr "[Wikilegis] Convite para consultor"
 
-#: apps/notifications/emails.py:40
+#: apps/notifications/emails.py:43
 msgid "[Wikilegis] Participant removed"
 msgstr "[Wikilegis] Participante removido"
 
-#: apps/notifications/emails.py:62
+#: apps/notifications/emails.py:64
 msgid "[Wikilegis] Authorization request"
 msgstr "[Wikilegis] Solicitação de autorização"
 
-#: apps/notifications/emails.py:79
+#: apps/notifications/emails.py:82
 msgid "[Wikilegis] Public participation request"
 msgstr "[Wikilegis] Solicitação de participação pública"
 
-#: apps/notifications/emails.py:94
+#: apps/notifications/emails.py:97
 msgid "[Wikilegis] Feedback authorization request"
 msgstr "[Wikilegis] Solicitação de autorização de resposta"
 
-#: apps/notifications/emails.py:107
+#: apps/notifications/emails.py:111 apps/notifications/emails.py:126
+msgid "[Wikilegis] Congressman accepted feedback"
+msgstr "[Wikilegis] Aceitação de feedback pelo deputado"
+
+#: apps/notifications/emails.py:139
 msgid "[Wikilegis] Closed public participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
-#: apps/notifications/emails.py:123
+#: apps/notifications/emails.py:154
 msgid "[Wikilegis] Finish pulic participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
@@ -187,11 +191,17 @@ msgstr "Notificações"
 msgid "notifications"
 msgstr "Notificações"
 
-#: apps/notifications/tasks.py:83
+#: apps/notifications/tasks.py:77
 msgid " Group {} participants wereinformed by email"
-msgstr ""
+msgstr "O grupo {} de participantes foi informado por email"
 
-#: apps/notifications/views.py:211
+#: apps/notifications/views.py:154
+msgid ""
+"The system management will audit the video\n"
+"                                and document information. Wait please!"
+msgstr " O orgão gestor irá auditar o vídeo e o documento do feedback. Aguarde por favor!"
+
+#: apps/notifications/views.py:210
 msgid "Notifications read!"
 msgstr "Notificações lidas!"
 
@@ -308,7 +318,7 @@ msgid "Closing date is required!"
 msgstr "O campo data de encerramento é obrigatório"
 
 #: apps/participations/views.py:444 apps/participations/views.py:491
-#: apps/participations/views.py:576
+#: apps/participations/views.py:575
 msgid "Request sent!"
 msgstr "Solicitação enviada!"
 
@@ -330,39 +340,39 @@ msgstr "Os campos Deputado e data de encerramento são obrigatórios"
 msgid "Final version must be diferent the initial version!"
 msgstr ""
 
-#: apps/participations/views.py:579
+#: apps/participations/views.py:578
 msgid "Version and Video link are required!"
 msgstr "Os campos versão e link do youtube são obrigatórios"
 
-#: apps/participations/views.py:635
+#: apps/participations/views.py:634
 msgid "Excerpt"
 msgstr "trecho"
 
-#: apps/participations/views.py:635
+#: apps/participations/views.py:634
 msgid "Selected Text"
 msgstr "texto selecionado"
 
-#: apps/participations/views.py:635
+#: apps/participations/views.py:634
 msgid "Suggestion"
 msgstr "sugestão"
 
-#: apps/participations/views.py:636
+#: apps/participations/views.py:635
 msgid "Approve Votes"
 msgstr "Votos a favor"
 
-#: apps/participations/views.py:636
+#: apps/participations/views.py:635
 msgid "Reject Votes"
 msgstr "Votos contra"
 
-#: apps/participations/views.py:636
+#: apps/participations/views.py:635
 msgid "Neutral Votes"
 msgstr "Votos neutros"
 
-#: apps/participations/views.py:637
+#: apps/participations/views.py:636
 msgid "Total Votes"
 msgstr "Total de votos"
 
-#: apps/participations/views.py:637
+#: apps/participations/views.py:636
 msgid "Autor"
 msgstr "Autor"
 
@@ -565,7 +575,7 @@ msgstr "trechos"
 msgid "Sole paragraph"
 msgstr "Parágrafo único"
 
-#: apps/projects/views.py:141
+#: apps/projects/views.py:143
 msgid "Version not found! We loaded the last version for you :)"
 msgstr "Versão não encontrada! Nós carregamos a última versão para você :)"
 
