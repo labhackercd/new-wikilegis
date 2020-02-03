@@ -141,34 +141,40 @@ class FeedbackAuthorizationView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         feedback_authorization = get_object_or_404(FeedbackAuthorization,
                                                    hash_id=kwargs['hash'])
-        document = feedback_authorization.group.document
 
-        public_group = feedback_authorization.group
-        public_group.final_version = feedback_authorization.version
-        public_group.group_status = 'analyzing'
-        public_group.save()
+        if feedback_authorization.group.group_status == 'waiting_feedback':
+            document = feedback_authorization.group.document
 
-        video = DocumentVideo(document=document,
-                              video_id=feedback_authorization.video_id)
-        video.save()
+            public_group = feedback_authorization.group
+            public_group.final_version = feedback_authorization.version
+            public_group.group_status = 'analyzing'
+            public_group.save()
 
-        notification = Notification()
-        notification.user = document.owner
-        proposal_title = format_proposal_title(document)
+            video = DocumentVideo(document=document,
+                                  video_id=feedback_authorization.video_id,
+                                  title=_('Vídeo feedback'))
+            video.save()
 
-        message = '{} aceitou seu pedido para versão final da \
-                proposição {}.'
-        notification.message = message.format(
-            document.responsible.name.title(), proposal_title)
-        notification.save()
+            notification = Notification()
+            notification.user = document.owner
+            proposal_title = format_proposal_title(document)
 
-        send_feedback_authorization_owner_document(feedback_authorization)
-        send_feedback_authorization_management(feedback_authorization)
-        messages.success(self.request, _(
-            '''The system management will audit the video
-             and document information. Wait please!'''))
+            message = '{} aceitou seu pedido para versão final da \
+                    proposição {}.'
+            notification.message = message.format(
+                document.responsible.name.title(), proposal_title)
+            notification.save()
 
-        return reverse('home')
+            send_feedback_authorization_owner_document(feedback_authorization)
+            send_feedback_authorization_management(feedback_authorization)
+            messages.success(self.request, _(
+                '''The system management will audit the video
+                and document information. Wait please!'''))
+
+            return reverse('home')
+
+        else:
+            raise Http404
 
 
 class FeedbackUnauthorizationView(RedirectView):
@@ -177,22 +183,29 @@ class FeedbackUnauthorizationView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         feedback_authorization = get_object_or_404(FeedbackAuthorization,
                                                    hash_id=kwargs['hash'])
-        document = feedback_authorization.group.document
-        notification = Notification()
-        notification.user = document.owner
+        if feedback_authorization.group.group_status == 'waiting_feedback':
+            document = feedback_authorization.group.document
+            notification = Notification()
+            notification.user = document.owner
 
-        proposal_title = format_proposal_title(document)
-        feedback_authorization.delete()
+            proposal_title = format_proposal_title(document)
 
-        message = '{} não aceitou seu pedido para versão final da \
-                proposição {}.'
-        notification.message = message.format(
-            document.responsible.name.title(), proposal_title)
+            feedback_authorization.delete()
 
-        notification.save()
-        send_feedback_unauthorization_owner_document(feedback_authorization)
+            message = '{} não aceitou seu pedido para versão final da \
+                    proposição {}.'
+            notification.message = message.format(
+                document.responsible.name.title(), proposal_title)
 
-        return reverse('home')
+            notification.save()
+            send_feedback_unauthorization_owner_document(
+                feedback_authorization)
+            messages.info(self.request, _('The feedback was rejected!'))
+
+            return reverse('home')
+
+        else:
+            raise Http404
 
 
 class FeedbackInformationView(TemplateView):
