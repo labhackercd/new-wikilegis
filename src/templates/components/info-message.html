@@ -1,4 +1,5 @@
 <div class="info-message -success js-infoMessage">
+  {% if message.tags == 'success' %}
   <div class="message">
     <span class="icon js-emoji">😀</span>
     <span class="text">{{ message }}</span>
@@ -6,4 +7,15 @@
   <div class="actions js-actions">
     <a href="#" class="action js-closeMessage">Fechar</a>
   </div>
+  {% elif message.tags == 'warning' %}
+  <div class="message">
+    <span class="icon js-emoji">☹️</span>
+    <span class="text">{{ message }}</span>
+  </div>
+  <div class="actions js-actions">
+    <a href="#" class="action js-loginButton">Entrar
+    </a>
+  </div>
+  <div class="progress js-progress"></div>
+  {% endif %}
 </div>

@@ -112,6 +112,12 @@ var events = {
   // Triggered when user click on infoButton
   openInfoModal: $.Topic('openInfoModal'),
 
+  // Triggered on infoMessage mouseover
+  pauseInfoMessageProgress: $.Topic('pauseInfoMessageProgress'),
+
+  // Triggered on infoMessage mouseleave
+  resumeInfoMessageProgress: $.Topic('resumeInfoMessageProgress'),
+
   // Triggered on highlight mouseenter
   // Params: parentNode, activeId
   openHighlightTooltip: $.Topic('openHighlightTooltip'),

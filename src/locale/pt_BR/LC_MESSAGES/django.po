@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 09:10-0300\n"
+"POT-Creation-Date: 2020-01-31 17:10-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,39 +93,39 @@ msgstr "Documento salvo com sucesso."
 msgid "Notifications"
 msgstr "Notificações"
 
-#: apps/notifications/emails.py:20
+#: apps/notifications/emails.py:19
 msgid "[Wikilegis] Edit group invitation"
 msgstr "[Wikilegis] Convite de edição de projeto"
 
-#: apps/notifications/emails.py:31
+#: apps/notifications/emails.py:30
 msgid "[Wikilegis] Document owner invitation"
 msgstr "[Wikilegis] Convite para consultor"
 
-#: apps/notifications/emails.py:43
+#: apps/notifications/emails.py:42
 msgid "[Wikilegis] Participant removed"
 msgstr "[Wikilegis] Participante removido"
 
-#: apps/notifications/emails.py:64
+#: apps/notifications/emails.py:63
 msgid "[Wikilegis] Authorization request"
 msgstr "[Wikilegis] Solicitação de autorização"
 
-#: apps/notifications/emails.py:82
+#: apps/notifications/emails.py:81
 msgid "[Wikilegis] Public participation request"
 msgstr "[Wikilegis] Solicitação de participação pública"
 
-#: apps/notifications/emails.py:97
+#: apps/notifications/emails.py:96
 msgid "[Wikilegis] Feedback authorization request"
 msgstr "[Wikilegis] Solicitação de autorização de resposta"
 
-#: apps/notifications/emails.py:111 apps/notifications/emails.py:126
+#: apps/notifications/emails.py:110 apps/notifications/emails.py:125
 msgid "[Wikilegis] Congressman accepted feedback"
 msgstr "[Wikilegis] Aceitação de feedback pelo deputado"
 
-#: apps/notifications/emails.py:139
+#: apps/notifications/emails.py:138
 msgid "[Wikilegis] Closed public participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
-#: apps/notifications/emails.py:154
+#: apps/notifications/emails.py:153
 msgid "[Wikilegis] Finish pulic participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
@@ -195,13 +195,23 @@ msgstr "Notificações"
 msgid " Group {} participants wereinformed by email"
 msgstr "O grupo {} de participantes foi informado por email"
 
-#: apps/notifications/views.py:154
+#: apps/notifications/views.py:43
+msgid "You must be logged with same user received email."
+msgstr "Você deve estar logado com o usuário que recebeu o email."
+
+#: apps/notifications/views.py:47
+msgid "You must be logged to accept email invitation."
+msgstr "Você deve estar logado para aceitar o convite de participação."
+
+#: apps/notifications/views.py:168
 msgid ""
 "The system management will audit the video\n"
-"                                and document information. Wait please!"
-msgstr " O orgão gestor irá auditar o vídeo e o documento do feedback. Aguarde por favor!"
+"             and document information. Wait please!"
+msgstr ""
+" O orgão gestor irá auditar o vídeo e o documento do feedback. Aguarde por "
+"favor!"
 
-#: apps/notifications/views.py:210
+#: apps/notifications/views.py:224
 msgid "Notifications read!"
 msgstr "Notificações lidas!"
 
@@ -338,7 +348,7 @@ msgstr "Os campos Deputado e data de encerramento são obrigatórios"
 
 #: apps/participations/views.py:566
 msgid "Final version must be diferent the initial version!"
-msgstr ""
+msgstr "A versão final deve ser diferente da versão inicial."
 
 #: apps/participations/views.py:578
 msgid "Version and Video link are required!"

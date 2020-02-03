@@ -6,7 +6,7 @@ urlpatterns = [
          views.InformationCongressmanView.as_view(),
          name="information_authorization"),
     path('authorization/<uuid:hash>/',
-         views.authorization,
+         views.ParcipantInvitationView.as_view(),
          name="authorization"),
     path('public-participation/authorization/<uuid:hash>/',
          views.PublicAuthorizationView.as_view(),
