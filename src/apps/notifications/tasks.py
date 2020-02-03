@@ -91,3 +91,5 @@ def notify_closed_participation():
         proposal_title = format_proposal_title(invited_group.document)
         closed_participation_notify(invited_group, proposal_title)
         send_owner_closed_participation(invited_group, proposal_title)
+        invited_group.group_status = 'waiting_feedback'
+        invited_group.save()
