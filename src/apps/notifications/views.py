@@ -15,7 +15,8 @@ from django.http import Http404
 from utils.format_text import format_proposal_title
 from apps.notifications.emails import (
     send_feedback_authorization_owner_document,
-    send_feedback_authorization_management)
+    send_feedback_authorization_management,
+    send_feedback_unauthorization_owner_document)
 from django.contrib import messages
 
 
@@ -174,13 +175,14 @@ class FeedbackUnauthorizationView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
-        authorization = get_object_or_404(FeedbackAuthorization,
-                                          hash_id=kwargs['hash'])
-        document = authorization.group.document
+        feedback_authorization = get_object_or_404(FeedbackAuthorization,
+                                                   hash_id=kwargs['hash'])
+        document = feedback_authorization.group.document
         notification = Notification()
         notification.user = document.owner
 
         proposal_title = format_proposal_title(document)
+        feedback_authorization.delete()
 
         message = '{} não aceitou seu pedido para versão final da \
                 proposição {}.'
@@ -188,10 +190,9 @@ class FeedbackUnauthorizationView(RedirectView):
             document.responsible.name.title(), proposal_title)
 
         notification.save()
+        send_feedback_unauthorization_owner_document(feedback_authorization)
 
-        return reverse('project',
-                       kwargs={'id': authorization.group.id,
-                               'documment_slug': document.slug})
+        return reverse('home')
 
 
 class FeedbackInformationView(TemplateView):
