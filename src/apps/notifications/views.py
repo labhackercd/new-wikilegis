@@ -1,4 +1,3 @@
-from django.core.exceptions import PermissionDenied
 from apps.notifications.models import (ParcipantInvitation,
                                        PublicAuthorization, Notification,
                                        FeedbackAuthorization)
