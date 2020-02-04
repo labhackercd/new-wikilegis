@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 17:10-0200\n"
+"POT-Creation-Date: 2020-02-04 11:10-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,15 +117,19 @@ msgstr "[Wikilegis] Solicitação de participação pública"
 msgid "[Wikilegis] Feedback authorization request"
 msgstr "[Wikilegis] Solicitação de autorização de resposta"
 
-#: apps/notifications/emails.py:110 apps/notifications/emails.py:125
+#: apps/notifications/emails.py:110 apps/notifications/emails.py:139
 msgid "[Wikilegis] Congressman accepted feedback"
 msgstr "[Wikilegis] Aceitação de feedback pelo deputado"
 
-#: apps/notifications/emails.py:138
+#: apps/notifications/emails.py:124
+msgid "[Wikilegis] Congressman refused feedback"
+msgstr "[Wikilegis] Recusa de feedback pelo deputado"
+
+#: apps/notifications/emails.py:152
 msgid "[Wikilegis] Closed public participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
-#: apps/notifications/emails.py:153
+#: apps/notifications/emails.py:167
 msgid "[Wikilegis] Finish pulic participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
@@ -203,15 +207,21 @@ msgstr "Você deve estar logado com o usuário que recebeu o email."
 msgid "You must be logged to accept email invitation."
 msgstr "Você deve estar logado para aceitar o convite de participação."
 
-#: apps/notifications/views.py:168
+#: apps/notifications/views.py:155
+msgid "Vídeo feedback"
+msgstr "Vídeo de feedback"
+
+#: apps/notifications/views.py:171
 msgid ""
 "The system management will audit the video\n"
-"             and document information. Wait please!"
-msgstr ""
-" O orgão gestor irá auditar o vídeo e o documento do feedback. Aguarde por "
-"favor!"
+"                and document information. Wait please!"
+msgstr " O órgão gestor irá auditar as informações do vídeo e do documento. Por favor, aguarde!"
 
-#: apps/notifications/views.py:224
+#: apps/notifications/views.py:203
+msgid "The feedback was rejected!"
+msgstr "O feedback foi rejeitado!"
+
+#: apps/notifications/views.py:237
 msgid "Notifications read!"
 msgstr "Notificações lidas!"
 
