@@ -17,5 +17,11 @@
     </a>
   </div>
   <div class="progress js-progress"></div>
+  {% elif message.tags == 'info' %}
+  <div class="message">
+    <span class="icon js-emoji">☹️</span>
+    <span class="text">{{ message }}</span>
+  </div>
+  <div class="progress js-progress"></div>
   {% endif %}
 </div>
