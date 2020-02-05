@@ -43,11 +43,15 @@ SuggestionInputView.prototype.subscribers = function() {
 SuggestionInputView.prototype.publishers = function() {
   var self = this;
   var inp = document.getElementById('inputSuggestionModal');
-
-  // If user try to select text inside the input field, it don't allow.
-  inp.addEventListener('select', function() {
-    this.selectionStart = this.selectionEnd;
-  }, false);
+ 
+  
+  if(inp){
+    // If user try to select text inside the input field, it don't allow.
+    inp.addEventListener('select', function() {
+      this.selectionStart = this.selectionEnd;
+    }, false);
+  
+  }
 
   $('.js-suggestionInput .js-close').on('click', function() {
     events.cancelTextSelection.publish();

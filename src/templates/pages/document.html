@@ -81,9 +81,15 @@
   <div class="info-button js-infoButton"></div>
 </main>
 
-{% include "components/suggestion-input.html" %}
+{% if object.closing_date|is_open %}
+    {% include "components/suggestion-input.html" %}
 
-{% include "components/opinion-modal.html" with suggestions=suggestions %}
+    {% include "components/opinion-modal.html" with suggestions=suggestions %}
+{% else %}
+
+{% endif %}
+
+
 
 {% include "components/info-modal.html" %}
 
