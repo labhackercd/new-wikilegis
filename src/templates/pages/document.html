@@ -26,7 +26,7 @@
 {% if request.user.profile.profile_type != 'owner' %}
 <div class="howto-button -navbar js-howtoButton" aria-label="Como participar?"></div>
 {% endif %}
-<main class="document-body js-documentBody" data-selection-enabled="{% if selection_enabled %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
+<main class="document-body js-documentBody -voidselection" data-selection-enabled="{% if selection_enabled %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
   <div class="wrapper">
     <div class="invisible"></div>
     <aside class="info-bar">
