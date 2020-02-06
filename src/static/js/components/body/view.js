@@ -15,23 +15,21 @@ BodyView.prototype.publishers = function() {
     var target = $(e.target);
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
-
-    console.log(target[0].id)
-
-    if(target[0].id ==="inputSuggestionModal"){
-      console.log("entrou")
+    //console.log(target[0].id)
+    if(target[0].id == "inputSuggestionModal"){
+      //console.log("entrou");
     }else{
-
+      //console.log("nao entrou");
       if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {      
         if (suggestionInput.length === 0 && opinionModal.length === 0) {
           var selectedText = window.getSelection().toString();
-          console.log("oi")
-          console.log(selectedText)
+          //console.log("oi")
+          //console.log(selectedText)
           if (selectedText === '' || selectedText === self.previousSelectedText) {
             events.cancelTextSelection.publish();
           }
           self.previousSelectedText = selectedText;
-          console.log( "here")
+          //console.log( "here")
         }
       }
     }
@@ -50,23 +48,40 @@ BodyView.prototype.publishers = function() {
     }
   });
 
+  //refactor this?
   $('body').on('mousedown', function(e) {
     if (!$(e.target).hasClass('js-documentExcerpt')) {
       self.startedClick = true;
-      if(e.target.id ==="inputSuggestionModal"){
+      if(e.target.id === "inputSuggestionModal"){
         //Nothing to do
-        console.log("dentro do if")
+        //console.log("dentro do if")
       }else{
         events.outsideDocumentMouseDown.publish();
       }
-
     }
   });
 
-  $('body').on('mouseup', function() {
+  $('body').on('mouseup', function(e) {
     if (self.startedClick) {
       self.startedClick = false;
       events.outsideDocumentMouseUp.publish();
+    }
+    if(!$(e.target).hasClass('js-documentExcerpt')) {
+      if(e.target.id === "inputSuggestionModal") {
+        let inputElement = document.getElementById('inputSuggestionModal');
+
+        inputElement.addEventListener('select', function() {
+          this.selectionStart = this.selectionEnd;
+        }, false); 
+
+        inputElement.addEventListener('touchend', function(e) {
+          e.preventDefault(); 
+        });
+
+        inputElement.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+        });
+      }
     }
   });
 };
