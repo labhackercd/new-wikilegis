@@ -17,6 +17,14 @@
   background-color: #FFF;
   box-shadow: 0 4px 6px 4px rgba(0, 0, 0, .1);
 
+
+  user-select: none;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  -webkit-touch-callout:none;
+  -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+
   @include bp-mediumup {
     bottom: 0;
     left: 0;
@@ -104,6 +112,13 @@
     margin-top: .5rem;
 
     border: 1px solid $color-grayish;
+
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    -webkit-touch-callout:none;
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
   }
 
   & > .content > .input > input {
@@ -111,6 +126,12 @@
     padding: .5rem;
 
     box-shadow: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    -webkit-touch-callout:none;
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
   }
 
   & > .content > .input > .send {

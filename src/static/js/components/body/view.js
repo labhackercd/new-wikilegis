@@ -16,15 +16,26 @@ BodyView.prototype.publishers = function() {
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
 
-    if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {
-      if (suggestionInput.length === 0 && opinionModal.length === 0) {
-        var selectedText = window.getSelection().toString();
-        if (selectedText === '' || selectedText === self.previousSelectedText) {
-          events.cancelTextSelection.publish();
+    console.log(target[0].id)
+
+    if(target[0].id ==="inputSuggestionModal"){
+      console.log("entrou")
+    }else{
+
+      if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {      
+        if (suggestionInput.length === 0 && opinionModal.length === 0) {
+          var selectedText = window.getSelection().toString();
+          console.log("oi")
+          console.log(selectedText)
+          if (selectedText === '' || selectedText === self.previousSelectedText) {
+            events.cancelTextSelection.publish();
+          }
+          self.previousSelectedText = selectedText;
+          console.log( "here")
         }
-        self.previousSelectedText = selectedText;
       }
     }
+
 
     if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
       events.closeModal.publish();
@@ -42,7 +53,13 @@ BodyView.prototype.publishers = function() {
   $('body').on('mousedown', function(e) {
     if (!$(e.target).hasClass('js-documentExcerpt')) {
       self.startedClick = true;
-      events.outsideDocumentMouseDown.publish();
+      if(e.target.id ==="inputSuggestionModal"){
+        //Nothing to do
+        console.log("dentro do if")
+      }else{
+        events.outsideDocumentMouseDown.publish();
+      }
+
     }
   });
 
