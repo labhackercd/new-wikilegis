@@ -16,7 +16,8 @@ from utils.format_text import format_proposal_title
 from apps.notifications.emails import (
     send_feedback_authorization_owner_document,
     send_feedback_authorization_management,
-    send_feedback_unauthorization_owner_document)
+    send_feedback_unauthorization_owner_document,
+    send_management_unauthorization)
 from django.contrib import messages
 
 
@@ -146,14 +147,8 @@ class FeedbackAuthorizationView(RedirectView):
             document = feedback_authorization.group.document
 
             public_group = feedback_authorization.group
-            public_group.final_version = feedback_authorization.version
             public_group.group_status = 'analyzing'
             public_group.save()
-
-            video = DocumentVideo(document=document,
-                                  video_id=feedback_authorization.video_id,
-                                  title=_('Vídeo feedback'))
-            video.save()
 
             notification = Notification()
             notification.user = document.owner
@@ -165,7 +160,6 @@ class FeedbackAuthorizationView(RedirectView):
                 document.responsible.name.title(), proposal_title)
             notification.save()
 
-            send_feedback_authorization_owner_document(feedback_authorization)
             send_feedback_authorization_management(feedback_authorization)
             messages.success(self.request, _(
                 '''The system management will audit the video
@@ -200,6 +194,74 @@ class FeedbackUnauthorizationView(RedirectView):
             notification.save()
             send_feedback_unauthorization_owner_document(
                 feedback_authorization)
+            messages.info(self.request, _('The feedback was rejected!'))
+
+            return reverse('home')
+
+        else:
+            raise Http404
+
+
+class FeedbackAuthorizationManagementView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        feedback_authorization = get_object_or_404(FeedbackAuthorization,
+                                                   hash_id=kwargs['hash'])
+
+        if feedback_authorization.group.group_status == 'analyzing':
+            document = feedback_authorization.group.document
+
+            public_group = feedback_authorization.group
+            public_group.final_version = feedback_authorization.version
+            public_group.save()
+
+            video = DocumentVideo(document=document,
+                                  video_id=feedback_authorization.video_id,
+                                  title=_('Vídeo feedback'))
+            video.save()
+
+            notification = Notification()
+            notification.user = document.owner
+            proposal_title = format_proposal_title(document)
+
+            message = 'O órgão gestor aceitou o feedback da proposição {}.'
+            notification.message = message.format(
+                document.responsible.name.title(), proposal_title)
+            notification.save()
+
+            send_feedback_authorization_owner_document(feedback_authorization)
+            messages.success(self.request, _(
+                'The feeback participation was approved!'))
+
+            return reverse('home')
+
+        else:
+            raise Http404
+
+
+class FeedbackUnauthorizationManagementView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        feedback_authorization = get_object_or_404(FeedbackAuthorization,
+                                                   hash_id=kwargs['hash'])
+        if feedback_authorization.group.group_status == 'analyzing':
+            document = feedback_authorization.group.document
+            notification = Notification()
+            notification.user = document.owner
+
+            proposal_title = format_proposal_title(document)
+
+            feedback_authorization.delete()
+
+            message = 'O órgão gestor rejeitou o feedback da proposição {}, \
+                entre em contato para mais iformações.'
+
+            notification.message = message.format(proposal_title)
+
+            notification.save()
+            send_management_unauthorization(feedback_authorization)
             messages.info(self.request, _('The feedback was rejected!'))
 
             return reverse('home')
