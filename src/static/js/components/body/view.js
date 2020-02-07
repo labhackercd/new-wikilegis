@@ -15,21 +15,18 @@ BodyView.prototype.publishers = function() {
     var target = $(e.target);
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
-    //console.log(target[0].id)
+
     if(target[0].id == "inputSuggestionModal"){
-      //console.log("entrou");
+      // Nothing to do
     }else{
-      //console.log("nao entrou");
+
       if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {      
         if (suggestionInput.length === 0 && opinionModal.length === 0) {
           var selectedText = window.getSelection().toString();
-          //console.log("oi")
-          //console.log(selectedText)
           if (selectedText === '' || selectedText === self.previousSelectedText) {
             events.cancelTextSelection.publish();
           }
           self.previousSelectedText = selectedText;
-          //console.log( "here")
         }
       }
     }
@@ -54,7 +51,6 @@ BodyView.prototype.publishers = function() {
       self.startedClick = true;
       if(e.target.id === "inputSuggestionModal"){
         //Nothing to do
-        //console.log("dentro do if")
       }else{
         events.outsideDocumentMouseDown.publish();
       }
