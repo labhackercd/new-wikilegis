@@ -48,7 +48,7 @@ BodyView.prototype.publishers = function() {
     }
   });
 
-  $('body').on('mouseup', function(e) {
+  $('body').on('mouseup', function() {
     if (self.startedClick) {
       self.startedClick = false;
       events.outsideDocumentMouseUp.publish();
