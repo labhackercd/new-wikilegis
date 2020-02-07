@@ -65,11 +65,23 @@
         {% endautoescape %}
       </div>
 
-      {% if is_congressman %}
+      {% if is_congressman or is_management %}
       <div class="congressman-question">
         Esta é a diferença entre os textos, você concorda?
       </div>
       <div class="button">
+      {% if is_management %}
+        <a href="http://{{ site_url }}{% url 'management_authorization' hash_id %}">
+          <div class="button--yes">
+            SIM
+          </div>
+        </a>
+        <a href="http://{{ site_url }}{% url 'management_unauthorization' hash_id %}">
+          <div class="button--no">
+            NÃO
+          </div>
+        </a>
+      {% else %}
         <a href="http://{{ site_url }}{% url 'feedback_authorization' hash_id %}">
           <div class="button--yes">
             SIM
@@ -80,8 +92,9 @@
             NÃO
           </div>
         </a>
-
-      </div>
+      {% endif %}
+    </div>
+      
       {% endif %}
 </main>
 {% endblock content %}
