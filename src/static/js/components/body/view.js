@@ -16,21 +16,15 @@ BodyView.prototype.publishers = function() {
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
 
-    if(target[0].id == 'inputSuggestionModal'){
-      // Nothing to do
-    }else{
-
-      if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {      
-        if (suggestionInput.length === 0 && opinionModal.length === 0) {
-          var selectedText = window.getSelection().toString();
-          if (selectedText === '' || selectedText === self.previousSelectedText) {
-            events.cancelTextSelection.publish();
-          }
-          self.previousSelectedText = selectedText;
+    if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {      
+      if (suggestionInput.length === 0 && opinionModal.length === 0) {
+        var selectedText = window.getSelection().toString();
+        if (selectedText === '' || selectedText === self.previousSelectedText) {
+          events.cancelTextSelection.publish();
         }
+        self.previousSelectedText = selectedText;
       }
     }
-
 
     if (target.hasClass('js-body') && target.hasClass('js-overlay')) {
       events.closeModal.publish();
@@ -49,11 +43,8 @@ BodyView.prototype.publishers = function() {
   $('body').on('mousedown', function(e) {
     if (!$(e.target).hasClass('js-documentExcerpt')) {
       self.startedClick = true;
-      if(e.target.id === 'inputSuggestionModal'){
-        //Nothing to do
-      }else{
-        events.outsideDocumentMouseDown.publish();
-      }
+      events.outsideDocumentMouseDown.publish();
+
     }
   });
 
@@ -62,23 +53,7 @@ BodyView.prototype.publishers = function() {
       self.startedClick = false;
       events.outsideDocumentMouseUp.publish();
     }
-    if(!$(e.target).hasClass('js-documentExcerpt')) {
-      if(e.target.id === 'inputSuggestionModal') {
-        let inputElement = document.getElementById('inputSuggestionModal');
 
-        inputElement.addEventListener('select', function() {
-          this.selectionStart = this.selectionEnd;
-        }, false); 
-
-        inputElement.addEventListener('touchend', function(e) {
-          e.preventDefault(); 
-        });
-
-        inputElement.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-        });
-      }
-    }
   });
 };
 

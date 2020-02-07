@@ -42,14 +42,7 @@ SuggestionInputView.prototype.subscribers = function() {
 
 SuggestionInputView.prototype.publishers = function() {
   var self = this;
-  var inp = document.getElementById('inputSuggestionModal');
-  
-  if(inp){
-    // If user try to select text inside the input field, it don't allow.
-    inp.addEventListener('select', function() {
-      this.selectionStart = this.selectionEnd;
-    }, false);
-  }
+
 
   $('.js-suggestionInput .js-close').on('click', function() {
     events.cancelTextSelection.publish();
@@ -83,7 +76,6 @@ SuggestionInputView.prototype.cleanSuggestionInput = function() {
   var self = this;
 
   self.selectedTextElement.text('');
-  // self.inputElement.val('');
   self.hideInputError();
   self.selectedExcerpt = undefined;
   self.startIndex = undefined;
