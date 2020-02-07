@@ -20,9 +20,13 @@
   <tr class="center">
   Revise todos os detalhes informados para que a consulta pública possa ser iniciada.
   </tr>
+
+  <tr class="center">
+  **É NECESSÁRIO ESTAR LOGADO EM UMA CONTA DE ADMINISTRADOR PARA REALIZAR A REVISÃO**
+  </tr>
 {% endblock content %}
 
 {% block button %}
-    <a href="http://{{ site_url }}{% url 'diff_version' hash_id %}">Ver documento</a>
+    <a href="http://{{ site_url }}{% url 'diff_version_authorization' hash_id %}">Ver documento</a>
     <a href="https://www.youtube.com/watch?v={{video_id}}">Ver vídeo de agradecimento</a>
 {% endblock button %}

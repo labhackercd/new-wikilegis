@@ -1,0 +1,23 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+  Autorização de feedback
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+  <tr class="center">
+    Devolutiva autorizada!
+  </tr>
+  <tr class="center">
+    O órgão gestor analisou a versão do documento selecionada por você e validou as informações. Agora a resposta de participação públoca está disponível pra socieldade. 
+  </tr>
+{% endblock content %}
+
+{% block button %}
+    <a href="http://{{ site_url }}{% url 'diff_version' document_id %}">Ver resposta</a>
+{% endblock button %}
