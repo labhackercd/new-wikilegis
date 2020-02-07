@@ -17,7 +17,10 @@ urlpatterns = [
          name="new_document"),
     path('<int:pk>/text/', views.DocumentTextView.as_view(),
          name="document_text"),
-    path('diff/<uuid:hash>/',
+    path('diff/<int:pk>/',
          views.DocumentDiffTemplateView.as_view(),
          name="diff_version"),
+    path('diff/<uuid:hash>/',
+         views.DocumentDiffAuthorizationTemplateView.as_view(),
+         name="diff_version_authorization"),
 ]

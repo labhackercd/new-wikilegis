@@ -14,6 +14,7 @@ from apps.notifications.models import Notification, FeedbackAuthorization
 from django.contrib.auth.models import User
 import diff_match_patch as dmp_module
 from apps.projects.templatetags.projects_tags import excerpt_numbering
+from apps.participations.models import InvitedGroup
 
 
 class InvitationRedirectView(RedirectView):
@@ -145,60 +146,92 @@ class DocumentTextView(View):
             return JsonResponse(data, status=404)
 
 
-class DocumentDiffTemplateView(TemplateView):
+class DocumentDiffAuthorizationTemplateView(TemplateView):
     template_name = "pages/diff.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         hash_id = kwargs['hash']
+
         feedback_authorization = get_object_or_404(FeedbackAuthorization,
                                                    hash_id=hash_id)
 
-        first_excerpts = self.get_first_text(feedback_authorization)
-        final_excerpts = self.get_final_text(feedback_authorization)
+        first_version = feedback_authorization.group.version
+        first_excerpts = get_first_text(first_version)
 
-        diff_text = self.get_diff(first_excerpts, final_excerpts)
+        final_version = feedback_authorization.version
+        final_excerpts = get_final_text(final_version)
+
+        diff_text = get_diff(first_excerpts, final_excerpts)
+
+        if feedback_authorization.group.group_status == 'waiting_feedback':
+            context['is_congressman'] = True
+        elif (feedback_authorization.group.group_status == 'analyzing'
+              and self.request.user.is_superuser):
+            context['is_management'] = True
+        else:
+            raise Http404
 
         context['diff_text'] = diff_text
-        context['group'] = feedback_authorization.group
-        context['is_congressman'] = True
         context['hash_id'] = hash_id
 
         return context
 
-    def get_diff(self, first_excerpts, final_excerpts):
-        dmp = dmp_module.diff_match_patch()
 
-        full_first_text = self.fortmat_text(first_excerpts)
-        full_final_text = self.fortmat_text(final_excerpts)
+class DocumentDiffTemplateView(TemplateView):
+    template_name = "pages/diff.html"
 
-        diff = dmp.diff_main(full_first_text, full_final_text)
-        dmp.diff_cleanupSemantic(diff)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        document_id = kwargs['pk']
 
-        return diff
+        invited_group = get_object_or_404(
+            InvitedGroup, document__id=document_id, public_participation=True)
 
-    def get_first_text(self, feedback_authorization):
-        first_version = feedback_authorization.group.version
-        first_excerpts = Excerpt.objects.filter(
-            version=first_version).order_by('-order')
+        first_excerpts = get_first_text(invited_group.version)
+        final_excerpts = get_final_text(invited_group.final_version)
 
-        return first_excerpts
+        diff_text = get_diff(first_excerpts, final_excerpts)
 
-    def get_final_text(self, feedback_authorization):
-        final_version = feedback_authorization.version
-        final_excerpts = Excerpt.objects.filter(
-            version=final_version).order_by('-order')
+        context['diff_text'] = diff_text
 
-        return final_excerpts
+        return context
 
-    def fortmat_text(self, list_excerpt):
-        text = ''
-        for excerpt in list_excerpt:
-            excerpt_apresentation = excerpt_numbering(excerpt)
 
-            if excerpt.excerpt_type.align_center:
-                excerpt_apresentation = excerpt_apresentation + '<br>'
-            text = (excerpt_apresentation +
-                    excerpt.content + '<br><br><br>' + text)
+def get_diff(first_excerpts, final_excerpts):
+    dmp = dmp_module.diff_match_patch()
 
-        return text
+    full_first_text = fortmat_text(first_excerpts)
+    full_final_text = fortmat_text(final_excerpts)
+
+    diff = dmp.diff_main(full_first_text, full_final_text)
+    dmp.diff_cleanupSemantic(diff)
+
+    return diff
+
+
+def get_first_text(first_version):
+    first_excerpts = Excerpt.objects.filter(
+        version=first_version).order_by('-order')
+
+    return first_excerpts
+
+
+def get_final_text(final_version):
+    final_excerpts = Excerpt.objects.filter(
+        version=final_version).order_by('-order')
+
+    return final_excerpts
+
+
+def fortmat_text(list_excerpt):
+    text = ''
+    for excerpt in list_excerpt:
+        excerpt_apresentation = excerpt_numbering(excerpt)
+
+        if excerpt.excerpt_type.align_center:
+            excerpt_apresentation = excerpt_apresentation + '<br>'
+        text = (excerpt_apresentation +
+                excerpt.content + '<br><br><br>' + text)
+
+    return text
