@@ -17,6 +17,7 @@ from apps.notifications.emails import (
     send_feedback_authorization_owner_document,
     send_feedback_authorization_management,
     send_feedback_unauthorization_owner_document,
+    send_management_authorization,
     send_management_unauthorization)
 from django.contrib import messages
 
@@ -155,12 +156,13 @@ class FeedbackAuthorizationView(RedirectView):
             proposal_title = format_proposal_title(document)
 
             message = '{} aceitou seu pedido para versão final da \
-                    proposição {}.'
+                    proposição {}. O órgão gestor irá auditá-la.'
             notification.message = message.format(
                 document.responsible.name.title(), proposal_title)
             notification.save()
 
             send_feedback_authorization_management(feedback_authorization)
+            send_feedback_authorization_owner_document(feedback_authorization)
             messages.success(self.request, _(
                 '''The system management will audit the video
                 and document information. Wait please!'''))
@@ -230,7 +232,7 @@ class FeedbackAuthorizationManagementView(RedirectView):
                 document.responsible.name.title(), proposal_title)
             notification.save()
 
-            send_feedback_authorization_owner_document(feedback_authorization)
+            send_management_authorization(feedback_authorization)
             messages.success(self.request, _(
                 'The feeback participation was approved!'))
 
