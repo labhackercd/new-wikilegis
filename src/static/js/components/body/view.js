@@ -16,7 +16,7 @@ BodyView.prototype.publishers = function() {
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
 
-    if(target[0].id == "inputSuggestionModal"){
+    if(target[0].id == 'inputSuggestionModal'){
       // Nothing to do
     }else{
 
@@ -49,7 +49,7 @@ BodyView.prototype.publishers = function() {
   $('body').on('mousedown', function(e) {
     if (!$(e.target).hasClass('js-documentExcerpt')) {
       self.startedClick = true;
-      if(e.target.id === "inputSuggestionModal"){
+      if(e.target.id === 'inputSuggestionModal'){
         //Nothing to do
       }else{
         events.outsideDocumentMouseDown.publish();
@@ -63,7 +63,7 @@ BodyView.prototype.publishers = function() {
       events.outsideDocumentMouseUp.publish();
     }
     if(!$(e.target).hasClass('js-documentExcerpt')) {
-      if(e.target.id === "inputSuggestionModal") {
+      if(e.target.id === 'inputSuggestionModal') {
         let inputElement = document.getElementById('inputSuggestionModal');
 
         inputElement.addEventListener('select', function() {

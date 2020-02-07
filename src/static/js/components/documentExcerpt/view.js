@@ -47,12 +47,12 @@ DocumentExcerptView.prototype.publishers = function() {
           const selectionOriginType = document.getSelection().baseNode.innerHTML;
           if(selectionOriginType){
             // Look in the selection document if the field where selection happened is the one with id "#inputSuggestionModal"
-            const isSuggestionModalInput = selectionOriginType.search("inputSuggestionModal");
+            const isSuggestionModalInput = selectionOriginType.search('inputSuggestionModal');
             
             // If the selection don't happened inside the text input in suggestion modal, publish it.
             if(!isSuggestionModalInput){    
               events.endTextSelection.publish();
-            } else {
+            }else{
               // Nothing to do
             }
           }else{
