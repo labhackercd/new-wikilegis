@@ -38,10 +38,27 @@ DocumentExcerptView.prototype.publishers = function() {
       if (this.selectionEndTimeout) {
         clearTimeout(this.selectionEndTimeout);
       }
-
+       
       this.selectionEndTimeout = setTimeout(function () {
         if (document.getSelection().toString() != '') {
-          events.endTextSelection.publish();
+         
+          // Following lines are a solution of issue #205
+          // Check the selection document has innerHTML atribute, if not just publish the changes
+          const selectionOriginType = document.getSelection().baseNode.innerHTML;
+          if(selectionOriginType){
+            // Look in the selection document if the field where selection happened is the one with id "#inputSuggestionModal"
+            const isSuggestionModalInput = selectionOriginType.search('inputSuggestionModal');
+            
+            // If the selection don't happened inside the text input in suggestion modal, publish it.
+            if(!isSuggestionModalInput){    
+              events.endTextSelection.publish();
+            }else{
+              // Nothing to do
+            }
+          }else{
+            events.endTextSelection.publish();
+          }
+          
         }
       }, 500);
     });

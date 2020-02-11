@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<div class="suggestion-input js-suggestionInput">
+<div class="suggestion-input js-suggestionInput" id="suggestionModal">
   <div class="content">
     <button class="close-icon js-close" type="button"><img class="icon" src="{% static 'img/close.svg' %}"></button>
     <h3>Você destacou o trecho:</h3>
@@ -12,7 +12,7 @@
         <h3>Digite sua opinião sobre ele:</h3>
       </span>
       <div class="input">
-        <input class="js-input" type="text" name="">
+        <input class="js-input" type="text" name="" id="inputSuggestionModal">
         <div class="send js-send">
           <img class="icon" src="{% static 'img/send.svg' %}">
         </div>

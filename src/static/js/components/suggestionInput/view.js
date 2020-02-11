@@ -43,6 +43,7 @@ SuggestionInputView.prototype.subscribers = function() {
 SuggestionInputView.prototype.publishers = function() {
   var self = this;
 
+
   $('.js-suggestionInput .js-close').on('click', function() {
     events.cancelTextSelection.publish();
   });
@@ -75,7 +76,6 @@ SuggestionInputView.prototype.cleanSuggestionInput = function() {
   var self = this;
 
   self.selectedTextElement.text('');
-  // self.inputElement.val('');
   self.hideInputError();
   self.selectedExcerpt = undefined;
   self.startIndex = undefined;

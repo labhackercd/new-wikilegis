@@ -16,7 +16,7 @@ BodyView.prototype.publishers = function() {
     var suggestionInput = target.closest('.js-suggestionInput');
     var opinionModal = target.closest('.js-opinionModal');
 
-    if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {
+    if (!target.hasClass('js-overlay') && target.closest('.js-opinionButton, .js-allOpinionsButton').length === 0) {      
       if (suggestionInput.length === 0 && opinionModal.length === 0) {
         var selectedText = window.getSelection().toString();
         if (selectedText === '' || selectedText === self.previousSelectedText) {
@@ -39,10 +39,12 @@ BodyView.prototype.publishers = function() {
     }
   });
 
+  //refactor this?
   $('body').on('mousedown', function(e) {
     if (!$(e.target).hasClass('js-documentExcerpt')) {
       self.startedClick = true;
       events.outsideDocumentMouseDown.publish();
+
     }
   });
 
@@ -51,6 +53,7 @@ BodyView.prototype.publishers = function() {
       self.startedClick = false;
       events.outsideDocumentMouseUp.publish();
     }
+
   });
 };
 
