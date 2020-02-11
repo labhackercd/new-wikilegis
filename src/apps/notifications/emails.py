@@ -130,27 +130,12 @@ def send_feedback_unauthorization_owner_document(feedback_authorization):
     mail_authorization.send()
 
 
-def send_feedback_unauthorization_owner_document(feedback_authorization):
-    document = feedback_authorization.group.document
-
-    html_authorization = render_to_string(
-        'emails/feedback_unauthorization_owner.html')
-    subject_authorization = _('[Wikilegis] Congressman refused feedback')
-    email_owner = document.owner.email
-    mail_authorization = EmailMultiAlternatives(
-        subject_authorization, '', settings.EMAIL_HOST_USER,
-        [email_owner])
-    mail_authorization.attach_alternative(html_authorization, 'text/html')
-    mail_authorization.send()
-
-
 def send_feedback_authorization_management(feedback_authorization):
     html_authorization = render_to_string(
         'emails/feedback_authorization_management.html',
         {'site_url': get_site_domain(),
          'hash_id': feedback_authorization.hash_id,
-         'video_id': feedback_authorization.video_id,
-         'type_diff': 'management,'})
+         'video_id': feedback_authorization.video_id})
     subject_authorization = _('[Wikilegis] Congressman accepted feedback')
     mail_authorization = EmailMultiAlternatives(
         subject_authorization, '', settings.EMAIL_HOST_USER,
