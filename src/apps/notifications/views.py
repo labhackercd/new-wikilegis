@@ -215,6 +215,7 @@ class FeedbackAuthorizationManagementView(RedirectView):
 
             public_group = feedback_authorization.group
             public_group.final_version = feedback_authorization.version
+            public_group.group_status = 'finished'
             public_group.save()
 
             video = DocumentVideo(document=document,

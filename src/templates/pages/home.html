@@ -12,7 +12,7 @@
   </div>
 
   <div class="canvas-wrapper" id="headerParticles"></div>
-            
+
 </header>
 
 <main class="projects-list" id="js-projects-list">
@@ -21,7 +21,7 @@
   {% endfor %}
   <div class="header">
     <h1>Propostas legislativas</h1>
-    
+
     <div class="tabs">
       <div class="tab -active">Participação Popular</div>
       <div class="tab">Abertos</div>
@@ -31,17 +31,16 @@
   <input class="search js-search" type="text" placeholder="Buscar">
   <div class="list">
 
-  {% if pending_groups and request.user.is_superuser %}
-    {% for pending_group in pending_groups %}
-    <a href="{% url 'project' pending_group.id pending_group.document.slug %}"
-      class="document-card {% if pending_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
+    {% if pending_invites and request.user.is_authenticated %}
+    {% for invite in pending_invites %}
+    <div class="document-card -owner {% if invite.group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
       <ul class="tags">
+        {% for theme in invite.group.document.themes.all %}
         <li class="app-tag -private">
           <img src="{% static 'img/padlock.svg' %}" alt="">
-          <span class="label">Aguardando análise</span>
+          <span class="label">Restrita</span>
         </li>
-        {% for theme in pending_group.document.themes.all %}
         <li class="app-tag -theme">
           <span class="dot" style="background-color: {{ theme.color }}"></span>
           <span class="label">{{ theme.name }}</span>
@@ -49,84 +48,58 @@
         {% endfor %}
       </ul>
 
-      <h3 class="js-title">{{ pending_group.document.title }}</h3>
+      <h3 class="js-title">{{ invite.group.document.title }}</h3>
       <p class="js-description">
-        {{ pending_group.document.description }}
+        {{ invite.group.document.description }}
       </p>
 
       <div class="footer">
-        <div class="status">
-          <p class="closed">Aguardando análise</p>
-        </div>
-        <span class="pseudolink">Acessar</span>
-      </div>
-    </a>
-    {% endfor %}
-  {% endif %}
+        {% if invite.group.closing_date|is_open %}
+        {% if invite.group.openning_date %}
+        <div class="document-progress">
 
-  {% if pending_invites and request.user.is_authenticated %}
-    {% for invite in pending_invites %}
-      <div class="document-card -owner {% if invite.group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
-
-        <ul class="tags">
-          {% for theme in invite.group.document.themes.all %}
-          <li class="app-tag -private">
-            <img src="{% static 'img/padlock.svg' %}" alt="">
-            <span class="label">Restrita</span>
-          </li>
-          <li class="app-tag -theme">
-            <span class="dot" style="background-color: {{ theme.color }}"></span>
-            <span class="label">{{ theme.name }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-
-        <h3 class="js-title">{{ invite.group.document.title }}</h3>
-        <p class="js-description">
-          {{ invite.group.document.description }}
-        </p>
-
-        <div class="footer">
-          {% if invite.group.closing_date|is_open %}
-            {% if invite.group.openning_date %}
-            <div class="document-progress">
-
-              <span class="begin">Aberto{% if invite.group.openning_date|absolute_days_since == "0" %} hoje{% elif group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ invite.group.openning_date|absolute_days_since }} dias{% endif %}</span>
-              </span>
-              <span class="end">Encerra-se{% if invite.group.closing_date|absolute_days_since == "0" %} hoje{% elif invite.group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ invite.group.closing_date|absolute_days_since }} dias{% endif %}</span>
-              </span>
-
-              <div class="progress-bar">
-                <span class="value" style="transform: scaleX({% progress_time_normalized invite.group.openning_date invite.group.closing_date %})"></span>
-              </div>
-            </div>
-            {% endif %}
-          {% else %}
-            <div class="status">
-              <p class="closed">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</p>
-            </div>
-          {% endif %}
-        </div>
-
-        <hr>
-
-        <div class="voting-action">
-          <span class="info-text">
-            <h4>Você foi convidado para participar nesta proposição</h3>
+          <span class="begin">Aberto{% if invite.group.openning_date|absolute_days_since == "0" %}
+            hoje{% elif group.openning_date|absolute_days_since == "1" %} ontem{% else %} há
+            <span>{{ invite.group.openning_date|absolute_days_since }} dias{% endif %}</span>
           </span>
-          <div class="actions">
-            <a href="{% url 'invitation' invite.pk 'accepted' %}" class="app-button -green">Aceitar</a>
-            <a href="{% url 'invitation' invite.pk 'declined' %}" class="app-button -red">Recusar</a>
+          <span class="end">Encerra-se{% if invite.group.closing_date|absolute_days_since == "0" %}
+            hoje{% elif invite.group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em
+            <span>{{ invite.group.closing_date|absolute_days_since }} dias{% endif %}</span>
+          </span>
+
+          <div class="progress-bar">
+            <span class="value"
+              style="transform: scaleX({% progress_time_normalized invite.group.openning_date invite.group.closing_date %})"></span>
           </div>
         </div>
-
+        {% endif %}
+        {% else %}
+        <div class="status">
+          <p class="closed">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</p>
+        </div>
+        {% endif %}
       </div>
-    {% endfor %}
-  {% endif %}
 
-  {% if private_groups and request.user.is_authenticated %}
+      <hr>
+
+      <div class="voting-action">
+        <span class="info-text">
+          <h4>Você foi convidado para participar nesta proposição</h3>
+        </span>
+        <div class="actions">
+          <a href="{% url 'invitation' invite.pk 'accepted' %}" class="app-button -green">Aceitar</a>
+          <a href="{% url 'invitation' invite.pk 'declined' %}" class="app-button -red">Recusar</a>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if private_groups and request.user.is_authenticated %}
     {% for private_group in private_groups %}
-    <a href="{% url 'project' private_group.id private_group.document.slug %}" class="document-card {% if private_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
+    <a href="{% url 'project' private_group.id private_group.document.slug %}"
+      class="document-card {% if private_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
       <ul class="tags">
         <li class="app-tag -private">
@@ -148,110 +121,134 @@
 
       <div class="footer">
         {% if private_group.closing_date|is_open %}
-          {% if private_group.openning_date %}
-          <div class="document-progress">
+        {% if private_group.openning_date %}
+        <div class="document-progress">
 
-            <span class="begin">Aberto{% if private_group.openning_date|absolute_days_since == "0" %} hoje{% elif private_group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ private_group.openning_date|absolute_days_since }} dias{% endif %}</span>
-            </span>
+          <span class="begin">Aberto{% if private_group.openning_date|absolute_days_since == "0" %}
+            hoje{% elif private_group.openning_date|absolute_days_since == "1" %} ontem{% else %} há
+            <span>{{ private_group.openning_date|absolute_days_since }} dias{% endif %}</span>
+          </span>
 
-            <span class="end">Encerra-se{% if private_group.closing_date|absolute_days_since == "0" %} hoje{% elif private_group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em <span>{{ private_group.closing_date|absolute_days_since }} dias{% endif %}</span>
-            </span>
+          <span class="end">Encerra-se{% if private_group.closing_date|absolute_days_since == "0" %}
+            hoje{% elif private_group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em
+            <span>{{ private_group.closing_date|absolute_days_since }} dias{% endif %}</span>
+          </span>
 
-            <div class="progress-bar">
-              <span class="value" style="transform: scaleX({% progress_time_normalized private_group.openning_date private_group.closing_date %})"></span>
-            </div>
+          <div class="progress-bar">
+            <span class="value"
+              style="transform: scaleX({% progress_time_normalized private_group.openning_date private_group.closing_date %})"></span>
           </div>
-          {% endif %}
+        </div>
+        {% endif %}
         {% else %}
-          <div class="status">
-            <p class="closed">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</p>
-          </div>
+        <div class="status">
+          <p class="closed">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</p>
+        </div>
         {% endif %}
 
         <span class="pseudolink">Acessar</span>
       </div>
     </a>
     {% endfor %}
-  {% endif %}
-  {% if open_public_groups %}
+    {% endif %}
+    {% if open_public_groups %}
 
     {% for public_group in open_public_groups %}
-      <a href="{% url 'project' public_group.id public_group.document.slug %}" class="document-card {% if public_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
+    <a href="{% url 'project' public_group.id public_group.document.slug %}"
+      class="document-card {% if public_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
-        <ul class="tags">
-          {% for theme in public_group.document.themes.all %}
-          <li class="app-tag -theme">
-            <span class="dot" style="background-color: {{ theme.color }}"></span>
-            <span class="label">{{ theme.name }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-
-
-        <h3 class="js-title">{{ public_group.document.title }}</h3>
-        <p class="js-description">
-          {{ public_group.document.description }}
-        </p>
+      <ul class="tags">
+        {% for theme in public_group.document.themes.all %}
+        <li class="app-tag -theme">
+          <span class="dot" style="background-color: {{ theme.color }}"></span>
+          <span class="label">{{ theme.name }}</span>
+        </li>
+        {% endfor %}
+      </ul>
 
 
-        <div class="footer">
-            {% if public_group.openning_date %}
-            <div class="document-progress">
+      <h3 class="js-title">{{ public_group.document.title }}</h3>
+      <p class="js-description">
+        {{ public_group.document.description }}
+      </p>
 
-              <span class="begin">Aberto{% if public_group.openning_date|absolute_days_since == "0" %} hoje {% elif public_group.openning_date|absolute_days_since == "1" %} ontem{% else %} há <span>{{ public_group.openning_date|absolute_days_since }} dias {% endif %}</span>
-              </span>
 
-              <span class="end">Encerra-se{% if public_group.closing_date|absolute_days_since == "0" %}
-                hoje{% elif public_group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em
-                <span>{{ public_group.closing_date|absolute_days_since }} dias{% endif %}</span>
-              </span>
+      <div class="footer">
+        {% if public_group.openning_date %}
+        <div class="document-progress">
 
-              <div class="progress-bar">
-                <span class="value" style="transform: scaleX({% progress_time_normalized public_group.openning_date public_group.closing_date %})"></span>
-              </div>
-            </div>
-            {% endif %}
+          <span class="begin">Aberto{% if public_group.openning_date|absolute_days_since == "0" %} hoje
+            {% elif public_group.openning_date|absolute_days_since == "1" %} ontem{% else %} há
+            <span>{{ public_group.openning_date|absolute_days_since }} dias {% endif %}</span>
+          </span>
 
-          <span class="pseudolink">Acessar</span>
+          <span class="end">Encerra-se{% if public_group.closing_date|absolute_days_since == "0" %}
+            hoje{% elif public_group.closing_date|absolute_days_since == "1" %} amanhã{% else %} em
+            <span>{{ public_group.closing_date|absolute_days_since }} dias{% endif %}</span>
+          </span>
+
+          <div class="progress-bar">
+            <span class="value"
+              style="transform: scaleX({% progress_time_normalized public_group.openning_date public_group.closing_date %})"></span>
+          </div>
         </div>
-      </a>
+        {% endif %}
+
+        <span class="pseudolink">Acessar</span>
+      </div>
+    </a>
     {% endfor %}
 
-  {% endif %}
-  {% if closed_public_groups %}
+    {% endif %}
+    {% if closed_public_groups %}
 
     {% for closed_group in closed_public_groups %}
-      <a href="{% url 'project' closed_group.id closed_group.document.slug %}" class="document-card {% if closed_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
+    <a href="{% url 'project' closed_group.id closed_group.document.slug %}"
+      class="document-card {% if closed_group.closing_date|is_open %}-public{% else %}-closed{% endif %}">
 
-        <ul class="tags">
-          {% for theme in closed_group.document.themes.all %}
-          <li class="app-tag -theme">
-            <span class="dot" style="background-color: {{ theme.color }}"></span>
-            <span class="label">{{ theme.name }}</span>
-          </li>
-          {% endfor %}
-        </ul>
+      <ul class="tags">
+        {% if request.user.is_authenticated and closed_group.group_status == 'analyzing' %}
+        <li class="app-tag -private">
+          <img src="{% static 'img/hourglass.svg' %}" alt="">
+          <span class="label">Aguardando análise</span>
+        </li>
+        {% endif %}
+        {% for theme in closed_group.document.themes.all %}
+        <li class="app-tag -theme">
+          <span class="dot" style="background-color: {{ theme.color }}"></span>
+          <span class="label">{{ theme.name }}</span>
+        </li>
+        {% endfor %}
+      </ul>
 
 
-        <h3 class="js-title">{{ closed_group.document.title }}</h3>
-        <p class="js-description">
-          {{ closed_group.document.description }}
-        </p>
+      <h3 class="js-title">{{ closed_group.document.title }}</h3>
+      <p class="js-description">
+        {{ closed_group.document.description }}
+      </p>
 
 
-        <div class="footer">
-            <div class="status">
-              <p class="closed">Encerrado em {{closed_group.closing_date|date:"d/m/Y"}}</p>
-              <div class="feedback-status">
-                <img src="{% static 'img/hourglass.svg' %}" alt="">
-                <p class="-onhold"><span>Aguardando resposta</span>do deputado há
-                  {{ closed_group.closing_date |absolute_days_since }} dias</p>
-              </div>
-            </div>
-
-          <span class="pseudolink">Acessar</span>
+      <div class="footer">
+        <div class="status">
+          <p class="closed">Encerrado em {{closed_group.closing_date|date:"d/m/Y"}}</p>
+          <div class="feedback-status">
+            {% if closed_group.group_status == 'finished' %}
+            <img src="{% static 'img/check.svg' %}" alt="">
+            <p>Resposta enviada </p>
+            {% elif request.user.is_authenticated and closed_group.group_status == 'analyzing' %}
+            <img src="{% static 'img/hourglass.svg' %}" alt="">
+            <p class="closed">Aguardando análise</p>
+            {% else %}
+            <img src="{% static 'img/hourglass.svg' %}" alt="">
+            <p class="-onhold"><span>Aguardando resposta</span>do deputado há
+              {{ closed_group.closing_date |absolute_days_since }} dias</p>
+            {% endif %}
+          </div>
         </div>
-      </a>
+
+        <span class="pseudolink">Acessar</span>
+      </div>
+    </a>
     {% endfor %}
 
     {% endif %}
@@ -264,24 +261,22 @@
 {% endblock content %}
 
 {% block page_js %}
-  <script>
-    var prefixURL = '{{prefix_url|default_if_none:""}}';
-  </script>
+<script>
+  var prefixURL = '{{prefix_url|default_if_none:""}}';
+</script>
 
-  <script src="{% static 'list.js/dist/list.min.js' %}"></script>
-  <script src="{% static 'particles.js/particles.js' %}"></script>
-  <script src="{% static 'js/components/backgroundParticle/view.js' %}"></script>
-  <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
-  <script src="{% static 'js/components/documentBody/view.js' %}"></script>
-  <script src="{% static 'js/components/navBurger/view.js' %}"></script>
-  <script src="{% static 'js/components/searchInput/view.js' %}"></script>
-  <script src="{% static 'js/components/animateScroll/view.js' %}"></script>
-  <script src="{% static 'js/components/howtoButton/view.js' %}"></script>
-  <script src="{% static 'js/components/appOnboarding/view.js' %}"></script>
-  <script src="{% static 'js/components/infoMessage/view.js' %}"></script>
+<script src="{% static 'list.js/dist/list.min.js' %}"></script>
+<script src="{% static 'particles.js/particles.js' %}"></script>
+<script src="{% static 'js/components/backgroundParticle/view.js' %}"></script>
+<script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
+<script src="{% static 'js/components/documentBody/view.js' %}"></script>
+<script src="{% static 'js/components/navBurger/view.js' %}"></script>
+<script src="{% static 'js/components/searchInput/view.js' %}"></script>
+<script src="{% static 'js/components/animateScroll/view.js' %}"></script>
+<script src="{% static 'js/components/howtoButton/view.js' %}"></script>
+<script src="{% static 'js/components/appOnboarding/view.js' %}"></script>
+<script src="{% static 'js/components/infoMessage/view.js' %}"></script>
 
-  <script src="{% static 'js/pages/home.js' %}"></script>
-
-
+<script src="{% static 'js/pages/home.js' %}"></script>
 
 {% endblock page_js %}
