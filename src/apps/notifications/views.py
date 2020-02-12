@@ -65,12 +65,11 @@ class PublicAuthorizationView(RedirectView):
             document = Document.objects.get(id=authorization.group.document.id)
             document.responsible = authorization.congressman
             document.save()
-            notification.message = '%s aceitou seu pedido para alteração da \
-                data de \
-                encerramento' % (authorization.congressman.name.title())
+            notification.message = _('%s accepted your request to change the \
+            end date') % (authorization.congressman.name.title())
         else:
-            notification.message = '%s aceitou seu pedido para tornar o \
-                documento público' % (authorization.congressman.name.title())
+            notification.message = _('%s accepted your request to make the \
+                document public') % (authorization.congressman.name.title())
             public_group.openning_date = datetime.now()
         notification.save()
         public_group.save()
@@ -92,12 +91,12 @@ class PublicUnauthorizationView(RedirectView):
 
         if public_group.group_status != 'in_progress':
             if updated:
-                message = '{} não aceitou seu pedido de alteração da data \
-                     final da consluta pública da proposição {}.'
+                message = _('{} did not accept your request to change end date \
+                    of the public consultation of the proposition {}.')
             else:
                 public_group.delete()
-                message = '{} não aceitou seu pedido para participação \
-                pública da proposição {}.'
+                message = _('{} did not accept your request for public \
+                participation of the proposition {}.')
 
             notification = Notification()
             notification.user = document.owner
@@ -155,8 +154,8 @@ class FeedbackAuthorizationView(RedirectView):
             notification.user = document.owner
             proposal_title = format_proposal_title(document)
 
-            message = '{} aceitou seu pedido para versão final da \
-                    proposição {}. O órgão gestor irá auditá-la.'
+            message = _('{} accepted your request for final version of \
+            proposal {}. The management will audit it.')
             notification.message = message.format(
                 document.responsible.name.title(), proposal_title)
             notification.save()
@@ -188,8 +187,8 @@ class FeedbackUnauthorizationView(RedirectView):
 
             feedback_authorization.delete()
 
-            message = '{} não aceitou seu pedido para versão final da \
-                    proposição {}.'
+            message = _('{} did not accept your request for final version of \
+                        proposal {}.')
             notification.message = message.format(
                 document.responsible.name.title(), proposal_title)
 
@@ -227,7 +226,7 @@ class FeedbackAuthorizationManagementView(RedirectView):
             notification.user = document.owner
             proposal_title = format_proposal_title(document)
 
-            message = 'O órgão gestor aceitou o feedback da proposição {}.'
+            message = _('The management accepted feedback of proposal {}.')
             notification.message = message.format(
                 document.responsible.name.title(), proposal_title)
             notification.save()
@@ -257,8 +256,8 @@ class FeedbackUnauthorizationManagementView(RedirectView):
 
             feedback_authorization.delete()
 
-            message = 'O órgão gestor rejeitou o feedback da proposição {}, \
-                entre em contato para mais iformações.'
+            message = _('The management refused the feedback of proposal {}, \
+            contat us for more information.')
 
             notification.message = message.format(proposal_title)
 
