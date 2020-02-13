@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-04 11:10-0300\n"
+"POT-Creation-Date: 2020-02-13 10:33-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,11 +125,19 @@ msgstr "[Wikilegis] Aceitação de feedback pelo deputado"
 msgid "[Wikilegis] Congressman refused feedback"
 msgstr "[Wikilegis] Recusa de feedback pelo deputado"
 
-#: apps/notifications/emails.py:152
+#: apps/notifications/emails.py:154
+msgid "[Wikilegis] Management accepted feedback"
+msgstr "[Wikilegis] Aceitação de feedback orgão gestor"
+
+#: apps/notifications/emails.py:168
+msgid "[Wikilegis] Management refused feedback"
+msgstr "[Wikilegis] Recusa de feedback pelo orgão gestor"
+
+#: apps/notifications/emails.py:182
 msgid "[Wikilegis] Closed public participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
-#: apps/notifications/emails.py:167
+#: apps/notifications/emails.py:197
 msgid "[Wikilegis] Finish pulic participation"
 msgstr "[Wikilegis] Consulta pública encerrada"
 
@@ -176,7 +184,7 @@ msgstr "autorização de participação pública"
 
 #: apps/notifications/models.py:59
 msgid "video id"
-msgstr ""
+msgstr "id vídeo"
 
 #: apps/notifications/models.py:67 apps/participations/models.py:26
 #: apps/projects/models.py:235
@@ -199,29 +207,85 @@ msgstr "Notificações"
 msgid " Group {} participants wereinformed by email"
 msgstr "O grupo {} de participantes foi informado por email"
 
-#: apps/notifications/views.py:43
+#: apps/notifications/views.py:45
 msgid "You must be logged with same user received email."
 msgstr "Você deve estar logado com o usuário que recebeu o email."
 
-#: apps/notifications/views.py:47
+#: apps/notifications/views.py:49
 msgid "You must be logged to accept email invitation."
 msgstr "Você deve estar logado para aceitar o convite de participação."
 
-#: apps/notifications/views.py:155
-msgid "Vídeo feedback"
-msgstr "Vídeo de feedback"
+#: apps/notifications/views.py:68
+#, python-format
+msgid "%s accepted your request to change the             end date"
+msgstr "%s aceitou seu pedido para alteração da data de encerramento"
 
-#: apps/notifications/views.py:171
+#: apps/notifications/views.py:71
+#, python-format
+msgid "%s accepted your request to make the                 document public"
+msgstr "%s aceitou seu pedido para tornar o documento público"
+
+#: apps/notifications/views.py:94
+msgid ""
+"{} did not accept your request to change end date                     of the "
+"public consultation of the proposition {}."
+msgstr ""
+"{} não aceitou seu pedido de alteração da data final da consluta pública da "
+"proposição {}."
+
+#: apps/notifications/views.py:98
+msgid ""
+"{} did not accept your request for public                 participation of "
+"the proposition {}."
+msgstr "não aceitou seu pedido para participação pública da proposição {}.'"
+
+#: apps/notifications/views.py:157
+msgid ""
+"{} accepted your request for final version of             proposal {}. The "
+"management will audit it."
+msgstr ""
+"{} aceitou seu pedido para versão final da proposição {}. O órgão gestor irá "
+"auditá-la."
+
+#: apps/notifications/views.py:166
 msgid ""
 "The system management will audit the video\n"
 "                and document information. Wait please!"
-msgstr " O órgão gestor irá auditar as informações do vídeo e do documento. Por favor, aguarde!"
+msgstr ""
+" O órgão gestor irá auditar as informações do vídeo e do documento. Por "
+"favor, aguarde!"
 
-#: apps/notifications/views.py:203
+#: apps/notifications/views.py:190
+msgid ""
+"{} did not accept your request for final version of                         "
+"proposal {}."
+msgstr "{} não aceitou seu pedido para versão final da proposição {}."
+
+#: apps/notifications/views.py:198 apps/notifications/views.py:267
 msgid "The feedback was rejected!"
 msgstr "O feedback foi rejeitado!"
 
+#: apps/notifications/views.py:223
+msgid "Vídeo feedback"
+msgstr "Vídeo de feedback"
+
+#: apps/notifications/views.py:230
+msgid "The management accepted feedback of proposal {}."
+msgstr "O órgão gestor aceitou o feedback da proposição {}."
+
 #: apps/notifications/views.py:237
+msgid "The feeback participation was approved!"
+msgstr "O feedback foi aceito!"
+
+#: apps/notifications/views.py:260
+msgid ""
+"The management refused the feedback of proposal {},             contat us "
+"for more information."
+msgstr ""
+"O órgão gestor rejeitou o feedback da proposição {}, entre em contato para "
+"mais iformações."
+
+#: apps/notifications/views.py:301
 msgid "Notifications read!"
 msgstr "Notificações lidas!"
 
@@ -304,7 +368,7 @@ msgid "opinion votes"
 msgstr "votos opiniões"
 
 #: apps/participations/views.py:61 apps/participations/views.py:125
-#: apps/participations/views.py:408 apps/participations/views.py:469
+#: apps/participations/views.py:397 apps/participations/views.py:458
 msgid "Closing date must be greater than or equal to today!"
 msgstr "A data de encerramento deve ser maior ou igual a hoje!"
 
@@ -316,89 +380,89 @@ msgstr "Nome do grupo é obrigatóro"
 msgid "Participants are required"
 msgstr "O campo participantes é obrigatório"
 
-#: apps/participations/views.py:295
+#: apps/participations/views.py:284
 msgid "Project closed for participation"
 msgstr "Projeto fechado para participação"
 
-#: apps/participations/views.py:327
+#: apps/participations/views.py:316
 msgid "You cannot undo this suggestion after 1 minute"
 msgstr "Você não pode desfazer esta sugestão depois de 1 minuto"
 
-#: apps/participations/views.py:380 apps/participations/views.py:557
+#: apps/participations/views.py:369 apps/participations/views.py:546
 msgid "Invalid link YouTube. Please enter a valid link!"
 msgstr "Link do YouTube inválido. Por favor informe uma link válido!"
 
-#: apps/participations/views.py:390
+#: apps/participations/views.py:379
 msgid "You must create a version from your text before open to participation"
 msgstr ""
 "Você deve criar uma versão para seu texto antes de abrir para participação"
 
-#: apps/participations/views.py:400
+#: apps/participations/views.py:389
 msgid "Closing date is required!"
 msgstr "O campo data de encerramento é obrigatório"
 
-#: apps/participations/views.py:444 apps/participations/views.py:491
-#: apps/participations/views.py:575
+#: apps/participations/views.py:433 apps/participations/views.py:480
+#: apps/participations/views.py:564
 msgid "Request sent!"
 msgstr "Solicitação enviada!"
 
-#: apps/participations/views.py:448
+#: apps/participations/views.py:437
 msgid "You cannot request a public participation again"
 msgstr ""
 "Você não pode solicitar uma participação pública novamente para este "
 "documento."
 
-#: apps/participations/views.py:453
+#: apps/participations/views.py:442
 msgid "Congressman is required!"
 msgstr "Campo deputado é obrigatóro"
 
-#: apps/participations/views.py:494
+#: apps/participations/views.py:483
 msgid "Congressman and closing date are required!"
 msgstr "Os campos Deputado e data de encerramento são obrigatórios"
 
-#: apps/participations/views.py:566
+#: apps/participations/views.py:555
 msgid "Final version must be diferent the initial version!"
 msgstr "A versão final deve ser diferente da versão inicial."
 
-#: apps/participations/views.py:578
+#: apps/participations/views.py:567
 msgid "Version and Video link are required!"
 msgstr "Os campos versão e link do youtube são obrigatórios"
 
-#: apps/participations/views.py:634
+#: apps/participations/views.py:624
 msgid "Excerpt"
 msgstr "trecho"
 
-#: apps/participations/views.py:634
+#: apps/participations/views.py:624
 msgid "Selected Text"
 msgstr "texto selecionado"
 
-#: apps/participations/views.py:634
+#: apps/participations/views.py:624
 msgid "Suggestion"
 msgstr "sugestão"
 
-#: apps/participations/views.py:635
+#: apps/participations/views.py:625
 msgid "Approve Votes"
 msgstr "Votos a favor"
 
-#: apps/participations/views.py:635
+#: apps/participations/views.py:625
 msgid "Reject Votes"
 msgstr "Votos contra"
 
-#: apps/participations/views.py:635
+#: apps/participations/views.py:625
 msgid "Neutral Votes"
 msgstr "Votos neutros"
 
-#: apps/participations/views.py:636
+#: apps/participations/views.py:626
 msgid "Total Votes"
 msgstr "Total de votos"
 
-#: apps/participations/views.py:636
+#: apps/participations/views.py:626
 msgid "Autor"
 msgstr "Autor"
 
 #: apps/projects/admin.py:9
 msgid "videos"
-msgstr ""
+msgstr "vídeos"
 
 #: apps/projects/admin.py:59 apps/projects/tasks.py:32
 msgid "Document \"{}\" not found on Câmara dos Deputados API."
@@ -595,7 +659,7 @@ msgstr "trechos"
 msgid "Sole paragraph"
 msgstr "Parágrafo único"
 
-#: apps/projects/views.py:143
+#: apps/projects/views.py:144
 msgid "Version not found! We loaded the last version for you :)"
 msgstr "Versão não encontrada! Nós carregamos a última versão para você :)"
 
@@ -661,16 +725,20 @@ msgid "Waiting"
 msgstr "Aguardando"
 
 #: utils/choices.py:53
-msgid "Analyzing"
-msgstr "Em análise"
-
-#: utils/choices.py:54
 msgid "In Progress"
 msgstr "Em progresso"
 
-#: utils/choices.py:55
+#: utils/choices.py:54
 msgid "Waiting Feedback"
 msgstr "Aguardando resposta"
+
+#: utils/choices.py:55
+msgid "Analyzing"
+msgstr "Em análise"
+
+#: utils/choices.py:56
+msgid "Finished"
+msgstr "Encerrado"
 
 #: utils/model_mixins.py:6
 msgid "created"

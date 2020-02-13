@@ -16,7 +16,9 @@ from utils.format_text import format_proposal_title
 from apps.notifications.emails import (
     send_feedback_authorization_owner_document,
     send_feedback_authorization_management,
-    send_feedback_unauthorization_owner_document)
+    send_feedback_unauthorization_owner_document,
+    send_management_authorization,
+    send_management_unauthorization)
 from django.contrib import messages
 
 
@@ -63,12 +65,11 @@ class PublicAuthorizationView(RedirectView):
             document = Document.objects.get(id=authorization.group.document.id)
             document.responsible = authorization.congressman
             document.save()
-            notification.message = '%s aceitou seu pedido para alteração da \
-                data de \
-                encerramento' % (authorization.congressman.name.title())
+            notification.message = _('%s accepted your request to change the \
+            end date') % (authorization.congressman.name.title())
         else:
-            notification.message = '%s aceitou seu pedido para tornar o \
-                documento público' % (authorization.congressman.name.title())
+            notification.message = _('%s accepted your request to make the \
+                document public') % (authorization.congressman.name.title())
             public_group.openning_date = datetime.now()
         notification.save()
         public_group.save()
@@ -90,12 +91,12 @@ class PublicUnauthorizationView(RedirectView):
 
         if public_group.group_status != 'in_progress':
             if updated:
-                message = '{} não aceitou seu pedido de alteração da data \
-                     final da consluta pública da proposição {}.'
+                message = _('{} did not accept your request to change end date \
+                    of the public consultation of the proposition {}.')
             else:
                 public_group.delete()
-                message = '{} não aceitou seu pedido para participação \
-                pública da proposição {}.'
+                message = _('{} did not accept your request for public \
+                participation of the proposition {}.')
 
             notification = Notification()
             notification.user = document.owner
@@ -146,27 +147,21 @@ class FeedbackAuthorizationView(RedirectView):
             document = feedback_authorization.group.document
 
             public_group = feedback_authorization.group
-            public_group.final_version = feedback_authorization.version
             public_group.group_status = 'analyzing'
             public_group.save()
-
-            video = DocumentVideo(document=document,
-                                  video_id=feedback_authorization.video_id,
-                                  title=_('Vídeo feedback'))
-            video.save()
 
             notification = Notification()
             notification.user = document.owner
             proposal_title = format_proposal_title(document)
 
-            message = '{} aceitou seu pedido para versão final da \
-                    proposição {}.'
+            message = _('{} accepted your request for final version of \
+            proposal {}. The management will audit it.')
             notification.message = message.format(
                 document.responsible.name.title(), proposal_title)
             notification.save()
 
-            send_feedback_authorization_owner_document(feedback_authorization)
             send_feedback_authorization_management(feedback_authorization)
+            send_feedback_authorization_owner_document(feedback_authorization)
             messages.success(self.request, _(
                 '''The system management will audit the video
                 and document information. Wait please!'''))
@@ -192,14 +187,83 @@ class FeedbackUnauthorizationView(RedirectView):
 
             feedback_authorization.delete()
 
-            message = '{} não aceitou seu pedido para versão final da \
-                    proposição {}.'
+            message = _('{} did not accept your request for final version of \
+                        proposal {}.')
             notification.message = message.format(
                 document.responsible.name.title(), proposal_title)
 
             notification.save()
             send_feedback_unauthorization_owner_document(
                 feedback_authorization)
+            messages.info(self.request, _('The feedback was rejected!'))
+
+            return reverse('home')
+
+        else:
+            raise Http404
+
+
+class FeedbackAuthorizationManagementView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        feedback_authorization = get_object_or_404(FeedbackAuthorization,
+                                                   hash_id=kwargs['hash'])
+
+        if feedback_authorization.group.group_status == 'analyzing':
+            document = feedback_authorization.group.document
+
+            public_group = feedback_authorization.group
+            public_group.final_version = feedback_authorization.version
+            public_group.group_status = 'finished'
+            public_group.save()
+
+            video = DocumentVideo(document=document,
+                                  video_id=feedback_authorization.video_id,
+                                  title=_('Vídeo feedback'))
+            video.save()
+
+            notification = Notification()
+            notification.user = document.owner
+            proposal_title = format_proposal_title(document)
+
+            message = _('The management accepted feedback of proposal {}.')
+            notification.message = message.format(
+                document.responsible.name.title(), proposal_title)
+            notification.save()
+
+            send_management_authorization(feedback_authorization)
+            messages.success(self.request, _(
+                'The feeback participation was approved!'))
+
+            return reverse('home')
+
+        else:
+            raise Http404
+
+
+class FeedbackUnauthorizationManagementView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        feedback_authorization = get_object_or_404(FeedbackAuthorization,
+                                                   hash_id=kwargs['hash'])
+        if feedback_authorization.group.group_status == 'analyzing':
+            document = feedback_authorization.group.document
+            notification = Notification()
+            notification.user = document.owner
+
+            proposal_title = format_proposal_title(document)
+
+            feedback_authorization.delete()
+
+            message = _('The management refused the feedback of proposal {}, \
+            contat us for more information.')
+
+            notification.message = message.format(proposal_title)
+
+            notification.save()
+            send_management_unauthorization(feedback_authorization)
             messages.info(self.request, _('The feedback was rejected!'))
 
             return reverse('home')

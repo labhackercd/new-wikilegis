@@ -179,7 +179,7 @@ class InvitedGroupListView(ListView):
         ).order_by('closing_date')
         context['closed_public_groups'] = queryset.filter(
             public_participation=True,
-            group_status__in=['in_progress', 'waiting_feedback'],
+            group_status__in=['finished', 'waiting_feedback', 'analyzing'],
             closing_date__lt=date.today()
         ).order_by('-closing_date')
 
@@ -198,14 +198,6 @@ class InvitedGroupListView(ListView):
         else:
             context['private_groups'] = queryset.none()
             context['pending_invites'] = queryset.none()
-
-        if self.request.user.is_superuser:
-            context['pending_groups'] = queryset.filter(
-                public_participation=True,
-                group_status='analyzing'
-            ).order_by('closing_date')
-        else:
-            context['pending_groups'] = queryset.none()
 
         return context
 
@@ -243,12 +235,9 @@ class InvitedGroupDetailView(DetailView):
         obj = get_object_or_404(
             InvitedGroup, pk=self.kwargs.get('id'),
             document__slug=self.kwargs.get('documment_slug'),
-            group_status__in=['in_progress', 'analyzing', 'waiting_feedback'])
-        if (obj.public_participation and
-                obj.group_status in ['in_progress', 'waiting_feedback']):
-            return obj
-        elif (self.request.user.is_superuser and
-              obj.group_status == 'analyzing'):
+            group_status__in=[
+                'in_progress', 'waiting_feedback', 'analyzing', 'finished'])
+        if obj.public_participation:
             return obj
         elif obj.thematic_group:
             if self.request.user in obj.thematic_group.participants.all():
@@ -588,7 +577,8 @@ class InvitedGroupAnalyzeView(DetailView):
         obj = get_object_or_404(
             InvitedGroup, pk=self.kwargs.get('id'),
             document__slug=self.kwargs.get('documment_slug'),
-            group_status__in=['in_progress', 'analyzing', 'waiting_feedback'])
+            group_status__in=[
+                'in_progress', 'analyzing', 'waiting_feedback', 'finished'])
         if (obj.public_participation and
                 obj.group_status in ['in_progress', 'waiting_feedback']):
             return obj

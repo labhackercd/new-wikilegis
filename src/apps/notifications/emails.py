@@ -144,6 +144,36 @@ def send_feedback_authorization_management(feedback_authorization):
     mail_authorization.send()
 
 
+def send_management_authorization(feedback_authorization):
+    document = feedback_authorization.group.document
+
+    html_authorization = render_to_string(
+        'emails/feedback_authorization_management2owner.html',
+        {'site_url': get_site_domain(),
+         'document_id': document.id},)
+    subject_authorization = _('[Wikilegis] Management accepted feedback')
+    email_owner = document.owner.email
+    mail_authorization = EmailMultiAlternatives(
+        subject_authorization, '', settings.EMAIL_HOST_USER,
+        [email_owner])
+    mail_authorization.attach_alternative(html_authorization, 'text/html')
+    mail_authorization.send()
+
+
+def send_management_unauthorization(feedback_authorization):
+    document = feedback_authorization.group.document
+
+    html_authorization = render_to_string(
+        'emails/feedback_unauthorization_management2owner.html')
+    subject_authorization = _('[Wikilegis] Management refused feedback')
+    email_owner = document.owner.email
+    mail_authorization = EmailMultiAlternatives(
+        subject_authorization, '', settings.EMAIL_HOST_USER,
+        [email_owner])
+    mail_authorization.attach_alternative(html_authorization, 'text/html')
+    mail_authorization.send()
+
+
 def send_owner_closed_participation(public_group, proposal_title):
     html = render_to_string(
         'emails/closed-participation-owner.html',
