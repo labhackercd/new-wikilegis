@@ -17,28 +17,29 @@
     </li>
     
     {% if  group.group_status == "finished"%}
-    <li>
-      <a class="app-button -green js-howtoButton" href="{% url 'diff_version' object.id %}">Como participar?</a>
-    </li>
+      <li class="app-tag -button -results">
+        <a class="label" href="{% url 'diff_version' object.id %}">Versão Final</a>
+      </li>
     {% endif %}
       
 
   </ul>
   <header>
-    <div class="info">
-      {% now "Y-m-d" as todays_date %}
-      {% if group.closing_date|date:"Y-m-d" >= todays_date %}
-      <span class="date -active">Aberto até {{group.closing_date|date:'d/m/Y'}}</span>
-      {% else %}
-      <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
-      {% endif %}
-    </div>
-    <h1 class="js-documentTitle" contentEditable="true">{{ object.title }}</h1>
+
+    <h1 class="js-documentTitle" >{{ object.title }}</h1>
     <p class="js-documentDescription description">{{ object.description }}</p>
+    <div class="infoBottom">
+
+          {% now "Y-m-d" as todays_date %}
+          <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
+          <a href="{% url 'download-csv' group.id %}"><span class="date -csvExport">Exportar CSV </span>{% include "svgs/export-icon.html" %}</a>
+    </div>
+
+
     
-      <span class="label"><a href="{% url 'download-csv' group.id %}">CSV</a></span>
-    
+
     <hr>
+
   </header>
   <div class="minimap">
     <canvas class="page-minimap js-pageMinimap"></canvas>

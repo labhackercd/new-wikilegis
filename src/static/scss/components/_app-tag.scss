@@ -103,6 +103,20 @@
     }
   }
 
+  &.-results {
+    background-color: #2DA965;
+
+    & > a {
+      color: white;
+      font-weight: 600;
+    }
+
+    & > .icon {
+      @include mask-icon('comment-black');
+    }
+
+  }
+
   // &.-csv {
   //   & > a {
   //     font-weight: 600;

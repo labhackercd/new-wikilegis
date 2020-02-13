@@ -194,6 +194,15 @@ body.-analysis {
   }
 
 
+  & > article > header > .infoBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 0rem;
+  }
+
+
   & > article > .tags {
     position: sticky;
     z-index: 4;
@@ -231,6 +240,17 @@ body.-analysis {
     color: $color-brand;
   }
 
+  & > article > header .date.-csvExport {
+    color:#949494;
+    align-content: flex-end;
+    text-align: right;
+  }
+
+
+  & > article > header .date.-iconDown {
+    max-width: 10%;
+  }
+
   & > article > header > .-editable > h1 {
     min-height: 52px;
   }
@@ -263,12 +283,13 @@ body.-analysis {
 
   & > article > header > hr {
     margin-bottom: 0;
+    margin-top: 0;
   }
 
   & > article > header > .description {
     font-size: 1.25rem;
     font-weight: 300;
-
+    margin-bottom: 1rem;
     margin-top: 1rem;
   }
 
