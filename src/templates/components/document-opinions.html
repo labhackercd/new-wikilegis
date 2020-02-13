@@ -15,9 +15,14 @@
       <i class="icon" alt="Votos"></i>
       <span class="label">{{group|group_votes}} Votos</span>
     </li>
-    <li class="app-tag -button">
-      <span class="label"><a href="{% url 'download-csv' group.id %}">CSV</a></span>
+    
+    {% if  group.group_status == "finished"%}
+    <li>
+      <a class="app-button -green js-howtoButton" href="{% url 'diff_version' object.id %}">Como participar?</a>
     </li>
+    {% endif %}
+      
+
   </ul>
   <header>
     <div class="info">
@@ -30,6 +35,9 @@
     </div>
     <h1 class="js-documentTitle" contentEditable="true">{{ object.title }}</h1>
     <p class="js-documentDescription description">{{ object.description }}</p>
+    
+      <span class="label"><a href="{% url 'download-csv' group.id %}">CSV</a></span>
+    
     <hr>
   </header>
   <div class="minimap">
