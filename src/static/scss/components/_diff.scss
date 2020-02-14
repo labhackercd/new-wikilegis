@@ -1,5 +1,5 @@
 .diff {
-	margin: 15%;
+	margin: 25%;
 	margin-top: 8rem;
 	margin-bottom: 5%;
 	background: #FFFFFF;
@@ -11,8 +11,9 @@
 	}
 	.texto {
 		text-align: justify;
-		font-weight: 200;
+		font-weight: 300;
 		padding: 2% 10% 2% 10%;
+		font-size: medium;
 	}
 	& .texto > .deleted {
 		position: relative;

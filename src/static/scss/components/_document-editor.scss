@@ -194,19 +194,27 @@ body.-analysis {
   }
 
 
+  & > article > header > .infoBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 0rem;
+  }
+
+
   & > article > .tags {
     position: sticky;
     z-index: 4;
     top: 0;
 
     display: flex;
-
     width: 100%;
     margin-bottom: 2rem;
     padding: 1rem 0 2rem 0;
 
     background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 70%, rgba(255, 255, 255, 0) 100%);
-  }
+  } 
 
   & > .article > .tags > .app-tag {
     @include card-shadow;
@@ -229,6 +237,17 @@ body.-analysis {
 
   & > article > header .date.-active {
     color: $color-brand;
+  }
+
+  & > article > header .date.-csvExport {
+    color:#949494;
+    align-content: flex-end;
+    text-align: right;
+  }
+
+
+  & > article > header .date.-iconDown {
+    max-width: 10%;
   }
 
   & > article > header > .-editable > h1 {
@@ -263,12 +282,13 @@ body.-analysis {
 
   & > article > header > hr {
     margin-bottom: 0;
+    margin-top: 0;
   }
 
   & > article > header > .description {
     font-size: 1.25rem;
     font-weight: 300;
-
+    margin-bottom: 1rem;
     margin-top: 1rem;
   }
 

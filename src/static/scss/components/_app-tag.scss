@@ -103,6 +103,17 @@
     }
   }
 
+  &.-results {
+    background-color: #2DA965;
+
+    & a {
+      color: white;
+      font-weight: 600;
+    }
+
+
+  }
+
   // &.-csv {
   //   & > a {
   //     font-weight: 600;

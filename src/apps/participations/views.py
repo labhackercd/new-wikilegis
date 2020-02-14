@@ -578,12 +578,8 @@ class InvitedGroupAnalyzeView(DetailView):
             InvitedGroup, pk=self.kwargs.get('id'),
             document__slug=self.kwargs.get('documment_slug'),
             group_status__in=[
-                'in_progress', 'analyzing', 'waiting_feedback', 'finished'])
-        if (obj.public_participation and
-                obj.group_status in ['in_progress', 'waiting_feedback']):
-            return obj
-        elif (self.request.user.is_superuser and
-              obj.group_status == 'analyzing'):
+                'analyzing', 'waiting_feedback', 'finished'])
+        if obj.public_participation:
             return obj
         elif obj.thematic_group:
             if self.request.user in obj.thematic_group.participants.all():
