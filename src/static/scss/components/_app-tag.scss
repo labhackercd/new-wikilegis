@@ -106,14 +106,11 @@
   &.-results {
     background-color: #2DA965;
 
-    & > a {
+    & a {
       color: white;
       font-weight: 600;
     }
 
-    & > .icon {
-      @include mask-icon('comment-black');
-    }
 
   }
 

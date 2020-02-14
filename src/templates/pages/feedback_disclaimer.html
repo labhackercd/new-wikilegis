@@ -29,12 +29,17 @@
         </div>
         <div class="item"></div>
         <div class="button-container">
-            <div class="button--yes">
-                <a href="http://{{ site_url }}{% url 'feedback_authorization' hash_id %}">SIM</a>
-            </div>
-            <div class="button--no">
-                <a href="http://{{ site_url }}{% url 'feedback_unauthorization' hash_id %}">NÃO</a>
-            </div>
+            <a href="http://{{ site_url }}{% url 'feedback_authorization' hash_id %}">
+                <div class="button--yes">
+                  SIM
+                </div>
+            </a>
+
+            <a href="http://{{ site_url }}{% url 'feedback_unauthorization' hash_id %}">
+                <div class="button--no">
+                    NÃO
+                </div>
+            </a>
         </div>
     </div>
 </main>

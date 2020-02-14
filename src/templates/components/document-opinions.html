@@ -17,11 +17,12 @@
     </li>
     
     {% if  group.group_status == "finished"%}
+    
       <li class="app-tag -button -results">
-        <a class="label" href="{% url 'diff_version' object.id %}">Versão Final</a>
+        <a class="label" href="{% url 'diff_version' object.id %}" >Ver texto final</a>
       </li>
+    
     {% endif %}
-      
 
   </ul>
   <header>

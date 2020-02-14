@@ -209,13 +209,12 @@ body.-analysis {
     top: 0;
 
     display: flex;
-
     width: 100%;
     margin-bottom: 2rem;
     padding: 1rem 0 2rem 0;
 
     background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 70%, rgba(255, 255, 255, 0) 100%);
-  }
+  } 
 
   & > .article > .tags > .app-tag {
     @include card-shadow;
