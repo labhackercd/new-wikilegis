@@ -1,5 +1,4 @@
 from django.db.models.signals import post_save
-from celery import shared_task
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from apps.notifications.models import (OwnerInvitation, PublicAuthorization,
@@ -61,8 +60,8 @@ def notify_closed_participation():
         invited_group.save()
 
 
-@shared_task(name="send_feedback_email_task")
+@celery_app.task(name="send_feedback_email_task")
 def task_send_finish_participations(id_group, proposal_title, slug_document,
                                     user_email):
-    return send_finish_participations(id_group, proposal_title, slug_document,
-                                      user_email)
+    send_finish_participations(id_group, proposal_title, slug_document,
+                               user_email)
