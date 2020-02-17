@@ -136,6 +136,9 @@
 
     border-width: 1px;
     border-style: solid;
+    @include bp-largedown {
+      display: none;
+    }
   }
 
   & > .metrics > .item > .bar > .size {

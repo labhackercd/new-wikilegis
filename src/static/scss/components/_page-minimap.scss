@@ -1,4 +1,7 @@
 .page-minimap {
+	@include bp-mediumdown {
+		display: none;
+	}
   position: fixed;
   z-index: 4;
   top: 7rem;

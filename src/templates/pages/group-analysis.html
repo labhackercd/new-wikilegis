@@ -1,5 +1,5 @@
 {% extends "structure/base.html" %}
-{% load staticfiles participations_tags %}
+{% load staticfiles compress projects_tags dashboard_tags notification_tags %}
 
 {% block title %}
 {{ object.document.title }}
@@ -10,11 +10,13 @@
 {% block navbar_extra_classes %}-non-admin{% endblock %}
 {% block content %}
 
+{% compress css %}
+{% endcompress %}
+
+
 <main class="document-editor -active js-documentEditor" data-document-id="{{ object.document.id }}">
-
-    {% include "components/opinions-sidebar.html" with object=object.document %}
-    {% include "components/document-opinions.html" with object=object.document %}
-
+  {% include "components/opinions-sidebar.html" with object=object.document %}
+  {% include "components/document-opinions.html" with object=object.document %}
 </main>
 
 {% endblock content %}
@@ -23,7 +25,6 @@
 <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
 <script src="{% static 'truncate.js/dist/truncate.min.js' %}"></script>
 <script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
-
 <script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
 <script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
 <script src="{% static 'js/components/pageMinimap/view.js' %}"></script>
