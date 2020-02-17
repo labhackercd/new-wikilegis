@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from datetime import datetime, date
 from django.views.generic import TemplateView
 from django.http import Http404
+from apps.participations.models import OpinionVote
 from utils.format_text import format_proposal_title
 from apps.notifications.emails import (
     send_feedback_authorization_owner_document,
@@ -20,6 +21,7 @@ from apps.notifications.emails import (
     send_management_authorization,
     send_management_unauthorization)
 from django.contrib import messages
+from apps.notifications.tasks import task_send_finish_participations
 
 
 class ParcipantInvitationView(RedirectView):
@@ -236,10 +238,33 @@ class FeedbackAuthorizationManagementView(RedirectView):
             messages.success(self.request, _(
                 'The feeback participation was approved!'))
 
+            self.send_emails_from_participations(public_group)
+
             return reverse('home')
 
         else:
             raise Http404
+
+    def send_emails_from_participations(self, public_group):
+        users_emails = []
+        proposal_title = format_proposal_title(public_group.document)
+        suggestions = public_group.suggestions.all()
+        suggestions_id = suggestions.values_list('id', flat=True)
+        opnions = OpinionVote.objects.filter(id__in=suggestions_id)
+
+        users_suggestions = suggestions.values_list('author__email', flat=True)
+        users_opnions = opnions.values_list('owner__email', flat=True)
+
+        users_emails.extend(list(users_suggestions))
+        users_emails.extend(list(users_opnions))
+
+        users_emails = list(set(users_emails))
+
+        for user_email in users_emails:
+            task_send_finish_participations.delay(
+                id_group=public_group.id, proposal_title=proposal_title,
+                slug_document=public_group.document.slug,
+                user_email=user_email)
 
 
 class FeedbackUnauthorizationManagementView(RedirectView):
