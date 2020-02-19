@@ -178,14 +178,18 @@
 
   & > .toggle {
     font-size: 1.75rem;
-
     position: absolute;
+    @include bp-mediumup {
+      right: -2.5rem;
+    }
+    @include bp-mediumdown {
+      right: -3.0rem;
+      top: 2.5rem;
+    }
     right: -2.5rem;
     bottom: 0;
-
     cursor: pointer;
     transition: all .25s $swift-out;
-
     @include icon('toggle');
   }
 }
