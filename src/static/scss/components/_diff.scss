@@ -1,3 +1,6 @@
+$deleted-red: #f171719c;
+$added-green: #3ecb7e99;
+
 .diff {
 	margin: 25%;
 	margin-top: 8rem;
@@ -27,10 +30,10 @@
 			right: 0;
 			top: 50%;
 		}
-		background-color: rgb(243, 112, 112);
+		background-color: $deleted-red;
 	}
 	& .texto > .added {
-		background-color: #2CD27E;
+		background-color: $added-green;
 	}
 	& .menu > a:hover, a:focus, a:active {
 	    color: #474747;
