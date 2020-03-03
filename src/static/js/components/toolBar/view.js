@@ -6,7 +6,7 @@ ToolBarView.prototype.initEvents = function(documentEditorView) {
   this.documentEditorView = documentEditorView;
   this.toolBarElement = $('.js-toolBar');
   this.saveButton = $('.js-toolBar .js-saveButton');
-
+  this.videoHelperButton = $('.js-toolBar .js-videoHelper');
   this.subscribers();
   this.publishers();
 };
@@ -21,6 +21,10 @@ ToolBarView.prototype.subscribers = function() {
 
 ToolBarView.prototype.publishers = function() {
   var self = this;
+
+  self.videoHelperButton.on('click', function() {
+    console.log("pegou o clique");
+  });
 
   self.saveButton.on('click', function() {
     events.openModal.publish();

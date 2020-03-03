@@ -20,12 +20,18 @@
   border-left: 1px solid $color-grayish;
   background-color: #FFF;
 
+  & > .video-helper {
+      margin: 0 0 30% 50%;   
+      @include hovering-label(left, 'default', 1rem, $color-whitesmoke, .875rem);
+      &:hover > svg path {
+        fill: $color-deep-gray;
+      }
+  }
+
   & > .tools {
     display: flex;
     align-items: center;
     flex-direction: column;
-
-    height: 100%;
   }
 
   & > .tools > .icon {

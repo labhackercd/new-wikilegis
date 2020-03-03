@@ -30,11 +30,16 @@
       {% endif %}
     {% elif 'editor' in request.path %}
     <a href="#" class="icon js-saveButton" aria-label="Criar versão">
-      {% include "svgs/cloud-icon.html" %}
+      {% include "svgs/edit-icon.html" %}
     </a>
     {% endif %}
     <a href="javascript:window.print();" class="icon" aria-label="Exportar">
       {% include "svgs/download-icon.html" %}
     </a>
   </div>
+
+    <a href="#" class="icon js-videoHelper video-helper" aria-label="Ver vídeo de ajuda">
+      {% include "svgs/question-icon.html" %}
+    </a>
+
 </aside>
