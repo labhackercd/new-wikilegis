@@ -11,20 +11,18 @@ Pedido de participação pública
 
 {% block content %}
 {% if updated %}
-  <tr class="center">
-    O(A) servidor(a) {{owner}}, solicita o adiamento da consulta pública do dodocumento "{{document_title}}" ao(&agrave;) dep. {{congressman}} com data de encerramento para {{closing_date}}.
-  </tr>
+<tr class="center">
+  O(A) servidor(a) {{owner}}, solicita o adiamento da consulta pública do dodocumento "{{document_title}}" ao(&agrave;)
+  dep. {{congressman}} com data de encerramento para {{closing_date}}.
+</tr>
 {% else %}
-  <tr class="center">
-   O(A) servidor(a) {{owner}}, solicita a participação pública do dodocumento "{{document_title}}" ao(&agrave;) dep. {{congressman}} com data de encerramento para {{closing_date}}.
-  </tr>
+<tr class="center">
+  O(A) servidor(a) {{owner}}, solicita a participação pública do dodocumento "{{document_title}}" ao(&agrave;) dep.
+  {{congressman}} com data de encerramento para {{closing_date}}.
+</tr>
 {% endif %}
-  <tr class="center">
-    <p><strong> Email: </strong> {{email}}</p>
-    <p><strong> Telefone: </strong> {{phone}} </p>
-  </tr>
+<tr class="center">
+  <p><strong> Email: </strong> {{email}}</p>
+  <p><strong> Telefone: </strong> {{phone}} </p>
+</tr>
 {% endblock content %}
-
-{% block button %}
-<a href="http://{{ site_url }}{% url 'information_authorization' hash %}">ACEITAR O CONVITE</a>
-{% endblock button %}
