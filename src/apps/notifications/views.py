@@ -126,9 +126,14 @@ class InformationCongressmanView(TemplateView):
                                           hash_id=kwargs['hash'])
         updated = self.request.GET.get('updated', False)
 
+        if updated:
+            closing_date = authorization.closing_date
+        else:
+            closing_date = authorization.group.closing_date
+
         context['hash_id'] = authorization.hash_id
         context['site_url'] = site_url
-        context['closing_date'] = authorization.closing_date
+        context['closing_date'] = closing_date
         context['document'] = authorization.group.document
         context['updated'] = updated
 
