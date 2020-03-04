@@ -53,7 +53,7 @@
       {% else %}
         {% group_suggestions object as has_suggestions %}
       {% endif %}
-      {% if has_suggestions %}
+      {% if has_suggestions and object.group_status == 'in_progress'%}
       <button class="suggestion-opinion -all js-allOpinionsButton" aria-label="Avaliar todas as opiniões"></button>
       {% endif %}
     </header>
@@ -72,7 +72,7 @@
         {% else %}
           {% excerpt_suggestions object excerpt as has_suggestions %}
         {% endif %}
-        {% if has_suggestions %}
+        {% if has_suggestions and object.group_status == 'in_progress'%}
         <button class="suggestion-opinion js-opinionButton" aria-label="Avaliar opiniões deste trecho"></button>
         {% endif %}
       </p>
