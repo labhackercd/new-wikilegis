@@ -22,10 +22,8 @@ ToolBarView.prototype.publishers = function() {
   var self = this;
 
   self.videoHelperButton.on('click', function() {
-    console.log("teste");
     events.openModal.publish();
     events.openVideoHelperModal.publish();
-    // events.openVideoHelperModal.publish();
   });
 
   self.saveButton.on('click', function() {
