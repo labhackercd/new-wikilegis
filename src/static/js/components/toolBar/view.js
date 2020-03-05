@@ -6,14 +6,13 @@ ToolBarView.prototype.initEvents = function(documentEditorView) {
   this.documentEditorView = documentEditorView;
   this.toolBarElement = $('.js-toolBar');
   this.saveButton = $('.js-toolBar .js-saveButton');
-  this.videoHelperButton = $('.js-toolBar .js-videoHelper');
+  this.videoHelperButton = $('.js-toolBar .video-helper');
   this.subscribers();
   this.publishers();
 };
 
 ToolBarView.prototype.subscribers = function() {
   var self = this;
-
   events.autoSaveDocument.subscribe(function() {
     self.saveDocument(true);
   });
@@ -23,7 +22,10 @@ ToolBarView.prototype.publishers = function() {
   var self = this;
 
   self.videoHelperButton.on('click', function() {
-    console.log("pegou o clique");
+    console.log("teste");
+    events.openModal.publish();
+    events.openVideoHelperModal.publish();
+    // events.openVideoHelperModal.publish();
   });
 
   self.saveButton.on('click', function() {

@@ -56,6 +56,9 @@ var events = {
   // Triggered when a modal is opened
   openModal: $.Topic('openModal'),
 
+  // Triggered when the video helper modal on the dashboard is opened
+  openVideoHelperModal: $.Topic('openVideoHelperModal'),
+
   // Triggered before opinionModal opens
   // Params: user, excerpt, suggestion
   fillOpinionModal: $.Topic('fillOpinionModal'),

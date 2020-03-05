@@ -2,7 +2,7 @@
 DocumentEditorView ValidationModalView InfoMessageView
 CongressmanAutocompleteView PublicFormModalView PublicFormController
 ToolBarView ToolBarController SaveMessageView DocumentEditorController
-SaveModalView DocumentSideBarView TimelineSidebarView CompareVersionsController
+SaveModalView VideoHelperModalView DocumentSideBarView TimelineSidebarView CompareVersionsController
 CompareVersionsView DatePickerView */
 
 var editor = $('.js-textEditor')[0];
@@ -50,6 +50,9 @@ saveMessageView.initEvents();
 
 var saveModalView = new SaveModalView();
 saveModalView.initEvents();
+
+var videoHelperModalView = new VideoHelperModalView();
+videoHelperModalView.initEvents();
 
 var documentSideBarView = new DocumentSideBarView();
 documentSideBarView.initEvents();
