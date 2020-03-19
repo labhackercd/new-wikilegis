@@ -23,12 +23,15 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(required=False)
+    suggestions_count = serializers.SerializerMethodField()
+    vote_count = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ('id', 'email', 'username', 'first_name', 'last_name',
                   'last_login', 'date_joined', 'profile', 'is_active',
-                  'is_staff', 'is_superuser')
+                  'is_staff', 'is_superuser', 'suggestions_count',
+                  'vote_count')
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
@@ -70,6 +73,12 @@ class UserSerializer(serializers.ModelSerializer):
         profile.save()
         instance.save()
         return instance
+
+    def get_suggestions_count(self, obj):
+        return obj.suggestions.count()
+
+    def get_vote_count(self, obj):
+        return obj.votes.count()
 
 
 class DocumentTypeSerializer(serializers.ModelSerializer):
