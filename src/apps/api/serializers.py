@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db.models import Count
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from apps.accounts.models import UserProfile, ThematicGroup
@@ -122,10 +123,10 @@ class DocumentSerializer(serializers.ModelSerializer):
     def get_vote_count(self, obj):
         group = obj.invited_groups.filter(public_participation=True).first()
         suggestions = group.suggestions.all()
-        total_votes = 0
-        for suggestion in suggestions:
-            total_votes += suggestion.votes.count()
-        return total_votes
+        total_votes = suggestions.annotate(num_votes=Count(
+            'votes')).values_list('num_votes', flat=True)
+
+        return sum(total_votes)
 
     def get_users_count(self, obj):
         group = obj.invited_groups.filter(public_participation=True).first()
