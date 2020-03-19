@@ -92,11 +92,15 @@ class DocumentSerializer(serializers.ModelSerializer):
     document_type = DocumentTypeSerializer()
     themes = ThemeSerializer(many=True)
     pub_excerpts = serializers.SerializerMethodField()
+    suggestions_count = serializers.SerializerMethodField()
+    vote_count = serializers.SerializerMethodField()
+    users_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Document
         fields = ('id', 'title', 'slug', 'description', 'document_type',
-                  'number', 'year', 'themes', 'owner', 'pub_excerpts')
+                  'number', 'year', 'themes', 'owner', 'pub_excerpts',
+                  'suggestions_count', 'vote_count', 'users_count')
 
     def get_pub_excerpts(self, obj):
         pub_group = obj.invited_groups.filter(
@@ -110,6 +114,33 @@ class DocumentSerializer(serializers.ModelSerializer):
             context=self.context)
 
         return serializer.data
+
+    def get_suggestions_count(self, obj):
+        group = obj.invited_groups.filter(public_participation=True).first()
+        return group.suggestions.count()
+
+    def get_vote_count(self, obj):
+        group = obj.invited_groups.filter(public_participation=True).first()
+        suggestions = group.suggestions.all()
+        total_votes = 0
+        for suggestion in suggestions:
+            total_votes += suggestion.votes.count()
+        return total_votes
+
+    def get_users_count(self, obj):
+        group = obj.invited_groups.filter(public_participation=True).first()
+
+        suggestions = group.suggestions.all()
+        list_user_suggestion = list(
+            suggestions.values_list('author__id', flat=True))
+        list_id_suggestion = list(suggestions.values_list('id', flat=True))
+        list_users_votes = list(OpinionVote.objects.filter(
+            suggestion__id__in=list_id_suggestion)
+            .values_list('owner__id', flat=True))
+
+        list_user = list(set(list_user_suggestion + list_users_votes))
+
+        return len(list_user)
 
 
 class ExcerptSerializer(serializers.ModelSerializer):
