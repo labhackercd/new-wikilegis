@@ -3,7 +3,8 @@ from django.db.models import Count
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from apps.accounts.models import UserProfile, ThematicGroup
-from apps.projects.models import Theme, DocumentType, Document, Excerpt
+from apps.projects.models import (
+    Theme, DocumentType, Document, Excerpt, DocumentResponsible)
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 
 
@@ -88,9 +89,16 @@ class DocumentTypeSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'initials')
 
 
+class DocumentResponsibleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DocumentResponsible
+        fields = ('id', 'name', 'party_initials')
+
+
 class DocumentSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
     document_type = DocumentTypeSerializer()
+    responsible = DocumentResponsibleSerializer()
     themes = ThemeSerializer(many=True)
     pub_excerpts = serializers.SerializerMethodField()
     suggestions_count = serializers.SerializerMethodField()
@@ -100,8 +108,9 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ('id', 'title', 'slug', 'description', 'document_type',
-                  'number', 'year', 'themes', 'owner', 'pub_excerpts',
-                  'suggestions_count', 'vote_count', 'users_count')
+                  'number', 'year', 'themes', 'responsible',
+                  'owner', 'pub_excerpts', 'suggestions_count',
+                  'vote_count', 'users_count')
 
     def get_pub_excerpts(self, obj):
         pub_group = obj.invited_groups.filter(
