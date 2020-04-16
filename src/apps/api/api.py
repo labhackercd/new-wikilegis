@@ -14,6 +14,7 @@ class UserFilter(FilterSet):
     class Meta:
         model = User
         fields = {
+            'username': ['exact'],
             'last_login': ['lt', 'gt', 'lte', 'gte', 'year__gt', 'year__lt'],
             'date_joined': ['lt', 'gt', 'lte', 'gte', 'year__gt', 'year__lt'],
             'profile__birthdate': ['lt', 'gt', 'lte', 'gte', 'year__gt',
