@@ -31,6 +31,7 @@ celery = {extras = ["redis"]}
 django_celery_results = "*"
 django_celery_beat = "*"
 diff-match-patch = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 ipdb = "*"
