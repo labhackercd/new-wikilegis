@@ -28,6 +28,7 @@ class DocumentVersionAdmin(admin.ModelAdmin):
     list_display = ('document', 'name', 'number', 'created', 'auto_save',
                     'parent')
     search_fields = ('document__title', 'number', 'name')
+    raw_id_fields = ('document', 'parent')
 
 
 @admin.register(models.Document)
@@ -45,6 +46,7 @@ class DocumentAdmin(admin.ModelAdmin):
     actions = ['fetch_document_informations']
     form = forms.DocumentAdminForm
     inlines = (VideoInline, )
+    raw_id_fields = ('owner', 'responsible')
 
     def fetch_document_informations(self, request, queryset):
         if config.USE_CD_OPEN_DATA:
@@ -85,7 +87,8 @@ class DocumentAdmin(admin.ModelAdmin):
 @admin.register(models.DocumentVideo)
 class DocumentVideoAdmin(admin.ModelAdmin):
     list_display = ('id', 'document', 'title', 'video_id')
-    list_filter = ('document',)
+    search_fields = ('document__title',)
+    raw_id_fields = ('document',)
 
 
 @admin.register(models.ExcerptType)
@@ -109,6 +112,7 @@ class ExcerptAdmin(admin.ModelAdmin):
     )
     list_filter = ('created', 'modified')
     search_fields = ('document__title', 'version__number', 'version__name')
+    raw_id_fields = ('document', 'excerpt_type', 'version')
 
 
 @admin.register(models.DocumentInfo)
@@ -121,6 +125,7 @@ class DocumentInfoAdmin(admin.ModelAdmin):
     )
     list_filter = ('status', )
     search_fields = ('document__title', )
+    raw_id_fields = ('document', )
 
 
 @admin.register(models.DocumentAuthor)
@@ -143,7 +148,8 @@ class DocumentAuthorInfoAdmin(admin.ModelAdmin):
         'party_initials',
         'uf',
     )
-    list_filter = ('author',)
+    search_fields = ('author__name',)
+    raw_id_fields = ('author',)
 
 
 @admin.register(models.DocumentResponsible)
