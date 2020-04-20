@@ -179,7 +179,7 @@ class InvitedGroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = InvitedGroup
         fields = ('id', 'created', 'modified', 'closing_date', 'document',
-                  'public_participation', 'suggestions_count')
+                  'public_participation', 'group_status', 'suggestions_count')
 
     def get_suggestions_count(self, obj):
         return obj.suggestions.count()
