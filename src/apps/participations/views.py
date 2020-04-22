@@ -27,6 +27,7 @@ from constance import config
 from apps.notifications.emails import (send_remove_participant,
                                        send_feedback_authorization_congressman)
 from utils.filters import get_id_video
+from django.views.decorators.csrf import csrf_exempt
 import requests
 import csv
 
@@ -334,6 +335,7 @@ def new_opinion(request):
     })
 
 
+@csrf_exempt
 @require_ajax
 def get_opinions(request, excerpt_pk):
     excerpt = get_object_or_404(Excerpt, pk=excerpt_pk)
