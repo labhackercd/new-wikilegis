@@ -115,7 +115,12 @@ class DocumentSerializer(serializers.ModelSerializer):
     def get_pub_excerpts(self, obj):
         pub_group = obj.invited_groups.filter(
             public_participation=True,
-            group_status='in_progress').last()
+            group_status__in=[
+                'in_progress',
+                'waiting_feedback',
+                'analyzing',
+                'finished'
+            ]).last()
         pub_excerpts = obj.excerpts.filter(
             version=pub_group.version)
         serializer = ExcerptSerializer(
