@@ -312,5 +312,8 @@ var events = {
   sendFeedbackForm: $.Topic('sendFeedbackForm'),
 
   // Switches texts between their original version, the diff version and final version 
-  switchTexts: $.Topic('switchTexts')
+  switchTexts: $.Topic('switchTexts'),
+  
+  // Replaces '...' for long texts on homepage 
+  documentCard: $.Topic('documentCard'),
 };
