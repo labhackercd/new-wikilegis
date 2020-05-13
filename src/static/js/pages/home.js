@@ -1,5 +1,5 @@
 /*global NavBurgerView NavBarView SearchInputView BackgroundParticle
-AnimateScrollView HowtoButtonView AppOnboardingView InfoMessageView*/
+AnimateScrollView HowtoButtonView AppOnboardingView InfoMessageView DocumentCardView*/
 
 var navBurgerView = new NavBurgerView();
 navBurgerView.initEvents();
@@ -24,3 +24,6 @@ howtoButton.initEvents();
 
 var infoMessageView = new InfoMessageView();
 infoMessageView.initEvents();
+
+var documentCardView = new DocumentCardView();
+documentCardView.initEvents();
