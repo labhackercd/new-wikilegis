@@ -24,6 +24,7 @@ DocumentBodyView.prototype.subscribers = function() {
   events.outsideDocumentMouseUp.subscribe(function() {
     self.enableTextSelection();
   });
+
 };
 
 DocumentBodyView.prototype.displayDisabledText = function() {
