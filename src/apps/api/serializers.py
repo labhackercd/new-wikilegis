@@ -21,6 +21,25 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('id', 'gender', 'uf', 'country', 'birthdate', 'avatar',
                   'profile_type', 'themes')
+    
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        request = self.context.get('request', None)
+        if request:
+            api_key = request.GET.get('api_key', None)
+            if api_key != settings.SECRET_KEY:
+                ret.pop('avatar', None)
+                ret.pop('gender', None)
+                ret.pop('uf', None)
+                ret.pop('country', None)
+                ret.pop('birthdate', None)
+        else:
+            ret.pop('avatar', None)
+            ret.pop('gender', None)
+            ret.pop('uf', None)
+            ret.pop('country', None)
+            ret.pop('birthdate', None)
+        return ret
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,11 +61,17 @@ class UserSerializer(serializers.ModelSerializer):
             api_key = request.GET.get('api_key', None)
             if api_key != settings.SECRET_KEY:
                 ret.pop('email')
+                ret.pop('username', None)
+                ret.pop('first_name', None)
+                ret.pop('last_name', None)
                 ret.pop('is_active', None)
                 ret.pop('is_staff', None)
                 ret.pop('is_superuser', None)
         else:
             ret.pop('email')
+            ret.pop('username', None)
+            ret.pop('first_name', None)
+            ret.pop('last_name', None)
             ret.pop('is_active', None)
             ret.pop('is_staff', None)
             ret.pop('is_superuser', None)
