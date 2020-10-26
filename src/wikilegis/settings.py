@@ -157,11 +157,11 @@ LANGUAGE_CODE = config('LANGUAGE_CODE', default='pt-br')
 
 TIME_ZONE = config('TIME_ZONE', default='America/Sao_Paulo')
 
-USE_I18N = True
+USE_I18N = config('USE_I18N', cast=bool, default=True)
 
-USE_L10N = True
+USE_L10N = config('USE_L10N', cast=bool, default=True)
 
-USE_TZ = True
+USE_TZ = config('USE_TZ', cast=bool, default=False)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
