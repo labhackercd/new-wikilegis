@@ -114,7 +114,7 @@ def excerpt_numbering(excerpt):
             if excerpt.number <= 9:
                 return "Art. %dº " % excerpt.number
             else:
-                return "Art. %d " % excerpt.number
+                return "Art. %d. " % excerpt.number
         elif type_name == 'paragrafo':
             if excerpt.number <= 9:
                 prev_excerpt = Excerpt.objects.filter(
@@ -130,7 +130,7 @@ def excerpt_numbering(excerpt):
                 else:
                     return "§ %dº " % excerpt.number
             else:
-                return "§ %d " % excerpt.number
+                return "§ %d. " % excerpt.number
         elif type_name == 'inciso':
             return "%s - " % int_to_roman(excerpt.number)
         elif type_name == 'alinea':
