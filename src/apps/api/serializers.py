@@ -21,7 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('id', 'gender', 'uf', 'country', 'birthdate', 'avatar',
                   'profile_type', 'themes')
-    
+
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         request = self.context.get('request', None)
