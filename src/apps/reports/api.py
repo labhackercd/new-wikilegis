@@ -10,6 +10,7 @@ from apps.reports.serializers import (NewUsersSerializer,
                                       VotesReportSerializer,
                                       OpinionsReportSerializer,
                                       DocumentsReportSerializer)
+from django.contrib.sites.models import Site
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
