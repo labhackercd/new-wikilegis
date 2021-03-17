@@ -108,10 +108,15 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# Static files
 node_modules/
 src/public/static/
 src/public/media/
 
+# VSCode
+.vscode/
+
+# Others
 .DS_Store
 dump.rdb
 npm-debug.*

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from apps.api.urls import router, api_root
+from apps.reports import urls as reports_urls
 from apps.participations import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,6 +25,7 @@ urlpatterns += router.urls
 urlpatterns += [
     path('api/v1/', api_root),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('reports/', include(reports_urls)),
 ]
 
 if settings.DEBUG:
