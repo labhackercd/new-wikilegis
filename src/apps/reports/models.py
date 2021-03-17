@@ -47,7 +47,7 @@ class VotesReport(AnalysisMixin):
             self.start_date.strftime("%d/%m/%Y"), self.period)
 
 
-class OpinionReport(AnalysisMixin):
+class OpinionsReport(AnalysisMixin):
     opinions = models.IntegerField(_('opinions'), null=True, blank=True,
                                    default=0)
     class Meta:
@@ -60,7 +60,7 @@ class OpinionReport(AnalysisMixin):
             self.start_date.strftime("%d/%m/%Y"), self.period)
 
 
-class DocumentReport(AnalysisMixin):
+class DocumentsReport(AnalysisMixin):
     documents = models.IntegerField(_('documents'), null=True, blank=True,
                                     default=0)
     class Meta:
