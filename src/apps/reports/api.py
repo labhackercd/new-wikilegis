@@ -142,7 +142,7 @@ def api_reports_root(request, format=None):
                             request=request, format=format),
         'votes': reverse('votesreport-list',
                          request=request, format=format),
-        'opinion': reverse('opinionsreport-list',
+        'opinions': reverse('opinionsreport-list',
                          request=request, format=format),
         'documents': reverse('documentsreport-list',
                              request=request, format=format)
