@@ -9,6 +9,8 @@ from django.db.models import Sum
 
 
 def create_new_users_object(registers_by_date, period='daily'):
+    yesterday = date.today() - timedelta(days=1)
+
     if period == 'daily':
         registers_count = registers_by_date[1]
         start_date = end_date = registers_by_date[0]
@@ -18,13 +20,25 @@ def create_new_users_object(registers_by_date, period='daily'):
 
         if period == 'monthly':
             start_date = registers_by_date['month']
-            last_day = calendar.monthrange(start_date.year,
-                                           start_date.month)[1]
-            end_date = start_date.replace(day=last_day)
+            if (start_date.year == yesterday.year and
+                start_date.month == yesterday.month):
+                end_date = yesterday.strftime('%Y-%m-%d')
+            else:
+                last_day = calendar.monthrange(start_date.year,
+                                            start_date.month)[1]
+                end_date = start_date.replace(day=last_day)
 
         elif period == 'yearly':
             start_date = registers_by_date['year']
-            end_date = start_date.replace(day=31, month=12)
+            if start_date.year == yesterday.year:
+                end_date = yesterday.strftime('%Y-%m-%d')
+            else:
+                end_date = start_date.replace(day=31, month=12)
+
+        if NewUsersReport.objects.filter(
+            start_date=start_date, period=period).exists():
+            NewUsersReport.objects.filter(
+                start_date=start_date, period=period).delete()
 
     report_object = NewUsersReport(start_date=start_date, end_date=end_date,
                                    new_users=registers_count, period=period)
@@ -39,7 +53,8 @@ def get_new_users_daily(start_date=None):
     if not start_date:
         start_date = yesterday.strftime('%Y-%m-%d')
 
-    users = get_user_model().objects.filter(date_joined__gte=start_date)
+    users = get_user_model().objects.filter(date_joined__gte=start_date,
+                                            date_joined__lte=yesterday)
 
     date_joined_list = [user.date_joined.strftime('%Y-%m-%d')
                         for user in users]
