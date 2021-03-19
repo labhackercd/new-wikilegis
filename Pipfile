@@ -36,7 +36,7 @@ graphene-django = "*"
 django-graphql-jwt = "*"
 pytest-django = "*"
 pytest-cov = "*"
-mixer = "*"
+mixer = "==6.3.0"
 
 [dev-packages]
 ipdb = "*"
