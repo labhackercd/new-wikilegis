@@ -25,7 +25,7 @@ def create_new_users_object(registers_by_date, period='daily'):
                 end_date = yesterday.strftime('%Y-%m-%d')
             else:
                 last_day = calendar.monthrange(start_date.year,
-                                            start_date.month)[1]
+                                               start_date.month)[1]
                 end_date = start_date.replace(day=last_day)
 
         elif period == 'yearly':

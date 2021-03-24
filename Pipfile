@@ -34,9 +34,10 @@ diff-match-patch = "*"
 django-cors-headers = "*"
 graphene-django = "*"
 django-graphql-jwt = "*"
-pytest-django = "*"
-pytest-cov = "*"
+pytest-django = "==4.1.0"
+pytest-cov = "==2.11.1"
 mixer = "==6.3.0"
+drf-yasg = "==1.20.0"
 
 [dev-packages]
 ipdb = "*"
