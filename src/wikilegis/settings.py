@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'corsheaders',
     'graphene_django',
+    'drf_yasg',
 
     'apps.accounts',
     'apps.participations',
