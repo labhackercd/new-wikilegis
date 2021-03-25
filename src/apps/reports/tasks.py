@@ -49,10 +49,12 @@ def create_new_users_object(registers_by_date, period='daily'):
 @celery_app.task(name="get_new_users_daily")
 def get_new_users_daily(start_date=None):
     batch_size = 100
-    yesterday = date.today() - timedelta(days=1)
+    yesterday = datetime.now() - timedelta(days=1)
+    yesterday = yesterday.replace(hour=23, minute=59, second=59)
 
     if not start_date:
-        start_date = yesterday.strftime('%Y-%m-%d')
+        start_date = yesterday.replace(
+            hour=0, minute=0, second=0, microsecond=0)
 
     users = get_user_model().objects.filter(date_joined__gte=start_date,
                                             date_joined__lte=yesterday)
