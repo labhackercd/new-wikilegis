@@ -4,7 +4,7 @@ from apps.reports.models import NewUsersReport
 from django.db import IntegrityError
 from django.urls import reverse
 import json
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 from apps.reports.tasks import (create_new_users_object,
@@ -99,7 +99,7 @@ class TestNewUsersReport():
 
     @pytest.mark.django_db
     def test_get_new_users_daily_without_args(self):
-        yesterday = date.today() - timedelta(days=1)
+        yesterday = datetime.now() - timedelta(days=1)
         mixer.blend(get_user_model(), date_joined=yesterday)
 
         get_new_users_daily.apply()
@@ -107,8 +107,8 @@ class TestNewUsersReport():
         daily_data = NewUsersReport.objects.filter(
             period='daily').first()
 
-        assert daily_data.start_date == yesterday
-        assert daily_data.end_date == yesterday
+        assert daily_data.start_date == yesterday.date()
+        assert daily_data.end_date == yesterday.date()
         assert daily_data.period == 'daily'
         assert daily_data.new_users == 1
 
