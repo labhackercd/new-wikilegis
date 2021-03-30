@@ -1,6 +1,7 @@
 from wikilegis import celery_app
 from django.contrib.auth import get_user_model
-from apps.reports.models import NewUsersReport, VotesReport, OpinionsReport
+from apps.reports.models import (NewUsersReport, VotesReport, OpinionsReport,
+                                 ParticipantsReport)
 from apps.participations.models import OpinionVote, Suggestion
 from collections import Counter
 from datetime import date, datetime, timedelta
@@ -341,3 +342,128 @@ def get_opinions_yearly(start_date=None):
                       for result in opinion_by_year]
 
     OpinionsReport.objects.bulk_create(opinion_yearly, batch_size)
+
+
+def create_participants_object(participants_by_date, period='daily'):
+    yesterday = date.today() - timedelta(days=1)
+
+    if period == 'daily':
+        participants_count = participants_by_date[1]
+        start_date = end_date = participants_by_date[0]
+
+    else:
+        participants_count = participants_by_date['total_participants']
+
+        if period == 'monthly':
+            start_date = participants_by_date['month']
+            if (start_date.year == yesterday.year and
+                start_date.month == yesterday.month):
+                end_date = yesterday.strftime('%Y-%m-%d')
+            else:
+                last_day = calendar.monthrange(start_date.year,
+                                               start_date.month)[1]
+                end_date = start_date.replace(day=last_day)
+
+        elif period == 'yearly':
+            start_date = participants_by_date['year']
+            if start_date.year == yesterday.year:
+                end_date = yesterday.strftime('%Y-%m-%d')
+            else:
+                end_date = start_date.replace(day=31, month=12)
+
+        if ParticipantsReport.objects.filter(
+            start_date=start_date, period=period).exists():
+            ParticipantsReport.objects.filter(
+                start_date=start_date, period=period).delete()
+
+    report_object = ParticipantsReport(start_date=start_date,
+        end_date=end_date, participants=participants_count, period=period)
+    return report_object
+
+
+@celery_app.task(name="get_participants_daily")
+def get_participants_daily(start_date=None):
+    batch_size = 100
+    yesterday = datetime.now() - timedelta(days=1)
+    yesterday = yesterday.replace(hour=23, minute=59, second=59)
+
+    if not start_date:
+        start_date = yesterday.replace(
+            hour=0, minute=0, second=0, microsecond=0)
+
+    votes = OpinionVote.objects.filter(
+        created__gte=start_date,
+        created__lte=yesterday,
+        suggestion__invited_group__public_participation=True)
+
+    vote_users = [(owner_id, dt.strftime('%Y-%m-%d'))
+                  for owner_id, dt in votes.values_list(
+                      'owner_id', 'created')]
+
+    opinions = Suggestion.objects.filter(
+        created__gte=start_date,
+        created__lte=yesterday,
+        invited_group__public_participation=True)
+
+    opinion_users = [(author_id, dt.strftime('%Y-%m-%d'))
+                     for author_id, dt in opinions.values_list(
+                        'author_id', 'created')]
+
+
+    participants = list(set(list(vote_users) + list(opinion_users)))
+
+    participants_by_day = Counter(elem[1] for elem in participants)
+
+    participants_daily = [create_participants_object(result, 'daily')
+                      for result in participants_by_day.items()]
+
+    ParticipantsReport.objects.bulk_create(participants_daily, batch_size)
+
+
+@celery_app.task(name="get_participants_monthly")
+def get_participants_monthly(start_date=None):
+    batch_size = 100
+    end_date = date.today()
+
+    if not start_date:
+        start_date = end_date.replace(day=1).strftime('%Y-%m-%d')
+
+    participants_daily = ParticipantsReport.objects.filter(
+        period='daily',
+        start_date__gte=start_date,
+        end_date__lte=end_date.strftime('%Y-%m-%d'))
+
+    participants_by_month = participants_daily.annotate(
+        month=TruncMonth('start_date')).values('month').annotate(
+            total_participants=Sum('participants')).values(
+                'month', 'total_participants')
+
+    participants_monthly = [create_participants_object(result, 'monthly')
+                        for result in participants_by_month]
+
+    ParticipantsReport.objects.bulk_create(participants_monthly, batch_size)
+
+
+@celery_app.task(name="get_participants_yearly")
+def get_participants_yearly(start_date=None):
+    batch_size = 100
+    today = date.today()
+    last_day = calendar.monthrange(today.year, today.month)[1]
+
+    if not start_date:
+        start_date = today.replace(day=1).strftime('%Y-%m-%d')
+
+    participants_monthly = ParticipantsReport.objects.filter(
+        period='monthly',
+        start_date__gte=start_date,
+        end_date__lte=today.replace(day=last_day).strftime('%Y-%m-%d'))
+
+    participants_by_year = participants_monthly.annotate(
+        year=TruncYear('start_date')).values('year').annotate(
+            total_participants=Sum('participants')).values(
+                'year', 'total_participants')
+
+    participants_yearly = [create_participants_object(result, 'yearly')
+                       for result in participants_by_year]
+
+    ParticipantsReport.objects.bulk_create(participants_yearly, batch_size)

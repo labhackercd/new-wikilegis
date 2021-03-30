@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from apps.reports.models import (NewUsersReport, VotesReport, OpinionsReport,
-                                 DocumentsReport)
+                                 DocumentsReport, ParticipantsReport)
 
 
 class NewUsersSerializer(serializers.ModelSerializer):
@@ -68,4 +68,21 @@ class DocumentsReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentsReport
         fields = ('start_date', 'end_date', 'period', 'documents', 'month',
+                  'year', 'modified')
+
+
+class ParticipantsReportSerializer(serializers.ModelSerializer):
+    month = serializers.SerializerMethodField()
+    year = serializers.SerializerMethodField()
+    modified = serializers.DateTimeField(format="%d/%m/%Y %H:%M")
+
+    def get_month(self, obj):
+        return obj.start_date.month
+
+    def get_year(self, obj):
+        return obj.start_date.year
+
+    class Meta:
+        model = ParticipantsReport
+        fields = ('start_date', 'end_date', 'period', 'participants', 'month',
                   'year', 'modified')

@@ -71,3 +71,17 @@ class DocumentsReport(AnalysisMixin):
     def __str__(self):
         return ('{} - {}').format(
             self.start_date.strftime("%d/%m/%Y"), self.period)
+
+
+class ParticipantsReport(AnalysisMixin):
+    participants = models.IntegerField(_('participants'), null=True,
+                                       blank=True, default=0)
+
+    class Meta:
+        verbose_name = _('participant')
+        verbose_name_plural = _('participants')
+        unique_together = ('start_date', 'period')
+
+    def __str__(self):
+        return ('{} - {}').format(
+            self.start_date.strftime("%d/%m/%Y"), self.period)
