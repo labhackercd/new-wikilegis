@@ -5,11 +5,12 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework import viewsets, filters
 from apps.reports.models import (NewUsersReport, VotesReport, OpinionsReport,
-                                 DocumentsReport)
+                                 DocumentsReport, ParticipantsReport)
 from apps.reports.serializers import (NewUsersSerializer,
                                       VotesReportSerializer,
                                       OpinionsReportSerializer,
-                                      DocumentsReportSerializer)
+                                      DocumentsReportSerializer,
+                                      ParticipantsReportSerializer)
 from django.contrib.sites.models import Site
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -131,6 +132,35 @@ class DocumentsReportViewSet(viewsets.ReadOnlyModelViewSet):
         return response
 
 
+class ParticipantsReportFilter(FilterSet):
+    class Meta:
+        model = ParticipantsReport
+        fields = {
+            'start_date': ['lt', 'lte', 'gt', 'gte', 'year', 'month'],
+            'end_date': ['lt', 'lte', 'gt', 'gte', 'year', 'month'],
+            'period': ['exact'],
+        }
+
+
+class ParticipantsReportViewSet(viewsets.ReadOnlyModelViewSet):
+    allowed_methods = ['get']
+    queryset = ParticipantsReport.objects.all()
+    serializer_class = ParticipantsReportSerializer
+    filter_class = ParticipantsReportFilter
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+        filters.OrderingFilter
+    )
+    ordering_fields = '__all__'
+
+    @method_decorator(cache_page(1))  # 1 minute
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+        response.data['sum_total_results'] = sum([data.get('participants', 0)
+            for data in response.data['results']])
+        return response
+
+
 @api_view(['GET'])
 def api_reports_root(request, format=None):
     current_site = Site.objects.get_current()
@@ -145,5 +175,7 @@ def api_reports_root(request, format=None):
         'opinions': reverse('opinionsreport-list',
                          request=request, format=format),
         'documents': reverse('documentsreport-list',
-                             request=request, format=format)
+                             request=request, format=format),
+        'participants': reverse('participantsreport-list',
+                                request=request, format=format)
     })
