@@ -516,8 +516,8 @@ def get_documents_daily(start_date=None):
             hour=0, minute=0, second=0, microsecond=0)
 
     documents = InvitedGroup.objects.filter(
-        created__gte='2018-01-01',
-        created__lte='2021-03-30',
+        created__gte=start_date,
+        created__lte=yesterday,
         public_participation=True,
         group_status__in=[
             'finished', 'waiting_feedback', 'analyzing', 'in_progress'])
