@@ -1,8 +1,8 @@
 from wikilegis import celery_app
 from django.contrib.auth import get_user_model
 from apps.reports.models import (NewUsersReport, VotesReport, OpinionsReport,
-                                 ParticipantsReport)
-from apps.participations.models import OpinionVote, Suggestion
+                                 ParticipantsReport, DocumentsReport)
+from apps.participations.models import OpinionVote, Suggestion, InvitedGroup
 from collections import Counter
 from datetime import date, datetime, timedelta
 import calendar
@@ -467,3 +467,116 @@ def get_participants_yearly(start_date=None):
                        for result in participants_by_year]
 
     ParticipantsReport.objects.bulk_create(participants_yearly, batch_size)
+
+def create_documents_object(documents_by_date, period='daily'):
+    yesterday = date.today() - timedelta(days=1)
+
+    if period == 'daily':
+        documents_count = documents_by_date[1]
+        start_date = end_date = documents_by_date[0]
+
+    else:
+        documents_count = documents_by_date['total_documents']
+
+        if period == 'monthly':
+            start_date = documents_by_date['month']
+            if (start_date.year == yesterday.year and
+                start_date.month == yesterday.month):
+                end_date = yesterday.strftime('%Y-%m-%d')
+            else:
+                last_day = calendar.monthrange(start_date.year,
+                                               start_date.month)[1]
+                end_date = start_date.replace(day=last_day)
+
+        elif period == 'yearly':
+            start_date = documents_by_date['year']
+            if start_date.year == yesterday.year:
+                end_date = yesterday.strftime('%Y-%m-%d')
+            else:
+                end_date = start_date.replace(day=31, month=12)
+
+        if DocumentsReport.objects.filter(
+            start_date=start_date, period=period).exists():
+            DocumentsReport.objects.filter(
+                start_date=start_date, period=period).delete()
+
+    report_object = DocumentsReport(start_date=start_date,
+        end_date=end_date, documents=documents_count, period=period)
+    return report_object
+
+
+@celery_app.task(name="get_documents_daily")
+def get_documents_daily(start_date=None):
+    batch_size = 100
+    yesterday = datetime.now() - timedelta(days=1)
+    yesterday = yesterday.replace(hour=23, minute=59, second=59)
+
+    if not start_date:
+        start_date = yesterday.replace(
+            hour=0, minute=0, second=0, microsecond=0)
+
+    documents = InvitedGroup.objects.filter(
+        created__gte=start_date,
+        created__lte=yesterday,
+        public_participation=True,
+        group_status__in=[
+            'finished', 'waiting_feedback', 'analyzing', 'in_progress'])
+
+    document_by_date_list = [document.created.strftime('%Y-%m-%d')
+                            for document in documents]
+
+    document_by_day = Counter(document_by_date_list)
+
+    document_daily = [create_documents_object(result, 'daily')
+                     for result in document_by_day.items()]
+
+    DocumentsReport.objects.bulk_create(document_daily, batch_size)
+
+
+@celery_app.task(name="get_documents_monthly")
+def get_documents_monthly(start_date=None):
+    batch_size = 100
+    end_date = date.today()
+
+    if not start_date:
+        start_date = end_date.replace(day=1).strftime('%Y-%m-%d')
+
+    documents_daily = DocumentsReport.objects.filter(
+        period='daily',
+        start_date__gte=start_date,
+        end_date__lte=end_date.strftime('%Y-%m-%d'))
+
+    documents_by_month = documents_daily.annotate(
+        month=TruncMonth('start_date')).values('month').annotate(
+            total_documents=Sum('documents')).values(
+                'month', 'total_documents')
+
+    documents_monthly = [create_documents_object(result, 'monthly')
+                        for result in documents_by_month]
+
+    DocumentsReport.objects.bulk_create(documents_monthly, batch_size)
+
+
+@celery_app.task(name="get_documents_yearly")
+def get_documents_yearly(start_date=None):
+    batch_size = 100
+    today = date.today()
+    last_day = calendar.monthrange(today.year, today.month)[1]
+
+    if not start_date:
+        start_date = today.replace(day=1).strftime('%Y-%m-%d')
+
+    documents_monthly = DocumentsReport.objects.filter(
+        period='monthly',
+        start_date__gte=start_date,
+        end_date__lte=today.replace(day=last_day).strftime('%Y-%m-%d'))
+
+    documents_by_year = documents_monthly.annotate(
+        year=TruncYear('start_date')).values('year').annotate(
+            total_documents=Sum('documents')).values(
+                'year', 'total_documents')
+
+    documents_yearly = [create_documents_object(result, 'yearly')
+                       for result in documents_by_year]
+
+    DocumentsReport.objects.bulk_create(documents_yearly, batch_size)
