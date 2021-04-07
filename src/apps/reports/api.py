@@ -4,13 +4,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework import viewsets, filters
+from rest_framework.pagination import LimitOffsetPagination
 from apps.reports.models import (NewUsersReport, VotesReport, OpinionsReport,
                                  DocumentsReport, ParticipantsReport)
+from apps.participations.models import InvitedGroup
 from apps.reports.serializers import (NewUsersSerializer,
                                       VotesReportSerializer,
                                       OpinionsReportSerializer,
                                       DocumentsReportSerializer,
-                                      ParticipantsReportSerializer)
+                                      ParticipantsReportSerializer,
+                                      PublicGroupRankingSerializer)
 from django.contrib.sites.models import Site
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -161,6 +164,39 @@ class ParticipantsReportViewSet(viewsets.ReadOnlyModelViewSet):
         return response
 
 
+class PublicGroupRankingFilter(FilterSet):
+    class Meta:
+        model = InvitedGroup
+        fields = {
+            'openning_date': ['lt', 'lte', 'gt', 'gte', 'year', 'month'],
+            'closing_date': ['lt', 'lte', 'gt', 'gte', 'year', 'month'],
+            'group_status': ['exact'],
+            'document__themes__name': ['exact'],
+        }
+
+
+class PublicGroupRankingViewSet(viewsets.ReadOnlyModelViewSet):
+    allowed_methods = ['get']
+    queryset = InvitedGroup.objects.filter(
+        public_participation=True,
+        group_status__in=[
+            'finished', 'waiting_feedback', 'analyzing', 'in_progress'])
+    serializer_class = PublicGroupRankingSerializer
+    pagination_class = LimitOffsetPagination
+    filter_class = PublicGroupRankingFilter
+    filter_backends = (
+        django_filters.DjangoFilterBackend,
+        filters.OrderingFilter,
+        filters.SearchFilter
+    )
+    search_fields = ('document__title', 'document__description')
+    ordering_fields = ('openning_date', 'closing_date', 'group_status')
+
+    @method_decorator(cache_page(1)) # 1 minute
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+
 @api_view(['GET'])
 def api_reports_root(request, format=None):
     current_site = Site.objects.get_current()
@@ -177,5 +213,7 @@ def api_reports_root(request, format=None):
         'documents': reverse('documentsreport-list',
                              request=request, format=format),
         'participants': reverse('participantsreport-list',
-                                request=request, format=format)
+                                request=request, format=format),
+        'ranking': reverse('ranking-list',
+                           request=request, format=format),
     })

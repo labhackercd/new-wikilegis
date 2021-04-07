@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from apps.reports.models import (NewUsersReport, VotesReport, OpinionsReport,
                                  DocumentsReport, ParticipantsReport)
+from apps.api.serializers import (DocumentTypeSerializer, ThemeSerializer,
+                                  DocumentResponsibleSerializer)
+from apps.participations.models import InvitedGroup, OpinionVote
+from apps.projects.models import Document
+from django.db.models import Count
 
 
 class NewUsersSerializer(serializers.ModelSerializer):
@@ -86,3 +91,50 @@ class ParticipantsReportSerializer(serializers.ModelSerializer):
         model = ParticipantsReport
         fields = ('start_date', 'end_date', 'period', 'participants', 'month',
                   'year', 'modified')
+
+
+class DocumentRankingSerializer(serializers.ModelSerializer):
+    document_type = DocumentTypeSerializer()
+    themes = ThemeSerializer(many=True)
+    responsible = DocumentResponsibleSerializer()
+
+    class Meta:
+        model = Document
+        fields = ('title', 'description', 'document_type',
+                  'number', 'year', 'themes', 'responsible')
+
+
+class PublicGroupRankingSerializer(serializers.ModelSerializer):
+    document = DocumentRankingSerializer()
+    suggestions_count = serializers.SerializerMethodField()
+    vote_count = serializers.SerializerMethodField()
+    participants_count = serializers.SerializerMethodField()
+    group_status = serializers.CharField(source='get_group_status_display')
+
+    class Meta:
+        model = InvitedGroup
+        fields = ('document', 'group_status', 'openning_date', 'closing_date',
+                  'suggestions_count', 'vote_count', 'participants_count')
+
+    def get_suggestions_count(self, obj):
+        return obj.suggestions.count()
+
+    def get_vote_count(self, obj):
+        suggestions = obj.suggestions.all()
+        total_votes = suggestions.annotate(num_votes=Count(
+            'votes')).values_list('num_votes', flat=True)
+
+        return sum(total_votes)
+
+    def get_participants_count(self, obj):
+        suggestions = obj.suggestions.all()
+        list_user_suggestion = list(
+            suggestions.values_list('author__id', flat=True))
+        list_id_suggestion = list(suggestions.values_list('id', flat=True))
+        list_users_votes = list(OpinionVote.objects.filter(
+            suggestion__id__in=list_id_suggestion)
+            .values_list('owner__id', flat=True))
+
+        list_user = list(set(list_user_suggestion + list_users_votes))
+
+        return len(list_user)
