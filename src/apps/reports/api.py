@@ -40,7 +40,7 @@ class NewUsersViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
-    @method_decorator(cache_page(1))  # 1 minute
+    @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
         response.data['sum_total_results'] = sum([data.get('new_users', 0)
@@ -69,7 +69,7 @@ class VotesReportViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
-    @method_decorator(cache_page(1))  # 1 minute
+    @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
         response.data['sum_total_results'] = sum([data.get('votes', 0)
@@ -98,7 +98,7 @@ class OpinionsReportViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
-    @method_decorator(cache_page(1))  # 1 minute
+    @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
         response.data['sum_total_results'] = sum([data.get('opinions', 0)
@@ -127,7 +127,7 @@ class DocumentsReportViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
-    @method_decorator(cache_page(1))  # 1 minute
+    @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
         response.data['sum_total_results'] = sum([data.get('documents', 0)
@@ -156,7 +156,7 @@ class ParticipantsReportViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
-    @method_decorator(cache_page(1))  # 1 minute
+    @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
         response.data['sum_total_results'] = sum([data.get('participants', 0)
@@ -192,7 +192,7 @@ class PublicGroupRankingViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ('document__title', 'document__description')
     ordering_fields = ('openning_date', 'closing_date', 'group_status')
 
-    @method_decorator(cache_page(1)) # 1 minute
+    @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
