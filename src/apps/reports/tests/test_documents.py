@@ -86,15 +86,15 @@ class TestDocumentsReport():
 
     @pytest.mark.django_db(transaction=True)
     def test_get_documents_daily_without_args(self):
-        yesterday = datetime.now() - timedelta(days=1)
+        yesterday = date.today() - timedelta(days=1)
 
         document = mixer.blend(Document)
         document_version = mixer.blend(DocumentVersion, document=document,
             number=1, auto_save=False, parent=None)
 
         public_group = mixer.blend(InvitedGroup, document=document,
-            version=document_version, public_participation=True)
-        public_group.created = yesterday
+            version=document_version, public_participation=True,
+            openning_date=yesterday)
         public_group.group_status = 'in_progress'
         public_group.save()
 
@@ -103,8 +103,8 @@ class TestDocumentsReport():
         daily_data = DocumentsReport.objects.filter(
             period='daily').first()
 
-        assert daily_data.start_date == yesterday.date()
-        assert daily_data.end_date == yesterday.date()
+        assert daily_data.start_date == yesterday
+        assert daily_data.end_date == yesterday
         assert daily_data.period == 'daily'
         assert daily_data.documents == 1
 
