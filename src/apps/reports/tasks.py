@@ -508,21 +508,19 @@ def create_documents_object(documents_by_date, period='daily'):
 @celery_app.task(name="get_documents_daily")
 def get_documents_daily(start_date=None):
     batch_size = 100
-    yesterday = datetime.now() - timedelta(days=1)
-    yesterday = yesterday.replace(hour=23, minute=59, second=59)
+    yesterday = date.today() - timedelta(days=1)
 
     if not start_date:
-        start_date = yesterday.replace(
-            hour=0, minute=0, second=0, microsecond=0)
+        start_date = yesterday
 
     documents = InvitedGroup.objects.filter(
-        created__gte=start_date,
-        created__lte=yesterday,
+        openning_date__gte=start_date,
+        openning_date__lte=yesterday,
         public_participation=True,
         group_status__in=[
             'finished', 'waiting_feedback', 'analyzing', 'in_progress'])
 
-    document_by_date_list = [document.created.strftime('%Y-%m-%d')
+    document_by_date_list = [document.openning_date.strftime('%Y-%m-%d')
                             for document in documents]
 
     document_by_day = Counter(document_by_date_list)
