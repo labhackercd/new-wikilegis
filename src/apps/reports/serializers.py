@@ -114,7 +114,8 @@ class PublicGroupRankingSerializer(serializers.ModelSerializer):
     class Meta:
         model = InvitedGroup
         fields = ('document', 'group_status', 'openning_date', 'closing_date',
-                  'suggestions_count', 'vote_count', 'participants_count')
+                  'suggestions_count', 'vote_count', 'participants_count',
+                  'get_absolute_url')
 
     def get_suggestions_count(self, obj):
         return obj.suggestions.count()
