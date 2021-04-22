@@ -289,4 +289,4 @@ CELERY_IMPORTS = ("apps.projects.tasks",)
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_URLS_REGEX = r'^/api/.*$'
+CORS_URLS_REGEX = r'^.*/api/.*$'

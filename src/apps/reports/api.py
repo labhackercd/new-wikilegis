@@ -40,6 +40,12 @@ class NewUsersViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
+    def get_serializer_context(self):
+        current_site = Site.objects.get_current()
+        current_site.domain
+        self.request.META['HTTP_HOST'] = current_site.domain
+        return {'request': self.request}
+
     @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
@@ -68,6 +74,12 @@ class VotesReportViewSet(viewsets.ReadOnlyModelViewSet):
         filters.OrderingFilter
     )
     ordering_fields = '__all__'
+
+    def get_serializer_context(self):
+        current_site = Site.objects.get_current()
+        current_site.domain
+        self.request.META['HTTP_HOST'] = current_site.domain
+        return {'request': self.request}
 
     @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
@@ -98,6 +110,12 @@ class OpinionsReportViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
+    def get_serializer_context(self):
+        current_site = Site.objects.get_current()
+        current_site.domain
+        self.request.META['HTTP_HOST'] = current_site.domain
+        return {'request': self.request}
+
     @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
@@ -127,6 +145,12 @@ class DocumentsReportViewSet(viewsets.ReadOnlyModelViewSet):
     )
     ordering_fields = '__all__'
 
+    def get_serializer_context(self):
+        current_site = Site.objects.get_current()
+        current_site.domain
+        self.request.META['HTTP_HOST'] = current_site.domain
+        return {'request': self.request}
+
     @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
@@ -155,6 +179,12 @@ class ParticipantsReportViewSet(viewsets.ReadOnlyModelViewSet):
         filters.OrderingFilter
     )
     ordering_fields = '__all__'
+
+    def get_serializer_context(self):
+        current_site = Site.objects.get_current()
+        current_site.domain
+        self.request.META['HTTP_HOST'] = current_site.domain
+        return {'request': self.request}
 
     @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
@@ -191,6 +221,12 @@ class PublicGroupRankingViewSet(viewsets.ReadOnlyModelViewSet):
     )
     search_fields = ('document__title', 'document__description')
     ordering_fields = ('openning_date', 'closing_date', 'group_status')
+
+    def get_serializer_context(self):
+        current_site = Site.objects.get_current()
+        current_site.domain
+        self.request.META['HTTP_HOST'] = current_site.domain
+        return {'request': self.request}
 
     @method_decorator(cache_page(60 * 60 * 6)) # 6 hours
     def list(self, request, *args, **kwargs):
