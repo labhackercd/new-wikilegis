@@ -514,13 +514,13 @@ def get_documents_daily(start_date=None):
         start_date = yesterday
 
     documents = InvitedGroup.objects.filter(
-        openning_date__gte=start_date,
-        openning_date__lte=yesterday,
+        closing_date__gte=start_date,
+        closing_date__lte=yesterday,
         public_participation=True,
         group_status__in=[
             'finished', 'waiting_feedback', 'analyzing', 'in_progress'])
 
-    document_by_date_list = [document.openning_date.strftime('%Y-%m-%d')
+    document_by_date_list = [document.closing_date.strftime('%Y-%m-%d')
                             for document in documents]
 
     document_by_day = Counter(document_by_date_list)

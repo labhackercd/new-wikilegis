@@ -94,7 +94,7 @@ class TestDocumentsReport():
 
         public_group = mixer.blend(InvitedGroup, document=document,
             version=document_version, public_participation=True,
-            openning_date=yesterday)
+            closing_date=yesterday)
         public_group.group_status = 'in_progress'
         public_group.save()
 
