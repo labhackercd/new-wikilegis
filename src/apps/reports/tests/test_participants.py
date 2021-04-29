@@ -7,7 +7,8 @@ from apps.projects.models import Document, DocumentVersion, Excerpt
 from apps.reports.tasks import (create_participants_object,
                                 get_participants_daily,
                                 get_participants_monthly,
-                                get_participants_yearly)
+                                get_participants_yearly,
+                                get_participants_all_the_time)
 from datetime import date, datetime, timedelta
 from django.urls import reverse
 import json
@@ -113,7 +114,7 @@ class TestParticipantsReport():
         assert daily_data.period == 'daily'
         assert daily_data.participants == 1
 
-    @pytest.mark.django_db
+    @pytest.mark.django_db(transaction=True)
     def test_get_participants_monthly_without_args(self):
         yesterday = date.today() - timedelta(days=1)
         document = mixer.blend(Document)
@@ -145,7 +146,7 @@ class TestParticipantsReport():
         assert monthly_data.period == 'monthly'
         assert monthly_data.participants == 1
 
-    @pytest.mark.django_db
+    @pytest.mark.django_db(transaction=True)
     def test_get_participants_yearly_without_args(self):
         yesterday = date.today() - timedelta(days=1)
         document = mixer.blend(Document)
@@ -177,7 +178,7 @@ class TestParticipantsReport():
         assert yearly_data.period == 'yearly'
         assert yearly_data.participants == 1
 
-    @pytest.mark.django_db
+    @pytest.mark.django_db(transaction=True)
     def test_get_participants_yearly_current_year(self):
         yesterday = date.today() - timedelta(days=1)
         document = mixer.blend(Document)
@@ -211,3 +212,49 @@ class TestParticipantsReport():
         assert yearly_data.end_date == yesterday
         assert yearly_data.period == 'yearly'
         assert yearly_data.participants == 1
+
+    @pytest.mark.django_db(transaction=True)
+    def test_get_participants_all_the_time(self):
+        yesterday = date.today() - timedelta(days=1)
+        initial_date = date(year=2020, month=1, day=1)
+
+        first_document = mixer.blend(Document)
+        any_document_version = mixer.blend(DocumentVersion,
+            document=first_document, number=1, auto_save=False, parent=None)
+
+        first_group = mixer.blend(InvitedGroup, document=first_document,
+            version=any_document_version, public_participation=True)
+        first_group.created = initial_date
+        first_group.save()
+
+        mixer.blend(ParticipantsReport, period='all', participants=0,
+                    start_date=initial_date,
+                    end_date=yesterday - timedelta(days=1))
+
+        document = mixer.blend(Document)
+        document_version = mixer.blend(DocumentVersion, document=document,
+            number=1, auto_save=False, parent=None)
+
+        public_group = mixer.blend(InvitedGroup, document=document,
+            version=document_version, public_participation=True)
+        public_group.created = yesterday
+        public_group.save()
+
+        excerpt = mixer.blend(Excerpt, document=document,
+            version=document_version)
+        excerpt.created = yesterday
+        excerpt.save()
+
+        suggestion = mixer.blend(Suggestion, invited_group=public_group,
+            excerpt=excerpt)
+        suggestion.created = yesterday
+        suggestion.save()
+
+        get_participants_all_the_time.apply()
+
+        all_data = ParticipantsReport.objects.get(period='all')
+
+        assert all_data.start_date == initial_date
+        assert all_data.end_date == yesterday
+        assert all_data.period == 'all'
+        assert all_data.participants == 1

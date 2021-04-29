@@ -494,6 +494,36 @@ def get_participants_yearly(start_date=None):
 
     ParticipantsReport.objects.bulk_create(participants_yearly, batch_size)
 
+
+@celery_app.task(name="get_participants_all_the_time")
+def get_participants_all_the_time():
+    yesterday = datetime.now() - timedelta(days=1)
+
+    votes = OpinionVote.objects.filter(
+        suggestion__invited_group__public_participation=True)
+
+    vote_users = votes.values_list('owner_id')
+
+    opinions = Suggestion.objects.filter(
+        invited_group__public_participation=True)
+
+    opinion_users = opinions.values_list('author_id')
+
+    count_participants = len(list(set(list(vote_users) + list(opinion_users))))
+
+    first_group = InvitedGroup.objects.filter(
+        public_participation=True).order_by('created').first()
+
+    ParticipantsReport.objects.update_or_create(
+        period='all',
+        start_date=first_group.created,
+        defaults={
+            'end_date': yesterday,
+            'participants': count_participants
+        })
+
+
+
 def create_documents_object(documents_by_date, period='daily'):
     yesterday = date.today() - timedelta(days=1)
 
