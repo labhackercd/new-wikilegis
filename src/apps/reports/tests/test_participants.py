@@ -47,6 +47,7 @@ class TestParticipantsReport():
         assert response.status_code == 200
         assert request['count'] == 5
 
+    @pytest.mark.django_db
     def test_create_participants_daily(self):
         data_daily = ['2020-11-23', 10]
         participants_object = create_participants_object(data_daily, 'daily')
@@ -58,12 +59,10 @@ class TestParticipantsReport():
 
     @pytest.mark.django_db
     def test_create_participants_monthly(self):
-        data_monthly = {
-            'month': date(2020, 1, 1),
-            'total_participants': 10
-        }
+        data_monthly = ['2020-01', 10]
 
-        participants_object = create_participants_object(data_monthly, 'monthly')
+        participants_object = create_participants_object(
+            data_monthly, 'monthly')
 
         assert participants_object.period == 'monthly'
         assert participants_object.start_date == date(2020, 1, 1)
@@ -72,10 +71,7 @@ class TestParticipantsReport():
 
     @pytest.mark.django_db
     def test_create_participants_yearly(self):
-        data_yearly = {
-            'year': date(2019, 1, 1),
-            'total_participants': 10
-        }
+        data_yearly = ['2019', 10]
 
         participants_object = create_participants_object(data_yearly, 'yearly')
 
@@ -120,8 +116,24 @@ class TestParticipantsReport():
     @pytest.mark.django_db
     def test_get_participants_monthly_without_args(self):
         yesterday = date.today() - timedelta(days=1)
-        mixer.blend(ParticipantsReport, period='daily', participants=10,
-                    start_date=yesterday, end_date=yesterday)
+        document = mixer.blend(Document)
+        document_version = mixer.blend(DocumentVersion, document=document,
+            number=1, auto_save=False, parent=None)
+
+        public_group = mixer.blend(InvitedGroup, document=document,
+            version=document_version, public_participation=True)
+        public_group.created = yesterday
+        public_group.save()
+
+        excerpt = mixer.blend(Excerpt, document=document,
+            version=document_version)
+        excerpt.created = yesterday
+        excerpt.save()
+
+        suggestion = mixer.blend(Suggestion, invited_group=public_group,
+            excerpt=excerpt)
+        suggestion.created = yesterday
+        suggestion.save()
 
         get_participants_monthly.apply()
 
@@ -131,14 +143,29 @@ class TestParticipantsReport():
         assert monthly_data.start_date == yesterday.replace(day=1)
         assert monthly_data.end_date == yesterday
         assert monthly_data.period == 'monthly'
-        assert monthly_data.participants == 10
+        assert monthly_data.participants == 1
 
     @pytest.mark.django_db
     def test_get_participants_yearly_without_args(self):
         yesterday = date.today() - timedelta(days=1)
-        mixer.blend(ParticipantsReport, period='monthly', participants=10,
-                    start_date=yesterday.replace(day=1),
-                    end_date=yesterday)
+        document = mixer.blend(Document)
+        document_version = mixer.blend(DocumentVersion, document=document,
+            number=1, auto_save=False, parent=None)
+
+        public_group = mixer.blend(InvitedGroup, document=document,
+            version=document_version, public_participation=True)
+        public_group.created = yesterday
+        public_group.save()
+
+        excerpt = mixer.blend(Excerpt, document=document,
+            version=document_version)
+        excerpt.created = yesterday
+        excerpt.save()
+
+        suggestion = mixer.blend(Suggestion, invited_group=public_group,
+            excerpt=excerpt)
+        suggestion.created = yesterday
+        suggestion.save()
 
         get_participants_yearly.apply()
 
@@ -148,15 +175,31 @@ class TestParticipantsReport():
         assert yearly_data.start_date == yesterday.replace(day=1, month=1)
         assert yearly_data.end_date == yesterday
         assert yearly_data.period == 'yearly'
-        assert yearly_data.participants == 10
+        assert yearly_data.participants == 1
 
     @pytest.mark.django_db
     def test_get_participants_yearly_current_year(self):
         yesterday = date.today() - timedelta(days=1)
-        mixer.blend(ParticipantsReport, period='monthly', participants=10,
-                    start_date=yesterday.replace(day=1),
-                    end_date=yesterday)
-        mixer.blend(ParticipantsReport, period='yearly', participants=9,
+        document = mixer.blend(Document)
+        document_version = mixer.blend(DocumentVersion, document=document,
+            number=1, auto_save=False, parent=None)
+
+        public_group = mixer.blend(InvitedGroup, document=document,
+            version=document_version, public_participation=True)
+        public_group.created = yesterday
+        public_group.save()
+
+        excerpt = mixer.blend(Excerpt, document=document,
+            version=document_version)
+        excerpt.created = yesterday
+        excerpt.save()
+
+        suggestion = mixer.blend(Suggestion, invited_group=public_group,
+            excerpt=excerpt)
+        suggestion.created = yesterday
+        suggestion.save()
+
+        mixer.blend(ParticipantsReport, period='yearly', participants=0,
                     start_date=yesterday.replace(day=1, month=1),
                     end_date=yesterday - timedelta(days=1))
 
@@ -167,4 +210,4 @@ class TestParticipantsReport():
         assert yearly_data.start_date == yesterday.replace(day=1, month=1)
         assert yearly_data.end_date == yesterday
         assert yearly_data.period == 'yearly'
-        assert yearly_data.participants == 10
+        assert yearly_data.participants == 1
