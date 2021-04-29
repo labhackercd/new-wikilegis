@@ -1,5 +1,4 @@
 *.sqlite3
-*.ini
 package-lock.json
 
 # Byte-compiled / optimized / DLL files
@@ -120,3 +119,6 @@ src/public/media/
 .DS_Store
 dump.rdb
 npm-debug.*
+
+### Django Decouple ###
+src/wikilegis/*.ini
