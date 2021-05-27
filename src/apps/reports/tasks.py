@@ -102,7 +102,7 @@ def get_new_users_yearly(start_date=None):
     last_day = calendar.monthrange(today.year, today.month)[1]
 
     if not start_date:
-        start_date = today.replace(day=1).strftime('%Y-%m-%d')
+        start_date = today.replace(day=1, month=1).strftime('%Y-%m-%d')
 
     registers_monthly = NewUsersReport.objects.filter(
         period='monthly',
@@ -214,7 +214,7 @@ def get_votes_yearly(start_date=None):
     last_day = calendar.monthrange(today.year, today.month)[1]
 
     if not start_date:
-        start_date = today.replace(day=1).strftime('%Y-%m-%d')
+        start_date = today.replace(day=1, month=1).strftime('%Y-%m-%d')
 
     votes_monthly = VotesReport.objects.filter(
         period='monthly',
@@ -326,7 +326,7 @@ def get_opinions_yearly(start_date=None):
     last_day = calendar.monthrange(today.year, today.month)[1]
 
     if not start_date:
-        start_date = today.replace(day=1).strftime('%Y-%m-%d')
+        start_date = today.replace(day=1, month=1).strftime('%Y-%m-%d')
 
     opinion_monthly = OpinionsReport.objects.filter(
         period='monthly',
@@ -618,7 +618,7 @@ def get_documents_yearly(start_date=None):
     last_day = calendar.monthrange(today.year, today.month)[1]
 
     if not start_date:
-        start_date = today.replace(day=1).strftime('%Y-%m-%d')
+        start_date = today.replace(day=1, month=1).strftime('%Y-%m-%d')
 
     documents_monthly = DocumentsReport.objects.filter(
         period='monthly',
