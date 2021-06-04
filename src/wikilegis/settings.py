@@ -32,6 +32,8 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS',
                        cast=Csv(lambda x: x.strip().strip(',').strip()),
                        default='*')
 
+USE_X_FORWARDED_HOST = config('USE_X_FORWARDED_HOST', cast=bool, default=True)
+
 # Application definition
 
 INSTALLED_APPS = [
