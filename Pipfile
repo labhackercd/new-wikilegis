@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-Django = "==2.2.10"
+Django = "==2.2.21"
 python-decouple = "*"
 django_compressor = "*"
 django-npm = "*"
