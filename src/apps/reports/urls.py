@@ -10,7 +10,7 @@ router.register(r'api/documents', api.DocumentsReportViewSet)
 router.register(r'api/participants', api.ParticipantsReportViewSet)
 router.register(r'api/ranking', api.PublicGroupRankingViewSet, 'ranking')
 
-urlpatterns += [
+urlpatterns = [
     path('api/', api.api_reports_root, name='reports_api_root'),
     path('', include(router.urls)),
 ]
