@@ -42,9 +42,9 @@ urlpatterns = [
     path('listarProposicoes/<int:cd_id>', views.proposition_detail),
 ]
 
-urlpatterns += router.urls
 urlpatterns += [
     path('api/v1/', api_root),
+    path('', include(router.urls)),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
     path('reports/', include(reports_urls)),
 ]
