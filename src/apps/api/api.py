@@ -136,6 +136,10 @@ class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
 
     @method_decorator(cache_page(60 * 5))  # 5 minutes
     def list(self, request, *args, **kwargs):
+        current_site = Site.objects.get_current()
+        current_site.domain
+        request.META['HTTP_HOST'] = current_site.domain
+
         return super().list(request, *args, **kwargs)
 
 
