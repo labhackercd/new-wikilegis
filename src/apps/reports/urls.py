@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from apps.reports import api
 from rest_framework.routers import DefaultRouter
 
@@ -10,7 +10,7 @@ router.register(r'api/documents', api.DocumentsReportViewSet)
 router.register(r'api/participants', api.ParticipantsReportViewSet)
 router.register(r'api/ranking', api.PublicGroupRankingViewSet, 'ranking')
 
-urlpatterns = router.urls
-urlpatterns += [
+urlpatterns = [
     path('api/', api.api_reports_root, name='reports_api_root'),
+    path('', include(router.urls)),
 ]

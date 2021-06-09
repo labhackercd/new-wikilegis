@@ -46,10 +46,6 @@ class UserViewSet(viewsets.ModelViewSet):
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
 
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
 
 class ThemeFilter(FilterSet):
     class Meta:
@@ -80,10 +76,6 @@ class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
 
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
 
 class DocumentTypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DocumentType.objects.all()
@@ -102,10 +94,6 @@ class DocumentTypeViewSet(viewsets.ReadOnlyModelViewSet):
         current_site.domain
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
-
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
 
 
 class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
@@ -134,10 +122,6 @@ class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
 
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
 
 class ExcerptViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Excerpt.objects.all()
@@ -156,10 +140,6 @@ class ExcerptViewSet(viewsets.ReadOnlyModelViewSet):
         current_site.domain
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
-
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
 
 
 class InvitedGroupFilter(FilterSet):
@@ -200,10 +180,6 @@ class InvitedGroupViewSet(viewsets.ReadOnlyModelViewSet):
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
 
-    @method_decorator(cache_page(60 * 1))  # 1 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
 
 class SuggestionFilter(FilterSet):
     class Meta:
@@ -234,10 +210,6 @@ class SuggestionViewSet(viewsets.ReadOnlyModelViewSet):
         current_site.domain
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
-
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
 
 
 class OpinionVoteFilter(FilterSet):
@@ -270,10 +242,6 @@ class OpinionVoteViewSet(viewsets.ReadOnlyModelViewSet):
         current_site.domain
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
-
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
 
 
 class ThematicGroupFilter(FilterSet):
@@ -308,7 +276,3 @@ class ThematicGroupViewSet(viewsets.ReadOnlyModelViewSet):
         current_site.domain
         self.request.META['HTTP_HOST'] = current_site.domain
         return {'request': self.request}
-
-    @method_decorator(cache_page(60 * 5))  # 5 minutes
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
