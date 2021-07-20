@@ -117,7 +117,7 @@ class DocumentTypeSerializer(serializers.ModelSerializer):
 class DocumentResponsibleSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentResponsible
-        fields = ('id', 'name', 'party_initials')
+        fields = ('id', 'name', 'party_initials', 'uf')
 
 
 class DocumentSerializer(serializers.ModelSerializer):

@@ -32,6 +32,8 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS',
                        cast=Csv(lambda x: x.strip().strip(',').strip()),
                        default='*')
 
+USE_X_FORWARDED_HOST = config('USE_X_FORWARDED_HOST', cast=bool, default=True)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'corsheaders',
     'graphene_django',
+    'drf_yasg',
 
     'apps.accounts',
     'apps.participations',
@@ -63,6 +66,7 @@ INSTALLED_APPS = [
     'apps.notifications',
     'apps.api',
     'apps.dashboard',
+    'apps.reports',
 ]
 
 MIDDLEWARE = [
@@ -232,7 +236,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.'
                                 'PageNumberPagination',
-    'PAGE_SIZE': 20
+    'PAGE_SIZE': 100
 }
 
 GRAPHENE = {
@@ -285,6 +289,7 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_IMPORTS = ("apps.projects.tasks",)
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+DJANGO_CELERY_BEAT_TZ_AWARE = config('DJANGO_CELERY_BEAT_TZ_AWARE', cast=bool, default=False)
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_URLS_REGEX = r'^/api/.*$'
+CORS_URLS_REGEX = r'^.*/api/.*$'

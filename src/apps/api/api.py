@@ -6,6 +6,8 @@ from apps.projects.models import Theme, DocumentType, Document, Excerpt
 from apps.participations.models import InvitedGroup, Suggestion, OpinionVote
 from apps.accounts.models import ThematicGroup
 from django.contrib.sites.models import Site
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 DATE_LOOKUPS = ['lt', 'lte', 'gt', 'gte']
 

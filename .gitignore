@@ -1,5 +1,4 @@
 *.sqlite3
-*.ini
 package-lock.json
 
 # Byte-compiled / optimized / DLL files
@@ -108,10 +107,18 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# Static files
 node_modules/
 src/public/static/
 src/public/media/
 
+# VSCode
+.vscode/
+
+# Others
 .DS_Store
 dump.rdb
 npm-debug.*
+
+### Django Decouple ###
+src/wikilegis/*.ini
