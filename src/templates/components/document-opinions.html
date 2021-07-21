@@ -32,7 +32,7 @@
     <div class="infoBottom">
 
           {% now "Y-m-d" as todays_date %}
-          <span class="date -inactive">Encerrado em {{group.closing_date|date:'d/m/Y'}}</span>
+          <span class="date -inactive">Participação encerrada em {{group.closing_date|date:'d/m/Y'}}</span>
           <a href="{% url 'download-csv' group.id %}"><span class="date -csvExport">Exportar CSV </span>{% include "svgs/export-icon.html" %}</a>
     </div>
 
