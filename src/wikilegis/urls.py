@@ -10,10 +10,6 @@ from graphene_django.views import GraphQLView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from django.contrib.sites.models import Site
-
-
-current_site = Site.objects.get_current()
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -25,7 +21,6 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="labhacker@camara.leg.br"),
         license=openapi.License(name="GNU General Public License v3.0"),
     ),
-    url='https://' + current_site.domain,
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
