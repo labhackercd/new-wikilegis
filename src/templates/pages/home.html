@@ -238,10 +238,6 @@
             {% elif request.user.is_authenticated and closed_group.group_status == 'analyzing' %}
             <img src="{% static 'img/hourglass.svg' %}" alt="">
             <p class="closed">Aguardando análise</p>
-            {% else %}
-            <img src="{% static 'img/hourglass.svg' %}" alt="">
-            <p class="-onhold"><span>Aguardando resposta</span>do deputado(a) há
-              {{ closed_group.closing_date |absolute_days_since }} dias</p>
             {% endif %}
           </div>
         </div>
