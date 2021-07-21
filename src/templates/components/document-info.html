@@ -1,9 +1,11 @@
+{% load projects_tags %}
+
 <div class="howtowrapper">
   <div class="howto-button -sidebar js-howtoButton" aria-label="Como participar"></div>
 </div>
 
 <div class="item">
-  {% if object.document.document_type %}
+  {% if object.document.document_type and object.document.number and object.document.year %}
   <span class="epigraph">{{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}</span>
   {% endif %}
 </div>
@@ -66,9 +68,11 @@
   </ul>
 </div>
 {% endif %}
+{% if not object.closing_date|is_open %}
 <div class="item">
   <a class="estatistica" href="{% url 'group-analysis' object.id object.document.slug %}">Estatísticas</a>
 </div>
+{% endif %}
 {% if object.document.videos.all %}
   {% for video in object.document.videos.all %}
   <div class="item -video">
