@@ -75,7 +75,7 @@
         {% endif %}
         {% else %}
         <div class="status">
-          <p class="closed">Encerrado em {{invite.group.closing_date|date:"d/m/Y"}}</p>
+          <p class="closed">Participação encerrada em {{invite.group.closing_date|date:"d/m/Y"}}</p>
         </div>
         {% endif %}
       </div>
@@ -142,7 +142,7 @@
         {% endif %}
         {% else %}
         <div class="status">
-          <p class="closed">Encerrado em {{private_group.closing_date|date:"d/m/Y"}}</p>
+          <p class="closed">Participação encerrada em {{private_group.closing_date|date:"d/m/Y"}}</p>
         </div>
         {% endif %}
 
@@ -230,7 +230,7 @@
 
       <div class="footer">
         <div class="status">
-          <p class="closed">Encerrado em {{closed_group.closing_date|date:"d/m/Y"}}</p>
+          <p class="closed">Participação encerrada em {{closed_group.closing_date|date:"d/m/Y"}}</p>
           <div class="feedback-status">
             {% if closed_group.group_status == 'finished' %}
             <img src="{% static 'img/check.svg' %}" alt="">
@@ -238,10 +238,6 @@
             {% elif request.user.is_authenticated and closed_group.group_status == 'analyzing' %}
             <img src="{% static 'img/hourglass.svg' %}" alt="">
             <p class="closed">Aguardando análise</p>
-            {% else %}
-            <img src="{% static 'img/hourglass.svg' %}" alt="">
-            <p class="-onhold"><span>Aguardando resposta</span>do deputado(a) há
-              {{ closed_group.closing_date |absolute_days_since }} dias</p>
             {% endif %}
           </div>
         </div>

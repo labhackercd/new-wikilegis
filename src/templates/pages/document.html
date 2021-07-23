@@ -40,7 +40,7 @@
           {% if object.closing_date|is_open %}
           <span class="date -active">Aberto até {{ object.closing_date|date:"d/m/Y" }}</span>
           {% else %}
-          <span class="date -inactive">Encerrado em {{ object.closing_date|date:"d/m/Y" }}</span>
+          <span class="date -inactive">Participação encerrada em {{ object.closing_date|date:"d/m/Y" }}</span>
           <a class="app-button -green" href="{% url 'group-analysis' object.id object.document.slug %}">Resultado da Participação</a>
           {% endif %}
         </div>

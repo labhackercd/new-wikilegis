@@ -362,17 +362,8 @@ def create_public_participation(request, document_pk):
     congressman_id = request.POST.get('congressman_id', None)
     closing_date = request.POST.get('closing_date', None)
     url_video = request.POST.get('url_video', None)
-
-    video_id = get_id_video(url_video)
-
-    if video_id is None:
-        return JsonResponse(
-            {'error':
-             _('Invalid link YouTube. Please enter a valid link!')},
-            status=400
-        )
-
     version = request.POST.get('versionId', None)
+
     if version:
         version = document.versions.get(id=version)
     else:
@@ -400,10 +391,20 @@ def create_public_participation(request, document_pk):
                 status=400
             )
         else:
-            document_video, created = DocumentVideo.objects.get_or_create(
-                document=document)
-            document_video.video_id = video_id
-            document_video.save()
+            if url_video:
+                video_id = get_id_video(url_video)
+
+                if video_id is None:
+                    return JsonResponse(
+                        {'error':
+                        _('Invalid link YouTube. Please enter a valid link!')},
+                        status=400
+                    )
+                else:
+                    document_video, created = DocumentVideo.objects.get_or_create(
+                        document=document)
+                    document_video.video_id = video_id
+                    document_video.save()
 
             group, created = InvitedGroup.objects.get_or_create(
                 document=document, public_participation=True,
