@@ -30,6 +30,8 @@ beautifulsoup4 = "==4.9.3"
 celery = {version = "==5.0.5", extras = ["redis"]}
 django_celery_results = "==2.0.1"
 django_celery_beat = "==2.2.0"
+kombu = "==5.0.2"
+redis = "==3.5.3"
 diff-match-patch = "==20200713"
 django-cors-headers = "==3.7.0"
 graphene-django = "==2.15.0"
