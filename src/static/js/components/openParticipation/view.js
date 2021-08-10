@@ -216,22 +216,47 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
   self.inputNameElement.keypress(function (e) {
     if (e.which == 13) {
       var email = self.inputNameElement.val();
-      if (self.validateEmail(email)) {
-        var element = `
-        <div class="user-profile js-email" data-email="${email}">
-          <img class="avatar" src="${prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
-          <div class="info">
-            <span class="name">${email}</span>
+
+      if(email.search(",") !== -1 || email.search(";") !== -1){
+        $.ajax({
+          url: Urls.email_list_participants(),
+          dataType: 'json',
+          traditional: true,
+          data: {
+            emails: email,
+          },
+          success: function(data) {
+            data.map((email) => {
+              if(email?.id){
+                console.log("tem id")
+              }else {
+                console.log("n tem id")
+              }
+
+            })
+          }
+        });
+
+      } else {
+        if (self.validateEmail(email)) {
+          var element = `
+          <div class="user-profile js-email" data-email="${email}">
+            <img class="avatar" src="${prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
+            <div class="info">
+              <span class="name">${email}</span>
+            </div>
+            <div class="action">
+              <div class="remove"></div>
+            </div>
           </div>
-          <div class="action">
-            <div class="remove"></div>
-          </div>
-        </div>
-        `;
-        $(element).prependTo('.js-selectedProfile');
-        self.inputNameElement.val('');
-        self.addEmail(email);
+          `;
+          $(element).prependTo('.js-selectedProfile');
+          self.inputNameElement.val('');
+          self.addEmail(email);
+        }
       }
+
+      
       return false;
     }
   });

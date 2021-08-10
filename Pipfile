@@ -43,6 +43,3 @@ drf-yasg = "==1.20.0"
 
 [dev-packages]
 ipdb = "*"
-
-[requires]
-python_version = "3.6"
