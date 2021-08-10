@@ -58,3 +58,29 @@ def participants_autocomplete(request):
         result.append(obj)
 
     return JsonResponse(result, safe=False)
+
+
+def email_list_participants(request):
+    emails = request.GET.get('emails', None)
+    result = []
+
+    for email in emails.replace(';', ',').split(','):
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            user_object = {
+                'id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'avatar': user.profile.avatar,
+                'themes': [
+                    {'name': theme.name, 'color': theme.color}
+                    for theme in user.profile.themes.all()
+                ],
+            }
+        else:
+            user_object = {
+                'email': email
+            }
+        result.append(user_object)
+
+    return JsonResponse(result, safe=False)
