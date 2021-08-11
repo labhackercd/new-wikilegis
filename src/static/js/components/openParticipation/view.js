@@ -197,10 +197,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
       $('.ui-autocomplete').css('left', '0px');
     },
     select: function(event, ui) {
-      self.addParticipant(ui.item.id);
-      var element = self.participantItem(false, ui.item.id, ui.item.first_name, ui.item.last_name, ui.item.avatar, ui.item.themes);
-      $(element).prependTo('.js-selectedProfile');
-      $('.js-selectedProfile').scrollTop(0);
+      self.addParticipantToInviteList(ui.item);
       $(this).autocomplete('search');
       $(`.js-inputProfile .js-user[data-user-id=${ui.item.id}]`).hide();
     }
@@ -217,6 +214,7 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
     if (e.which == 13) {
       var email = self.inputNameElement.val();
 
+      // In case user gives a list o email
       if(email.search(",") !== -1 || email.search(";") !== -1){
         $.ajax({
           url: Urls.email_list_participants(),
@@ -226,58 +224,52 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
             emails: email.replace(/\s/g, ''),// Resolver
           },
           success: function(data) {
-            data.map((email) => {
-              console.log(email)
-              if(email?.id){
-                self.addParticipant(email.id);
-                var element = self.participantItem(false, email.id, email.first_name, email.last_name, email.avatar, email.themes);
-                $(element).prependTo('.js-selectedProfile');
-                $('.js-selectedProfile').scrollTop(0);
+            data.map((participant) => {
+              if(participant?.id){
+                self.addParticipantToInviteList(participant);
               }else {
-                var element = `
-                <div class="user-profile js-email" data-email="${email.email}">
-                  <img class="avatar" src="${prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
-                  <div class="info">
-                    <span class="name">${email.email}</span>
-                  </div>
-                  <div class="action">
-                    <div class="remove"></div>
-                  </div>
-                </div>
-                `;
-                $(element).prependTo('.js-selectedProfile');
-                self.inputNameElement.val('');
-                self.addEmail(email.email);
+                self.addEmailToInviteList(participant.email);
               }
             })
-            
           }
         });
-
       } else {
-        if (self.validateEmail(email)) {
-          var element = `
-          <div class="user-profile js-email" data-email="${email}">
-            <img class="avatar" src="${prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
-            <div class="info">
-              <span class="name">${email}</span>
-            </div>
-            <div class="action">
-              <div class="remove"></div>
-            </div>
-          </div>
-          `;
-          $(element).prependTo('.js-selectedProfile');
-          self.inputNameElement.val('');
-          self.addEmail(email);
-        }
+        self.addEmailToInviteList(email);
       }
-
-      
       return false;
     }
   });
 };
+
+ParticipantsAutocompleteView.prototype.addParticipantToInviteList = function(participant){
+  var self = this;
+  self.addParticipant(participant.id);
+  var element = self.participantItem(false, participant.id, participant.first_name, participant.last_name, participant.avatar, participant.themes);
+  $(element).prependTo('.js-selectedProfile');
+  $('.js-selectedProfile').scrollTop(0);
+}
+
+ParticipantsAutocompleteView.prototype.addEmailToInviteList = function(email){
+  var self = this;
+  if (self.validateEmail(email)){
+    var element = `
+    <div class="user-profile js-email" data-email="${email}">
+      <img class="avatar" src="${prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
+      <div class="info">
+        <span class="name">${email}</span>
+      </div>
+      <div class="action">
+        <div class="remove"></div>
+      </div>
+    </div>
+    `;
+    $(element).prependTo('.js-selectedProfile');
+    self.inputNameElement.val('');
+    self.addEmail(email);
+  } else {
+    window.alert(`O email ${email} não é válido!`);
+  }
+}
 
 ParticipantsAutocompleteView.prototype.validateEmail = function (email) {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
