@@ -61,11 +61,12 @@ def participants_autocomplete(request):
 
 
 def email_list_participants(request):
-    emails = request.GET.get('emails', None)
+    emails_string = request.GET.get('emails', None)
     result = []
-    emails = emails.replace(';',',').replace(' ', '')
+    emails_list = emails_string.replace(" ", "").replace(';', ',').split(',')
+    emails_list = list(set(emails_list))
 
-    for email in emails.split(','):
+    for email in emails_list:
         if User.objects.filter(email=email).exists():
             user = User.objects.get(email=email)
             user_object = {
