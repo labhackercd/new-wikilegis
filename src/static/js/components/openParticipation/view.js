@@ -267,7 +267,8 @@ ParticipantsAutocompleteView.prototype.addEmailToInviteList = function(email){
     self.inputNameElement.val('');
     self.addEmail(email);
   } else {
-    window.alert(`O email ${email} não é válido!`);
+    // window.alert(`O email ${email} não é válido!`);
+    events.showMessage.publish(`Um ou mais emails da lista não eram válidos, e estes não foram adicionados.`, 'fail', );
   }
 }
 
