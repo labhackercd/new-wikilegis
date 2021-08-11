@@ -223,17 +223,34 @@ ParticipantsAutocompleteView.prototype.initAutocompleteInput= function () {
           dataType: 'json',
           traditional: true,
           data: {
-            emails: email,
+            emails: email.replace(/\s/g, ''),// Resolver
           },
           success: function(data) {
             data.map((email) => {
+              console.log(email)
               if(email?.id){
-                console.log("tem id")
+                self.addParticipant(email.id);
+                var element = self.participantItem(false, email.id, email.first_name, email.last_name, email.avatar, email.themes);
+                $(element).prependTo('.js-selectedProfile');
+                $('.js-selectedProfile').scrollTop(0);
               }else {
-                console.log("n tem id")
+                var element = `
+                <div class="user-profile js-email" data-email="${email.email}">
+                  <img class="avatar" src="${prefixURL ? prefixURL + '/static/img/avatar.png' : '/static/img/avatar.png'}">
+                  <div class="info">
+                    <span class="name">${email.email}</span>
+                  </div>
+                  <div class="action">
+                    <div class="remove"></div>
+                  </div>
+                </div>
+                `;
+                $(element).prependTo('.js-selectedProfile');
+                self.inputNameElement.val('');
+                self.addEmail(email.email);
               }
-
             })
+            
           }
         });
 
