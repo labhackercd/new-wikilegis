@@ -227,8 +227,8 @@ class FeedbackAuthorizationManagementView(RedirectView):
 
             if feedback_authorization.video_id:
                 video = DocumentVideo(document=document,
-                                    video_id=feedback_authorization.video_id,
-                                    title=_('Vídeo feedback'))
+                                      video_id=feedback_authorization.video_id,
+                                      title=_('Vídeo feedback'))
                 video.save()
 
             notification = Notification()

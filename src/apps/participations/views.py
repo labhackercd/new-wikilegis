@@ -397,7 +397,7 @@ def create_public_participation(request, document_pk):
                 if video_id is None:
                     return JsonResponse(
                         {'error':
-                        _('Invalid link YouTube. Please enter a valid link!')},
+                         _('Invalid link YouTube. Please enter a valid link!')},
                         status=400
                     )
                 else:
@@ -548,7 +548,7 @@ def set_final_version(request, group_id):
         if video_id is None:
             return JsonResponse(
                 {'error':
-                _('Invalid link YouTube. Please enter a valid link!')},
+                 _('Invalid link YouTube. Please enter a valid link!')},
                 status=400
             )
 
