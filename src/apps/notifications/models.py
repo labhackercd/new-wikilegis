@@ -56,7 +56,7 @@ class PublicAuthorization(TimestampedMixin):
 
 
 class FeedbackAuthorization(TimestampedMixin):
-    video_id = models.CharField(_('video id'), max_length=50)
+    video_id = models.CharField(_('video id'), max_length=50, null=True, blank=True)
     hash_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     group = models.ForeignKey('participations.InvitedGroup',
                               on_delete=models.CASCADE,
