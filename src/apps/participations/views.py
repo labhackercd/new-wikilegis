@@ -540,17 +540,19 @@ def set_final_version(request, group_id):
     group = InvitedGroup.objects.get(id=group_id)
     version_id = request.POST.get('version_id', None)
     video_url = request.POST.get('youtube_url', None)
+    video_id = None
 
-    video_id = get_id_video(video_url)
+    if video_url:
+        video_id = get_id_video(video_url)
 
-    if video_id is None:
-        return JsonResponse(
-            {'error':
-             _('Invalid link YouTube. Please enter a valid link!')},
-            status=400
-        )
+        if video_id is None:
+            return JsonResponse(
+                {'error':
+                _('Invalid link YouTube. Please enter a valid link!')},
+                status=400
+            )
 
-    if version_id and video_id:
+    if version_id:
         final_version = group.document.versions.get(id=version_id)
         if group.version == final_version:
             return JsonResponse(
