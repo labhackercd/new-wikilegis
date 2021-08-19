@@ -10,6 +10,7 @@
   padding-top: 3.25rem;
 
   background-color: #FFF;
+  overflow: auto;
 
   @include card-shadow;
 
@@ -27,7 +28,6 @@
 
     & > .profiles > ul {
       transition: none;
-
       opacity: 0 !important;
     }
   }
@@ -58,7 +58,7 @@
   & > .profiles > ul {
     display: flex !important;
     flex-direction: column;
-
+    
     width: 100% !important;
 
     transition: opacity .35s ease-in;
