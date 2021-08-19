@@ -28,5 +28,9 @@
 
 {% block button %}
     <a href="http://{{ site_url }}{% url 'diff_version_authorization' hash_id %}">Ver documento</a>
-    <a href="https://www.youtube.com/watch?v={{video_id}}">Ver vídeo de agradecimento</a>
+    
+    {% if video_id %}
+      <a href="https://www.youtube.com/watch?v={{video_id}}">Ver vídeo de agradecimento</a>   
+    {% endif %}
+      
 {% endblock button %}

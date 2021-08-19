@@ -225,10 +225,11 @@ class FeedbackAuthorizationManagementView(RedirectView):
             public_group.group_status = 'finished'
             public_group.save()
 
-            video = DocumentVideo(document=document,
-                                  video_id=feedback_authorization.video_id,
-                                  title=_('Vídeo feedback'))
-            video.save()
+            if feedback_authorization.video_id:
+                video = DocumentVideo(document=document,
+                                      video_id=feedback_authorization.video_id,
+                                      title=_('Vídeo feedback'))
+                video.save()
 
             notification = Notification()
             notification.user = document.owner
