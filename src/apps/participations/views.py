@@ -569,7 +569,7 @@ def set_final_version(request, group_id):
             return JsonResponse({'message': _('Request sent!')})
     else:
         return JsonResponse(
-            {'error': _('Version and Video link are required!')},
+            {'error': _('Version is required!')},
             status=400
         )
 
