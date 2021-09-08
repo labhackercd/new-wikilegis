@@ -1,0 +1,87 @@
+.input-filter {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  & > .input {
+    @extend .input-text;
+
+    margin-bottom: -.5rem;
+
+    & > input {
+      padding-right: 5rem;
+    }
+  }
+
+  & > .input > .filter {
+    font-size: .75rem;
+    font-weight: 500;
+
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: border-box;
+    height: 100%;
+    padding: .875rem;
+
+    cursor: pointer;
+    text-transform: uppercase;
+
+    color: $color-deep-gray;
+
+    &.-active,
+    &:hover {
+      color: $color-brand;
+    }
+
+    &.-active:hover {
+      color: lighten($color-deep-gray, 10%);
+    }
+  }
+
+  & > .filters {
+    font-size: $font-size-nano;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: .5rem;
+    padding-top: .5rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+
+     > .title {
+      margin-right: .75rem;
+    }
+
+     > .list {
+      display: flex;
+
+      & > * + * {
+        margin-left: .75rem;
+      }
+
+      & > .item {
+        font-size: $font-size-micro;
+      }
+    }
+
+    & > .clear {
+      margin-left: auto;
+
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: line-through;
+
+        color: $color-red;
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	O projeto de participação pública que você contribuiu "{{ proposal_title }}" encontra-se encerrado
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+	<tr class="center">
+	<p>
+		O projeto de participação pública {{ proposal_title }} que você ajudou a escrever foi finalizado. Clique no botão abaixo para conferir como ficou!
+	</p>
+	</tr>
+{% endblock content %}
+
+{% block button %}
+	<a href="http://{{site_url}}{% url 'project' id_group slug %}"> Clique aqui para conferir </a>
+{% endblock button %}

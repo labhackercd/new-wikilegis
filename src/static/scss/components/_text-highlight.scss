@@ -1,0 +1,17 @@
+.text-highlight {
+  position: relative;
+
+  padding: .2em 0;
+
+  color: $color-deep-gray;
+  background-image: linear-gradient(transparent 0%, $color-highlight-on-white 0, $color-highlight-on-white 100%, transparent 0);
+  background-repeat: no-repeat;
+  background-position-x: left;
+  background-size: 100% 100%;
+
+  &.-active {
+    cursor: default;
+
+    background: $color-highlight;
+  }
+}

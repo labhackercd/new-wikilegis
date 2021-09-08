@@ -1,0 +1,255 @@
+{% extends "structure/base.html" %}
+{% load staticfiles participations_tags %}
+
+{% block title %}
+{{ object.title }}
+{% endblock title %}
+
+{% block extracss %}
+<style>
+  .ui-autocomplete-loading {
+    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
+
+<link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
+<link rel="stylesheet" href="{% static 'mergely/lib/mergely.css' %}">
+<link rel="stylesheet" href="{% static 'air-datepicker/dist/css/datepicker.min.css' %}">
+{% endblock extracss %}
+
+{% block navbar_extra_classes %}js-navbar js-owner {% if 'editor' in request.path %}-edit{% endif %}{% endblock navbar_extra_classes %}
+
+{% block navbar_document %}
+  <div class="project">
+    <span class="title js-documentTitle">
+      {{object.title}} <a href="{% url 'edit_document' object.id object.slug %}?previous_page={{ request.get_full_path }}">Editar dados do documento</a>
+    </span>
+    <div class="menu">
+      <div class="dropdown-menu">
+        {% if group %}
+          {% if group.version.name %}
+            <span class="version">Versão:</span>
+            <span>{{group.version.name}}</span>
+          {% else %}
+            <span class="version">Versão:</span>
+            <span>{{group.version.created|date:'H\hi - d \d\e b, Y'}}</span>
+          {% endif %}
+        {% else %}
+          {% if selected_version.name %}
+            <span class="version">Versão:</span>
+            <span class="js-versionName">{{selected_version.name}}</span>
+          {% else %}
+            <span class="version">Versão:</span>
+            <span class="js-versionName">{{selected_version.created|date:'H\hi - d \d\e b, Y'}}</span>
+          {% endif %}
+        {% endif %}
+        <ul class="list js-menuList">
+          {% include "components/dropdown-version-list.html" %}
+        </ul>
+      </div>
+      <div class="dropdown-menu">
+        {% if group %}
+          {% if group.public_participation %}
+          <span class="-opened">Participação Pública<span class="version"> - {{group.version.name}}</span></span>
+          {% else %}
+          <span class="-closed">{{ group.thematic_group.name }}</span>
+          {% endif %}
+        {% else %}
+          <span>Abrir para participação</span>
+        {% endif %}
+        <ul class="list js-menuList">
+          {% for public_participation in public_group %}
+          {% if public_participation.group_status == 'waiting' %}
+          <a href="#" class="title -opened js-waitingButton">
+            <span>Participação Pública<span class="version">{{public_participation.version.name}}</span></span>
+            <div class="info">
+                <div class="item -blue">Aguardando</div>
+            </div>
+          </a>
+          {% elif public_participation.group_status == 'analyzing' %}
+          <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}"
+            class="title -opened">
+            <span>Participação Pública<span class="version">{{public_participation.version.name}}</span></span>
+            <div class="info -full">
+              <div class="item -participants">
+                {{ public_participation|group_participants }}
+              </div>
+              <div class="item -opinions">
+                {{ public_participation.suggestions.count }}
+              </div>
+              <div class="item -blue">Em análise</div>
+            </div>
+          </a>
+          </a>
+          {% elif public_participation.group_status == 'waiting_feedback' %}
+          <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}"
+            class="title -opened">
+            <span>Participação Pública<span class="version">{{public_participation.version.name}}</span></span>
+            <div class="info -full">
+              <div class="item -participants">
+                {{ public_participation|group_participants }}
+              </div>
+              <div class="item -opinions">
+                {{ public_participation.suggestions.count }}
+              </div>
+              <div class="item -orange">Aguardando resposta</div>
+            </div>
+          </a>
+          {% else %}
+          <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{public_participation.id}}" class="title -opened">
+            <span>Participação Pública<span class="version">{{public_participation.version.name}}</span></span>
+            <div class="info -full">
+              <div class="item -participants">
+                {{ public_participation|group_participants }}
+              </div>
+              <div class="item -opinions">
+                {{ public_participation.suggestions.count }}
+              </div>
+              {% now "Y-m-d" as todays_date %}
+              {% if public_participation.closing_date|date:"Y-m-d" >= todays_date %}
+              <div class="item -green">Em andamento</div>
+              {% else %}
+              <div class="item -red">Encerrado</div>
+              {% endif %}
+            </div>
+          </a>
+          {% endif %}
+          {% empty %}
+          {% if not object.title or not object.description or not object.themes.all %}
+          <a href="#" class="title -opened js-openValidationButton">
+            <span>Participação Pública</span>
+            <div class="info">
+              <div class="item">Solicitar</div>
+            </div>
+          </a>
+          {% else %}
+          <a href="#" class="title -opened js-openPublicParticipation">
+            <span>Participação Pública</span>
+            <div class="info">
+              <div class="item">Solicitar</div>
+            </div>
+          </a>
+          {% endif %}
+          {% endfor %}
+          <hr>
+          <div class="private">
+            <div class="title -closed">
+              <span>Participações Restritas</span>
+              {% if not object.title or not object.description or not object.themes.all %}
+              <a href="#" class="-add js-openValidationButton">Adicionar</a>
+              {% else %}
+              <a href="{% url 'new_group' object.id %}?previous_page={{ request.get_full_path }}" class="-add">Adicionar</a>
+              {% endif %}
+            </div>
+            <!-- Criar nova -->
+            {% for invited_group in private_groups %}
+              <a href="{% url 'document_editor_analyze' 'analysis' object.id %}?group_id={{invited_group.id}}">
+                <span>{{invited_group.thematic_group.name}}<span class="version">{{invited_group.version.name}}</span></span>
+                <div class="info">
+                  <div class="item -participants">{{invited_group.thematic_group.participants.count}}</div>
+                  <div class="item -opinions">{{invited_group.suggestions.count}}</div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock navbar_document %}
+
+{% block body_classes %}-white{% if page == 'analysis' %} -analysis{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<main class="document-editor -active js-documentEditor" data-document-id="{{ object.id }}">
+  <div class="close-diff js-closeDiff">Voltar</div>
+
+  {% if page == 'editor' %}
+    {% include "components/timeline-sidebar.html" %}
+    {% include "components/document-editor.html" %}
+  {% elif page == 'analysis' %}
+    {% include "components/opinions-sidebar.html" %}
+    {% include "components/document-opinions.html" %}
+  {% endif %}
+
+  {% include "components/tool-bar.html" with pk=object.id %}
+  {% for message in messages %}
+  {% include "components/info-message.html" with message=message %}
+  {% endfor %}
+
+  {% if page == 'editor' %}
+  <div class="text-diff js-textDiff">
+    <div class="titles">
+      <div class="title -left">
+        <div class="name js-leftVersionName"></div>
+        <div class="date js-leftVersionDate"></div>
+      </div>
+      <div class="title -right">
+        <div class="name js-rightVersionName"></div>
+        <div class="date js-rightVersionDate"></div>
+      </div>
+    </div>
+    <div class="diffs">
+      <div class="mergely-full-screen-8">
+        <div class="mergely-resizer js-mergelyWrapper">
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</main>
+
+{% include "components/validate-modal.html" %}
+{% include "components/public-participation-modal.html" %}
+{% include "components/participation-info-modal.html" %}
+{% include "components/feedback-modal.html" %}
+{% include "components/feedback-info-modal.html" %}
+{% include "components/feedback-waiting-modal.html" %}
+{% include "components/save-modal.html" %}
+
+{% endblock content %}
+
+{% block page_js %}
+<script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/datepicker.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/i18n/datepicker.pt-BR.js' %}"></script>
+<script src="{% static 'truncate.js/dist/truncate.min.js' %}"></script>
+<script src="{% static 'js/components/datePicker/view.js' %}"></script>
+<script src="{% static 'js/components/documentSideBar/view.js' %}"></script>
+<script src="{% static 'js/components/validationModal/view.js' %}"></script>
+<script src="{% static 'js/components/publicParticipationModal/view.js' %}"></script>
+<script src="{% static 'js/components/publicParticipationModal/controller.js' %}"></script>
+<script src="{% static 'js/components/congressmanAutocomplete/view.js' %}"></script>
+{% if page == 'editor' %}
+<script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+{# <script src="{% static 'codemirror/addon/search/searchcursor.js' %}"></script> #}
+<script src="{% static 'mergely/lib/mergely.js' %}"></script>
+<script src="{% static 'js/utils/position.js' %}"></script>
+<script src="{% static 'js/vendor/silegismg-editor-articulacao-plain-js-polyfill.js' %}"></script>
+<script src="{% static 'js/components/infoMessage/view.js' %}"></script>
+<script src="{% static 'js/components/saveMessage/view.js' %}"></script>
+<script src="{% static 'js/components/saveModal/view.js' %}"></script>
+<script src="{% static 'js/components/documentEditor/controller.js' %}"></script>
+<script src="{% static 'js/components/documentEditor/view.js' %}"></script>
+<script src="{% static 'js/components/toolBar/controller.js' %}"></script>
+<script src="{% static 'js/components/toolBar/view.js' %}"></script>
+<script src="{% static 'js/components/timelineSidebar/view.js' %}"></script>
+<script src="{% static 'js/components/compareVersions/controller.js' %}"></script>
+<script src="{% static 'js/components/compareVersions/view.js' %}"></script>
+<script src="{% static 'js/components/contextualToolbar/view.js' %}"></script>
+<script src="{% static 'js/components/navBar/view.js' %}"></script>
+<script src="{% static 'js/pages/editDocument.js' %}"></script>
+{% elif page == 'analysis' %}
+<script src="{% static 'js/vendor/pagemap-1.2.0.min.js' %}"></script>
+<script src="{% static 'js/components/reduceExcerpts/view.js' %}"></script>
+<script src="{% static 'js/components/pageMinimap/view.js' %}"></script>
+<script src="{% static 'js/components/opinionsMetrics/view.js' %}"></script>
+<script src="{% static 'js/components/textHighlight/view.js' %}"></script>
+<script src="{% static 'js/components/documentOpinionsBody/view.js' %}"></script>
+<script src="{% static 'js/components/feedbackModal/view.js' %}"></script>
+<script src="{% static 'js/components/feedbackModal/controller.js' %}"></script>
+<script src="{% static 'js/pages/opinionsDocument.js' %}"></script>
+{% endif %}
+{% endblock page_js %}

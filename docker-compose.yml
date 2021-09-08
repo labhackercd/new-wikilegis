@@ -1,0 +1,98 @@
+version: '2.3'
+services:
+  nginx:
+    image: nginx
+    depends_on:
+      - web
+    volumes:
+      - data:/var/labhacker/new-wikilegis
+      - ./config/etc/nginx/conf.d/:/etc/nginx/conf.d/:z
+    ports:
+      - "8000:80"
+
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: wikilegis
+      POSTGRES_DB: root
+
+  redis:
+    image: redis:alpine
+
+  web:
+    build: .
+    command: ./start.sh
+    restart: on-failure
+    links:
+      - db
+      - redis
+    volumes:
+      - data:/var/labhacker/new-wikilegis
+    environment:
+      ADMIN_PASSWORD: 123
+      ADMIN_EMAIL: admin@admin.com
+      ADMIN_USERNAME: admin
+      DATABASE_ENGINE: postgresql_psycopg2
+      DATABASE_NAME: wikilegis
+      DATABASE_PASSWORD: wikilegis
+      DATABASE_USER: root
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DEBUG: 'False'
+      COMPRESS_OFFLINE: 'True'
+      SITE_DOMAIN: localhost:8000
+      SITE_NAME: new-wikilegis
+      REDIS_SERVER: redis
+      FORCE_SCRIPT_NAME: ''
+      STATIC_URL: /static/
+      MEDIA_URL: /media/
+      EMAIL_BACKEND: django.core.mail.backends.console.EmailBackend
+      ENABLE_REMOTE_USER: 'False'
+    expose:
+      - "8000"
+    depends_on:
+      - db
+      - redis
+
+  celery_worker:
+    build: .
+    command: bash -c "cd src && celery -A wikilegis worker -l info"
+    volumes:
+      - data:/var/labhacker/new-wikilegis
+    depends_on:
+      - db
+      - redis
+    environment:
+      DEBUG: 'False'
+      DATABASE_ENGINE: postgresql_psycopg2
+      DATABASE_NAME: wikilegis
+      DATABASE_PASSWORD: wikilegis
+      DATABASE_USER: root
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      REDIS_SERVER: redis://redis:6379/0
+
+  celery-beat:
+    build: .
+    command: bash -c "cd src && celery -A wikilegis beat -l info --pidfile="
+    restart: on-failure
+    volumes:
+      - data:/var/labhacker/new-wikilegis
+    depends_on:
+      - db
+      - redis
+      - web
+    environment:
+      DEBUG: 'False'
+      DATABASE_ENGINE: postgresql_psycopg2
+      DATABASE_NAME: wikilegis
+      DATABASE_PASSWORD: wikilegis
+      DATABASE_USER: root
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      REDIS_SERVER: redis://redis:6379/0
+
+volumes:
+  data:
+    driver: local

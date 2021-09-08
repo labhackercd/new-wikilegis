@@ -1,0 +1,11 @@
+.page-minimap {
+	@include bp-mediumdown {
+		display: none;
+	}
+  position: fixed;
+  z-index: 4;
+  top: 7rem;
+  right: 5rem;
+
+  max-width: 16rem !important;
+}

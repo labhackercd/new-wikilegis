@@ -1,0 +1,35 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+
+{% block extra_classes %}-onboarding js-appOnboarding{% endblock %}
+
+{% block content %}
+  <div class="step js-step">
+    <h2>Dê a sua opinião</h2>
+    <img class="selectimage" src="{% static 'img/text-select-onboarding.svg' %}">
+    {% if current_path|startswith:"/p/" and current_path != "/p/new/" %}
+      <p><span class="text-highlight">Selecione o texto</span> da proposta legislativa para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
+    {% else %}
+      <p>Acesse uma proposta legislativa e <span class="text-highlight">selecione o texto</span> dentro dela para dar sua opinião. <br> Você pode fazer isso um artigo por vez!</p>
+    {% endif %}
+    <button class="app-button -green js-next">Próximo</button>
+  </div>
+
+  <div class="step js-step">
+    <h2>Avalie opiniões</h2>
+    <img class="opinionimage" src="{% static 'img/opinion-onboarding.svg' %}">
+
+    {% if current_path|startswith:"/p/" and current_path != "/p/new/" %}
+      <p>E que tal passar por opinões de outros cidadãos antes de dar a sua? <br> Acesse-as pelos ícones de balões <span class="opinion"></span></p>
+      <button class="app-button -green js-button js-action">Voltar para o texto</button>
+    {% else %}
+      <p>Você pode também passar por opinões de outros cidadãos. <br> Acesse-as pelos ícones de balões <span class="opinion"></span></p>
+      <button class="app-button -green js-button js-action">Quero Participar!</button>
+      <button class="app-button -clear js-close">Fechar</button>
+    {% endif %}
+
+  </div>
+{% endblock content %}
+
+</div>

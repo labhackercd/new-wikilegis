@@ -1,0 +1,49 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+
+{% block extra_classes %}-public js-publicFormModal{% endblock %}
+{% block extra_attributes %}
+{% if group.public_participation %}
+    data-group-id="{{ group.id }}"
+{% endif %}
+{% endblock %}
+
+{% block title_modal %}
+
+{% endblock %}
+
+{% block content %}
+<form>
+<h1 class="js-titleModal">Data de encerramento</h1>
+<p>Analise as propostas legislativas e contribua com sugestões de nova redação a artigos ou parágrafos.</p>
+<ul class="errorlist nonfield js-formError"></ul>
+<div class="input-text -required -date">
+  {% if group.public_participation %}
+  <input name="date" type="text" class="js-datePicker js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" value="{{group.closing_date|date:'d/m/Y'}}" id="id_date">
+  {% else %}
+  <input name="date" type="text" class="js-datePicker js-closingDate" required maxlength="200" min="{% now 'Y\-m\-d' %}" id="id_date">
+  {% endif %}
+  <label for="id_date">Data de encerramento:</label>
+</div>
+
+<div class="input-text -congressman js-congressman -required" data-api-url="{{api_url}}" data-legislature="{{legislature}}">
+  <input class="js-inputAutocomplete" type="text" name="title" required id="id_congressman">
+  <label for="id_congressman">Deputado(a) responsavel:</label>
+</div>
+<div class="input-text">
+  <input type="text" class="js-urlVideo" id="link_video">
+  <label for="link_video">Link do YouTube: </label>
+</div>
+
+<div class="input-select -required">
+  <div class="select">
+    <select id="id_version_name" class="js-versionsSelect" required name="version">
+    </select>
+    <label for="id_version_name">Versão do Documento:</label>
+    <div class="icon"><i class="arrow"></i></div>
+  </div>
+</div>
+<button class="app-button -green js-send">Enviar</button>
+</form>
+{% endblock content %}

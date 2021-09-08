@@ -1,0 +1,66 @@
+<head>
+    <style>
+        .center {
+            width: 70%;
+            margin-left: 15%;
+            margin-right: 15%;
+        }
+
+        .title {
+            font-family: Roboto, Tahoma, sans-serif;
+            color: #474747;
+            text-align: center;
+            font-size: 24px;
+            line-height: 36px;
+            margin: 3%;
+        }
+
+        p {
+            font-family: Roboto, Tahoma, sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+            text-align: center;
+            margin: 1%;
+        }
+
+        a {
+            background: #2da965;
+            color: #FFFFFF;
+            font-family: arial, helvetica, sans-serif;
+            width: 100px;
+            padding: 14px 34px;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin-top: 3%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 3%;
+            height: auto;
+            width: 15%;
+        }
+    </style>
+</head>
+<table>
+    <tr>
+        {% block img %}
+        {% endblock img %}
+    </tr>
+    <tr class="center">
+        <h1 class="title">
+            {% block title %}{% endblock title %}
+        </h1>
+    </tr>
+    {% block content %}
+
+    {% endblock content %}
+</table>
+
+{% block button %}
+{% endblock button %}

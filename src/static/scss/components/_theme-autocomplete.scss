@@ -1,0 +1,38 @@
+.theme-autocomplete {
+  @extend .input-text;
+
+  position: relative;
+
+  & > .themes > .wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  & .title {
+    font-size: .5625rem;
+    font-weight: 500;
+
+    margin-top: .6rem;
+    margin-right: .75rem;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+
+  & .tags {
+    display: flex;
+
+    margin-top: .5rem;
+
+    & > * + * {
+      margin-left: .75rem;
+    }
+  }
+
+  & > ul {
+    position: absolute !important;
+    z-index: 2;
+  }
+}

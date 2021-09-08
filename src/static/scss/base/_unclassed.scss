@@ -1,3 +1,4 @@
+
 * {
   font-family: inherit;
   font-size: inherit;
@@ -12,15 +13,12 @@
 
   color: inherit;
   border: none;
-  outline: none;
 
   appearance: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   &:focus {
-    outline-width: 2px ;
-    outline-style: solid;
-    outline-color: rgba($color-link, .4);
-    outline-offset: 2px;
+    outline: none;
   }
 }
 
@@ -28,76 +26,131 @@
   background-color: rgba($color-link, .4);
 }
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: $color-whitesmoke;
+
+  &::before {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    content: '';
+    transition: opacity .3s ease;
+    pointer-events: none;
+
+    opacity: 0;
+    background-color: #000;
+  }
+
+  &.-home {
+    & .nav-bar {
+      transition: all .25s ease;
+      transform: translateY(-100%);
+
+      opacity: 0;
+
+      &.-shadow {
+        transform: translateY(0);
+
+        opacity: 1;
+      }
+    }
+  }
+
+  &.-open-menu {
+    overflow: hidden;
+  }
+
+  &.-voidselect {
+    user-select: none;
+  }
+
+  &.-white {
+    background-color: #FFF;
+  }
+
+  &.-no-scroll {
+    overflow: hidden;
+
+    &::before {
+      pointer-events: auto;
+
+      opacity: .6;
+    }
+
+     > main {
+      filter: blur(2px);
+    }
+  }
+}
+
 main {
-  width: 66ch;
-  max-width: 90%;
+  box-sizing: border-box;
   margin-right: auto;
   margin-left: auto;
   padding: $space-centi;
   padding-top: $space-centi;
   padding-bottom: $space-deca;
-}
 
-* + * {
-  margin-top: $space-centi;
-}
-
-a {
-  $underline-width: 1px;
-
-  color: $color-link;
-
-  @include underline(2px);
-}
-
-h1 {
-  * + & {
-    margin-top: $space-kilo;
+  @include bp-mediumup {
+    margin-top: 3.75rem;
+    padding-top: 0;
   }
 }
 
-h2 {
-  * + & {
-    margin-top: $space-deca;
-  }
-}
-
-h3 {
+p {
   * + & {
     margin-top: $space-base;
   }
 }
 
-blockquote {
-  padding-left: $space-base;
+h1 {
+  * + & {
+    margin-top: $space-centi;
+  }
 }
 
-ul > li,
-ol > li {
-  position: relative;
-
-  padding-left: $space-centi;
-
-  @include bp-smallup {
-    left: -1rem;
-
-    padding-left: 1rem;
+h2 {
+  * + & {
+    margin-top: $space-base;
   }
-  @include bp-mediumup {
-    left: -$space-deci;
+}
 
-    padding-left: $space-deci;
+h3 {
+  * + & {
+    margin-top: $space-centi;
   }
-  &:before {
-    position: absolute;
-    left: 0;
+}
 
-    display: inline-block;
+p,
+h1,
+h2,
+h3 {
+  color: $color-deep-gray;
+}
 
-    width: $space-deci;
-
-    content: '•';
+p,
+h1,
+h2,
+h3 {
+  & > a {
+    @include link-style();
   }
+}
+
+blockquote {
+  padding-left: $space-base;
 }
 
 ol {
@@ -110,11 +163,11 @@ ol > li:before {
 }
 
 hr {
-  margin-bottom: $space-hecto;
+  margin-bottom: $space-base;
 
-  border-top: 2px solid hsl(0, 0, 90%);
+  border-top: 1px solid hsl(0, 0, 90%);
   * + & {
-    margin-top: $space-hecto;
+    margin-top: $space-base;
   }
 }
 
@@ -135,5 +188,96 @@ pre {
   @include bp-smallup {
     margin-right: -$space-deci;
     margin-left: -$space-deci;
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+input,
+textarea,
+select {
+  font-size: .875rem;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 3.25rem;
+  padding: .875rem;
+
+  color: $color-deep-gray;
+  border: 0;
+  border-radius: 0;
+
+  @include card-shadow;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $color-grayish;
+  }
+}
+
+b {
+  font-weight: bold;
+}
+
+p > a {
+  text-decoration: underline;
+
+  color: $color-brand;
+
+  &:hover {
+    color: lighten($color-brand, 10%);
+  }
+}
+
+button {
+  background-color: transparent;
+}
+
+._hide {
+  display: none !important;
+}
+
+.silegismg-editor-articulacao {
+  margin-top: 2rem;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+  }
+  .edem-topbar {
+    display: none !important;
+  }
+  .document-editor,
+  .document-editor.-active {
+    width: 66ch;
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .document-editor > article {
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+  }
+  .nav-bar,
+  .side-bar,
+  .tool-bar,
+  .page-minimap,
+  .document-editor > article > header > .info,
+  .document-editor > article > header .date,
+  .document-editor > article > .tags,
+  .excerpt-wrapper > .votes,
+  .save-message {
+    display: none !important;
   }
 }

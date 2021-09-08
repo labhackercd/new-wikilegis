@@ -1,0 +1,13 @@
+.datepicker {
+  .datepicker--day-name {
+    color: $color-brand;
+  }
+
+  .datepicker--cell.-current- {
+    color: unset;
+  }
+
+  .datepicker--cell.-selected- {
+    background-color: $color-brand;
+  }
+}

@@ -1,0 +1,96 @@
+{% load staticfiles projects_tags participations_tags dashboard_tags %}
+
+<article id="article" class="js-articleDocument" data-group-id={{group.id}}>
+  <ul class="tags js-metricsButtons">
+    <li class="app-tag -button -active -public js-participantsButton">
+      <i class="icon" alt="Participantes"></i>
+      <span class="label">{{participation_count}} Participantes</span>
+    </li>
+
+    <li class="app-tag -button -opinions js-opinionsButton">
+      <i class="icon" alt="Opiniões"></i>
+      <span class="label">{{group.suggestions.count}} Opiniões</span>
+    </li>
+    <li class="app-tag -button -votes js-votesButton">
+      <i class="icon" alt="Votos"></i>
+      <span class="label">{{group|group_votes}} Votos</span>
+    </li>
+    
+    {% if  group.group_status == "finished"%}
+    
+      <li class="app-tag -button -results">
+        <a class="label" href="{% url 'diff_version' object.id %}" >Ver texto final</a>
+      </li>
+    
+    {% endif %}
+
+  </ul>
+  <header>
+
+    <h1 class="js-documentTitle" >{{ object.title }}</h1>
+    <p class="js-documentDescription description">{{ object.description }}</p>
+    <div class="infoBottom">
+          {% now "Y-m-d" as todays_date %}
+          {% if group.closing_date|date:"Y-m-d" >= todays_date %}
+          <span class="date -active">Aberto até {{group.closing_date|date:'d/m/Y'}}</span>
+          {% else %}
+          <span class="date -inactive">Participação encerrada em {{group.closing_date|date:'d/m/Y'}}</span>
+          {% endif %}
+          <a href="{% url 'download-csv' group.id %}"><span class="date -csvExport">Exportar CSV </span>{% include "svgs/export-icon.html" %}</a>
+    </div>
+
+
+    
+
+    <hr>
+
+  </header>
+  <div class="minimap">
+    <canvas class="page-minimap js-pageMinimap"></canvas>
+  </div>
+  {% for excerpt in group.get_excerpts %}
+    {% if excerpt.excerpt_type.align_center %}
+    <div class="excerpt-wrapper {% excerpt_classes excerpt%}">
+      <h3 class="js-excerptNumbering">{% excerpt_numbering excerpt %}</h3>
+      <h3>{{ excerpt.content|safe }}</h3>
+    </div>
+    {% else %}
+      {% to_reduce group excerpt as reduce %}
+      {% if reduce %}
+      <p class="excerpt-wrapper {% excerpt_classes excerpt %} -reduce js-excerptWrapper">
+        <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
+        <span class="js-defaultText">...</span>
+        {% include "components/document-excerpt.html" with excerpt=excerpt %}
+      </p>
+      {% else %}
+      <p class="excerpt-wrapper -analysis {% excerpt_classes excerpt %} js-excerptWrapper">
+        <b class="js-excerptNumbering">{% excerpt_numbering excerpt %}</b>
+        {% get_percent excerpt|excerpt_participants:group participation_count as relevance_participations %}
+        {% get_percent excerpt|excerpt_opinions:group group.suggestions.count as relevance_opinions %}
+        {% get_percent excerpt|excerpt_votes:group group|group_votes as relevance_votes %}
+        {% include "components/document-excerpt.html" with excerpt=excerpt %}
+        <span class="metrics js-metricsIcons">
+          <span class="item -participants js-participantsIcon" aria-label="{{ relevance_participations }}% de Participantes">
+            <span class="value">{{excerpt|excerpt_participants:group}}</span>
+            <span class="bar">
+              <span class="size" style="width: {{ relevance_participations }}%;"></span>
+            </span>
+          </span>
+          <span class="item -opinions js-opinionsIcon" aria-label="{{ relevance_opinions }}% de Opiniões" style="display: None;">
+            <span class="value">{{excerpt|excerpt_opinions:group}}</span>
+            <span class="bar">
+              <span class="size" style="width: {{ relevance_opinions }}%;"></span>
+            </span>
+          </span>
+          <span class="item -votes js-votesIcon" aria-label="{{ relevance_votes }}% de Votos" style="display: None;">
+            <span class="value">{{excerpt|excerpt_votes:group}}</span>
+            <span class="bar">
+              <span class="size" style="width: {{ relevance_votes }}%;"></span>
+            </span>
+          </span>
+        </span>
+      </p>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</article>

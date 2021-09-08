@@ -1,0 +1,254 @@
+.document-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 1.5rem;
+
+  transition: all .2s $swift-out;
+
+  border: transparent .25rem solid;
+  background-color: #FFF;
+
+  @include card-shadow(noTransition);
+
+  &:hover {
+    border-color: $color-gray;
+    box-shadow: 8px 8px 10px 5px rgba(0, 0, 0, .08);
+  }
+
+  &.-public:hover {
+    border-color: $color-brand;
+  }
+
+  &.-onhold:hover {
+    border-color: $color-orange;
+  }
+
+  &.-owner:hover {
+    border-color: transparent;
+
+    @include card-shadow(noTransition);
+  }
+
+  &::after {
+    position: absolute;
+    bottom: -.25rem;
+    left: -.25rem;
+
+    display: block;
+
+    width: calc(100% + .5rem);
+    height: .25rem;
+
+    content: '';
+
+    background: $color-gray;
+  }
+
+
+  &.-public::after {
+    background: $color-brand;
+  }
+
+  &.-onhold::after {
+    background: $color-orange;
+  }
+
+  &.-owner {
+    cursor: default;
+  }
+
+  &.-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px dashed $color-grayish;
+    background: none;
+    box-shadow: none;
+
+    &::after {
+      display: none;
+    }
+
+
+    &:hover {
+      & > .icon {
+        transform: translateY(-1em);
+      }
+
+      & > .icon::after {
+        transform: translate(-50%, 0);
+
+        opacity: 1;
+      }
+    }
+
+    & > .icon {
+      transition: transform .3s $swift-out;
+
+      @include icon('add-gray', 4rem, 4rem);
+      @include hovering-label(bottom, 'nobg', .5em, $color-grayish);
+    }
+  }
+
+  &.-groups {
+    position: relative;
+
+    overflow: hidden;
+
+    max-height: 20rem;
+
+    & > .header > .participations {
+      color: $color-gray;
+    }
+
+    &::before {
+      position: absolute;
+      z-index: 1;
+      top: calc(100% - 5rem);
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      content: '';
+      pointer-events: none;
+
+      background: linear-gradient(rgba(255,255,255,0), #FFF);
+    }
+
+    & > .info {
+      position: relative;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      height: 15rem;
+      margin-top: 0;
+      padding-top: 1rem;
+
+      & > .list {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: 100%;
+
+        & > .user-profile {
+          flex: 1 0 auto;
+
+          width: 100%;
+          padding-right: 0;
+          padding-left: 0;
+
+          &:hover {
+            background-color: #FFF;
+          }
+        }
+      }
+    }
+  }
+
+  & > .tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: 0 -.5rem;
+  }
+
+  & > .tags > .app-tag {
+    margin: 0 .5rem;
+    margin-bottom: 1rem;
+  }
+
+  & > h3 {
+    margin-top: .25rem;
+  }
+
+  &.-closed > h3 {
+    color: $color-gray;
+  }
+
+  & > p {
+    font-size: $font-size-mili;
+    line-height: 2;
+
+    margin-top: .5rem;
+  }
+
+  &.-closed > p {
+    color: $color-gray;
+  }
+
+  & > .footer {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  & > .footer > .document-progress {
+    flex: 1;
+  }
+
+  & > .footer > .status.-owner {
+    flex: unset;
+
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  & > .footer > .status > * + * {
+    margin-top: .5rem;
+  }
+
+  & > .footer > .status > .closed {
+    font-size: $font-size-mili;
+    font-weight: 500;
+    line-height: 1;
+
+    color: $color-red;
+  }
+
+  & > .footer > .pseudolink {
+    font-size: $font-size-micro;
+
+    flex: 0;
+
+    margin-left: auto;
+
+    text-align: right;
+    text-transform: uppercase;
+
+    border-left: 2rem solid transparent;
+
+    @include link-style(600);
+  }
+
+  &:hover > .footer > .pseudolink {
+    background-size: 100% 100%;
+  }
+
+  & > .footer > .actions {
+    display: flex;
+    align-items: center;
+    flex: 1 0 auto;
+  }
+
+  & > .footer > .actions > a {
+    font-size: .75rem;
+
+    text-transform: uppercase;
+
+    @include link-style(600);
+  }
+
+  & > .footer > .actions > a + a {
+    margin-left: 1.5rem;
+  }
+}

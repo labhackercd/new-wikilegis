@@ -1,0 +1,413 @@
+.dropdown-menu {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  user-select: none;
+
+  &:not(.-notifications):hover > .list {
+    visibility: visible;
+
+    transition-delay: 0s, 0s, .3s;
+    transform: translateY(0%);
+
+    opacity: 1;
+  }
+
+  &::after {
+    display: inline-flex;
+
+    width: .75rem;
+    height: .75rem;
+    margin-left: .5rem;
+
+    content: '';
+
+    background-color: $color-deep-gray;
+
+    mask-image: url('../../static/img/arrow.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+  }
+
+  &.-notifications {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 5rem;
+    height: 100%;
+
+    &:hover > .icon svg path {
+      fill: $color-deep-gray;
+    }
+  }
+
+  &.-notifications::after {
+    display: none;
+  }
+
+  &.-notifications > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 5rem;
+    height: 100%;
+
+    cursor: pointer;
+  }
+
+  &.-notifications > .list {
+    top: 3.4rem;
+    right: -.2rem;
+    left: auto;
+
+    overflow: hidden;
+    overflow-y: auto;
+
+    cursor: default;
+  }
+
+  &.-notifications > .list > li {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    padding: .5rem 1rem;
+
+    border-style: solid;
+    border-color: #FFF;
+    border-top-width: .5rem;
+    border-right-width: 1rem;
+    border-bottom-width: .5rem;
+    border-left-width: 1rem;
+  }
+
+  &.-notifications > .list > li {
+    background-color: #FFF;
+  }
+
+  &.-notifications > .list > li > .text {
+    font-size: $font-size-centi;
+
+    color: $color-deep-gray;
+  }
+
+  &.-notifications > .list > li > .datetime {
+    font-size: $font-size-nano;
+
+    position: relative;
+
+    margin-top: .5rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    opacity: .8;
+    color: $color-gray;
+
+    &::after {
+      font-size: $font-size-nano;
+
+      position: absolute;
+      right: 0;
+
+      content: 'Novo';
+      letter-spacing: 1px;
+
+      opacity: 0;
+      color: $color-gray;
+    }
+  }
+
+  & > span {
+    font-size: $font-size-micro;
+  }
+
+  & > span.version {
+    padding-right: .25rem;
+  }
+
+  & > span.-closed {
+    @include mask-icon('padlock');
+  }
+
+  & > span.-closed::before {
+    margin-right: .25rem;
+
+    background-color: $color-deep-gray;
+  }
+
+  & > .list,
+  & > .list > .dropdown > .itens {
+    position: absolute;
+    top: 1.75rem;
+    left: -.2rem;
+
+    display: flex;
+    visibility: hidden;
+    flex-direction: column;
+
+    width: 25rem;
+    max-height: 70vh;
+    padding: .5rem 0;
+
+    transition: all .3s ease-in-out 0s, visibility 0s linear .2s, z-index 0s linear .01s;
+    transform: translateY(-2%);
+
+    opacity: 0;
+    border: 1px solid $color-grayish;
+    background-color: #FFF;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+  }
+
+  & > .list a {
+    font-size: $font-size-centi;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem 1.5rem;
+
+    color: $color-deep-gray;
+
+    &:hover {
+      & > span,
+      & > .info > .item {
+        color: $color-brand;
+      }
+
+      & > .info > .item::before {
+        background-color: $color-brand;
+      }
+    }
+  }
+
+  & > .list .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: .5rem 1.25rem;
+  }
+
+  & > .list .title.-add {
+    @include mask-icon('add');
+  }
+  & > .list .title.-add::before {
+    font-size: $font-size-nano;
+
+    margin-right: .35rem;
+
+    background-color: $color-brand;
+  }
+
+  & > .list .title > span {
+    font-size: $font-size-centi;
+    font-weight: bold;
+    line-height: 1.4;
+
+    color: $color-deep-gray;
+  }
+
+  & > .list .title.-closed > span {
+    @include mask-icon('padlock');
+  }
+
+  & > .list .title.-opened > span {
+    @include mask-icon('public');
+  }
+
+  & > .list .title.-closed > span::before,
+  & > .list .title.-opened > span::before {
+    margin-right: .5rem;
+
+    background-color: $color-deep-gray;
+  }
+
+  & > .list .title.-closed > span::before {
+    font-size: $font-size-micro;
+  }
+
+  & > .list .title.-opened > span::before {
+    font-size: $font-size-centi;
+  }
+
+  & > .list .title > a {
+    font-size: $font-size-micro;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .5rem 0;
+
+    cursor: pointer;
+    letter-spacing: .5px;
+
+    color: $color-brand;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  & > .list > .private {
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  & > .list > .private > .title {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+
+    box-sizing: border-box;
+
+    background-color: #FFF;
+  }
+
+  & > .list .version {
+    color: $color-gray;
+    font-size: $font-size-micro;
+    display: block;
+    margin-top: .25rem;
+  }
+
+  & > .list > .dropdown {
+    position: relative;
+
+    padding: 1rem 1.5rem;
+
+    color: $color-deep-gray;
+
+
+    &:hover {
+      & > a,
+      & > a > .info > .item {
+        color: $color-brand;
+      }
+
+      & > a > .info > .item::before {
+        background-color: $color-brand;
+      }
+
+      & > .itens {
+        visibility: visible;
+
+        transition-delay: 0s, 0s, .3s;
+        transform: translateX(0%);
+
+        opacity: 1;
+      }
+    }
+  }
+
+  & > .list > .dropdown > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0;
+  }
+
+  & > .list > .dropdown > .itens {
+    position: absolute;
+    top: -.6rem;
+    left: 25rem;
+
+    display: flex;
+
+    transform: translateY(0);
+    transform: translateX(-4%);
+  }
+
+  & > .list > .dropdown > .itens > a:hover {
+    color: $color-brand;
+  }
+
+  & > .list a > span,
+  & > .list > .dropdown > .itens > a {
+    font-size: $font-size-mili;
+    line-height: 1.4;
+  }
+
+  & > .list a > .info {
+    display: flex;
+    align-items: center;
+  }
+
+  & > .list a > .info > * + * {
+    margin-left: .75rem;
+  }
+
+  & > .list a > .info.-full {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    width: 9rem;
+  }
+
+  & > .list a > .info.-full > .-green {
+    margin-top: .75rem;
+  }
+
+  & > .list a > .info > .item {
+    font-size: $font-size-micro;
+
+    display: flex;
+    align-items: center;
+  }
+
+  & > .list a > .info > .item::before {
+    font-size: $font-size-micro;
+
+    background-color: $color-deep-gray;
+  }
+
+  & > .list a > .info > .item.-versions {
+    @include mask-icon('document');
+  }
+
+  & > .list a > .info > .item.-participants {
+    @include mask-icon('avatar');
+  }
+
+  & > .list a > .info > .item.-opinions {
+    @include mask-icon('comment-black');
+  }
+
+  & > .list a > .info > .item.-versions::before,
+  & > .list a > .info > .item.-participants::before,
+  & > .list a > .info > .item.-opinions::before {
+    margin-right: .25rem;
+  }
+
+  & > .list a > .info > .item.-blue {
+    color: $color-twitter;
+  }
+
+  & > .list a > .info > .item.-green {
+    color: $color-brand;
+  }
+
+  & > .list a > .info > .item.-red {
+    color: $color-red;
+  }
+
+  & > .list a > .info > .item.-orange {
+    color: $color-orange;
+  }
+
+  & > .list > hr {
+    margin: .5rem 0;
+
+    color: $color-grayish;
+  }
+}

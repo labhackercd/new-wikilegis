@@ -1,0 +1,287 @@
+.version-timeline {
+  $navbar-height: 3.75rem;
+  $border: 1px solid $color-grayish;
+
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-direction: column;
+
+  height: calc(100% - 5rem);
+
+  &::-webkit-scrollbar {
+    width: 0;
+
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #F00;
+  }
+
+  &::before {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+
+    display: block;
+
+    width: 1px;
+    height: 100%;
+
+    content: '';
+
+    background-color: $color-grayish;
+  }
+
+  &.-comparing > .item > .named > .title > .more {
+    display: none;
+  }
+
+  & > .item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    flex-direction: column;
+
+    cursor: pointer;
+    user-select: none;
+
+    background-color: $color-whisper;
+
+    &::before {
+      content: '';
+    }
+
+    &:hover {
+      background-color: #FFF;
+    }
+  }
+
+  & > .item.-active {
+    background-color: #FFF;
+  }
+
+  & > .item:first-child > .named::before {
+    top: 50%;
+
+    height: 50%;
+  }
+
+  & > .item:not(.-expanded):last-of-type > .named::before {
+    bottom: 50%;
+
+    height: 50%;
+  }
+
+  & > .item.-expanded:first-child:only-of-type > .named::before {
+    bottom: 50%;
+
+    height: 50%;
+  }
+
+  & > .item:first-child:only-of-type > .named::before {
+    height: 0;
+  }
+
+  & > .item:only-of-type > .named::before {
+    height: 0;
+  }
+
+  & > .item > .named {
+    position: relative;
+
+    &:hover > *:not(.compare-checkbox) {
+      transform: translateX(.5rem);
+    }
+  }
+
+  & > .item > .named > .compare-checkbox {
+    position: absolute;
+    top: 50%;
+    right: .6rem;
+
+    transform: translateY(-50%);
+  }
+
+  & > .item > .named > *:not(.compare-checkbox),
+  & > .item > .autosaves > .save > span {
+    padding-left: 1.6rem;
+
+    transition: all .15s $swift-out;
+  }
+
+  & > .item > .named,
+  & > .item > .autosaves > .save {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem 1.6rem;
+  }
+
+  & > .item > .named::before,
+  & > .item > .named::after,
+  & > .item > .autosaves > .save::before,
+  & > .item > .autosaves > .save::after {
+    position: absolute;
+
+    display: block;
+
+    content: '';
+  }
+
+  & > .item > .named::before,
+  & > .item > .autosaves > .save::before {
+    top: 0;
+
+    height: 100%;
+
+    border: $border;
+  }
+
+  & > .item > .named::after,
+  & > .item > .autosaves > .save::after {
+    top: 50%;
+
+    width: .75rem;
+    height: .75rem;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+  }
+
+  & > .item > .named::after {
+    margin-left: -.5rem;
+
+    border: solid 3px;
+    border-color: $color-brand;
+    background-color: $color-whitesmoke;
+  }
+
+  & > .item > .named.-selected::after {
+    background-color: $color-brand;
+  }
+
+  & > .item > .named > * + * {
+    margin-top: .25rem;
+  }
+
+  & > .item > .named > .title {
+    font-size: $font-size-deci;
+
+    max-width: 80%;
+
+    color: $color-brand;
+  }
+
+  & > .item > .named > span,
+  & > .item > .autosaves > .save {
+    font-size: $font-size-nano;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+  }
+
+  & > .item > .named > .datetime {
+    display: flex;
+    align-items: center;
+  }
+
+  & > .item > .named .more {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+
+    padding: .5rem;
+
+    text-decoration: underline;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    border-radius: .374rem;
+    background-color: transparent;
+
+    @include mask-icon('arrow');
+
+    &::before {
+      font-size: $font-size-micro;
+
+      transform: rotate(-90deg);
+
+      background-color: $color-brand;
+    }
+
+    &:hover {
+      background-color: rgba($color-grayish, .3);
+    }
+
+    &.-active {
+      &::before {
+        transform: rotate(0);
+      }
+    }
+  }
+
+  & > .item > .autosaves {
+    position: relative;
+
+    display: none;
+    flex-direction: column;
+
+    width: 100%;
+
+    transition: all .35s $swift-out;
+  }
+
+  & > .item > .autosaves.-show {
+    display: flex;
+  }
+
+  & > .item > .autosaves > .save {
+    width: 100%;
+
+    &:hover {
+      & > span {
+        transform: translateX(.5rem);
+      }
+    }
+
+    &.-selected::after {
+      background-color: $color-blueish;
+    }
+  }
+
+  & > .item > .named.-stick,
+  & > .item > .autosaves > .save.-stick {
+    position: sticky;
+    z-index: 1;
+
+    background: white;
+  }
+
+  & > .item > .named.-stick {
+    top: 0;
+  }
+
+  & > .item > .autosaves > .save.-stick {
+    top: 0;
+    bottom: 0;
+  }
+
+  & > .item > .autosaves > .save::after {
+    margin-left: -.35rem;
+
+    border: solid 1.5px;
+    border-color: $color-blueish;
+    background-color: #FFF;
+  }
+}

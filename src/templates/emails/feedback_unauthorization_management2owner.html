@@ -1,0 +1,21 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+  Autorização de feedback
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+  <tr class="center">
+    Devolutiva não autorizada!
+  </tr>
+  <tr class="center">
+  Foram identificadas algumas inconsistências na versão do documento selecionada por você. Por favor, entre em contato com órgão gestor para que você possa promover as adequações necessárias à publicação da devolutiva.
+  </tr>
+{% endblock content %}
+
+

@@ -1,0 +1,81 @@
+{% extends "structure/base.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+<main class="section-group">
+  <header>
+    {% if object %}
+    <h2>Editar dados do Documento</h2>
+    {% else %}
+    <h2>Criar Novo Documento</h2>
+    {% endif %}
+
+    <a href="{{ previous_page }}" class="link-back">Voltar</a>
+
+  </header>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{form.non_field_errors}}
+    <div class="theme-autocomplete js-themeAutocomplete -required">
+      <input class="js-input" type="text" name="theme-autocomplete">
+      <label>{% trans "Tema" %}</label>
+      <div class="themes">
+        <div class="wrapper">
+          <span class="title {% if not object.themes.all %}_hidden{% endif %} js-title">Temas Adicionados:</span>
+          <ul class="tags js-tags">
+            {% if object.themes.all %}
+            {% for theme in object.themes.all %}
+            <li class="theme-tag js-tag -selected" data-theme-id="{{theme.id}}"><span class="dot" style="background-color: {{theme.color}};"></span>{{theme.name}}</li>
+            {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+        {{form.themes.errors}}
+      </div>
+      {% if object.themes.all %}
+        {% for theme in object.themes.all %}
+        <input type="hidden" name="themes" value="{{theme.id}}">
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="input-select">
+      <div class="select">
+        {{form.document_type}}
+        <div class="icon"><i class="arrow"></i></div>
+      </div>
+      {{form.document_type.errors}}
+    </div>
+    <div class="input-group">
+      <div class="input-text">
+        {{form.number}}
+        <label for="{{form.number.id_for_label}}">{% trans "Número" %}</label>
+        {{form.number.errors}}
+      </div>
+      <div class="input-text">
+        {{form.year}}
+        <label for="{{form.year.id_for_label}}">{% trans "Ano" %}</label>
+        {{form.year.errors}}
+      </div>
+    </div>
+    <div class="input-text -required">
+      {{form.title}}
+      <label for="{{form.title.id_for_label}}">{% trans "Título" %}</label>
+      {{form.title.errors}}
+    </div>
+    <div class="input-text -required">
+      {{form.description}}
+      <label for="{{form.description.id_for_label}}">{% trans "Descrição" %}</label>
+      {{form.description.errors}}
+    </div>
+    <button class="app-button -green">Enviar</button>
+  </form>
+</main>
+{% endblock content %}
+
+{% block page_js %}
+  <script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'slug/slug.js' %}"></script>
+  <script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
+  <script src="{% static 'js/pages/newDocument.js' %}"></script>
+{% endblock page_js %}

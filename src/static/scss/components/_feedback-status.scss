@@ -1,0 +1,24 @@
+.feedback-status {
+  display: flex;
+  align-items: center;
+
+  & > p {
+    font-size: $font-size-nano;
+    font-weight: 600;
+
+    margin: 0;
+    margin-left: .5rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  & > p.-onhold {
+    color: $color-orange;
+  }
+
+  & > p.-onhold > span {
+    display: block;
+    font-weight: 600;
+  }
+}

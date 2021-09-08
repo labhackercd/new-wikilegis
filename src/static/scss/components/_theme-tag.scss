@@ -1,0 +1,34 @@
+.theme-tag {
+  font-size: $font-size-nano;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: $color-gray;
+
+  &.-selected:hover {
+    text-decoration: line-through;
+
+    color: $color-red;
+  }
+
+  &.-choosed {
+    opacity: .5;
+    cursor: no-drop;
+  }
+
+  & > .dot {
+    display: inline-block;
+
+    width: .375rem;
+    height: .375rem;
+    margin-right: .375rem;
+
+    border-radius: 50%;
+  }
+}

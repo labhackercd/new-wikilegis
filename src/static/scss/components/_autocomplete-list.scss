@@ -1,0 +1,21 @@
+.autocomplete-list {
+  width: 100% !important;
+
+  background-color: #FFF;
+
+  @include card-shadow;
+
+  .theme-tag {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    padding: 1rem;
+
+    transition: background-color .2s ease;
+
+    &.-active {
+      background-color: $color-whitesmoke;
+    }
+  }
+}

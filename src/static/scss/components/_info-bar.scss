@@ -1,0 +1,208 @@
+.info-bar {
+  color: $color-deep-gray;
+
+  &:hover > .item {
+    opacity: 1;
+  }
+
+  &::after {
+    display: block;
+
+    height: 1rem;
+
+    content: '';
+  }
+
+  &.-mobile {
+    padding: 0 .5rem;
+
+    text-align: left;
+
+    & > .item {
+      opacity: 1;
+    }
+
+    & > .item .epigraph {
+      display: none;
+    }
+
+    & > .item > .autor {
+      flex-direction: row-reverse;
+
+      margin-top: 1rem;
+    }
+
+    & > .item > .social {
+      align-items: flex-start;
+
+      & > a {
+        font-size: 1.5rem;
+
+        display: flex;
+        align-items: center;
+
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
+
+    & > .item img {
+      margin-right: .75rem;
+      margin-left: 0;
+    }
+  }
+
+  & > * + * {
+    margin-top: 1.5rem;
+  }
+
+  & > .howtowrapper {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #FFF;
+    padding-bottom: 0.5rem;
+    z-index: 1;
+    box-shadow: 0px 3px 5px 1px white;
+    padding-top: 5px;
+  }
+
+  & > .item {
+    display: flex;
+    flex-direction: column;
+
+    opacity: .5;
+
+    & > .estatistica {
+      color: $color-brand;
+      font-size: $font-size-mili;
+      &:hover {
+        color: $color-brand - 50%;
+      }
+    }
+
+    &.-video {
+      position: relative;
+
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 */
+
+      & > iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  & > .item > .autor {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-bottom: 1rem;
+
+    & > .info {
+      line-height: 1;
+    }
+
+    & .text {
+      margin-top: 0;
+    }
+  }
+
+  & > .item > .social {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+
+    margin-top: 1rem;
+
+    & > * + * {
+      margin-top: 1rem;
+    }
+
+    & > a {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    & > .facebook {
+      @include icon('facebook');
+    }
+
+    & > .twitter {
+      @include icon('twitter');
+    }
+
+    & > .whatsapp {
+      @include icon('whatsapp');
+    }
+  }
+
+  & > .item > .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    margin-bottom: .5rem;
+  }
+
+  & > .item .text,
+  & > .item .epigraph {
+    font-size: .875rem;
+    font-weight: normal;
+    line-height: 1.6;
+  }
+
+  & > .item .text.-name {
+    font-weight: bold;
+
+    display: block;
+  }
+
+  & > .item img {
+    overflow: hidden;
+    flex: 0 0 auto;
+
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: .3rem;
+    margin-left: .75rem;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+  }
+
+  & > .item > .themes {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * + * {
+      margin-left: .75rem;
+    }
+  }
+
+  & > .item > .themes > .theme-tag {
+    cursor: text;
+  }
+
+  & > .date {
+    font-size: .875rem;
+    font-weight: 500;
+
+    margin-top: 0;
+
+    color: $color-deep-gray;
+
+    &.-inactive {
+      color: $color-red;
+    }
+
+    &.-active {
+      color: $color-brand;
+    }
+  }
+}

@@ -1,0 +1,139 @@
+.suggestion-input {
+  position: fixed;
+  z-index: 2;
+  bottom: 4.75rem;
+  left: 1rem;
+
+  visibility: hidden;
+
+  box-sizing: border-box;
+  width: calc(100% - 2rem);
+  padding: 1rem 1.5rem;
+
+  transition: transform .3s 0s ease, visibility 0s .3s;
+  transform: translateY(calc(100% + 4.75rem));
+
+  border-top: $color-brand 3px solid;
+  background-color: #FFF;
+  box-shadow: 0 4px 6px 4px rgba(0, 0, 0, .1);
+
+
+
+  @include bp-mediumup {
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 1.75rem 2rem;
+
+    transform: translateY(100%);
+
+    box-shadow: 0 0 6px 4px rgba(0, 0, 0, .1);
+  }
+
+  &.-show {
+    visibility: visible;
+
+    transition: transform .3s 0s ease, visibility 0s 0s;
+    transform: translateY(0);
+  }
+
+  & > .content {
+    position: relative;
+
+    @include bp-mediumup {
+      width: 53%;
+      margin: 0 auto;
+    }
+  }
+
+  & > .content > .close-icon {
+    top: -.5rem;
+    right: -.5rem;
+
+    @include bp-mediumup {
+      top: -.5rem;
+      right: -.25rem;
+    }
+  }
+
+  & > .content > .close-icon > img {
+    height: 1.5rem;
+
+    @include bp-mediumup {
+      height: 2rem;
+    }
+  }
+
+  & > .content > .text {
+    margin: 1rem 0;
+  }
+
+  & > .content > .text > p {
+    font-size: .875rem;
+    line-height: 1.5;
+
+    @include bp-mediumup {
+      font-size: 1rem;
+    }
+  }
+
+  & > .content > h3 {
+    font-size: .875rem;
+
+    margin: 0;
+
+    @include bp-mediumup {
+      font-size: 1rem;
+    }
+  }
+
+  & > .content > .info-text > h3 {
+    font-size: .875rem;
+
+    @include bp-mediumup {
+      font-size: 1rem;
+    }
+  }
+
+  & > .content > .input {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 2.5rem;
+    margin-top: .5rem;
+
+    border: 1px solid $color-grayish;
+
+  }
+
+  & > .content > .input > input {
+    height: 100%;
+    padding: .5rem;
+
+    box-shadow: none;
+
+  }
+
+  & > .content > .input > .send {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+    padding: 0 1rem;
+
+    cursor: pointer;
+  }
+
+  & > .content > .error {
+    font-size: .75rem;
+
+    display: block;
+
+    margin-top: .5rem;
+
+    color: $color-red;
+  }
+}

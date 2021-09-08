@@ -1,4 +1,4 @@
-{% load staticfiles compress %}
+{% load staticfiles compress projects_tags dashboard_tags notification_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -6,26 +6,100 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'img/favicon/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'img/favicon/apple-touch-icon-114x114.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'img/favicon/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'img/favicon/apple-touch-icon-144x144.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static 'img/favicon/apple-touch-icon-60x60.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'img/favicon/apple-touch-icon-120x120.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'img/favicon/apple-touch-icon-76x76.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'img/favicon/apple-touch-icon-152x152.png' %}" />
+    <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-196x196.pHave the modal ng' %}" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-32x32.png' %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-16x16.png' %}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon-128.png' %}" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{% static 'img/favicon/mstile-144x144.png' %}" />
+    <meta name="msapplication-square70x70logo" content="{% static 'img/favicon/mstile-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'img/favicon/mstile-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'img/favicon/mstile-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'img/favicon/mstile-310x310.png' %}" />
     {% block metatags %}
     {% endblock metatags %}
 
     <title>{% block title %}wikilegis{% endblock title %}</title>
+    {% block extracss %}
+    {% endblock extracss %}
     {% compress css %}
       <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/app.scss' %}">
     {% endcompress %}
 
-    {% block extracss %}
-    {% endblock extracss %}
   </head>
-  <body>
+  <body class="js-body {% block body_classes %}{% endblock %}">
+    <div class="nav-bar{% if request.user.profile.profile_type == 'owner' %} -admin{% endif %} {% block navbar_extra_classes %}{% endblock navbar_extra_classes %}">
+      <div class="nav-burger"></div>
+      <a href="{% url 'home' %}" class="brand -beta">Wikilegis</a>
+
+      {% block navbar_document %}
+      {% endblock navbar_document %}
+
+      {% if request.user.profile.profile_type == 'owner' %}
+      <div class="tools">
+        <div class="dropdown-menu -notifications {% if request.user.notifications.all|has_new %}-notified{% endif %} js-notificationDropdown">
+          <button class="icon js-notificationButton" aria-label="Notificações">
+            {% include "svgs/notifications-icon.html" %}
+          </button>
+
+          <ul class="list js-notificationList">
+            {% for notification in request.user.notifications.all reversed %}
+              <li {% if not notification.was_read %}class="-new"{% endif %}>
+                <span class="text">{{ notification.message }}</span>
+                <span class="datetime">{{ notification.created }}</span>
+              </li>
+              {% if not forloop.last %}
+              <hr>
+              {% endif %}
+            {% empty %}
+            <li class="-empty">
+              <span class="text">Sem notificações</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <a href="{% url 'owner_documents' %}" class="icon -documents{% if current_path|endswith:'/dashboard/' %} -active{% endif %}" aria-label="Meus documentos">
+          {% include "svgs/dashboard-icon.html" %}
+        </a>
+      </div>
+      {% endif %}
+    </div>
+
+    {% include "components/alert-message.html" %}
+
     {% block content %}
     {% endblock content %}
 
     {% compress js %}
+      <script src="{% static 'django_js_reverse/js/reverse.js' %}"></script>
       <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+      <script src="{% static 'autosize/dist/autosize.min.js' %}"></script>
+      <script src="{% static 'js/utils/publishSubscribe.js' %}"></script>
+      <script src="{% static 'js/utils/events.js' %}"></script>
+      <script src="{% static 'js/utils/cookies.js' %}"></script>
+      <script src="{% static 'js/utils/ajax.js' %}"></script>
+      <script src="{% static 'js/components/navBar/view.js' %}"></script>
+      <script src="{% static 'js/components/notificationButton/view.js' %}"></script>
+      <script src="{% static 'js/components/notificationButton/controller.js' %}"></script>
+      <script src="{% static 'js/components/appModal/view.js' %}"></script>
+      <script src="{% static 'js/components/body/view.js' %}"></script>
+      <script src="{% static 'js/components/textInput/view.js' %}"></script>
+      <script src="{% static 'js/components/alertMessage/view.js' %}"></script>
+      <script src="{% static 'js/components/alertMessage/controller.js' %}"></script>
+      <script src="{% static 'js/pages/base.js' %}"></script>
+      {% block page_js %}
+      {% endblock page_js %}
     {% endcompress %}
 
-    {% block extrajs %}
-    {% endblock extrajs %}
   </body>
 </html>

@@ -1,0 +1,22 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Você foi convidado para colaborar na edição de uma proposição legislativa!
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+<tr class="center">
+  Opine e sugira alterações na redação dos artigos, parágrafos, incisos e alíneas.
+  Você precisa estar logado no Wikilegis para participar.
+  Clique em aceitar convite para logar ou criar uma nova conta e acessar o texto!
+</tr>
+{% endblock content %}
+
+{% block button %}
+<a href="http://{{ site_url }}{% url 'authorization' hash %}">ACEITAR O CONVITE</a>
+{% endblock button %}

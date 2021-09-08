@@ -1,0 +1,25 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles projects_tags %}
+
+
+{% block extra_classes %}-info js-infoModal{% endblock %}
+
+{% block title_modal %}
+  {% if object.document.document_type %}
+  {{ object.document.document_type.initials }} {{ object.document.number }}/{{ object.document.year }}
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class="info-bar -mobile">
+  {% if object.closing_date|is_open %}
+  <span class="date -active">Aberto até {{ object.closing_date|date:"d/m/Y" }}</span>
+  {% else %}
+  <span class="date -inactive">Participação encerrada em {{ object.closing_date|date:"d/m/Y" }}</span>
+  {% endif %}
+  {% include "components/document-info.html" %}
+</div>
+{% endblock content %}
+
+</div>

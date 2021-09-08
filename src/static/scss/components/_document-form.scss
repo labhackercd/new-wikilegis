@@ -1,0 +1,24 @@
+.document-form {
+  margin: 0 auto;
+
+  & > .app-button {
+    margin-top: 2rem;
+    margin-left: auto;
+  }
+
+  & > h2 {
+    font-size: 1.5rem;
+
+    margin-top: 2rem;
+  }
+
+  & > p {
+    font-size: $font-size-centi;
+
+    margin-top: 1rem;
+  }
+
+  & > .input-text {
+    margin-top: 2rem;
+  }
+}

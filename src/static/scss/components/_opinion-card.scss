@@ -1,0 +1,384 @@
+.opinion-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  max-width: 22rem;
+
+  @include bp-mediumup {
+    width: 55rem;
+    max-width: 55rem;
+    padding-bottom: 1.5rem;
+  }
+
+  &.-active {
+    & ~ .-active {
+      display: none;
+    }
+  }
+
+  &.-inactive {
+    display: none;
+  }
+
+  & > .card {
+    display: flex;
+
+    min-height: 0;
+    margin-top: auto;
+
+    transition: transform 1s $swift-out, opacity .3s .2s ease;
+    transform: translate(0);
+    animation: activate-card .5s $swift-out;
+
+    opacity: 1;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+
+    @include card-darkbg-shadow();
+
+    @at-root .-reject#{&} {
+      transform: rotate(-10deg);
+      transform-origin: 100% 200%;
+
+      opacity: 0;
+
+      @include bp-mediumup {
+        transform-origin: 120% 350%;
+      }
+    }
+
+    @at-root .-approve#{&} {
+      transform: rotate(10deg);
+      transform-origin: 0 200%;
+
+      opacity: 0;
+
+      @include bp-mediumup {
+        transform-origin: -20% 350%;
+      }
+    }
+
+    @at-root .-neutral#{&} {
+      transform: translateY(30%);
+
+      opacity: 0;
+    }
+
+    @at-root .-next#{&} {
+      transform: translateX(calc(-50vw - 17rem));
+
+      @include bp-mediumup {
+        transform: translateX(calc(-50vw - 33.5rem));
+      }
+    }
+
+    & > .suggestion {
+      word-break: break-word;
+    }
+
+    & > header {
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      left: 0;
+
+      display: flex;
+      justify-content: space-between;
+
+      box-sizing: border-box;
+      width: 100%;
+      padding: 1rem;
+
+      background-color: $color-light-black;
+
+      @include bp-mediumup {
+        padding: 1.25rem 2rem;
+      }
+
+      & > h2 {
+        color: #FFF;
+
+        @include bp-mediumup {
+          font-size: 2rem;
+        }
+      }
+
+      & > .close-icon {
+        right: 0.25rem;
+        top: 0.5rem;
+
+        @include bp-mediumup {
+          right: 1.7rem;
+          top: 1.7rem;
+        }
+      }
+    }
+
+    & > .usercontent {
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      width: 100%;
+
+      @include bp-mediumup {
+        display: flex;
+        overflow-x: unset;
+        overflow-y: unset;
+      }
+
+      & > .highlight,
+      & > .opinion {
+        display: flex;
+        overflow: hidden;
+        flex: 1 0 50%;
+
+        box-sizing: border-box;
+
+        text-align: left;
+
+        & > .overflow {
+          width: 100%;
+          padding: 1rem;
+
+          @include bp-mediumup {
+            overflow-x: hidden;
+            overflow-y: auto;
+            overflow-y: overlay; // This is to render a better scroll bar on Chrome only. If not Chrome, the preceding property is used
+
+            padding: 0 2rem;
+            padding-bottom: 4rem;
+            padding-top: 1.5rem;
+          }
+
+          & > p {
+            margin-top: 1rem;
+          }
+
+          & > .info-text {
+            position: relative;
+            z-index: 2;
+          }
+        }
+      }
+
+      & > .highlight {
+        padding: .5rem 0;
+
+        background-color: #FFF;
+
+        @include bp-mediumup {
+          padding: 0;
+          padding-top: 5.5rem;
+        }
+
+        & > .overflow > .excerpt {
+          position: relative;
+          z-index: 1;
+
+          color: $color-gray;
+
+          & > .text-highlight {
+            position: unset;
+
+            animation: extend-highlight .4s .2s ease-in forwards;
+
+            background-color: transparent;
+            background-image: linear-gradient(transparent 0%, $color-highlight-on-white 0, $color-highlight-on-white 100%, transparent 0);
+            background-repeat: no-repeat;
+            background-position-x: left;
+            background-size: 0 100%;
+
+            @include bp-mediumup {
+              position: relative;
+            }
+
+            &::before,
+            &::after {
+              position: absolute;
+              z-index: -1;
+
+              content: '';
+              transform: scale(0);
+
+              background-color: $color-highlight-on-white;
+            }
+
+            &::after {
+              width: 3px;
+              height: calc(100% + 2.5rem);
+              margin-left: -3px;
+
+              transform-origin: 0 0;
+              animation: extend-highlight-line-vertical .4s .4s forwards ease-in;
+
+              @include bp-mediumup {
+                display: none;
+              }
+            }
+
+            &::before {
+              @include bp-mediumup {
+                width: 27.5rem;
+                height: 5px;
+
+                transform-origin: 0 0;
+                animation: extend-highlight-line-horizontal .4s .2s forwards ease-in;
+              }
+            }
+          }
+        }
+      }
+
+      & > .opinion {
+        padding-top: 4rem;
+        padding-bottom: .5rem;
+
+        background-color: $color-highlight-on-white;
+
+        @include bp-mediumup {
+          padding-top: 5.5rem;
+          padding-bottom: 0;
+        }
+
+        &::before {
+          content: '';
+        }
+      }
+    }
+  }
+
+  & > .actions {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: auto;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+
+    @include bp-mediumup {
+      justify-content: center;
+
+      margin-top: 2rem;
+    }
+
+    & > button {
+      animation: show-opinion-button .3s $swift-out forwards;
+      pointer-events: none; // This is set back to auto inside the show-opinion-button
+
+      opacity: 0;
+      color: #FFF;
+
+      &.-inactive {
+        animation: hide-opinion-button .3s $swift-out forwards;
+        pointer-events: none;
+      }
+
+      &.-ripple {
+        animation: hide-opinion-button .3s .7s $swift-out backwards;
+        pointer-events: none;
+      }
+    }
+
+    & > .disagree {
+      @extend .app-button;
+      @extend .app-button.-red;
+      @extend .app-button.-circle;
+
+      animation-delay: .7s;
+
+      @include icon('disagree');
+      @include hovering-label(left, 'nobg', 1em, #FFF, 1rem);
+    }
+
+    & > .indifferent {
+      @extend .app-button;
+      @extend .app-button.-gray;
+      @extend .app-button.-circle;
+
+      margin: 0 1rem;
+
+      animation-delay: .8s;
+
+      @include hovering-label(bottom, 'nobg', 1em, #FFF, 1rem);
+      @include bp-mediumup {
+        margin: 0 3rem;
+      }
+      @include icon('indifferent');
+    }
+
+    & > .agree {
+      @extend .app-button;
+      @extend .app-button.-green;
+      @extend .app-button.-circle;
+
+      animation-delay: .9s;
+
+      @include hovering-label(right, 'nobg', 1em, #FFF, 1rem);
+      @include icon('agree');
+    }
+
+    & > .skip {
+      @extend .app-button;
+      @extend .app-button.-white;
+      @extend .app-button.-circle;
+      @extend .app-button.-circle.-small;
+
+      position: absolute;
+      right: 0;
+
+      animation-delay: 1s;
+
+      @include icon('skip');
+      @include hovering-label(left, 'nobg', 1em, #FFF, 1rem, auto, 'default', absolute);
+    }
+
+    & > .notice {
+      font-size: $font-size-centi;
+      font-weight: 400;
+
+      width: 10rem;
+      margin-right: auto;
+
+      animation: simple-reveal .5s .7s ease forwards;
+      text-align: left;
+
+      opacity: 0;
+      color: #FFF;
+
+      @include bp-mediumup {
+        font-size: $font-size-base;
+
+        width: auto;
+      }
+
+      &.-inactive {
+        animation: simple-fade .3s ease forwards;
+        pointer-events: none;
+
+        opacity: 1;
+      }
+
+      & > a {
+        @include link-style($font-weight: 700, $negative: true);
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.close-diff {
+  position: fixed;
+  left: 0.5rem;
+  transform: translateX(-100%);
+  padding: 1rem;
+  color: $color-brand;
+  top: 4.5rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  transition-delay: 0;
+  transition: none;
+  opacity: 0;
+  cursor: pointer;
+
+  @include mask-icon('arrow');
+
+  &::before {
+    background-color: $color-brand;
+    margin-right: .5rem;
+    transform: rotate(90deg);
+    font-size: $font-size-centi;
+  }
+
+  &.-show {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all .35s $swift-out;
+    transition-delay: .35s;
+  }
+}

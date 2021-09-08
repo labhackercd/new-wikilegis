@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.conf import settings
 from utils.choices import GENDER_CHOICES, UF_CHOICES, PROFILE_TYPE_CHOICES
-from utils.model_mixins import TimestampedMixin
 
 
 class UserProfile(models.Model):
@@ -30,6 +30,13 @@ class UserProfile(models.Model):
     def __str__(self):
         return '%s <%s>' % (self.user.get_full_name(), self.user.email)
 
+    @property
+    def avatar_url(self):
+        if self.avatar:
+            return self.avatar
+        else:
+            return settings.STATIC_URL + 'img/avatar.png'
+
 
 class ThematicGroup(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -46,20 +53,3 @@ class ThematicGroup(models.Model):
 
     def __str__(self):
         return '%s <%s>' % (self.name, self.owner.email)
-
-
-class InvitedEmail(TimestampedMixin):
-    email = models.EmailField()
-    group = models.ForeignKey('accounts.ThematicGroup',
-                              on_delete=models.CASCADE,
-                              related_name='invited_emails',
-                              verbose_name=_('group'))
-    accepted = models.BooleanField(_('accepted'), default=False)
-
-    class Meta:
-        unique_together = ('email', 'group')
-        verbose_name = _('invited email')
-        verbose_name_plural = _('invited emails')
-
-    def __str__(self):
-        return '%s' % (self.email)

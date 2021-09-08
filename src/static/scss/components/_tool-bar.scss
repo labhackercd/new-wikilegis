@@ -1,0 +1,96 @@
+.tool-bar {
+  $navbar-height: 2.75rem;
+
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  width: 5rem;
+  height: 100%;
+  padding-top: $navbar-height + 1rem;
+
+  transition: all .25s $swift-out;
+
+  border-left: 1px solid $color-grayish;
+  background-color: #FFF;
+
+  & > .tools {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    height: 100%;
+  }
+
+  & > .tools > .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 4.5rem;
+
+    @include hovering-label(left, 'default', 1rem, $color-whitesmoke, .875rem);
+
+    &:hover > svg path {
+      fill: $color-deep-gray;
+    }
+  }
+
+  & > .tools > .icon.-active > svg path {
+    fill: $color-brand;
+  }
+
+  & > .tools > .icon.-collapse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 4.5rem;
+
+    &:hover > svg path {
+      fill: $color-deep-gray;
+    }
+
+    &.-active {
+       > svg path {
+        fill: $color-brand;
+      }
+    }
+
+    &.-settings {
+      margin-top: auto;
+    }
+
+    .arrow1,
+    .arrow2 {
+      display: none;
+    }
+
+    .arrow3,
+    .arrow4 {
+      display: block;
+    }
+
+    &.-collapsed {
+      transition: all .3s $swift-out;
+
+      .arrow1,
+      .arrow2 {
+        display: block;
+      }
+
+      .arrow3,
+      .arrow4 {
+        display: none;
+      }
+    }
+  }
+}

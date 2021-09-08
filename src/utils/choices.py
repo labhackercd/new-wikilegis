@@ -38,22 +38,8 @@ UF_CHOICES = (
 )
 
 PROFILE_TYPE_CHOICES = (
-    ('consultant', _('Consultant')),
+    ('owner', _('Document Owner')),
     ('defult', _('Default')),
-)
-
-EXCERPT_TYPE_CHOICES = (
-    ('book', _('Book')),
-    ('chapter', _('Chapter')),
-    ('title', _('Title')),
-    ('section', _('Section')),
-    ('subsection', _('Subsection')),
-    ('article', _('Article')),
-    ('paragraph', _('Paragraph')),
-    ('item', _('Item')),
-    ('line', _('Line')),
-    ('point', _('Point')),
-    ('quote', _('Quote')),
 )
 
 OPINION_VOTE_CHOICES = (
@@ -62,8 +48,10 @@ OPINION_VOTE_CHOICES = (
     ('neutral', _('Neutral')),
 )
 
-AMENDMENT_TYPE_CHOICES = (
-    ('additive', _('Additive')),
-    ('modifier', _('Modifier')),
-    ('supress', _('Supress')),
+PARTICIPATION_GROUP_CHOICES = (
+    ('waiting', _('Waiting')),
+    ('in_progress', _('In Progress')),
+    ('waiting_feedback', _('Waiting Feedback')),
+    ('analyzing', _('Analyzing')),
+    ('finished', _('Finished')),
 )

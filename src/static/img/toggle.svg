@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 15">
+<rect id="Rectangle 2" width="32" height="32" transform="matrix(-1 0 0 1 32 0)" fill="#C4C4C4" fill-opacity="0.01"/>
+<circle id="Ellipse" r="16" transform="matrix(1 0 0 -1 16 16)" fill="#474747"/>
+<g id="Group 12">
+<g id="Arrow_simple_rightt">
+<path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M14.4148 21.4695C14.2238 21.6475 13.9262 21.6422 13.7416 21.4576C13.557 21.273 13.5517 20.9754 13.7297 20.7844L18.9005 15.6136L13.7297 10.6238C13.5517 10.4328 13.557 10.1352 13.7416 9.95056C13.9262 9.76595 14.2238 9.7607 14.4148 9.93868L20.1803 15.6136L14.4148 21.4695Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</svg>

@@ -1,0 +1,158 @@
+.input-text {
+  position: relative;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  margin-top: 1rem;
+
+  & .errorlist {
+    & > li {
+      font-size: $font-size-nano;
+
+      padding: 0;
+
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: $color-red;
+      background-color: transparent;
+    }
+  }
+
+  &.-filled {
+    & input,
+    & textarea {
+      padding-top: 1.65rem !important;
+    }
+
+    & label {
+      font-size: .55rem;
+      font-weight: 500;
+
+      transform: translateY(.55rem);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    &.-date {
+      & input,
+      & textarea {
+        color: $color-deep-gray;
+      }
+    }
+  }
+
+  &.-required {
+    position: relative;
+
+    &::after {
+      font-size: $font-size-centi;
+
+      position: absolute;
+      top: .2rem;
+      right: .45rem;
+
+      display: block;
+
+      content: '*';
+
+      color: $color-gray;
+    }
+  }
+
+  label {
+    font-size: $font-size-mili;
+    font-weight: 400;
+
+    position: absolute;
+    top: 0;
+    left: .875rem;
+
+    padding-bottom: .1rem;
+
+    transition: all .2s $swift-out;
+    transform: translateY(1rem);
+    pointer-events: none;
+
+    color: $color-gray;
+  }
+
+  &.-date {
+    & input:focus,
+    & input:active,
+    & textarea:focus,
+    & textarea:active {
+      color: $color-deep-gray;
+    }
+
+    & > input {
+      color: transparent;
+    }
+  }
+
+  &.-congressman {
+    position: relative;
+
+    & > ul {
+      display: flex;
+      overflow: hidden;
+      overflow-y: auto;
+      flex-direction: column;
+
+      width: 100% !important;
+      max-height: 10rem;
+
+      background-color: #FFF;
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+
+      & > .item {
+        display: flex;
+        align-items: center;
+
+        box-sizing: border-box;
+        width: 100%;
+        padding: 1.5rem 1rem;
+
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-grayish;
+        }
+
+        & > .avatar {
+          overflow: hidden;
+
+          width: 2rem;
+          height: 2rem;
+          margin-right: 1rem;
+
+          border-radius: 50%;
+
+          object-fit: cover;
+
+          & > img {
+            width: 100%;
+          }
+        }
+
+        & > .name {
+          font-size: $font-size-centi;
+        }
+      }
+    }
+  }
+
+  & input:focus + label,
+  & input:active + label,
+  & textarea:focus + label,
+  & textarea:active + label {
+    color: $color-brand;
+  }
+
+  textarea {
+    width: 100%;
+    height: 10rem;
+  }
+}

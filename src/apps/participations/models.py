@@ -1,8 +1,8 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from utils.model_mixins import TimestampedMixin
-from utils.choices import (OPINION_VOTE_CHOICES, EXCERPT_TYPE_CHOICES,
-                           AMENDMENT_TYPE_CHOICES)
+from utils.choices import OPINION_VOTE_CHOICES, PARTICIPATION_GROUP_CHOICES
+from django.urls import reverse
 
 
 class InvitedGroup(TimestampedMixin):
@@ -15,12 +15,36 @@ class InvitedGroup(TimestampedMixin):
                                        related_name='invited_groups',
                                        verbose_name=_('thematic group'),
                                        null=True, blank=True)
+    openning_date = models.DateField(_('openning date'), null=True, blank=True)
     closing_date = models.DateField(_('closing date'))
-    is_open = models.BooleanField(default=True)
+    public_participation = models.BooleanField(_('public participation'),
+                                               default=False)
+    document_version = models.PositiveIntegerField(default=0)
+    text_version = models.PositiveIntegerField(default=0)
+    version = models.ForeignKey('projects.DocumentVersion',
+                                on_delete=models.CASCADE,
+                                verbose_name=_('version'),
+                                related_name='invited_groups')
+    final_version = models.ForeignKey('projects.DocumentVersion',
+                                      on_delete=models.CASCADE,
+                                      verbose_name=_('final version'),
+                                      related_name='invited_groups_final',
+                                      null=True, blank=True)
+    group_status = models.CharField(_('group status'), max_length=200,
+                                    choices=PARTICIPATION_GROUP_CHOICES,
+                                    default='in_progress')
 
     class Meta:
         verbose_name = _('invited group')
         verbose_name_plural = _('invited groups')
+
+    def get_absolute_url(self):
+        return reverse(
+            'project', kwargs={'id': self.id,
+                               'documment_slug': self.document.slug})
+
+    def get_excerpts(self):
+        return self.document.get_excerpts(version=self.version.number)
 
     def __str__(self):
         if self.thematic_group:
@@ -39,8 +63,9 @@ class Suggestion(TimestampedMixin):
                                 on_delete=models.CASCADE,
                                 related_name='suggestions',
                                 verbose_name=_('excerpt'))
-    start_index = models.PositiveIntegerField(_('start index'))
-    end_index = models.PositiveIntegerField(_('end index'))
+    selected_text = models.TextField(_('selected text'))
+    start_index = models.PositiveIntegerField(_('start index'), default=0)
+    end_index = models.PositiveIntegerField(_('end index'), default=0)
     content = models.TextField(_('content'))
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                related_name='suggestions',
@@ -49,6 +74,14 @@ class Suggestion(TimestampedMixin):
     class Meta:
         verbose_name = _('suggestion')
         verbose_name_plural = _('suggestions')
+        ordering = ('start_index', )
+
+    def votes_count(self, opinion_type=None):
+        if opinion_type:
+            count_result = self.votes.filter(opinion_vote=opinion_type).count()
+        else:
+            count_result = self.votes.count()
+        return count_result
 
     def __str__(self):
         return '%s <%s>' % (self.content,
@@ -60,10 +93,6 @@ class OpinionVote(TimestampedMixin):
                                    on_delete=models.CASCADE,
                                    related_name='votes',
                                    verbose_name=_('suggestion'))
-    excerpt = models.ForeignKey('projects.Excerpt',
-                                on_delete=models.CASCADE,
-                                related_name='votes',
-                                verbose_name=_('excerpt'))
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                               related_name='votes',
                               verbose_name=_('owner'))
@@ -71,38 +100,10 @@ class OpinionVote(TimestampedMixin):
                                     choices=OPINION_VOTE_CHOICES)
 
     class Meta:
+        unique_together = ('suggestion', 'owner')
         verbose_name = _('opinion vote')
         verbose_name_plural = _('opinion votes')
 
     def __str__(self):
         return '%s <%s>' % (self.owner.email,
                             self.opinion_vote)
-
-
-class Amendment(TimestampedMixin):
-    invited_group = models.ForeignKey('participations.InvitedGroup',
-                                      on_delete=models.CASCADE,
-                                      related_name='amendments',
-                                      verbose_name=_('invited group'))
-    excerpt = models.ForeignKey('projects.Excerpt',
-                                on_delete=models.CASCADE,
-                                related_name='amendments',
-                                verbose_name=_('excerpt'))
-    content = models.TextField(_('content'))
-    amendment_type = models.CharField(_('amendment type'), max_length=200,
-                                      choices=AMENDMENT_TYPE_CHOICES)
-    excerpt_type = models.CharField(_('excerpt type'), max_length=200,
-                                    choices=EXCERPT_TYPE_CHOICES,
-                                    blank=True, null=True)
-    number = models.PositiveIntegerField(_('number'), null=True, blank=True)
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
-                               related_name='amendments',
-                               verbose_name=_('author'))
-
-    class Meta:
-        verbose_name = _('amendment')
-        verbose_name_plural = _('amendments')
-
-    def __str__(self):
-        return '%s <%s>' % (self.content,
-                            self.author.email)

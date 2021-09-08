@@ -1,0 +1,154 @@
+.app-button {
+  font-size: $font-size-micro;
+  font-weight: 500;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 5rem;
+  padding: .5rem .75rem;
+
+  cursor: pointer;
+  transition: all .3s $swift-out;
+  text-transform: uppercase;
+
+  color: #FFF;
+  background-color: transparent;
+
+  @include bp-mediumup {
+    font-size: $font-size-mili;
+
+    padding: .75rem 1.25rem;
+  }
+
+  & > .load {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+
+    border: 0.2rem solid white;
+    border-radius: 100%;
+    border-top: 0.2rem solid transparent;
+    margin-right: 0.5rem;
+
+    animation: rotate infinite linear 1s;
+  }
+
+  ///
+  // Circle buttons won't show any text, just an icon. You must add an aria-label attribute on them for accessibility!
+  //
+  // You will need an icon on them since they are labeless. Include them within variant classes using:
+  // @include icon() // Check the mixin in _reusables.scss for other parameters reference
+  //
+  // You may also add floating labels to them when on :hover. Use our special mixin for that:
+  // @include hovering-label() // Check the mixin in _reusables.scss for other parameters reference
+  //
+  // Adjust other general stuff like background-color, color and font-size with regular CSS properties if necessary.
+  ///
+  &.-circle {
+    font-size: 1rem;
+
+    width: 2.5em;
+    min-width: 0;
+    height: 2.5em;
+    padding: 0;
+
+    border-radius: 50%;
+
+    @include circle-button-shadow();
+    @include bp-mediumup {
+      font-size: 1.5rem;
+    }
+
+
+    &.-small {
+      font-size: .8rem;
+
+      @include bp-mediumup {
+        font-size: 1.1rem;
+      }
+    }
+
+    &.-ripple {
+      transition: box-shadow .6s ease;
+
+      @include circle-button-shadow-rippled();
+
+      &::after {
+        opacity: 0;
+      }
+    }
+  }
+
+  &.-green {
+    background-color: $color-brand;
+
+    &.-circle {
+      color: $color-brand;
+    }
+
+    &:hover {
+      background-color: lighten($color-brand, 10%);
+    }
+  }
+
+  &.-red {
+    background-color: $color-red;
+
+    &.-circle {
+      color: $color-red;
+    }
+
+    &:hover {
+      background-color: lighten($color-red, 10%);
+    }
+  }
+
+  &.-gray {
+    background-color: $color-gray;
+
+    &.-circle {
+      color: $color-gray;
+    }
+
+    &:hover {
+      background-color: lighten($color-gray, 10%);
+    }
+  }
+
+  &.-deepgray {
+    background-color: $color-deep-gray;
+
+    &.-circle {
+      color: $color-deep-gray;
+    }
+
+    &:hover {
+      background-color: lighten($color-deep-gray, 10%);
+    }
+  }
+
+  &.-white {
+    color: $color-deep-gray;
+    background-color: #FFF;
+
+    &.-circle {
+      color: #FFF;
+    }
+    &:hover {
+      background-color: darken(#FFF, 5%);
+    }
+  }
+
+  &.-clear {
+    text-decoration: underline;
+    text-transform: none;
+
+    color: $color-gray;
+
+    &:hover {
+      color: $color-deep-gray;
+    }
+  }
+}

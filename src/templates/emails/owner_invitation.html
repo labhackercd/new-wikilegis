@@ -1,0 +1,23 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+  Você foi convidado para participar de uma proposição
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+  <tr class="center">
+    Analise as propostas legislativas e contribua com sugestões de nova redação a artigos ou parágrafos.!
+  </tr>
+  <tr class="center">
+    Nessa intera&ccedil;&atilde;o, ganha a sociedade, que participa mais ativamente do processo legislativo, e ganha o Parlamento, que aprova leis mais aprimoradas e conectadas &agrave;s necessidades dos cidad&atilde;os.
+  </tr>
+{% endblock content %}
+
+{% block button %}
+<a href="http://{{ site_url }}{% url 'home' %}">CRIAR CONTA</a>
+{% endblock button %}

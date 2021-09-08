@@ -1,0 +1,193 @@
+{% extends "structure/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Convidar participantes{% endblock title %}
+
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'air-datepicker/dist/css/datepicker.min.css' %}">
+<style>
+  .ui-autocomplete-loading {
+    background: white url("https://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
+{% endblock extracss %}
+
+{% block navbar_extra_classes %}js-navbar js-owner{% endblock navbar_extra_classes %}
+
+{% block navbar_admin_tools %}
+  <div class="project">
+    <span class="title js-documentTitle">{{ object.document.title }}</span>
+    <ul class="breadcrumb-menu">
+      {% if object %}
+        <a href="#">Editar Participação Restrita</a>
+      {% else %}
+        <a href="#">Criar Participação Restrita</a>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="tools">
+    <a href="{% url 'owner_documents' %}">Meus documentos</a>
+  </div>
+{% endblock navbar_admin_tools %}
+
+{% block content %}
+
+<main class="section-group">
+  <header>
+    {% if object %}
+    <h2>Editar Participação Restrita</h2>
+    {% else %}
+    <h2>Criar Participação Restrita</h2>
+    {% endif %}
+
+    <a href="{{ previous_page }}" class="link-back">Voltar</a>
+
+  </header>
+  <form method="POST" id="invited_group_form" autocomplete="off">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="input-group">
+      <div class="input-text -required">
+        <input type="text" name="group_name" required id="id_group_name" {% if object %}value="{{ object.thematic_group.name }}"{% endif %}>
+        <label for="id_group_name">Nome do grupo:</label>
+      </div>
+      <div class="input-select -required">
+        <div class="select">
+          {% if object and not '/new/' in request.path %}
+          <select id="id_version" name="version" disabled>
+              <option value="{{object.version.pk}}" selected="selected">
+                {% if object.version.name %}
+                {{object.version.name}}
+                {% else %}
+                {{object.version.created|date:'H\hi - d \d\e b, Y'}}
+                {% endif %}
+              </option>
+          </select>
+          {% elif object and '/new/' in request.path %}
+          <select id="id_version" name="version">
+            {% for version in versions %}
+              <option value="{{version.pk}}" {% if object.version.pk == version.pk %}selected="selected"{% endif %}>
+                {% if version.name %}
+                {{version.name}}
+                {% else %}
+                {{version.created|date:'H\hi - d \d\e b, Y'}}
+                {% endif %}
+              </option>
+            {% endfor %}
+            </option>
+          </select>
+          {% else %}
+          <select id="id_version" required name="version" {% if not versions %}disabled{% endif %}>
+            {% for version in versions %}
+              <option value="{{version.pk}}" {% if forloop.first %}selected="selected"{% endif %}>
+                {% if version.name %}
+                {{version.name}}
+                {% else %}
+                {{version.created|date:'H\hi - d \d\e b, Y'}}
+                {% endif %}
+              </option>
+            {% endfor %}
+          </select>
+          {% endif %}
+          <label for="id_version_name">Versão do Documento:</label>
+          <div class="icon"><i class="arrow"></i></div>
+        </div>
+        {{ form.version.errors }}
+        {% if not versions and not object %}
+          <ul class="errorlist">
+            <li>Você precisa salvar uma versão do documento antes de abrir a proposta legislativa para um grupo de participação.</li>
+          </ul>
+        {% endif %}
+      </div>
+      <div class="input-text -required -date">
+        {% if object %}
+        <input class="js-datePicker" name="closing_date" required id="id_closing_date" value="{{object.closing_date|date:'d/m/Y'}}">
+        {% else %}
+        <input class="js-datePicker" name="closing_date" required id="id_closing_date">
+        {% endif %}
+        <label for="id_closing_date">Data de encerramento:</label>
+        {{ form.closing_date.errors }}
+      </div>
+    </div>
+
+    <h2>Gerenciar Participantes</h2>
+
+    <div class="input-filter js-openParticipation">
+      <div class="input">
+        <input id="name" class="js-search-name">
+        <label for="name">Buscar perfis por nome ou email: </label>
+        <div class="filter js-searchFilter">Filtros</div>
+      </div>
+      <div class="filters js-filterBar _hidden">
+        <span class="title js-title">Filtros adicionados:</span>
+        <ul class="list js-filterList">
+        </ul>
+        <div class="clear js-clearFilters">Limpar Filtros</div>
+      </div>
+    </div>
+
+    <div class="input-group js-participants">
+      {% if object.thematic_group.participants.all %}
+      {% for participant in object.thematic_group.participants.all %}
+      <input type="hidden" name="participants" value="{{participant.id}}">
+      {% endfor %}
+      {% endif %}
+      <div class="input-profile -empty">
+        <span class="label"><b class="js-countSelectables">0</b>Perfis encontrados com o filtro </span>
+        <div class="profiles js-inputProfile">
+        </div>
+      </div>
+      <div class="input-profile -empty">
+        <span class="label"><b class="js-countSelecteds">{{object.thematic_group.participants.count|default_if_none:0}}</b>Participantes atuais no grupo</span>
+        <div class="profiles js-selectedProfile">
+          {% if object.thematic_group.participants.all %}
+          {% for participant in object.thematic_group.participants.all %}
+            <div class="user-profile js-user" data-user-id="{{ participant.id }}">
+              <img class="avatar" src="{% if participant.profile.avatar %}{{participant.profile.avatar}}{% else %}{% static 'img/avatar.png' %}{% endif %}">
+              <div class="info">
+                <span class="name">{{ participant.get_full_name }}</span>
+                {% for theme in participant.themes.all %}
+                  <div class="tags">
+                    <div class="theme-tag">
+                      <span class="dot" style="background-color: {{theme.color}};"></span>
+                       {{theme.name}}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="action">
+                <div class="remove"></div>
+              </div>
+            </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <a class="app-button -green js-openConfirmFormButton">Continuar</a>
+  </form>
+</main>
+{% include "components/filter-modal.html" %}
+{% include "components/confirm-form-modal.html" %}
+
+{% endblock content %}
+
+{% block page_js %}
+<script>
+  var prefixURL = '{{prefix_url|default_if_none:""}}';
+</script>
+<script src="{% static 'jquery-ui-dist/jquery-ui.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/datepicker.min.js' %}"></script>
+<script src="{% static 'air-datepicker/dist/js/i18n/datepicker.pt-BR.js' %}"></script>
+<script src="{% static 'slug/slug.js' %}"></script>
+<script src="{% static 'js/components/datePicker/view.js' %}"></script>
+<script src="{% static 'js/components/openParticipation/view.js' %}"></script>
+<script src="{% static 'js/components/filterModal/view.js' %}"></script>
+<script src="{% static 'js/components/filterModal/controller.js' %}"></script>
+<script src="{% static 'js/components/themeAutocomplete/view.js' %}"></script>
+<script src="{% static 'js/components/confirmFormModal/view.js' %}"></script>
+<script src="{% static 'js/pages/inviteParticipants.js' %}"></script>
+{% endblock page_js %}

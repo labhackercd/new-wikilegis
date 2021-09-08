@@ -1,0 +1,24 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+  Informações sobre o compromisso com Wikilegis
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+<tr class="center">
+{% if updated %}
+<p>O(A) servidor(a) {{ document_owner }} deseja alterar a data de encerramento do documento {{ document_title }} para {{ closing_date }}.</p>
+{% else %}
+<p>O(A) servidor(a) {{ document_owner }} deseja abrir o documento {{ document_title }} para consulta pública até {{ closing_date }}.</p>
+{% endif %}
+</tr>
+{% endblock content %}
+
+{% block button %}
+<a href="http://{{ site_url }}{% url 'information_authorization' hash %}?updated={{updated}}">CONCORDO</a>
+{% endblock button %}

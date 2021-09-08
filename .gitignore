@@ -1,7 +1,5 @@
 *.sqlite3
-*.ini
 package-lock.json
-*.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -29,6 +27,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+ngrok
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -108,9 +107,18 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# Static files
 node_modules/
 src/public/static/
+src/public/media/
 
+# VSCode
+.vscode/
+
+# Others
 .DS_Store
 dump.rdb
 npm-debug.*
+
+### Django Decouple ###
+src/wikilegis/*.ini

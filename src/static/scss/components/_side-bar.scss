@@ -1,0 +1,195 @@
+.side-bar {
+  $navbar-height: 3.75rem;
+  $border: 1px solid $color-grayish;
+
+  position: fixed;
+  z-index: 3;
+  top: $navbar-height;
+  left: 0;
+
+  width: 24rem;
+  height: calc(100% - #{$navbar-height});
+
+  transition: all .25s $swift-out;
+  transform: translateX(-100%);
+
+  background-color: $color-whisper;
+
+  &::before {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+
+    display: block;
+
+    width: 1px;
+    height: 100%;
+
+    content: '';
+
+    background-color: $color-grayish;
+  }
+
+  & > .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: $border;
+
+    & > .csv {
+      align-items: right;
+    }
+
+    & > h3 {
+      padding: 1.6rem;
+
+      color: $color-gray;
+    }
+
+    & > .filter {
+      @include icon('filter');
+    }
+
+    & > .actions {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      padding: 1.6rem;
+    }
+
+    & > .actions > .app-button {
+      font-size: .8rem;
+
+      position: relative;
+
+      margin-bottom: .5rem;
+      padding: .5rem 1rem;
+
+      transition: none;
+
+      &.-show {
+        position: relative;
+
+        visibility: visible;
+
+        transition: all .25s $swift-out;
+        transform: translateY(0);
+
+        opacity: 1;
+      }
+    }
+
+    & > .actions > .action {
+      font-size: $font-size-micro;
+
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: $color-brand;
+
+      &:hover {
+        color: lighten($color-brand, 10%);
+      }
+    }
+
+    & > .actions > .action.-cancel {
+      position: absolute;
+      visibility: hidden;
+
+      padding: .5rem 1rem;
+
+      opacity: 0;
+
+      &.-show {
+        position: relative;
+
+        visibility: visible;
+
+        transition: all .25s $swift-out;
+        transform: translateY(0);
+
+        opacity: 1;
+
+        & ~ .action {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+
+  & > .clusters {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-direction: column;
+
+    height: calc(100% - 9.8rem);
+
+    &::-webkit-scrollbar {
+      width: 0;
+
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #F00;
+    }
+
+    &::before {
+      position: fixed;
+      z-index: 1;
+      top: calc(100% - 5rem);
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      height: 100%;
+      margin-right: .8rem;
+
+      content: '';
+      pointer-events: none;
+    }
+
+    & > .action > .item {
+      font-size: $font-size-micro;
+
+      height: 100%;
+      padding: 1.6rem .8rem;
+
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: $color-brand;
+      &.-disable {
+        color: $color-gray;
+      }
+
+      &:hover {
+        color: lighten($color-brand, 10%);
+      }
+    }
+  }
+
+  & > .toggle {
+    font-size: 1.75rem;
+    position: absolute;
+    @include bp-mediumup {
+      right: -2.5rem;
+    }
+    @include bp-mediumdown {
+      right: -3.0rem;
+      top: 2.5rem;
+    }
+    right: -2.5rem;
+    bottom: 0;
+    cursor: pointer;
+    transition: all .25s $swift-out;
+    @include icon('toggle');
+  }
+}

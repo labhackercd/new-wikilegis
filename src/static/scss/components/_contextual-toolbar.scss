@@ -1,0 +1,91 @@
+.contextual-toolbar {
+  position: absolute;
+  z-index: 1;
+
+  animation: reveal-from-bottom .2s $swift-out;
+
+  & > .wrapper {
+    position: relative;
+
+    margin-bottom: .5rem;
+    padding: .5rem 1rem;
+
+    user-select: none;
+    transition: border-color .1s ease, box-shadow .1s ease;
+    transform-origin: 0 100%;
+
+    border: 1px solid $color-grayish;
+    border-bottom: 3px solid $color-brand;
+    border-radius: .25rem;
+    background-color: white;
+    box-shadow: 2px 2px 9px 0 hsla(0, 0%, 50%, .3);
+  }
+
+  & > .wrapper > .arrow {
+    position: absolute;
+    top: 100%;
+
+    width: 0;
+    height: 0;
+
+    content: '';
+    transition: border-color .1s ease;
+
+    border-top: 10px solid $color-brand;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;;
+  }
+
+  & > .wrapper.-error {
+    animation: shake .1s 2 ease;
+
+    border-color: $color-red;
+    box-shadow: 0 0 10px 2px hsla(0, 77%, 66%, .4);
+
+    & > .arrow {
+      border-top-color: $color-red;
+    }
+  }
+
+  & > .wrapper > .list {
+    display: flex;
+  }
+
+  & > .wrapper > .list > .item {
+    font-size: .75rem;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .6rem 1rem;
+
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: $color-deep-gray;
+    border-radius: .25rem;
+    background-color: white;
+
+    @include hovering-label(bottom, 'tip-shortcut', .75rem, inherit, $font-size-micro, auto, 'default');
+  }
+
+  & > .wrapper > .list > .item + .item {
+    margin-left: .1rem;
+  }
+
+  & > .wrapper > .list > .item:focus,
+  & > .wrapper > .list > .item:hover {
+    color: $color-deep-gray;
+    background-color: hsla(0, 0%, 95%, 1);
+  }
+
+  & > .wrapper > .list > .item > .shortcut {
+    font-weight: 600;
+
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,68 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles participations_tags %}
+
+
+{% block extra_classes %}-opinion js-opinionModal{% endblock %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+  {% for suggestion in suggestions %}
+    <article class="opinion-card -active js-opinionCard"
+      data-suggestion-id="{{suggestion.id}}"
+      data-excerpt-id="{{suggestion.excerpt.id}}"
+      data-user-id="{{suggestion.author.id}}">
+
+      <div class="card">
+        <header class="js-headerModal">
+          <h2>Você concorda?</h2>
+          <div class="close-icon js-closeModal"><img class="icon" src="{% static 'img/close.svg' %}"></div>
+        </header>
+        
+        <div class="usercontent">          
+          <div class="opinion">
+            <div class="overflow">
+              <span class="info-text js-userInfo">
+                <img class="js-userAvatar" src="{{suggestion.author.profile.avatar_url}}">
+                <h3>{{suggestion.author.first_name}} opinou:</h3>
+              </span>
+                            
+              <p class="suggestion js-suggestion">{{suggestion.content}}</p>
+            </div>
+          </div>
+
+          <div class="highlight">
+            <div class="overflow">
+              <span class="info-text">
+                <h3>No seguinte trecho:</h3>
+              </span>
+              
+              <p class="excerpt js-documentExcerpt">
+                {% highlight_suggestion suggestion %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="actions">
+        {% if request.user.is_authenticated %}
+        <button class="disagree js-opinionButton" data-opinion="reject" aria-label="Discordo"></button>
+        <button class="indifferent js-opinionButton" data-opinion="neutral" aria-label="Indiferente"></button>
+        <button class="agree js-opinionButton" data-opinion="approve" aria-label="Concordo"></button>
+        {% else %}
+          <h3 class="notice js-loginNotice"><a class="js-loginButton" href="#">Faça login</a> para poder avaliar esta opinião</h3>
+        {% endif %}
+        <button class="skip js-nextOpinion" data-opinion="skip" aria-label="Pular Opinião"></button>
+      </footer>
+    </article>
+  {% endfor %}
+
+  <div class="submitted-opinion">
+    <span class="submission js-submissionCue" data-opinion="reject">Discordo</span>
+    <span class="submission js-submissionCue" data-opinion="neutral">Indiferente</span>
+    <span class="submission js-submissionCue" data-opinion="approve">Concordo</span>
+    <span class="submission js-submissionCue" data-opinion="skip">Pular Opinião</span>
+  </div>
+{% endblock content %}

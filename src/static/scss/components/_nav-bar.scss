@@ -1,0 +1,356 @@
+body.-home .nav-bar {
+  @extend .-shadow;
+}
+
+body.-open-menu .nav-bar {
+  background-color: $color-brand;
+
+  & > .brand,
+  & > .nav-burger {
+    z-index: 6;
+
+    color: #FFF;
+  }
+}
+
+body.-white .nav-bar {
+  background-color: #FFF;
+}
+
+.nav-bar {
+  position: fixed;
+  z-index: 6;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 2.75rem;
+  padding-right: 1.6rem;
+  padding-left: 1.6rem;
+
+  transition: all .25s $swift-out;
+
+  background-color: $color-whitesmoke;
+
+  @include bp-smallonly {
+    justify-content: flex-start;
+
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  @include bp-mediumup {
+    height: 3.75rem;
+  }
+
+  &.-admin {
+    justify-content: flex-start;
+
+    padding-right: 0;
+
+    border-bottom: 1px solid $color-grayish;
+    background: #FFF;
+  }
+
+  &.-admin > .brand {
+    padding: 0;
+  }
+
+  &.-non-admin {
+    border-bottom: 1px solid $color-grayish;
+    background: #FFF;
+  }
+
+  &.-shadow {
+    @include header-shadow;
+  }
+
+  &.-background {
+    background: $color-whitesmoke;
+  }
+
+  &.-edit {
+    color: #FFF;
+    background-color: $color-deep-gray !important;
+  }
+
+  &.-edit > .brand {
+    color: #FFF;
+  }
+
+  &.-edit > .brand.-beta::after {
+    opacity: .8;
+    color: #FFF;
+  }
+
+  &.-edit > .project > .title {
+    color: #FFF;
+  }
+
+  &.-edit > .project > .title > a {
+    color: rgba(#FFF, .8);
+    border-color: #FFF;
+
+    &:hover {
+      color: #FFF;
+    }
+  }
+
+  &.-edit .dropdown-menu {
+    color: #FFF;
+  }
+
+  &.-edit .dropdown-menu::after {
+    opacity: .8;
+    background-color: #FFF;
+  }
+
+  &.-edit .dropdown-menu.-closed::before {
+    opacity: .8;
+    background-color: #FFF;
+  }
+
+  &.-edit > .tools > a {
+    opacity: .8;
+    color: #FFF;
+
+    &:hover {
+      opacity: 1;
+      color: #FFF;
+    }
+  }
+
+  &.-edit > .tools > .icon > svg path {
+    opacity: .8;
+
+    fill: #FFF;
+  }
+
+  &.-edit > .tools > .icon:hover > svg path,
+  &.-edit > .tools > .dropdown-menu.-notifications > .icon:hover > svg path {
+    opacity: 1;
+
+    fill: #FFF;
+  }
+
+  &.-edit > .tools > .dropdown-menu.-notifications.-active > .icon > svg path,
+  &.-edit > .tools > .dropdown-menu.-notifications.-active > .icon:hover > svg path {
+    fill: #FFF;
+  }
+
+  &.-edit > .tools > .dropdown-menu.-notifications.-notified > .icon > svg circle {
+    fill: $color-highlight;
+  }
+
+  & > .brand {
+    font-family: $font-family-brand;
+    font-size: .875rem;
+    font-weight: 800;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+    padding: 0 1rem;
+
+    text-transform: uppercase;
+
+    color: $color-brand;
+
+    @include bp-smallonly {
+      padding: 0;
+    }
+  }
+
+  & > .brand.-beta::after {
+    font-size: .5rem;
+    font-weight: 900;
+
+    position: relative;
+    right: 1.875rem;
+    bottom: -.75rem;
+
+    display: block;
+
+    width: 0;
+
+    content: 'Beta';
+    letter-spacing: 2px;
+
+    color: $color-deep-gray;
+  }
+
+  & > .tools {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+    margin-left: auto;
+
+    color: $color-gray;
+  }
+
+  & > .tools > a {
+    font-size: .875rem;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+
+    width: 5rem;
+    height: 100%;
+
+    text-transform: uppercase;
+
+    &:hover {
+      color: $color-brand;
+    }
+  }
+
+  & > .tools > a,
+  & > .tools > .dropdown-menu.-notifications > .icon {
+    @include hovering-label(bottom, 'default', 1rem, $color-whitesmoke, .875rem);
+  }
+
+  & > .tools > .icon.-documents {
+    @include hovering-label(bottom, 'default', 1rem, $color-whitesmoke, .875rem, auto, 'right');
+  }
+
+  & > .tools > a.-active {
+    color: $color-brand;
+
+    &:hover {
+      color: lighten($color-brand, 5%);
+    }
+  }
+
+  & > .tools > .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    &:hover > svg path {
+      fill: $color-deep-gray;
+    }
+  }
+
+  & > .tools > .icon.-settings {
+    margin-top: auto;
+  }
+
+  & > .tools > .dropdown-menu {
+    &:hover {
+      & > a,
+      & > a > .info > .item {
+        color: $color-brand;
+      }
+
+      & > a > .info > .item::before {
+        background-color: $color-brand;
+      }
+    }
+  }
+
+  & > .tools > .dropdown-menu.-notifications.-active > .list {
+    visibility: visible;
+
+    transition-delay: 0s, 0s, .3s;
+    transform: translateX(0%);
+
+    opacity: 1;
+  }
+
+  & > .tools > .dropdown-menu.-notifications.-active > .list > li.-new {
+    transition: background-color .25s linear;
+    transition-delay: .3s;
+
+    background-color: rgba($color-highlight-on-white, .4);
+
+    & > .datetime::after {
+      transition: opacity .25s linear;
+      transition-delay: .3s;
+
+      opacity: 1;
+    }
+  }
+
+  & > .tools > .icon.-active > svg path {
+    fill: $color-brand;
+  }
+
+  & > .tools > .dropdown-menu.-notifications.-active > .icon > svg path {
+    fill: $color-brand;
+  }
+
+  & > .tools > .dropdown-menu.-notifications > .icon > svg circle {
+    fill: none;
+  }
+
+  & > .tools > .dropdown-menu.-notifications.-notified > .icon > svg circle {
+    fill: $color-red;
+  }
+
+  & > .project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 100%;
+    margin-left: 1.5rem;
+    padding-left: 1.5rem;
+
+    cursor: pointer;
+
+    border-left: 1px solid $color-grayish;
+  }
+
+  & > .project > .title {
+    font-size: $font-size-mili;
+    font-weight: bold;
+
+    margin-top: .5rem;
+
+    color: $color-deep-gray;
+  }
+
+  & > .project > .title > a {
+    font-size: $font-size-micro;
+
+    margin-left: 1rem;
+    padding-left: 1rem;
+
+    text-decoration: underline;
+
+    color: $color-brand;
+    border-left: 1px solid $color-deep-gray;
+
+    &:hover {
+      color: lighten($color-brand, 10%);
+    }
+  }
+
+  & > .project > .menu > .dropdown-menu {
+    margin-right: 1rem;
+    padding: .5rem 0;
+  }
+
+  & > .project > .breadcrumb-menu {
+    margin-top: .25rem;
+  }
+
+  & > .project > .menu {
+    display: flex;
+    align-items: center;
+  }
+
+  & > .project > .menu > * + * {
+    margin-left: .5rem;
+  }
+}

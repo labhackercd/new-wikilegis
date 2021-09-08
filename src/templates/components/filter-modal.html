@@ -1,0 +1,84 @@
+{% extends "structure/app-modal.html" %}
+{% load staticfiles i18n %}
+
+{% block extra_classes %}-filter js-filterModal{% endblock %}
+
+{% block extra_attributes %}data-current-user="{{ request.user.id }}"{% endblock %}
+
+{% block title_modal %}Filtros{% endblock %}
+
+{% block content %}
+  <form class="js-filterModalForm">
+    <div class="input-group">
+      <div class="theme-autocomplete js-themeAutocomplete">
+        <input class="js-input" type="text" name="theme-autocomplete">
+        <label>{% trans "Tema" %}</label>
+        <div class="themes">
+          <div class="wrapper _hidden">
+            <span class="title js-title">Temas Adicionados:</span>
+            <ul class="tags js-tags"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-text js-inputText">
+        <input type="text" class="js-minAge" name="min_age" required="" id="id_min_age">
+        <label for="id_min_age">Idade Mínima</label>
+      </div>
+      <div class="input-text js-inputText">
+        <input type="text" class="js-maxAge" name="max_age" required="" id="id_max_age">
+        <label for="id_max_age">Idade Máxima</label>
+      </div>
+      <div class="input-select">
+        <div class="select">
+          <select name="document_type" class="js-gender" id="id_gender">
+            <option value="" selected="">Gênero</option>
+            <option value="male">Masculino</option>
+            <option value="female">Feminino</option>
+            <option value="other">Outro</option>
+            <option value="undisclosed">Prefere não informar</option>
+          </select>
+          <div class="icon"><i class="arrow"></i></div>
+        </div>
+      </div>
+      <div class="input-select">
+        <div class="select">
+          <select name="document_type" class="js-locale" id="id_locale">
+            <option value="" selected="">Localidade</option>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+          </select>
+          <div class="icon"><i class="arrow"></i></div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <a href="#" class="app-button -green js-applyFilter">Aplicar</a>
+{% endblock content %}

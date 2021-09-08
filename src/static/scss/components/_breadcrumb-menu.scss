@@ -1,0 +1,38 @@
+.breadcrumb-menu {
+  display: flex;
+  align-items: center;
+
+  & > * + * {
+    margin-left: .5rem;
+  }
+
+
+  & > a {
+    font-size: $font-size-micro;
+
+    display: flex;
+    align-items: center;
+
+    color: $color-deep-gray;
+
+    &:hover {
+      text-decoration: underline;
+
+      color: $color-brand;
+    }
+  }
+
+  & > a:not(:first-child)::before {
+    display: inline-block;
+
+    width: .375rem;
+    height: .375rem;
+    margin-right: .5rem;
+
+    content: '';
+
+    opacity: .8;
+    border-radius: 50%;
+    background-color: $color-deep-gray;
+  }
+}

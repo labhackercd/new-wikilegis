@@ -1,0 +1,33 @@
+.suggestion-opinion {
+  font-size: $font-size-nano;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  cursor: pointer;
+  letter-spacing: 1px;
+
+  color: $color-deep-gray;
+  background-color: transparent;
+
+  line-height: 1.2;
+
+  @include icon(comment, 17px, 18px);
+  @include bp-mediumup {
+    @include hovering-label(right, 'nobg', 0, inherit, 1.2em, 7.75rem);
+  }
+
+  &.-all {
+    @include icon(comments, 22px, 20px);
+  }
+}
+
+.document-body.-supressed {
+  .suggestion-opinion {
+    opacity: .5;
+  }
+}

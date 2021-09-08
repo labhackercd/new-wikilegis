@@ -1,0 +1,121 @@
+{% extends "structure/base.html" %}
+{% load staticfiles projects_tags participations_tags %}
+{% block title %}
+  {{ object.document.title }}
+{% endblock title %}
+
+{% block body_classes %}-white{% endblock %}
+
+{% block metatags %}
+<meta name="description" content="{{ object.document.description }}">
+<meta property="og:title" content="{{ object.document.title }}">
+<meta property="og:site_name" content="Wikilegis">
+<meta property="og:description" content="{{ object.document.description }}">
+<meta property="og:image" content="{{ protocol }}{{ site_url }}{% static 'img/share-wikilegis.jpg' %}">
+<meta property="og:image:type" content="image/jpg">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="300">
+<meta property="og:type" content="website">
+<meta property="og:type" content="website">
+<meta property="twitter:image" content="{{ protocol }}{{ site_url }}{% static 'img/share-wikilegis.jpg' %}">
+{% endblock metatags %}
+
+{% block content %}
+
+{% can_suggest object request.user as selection_enabled %}
+{% if request.user.profile.profile_type != 'owner' %}
+<div class="howto-button -navbar js-howtoButton" aria-label="Como participar?"></div>
+{% endif %}
+<main class="document-body js-documentBody -voidselection" data-selection-enabled="{% if selection_enabled %}true{% else %}false{% endif %}" data-group-id="{{ object.id }}">
+  <div class="wrapper">
+    <div class="invisible"></div>
+    <aside class="info-bar">
+      {% include "components/document-info.html" %}
+    </aside>
+  </div>
+  <article>
+    <header class="js-documentHeader">
+      <div class="info">
+        <div class="group">
+          {% if object.closing_date|is_open %}
+          <span class="date -active">Aberto até {{ object.closing_date|date:"d/m/Y" }}</span>
+          {% else %}
+          <span class="date -inactive">Participação encerrada em {{ object.closing_date|date:"d/m/Y" }}</span>
+          <a class="app-button -green" href="{% url 'group-analysis' object.id object.document.slug %}">Resultado da Participação</a>
+          {% endif %}
+        </div>
+      </div>
+      <h1>{{ object.document.title }}</h1>
+      <p class="description">{{ object.document.description }}</p>
+      <hr>
+      {% if request.user.is_authenticated %}
+        {% group_suggestions object request.user as has_suggestions %}
+      {% else %}
+        {% group_suggestions object as has_suggestions %}
+      {% endif %}
+      {% if has_suggestions and object.group_status == 'in_progress'%}
+      <button class="suggestion-opinion -all js-allOpinionsButton" aria-label="Avaliar todas as opiniões"></button>
+      {% endif %}
+    </header>
+    {% for excerpt in object.get_excerpts %}
+      {% if excerpt.excerpt_type.align_center %}
+      <div class="excerpt-wrapper {% excerpt_classes excerpt %}">
+        <h3>{% excerpt_numbering excerpt %}</h3>
+        <h3>{{ excerpt.content|safe }}</h3>
+      </div>
+      {% else %}
+      <p class="excerpt-wrapper {% excerpt_classes excerpt %} js-excerptWrapper">
+        <b>{% excerpt_numbering excerpt %}</b>
+        {% include "components/document-excerpt.html" with excerpt=excerpt group=object %}
+        {% if request.user.is_authenticated %}
+          {% excerpt_suggestions object excerpt request.user as has_suggestions %}
+        {% else %}
+          {% excerpt_suggestions object excerpt as has_suggestions %}
+        {% endif %}
+        {% if has_suggestions and object.group_status == 'in_progress'%}
+        <button class="suggestion-opinion js-opinionButton" aria-label="Avaliar opiniões deste trecho"></button>
+        {% endif %}
+      </p>
+      {% endif %}
+    {% endfor %}
+  </article>
+  <div class="info-button js-infoButton"></div>
+</main>
+
+{% if object.closing_date|is_open %}
+    {% include "components/suggestion-input.html" %}
+
+    {% include "components/opinion-modal.html" with suggestions=suggestions %}
+{% else %}
+
+{% endif %}
+
+
+
+{% include "components/info-modal.html" %}
+
+{% include "components/app-onboarding.html" %}
+
+{% endblock content %}
+
+{% block page_js %}
+  <script src="{% static 'popper.js/dist/umd/popper.js' %}"></script>
+  <script src="{% static 'tooltip.js/dist/umd/tooltip.js' %}"></script>
+  <script src="{% static 'js/components/documentExcerpt/view.js' %}"></script>
+  <script src="{% static 'js/components/documentBody/view.js' %}"></script>
+  <script src="{% static 'js/components/infoButton/view.js' %}"></script>
+  <script src="{% static 'js/components/infoModal/view.js' %}"></script>
+  <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
+  <script src="{% static 'js/components/suggestionInput/view.js' %}"></script>
+  <script src="{% static 'js/components/suggestionInput/controller.js' %}"></script>
+  <script src="{% static 'js/components/navBurger/view.js' %}"></script>
+  <script src="{% static 'js/components/navBar/view.js' %}"></script>
+  <script src="{% static 'js/components/body/view.js' %}"></script>
+  <script src="{% static 'js/components/opinionModal/view.js' %}"></script>
+  <script src="{% static 'js/components/opinionModal/controller.js' %}"></script>
+  <script src="{% static 'js/components/textHighlight/view.js' %}"></script>
+  <script src="{% static 'js/components/highlightTooltip/view.js' %}"></script>
+  <script src="{% static 'js/components/appOnboarding/view.js' %}"></script>
+  <script src="{% static 'js/components/howtoButton/view.js' %}"></script>
+  <script src="{% static 'js/pages/document.js' %}"></script>
+{% endblock page_js %}

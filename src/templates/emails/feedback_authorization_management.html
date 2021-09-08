@@ -1,0 +1,36 @@
+{% extends 'structure/email-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+  Autorização de feedback
+{% endblock title %}
+
+{% block img %}
+<img src="http://{{ site_url }}{% static 'img/mail.png' %}">
+{% endblock img %}
+
+{% block content %}
+  <tr class="center">
+  Feedback autorizado!
+  </tr>
+  <tr class="center">
+  O Deputado(a) analisou a versão do documento selecionada pelo servidor responsável pela consulta pública e validou as diferenças entre ela e a versão original. Agora é preciso que você revise todos os detalhes antes da disponibilização da devolutiva à sociedade.
+  </tr>
+
+  <tr class="center">
+  Revise todos os detalhes informados para que a consulta pública possa ser iniciada.
+  </tr>
+
+  <tr class="center">
+  **É NECESSÁRIO ESTAR LOGADO EM UMA CONTA DE ADMINISTRADOR PARA REALIZAR A REVISÃO**
+  </tr>
+{% endblock content %}
+
+{% block button %}
+    <a href="http://{{ site_url }}{% url 'diff_version_authorization' hash_id %}">Ver documento</a>
+    
+    {% if video_id %}
+      <a href="https://www.youtube.com/watch?v={{video_id}}">Ver vídeo de agradecimento</a>   
+    {% endif %}
+      
+{% endblock button %}

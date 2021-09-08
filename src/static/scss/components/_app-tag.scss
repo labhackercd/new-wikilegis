@@ -1,0 +1,161 @@
+.app-tag {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  &.-button {
+    padding: 1rem;
+
+    cursor: pointer;
+    transition: all .15s $swift-out;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    background-color: $color-whitesmoke;
+
+    &:hover {
+      border-color: currentColor;
+    }
+
+    &.-active {
+      border-color: currentColor;
+    }
+  }
+
+  &.-public {
+    color: $color-brand;
+
+    & > span {
+      color: $color-brand;
+    }
+
+    & > .icon {
+      @include mask-icon('public');
+    }
+
+    & > .icon::before {
+      font-size: $font-size-centi;
+
+      margin-right: .25rem;
+
+      background-color: $color-brand;
+    }
+  }
+
+  &.-private {
+    color: $color-deep-gray;
+
+    & > span {
+      color: $color-deep-gray;
+    }
+
+    & > .icon {
+      @include mask-icon('padlock');
+    }
+
+    & > .icon::before {
+      font-size: $font-size-centi;
+
+      margin-right: .25rem;
+
+      background-color: $color-deep-gray;
+    }
+  }
+
+  &.-votes {
+    color: $color-purple;
+
+    & > span {
+      color: $color-purple;
+    }
+
+    & > .icon {
+      @include mask-icon('votes');
+    }
+
+    & > .icon::before {
+      font-size: $font-size-mili;
+
+      margin-right: .25rem;
+
+      background-color: $color-purple;
+    }
+  }
+
+  &.-opinions {
+    color: $color-link;
+
+    & > span {
+      color: $color-link;
+    }
+
+    & > .icon {
+      @include mask-icon('comment-black');
+    }
+
+    & > .icon::before {
+      font-size: $font-size-micro;
+
+      margin-right: .25rem;
+
+      background-color: $color-link;
+    }
+  }
+
+  &.-results {
+    background-color: #2DA965;
+
+    & a {
+      color: white;
+      font-weight: 600;
+    }
+
+
+  }
+
+  // &.-csv {
+  //   & > a {
+  //     font-weight: 600;
+  //     font-size: 
+  //   }
+  // }
+
+  &.-theme {
+    align-items: center;
+  }
+
+  & > .dot {
+    display: block;
+
+    width: 7px;
+    height: 7px;
+    margin-bottom: 1px;
+
+    content: '';
+
+    border-radius: 50%;
+    background-color: $color-grayish;
+  }
+
+  & > .label {
+    font-size: .625rem;
+    font-weight: 600;
+    line-height: 1;
+
+    margin-left: .25rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: $color-gray;
+
+    & > a {
+      font-weight: 600;
+    }
+  }
+
+  & > .icon {
+    display: inline-flex;
+  }
+}

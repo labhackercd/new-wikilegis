@@ -1,0 +1,58 @@
+.howto-button {
+  @extend .app-button;
+  @extend .app-button.-green;
+  @extend .app-button.-circle;
+
+  font-size: .8rem;
+  box-shadow: none;
+
+  @include hovering-label(left, 'nobg', 1em, $color-gray, $font-size-micro, auto, 'default');
+
+  &::before {
+    font-size: 1.4em;
+
+    content: '?';
+
+    color: #FFF;
+  }
+
+  &.-navbar{
+    position: fixed;
+    z-index: 6;
+    top: .85rem;
+    right: 1.6rem;
+
+    @include bp-smallonly {
+      font-size: .7rem;
+
+      top: .5rem;
+      right: 1rem;
+    }
+    @include bp-mediumonly {
+      font-size: .7rem;
+
+      top: .5rem;
+    }
+
+    @include bp-smallup {
+      display: none;
+    }
+  }
+
+  &.-sidebar {
+    top: 0;
+    right: 0;
+
+    &::after {
+      background-color: #FFF;
+      pointer-events: auto;
+      opacity: 1;
+      transform: translate(0, -50%);
+      color: $color-deep-gray;
+    }
+
+    @include bp-smallonly {
+      display: none;
+    }
+  }
+}

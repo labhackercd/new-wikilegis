@@ -1,6 +1,312 @@
-@mixin underline($offset: 0px, $width: 1px) {
+@mixin underline($offset: 0, $width: 1px) {
   background: linear-gradient(currentcolor, currentcolor);
-  background-size: $width $width;
   background-repeat: repeat-x;
   background-position: 100% calc(100% - #{$offset});
+  background-size: $width $width;
+}
+
+@mixin hidden-shadow {
+  transition: box-shadow .3s $swift-out;
+
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+@mixin card-shadow($transition: true) {
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, .08);
+
+  @if $transition == true {
+    transition: box-shadow .3s $swift-out;
+  }
+}
+
+@mixin card-darkbg-shadow {
+  box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, .2);
+}
+
+@mixin button-shadow {
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .2);
+}
+
+@mixin circle-button-shadow {
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .2), 0 0 0 -1px currentColor;
+}
+
+@mixin circle-button-shadow-rippled {
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .2), 0 0 0 4rem transparent;
+}
+
+
+@mixin header-shadow {
+  transition: box-shadow .3s $swift-out;
+
+  box-shadow: 0 3px 4px rgba(0, 0, 0, .08);
+}
+
+@mixin footer-shadow {
+  transition: box-shadow .3s $swift-out;
+
+  box-shadow: 0 -3px 4px rgba(0, 0, 0, .08);
+}
+
+@mixin link-style($font-weight: inherit, $negative: false) {
+  font-weight: $font-weight;
+
+  cursor: pointer;
+  transition: all .25s $swift-out;
+  text-decoration: none;
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  @include bp-mediumup {
+    background-size: 0 100%;
+    &:hover {
+      background-size: 100% 100%;
+    }
+  }
+
+  @if $negative == true {
+    color: #FFF;
+    background-image: linear-gradient(180deg,transparent 65%,rgba(#FFF, .3) 0);
+  } @else {
+    color: $color-brand;
+    background-image: linear-gradient(180deg,transparent 65%,rgba($color-brand, .3) 0);
+  }
+}
+
+// Mixin to add icons by using SASS variables. No markup shit.
+@mixin icon($icon, $width: 1em, $height:1em, $background-size: 100%, $margin:0) {
+  &::before {
+    display: inline-flex;
+
+    width: $width;
+    min-width: $width;
+    height: $height;
+    min-height: $height;
+    margin: $margin;
+
+    content: '';
+
+    background-image: url('../../static/img/#{$icon}.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: $background-size $background-size;
+  }
+}
+
+@mixin mask-icon($icon, $color: #FFF, $width: 1em, $height:1em, $mask-size: 100%, $margin:0) {
+  &::before {
+    display: inline-flex;
+
+    width: $width;
+    min-width: $width;
+    height: $height;
+    min-height: $height;
+    margin: $margin;
+
+    content: '';
+
+    color: $color;
+
+    mask-image: url('../../static/img/#{$icon}.svg');
+    mask-mode: alpha;
+    mask-repeat: no-repeat;
+    mask-position: center center;
+    mask-size: $mask-size $mask-size;
+  }
+}
+
+// Floating label for elements with content based of aria-label attributes. Available on :hover
+@mixin hovering-label($direction, $style: 'default', $margin: .5em, $color:inherit, $font-size: 1em, $width: auto, $edge-boundary: 'default', $button-position: relative) {
+  position: $button-position;
+
+  @include bp-mediumup {
+    &:hover::after {
+      pointer-events: auto;
+
+      opacity: 1;
+      @if $direction == 'right' or $direction == 'left' {
+        transform: translate(0, -50%);
+      } @else if $direction == 'top' or $direction == 'bottom' {
+        @if $edge-boundary == 'left' {
+          transform: translate(50%, 0);
+        } @else {
+          transform: translate(-50%, 0);
+        }
+      }
+    }
+  }
+
+  @if $style == 'tip-shortcut' {
+    z-index: 3;
+
+    &:hover::after {
+      transition: transform .3s .5s $swift-out, opacity .3s .5s $swift-out;
+    }
+
+    &:hover::before {
+      transition: transform .2s .6s $swift-out, opacity .2s .6s $swift-out;
+
+      opacity: 1;
+      @if $direction == 'right' {
+        transform: scaleX(-1) translate(0);
+      } @else if $direction == 'bottom' {
+        transform: scaleY(-1) translate(0);
+      } @else {
+        transform: translate(0);
+      }
+    }
+  }
+
+  @if $style == 'tip-shortcut' {
+    &::before {
+      position: absolute;
+      z-index: 3;
+
+      content: '';
+      transition: transform .2s 0s $swift-out, opacity .1s 0s $swift-out;
+      pointer-events: none;
+
+      opacity: 0;
+      background-repeat: no-repeat;
+
+
+      @if $direction == 'left' or $direction == 'right' {
+        height: 100%;
+        padding-left: $margin;
+
+        background-image: url('../img/triangle-pip-right.svg');
+        background-position: -1px 50%;
+      } @else if $direction == 'top' or $direction == 'bottom' {
+        width: 100%;
+        padding-bottom: $margin;
+
+        background-image: url('../img/triangle-pip-bottom.svg');
+        background-position: 50% -1px;
+      }
+
+      @if $direction == 'right' {
+        left: 100%;
+
+        transform: scaleX(-1) translateX(-100%);
+      } @else if $direction == 'left' {
+        right: 100%;
+
+        transform: translateX(-1em);
+      } @else if $direction == 'top' {
+        bottom: 100%;
+
+        transform: translateY(-1em);
+      } @else if $direction == 'bottom' {
+        top: 100%;
+
+        transform: scaleY(-1) translateY(-100%);
+      }
+    }
+  }
+
+  &::after {
+    font-size: $font-size;
+    font-weight: 600;
+    line-height: 1.2;
+
+    position: absolute;
+
+    width: $width;
+    padding: .5em;
+
+    content: attr(aria-label);
+    transition: transform .3s 0s $swift-out, opacity .3s 0s $swift-out;
+    white-space: nowrap;
+    text-transform: uppercase;
+    pointer-events: none;
+
+    opacity: 0;
+    border-radius: 3px;
+
+    @if $width != 'auto' {
+      white-space: pre-line;
+    }
+
+    @if $direction == 'right' {
+      top: 50%;
+      left: 100%;
+
+      transform: translate(1em, -50%);
+    } @else if $direction == 'left' {
+      top: 50%;
+      right: 100%;
+
+      transform: translate(-1em, -50%);
+    } @else if $direction == 'top' {
+      bottom: 100%;
+      left: 50%;
+
+      transform: translate(-50%, 1em);
+    } @else if $direction == 'bottom' {
+      top: 100%;
+      left: 50%;
+
+      transform: translate(-50%, 1em);
+
+      @if $edge-boundary == 'right' {
+        right: unset;
+        left: -1rem;
+      } @else if $edge-boundary == 'left' {
+        right: -1rem;
+        left: unset;
+
+        transform: translate(50%, 1em);
+      }
+    }
+
+    @if $style == 'default' {
+      padding: .75em 1em;
+
+      color: $color-whitesmoke;
+      background: $color-deep-gray;
+    }
+
+    @if $style != 'nobg' {
+      @if $direction == 'right' {
+        margin-left: $margin;
+      } @else if $direction == 'left' {
+        margin-right: $margin;
+      } @else if $direction == 'top' {
+        margin-bottom: $margin;
+      } @else if $direction == 'bottom' {
+        margin-top: $margin;
+      }
+    }
+
+    @if $style == 'nobg' {
+      color: $color;
+      background-color: transparent;
+
+      @if $direction == 'right' {
+        padding-left: $margin;
+      } @else if $direction == 'left' {
+        padding-right: $margin;
+      } @else if $direction == 'top' {
+        padding-bottom: $margin;
+      } @else if $direction == 'bottom' {
+        padding-top: $margin;
+      }
+    }
+
+    @if $style == 'tip-shortcut' {
+      font-size: $font-size-micro;
+      font-weight: 400;
+
+      padding: .5rem;
+
+      content: attr(aria-label) '\2002\2003' attr(aria-keyshortcuts);
+      transition: transform .3s 0s $swift-out, opacity .3s 0s $swift-out;
+      letter-spacing: normal;
+      text-transform: none;
+
+      color: #FFF;
+      background-color: $color-deep-gray;
+    }
+  }
 }

@@ -1,0 +1,21 @@
+.section-group {
+  width: 66%;
+  margin: 0 auto;
+  padding-top: 6rem;
+
+  & > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  & > form {
+    display: flex;
+    flex-direction: column;
+
+    & > .app-button {
+      margin-top: 1.5rem;
+      margin-left: auto;
+    }
+  }
+}

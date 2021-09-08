@@ -1,0 +1,15 @@
+<a href="{% url 'document_editor_analyze' 'editor' object.id %}" class="title">
+  <span>Minhas Versões</span>
+  <div class="info">
+    <div class="item -versions">{{ object.named_versions.count }}</div>
+  </div>
+</a>
+{% for version in named_versions %}
+  <hr>
+  <a href="{% url 'document_editor_analyze' template='editor' pk=object.pk %}?version={{version.number}}">
+    <span>{{version.name}}</span>
+  </a>
+{% empty %}
+  <hr>
+  <a href="#" class="-empty">Sem versões</a>
+{% endfor %}

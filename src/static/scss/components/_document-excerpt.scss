@@ -1,0 +1,28 @@
+.document-body {
+  font-weight: 300 !important;
+
+  &.-supressed {
+    & > article > .excerpt-wrapper > b {
+      opacity: .3;
+    }
+
+    & > article > .excerpt-wrapper > .document-excerpt {
+      opacity: .3;
+    }
+  }
+}
+
+.document-excerpt {
+  padding: .25em 0;
+  word-break: break-word;
+
+  &.-enabled {
+    user-select: text;
+
+    opacity: 1 !important;
+  }
+
+  .highlighted {
+    background-color: rgba(255, 255, 0, .3);
+  }
+}
